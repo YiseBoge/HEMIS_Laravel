@@ -83,7 +83,7 @@
                 </table>
             </div>
 
-            <div class="tab-pane" id="tab2">
+            <div class="tab-pane fade" id="tab2">
                 <table class="table table-striped table-hover ">
                     <thead>
                     <tr>
@@ -140,7 +140,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="tab-pane" id="tab3">
+            <div class="tab-pane fade" id="tab3">
                 <table class="table table-striped table-hover ">
                     <thead>
                     <tr>
@@ -197,7 +197,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="tab-pane" id="tab4">
+            <div class="tab-pane fade" id="tab4">
                 <table class="table table-striped table-hover ">
                     <thead>
                     <tr>
@@ -254,7 +254,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="tab-pane" id="tab5">
+            <div class="tab-pane fade" id="tab5">
                 <table class="table table-striped table-hover ">
                     <thead>
                     <tr>
