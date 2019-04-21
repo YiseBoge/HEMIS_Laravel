@@ -21,4 +21,5 @@ A Data Collection and Report System for public Universities of Ethiopia.
 
     * Install composer dependencies: `composer install`
     * Install node dependencies: `node install`
+    * Migrate Database Tables: `php artisan migrate`
     * Start working from there
