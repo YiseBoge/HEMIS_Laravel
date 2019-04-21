@@ -43,23 +43,23 @@ class Institution extends Model
 
 
     public function academicStaff(){
-        return $this->hasMany('App\Models\Staff\Specializations\AcademicStaff');
+        return $this->hasMany('App\Models\Staff\Specialization\AcademicStaff');
     }
 
     public function administrativeStaff(){
-        return $this->hasMany('App\Models\Staff\Specializations\AdministrativeStaff');
+        return $this->hasMany('App\Models\Staff\Specialization\AdministrativeStaff');
     }
 
     public function technicalStaff(){
-        return $this->hasMany('App\Models\Staff\Specializations\TechnicalStaff');
+        return $this->hasMany('App\Models\Staff\Specialization\TechnicalStaff');
     }
 
     public function ictStaff(){
-        return $this->hasMany('App\Models\Staff\Specializations\IctStaff');
+        return $this->hasMany('App\Models\Staff\Specialization\IctStaff');
     }
 
     public function supportiveStaff(){
-        return $this->hasMany('App\Models\Staff\Specializations\SupportiveStaff');
+        return $this->hasMany('App\Models\Staff\Specialization\SupportiveStaff');
     }
 
 
