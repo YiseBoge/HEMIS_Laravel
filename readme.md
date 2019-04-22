@@ -20,6 +20,6 @@ A Data Collection and Report System for public Universities of Ethiopia.
     * Provide your database name, user, and password in the `.env` file
 
     * Install composer dependencies: `composer install`
-    * Install node dependencies: `node install`
+    * Install node dependencies: `npm install`
     * Migrate Database Tables: `php artisan migrate`
     * Start working from there
