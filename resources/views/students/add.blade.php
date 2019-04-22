@@ -19,7 +19,7 @@
                 <form action="" class="col-12">
                     <h3>Add Disabled Student</h3>
                     <hr>
-                    <fieldset class="jumbotron shadow-sm">
+                    <fieldset class="jumbotron shadow">
                         <legend>Personal Information</legend>
                         <div class="form-row">
                             <div class="col-md form-group">
@@ -65,7 +65,7 @@
                     </fieldset>
 
 
-                    <fieldset class="jumbotron shadow-sm">
+                    <fieldset class="jumbotron shadow">
                         <legend>Student Service Info</legend>
 
                         <div class="form-group row" id="student_service">
@@ -110,7 +110,7 @@
                     </fieldset>
 
 
-                    <fieldset class="jumbotron shadow-sm">
+                    <fieldset class="jumbotron shadow">
                         <legend>Disability Information</legend>
 
                         <div class="form-group row">
@@ -201,7 +201,7 @@
                     </fieldset>
 
 
-                    <fieldset class="jumbotron shadow-sm">
+                    <fieldset class="jumbotron shadow">
                         <legend>Student Service Info</legend>
 
                         <div class="form-group row" id="student_service">

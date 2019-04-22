@@ -6,7 +6,12 @@
  */
 
 require('./bootstrap');
+require('./theme');
 require('./script');
+
+require('jquery.easing')
+require('chart.js')
+require('datatables')
 
 window.Vue = require('vue');
 

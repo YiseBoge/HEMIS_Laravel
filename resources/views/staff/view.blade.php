@@ -27,7 +27,7 @@
 
             <div class="tab-pane active" id="tab1">
                 <table class="table table-striped table-hover ">
-                    <thead>
+                    <thead class="thead-dark">
                     <tr>
                         <th>Name</th>
                         <th>Job Title</th>

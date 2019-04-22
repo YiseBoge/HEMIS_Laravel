@@ -21,3 +21,12 @@ main{
     transform: translate3d(0, -100%, 0);
     opacity: 1;
 }
+
+#accordionSidebar {
+    -webkit-transition: width 0.3s;
+    -moz-transition: width 0.3s;
+    -ms-transition: width 0.3s;
+    -o-transition: width 0.3s;
+    transition: width 0.3s;
+}
+
