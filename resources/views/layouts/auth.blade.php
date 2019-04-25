@@ -20,7 +20,6 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Fenix" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="vendor/DataTables/datatables.min.css"/>
 
 </head>
 
@@ -29,27 +28,21 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-    @include('inc.sidebar')
-
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main Content -->
-        <div id="content">
-
-            @include('inc.navbar')
+        <div id="content" style="min-height: 100vh;">
 
             <!-- Begin Page Content -->
-            <div class="container-fluid">
-
+            <div class="container-fluid mt-5">
+                <h1 class="text-primary text-center display-3"><i class="fas fa-graduation-cap"></i> MoE HEMIS</h1>
                 @yield('content')
 
             </div>
             <!-- End of Page Content -->
         </div>
         <!-- End of Main Content -->
-
-                @include('inc.footer')
 
     </div>
     <!-- End of Content Wrapper -->
@@ -65,17 +58,10 @@
     @include('inc.logout_modal')
 
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace( 'article-ckeditor' );
     </script>
-    <script>
-        $(document).ready( function () {
-            $('#dataTable').DataTable();
-        } );
-    </script>
-    
 
 </body>
 

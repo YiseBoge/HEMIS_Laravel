@@ -1,12 +1,20 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
-<div class="container">
+<div class="container pt-3">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow jumbotron pt-4">
-                <h4>{{ __('Login') }}</h4>
-<hr>
+                <div class="row">
+                    <div class="col-md-10">
+                            <h3>{{ __('Login') }}</h3>
+                    </div>
+                
+                    <div class="col-md-2">
+                            <a href="/register">Register</a>
+                    </div>               
+                </div>
+                <hr>
                 <div class="card-body">
                     <form method="POST" class="user" action="{{ route('login') }}">
                         @csrf

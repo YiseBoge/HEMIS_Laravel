@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <a class="btn btn-outline-secondary btn-sm float-right mb-0" href="staff/add">Add Staff Member<i
-                class="fas fa-arrow-right text-secondary ml-2"></i></a>
+                class="fas fa-arrow-right ml-2"></i></a>
         <ul class="nav nav-tabs w-100">
             <li class="nav-item">
                 <a class="nav-link active" href="#tab1" data-toggle="tab">Academic Staff</a>

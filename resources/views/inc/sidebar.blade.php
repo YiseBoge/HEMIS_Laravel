@@ -36,8 +36,8 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Student Acts:</h6>
-                <a class="collapse-item" href="/students">List</a>
-                <a class="collapse-item" href="/students/add">Add</a>
+                <a class="collapse-item" href="/disabled-students">Disabled Students</a>
+                <a class="collapse-item" href="/foriegner-students">Foriegner Students</a>
             </div>
         </div>
     </li>
@@ -51,8 +51,11 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Staff Acts:</h6>
-                <a class="collapse-item" href="/staff">List</a>
-                <a class="collapse-item" href="/staff/add">Add</a>
+                <a class="collapse-item" href="/academic-staff">Academic Staff</a>
+                <a class="collapse-item" href="/technical-staff">Technical Staff</a>
+                <a class="collapse-item" href="/administrative-staff">Administrative Staff</a>
+                <a class="collapse-item" href="/ict-staff">ICT Staff</a>
+                <a class="collapse-item" href="/supportive-staff">Supportive Staff</a>
             </div>
         </div>
     </li>
