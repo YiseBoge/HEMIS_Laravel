@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -9,9 +8,9 @@ require('./bootstrap');
 require('./theme');
 require('./script');
 
-require('jquery.easing')
-require('chart.js')
-require('datatables')
+require('jquery.easing');
+require('chart.js');
+require('datatables');
 
 window.Vue = require('vue');
 

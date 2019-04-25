@@ -12,15 +12,16 @@ class StudentService extends Model
     use Enums;
 
     public $incrementing = false;
-
-    public function dormitoryService(){
-        return $this->hasOne('App\Models\Student\DormitoryService');
-    }
-
-
-    // Enums //
     protected $enumFoodServiceTypes = [
         'IN_KIND' => 'in_kind',
         'IN_CASH' => 'in_kind',
     ];
+
+
+    // Enums //
+
+    public function dormitoryService()
+    {
+        return $this->hasOne('App\Models\Student\DormitoryService');
+    }
 }

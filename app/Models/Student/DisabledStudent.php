@@ -12,17 +12,17 @@ class DisabledStudent extends Model
     use Enums;
 
     public $incrementing = false;
-
-    public function general(){
-        return $this->morphOne('App\Models\Student\Student', 'studentable');
-    }
-
-
-
-    // Enums //
     protected $enumDisabilitys = [
         'a' => 'abebe',
         'b' => 'bacha',
         'c' => 'challa',
     ];
+
+
+    // Enums //
+
+    public function general()
+    {
+        return $this->morphOne('App\Models\Student\Student', 'studentable');
+    }
 }

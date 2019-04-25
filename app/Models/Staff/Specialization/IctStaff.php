@@ -12,21 +12,22 @@ class IctStaff extends Model
     use Enums;
 
     public $incrementing = false;
-
-    public function general(){
-        return $this->morphOne('App\Models\Staff\Staff', 'staffable');
-    }
-
-    public function ictType(){
-        return $this->hasOne('App\Models\Staff\IctStaffType');
-    }
-
-
-
-    // Enums //
     protected $enumStaffRanks = [
         'a' => 'abebe',
         'b' => 'bacha',
         'c' => 'challa',
     ];
+
+    public function general()
+    {
+        return $this->morphOne('App\Models\Staff\Staff', 'staffable');
+    }
+
+
+    // Enums //
+
+    public function ictType()
+    {
+        return $this->hasOne('App\Models\Staff\IctStaffType');
+    }
 }

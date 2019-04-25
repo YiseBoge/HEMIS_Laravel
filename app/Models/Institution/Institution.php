@@ -11,59 +11,72 @@ class Institution extends Model
 
     public $incrementing = false;
 
-    public function institutionName(){
+    public function institutionName()
+    {
         return $this->hasOne('App\Models\Institution\InstitutionName');
     }
 
-    public function generalInformation(){
+    public function generalInformation()
+    {
         return $this->hasOne('App\Models\Institution\GeneralInformation');
     }
 
-    public function instance(){
+    public function instance()
+    {
         return $this->belongsTo('App\Models\Institution\Instance');
     }
 
 
-    public function budgets(){
+    public function budgets()
+    {
         return $this->hasMany('App\Models\Institution\Budget');
     }
 
-    public function internalRevenues(){
+    public function internalRevenues()
+    {
         return $this->hasMany('App\Models\Institution\InternalRevenue');
     }
 
-    public function privateInvestments(){
+    public function privateInvestments()
+    {
         return $this->hasMany('App\Models\Institution\Investment');
     }
 
 
-    public function bands(){
+    public function bands()
+    {
         return $this->hasMany('App\Models\Band\Band');
     }
 
 
-    public function academicStaff(){
+    public function academicStaff()
+    {
         return $this->hasMany('App\Models\Staff\Specialization\AcademicStaff');
     }
 
-    public function administrativeStaff(){
+    public function administrativeStaff()
+    {
         return $this->hasMany('App\Models\Staff\Specialization\AdministrativeStaff');
     }
 
-    public function technicalStaff(){
+    public function technicalStaff()
+    {
         return $this->hasMany('App\Models\Staff\Specialization\TechnicalStaff');
     }
 
-    public function ictStaff(){
+    public function ictStaff()
+    {
         return $this->hasMany('App\Models\Staff\Specialization\IctStaff');
     }
 
-    public function supportiveStaff(){
+    public function supportiveStaff()
+    {
         return $this->hasMany('App\Models\Staff\Specialization\SupportiveStaff');
     }
 
 
-    public function staffAttrition(){
+    public function staffAttrition()
+    {
         return $this->hasMany('App\Models\Institution\StaffAttrition');
     }
 }

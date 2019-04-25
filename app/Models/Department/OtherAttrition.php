@@ -14,7 +14,6 @@ class OtherAttrition extends Model
     public $incrementing = false;
 
 
-
     // Enums //
     protected $enumTypes = [
         'a' => 'abebe',

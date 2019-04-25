@@ -12,15 +12,16 @@ class Budget extends Model
     use Enums;
 
     public $incrementing = false;
-
-    public function budgetDescription(){
-        return $this->hasOne('App\Models\Institution\BudgetDescription');
-    }
-
-
-    // Enums //
     protected $enumBudgetTypes = [
         'CAPITAL' => 'capital',
         'RECURRENT' => 'recurrent',
     ];
+
+
+    // Enums //
+
+    public function budgetDescription()
+    {
+        return $this->hasOne('App\Models\Institution\BudgetDescription');
+    }
 }

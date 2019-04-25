@@ -11,7 +11,8 @@ class ForeignerStudent extends Model
 
     public $incrementing = false;
 
-    public function general(){
+    public function general()
+    {
         return $this->morphOne('App\Models\Student\Student', 'studentable');
     }
 }

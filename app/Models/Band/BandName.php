@@ -9,9 +9,10 @@ class BandName extends Model
 {
     use Uuids;
 
-    public function band(){
+    public $incrementing = false;
+
+    public function band()
+    {
         return $this->hasOne('App\Models\Band\Band');
     }
-
-    public $incrementing = false;
 }

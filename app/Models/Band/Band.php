@@ -12,27 +12,27 @@ class Band extends Model
     use Enums;
 
     public $incrementing = false;
-
-    public function bandName(){
-        return $this->hasOne('App\Models\Band\BandName');
-    }
-
-    public function departments(){
-        return $this->hasMany('App\Models\Department\Department');
-    }
-
-
-
-    // Enums //
     protected $enumEducationLevels = [
         'a' => 'abebe',
         'b' => 'bacha',
         'c' => 'challa',
     ];
-
     protected $enumEducationPrograms = [
         'a' => 'abebe',
         'b' => 'bacha',
         'c' => 'challa',
     ];
+
+
+    // Enums //
+
+    public function bandName()
+    {
+        return $this->hasOne('App\Models\Band\BandName');
+    }
+
+    public function departments()
+    {
+        return $this->hasMany('App\Models\Department\Department');
+    }
 }

@@ -12,14 +12,13 @@ class Student extends Model
     use Enums;
 
     public $incrementing = false;
-
-
-    public function studentService(){
-        return $this->hasOne('App\Models\Student\StudentService');
-    }
-
     protected $enumSexs = [
         'MALE' => 'male',
         'FEMALE' => 'female',
     ];
+
+    public function studentService()
+    {
+        return $this->hasOne('App\Models\Student\StudentService');
+    }
 }

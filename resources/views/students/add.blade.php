@@ -149,7 +149,6 @@
                         <legend>Personal Information</legend>
 
 
-
                         <div class="form-row">
                             <div class="col-md form-group">
                                 <input type="text" id="personal_name" class="form-control" required>
@@ -161,7 +160,8 @@
                             </div>
                             <div class="col-md form-group">
                                 <input type="text" id="grand_father_name" class="form-control" required>
-                                <label class="form-control-placeholder" for="grand_father_name">Grand Father's Name</label>
+                                <label class="form-control-placeholder" for="grand_father_name">Grand Father's
+                                    Name</label>
                             </div>
 
                         </div>

@@ -24,7 +24,6 @@ Route::get('/staff/add', function () {
 });
 
 
-
 Route::get('/students', function () {
     return view('students.view');
 });
@@ -36,8 +35,6 @@ Route::get('/students/add', function () {
 Route::get('/admin', function () {
     return view('admin.index');
 });
-
-
 
 
 Auth::routes();

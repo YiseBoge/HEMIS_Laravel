@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Exceptions;
 
-use Exception;
-class InvalidEnumException extends \InvalidArgumentException
+use InvalidArgumentException;
+
+class InvalidEnumException extends InvalidArgumentException
 {
     //
 }

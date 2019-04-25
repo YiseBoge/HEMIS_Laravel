@@ -14,7 +14,6 @@ class DormitoryService extends Model
     public $incrementing = false;
 
 
-
     // Enums //
     protected $enumDormitoryServiceTypes = [
         'IN_KIND' => 'in_kind',

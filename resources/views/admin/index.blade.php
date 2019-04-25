@@ -56,7 +56,6 @@
                     </div>
 
 
-
                 </div>
 
                 <div class="row">
@@ -72,10 +71,10 @@
                     </div>
 
                     <div class="col-sm-4">
-                        <input type="checkbox" name="naturalAndComputationalSciences" value="naturalAndComputationalSciences">
+                        <input type="checkbox" name="naturalAndComputationalSciences"
+                               value="naturalAndComputationalSciences">
                         <label for="naturalAndComputationalSciences">Natural & Computational Sciences</label>
                     </div>
-
 
 
                     <div class="col-sm-2">
@@ -108,8 +107,6 @@
                 </div>
 
 
-
-
             </div>
 
             <div class="row" id="addBandButtonRow">
@@ -134,9 +131,6 @@
                 <p id="container"></p>
 
             </div>
-
-
-
 
 
         </form>

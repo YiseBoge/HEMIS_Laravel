@@ -12,16 +12,17 @@ class Instance extends Model
     use Enums;
 
     public $incrementing = false;
-
-    public function institutions(){
-        return $this->hasMany('App\Models\Institution\Institution');
-    }
-
-
-    // Enums //
     protected $enumSemesters = [
         'ONE' => 'one',
         'TWO' => 'two',
         'SUMMER' => 'summer',
     ];
+
+
+    // Enums //
+
+    public function institutions()
+    {
+        return $this->hasMany('App\Models\Institution\Institution');
+    }
 }

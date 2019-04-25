@@ -9,9 +9,10 @@ class DepartmentName extends Model
 {
     use Uuids;
 
-    public function department(){
+    public $incrementing = false;
+
+    public function department()
+    {
         return $this->hasOne('App\Models\Department\Department');
     }
-
-    public $incrementing = false;
 }

@@ -9,9 +9,10 @@ class InstitutionName extends Model
 {
     use Uuids;
 
-    public function institution(){
+    public $incrementing = false;
+
+    public function institution()
+    {
         return $this->hasOne('App\Models\Band\Band');
     }
-
-    public $incrementing = false;
 }

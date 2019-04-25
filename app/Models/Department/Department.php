@@ -13,23 +13,28 @@ class Department extends Model
 
     public $incrementing = false;
 
-    public function departmentName(){
+    public function departmentName()
+    {
         return $this->hasOne('App\Models\Band\DepartmentName');
     }
 
-    public function studentAttritions(){
+    public function studentAttritions()
+    {
         return $this->hasMany('App\Models\Department\StudentAttrition');
     }
 
-    public function otherAttritions(){
+    public function otherAttritions()
+    {
         return $this->hasMany('App\Models\Department\OtherAttrition');
     }
 
-    public function disabledStudents(){
+    public function disabledStudents()
+    {
         return $this->hasMany('App\Models\Student\DisabledStudent');
     }
 
-    public function foreignerStudents(){
+    public function foreignerStudents()
+    {
         return $this->hasMany('App\Models\Student\ForeignerStudent');
     }
 }

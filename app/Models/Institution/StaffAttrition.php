@@ -14,7 +14,6 @@ class StaffAttrition extends Model
     public $incrementing = false;
 
 
-
     // Enums //
     protected $enumQualifications = [
         'a' => 'abebe',

@@ -16,7 +16,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Fenix" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -28,17 +29,17 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-    @include('inc.sidebar')
+@include('inc.sidebar')
 
-    <!-- Content Wrapper -->
+<!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main Content -->
         <div id="content">
 
-            @include('inc.navbar')
+        @include('inc.navbar')
 
-            <!-- Begin Page Content -->
+        <!-- Begin Page Content -->
             <div class="container-fluid">
 
                 @yield('content')
@@ -48,7 +49,7 @@
         </div>
         <!-- End of Main Content -->
 
-                @include('inc.footer')
+        @include('inc.footer')
 
     </div>
     <!-- End of Content Wrapper -->
@@ -61,13 +62,13 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-    @include('inc.logout_modal')
+@include('inc.logout_modal')
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace( 'article-ckeditor' );
-    </script>
+<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('article-ckeditor');
+</script>
 
 </body>
 

@@ -30,6 +30,29 @@ trait Enums
     }
 
     /**
+     * Is an enum property defined for the provided field
+     *
+     * @param string $field
+     * @return boolean
+     */
+    protected function hasEnumProperty(string $field)
+    {
+        $property = $this->getEnumProperty($field);
+        return isset($this->$property) && is_array($this->$property);
+    }
+
+    /**
+     * Gets the expected enum property
+     *
+     * @param string $field
+     * @return string
+     */
+    protected function getEnumProperty(string $field)
+    {
+        return 'enum' . Str::plural(Str::studly($field));
+    }
+
+    /**
      * Is the value a valid enum in any way
      *
      * @param string $field
@@ -68,29 +91,6 @@ trait Enums
             return $instance->$property;
         }
         return false;
-    }
-
-    /**
-     * Is an enum property defined for the provided field
-     *
-     * @param string $field
-     * @return boolean
-     */
-    protected function hasEnumProperty(string $field)
-    {
-        $property = $this->getEnumProperty($field);
-        return isset($this->$property) && is_array($this->$property);
-    }
-
-    /**
-     * Gets the expected enum property
-     *
-     * @param string $field
-     * @return string
-     */
-    protected function getEnumProperty(string $field)
-    {
-        return 'enum' . Str::plural(Str::studly($field));
     }
 
     /**

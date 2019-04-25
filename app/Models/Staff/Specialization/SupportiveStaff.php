@@ -12,17 +12,17 @@ class SupportiveStaff extends Model
     use Enums;
 
     public $incrementing = false;
-
-    public function general(){
-        return $this->morphOne('App\Models\Staff\Staff', 'staffable');
-    }
-
-
-
-    // Enums //
     protected $enumStaffRanks = [
         'a' => 'abebe',
         'b' => 'bacha',
         'c' => 'challa',
     ];
+
+
+    // Enums //
+
+    public function general()
+    {
+        return $this->morphOne('App\Models\Staff\Staff', 'staffable');
+    }
 }
