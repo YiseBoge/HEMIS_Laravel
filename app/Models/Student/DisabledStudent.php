@@ -21,8 +21,9 @@ class DisabledStudent extends Model
 
     // Enums //
     protected $enumDisabilitys = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'VISUALLY_IMPAIRED' => 'Visiually Impaired',
+        'HEARING_IMPAIRED' => 'Hearing Impaired',
+        'PHYSICALLY_CHALLENGED' => 'Physically Challenged',
+        'OTHERS' => 'Others',
     ];
 }

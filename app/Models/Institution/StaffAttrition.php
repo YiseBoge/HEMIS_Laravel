@@ -23,8 +23,13 @@ class StaffAttrition extends Model
     ];
 
     protected $enumCases = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'GOVERNMENT_APPOINTMENT' => 'Government Appointment',
+        'TRANSFER_TO_OTHER_HIGHER_EDUCATION_INSTITUTIONS' => 'Transfer to Other Higher Education Institutions',
+        'TRANSFER_TO_OTHER_GOVERNMENT_AGENCIES' => 'Transfer to Other Government Agencies',
+        'RESIGNATION' => 'Resignation',
+        'RETIREMENT' => 'Retirement',
+        'DEATH' => 'Death',
+        'DISCIPLINE' => 'Descipline',
+        'OTHERS' => 'Others',
     ];
 }

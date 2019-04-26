@@ -21,8 +21,9 @@ class TechnicalStaff extends Model
 
     // Enums //
     protected $enumStaffRanks = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'TECHNICAL_ASSISTANT_I' => 'Technical Assistant I',
+        'TECHNICAL_ASSISTANT_II' => 'Technical Assistant II',
+        'TECHNICAL_ASSISTANT_III' => 'Technical Assistant III',
+        'OTHERS' => 'Others',
     ];
 }

@@ -17,14 +17,20 @@ class StudentAttrition extends Model
 
     // Enums //
     protected $enumTypes = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'CET' => 'CET',
+        'CNCS' => 'CNCS',
+        'CMHS' => 'CMHS',
+        'CAES' => 'CAES',
+        'CBE' => 'CBE',
+        'CSSH' => 'CSSH',
     ];
 
     protected $enumCases = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'ACADEMIC_DISMISSALS_WITH_READMISSION' => 'Academic Dismissals With Readmission',
+        'ACADEMIC_DISMISSALS_FOR_GOOD' => 'Academic Dismissals For Good',
+        'DISCIPLINE_DISMISSALS' => 'Discipline Dismissals',
+        'WITHDRAWALS' => 'Withdrawals',
+        'DROPOUTS' => 'Dropouts',
+        'OTHERS' => 'Others',
     ];
 }
