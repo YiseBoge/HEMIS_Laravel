@@ -15,15 +15,27 @@ class Staff extends Model
 
     // Enums //
     protected $enumAcademicLevels = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'DIPLOMA' => 'Diploma',
+        'BACHELORS' => 'Bachelors',
+        'MD_DV' => 'M.D/D.V',
+        'MASTERS' => 'Masters',
+        'PHD' => 'PhD',
+        'G10' => '< = Grade 10',
+        'G11' => 'Grade 11',
+        'G12' => 'Grade 12',
+        '10+1' => '10 + 1',
+        '10+2' => '10 + 2',
+        '10+3' => '10 + 3',
+        'LI' => 'Level I',
+        'LII' => 'Level II',
+        'LIII' => 'Level III',
+        'LIV' => 'Level IV',
+        'Lv' => 'Level V',
     ];
 
     protected $enumDedications = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'FULL' => 'Full Time',
+        'PART' => 'Part Time',
     ];
 
     protected $enumSexs = [
@@ -32,8 +44,7 @@ class Staff extends Model
     ];
 
     protected $enumEmploymentTypes = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'EMPLOYEE' => 'Employee',
+        'CONTRACTOR' => 'Contractor',
     ];
 }

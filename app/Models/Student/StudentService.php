@@ -13,8 +13,8 @@ class StudentService extends Model
 
     public $incrementing = false;
     protected $enumFoodServiceTypes = [
-        'IN_KIND' => 'in_kind',
-        'IN_CASH' => 'in_kind',
+        'IN_KIND' => 'In Kind',
+        'IN_CASH' => 'In Cash',
     ];
 
 

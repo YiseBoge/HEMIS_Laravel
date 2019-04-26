@@ -15,14 +15,12 @@ class StaffLeave extends Model
 
     // Enums //
     protected $enumLeaveTypes = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'FULL' => 'Full',
+        'PART' => 'Partial',
     ];
 
     protected $enumScholarshipTypes = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'GOVT' => 'Government',
+        'OTHER' => 'Other',
     ];
 }

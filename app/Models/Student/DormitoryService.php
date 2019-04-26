@@ -16,7 +16,7 @@ class DormitoryService extends Model
 
     // Enums //
     protected $enumDormitoryServiceTypes = [
-        'IN_KIND' => 'in_kind',
-        'IN_CASH' => 'in_kind',
+        'IN_KIND' => 'In Kind',
+        'IN_CASH' => 'In Cash',
     ];
 }

@@ -13,9 +13,14 @@ class AcademicStaff extends Model
 
     public $incrementing = false;
     protected $enumStaffRanks = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'GRADUATE_ASSISTANT_I' => 'Graduate Assistant I',
+        'GRADUATE_ASSISTANT_II' => 'Graduate Assistant II',
+        'ASSISTANT_LECTURER' => 'Assistant Lecturer',
+        'LECTURER' => 'Lecturer',
+        'ASSISTANT_PROFESSOR' => 'Assistant Professor',
+        'ASSOCIATE_PROFESSOR' => 'Associate Professor',
+        'PROFESSOR' => 'Professor',
+        'OTHERS' => 'Others'
     ];
 
 

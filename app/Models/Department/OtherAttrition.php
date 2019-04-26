@@ -16,14 +16,17 @@ class OtherAttrition extends Model
 
     // Enums //
     protected $enumTypes = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'CET' => 'CET',
+        'CNCS' => 'CNCS',
+        'CMHS' => 'CMHS',
+        'CAES' => 'CAES',
+        'CBE' => 'CBE',
+        'CSSH' => 'CSSH',
     ];
 
     protected $enumCases = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'READMISSIONS_OF_NEXT_SEMESTER' => 'Readmission of Next Semester',
+        'TRANSFER_FROM_OTHER_INSTITUTES' => 'Transfer from Other Institutes',
+        'TRANSFERS_TO_OTHER_INSTITUTES' => 'Transfer to Other Inistitutes',
     ];
 }

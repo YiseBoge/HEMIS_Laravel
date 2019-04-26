@@ -16,8 +16,13 @@ class Investment extends Model
 
     // Enums //
     protected $enumInvestmentTitles = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'BUILDINGS' => 'Buildings',
+        'VEHICLES' => 'Vehicles',
+        'EQUIPMENTS' => 'Equipments',
+        'FURNITURES' => 'Furnitures',
+        'MACHINARIES_AND_PLANTS' => 'Machinaries and Plants',
+        'EDUCATION_MATERIALS' => 'Education Materials',
+        'OTHERS' => 'Others',
+        
     ];
 }

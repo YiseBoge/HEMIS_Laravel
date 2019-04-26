@@ -13,14 +13,14 @@ class Band extends Model
 
     public $incrementing = false;
     protected $enumEducationLevels = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'UNDERGRADUATE' => 'Undergraduate',
+        'GRADUATE' => 'Graduate',
     ];
     protected $enumEducationPrograms = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'DAYTIME' => 'Daytime',
+        'EXTENTION' => 'Extension',
+        'SUMMER' => 'Summer',
+        'DISTANCE' => 'Distance',
     ];
 
 

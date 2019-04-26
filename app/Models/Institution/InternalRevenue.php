@@ -16,8 +16,11 @@ class InternalRevenue extends Model
 
     // Enums //
     protected $enumRevenueDescriptions = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'FARMING' => 'Farming',
+        'EDUCATION_PROGRAMS_TUITION_FEE' => 'Education Programs Tuition Fee',
+        'TRAINING_AND_CONSULTANCY' => 'Training and Consultancy',
+        'BUSINESS_ENTITIES' => 'Business Entities',
+        'FUNDS' => 'Funds',
+        'HOSPITAL_SERVICES' => 'Hospital Services',
     ];
 }
