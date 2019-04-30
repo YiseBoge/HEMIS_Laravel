@@ -15,7 +15,7 @@ class AcademicStaffsController extends Controller
      */
     public function index()
     {
-        //
+        return view('staff.academic.list');
     }
 
     /**
@@ -25,7 +25,7 @@ class AcademicStaffsController extends Controller
      */
     public function create()
     {
-        //
+        return view('staff.academic.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class AcademicStaffsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('staff.academic.details');
     }
 
     /**
@@ -58,7 +58,7 @@ class AcademicStaffsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('staff.academic.edit');
     }
 
     /**

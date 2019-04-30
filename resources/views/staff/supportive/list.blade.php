@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="card shadow-sm mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Technical Staff</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Supportive Staff</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -25,8 +25,8 @@
                                             type="search" class="form-control form-control-sm" placeholder=""
                                             aria-controls="dataTable"></label></div>
                             </div>
-                            <div class="col-sm-12 col-md-2">
-                                <a class="btn btn-outline-secondary btn-sm mb-0" href="technical-staff/add">Add Staff<i
+                            <div class="col-sm-12 col-md-2 text-right">
+                                <a class="btn btn-outline-primary btn-sm mb-0" href="supportive/create">Add Staff<i
                                     class="fas fa-arrow-right ml-2"></i></a>
                             </div>
                         </div>
@@ -41,14 +41,6 @@
                                             rowspan="1" colspan="1" aria-sort="ascending"
                                             aria-label="Name: activate to sort column descending"
                                             style="width: 151px;">Name
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Position: activate to sort column ascending"
-                                            style="width: 247px;">Father's Name
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Office: activate to sort column ascending"
-                                            style="width: 108px;">Grandfather's Name
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Age: activate to sort column ascending"
@@ -85,13 +77,11 @@
                                         </th>
                                     </tr>
                                     </thead>
-                        
+                                   
                                     <tbody>
 
-                                    <tr role="row" class="odd">
-                                        <td class="sorting_1">Airi</td>
-                                        <td class="sorting_1">Satou</td>
-                                        <td class="sorting_1">Airi</td>
+                                    <tr role="row" class="odd" onclick="window.location='supportive/details'">
+                                        <td class="sorting_1">Airi Satou Airi</td>
                                         <td>Title</td>
                                         <td>$162,700</td>
                                         <td>Yes</td>
@@ -102,9 +92,7 @@
                                         <td>Rank</td> 
                                     </tr>
                                     <tr role="row" class="even">
-                                        <td class="sorting_1">Airi</td>
-                                        <td class="sorting_1">Satou</td>
-                                        <td class="sorting_1">Airi</td>
+                                        <td class="sorting_1">Airi Satou Airi</td>
                                         <td>Title</td>
                                         <td>$162,700</td>
                                         <td>Yes</td>

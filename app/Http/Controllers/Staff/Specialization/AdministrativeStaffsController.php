@@ -15,7 +15,7 @@ class AdministrativeStaffsController extends Controller
      */
     public function index()
     {
-        //
+        return view('staff.administrative.list');
     }
 
     /**
@@ -25,7 +25,7 @@ class AdministrativeStaffsController extends Controller
      */
     public function create()
     {
-        //
+        return view('staff.administrative.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class AdministrativeStaffsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('staff.administrative.details');
     }
 
     /**
@@ -58,7 +58,7 @@ class AdministrativeStaffsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('staff.administrative.edit');
     }
 
     /**

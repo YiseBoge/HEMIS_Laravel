@@ -15,7 +15,7 @@ class ForeignerStudentsController extends Controller
      */
     public function index()
     {
-        //
+        return view("students.foreigner.list");
     }
 
     /**
@@ -25,7 +25,7 @@ class ForeignerStudentsController extends Controller
      */
     public function create()
     {
-        //
+        return view("students.foreigner.create");
     }
 
     /**
@@ -47,7 +47,7 @@ class ForeignerStudentsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view("students.foreigner.details");
     }
 
     /**
@@ -58,7 +58,7 @@ class ForeignerStudentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view("students.foreigner.edit");
     }
 
     /**

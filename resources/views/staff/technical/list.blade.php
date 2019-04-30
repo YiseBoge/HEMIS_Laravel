@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="card shadow-sm mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Disabled Students</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Technical Staff</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -25,8 +25,8 @@
                                             type="search" class="form-control form-control-sm" placeholder=""
                                             aria-controls="dataTable"></label></div>
                             </div>
-                            <div class="col-sm-12 col-md-2">
-                                <a class="btn btn-outline-secondary btn-sm mb-0" href="disabled-students/add">Add Student<i
+                            <div class="col-sm-12 col-md-2 text-right">
+                                <a class="btn btn-outline-primary btn-sm mb-0" href="technical/create">Add Staff<i
                                     class="fas fa-arrow-right ml-2"></i></a>
                             </div>
                         </div>
@@ -37,68 +37,72 @@
                                         style="width: 100%;">
                                     <thead>
                                     <tr role="row">
-                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                             rowspan="1" colspan="1" aria-sort="ascending"
                                             aria-label="Name: activate to sort column descending"
                                             style="width: 151px;">Name
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Position: activate to sort column ascending"
-                                            style="width: 247px;">Father's Name
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Office: activate to sort column ascending"
-                                            style="width: 108px;">Grandfather's Name
+                                            colspan="1" aria-label="Age: activate to sort column ascending"
+                                            style="width: 46px;">Job Title
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Age: activate to sort column ascending"
-                                            style="width: 46px;">Id
+                                            style="width: 46px;">Salary
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1"
                                             aria-label="Start date: activate to sort column ascending"
-                                            style="width: 99px;">Gender
+                                            style="width: 99px;">Is Expatriate
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Age
+                                            style="width: 91px;">Dedication
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Phone Number
+                                            style="width: 91px;">Academic Level
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Student Service
+                                            style="width: 91px;">Employment Type
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Disability Type
+                                            style="width: 91px;">Serivce Year
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                            colspan="1" aria-label="Salary: activate to sort column ascending"
+                                            style="width: 91px;">Staff Rank
                                         </th>
                                     </tr>
                                     </thead>
+                        
                                     <tbody>
-                                    <tr role="row" class="odd">
-                                        <td style="width: 15%;">Jhon</td>
-                                        <td>The</td><td>Ripper</td>
-                                        <td>JTR/1212/99</td>
-                                        <td>Male</td>
-                                        <td>22</td>
-                                        <td>+1254999999</td>
-                                        <td>In Cash</td>
-                                        <td>Visually Impared</td>
+
+                                    <tr role="row" class="odd" onclick="window.location='technical/details'">
+                                        <td class="sorting_1">Airi Satou Airi</td>
+                                        <td>Title</td>
+                                        <td>$162,700</td>
+                                        <td>Yes</td>
+                                        <td>Full Time</td>
+                                        <td>PhD</td>
+                                        <td>Employee</td>
+                                        <td>5</td>
+                                        <td>Rank</td> 
                                     </tr>
                                     <tr role="row" class="even">
-                                        <td style="width: 15%;">Jhon</td>
-                                        <td>The</td><td>Ripper</td>
-                                        <td>JTR/1212/99</td>
-                                        <td>Male</td>
-                                        <td>22</td>
-                                        <td>+1254999999</td>
-                                        <td>In Cash</td>
-                                        <td>Visually Impared</td>
-                                        </tr>
-             
+                                        <td class="sorting_1">Airi Satou Airi</td>
+                                        <td>Title</td>
+                                        <td>$162,700</td>
+                                        <td>Yes</td>
+                                        <td>Full Time</td>
+                                        <td>PhD</td>
+                                        <td>Employee</td>
+                                        <td>5</td>
+                                        <td>Rank</td> 
+                                    </tr>
+                                    
                                     </tbody>
                                 </table>
                             </div>

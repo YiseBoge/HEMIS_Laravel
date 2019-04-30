@@ -15,7 +15,7 @@ class IctStaffsController extends Controller
      */
     public function index()
     {
-        //
+        return view('staff.ict.list');
     }
 
     /**
@@ -25,7 +25,7 @@ class IctStaffsController extends Controller
      */
     public function create()
     {
-        //
+        return view('staff.ict.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class IctStaffsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('staff.ict.details');
     }
 
     /**
@@ -58,7 +58,7 @@ class IctStaffsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('staff.ict.edit');
     }
 
     /**

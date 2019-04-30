@@ -15,7 +15,7 @@ class TechnicalStaffsController extends Controller
      */
     public function index()
     {
-        //
+        return view('staff.technical.list');
     }
 
     /**
@@ -25,7 +25,7 @@ class TechnicalStaffsController extends Controller
      */
     public function create()
     {
-        //
+        return view('staff.technical.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class TechnicalStaffsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('staff.technical.details');
     }
 
     /**
@@ -58,7 +58,7 @@ class TechnicalStaffsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('staff.technical.edit');
     }
 
     /**
