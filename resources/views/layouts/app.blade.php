@@ -30,7 +30,12 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-@include('inc.sidebar')
+@guest
+@else
+    @include('inc.sidebar')
+@endguest
+
+
 
 <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">

@@ -30,7 +30,7 @@
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
-
+    @include('inc.navbar')
         <!-- Main Content -->
         <div id="content" style="min-height: 100vh;">
 
