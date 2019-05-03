@@ -15,66 +15,35 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/academic-staff', function () {
-    return view('staff.academic');
-});
+Route::resource('staff/academic', 'Staff\Specialization\AcademicStaffsController');
 
-Route::get('/technical-staff', function () {
-    return view('staff.technical');
-});
+Route::resource('staff/technical', 'Staff\Specialization\TechnicalStaffsController');
 
-Route::get('/administrative-staff', function () {
-    return view('staff.administrative');
-});
+Route::resource('staff/administrative', 'Staff\Specialization\AdministrativeStaffsController');
 
-Route::get('/ict-staff', function () {
-    return view('staff.ict');
-});
+Route::resource('staff/ict', 'Staff\Specialization\IctStaffsController');
 
-Route::get('/supportive-staff', function () {
-    return view('staff.supportive');
-});
+Route::resource('staff/supportive', 'Staff\Specialization\SupportiveStaffsController');
 
-Route::get('/academic-staff/add', function () {
-    return view('staff.add-academic');
-});
+Route::resource('student/disabled', 'Student\Specialization\DisabledStudentsController');
 
-Route::get('/technical-staff/add', function () {
-    return view('staff.add-technical');
-});
+Route::resource('student/foreigner', 'Student\Specialization\ForeignerStudentsController');
 
-Route::get('/administrative-staff/add', function () {
-    return view('staff.add-administrative');
-});
-
-Route::get('/ict-staff/add', function () {
-    return view('staff.add-ict');
-});
-
-Route::get('/supportive-staff/add', function () {
-    return view('staff.add-supportive');
-});
-
-
-
-Route::get('/disabled-students', function () {
-    return view('students.disabled');
-});
-
-Route::get('/foriegner-students', function () {
-    return view('students.foriegner');
-});
-
-Route::get('/disabled-students/add', function () {
-    return view('students.add-disabled');
-});
-
-Route::get('/foriegner-students/add', function () {
-    return view('students.add-foriegner');
-});
 
 Route::get('/admin', function () {
     return view('admin.index');
+});
+
+Route::get('/staff_attrition', function () {
+    return view('staff.staff_attrition');
+});
+
+Route::get('/ict_staff_types', function () {
+    return view('staff.ict_staff_types');
+});
+
+Route::get('/student_attrition', function () {
+    return view('students.student_attrition');
 });
 
 

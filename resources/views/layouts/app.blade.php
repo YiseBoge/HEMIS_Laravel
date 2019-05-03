@@ -21,7 +21,8 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Fenix" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="vendor/DataTables/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../vendor/DataTables/datatables.min.css"/>
+    
 
 </head>
 
@@ -72,7 +73,7 @@
 
     <script src="{{ asset('js/app.js') }}" defer></script>
 <script src="{{ asset('js/script.js') }}"></script>
-    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
+    <script type="text/javascript" src="../vendor/DataTables/datatables.min.js"></script>
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace( 'article-ckeditor' );
@@ -82,7 +83,11 @@
             $('#dataTable').DataTable();
         } );
     </script>
-
+    <script>
+        $(function () {
+            $('select').selectpicker();
+        });
+    </script>
 
 </body>
 

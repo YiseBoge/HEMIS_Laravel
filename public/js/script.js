@@ -1,4 +1,3 @@
-var select = document.getElementById('job-type');
 var academicStaff = document.getElementById('academic-staff');
 var technicalStaff = document.getElementById('technical-staff');
 var adminStaff = document.getElementById('administrative-staff');
@@ -17,47 +16,6 @@ var ictCategory4 = ['Junior Support Technician', 'Support Technician', 'Senior S
     'Support Maintenance Technician-II', 'Support Maintenance Technician-III', 'Senior Maintenance Technician', 'IT Attendant'];
 var ictCategory5 = ['Training project manager', 'Training Admin Assistant'];
 
-select.addEventListener('change', function (e) {
-    var selected = select.options[select.selectedIndex].value;
-    switch (selected) {
-        case 'Academic':
-            academicStaff.style.display = "block";
-            technicalStaff.style.display = "none";
-            adminStaff.style.display = "none";
-            ictStaff.style.display = "none";
-            supportiveStaff.style.display = "none";
-            break;
-        case 'Technical':
-            academicStaff.style.display = "none";
-            technicalStaff.style.display = "block";
-            adminStaff.style.display = "none";
-            ictStaff.style.display = "none";
-            supportiveStaff.style.display = "none";
-            break;
-        case 'Administrative':
-            academicStaff.style.display = "none";
-            technicalStaff.style.display = "none";
-            adminStaff.style.display = "block";
-            ictStaff.style.display = "none";
-            supportiveStaff.style.display = "none";
-            break;
-        case 'ICT':
-            academicStaff.style.display = "none";
-            technicalStaff.style.display = "none";
-            adminStaff.style.display = "none";
-            ictStaff.style.display = "block";
-            supportiveStaff.style.display = "none";
-            break;
-        case 'Supportive':
-            academicStaff.style.display = "none";
-            technicalStaff.style.display = "none";
-            adminStaff.style.display = "none";
-            ictStaff.style.display = "none";
-            supportiveStaff.style.display = "block";
-            break
-    }
-    return false
-});
 
 for (var i = 0; i < ictCategory1.length; i++) {
     var option = document.createElement('option');

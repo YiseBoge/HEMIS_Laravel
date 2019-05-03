@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="card shadow-sm mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Foriegner Students</h6>
@@ -25,8 +25,8 @@
                                             type="search" class="form-control form-control-sm" placeholder=""
                                             aria-controls="dataTable"></label></div>
                             </div>
-                            <div class="col-sm-12 col-md-2">
-                                <a class="btn btn-outline-secondary btn-sm mb-0" href="foriegner-students/add">Add Student<i
+                            <div class="col-sm-12 col-md-2 text-right">
+                                <a class="btn btn-outline-primary btn-sm mb-0" href="foreigner/create">Add Student<i
                                     class="fas fa-arrow-right ml-2"></i></a>
                             </div>
                         </div>
@@ -41,14 +41,6 @@
                                             rowspan="1" colspan="1" aria-sort="ascending"
                                             aria-label="Name: activate to sort column descending"
                                             style="width: 151px;">Name
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Position: activate to sort column ascending"
-                                            style="width: 247px;">Father's Name
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Office: activate to sort column ascending"
-                                            style="width: 108px;">Grandfather's Name
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Age: activate to sort column ascending"
@@ -78,9 +70,8 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <tr role="row" class="odd">
-                                            <td style="width: 15%;">Jhon</td>
-                                            <td>The</td><td>Ripper</td>
+                                        <tr role="row" class="odd" onclick="window.location='foreigner/details'">
+                                            <td style="width: 15%;">Jhon The Ripper</td>
                                             <td>JTR/1212/99</td>
                                             <td>Male</td>
                                             <td>22</td>
@@ -89,8 +80,7 @@
                                             <td>In Cash</td>
                                         </tr>
                                         <tr role="row" class="odd">
-                                            <td style="width: 15%;">Jhon</td>
-                                            <td>The</td><td>Ripper</td>
+                                            <td style="width: 15%;">Jhon The Ripper</td>
                                             <td>JTR/1212/99</td>
                                             <td>Male</td>
                                             <td>22</td>

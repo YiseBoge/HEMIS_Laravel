@@ -15,7 +15,7 @@ class DisabledStudentsController extends Controller
      */
     public function index()
     {
-        //
+        return view("students.disabled.list");
     }
 
     /**
@@ -25,7 +25,7 @@ class DisabledStudentsController extends Controller
      */
     public function create()
     {
-        //
+        return view("students.disabled.create");
     }
 
     /**
@@ -47,7 +47,7 @@ class DisabledStudentsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view("students.disabled.details");
     }
 
     /**
@@ -58,7 +58,7 @@ class DisabledStudentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view("students.disabled.edit");
     }
 
     /**
