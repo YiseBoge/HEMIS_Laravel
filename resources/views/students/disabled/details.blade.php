@@ -14,7 +14,7 @@
         
         <div class="row my-3">
             <div class="col-md-11">
-                <div class="card border-left-primary shadow-sm h-100 py-2">
+                <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-md-4">
                                     <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Date of Birth</div>
-                                    <div class="mb-0 text-gray-800">1996-02-04</div>
+                                <div class="mb-0 text-gray-800">1996-02-04</div>
                             </div>
                         </div>   
                         <div class="row mt-3">
@@ -62,8 +62,8 @@
             <div class="col-md-3">
                 <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Education Level</div>
                 <p>Undergraduate</p>
-            </div>                                           
-        </div>    
+            </div>
+        </div>
         <div class="row mt-4">
             <div class="col-md-3">
                 <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Year Level</div>

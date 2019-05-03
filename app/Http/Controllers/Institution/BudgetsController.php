@@ -15,7 +15,7 @@ class BudgetsController extends Controller
      */
     public function index()
     {
-        //
+        return view('institutions.budget.index');
     }
 
     /**

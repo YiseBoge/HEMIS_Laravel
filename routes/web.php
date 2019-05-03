@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::resource('institution/budget', 'Institution\BudgetsController');
+
+
 Route::resource('staff/academic', 'Staff\Specialization\AcademicStaffsController');
 
 Route::resource('staff/technical', 'Staff\Specialization\TechnicalStaffsController');
