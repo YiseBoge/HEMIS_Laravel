@@ -69,62 +69,68 @@
                 </div>
             </fieldset>
 
-            <fieldset class="jumbotron shadow py-4">
-                <legend class="text-primary">Academic Information</legend>
-                <div class="form-group row">
-                    <div class="col-md-6 form-group">
-                        <label for="service_type">
-                            Band
-                        </label>
-                        <select class="form-control" name="food_service_type" id="food_service_type">
-                            <option value="kind">Engineering and Technology </option>
-                            <option value="cash"> Business and Economics</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-6 form-group">
-                        <label for="dormitory_service_type">
-                            Department
-                        </label>
-                        <select class="form-control" name="dormitory_service_type" id="dormitory_service_type">
-                            <option value="kind">Civil, Construction & Transport engineering</option>
-                            <option value="cash">Environmental engineering</option>
-                        </select>
-                    </div>
-
+            <fieldset class="card shadow">
+                <div class="card-header text-primary">
+                        Academic Information
                 </div>
-                <hr>
-                <div class="form-group row">
-                    <div class="col-md-4 form-group">
-                        <label for="service_type">
-                            Program
-                        </label>
-                        <select class="form-control" name="food_service_type" id="food_service_type">
-                            <option value="kind">Daytime</option>
-                            <option value="cash">Extension</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-4 form-group">
-                        <label for="dormitory_service_type">
-                            Education Level
-                        </label>
-                        <select class="form-control" name="dormitory_service_type" id="dormitory_service_type">
-                            <option value="kind">Under Graduate</option>
-                            <option value="cash">Post Graduate</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label for="dormitory_service_type">
-                            Year Level
-                        </label>
-                        <select class="form-control" name="dormitory_service_type" id="dormitory_service_type">
-                            <option value="kind">1</option>
-                            <option value="cash">2</option>
-                        </select>
-                    </div>
-
+                <div class="card-body px-5">
+                        <div class="form-group row">
+                                <div class="col-md-6 form-group">
+                                    <label for="service_type">
+                                        Band
+                                    </label>
+                                    <select class="form-control" name="food_service_type" id="food_service_type">
+                                        <option value="kind">Engineering and Technology </option>
+                                        <option value="cash"> Business and Economics</option>
+                                    </select>
+                                </div>
+            
+                                <div class="col-md-6 form-group">
+                                    <label for="dormitory_service_type">
+                                        Department
+                                    </label>
+                                    <select class="form-control" name="dormitory_service_type" id="dormitory_service_type">
+                                        <option value="kind">Civil, Construction & Transport engineering</option>
+                                        <option value="cash">Environmental engineering</option>
+                                    </select>
+                                </div>
+            
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-md-4 form-group">
+                                    <label for="service_type">
+                                        Program
+                                    </label>
+                                    <select class="form-control" name="food_service_type" id="food_service_type">
+                                        <option value="kind">Daytime</option>
+                                        <option value="cash">Extension</option>
+                                    </select>
+                                </div>
+            
+                                <div class="col-md-4 form-group">
+                                    <label for="dormitory_service_type">
+                                        Education Level
+                                    </label>
+                                    <select class="form-control" name="dormitory_service_type" id="dormitory_service_type">
+                                        <option value="kind">Under Graduate</option>
+                                        <option value="cash">Post Graduate</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="dormitory_service_type">
+                                        Year Level
+                                    </label>
+                                    <select class="form-control" name="dormitory_service_type" id="dormitory_service_type">
+                                        <option value="kind">1</option>
+                                        <option value="cash">2</option>
+                                    </select>
+                                </div>
+            
+                            </div>
                 </div>
+                
+                
                 
             </fieldset>            
 

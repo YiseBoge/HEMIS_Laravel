@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                     <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Name</div>
-                                    <div class="mb-0 text-gray-800">Airi Satou Airi</div>                                   
+                                    <input type="text" value="Airi Satou Airi" class="form-control form-control-plaintext">                                    
                                     
                             </div>
                             <div class="col-md-4">

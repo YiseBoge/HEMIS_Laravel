@@ -45,7 +45,7 @@ class AdministrativeStaffsController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show($id)
+    public function show($id)s
     {
         return view('staff.administrative.details');
     }
