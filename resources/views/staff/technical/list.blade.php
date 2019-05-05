@@ -35,7 +35,7 @@
                                 <table class="table table-bordered dataTable table-striped table-hover" id="dataTable" width="100%"
                                         cellspacing="0" role="grid" aria-describedby="dataTable_info"
                                         style="width: 100%;">
-                                <thead class="text-primary">
+                                <thead>
                                     <tr role="row">
                                         <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                         rowspan="1" colspan="1" aria-sort="ascending"
