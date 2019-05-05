@@ -32,10 +32,10 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-bordered dataTable table-striped table-hover" id="dataTable" width="100%"
+                                <table class="table border dataTable table-striped table-hover" id="dataTable" width="100%"
                                         cellspacing="0" role="grid" aria-describedby="dataTable_info"
                                         style="width: 100%;">
-                                    <thead>
+                                    <thead class="text-primary">
                                     <tr role="row">
                                         <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                             rowspan="1" colspan="1" aria-sort="ascending"
@@ -47,8 +47,12 @@
                                             >Job Title
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                            >Salary
+                                            colspan="1" aria-label="Salary: activate to sort column ascending"
+                                            >Dedication
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                            colspan="1" aria-label="Salary: activate to sort column ascending"
+                                            >Employment Type
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1"
@@ -56,61 +60,54 @@
                                             >Is Expatriate
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            >Dedication
-                                        </th>
+                                            colspan="1" aria-label="Age: activate to sort column ascending"
+                                            >Salary
+                                        </th>  
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Salary: activate to sort column ascending"
                                             >Academic Level
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            >Employment Type
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            >Serivce Year
-                                        </th>
+                                        </th>                                        
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Salary: activate to sort column ascending"
                                             >Field of Study
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            >Teaching Load
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
                                             >Staff Rank
                                         </th>
+                                        <th width="75"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                         <tr role="row" class="odd" onclick="window.location='academic/details'">
                                             <td class="sorting_1">Airi Satou Airi</td>
                                             <td>Lecturer</td>
-                                            <td>$162,700</td>
-                                            <td>Yes</td>
                                             <td>Full Time</td>
-                                            <td>PhD</td>
                                             <td>Employee</td>
-                                            <td>5</td>
+                                            <td>Yes</td>
+                                            <td>$162,700</td> 
+                                            <td>PhD</td>                                            
                                             <td>Software Engineering</td>
-                                            <td>10</td>
-                                            <td>Lecturer</td>                                            
+                                            <td>Lecturer</td>
+                                            <td class="pl-4">
+                                                <a href="1/edit" class="text-muted mr-3 d-inline"><i class="far fa-edit"></i> </a>
+                                                <a href="#" class="text-muted d-inline"><i class="far fa-trash-alt"></i> </a>
+                                            </td>                                            
                                         </tr>
                                         <tr role="row" class="even">
                                             <td class="sorting_1">Airi Satou Airi</td>
                                             <td>Lecturer</td>
-                                            <td>$162,700</td>
-                                            <td>Yes</td>
-                                            <td>Full Time</td>
-                                            <td>PhD</td>
+                                            <td>Full Time</td>                                            
                                             <td>Employee</td>
-                                            <td>5</td>
+                                            <td>Yes</td>   
+                                            <td>$162,700</td>
+                                            <td>PhD</td>                                            
                                             <td>Software Engineering</td>
-                                            <td>10</td>
-                                            <td>Lecturer</td>                                            
+                                            <td>Lecturer</td> 
+                                            <td class="pl-4">
+                                                <a href="1/edit" class="text-muted mr-3 d-inline"><i class="far fa-edit"></i> </a>
+                                                <a href="#" class="text-muted d-inline"><i class="far fa-trash-alt"></i> </a>
+                                            </td>                                           
                                         </tr>
                                     
                                     </tbody>

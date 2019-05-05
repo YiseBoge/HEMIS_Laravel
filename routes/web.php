@@ -41,9 +41,7 @@ Route::get('/staff_attrition', function () {
     return view('staff.staff_attrition');
 });
 
-Route::get('/ict_staff_types', function () {
-    return view('staff.ict_staff_types');
-});
+Route::resource('staff/ict_staff_types', 'Staff\IctStaffTypesController');
 
 Route::get('/student_attrition', function () {
     return view('students.student_attrition');

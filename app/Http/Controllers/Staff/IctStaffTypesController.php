@@ -18,7 +18,7 @@ class IctStaffTypesController extends Controller
      */
     public function index()
     {
-        //
+        return view('staff.ict_staff_type.index');
     }
 
     /**
