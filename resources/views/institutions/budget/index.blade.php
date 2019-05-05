@@ -1,13 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
             <div class="text-primary card-header">Budgets</div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-5 p-3">
-                        <div class="form-group row">
+                    <div class="col p-3 m-3 text-center">
+                        <a class="btn btn-outline-primary btn-sm mb-0" href="" data-toggle="modal"
+                           data-target="#createModal">Add<i
+                                    class="fas fa-plus ml-2"></i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 px-3 py-md-1">
+                        <div class="form-group">
                             <select id="add_budget_type" class="form-control">
                                 <option>Capital Budget</option>
                                 <option>Recurrent Budget</option>
@@ -18,194 +25,124 @@
                     </div>
                 </div>
 
-                <div class="table-responsive">
-                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-5">
-                                <div class="dataTables_length" id="dataTable_length"><label>Show <select
-                                                name="dataTable_length" aria-controls="dataTable"
-                                                class="custom-select custom-select-sm form-control form-control-sm">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select> entries</label></div>
-                            </div>
-                            <div class="col-sm-12 col-md-5">
-                                <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input
-                                                type="search" class="form-control form-control-sm" placeholder=""
-                                                aria-controls="dataTable"></label></div>
-                            </div>
-                            <div class="col-sm-12 col-md-2 text-right">
-                                <a class="btn btn-outline-primary btn-sm mb-0" href="" data-toggle="modal"
-                                   data-target="#createModal">Add<i
-                                            class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
-                                       width="100%"
-                                       cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                       style="width: 100%;">
+                <div class="row">
+                    <div class="table-responsive col-12 py-3">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered dataTable table-striped table-hover"
+                                           id="dataTable"
+                                           width="100%"
+                                           cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                                           style="width: 100%;">
 
-                                    <thead>
-                                    <tr role="row">
-                                        <th tabindex="0" aria-controls="dataTable"
-                                            rowspan="1" colspan="1"
-                                            style="min-width: 50px; width: 50px"
-                                        >
-                                        </th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                            rowspan="1" colspan="1" aria-sort="ascending"
-                                            aria-label="Name: activate to sort column descending"
-                                        >Budget Code
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                        >Budget Description
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                        >Allocated Budget
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                        >Additional Budget
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                        >Internal Transfer
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                        >Adjusted Budget
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                        >Utilized Budget
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                        >Difference
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                        >Performance in %
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="text-center">
-                                            <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                               data-target="#editModal"><i
-                                                        class="far fa-edit"></i> </a>
-                                            <a href="" class="d-inline text-danger" data-toggle="modal"
-                                               data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                        <td>BU003</td>
-                                        <td>This is a budget with this this this this</td>
-                                        <td>1000000</td>
-                                        <td>32345</td>
-                                        <td>234532</td>
-                                        <td>45000</td>
-                                        <td>434555</td>
-                                        <td>23699</td>
-                                        <td>22%</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                               data-target="#editModal"><i
-                                                        class="far fa-edit"></i> </a>
-                                            <a href="" class="d-inline text-danger" data-toggle="modal"
-                                               data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                        <td>BU003</td>
-                                        <td>This is a budget with this this this this</td>
-                                        <td>1000000</td>
-                                        <td>32345</td>
-                                        <td>234532</td>
-                                        <td>45000</td>
-                                        <td>434555</td>
-                                        <td>23699</td>
-                                        <td>40%</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                               data-target="#editModal"><i
-                                                        class="far fa-edit"></i> </a>
-                                            <a href="" class="d-inline text-danger" data-toggle="modal"
-                                               data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                        <td>BU003</td>
-                                        <td>This is a budget with this this this this</td>
-                                        <td>1000000</td>
-                                        <td>32345</td>
-                                        <td>234532</td>
-                                        <td>45000</td>
-                                        <td>45000</td>
-                                        <td>434555</td>
-                                        <td>55%</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-5">
-                                <div class="dataTables_info" id="dataTable_info" role="status"
-                                     aria-live="polite">Showing 1 to 10 of 57 entries
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                    <ul class="pagination">
-                                        <li class="paginate_button page-item previous disabled"
-                                            id="dataTable_previous"><a href="#" aria-controls="dataTable"
-                                                                       data-dt-idx="0" tabindex="0"
-                                                                       class="page-link">Previous</a></li>
-                                        <li class="paginate_button page-item active"><a href="#"
-                                                                                        aria-controls="dataTable"
-                                                                                        data-dt-idx="1"
-                                                                                        tabindex="0"
-                                                                                        class="page-link">1</a>
-                                        </li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                  aria-controls="dataTable"
-                                                                                  data-dt-idx="2" tabindex="0"
-                                                                                  class="page-link">2</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                  aria-controls="dataTable"
-                                                                                  data-dt-idx="3" tabindex="0"
-                                                                                  class="page-link">3</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                  aria-controls="dataTable"
-                                                                                  data-dt-idx="4" tabindex="0"
-                                                                                  class="page-link">4</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                  aria-controls="dataTable"
-                                                                                  data-dt-idx="5" tabindex="0"
-                                                                                  class="page-link">5</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                  aria-controls="dataTable"
-                                                                                  data-dt-idx="6" tabindex="0"
-                                                                                  class="page-link">6</a></li>
-                                        <li class="paginate_button page-item next" id="dataTable_next"><a
-                                                    href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0"
-                                                    class="page-link">Next</a></li>
-                                    </ul>
+                                        <thead>
+                                        <tr role="row">
+                                            <th style="min-width: 50px; width: 50px"></th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                                rowspan="1" colspan="1" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending"
+                                            >Budget Code
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                            >Budget Description
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                            >Allocated Budget
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                            >Additional Budget
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                            >Internal Transfer
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                            >Adjusted Budget
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                            >Utilized Budget
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                            >Difference
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                            >Performance in %
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center">
+                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
+                                                   data-target="#editModal"><i
+                                                            class="far fa-edit"></i> </a>
+                                                <a href="" class="d-inline text-danger" data-toggle="modal"
+                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                            <td>BU003</td>
+                                            <td>This is a budget with this this this this</td>
+                                            <td>1000000</td>
+                                            <td>32345</td>
+                                            <td>234532</td>
+                                            <td>45000</td>
+                                            <td>434555</td>
+                                            <td>23699</td>
+                                            <td>22%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
+                                                   data-target="#editModal"><i
+                                                            class="far fa-edit"></i> </a>
+                                                <a href="" class="d-inline text-danger" data-toggle="modal"
+                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                            <td>BU003</td>
+                                            <td>This is a budget with this this this this</td>
+                                            <td>1000000</td>
+                                            <td>32345</td>
+                                            <td>234532</td>
+                                            <td>45000</td>
+                                            <td>434555</td>
+                                            <td>23699</td>
+                                            <td>40%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
+                                                   data-target="#editModal"><i
+                                                            class="far fa-edit"></i> </a>
+                                                <a href="" class="d-inline text-danger" data-toggle="modal"
+                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                            <td>BU003</td>
+                                            <td>This is a budget with this this this this</td>
+                                            <td>1000000</td>
+                                            <td>32345</td>
+                                            <td>234532</td>
+                                            <td>45000</td>
+                                            <td>45000</td>
+                                            <td>434555</td>
+                                            <td>55%</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 

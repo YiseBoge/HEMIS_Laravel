@@ -1,162 +1,158 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
             <div class="text-primary card-header">Private Investments</div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-5">
+                <div class="row">
+                    <div class="col p-3 m-3 text-center">
+                        <a class="btn btn-outline-primary btn-sm mb-0" href="" data-toggle="modal"
+                           data-target="#createModal">Add<i
+                                    class="fas fa-plus ml-2"></i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="table-responsive col-12 py-3">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered dataTable table-striped table-hover"
+                                           id="dataTable"
+                                           width="100%"
+                                           cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                                           style="width: 100%;">
 
-                            </div>
-                            <div class="col-sm-12 col-md-5">
-                                <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input
-                                                type="search" class="form-control form-control-sm" placeholder=""
-                                                aria-controls="dataTable"></label></div>
-                            </div>
-                            <div class="col-sm-12 col-md-2 text-right">
-                                <a class="btn btn-outline-primary btn-sm mb-0" href="" data-toggle="modal"
-                                   data-target="#createModal">Add<i
-                                            class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
-                                       width="100%"
-                                       cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                       style="width: 100%;">
+                                        <thead>
+                                        <tr role="row">
+                                            <th tabindex="0" aria-controls="dataTable"
+                                                rowspan="1" colspan="1"
+                                                style="min-width: 50px; width: 50px"
+                                            >
+                                            </th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                                rowspan="1" colspan="1" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending">Investment Title
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending">Cost
+                                                Incured
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending">Remarks
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
 
-                                    <thead>
-                                    <tr role="row">
-                                        <th tabindex="0" aria-controls="dataTable"
-                                            rowspan="1" colspan="1"
-                                            style="min-width: 50px; width: 50px"
-                                        >
-                                        </th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                            rowspan="1" colspan="1" aria-sort="ascending"
-                                            aria-label="Name: activate to sort column descending">Investment Title
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending">Cost Incured
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending">Remarks
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">
+                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
+                                                   data-target="#editModal"><i
+                                                            class="far fa-edit"></i> </a>
+                                                <a href="" class="d-inline text-danger" data-toggle="modal"
+                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                            <td>Buildings</td>
+                                            <td>1000000</td>
+                                            <td>Remaks Go here</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
+                                                   data-target="#editModal"><i
+                                                            class="far fa-edit"></i> </a>
+                                                <a href="" class="d-inline text-danger" data-toggle="modal"
+                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                            <td>Vehicles</td>
+                                            <td>1000000</td>
+                                            <td>Remaks Go here</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
+                                                   data-target="#editModal"><i
+                                                            class="far fa-edit"></i> </a>
+                                                <a href="" class="d-inline text-danger" data-toggle="modal"
+                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                            <td>Equipments</td>
+                                            <td>1000000</td>
+                                            <td>Remaks Go here</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
+                                                   data-target="#editModal"><i
+                                                            class="far fa-edit"></i> </a>
+                                                <a href="" class="d-inline text-danger" data-toggle="modal"
+                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                            <td>Furnitures</td>
+                                            <td>1000000</td>
+                                            <td>Remaks Go here</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
+                                                   data-target="#editModal"><i
+                                                            class="far fa-edit"></i> </a>
+                                                <a href="" class="d-inline text-danger" data-toggle="modal"
+                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                            <td>Machines and Paints</td>
+                                            <td>1000000</td>
+                                            <td>Remaks Go here</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
+                                                   data-target="#editModal"><i
+                                                            class="far fa-edit"></i> </a>
+                                                <a href="" class="d-inline text-danger" data-toggle="modal"
+                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                            <td>Educational Materials</td>
+                                            <td>1000000</td>
+                                            <td>Remaks Go here</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
+                                                   data-target="#editModal"><i
+                                                            class="far fa-edit"></i> </a>
+                                                <a href="" class="d-inline text-danger" data-toggle="modal"
+                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                            <td>Others</td>
+                                            <td>1000000</td>
+                                            <td>Remaks Go here</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
+                                                   data-target="#editModal"><i
+                                                            class="far fa-edit"></i> </a>
+                                                <a href="" class="d-inline text-danger" data-toggle="modal"
+                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                            <td>Total</td>
+                                            <td>1000000</td>
+                                            <td>Remarks Go here</td>
+                                        </tr>
 
-                                    <tr>
-                                        <td class="text-center">
-                                            <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                               data-target="#editModal"><i
-                                                        class="far fa-edit"></i> </a>
-                                            <a href="" class="d-inline text-danger" data-toggle="modal"
-                                               data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                        <td>Buildings</td>
-                                        <td>1000000</td>
-                                        <td>Remaks Go here</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                               data-target="#editModal"><i
-                                                        class="far fa-edit"></i> </a>
-                                            <a href="" class="d-inline text-danger" data-toggle="modal"
-                                               data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                        <td>Vehicles</td>
-                                        <td>1000000</td>
-                                        <td>Remaks Go here</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                               data-target="#editModal"><i
-                                                        class="far fa-edit"></i> </a>
-                                            <a href="" class="d-inline text-danger" data-toggle="modal"
-                                               data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                        <td>Equipments</td>
-                                        <td>1000000</td>
-                                        <td>Remaks Go here</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                               data-target="#editModal"><i
-                                                        class="far fa-edit"></i> </a>
-                                            <a href="" class="d-inline text-danger" data-toggle="modal"
-                                               data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                        <td>Furnitures</td>
-                                        <td>1000000</td>
-                                        <td>Remaks Go here</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                               data-target="#editModal"><i
-                                                        class="far fa-edit"></i> </a>
-                                            <a href="" class="d-inline text-danger" data-toggle="modal"
-                                               data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                        <td>Machines and Paints</td>
-                                        <td>1000000</td>
-                                        <td>Remaks Go here</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                               data-target="#editModal"><i
-                                                        class="far fa-edit"></i> </a>
-                                            <a href="" class="d-inline text-danger" data-toggle="modal"
-                                               data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                        <td>Educational Materials</td>
-                                        <td>1000000</td>
-                                        <td>Remaks Go here</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                               data-target="#editModal"><i
-                                                        class="far fa-edit"></i> </a>
-                                            <a href="" class="d-inline text-danger" data-toggle="modal"
-                                               data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                        <td>Others</td>
-                                        <td>1000000</td>
-                                        <td>Remaks Go here</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                               data-target="#editModal"><i
-                                                        class="far fa-edit"></i> </a>
-                                            <a href="" class="d-inline text-danger" data-toggle="modal"
-                                               data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                        <td>Total</td>
-                                        <td>1000000</td>
-                                        <td>Remarks Go here</td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
