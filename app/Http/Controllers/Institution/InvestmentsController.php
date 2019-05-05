@@ -15,7 +15,7 @@ class InvestmentsController extends Controller
      */
     public function index()
     {
-        //
+        return view('institutions.private_investment.index');
     }
 
     /**

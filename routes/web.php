@@ -16,20 +16,16 @@ Route::get('/', function () {
 });
 
 Route::resource('institution/budget', 'Institution\BudgetsController');
-
+Route::resource('institution/internal-revenue', 'Institution\InternalRevenuesController');
+Route::resource('institution/private-investment', 'Institution\InvestmentsController');
 
 Route::resource('staff/academic', 'Staff\Specialization\AcademicStaffsController');
-
 Route::resource('staff/technical', 'Staff\Specialization\TechnicalStaffsController');
-
 Route::resource('staff/administrative', 'Staff\Specialization\AdministrativeStaffsController');
-
 Route::resource('staff/ict', 'Staff\Specialization\IctStaffsController');
-
 Route::resource('staff/supportive', 'Staff\Specialization\SupportiveStaffsController');
 
 Route::resource('student/disabled', 'Student\Specialization\DisabledStudentsController');
-
 Route::resource('student/foreigner', 'Student\Specialization\ForeignerStudentsController');
 
 

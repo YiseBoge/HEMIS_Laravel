@@ -15,7 +15,7 @@ class InternalRevenuesController extends Controller
      */
     public function index()
     {
-        //
+        return view('institutions.internal_revenue.index');
     }
 
     /**
