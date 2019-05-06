@@ -7,6 +7,7 @@ use App\Models\Institution\Budget;
 use App\Models\Institution\BudgetDescription;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Webpatser\Uuid\Uuid;
 
 class BudgetsController extends Controller
 {
@@ -46,9 +47,7 @@ class BudgetsController extends Controller
             'utilized' => 'required',
         ]);
 
-        $exampleDescription = new BudgetDescription();
-        $exampleDescription->budget_code = 'B021';
-        $exampleDescription->description = 'This budget for this and tis and that';
+        $exampleDescription = BudgetDescription::all()[0];
 
         $budget = new Budget();
         $budget->budget_type = $request->input('budget_type');
@@ -57,7 +56,7 @@ class BudgetsController extends Controller
         $budget->utilized_budget = $request->input('utilized');
 
 //        To be removed
-        $budget->institution_id = \Webpatser\Uuid\Uuid::generate()->string;
+        $budget->institution_id = Uuid::generate()->string;
 
         $exampleDescription->save();
         $exampleDescription->budget()->save($budget);
