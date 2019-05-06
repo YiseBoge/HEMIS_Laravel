@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
+use App\Models\Institution\Budget;
+use App\Models\Institution\BudgetDescription;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -36,7 +38,32 @@ class BudgetsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'budget_type' => 'required',
+            'budget_description' => 'required',
+            'allocated' => 'required',
+            'additional' => 'required',
+            'utilized' => 'required',
+        ]);
+
+        $exampleDescription = new BudgetDescription();
+        $exampleDescription->budget_code = 'B021';
+        $exampleDescription->description = 'This budget for this and tis and that';
+
+        $budget = new Budget();
+        $budget->budget_type = $request->input('budget_type');
+        $budget->allocated_budget = $request->input('allocated');
+        $budget->additional_budget = $request->input('additional');
+        $budget->utilized_budget = $request->input('utilized');
+
+//        To be removed
+        $budget->institution_id = \Webpatser\Uuid\Uuid::generate()->string;
+
+        $exampleDescription->save();
+        $exampleDescription->budget()->save($budget);
+
+
+        return redirect('/institution/budget');
     }
 
     /**

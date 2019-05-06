@@ -154,50 +154,44 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
 
             <div class="modal-content">
-                <form method="post" action="/institution/budget/store">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editTitle">Add</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                {!! Form::open(['action' => 'Institution\BudgetsController@store', 'method' => 'POST']) !!}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editTitle">Add</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body row pt-4">
+                    <div class="col-12 form-group pb-2">
+                        {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , null , ['class' => 'form-control', 'id' => 'add_budget_type']) !!}
+                        {!! Form::label('budget_type', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'add_budget_type']) !!}
                     </div>
-                    <div class="modal-body row pt-4">
-                        <div class="col-12 form-group pb-2">
-                            <select id="add_budget_type" class="form-control">
-                                <option>Capital Budget</option>
-                                <option>Recurrent Budget</option>
-                            </select>
-                            <label class="form-control-placeholder" for="add_budget_type">Budget Type</label>
-                        </div>
 
-                        <div class="col-12 form-group pb-2">
-                            <select id="add_budget_description" class="form-control">
-                                <option>BU003 - This is a budget with this this this this</option>
-                                <option>BU004 - This is a budget with that that that that</option>
-                            </select>
-                            <label class="form-control-placeholder" for="add_budget_description">Budget
-                                Description</label>
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            <input type="number" id="add_allocated" class="form-control" required>
-                            <label class="form-control-placeholder" for="add_allocated">Allocated</label>
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            <input type="number" id="add_additional" class="form-control" required>
-                            <label class="form-control-placeholder" for="add_additional">Additional</label>
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            <input type="number" id="add_utilized" class="form-control" required>
-                            <label class="form-control-placeholder" for="add_utilized">Utilized</label>
-                        </div>
+                    <div class="col-12 form-group pb-2">
+                        {{--TODO get from budget descriptions--}}
+                        {!! Form::select('budget_description', ['BU003 - This is a budget with this this this this', 'BU003 - This is a budget with this this this this'] , null , ['class' => 'form-control', 'id' => 'add_budget_description']) !!}
+                        {!! Form::label('budget_description', 'Budget Description', ['class' => 'form-control-placeholder', 'for' => 'add_budget_description']) !!}
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
+
+                    <div class="col-md-4 form-group">
+                        {!! Form::number('allocated', null, ['class' => 'form-control', 'id' => 'add_allocated']) !!}
+                        {!! Form::label('allocated', 'Allocated', ['class' => 'form-control-placeholder', 'for' => 'add_allocated']) !!}
                     </div>
-                </form>
+
+                    <div class="col-md-4 form-group">
+                        {!! Form::number('additional', null, ['class' => 'form-control', 'id' => 'add_additional']) !!}
+                        {!! Form::label('additional', 'Additional', ['class' => 'form-control-placeholder', 'for' => 'add_additional']) !!}
+                    </div>
+
+                    <div class="col-md-4 form-group">
+                        {!! Form::number('utilized', null, ['class' => 'form-control', 'id' => 'add_utilized']) !!}
+                        {!! Form::label('utilized', 'Utilized', ['class' => 'form-control-placeholder', 'for' => 'add_utilized']) !!}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                </div>
+                {!! Form::close() !!}
             </div>
 
         </div>

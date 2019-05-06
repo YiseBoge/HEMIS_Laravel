@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
+use App\Models\Institution\BudgetDescription;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -36,7 +37,18 @@ class BudgetDescriptionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'budget_code' => 'required',
+            'description' => 'required',
+        ]);
+
+        $budgetDescription = new BudgetDescription();
+        $budgetDescription->budget_code = $request->input('budget_code');
+        $budgetDescription->description = $request->input('description');
+
+        $budgetDescription->save();
+
+        return redirect('/institution/budget-description');
     }
 
     /**

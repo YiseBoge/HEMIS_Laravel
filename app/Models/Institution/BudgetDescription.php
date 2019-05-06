@@ -11,8 +11,8 @@ class BudgetDescription extends Model
 
     public $incrementing = false;
 
-    public function institution()
+    public function budget()
     {
-        return $this->hasOne('App\Models\Institution\Institution');
+        return $this->hasMany('App\Models\Institution\Budget');
     }
 }
