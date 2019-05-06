@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container w-75">
-        <h1 class="font-weight-bold text-primary">Staff Attrition</h1>
-        <div class="card shadow-sm">
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Staff Attrition</h6>
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -49,11 +51,11 @@
                     <tbody>
                         <tr onclick="window.location='staff/academic/details'">
                             <td>Airi Satou Airi</td>
-                            <td><a href="#" class="text-primary">Remove</a></td>
+                            <td><a href="#" class="text-primary"><i class="far fa-trash-alt mr-2"></i> Remove</a></td>
                         </tr>
                         <tr onclick="window.location='staff/academic/details'">
                             <td>Airi Satou Airi</td>
-                            <td><a href="#" class="text-primary">Remove</a></td>
+                            <td><a href="#" class="text-primary"><i class="far fa-trash-alt mr-2"></i> Remove</a></td>
                         </tr>                        
                     </tbody>
                 </table>

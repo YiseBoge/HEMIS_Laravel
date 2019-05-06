@@ -28,12 +28,31 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
-           aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInstitution"
+           aria-expanded="false"
+           aria-controls="collapseInstitution">
+            <i class="fas fa-university"></i>
+            <span>Institution</span>
+        </a>
+        <div id="collapseInstitution" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Institution Info:</h6>
+                <a class="collapse-item" href="/institution/budget">Budget</a>
+                <a class="collapse-item" href="/institution/internal-revenue">Internal Revenue</a>
+                <a class="collapse-item" href="/institution/private-investment">Private Investments</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents"
+           aria-expanded="false"
+           aria-controls="collapseStudents">
             <i class="fas fa-user-graduate"></i>
             <span>Students</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseStudents" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Student Acts:</h6>
                 <a class="collapse-item" href="/student/disabled">Disabled Students</a>
@@ -44,12 +63,12 @@
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-           aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff"
+           aria-controls="collapseStaff">
             <i class="fas fa-chalkboard-teacher"></i>
             <span>Staff</span>
         </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Staff Acts:</h6>
                 <a class="collapse-item" href="/staff/academic">Academic Staff</a>
@@ -73,13 +92,6 @@
         <a class="nav-link" href="/admin">
             <i class="fas fa-user-cog"></i>
             <span>Admin</span></a>
-    </li>
-
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="/404">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>404</span></a>
     </li>
 
     <!-- Divider -->
