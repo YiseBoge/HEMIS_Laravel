@@ -22,7 +22,7 @@
     <link href="https://fonts.googleapis.com/css?family=Fenix" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="../vendor/DataTables/datatables.min.css"/>
-    
+
 
 </head>
 
@@ -71,23 +71,28 @@
 
 @include('inc.logout_modal')
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+        crossorigin="anonymous"></script>
+
+<script src="{{ asset('js/app.js') }}" defer></script>
 <script src="{{ asset('js/script.js') }}"></script>
-    <script type="text/javascript" src="../vendor/DataTables/datatables.min.js"></script>
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace( 'article-ckeditor' );
-    </script>
-    <script>
-        $(document).ready( function () {
-            $('#dataTable').DataTable();
-        } );
-    </script>
-    <script>
-        $(function () {
-            $('select').selectpicker();
-        });
-    </script>
+<script type="text/javascript" src="../vendor/DataTables/datatables.min.js"></script>
+<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('article-ckeditor');
+</script>
+<script>
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+    });
+</script>
+<script>
+    $(function () {
+        $('select').selectpicker();
+    });
+</script>
 
 </body>
 

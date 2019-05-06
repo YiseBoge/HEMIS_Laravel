@@ -1,27 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
             <div class="text-primary card-header">Internal Revenues</div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="row">
+                    <div class="col p-3 m-3 text-center">
+                        <a class="btn btn-outline-primary btn-sm mb-0" href="" data-toggle="modal"
+                           data-target="#createModal">Add<i
+                                    class="fas fa-plus ml-2"></i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="table-responsive col-12 py-3">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-5">
-
-                            </div>
-                            <div class="col-sm-12 col-md-5">
-                                <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input
-                                                type="search" class="form-control form-control-sm" placeholder=""
-                                                aria-controls="dataTable"></label></div>
-                            </div>
-                            <div class="col-sm-12 col-md-2 text-right">
-                                <a class="btn btn-outline-primary btn-sm mb-0" href="" data-toggle="modal"
-                                   data-target="#createModal">Add<i
-                                            class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
@@ -171,6 +164,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
 
             </div>
