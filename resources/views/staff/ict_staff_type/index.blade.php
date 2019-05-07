@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container w-75">
-        <h1 class="font-weight-bold text-primary">ICT Staff Types</h1>
-        <div class="card shadow-sm pt-3 mt-3">
+    <div class="container">
+        <div class="card shadow mt-3">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">ICT Staff Types</h6>
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
@@ -31,13 +33,15 @@
                     <tbody>
                         <tr>
                             <td>Junior Network Administrator</td>
-                            <td><a href="#" class="btn btn-sm text-primary" data-toggle="modal" data-target="#editModal">Edit</a></td>
-                            <td><a href="#" class="btn btn-sm text-primary">Delete</a></td>
+                            <td><a href="#" class="text-primary" data-toggle="modal" data-target="#editModal"> 
+                                    <i class="far fa-edit mr-1"></i> Edit</a></td>
+                            <td><a href="#" class="text-primary"><i class="far fa-trash-alt mr-1"></i> Delete</a></td>
                         </tr>
                         <tr>
                             <td>Network Administrator</td>
-                            <td><a href="#" class="btn btn-sm text-primary" data-toggle="modal" data-target="#editModal">Edit</a></td>
-                            <td><a href="#" class="btn btn-sm text-primary">Delete</a></td>
+                            <td><a href="#" class="text-primary" data-toggle="modal" data-target="#editModal">
+                                    <i class="far fa-edit mr-1"></i> Edit</a></td>
+                            <td><a href="#" class="text-primary"><i class="far fa-trash-alt mr-1"></i> Delete</a></td>
                         </tr>                        
                     </tbody>
                 </table>
@@ -60,7 +64,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editTitle">Edit</h5>
+                <h5 class="modal-title text-primary" id="editTitle">Edit</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>

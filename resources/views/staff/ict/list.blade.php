@@ -36,83 +36,75 @@
                                         cellspacing="0" role="grid" aria-describedby="dataTable_info"
                                         style="width: 100%;">
                                     <thead>
-                                    <tr role="row">
+                                        <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                             rowspan="1" colspan="1" aria-sort="ascending"
-                                            aria-label="Name: activate to sort column descending"
-                                            style="width: 151px;">Name
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                            style="width: 46px;">Job Title
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                            style="width: 46px;">Salary
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1"
-                                            aria-label="Start date: activate to sort column ascending"
-                                            style="width: 99px;">Is Expatriate
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Dedication
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Academic Level
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Employment Type
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Serivce Year
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Staff Rank
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Staff Category
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Staff Type
-                                        </th>
-                                    </tr>
+                                            aria-label="Name: activate to sort column descending" width="15"
+                                            style="width: 15%;">Name
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                                >Job Title
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                >Dedication
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                >Employment Type
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1"
+                                                aria-label="Start date: activate to sort column ascending"
+                                                >Is Expatriate
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                                >Salary
+                                            </th>  
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                >Academic Level
+                                            </th>                                        
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                >Staff Rank
+                                            </th>
+                                            <th width="75"></th>
+                                        </tr>
                                     </thead>
+                                            
                                     
                                     <tbody>
 
                                     <tr role="row" class="odd" onclick="window.location='ict/details'">
                                         <td class="sorting_1">Airi Satou Airi</td>
                                         <td>Title</td>
-                                        <td>$162,700</td>
-                                        <td>Yes</td>
                                         <td>Full Time</td>
-                                        <td>PhD</td>
                                         <td>Employee</td>
-                                        <td>5</td>
-                                        <td>Rank</td>
-                                        <td>Infastructure & Services</td>
-                                        <td>Juniour Network Administrator</td> 
+                                        <td>Yes</td>
+                                        <td>$162,700</td>
+                                        <td>PhD</td>
+                                        <td>Rank</td> 
+                                        <td class="pl-4">
+                                            <a href="1/edit" class="text-muted mr-3 d-inline"><i class="far fa-edit"></i> </a>
+                                            <a href="#" class="text-muted d-inline"><i class="far fa-trash-alt"></i> </a>
+                                        </td> 
                                     </tr>
                                     <tr role="row" class="even">
                                         <td class="sorting_1">Airi Satou Airi</td>
                                         <td>Title</td>
-                                        <td>$162,700</td>
-                                        <td>Yes</td>
                                         <td>Full Time</td>
-                                        <td>PhD</td>
                                         <td>Employee</td>
-                                        <td>5</td>
-                                        <td>Rank</td>
-                                        <td>Infastructure & Services</td>
-                                        <td>Juniour Network Administrator</td> 
+                                        <td>Yes</td>
+                                        <td>$162,700</td>
+                                        <td>PhD</td>
+                                        <td>Rank</td> 
+                                        <td class="pl-4">
+                                            <a href="1/edit" class="text-muted mr-3 d-inline"><i class="far fa-edit"></i> </a>
+                                            <a href="#" class="text-muted d-inline"><i class="far fa-trash-alt"></i> </a>
+                                        </td>  
                                     </tr>
                                     
                                     </tbody>

@@ -16,20 +16,16 @@ Route::get('/', function () {
 });
 
 Route::resource('institution/budget', 'Institution\BudgetsController');
-
+Route::resource('institution/internal-revenue', 'Institution\InternalRevenuesController');
+Route::resource('institution/private-investment', 'Institution\InvestmentsController');
 
 Route::resource('staff/academic', 'Staff\Specialization\AcademicStaffsController');
-
 Route::resource('staff/technical', 'Staff\Specialization\TechnicalStaffsController');
-
 Route::resource('staff/administrative', 'Staff\Specialization\AdministrativeStaffsController');
-
 Route::resource('staff/ict', 'Staff\Specialization\IctStaffsController');
-
 Route::resource('staff/supportive', 'Staff\Specialization\SupportiveStaffsController');
 
 Route::resource('student/disabled', 'Student\Specialization\DisabledStudentsController');
-
 Route::resource('student/foreigner', 'Student\Specialization\ForeignerStudentsController');
 
 Route::resource('institution','Institution\InstitutionNamesController');
@@ -47,9 +43,7 @@ Route::get('/staff_attrition', function () {
     return view('staff.staff_attrition');
 });
 
-Route::get('/ict_staff_types', function () {
-    return view('staff.ict_staff_types');
-});
+Route::resource('staff/ict_staff_types', 'Staff\IctStaffTypesController');
 
 Route::get('/student_attrition', function () {
     return view('students.student_attrition');
