@@ -16,9 +16,18 @@ class BudgetsController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('institutions.budget.index');
+        $requestedType = $request->input('budget_type');
+        if ($requestedType == null) {
+            $requestedType = 'CAPITAL';
+        }
+        $budget_type = Budget::getEnum('budget_type')[$requestedType];
+
+        $budgets = Budget::where('budget_type', $budget_type)->get();
+
+        $data = ['budget_type' => $requestedType, 'budgets' => $budgets, 'page_name' => 'budget.index'];
+        return view('institutions.budget.index')->with('data', $data);
     }
 
     /**
@@ -47,7 +56,7 @@ class BudgetsController extends Controller
             'utilized' => 'required',
         ]);
 
-        $exampleDescription = BudgetDescription::all()[0];
+        $exampleDescription = BudgetDescription::all()[$request->input('budget_description')];
 
         $budget = new Budget();
         $budget->budget_type = $request->input('budget_type');

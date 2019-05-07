@@ -13,16 +13,14 @@
                     </div>
                 </div>
                 <div class="row">
+                    {!! Form::open(['action' => 'Institution\BudgetsController@index', 'method' => 'GET', 'class' => 'w-100']) !!}
                     <div class="col-md-6 px-3 py-md-1">
                         <div class="form-group">
-                            <select id="add_budget_type" class="form-control">
-                                <option>Capital Budget</option>
-                                <option>Recurrent Budget</option>
-                            </select>
-                            <label class="form-control-placeholder" for="add_budget_type">Budget Type</label>
-
+                            {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , $data['budget_type'] , ['class' => 'form-control', 'id' => 'add_budget_type', 'onchange' => 'this.form.submit()']) !!}
+                            {!! Form::label('budget_type', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'add_budget_type']) !!}
                         </div>
                     </div>
+                    {!! Form::close() !!}
                 </div>
 
                 <div class="row">
@@ -79,63 +77,27 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td class="text-center">
-                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                                   data-target="#editModal"><i
-                                                            class="far fa-edit"></i> </a>
-                                                <a href="" class="d-inline text-danger" data-toggle="modal"
-                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                                </a>
-                                            </td>
-                                            <td>BU003</td>
-                                            <td>This is a budget with this this this this</td>
-                                            <td>1000000</td>
-                                            <td>32345</td>
-                                            <td>234532</td>
-                                            <td>45000</td>
-                                            <td>434555</td>
-                                            <td>23699</td>
-                                            <td>22%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">
-                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                                   data-target="#editModal"><i
-                                                            class="far fa-edit"></i> </a>
-                                                <a href="" class="d-inline text-danger" data-toggle="modal"
-                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                                </a>
-                                            </td>
-                                            <td>BU003</td>
-                                            <td>This is a budget with this this this this</td>
-                                            <td>1000000</td>
-                                            <td>32345</td>
-                                            <td>234532</td>
-                                            <td>45000</td>
-                                            <td>434555</td>
-                                            <td>23699</td>
-                                            <td>40%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">
-                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                                   data-target="#editModal"><i
-                                                            class="far fa-edit"></i> </a>
-                                                <a href="" class="d-inline text-danger" data-toggle="modal"
-                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                                </a>
-                                            </td>
-                                            <td>BU003</td>
-                                            <td>This is a budget with this this this this</td>
-                                            <td>1000000</td>
-                                            <td>32345</td>
-                                            <td>234532</td>
-                                            <td>45000</td>
-                                            <td>45000</td>
-                                            <td>434555</td>
-                                            <td>55%</td>
-                                        </tr>
+                                        @foreach($data['budgets'] as $budget)
+                                            <tr>
+                                                <td class="text-center">
+                                                    <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
+                                                       data-target="#editModal"><i
+                                                                class="far fa-edit"></i> </a>
+                                                    <a href="" class="d-inline text-danger" data-toggle="modal"
+                                                       data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                                    </a>
+                                                </td>
+                                                <td>{{ $budget->budgetDescription->budget_code }}</td>
+                                                <td>{{ $budget->budgetDescription->description }}</td>
+                                                <td>{{ $budget->allocated_budget }}</td>
+                                                <td>{{ $budget->additional_budget }}</td>
+                                                <td>234532</td>
+                                                <td>45000</td>
+                                                <td>{{ $budget->utilized_budget }}</td>
+                                                <td>23699</td>
+                                                <td>22%</td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -161,6 +123,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
                 <div class="modal-body row pt-4">
                     <div class="col-12 form-group pb-2">
                         {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , null , ['class' => 'form-control', 'id' => 'add_budget_type']) !!}
@@ -169,7 +132,7 @@
 
                     <div class="col-12 form-group pb-2">
                         {{--TODO get from budget descriptions--}}
-                        {!! Form::select('budget_description', ['BU003 - This is a budget with this this this this', 'BU003 - This is a budget with this this this this'] , null , ['class' => 'form-control', 'id' => 'add_budget_description']) !!}
+                        {!! Form::select('budget_description', \App\Models\Institution\BudgetDescription::all() , null , ['class' => 'form-control', 'id' => 'add_budget_description']) !!}
                         {!! Form::label('budget_description', 'Budget Description', ['class' => 'form-control-placeholder', 'for' => 'add_budget_description']) !!}
                     </div>
 
