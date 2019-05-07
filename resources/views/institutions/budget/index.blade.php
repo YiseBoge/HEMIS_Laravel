@@ -99,6 +99,22 @@
                                             </tr>
                                         @endforeach
                                         </tbody>
+
+                                        <tfoot>
+                                        <tr class="font-weight-bolder font-italic text-lg">
+                                            <td class="text-center">
+
+                                            </td>
+                                            <td colspan="2">Total</td>
+                                            <td>allocated sum</td>
+                                            <td>additional sum</td>
+                                            <td>internal transfer sum</td>
+                                            <td>adjusted sum</td>
+                                            <td>utilized sum</td>
+                                            <td>difference sum</td>
+                                            <td>performance average?</td>
+                                        </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -137,17 +153,17 @@
                     </div>
 
                     <div class="col-md-4 form-group">
-                        {!! Form::number('allocated', null, ['class' => 'form-control', 'id' => 'add_allocated']) !!}
+                        {!! Form::number('allocated', null, ['class' => 'form-control', 'id' => 'add_allocated', 'required' => 'true']) !!}
                         {!! Form::label('allocated', 'Allocated', ['class' => 'form-control-placeholder', 'for' => 'add_allocated']) !!}
                     </div>
 
                     <div class="col-md-4 form-group">
-                        {!! Form::number('additional', null, ['class' => 'form-control', 'id' => 'add_additional']) !!}
+                        {!! Form::number('additional', null, ['class' => 'form-control', 'id' => 'add_additional', 'required' => 'true']) !!}
                         {!! Form::label('additional', 'Additional', ['class' => 'form-control-placeholder', 'for' => 'add_additional']) !!}
                     </div>
 
                     <div class="col-md-4 form-group">
-                        {!! Form::number('utilized', null, ['class' => 'form-control', 'id' => 'add_utilized']) !!}
+                        {!! Form::number('utilized', null, ['class' => 'form-control', 'id' => 'add_utilized', 'required' => 'true']) !!}
                         {!! Form::label('utilized', 'Utilized', ['class' => 'form-control-placeholder', 'for' => 'add_utilized']) !!}
                     </div>
                 </div>

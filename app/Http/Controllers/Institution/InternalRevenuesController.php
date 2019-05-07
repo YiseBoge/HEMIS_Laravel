@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
+use App\Models\Institution\InternalRevenue;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Webpatser\Uuid\Uuid;
 
 class InternalRevenuesController extends Controller
 {
@@ -15,7 +17,9 @@ class InternalRevenuesController extends Controller
      */
     public function index()
     {
-        return view('institutions.internal_revenue.index');
+        $data = ['internal_revenues' => InternalRevenue::all()];
+
+        return view('institutions.internal_revenue.index')->with('data', $data);
     }
 
     /**
@@ -36,7 +40,25 @@ class InternalRevenuesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'revenue_description' => 'required',
+            'income' => 'required',
+            'expense' => 'required',
+        ]);
+
+
+        $internalRevenue = new InternalRevenue();
+        $internalRevenue->revenue_description = $request->input('revenue_description');
+        $internalRevenue->income = $request->input('income');
+        $internalRevenue->expense = $request->input('expense');
+
+//        Todo remove this
+        $internalRevenue->institution_id = Uuid::generate()->string;
+
+        $internalRevenue->save();
+
+
+        return redirect('/institution/internal-revenue');
     }
 
     /**

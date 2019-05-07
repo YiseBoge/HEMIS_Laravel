@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
+use App\Models\Institution\Investment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Webpatser\Uuid\Uuid;
 
 class InvestmentsController extends Controller
 {
@@ -15,7 +17,9 @@ class InvestmentsController extends Controller
      */
     public function index()
     {
-        return view('institutions.private_investment.index');
+        $data = ['investments' => Investment::all()];
+
+        return view('institutions.private_investment.index')->with('data', $data);
     }
 
     /**
@@ -36,7 +40,24 @@ class InvestmentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'investment_title' => 'required',
+            'cost_incurred' => 'required',
+        ]);
+
+
+        $investment = new Investment();
+        $investment->investment_title = $request->input('investment_title');
+        $investment->cost_incurred = $request->input('cost_incurred');
+        $investment->remarks = $request->input('remarks');
+
+//        Todo remove this
+        $investment->institution_id = Uuid::generate()->string;
+
+        $investment->save();
+
+
+        return redirect('/institution/private-investment');
     }
 
     /**

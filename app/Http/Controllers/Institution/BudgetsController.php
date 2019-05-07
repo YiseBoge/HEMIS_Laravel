@@ -64,7 +64,7 @@ class BudgetsController extends Controller
         $budget->additional_budget = $request->input('additional');
         $budget->utilized_budget = $request->input('utilized');
 
-//        To be removed
+//        Todo remove this
         $budget->institution_id = Uuid::generate()->string;
 
         $exampleDescription->save();

@@ -17,7 +17,7 @@ class CreateInvestmentsTable extends Migration
             $table->uuid('id');
             $table->string('investment_title');
             $table->bigInteger('cost_incurred');
-            $table->text('remarks');
+            $table->text('remarks')->nullable();
             $table->timestamps();
 
             $table->primary('id');
