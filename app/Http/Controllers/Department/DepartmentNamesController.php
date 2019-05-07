@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\Department\DepartmentName;
 
 /**
  * A class for the Admin to manage all allowable Department Names
@@ -18,7 +19,8 @@ class DepartmentNamesController extends Controller
      */
     public function index()
     {
-        //
+        $departments= DepartmentName::all();
+        return view('departments.list')->with('departments',$departments);
     }
 
     /**
@@ -28,7 +30,7 @@ class DepartmentNamesController extends Controller
      */
     public function create()
     {
-        //
+        return view('departments.create');
     }
 
     /**
@@ -39,7 +41,17 @@ class DepartmentNamesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request,[
+        'department_name'=>'required',
+        'department_acronym'=>'required'
+      ]);
+
+      $departmentName= new DepartmentName;
+      $departmentName->department_name=$request->input('department_name');
+      $departmentName->acronym=$request->input('department_acronym');
+      $departmentName->save();
+
+      return redirect('/department');
     }
 
     /**
@@ -50,7 +62,7 @@ class DepartmentNamesController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('departments.details');
     }
 
     /**
@@ -61,7 +73,8 @@ class DepartmentNamesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $department=DepartmentName::find($id);
+        return view('departments.list')->with('departmentEdit',$department);
     }
 
     /**

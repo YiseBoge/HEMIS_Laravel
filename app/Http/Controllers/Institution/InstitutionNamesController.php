@@ -18,7 +18,7 @@ class InstitutionNamesController extends Controller
      */
     public function index()
     {
-        //
+        return view('institutions.list');
     }
 
     /**
@@ -28,7 +28,7 @@ class InstitutionNamesController extends Controller
      */
     public function create()
     {
-        //
+        return view('institutions.create');
     }
 
     /**
@@ -50,7 +50,7 @@ class InstitutionNamesController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('institutions.details');
     }
 
     /**
@@ -61,7 +61,7 @@ class InstitutionNamesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('institutions.edit');
     }
 
     /**

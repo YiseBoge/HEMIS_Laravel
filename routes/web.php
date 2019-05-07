@@ -32,6 +32,12 @@ Route::resource('student/disabled', 'Student\Specialization\DisabledStudentsCont
 
 Route::resource('student/foreigner', 'Student\Specialization\ForeignerStudentsController');
 
+Route::resource('institution','Institution\InstitutionNamesController');
+
+Route::resource('band','Band\BandNamesController');
+
+Route::resource('department','Department\DepartmentNamesController');
+
 
 Route::get('/admin', function () {
     return view('admin.index');
