@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Staff\Specialization;
+namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class AdministrativeStaffsController extends Controller
+class TechnicalStaffsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class AdministrativeStaffsController extends Controller
      */
     public function index()
     {
-        return view('staff.administrative.list');
+        return view('staff.technical.list');
     }
 
     /**
@@ -25,7 +25,7 @@ class AdministrativeStaffsController extends Controller
      */
     public function create()
     {
-        return view('staff.administrative.create');
+        return view('staff.technical.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class AdministrativeStaffsController extends Controller
      */
     public function show($id)
     {
-        return view('staff.administrative.details');
+        return view('staff.technical.details');
     }
 
     /**
@@ -58,7 +58,7 @@ class AdministrativeStaffsController extends Controller
      */
     public function edit($id)
     {
-        return view('staff.administrative.edit');
+        return view('staff.technical.edit');
     }
 
     /**
