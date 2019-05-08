@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Staff\Specialization;
+namespace App\Models\Staff;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;

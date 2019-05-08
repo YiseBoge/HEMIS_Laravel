@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Staff\Specialization;
+namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class TechnicalStaffsController extends Controller
+class IctStaffsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class TechnicalStaffsController extends Controller
      */
     public function index()
     {
-        return view('staff.technical.list');
+        return view('staff.ict.list');
     }
 
     /**
@@ -25,7 +25,7 @@ class TechnicalStaffsController extends Controller
      */
     public function create()
     {
-        return view('staff.technical.create');
+        return view('staff.ict.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class TechnicalStaffsController extends Controller
      */
     public function show($id)
     {
-        return view('staff.technical.details');
+        return view('staff.ict.details');
     }
 
     /**
@@ -58,7 +58,7 @@ class TechnicalStaffsController extends Controller
      */
     public function edit($id)
     {
-        return view('staff.technical.edit');
+        return view('staff.ict.edit');
     }
 
     /**

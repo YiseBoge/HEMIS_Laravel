@@ -23,4 +23,9 @@ class StaffLeave extends Model
         'GOVT' => 'Government',
         'OTHER' => 'Other',
     ];
+
+    public function academicStaff()
+    {
+        return $this->hasOne('App\Models\Staff\AcademicStaff');
+    }
 }
