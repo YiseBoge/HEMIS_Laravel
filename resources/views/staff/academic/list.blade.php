@@ -10,22 +10,7 @@
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">
-                            <div class="col-sm-12 col-md-5">
-                                <div class="dataTables_length" id="dataTable_length"><label>Show <select
-                                            name="dataTable_length" aria-controls="dataTable"
-                                            class="custom-select custom-select-sm form-control form-control-sm">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select> entries</label></div>
-                            </div>
-                            <div class="col-sm-12 col-md-5">
-                                <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input
-                                            type="search" class="form-control form-control-sm" placeholder=""
-                                            aria-controls="dataTable"></label></div>
-                            </div>
-                            <div class="col-sm-12 col-md-2 text-right">
+                            <div class="col text-right">
                                 <a class="btn btn-outline-primary btn-sm mb-0" href="academic/create">Add Staff<i
                                     class="fas fa-arrow-right ml-2"></i></a>
                             </div>
@@ -86,13 +71,13 @@
                                                 <td class="pl-4">
                                                     <div class="row">
                                                         <div class="col pt-1">
-                                                            <a href="academic/{{$staff->id}}/edit" class="text-muted mr-3"><i class="far fa-edit"></i> </a>
+                                                            <a href="academic/{{$staff->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> </a>
                                                         </div>
                                                         <div class="col">
                                                             <form class="p-0" action="/staff/academic/{{$staff->id}}" method="POST">
                                                                 @csrf
                                                                 <input type="hidden" name="_method" value="DELETE">
-                                                                <button type="submit" class="form-control form-control-plaintext text-muted p-0">
+                                                                <button type="submit" class="form-control form-control-plaintext text-danger p-0">
                                                                         <i class="far fa-trash-alt"></i>
                                                                 </button>
                                                             </form>
@@ -105,7 +90,11 @@
                                                 <td>{{$staff->general->job_title}}</td>
                                                 <td>{{$staff->general->dedication}}</td>
                                                 <td>{{$staff->general->employment_type}}</td>
-                                                <td>{{$staff->general->is_expatriate}}</td>
+                                                @if ($staff->general->is_expatriate == 0)
+                                                    <td>No</td>
+                                                @else
+                                                    <td>Yes</td>
+                                                @endif
                                                 <td>{{$staff->general->salary}}</td> 
                                                 <td>{{$staff->general->academic_level}}</td>                                            
                                                 <td>{{$staff->field_of_study}}</td>
@@ -118,52 +107,6 @@
 
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-5">
-                                <div class="dataTables_info" id="dataTable_info" role="status"
-                                        aria-live="polite">Showing 1 to 10 of 57 entries
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                    <ul class="pagination">
-                                        <li class="paginate_button page-item previous disabled"
-                                            id="dataTable_previous"><a href="#" aria-controls="dataTable"
-                                                                        data-dt-idx="0" tabindex="0"
-                                                                        class="page-link">Previous</a></li>
-                                        <li class="paginate_button page-item active"><a href="#"
-                                                                                        aria-controls="dataTable"
-                                                                                        data-dt-idx="1"
-                                                                                        tabindex="0"
-                                                                                        class="page-link">1</a>
-                                        </li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                    aria-controls="dataTable"
-                                                                                    data-dt-idx="2" tabindex="0"
-                                                                                    class="page-link">2</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                    aria-controls="dataTable"
-                                                                                    data-dt-idx="3" tabindex="0"
-                                                                                    class="page-link">3</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                    aria-controls="dataTable"
-                                                                                    data-dt-idx="4" tabindex="0"
-                                                                                    class="page-link">4</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                    aria-controls="dataTable"
-                                                                                    data-dt-idx="5" tabindex="0"
-                                                                                    class="page-link">5</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                    aria-controls="dataTable"
-                                                                                    data-dt-idx="6" tabindex="0"
-                                                                                    class="page-link">6</a></li>
-                                        <li class="paginate_button page-item next" id="dataTable_next"><a
-                                                href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0"
-                                                class="page-link">Next</a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>

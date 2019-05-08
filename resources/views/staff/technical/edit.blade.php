@@ -1,154 +1,234 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-
-        <form class="px-md-5 pb-5">
-            <h3 class="font-weight-bold text-primary">Add Technical Staff Member</h3>
-            <hr>
-            <fieldset class="jumbotron shadow py-4">
-                <legend class="text-primary">Personal Information</legend>
-                <div class="form-row">
-                    <div class="col-md form-group">
-                        <input type="text" id="personal_name" class="form-control" required>
-                        <label class="form-control-placeholder" for="personal_name">Personal Name</label>
-                    </div>
-                    <div class="col-md form-group">
-                        <input type="text" id="father_name" class="form-control" required>
-                        <label class="form-control-placeholder" for="father_name">Father's Name</label>
-                    </div>
-                    <div class="col-md form-group">
-                        <input type="text" id="grand_father_name" class="form-control" required>
-                        <label class="form-control-placeholder" for="grand_father_name">Grand Father's Name</label>
-                    </div>
+    <div class="container mb-5">
+            @if(count($errors) > 0)
+            @foreach($errors->all() as $error)
+                <div class="alert alert-danger">
+                    {{$error}}
                 </div>
-                <hr>
-                <div class="form-row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="bdate">
-                                Date of Birth
-                            </label>
-                            <input class="form-control" id="bdate" type="date" placeholder="2011-08-19">
-                        </div>                       
-                        <hr>
-                        <div class="form-group">
-                            <input type="text" id="phoneno" class="form-control" required>
-                            <label class="form-control-placeholder" for="phoneno">Phone Number</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6 pl-md-5">
-                        <div class="form-group">
-                            <label class="ml-2">
-                                Sex
-                            </label>
-                            <div>
-                                <label class="radio-inline"><input class="d-inline-block m-2 form-check-inline" type="radio"
-                                                                    name="sex" value="Male">Male</label>
-                                <label class="radio-inline"><input class="d-inline-block m-2 form-check-inline" type="radio"
-                                                                    name="sex" value="Female">Female</label>
+            @endforeach
+            @endif
+    <form action="/staff/technical/{{$staff->id}}" method="POST">
+        @csrf
+        <input type="hidden" name="_method" value="PUT">
+        <div class="row">
+            <div class="col-md-9">
+                <h1 class="font-weight-bold text-primary">Administrative Staff</h1>
+            </div>
+            <div class="col-md-3 pt-3">
+                <button type="submit" class="form-control form-control-plaintext text-primary">
+                        <i class="far fa-save mr-2"></i></i> Save
+                </button>
+            </div>
+        </div>
+        
+        <div class="row my-3">
+            <div class="col-md-12">
+                <div class="card border-left-primary shadow-sm h-100 py-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Name</div>
+                                    <div class="input-group mb-3"> 
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                                        </div>                                      
+                                        <input type="text" class="form-control form-control-plaintext" name="name" value="{{$staff->general->name}}">
+                                        
+                                    </div>                                  
+                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Sex</div>
+                                    <div class="input-group mb-3">  
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-plaintext" name="sex" value="{{$staff->general->sex}}">
+                                    </div>  
+                                    
                             </div>
-                        </div>                        
-                        <hr>
-                        <div class="form-group">
-                            <input type="text" id="nationality" class="form-control" required>
-                            <label class="form-control-placeholder" for="nationality">Nationality</label>
-                        </div>
+                            <div class="col-md-4">
+                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Nationality</div>
+                                    <div class="input-group mb-3">   
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-plaintext" name="nationality" value="{{$staff->general->nationality}}">
+                                    </div>  
+                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Phone Number</div>
+                                    <div class="input-group mb-3">   
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-plaintext" name="phone_number" value="{{$staff->general->phone_number}}">
+                                    </div>  
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Date of Birth</div>
+                                <div class="input-group mb-3">  
+                                    <div class="input-group-append">
+                                        <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-plaintext" name="birth_date" value="{{$staff->general->birth_date}}">
+                                </div>  
+                            </div>
+                        </div>                 
                     </div>
                 </div>
-            </fieldset>
+            </div>
+        </div>
 
-
-            <fieldset class="jumbotron shadow py-4">
-                <legend class="text-primary">Employment Information</legend>
-                <div class="form-row">
-                    <div class="col-md form-group">
-                        <input type="text" id="job_title" class="form-control" required>
-                        <label class="form-control-placeholder" for="job_title">Job Title</label>
+        <div class="card shadow">
+            <div class="card-header text-primary">
+                Employment Information
+            </div>
+            <div class="card-body">
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Job Title</div>
+                        <div class="input-group mb-3">  
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-plaintext" name="job_title" value="{{$staff->general->job_title}}">
+                        </div>  
                     </div>
-                    <div class="col-md form-group">
-                        <input type="text" id="salary" class="form-control" required>
-                        <label class="form-control-placeholder" for="salary">Salary</label>
-                    </div>
-                    <div class="col-md form-group">
-                        <input type="text" id="service_year" class="form-control" required>
-                        <label class="form-control-placeholder" for="service_year">Service Year</label>
-                    </div>
-                    
-                </div>
-
-                <hr>
-
-                <div class="form-row">
-                    <div class="col form-group">
-                        <label for="empType">Employment Type</label>
-                        <select class="form-control" id="empType">
-                            <option selected value="Employee">Employee</option>
-                            <option value="Contractor">Contractor</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md form-group">
-                        <label for="dedication">Dedication</label>
-                        <select class="form-control" id="dedication">
-                            <option selected value="Full Time">Full Time</option>
-                            <option value="Part Time">Part Time</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md form-group">
-                        <label for="academic-level">Academic Level</label>
-                        <select class="form-control selectpicker" id="academic-level" data-live-search="true">
-                            <option selected value="bachelors">Bachelors</option>
-                            <option value="M.D/D.V">M.D/D.V</option>
-                            <option value="Masters">Masters</option>
-                            <option value="PhD">PhD</option>
-                            <option value=">= Grade 10"><= Grade 10</option>
-                            <option value="Grade 11">Grade 11</option>
-                            <option value="Grade 12">Grade 12</option>
-                            <option value="10+1">10 + 1</option>
-                            <option value="10+2">10 + 2</option>
-                            <option value="10+3">10 + 3</option>
-                            <option value="Level I">Level I</option>
-                            <option value="Level II">Level II</option>
-                            <option value="Level III">Level III</option>
-                            <option value="Level IV">Level IV</option>
-                            <option value="Level V">Level V</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" id="expatriate" type="checkbox" value="expatriate">
-                    <label class="form-check-label" for="expatriate">Expatriate</label>
-                </div>
-            </fieldset>
-
-            <fieldset id="technical-staff" class="jumbotron shadow  py-4">
-                <legend class="text-primary">Technical Staff Information</legend>
-                <div class="form-row">
-                    <div class="col-sm-6 form-group row">
-                        <label class="col-sm-6 col-form-label" for="tech-staff-rank">Technical Staff Rank</label>
-                        <div class="col-sm-6">
-                            <select class="form-control form-control-sm" id="tech-staff-rank">
-                                <option selected value="Technical Assistant I">Technical Assistant I</option>
-                                <option value="Technical Assistant II">Technical Assistant II</option>
-                                <option value="Technical Assistant III">Technical Assistant III</option>
-                                <option value="Other">Other</option>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Dedication</div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <select class="form-control form-control-plaintext" name="dedication">
+                                @foreach ($staff->general->getEnum("Dedications") as $key => $value)
+                                    @if ($value == $staff->general->dedication)
+                                        <option selected value="{{$key}}">{{$value}}</option>
+                                    @else
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endif
+                                @endforeach
                             </select>
-                        </div>
+                            
+                        </div>  
                     </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col form-group">
-                        <label for="additional_remarks">
-                            Additional Remarks
-                        </label>
-                        <textarea class="form-control" name="" id="additional_remarks" rows="3"></textarea>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Employment Type</div>
+                        <div class="input-group mb-3">   
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <select class="form-control form-control-plaintext" name="employment_type">
+                                @foreach ($staff->general->getEnum("EmploymentTypes") as $key => $value)
+                                    @if ($value == $staff->general->employment_type)
+                                        <option selected value="{{$key}}">{{$value}}</option>
+                                    @else
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            
+                        </div>  
+                    </div> 
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Academic Level</div>
+                        <div class="input-group mb-3">   
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <select class="form-control form-control-plaintext" name="academic_level">
+                                @foreach ($staff->general->getEnum("AcademicLevels") as $key => $value)
+                                    @if ($value == $staff->general->academic_level)
+                                        <option selected value="{{$key}}">{{$value}}</option>
+                                    @else
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            
+                        </div>  
                     </div>
-                </div>
-            </fieldset>
+                                        
+                </div>     
+        
+                <div class="row mt-4">                       
+                   
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Salary</div>
+                        <div class="input-group mb-3">  
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-plaintext" name="salary" value="{{$staff->general->salary}}">
+                        </div>  
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Years of Service</div>
+                        <div class="input-group mb-3"> 
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-plaintext" name="service_year" value="{{$staff->general->service_year}}">
+                        </div>  
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is Expatriate</div>
+                        <div class="input-group mb-3">    
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <select class="form-control form-control-plaintext" name="expatriate">
+                                @if ($staff->general->is_expatriate == 0)
+                                    <option value="1">Yes</option>
+                                    <option selected value="0">No</option>
+                                @else
+                                    <option selected value="1">Yes</option>
+                                    <option value="0">No</option>
+                                @endif
+                                
+                            </select>
+                            
+                        </div>  
+                    </div>   
+                   
+                </div> 
+            </div>
+        </div>
+        <div class="card shadow mt-3">
+            <div class="card-header text-primary">
+                Administrative Staff Information
+            </div>
+            <div class="card-body">
+                <div class="row mt-4"> 
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Rank</div>
+                        <div class="input-group mb-3"> 
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <select class="form-control form-control-plaintext" name="technical_staff_rank">
+                                @foreach ($staff->getEnum("StaffRanks") as $key => $value)
+                                    @if ($value == $staff->staffRank)
+                                        <option selected value="{{$key}}">{{$value}}</option>
+                                    @else
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>  
+                    </div>
+                </div> 
+            </div>
+        </div>
 
-            <button class="btn btn-outline-secondary float-right my-1" type="submit">Submit</button>
-        </form>
+        <div class="card shadow mt-3">
+            <div class="card-header text-primary">
+                Remarks
+            </div>
+            <div class="card-body">
+                <textarea class="form-control" id="additional_remarks" name="additional_remark" rows="3">{{$staff->general->remarks}}</textarea>
+            </div>
+            
+        </div>      
+            
+    </form> 
     </div>
 @endsection

@@ -6,18 +6,11 @@
             <div class="col-md-10">
                 <h1 class="font-weight-bold text-primary">Academic Staff</h1>
             </div>
-            <div class="col-md-1 pt-4">
-                <a href="{{$staff->id}}/edit" class="text-muted mr-3"><i class="far fa-edit"></i> Edit</a>
-                
-            </div>
-            <div class="col-md-1 pt-3 px-0">
-                    <form class="p-0" action="/staff/academic/{{$staff->id}}" method="POST">
-                        @csrf
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="form-control form-control-plaintext text-muted p-0">
-                                <i class="far fa-trash-alt"></i> Delete
-                        </button>
-                    </form>
+            <div class="col-md-2 pt-4">
+                <a href="{{$staff->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> Edit</a>
+                <a href="" class="d-inline text-danger" data-toggle="modal"
+                    data-target="#deleteModal"><i class="far fa-trash-alt"></i> Delete
+                </a>
             </div>
         </div>
         
@@ -69,7 +62,11 @@
                     </div> 
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Status</div>
-                        <p>On Duty</p>
+                        @if ($staff->staff_leave_id == 0)
+                            <p>On Duty</p>
+                        @else
+                            <p>On Study Leave</p>
+                        @endif
                     </div>                         
                 </div>  
                 <div class="row mt-4">                       
@@ -87,7 +84,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is Expatriate</div>
-                        @if ($staff->general->is_Expatriate == 0)
+                        @if ($staff->general->is_expatriate == 0)
                             <p>No</p>
                         @else
                             <p>Yes</p>
@@ -170,6 +167,32 @@
                 </div>
         </div>      
             
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure you wish to delete?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="/staff/academic/{{$staff->id}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="form-control btn btn-danger">
+                                <i class="far fa-trash-alt"></i> Delete
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </div>
     
 @endsection
