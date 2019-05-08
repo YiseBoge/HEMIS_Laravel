@@ -19,9 +19,8 @@
                                 Personal Information
                         </div>
                         <div class="card-body px-4">
-                      
                             <div class="form-row pt-3">
-                                <div class="form-group">
+                                <div class="col form-group">
                                     <input type="text" id="name" name="name" class="form-control" required>
                                     <label class="form-control-placeholder" for="grand_father_name">Full Name</label>
                                 </div>

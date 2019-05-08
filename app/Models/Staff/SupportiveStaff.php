@@ -13,9 +13,9 @@ class SupportiveStaff extends Model
 
     public $incrementing = false;
     protected $enumStaffRanks = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'a' => 'rank1',
+        'b' => 'rank2',
+        'c' => 'rank3',
     ];
 
 

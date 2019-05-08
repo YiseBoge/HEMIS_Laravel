@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\Staff\Staff;
+use App\Models\Staff\SupportiveStaff;
 
 class SupportiveStaffsController extends Controller
 {
@@ -15,7 +17,10 @@ class SupportiveStaffsController extends Controller
      */
     public function index()
     {
-        return view('staff.supportive.list');
+        $data = array(
+            'staffs' => SupportiveStaff::with('general')->get()
+        );
+        return view('staff.supportive.list')->with($data);
     }
 
     /**
@@ -25,7 +30,13 @@ class SupportiveStaffsController extends Controller
      */
     public function create()
     {
-        return view('staff.supportive.create');
+        $data = array(
+            'employment_types' => Staff::getEnum("EmploymentTypes"),
+            'dedications' => Staff::getEnum("Dedications"),
+            'academic_levels' => Staff::getEnum("AcademicLevels"),
+            'staff_ranks' => SupportiveStaff::getEnum("StaffRanks")
+        );
+        return view('staff.supportive.create')->with($data);
     }
 
     /**
@@ -36,7 +47,56 @@ class SupportiveStaffsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'birth_date' => 'required',
+            'sex' => 'required',
+            'phone_number' => 'required',
+            'nationality' => 'required',
+            'job_title' => 'required',
+            'salary' => 'required',
+            'service_year' => 'required',
+            'employment_type' => 'required',
+            'dedication' => 'required',
+            'academic_level' => 'required',
+            'expatriate' => 'nullable',
+            'supportive_staff_rank' => 'required',
+        ]);
+
+        if($request->get('expatriate') == null){
+            $expatriate = 0;
+        }
+        else{
+            $expatriate = 1;
+        }
+
+        $staff = new Staff;
+        $staff->name = $request->input('name');
+        $staff->birth_date = $request->input('birth_date');
+        $staff->sex = $request->input('sex');
+        $staff->phone_number = $request->input('phone_number');
+        $staff->nationality = $request->input('nationality');
+        $staff->job_title = $request->input('job_title');
+        $staff->salary = $request->input('salary');
+        $staff->service_year = $request->input('service_year');
+        $staff->employment_type = $request->input('employment_type');
+        $staff->dedication = $request->input('dedication');
+        $staff->academic_level = $request->input('academic_level');
+        $staff->is_expatriate = $expatriate;
+        $staff->salary = $request->input('salary');
+        $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark'); 
+
+        $supportiveStaff = new SupportiveStaff;
+        $supportiveStaff->staffRank = $request->input('supportive_staff_rank');
+        $supportiveStaff->institution_id = 0;       
+
+        $supportiveStaff->save();
+
+        $supportiveStaff = SupportiveStaff::find($supportiveStaff->id);
+
+        $supportiveStaff->general()->save($staff);
+        
+        return redirect('/staff/supportive');
     }
 
     /**
@@ -47,7 +107,10 @@ class SupportiveStaffsController extends Controller
      */
     public function show($id)
     {
-        return view('staff.supportive.details');
+        $data = array(
+            'staff' => SupportiveStaff::with('general')->find($id)
+        );
+        return view('staff.supportive.details')->with($data);
     }
 
     /**
@@ -58,7 +121,10 @@ class SupportiveStaffsController extends Controller
      */
     public function edit($id)
     {
-        return view('staff.supportive.edit');
+        $data = array(
+            'staff' => SupportiveStaff::with('general')->find($id)
+        );
+        return view('staff.supportive.edit')->with($data);
     }
 
     /**
@@ -70,7 +136,49 @@ class SupportiveStaffsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'birth_date' => 'required',
+            'sex' => 'required',
+            'phone_number' => 'required',
+            'nationality' => 'required',
+            'job_title' => 'required',
+            'salary' => 'required',
+            'service_year' => 'required',
+            'employment_type' => 'required',
+            'dedication' => 'required',
+            'academic_level' => 'required',
+            'expatriate' => 'required',
+            'supportive_staff_rank' => 'required'
+            
+        ]);
+
+        $supportiveStaff = SupportiveStaff::find($id);
+
+        $supportiveStaff->staffRank = $request->input('supportive_staff_rank');
+        $supportiveStaff->institution_id = 0;
+
+        $staff = $supportiveStaff->general;
+        $staff->name = $request->input('name');
+        $staff->birth_date = $request->input('birth_date');
+        $staff->sex = $request->input('sex');
+        $staff->phone_number = $request->input('phone_number');
+        $staff->nationality = $request->input('nationality');
+        $staff->job_title = $request->input('job_title');
+        $staff->salary = $request->input('salary');
+        $staff->service_year = $request->input('service_year');
+        $staff->employment_type = $request->input('employment_type');
+        $staff->dedication = $request->input('dedication');
+        $staff->academic_level = $request->input('academic_level');
+        $staff->is_expatriate = $request->input('expatriate');
+        $staff->salary = $request->input('salary');
+        $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');        
+
+        $supportiveStaff->save();
+
+        $supportiveStaff->general()->save($staff);
+        
+        return redirect('/staff/supportive');
     }
 
     /**
@@ -81,6 +189,10 @@ class SupportiveStaffsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $supportiveStaff = SupportiveStaff::find($id);
+        $staff = $supportiveStaff->general;
+        $supportiveStaff->delete();
+        $staff->delete();
+        return redirect('/staff/supportive');
     }
 }
