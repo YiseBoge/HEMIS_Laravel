@@ -11,8 +11,19 @@ class BudgetDescription extends Model
 
     public $incrementing = false;
 
-    public function institution()
+    public function budget()
     {
-        return $this->hasOne('App\Models\Institution\Institution');
+        return $this->hasMany('App\Models\Institution\Budget');
+    }
+
+    public static function findByBudgetCode($code)
+    {
+        return BudgetDescription::where('budget_code', $code)->get()->first();
+    }
+
+    public function __toString()
+    {
+        return $this->budget_code . ' - ' . $this->description;
     }
 }
+

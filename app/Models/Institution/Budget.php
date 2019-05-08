@@ -13,8 +13,8 @@ class Budget extends Model
 
     public $incrementing = false;
     protected $enumBudgetTypes = [
-        'CAPITAL' => 'capital',
-        'RECURRENT' => 'recurrent',
+        'CAPITAL' => 'Capital Budget',
+        'RECURRENT' => 'Recurrent Budget',
     ];
 
 
@@ -22,6 +22,6 @@ class Budget extends Model
 
     public function budgetDescription()
     {
-        return $this->hasOne('App\Models\Institution\BudgetDescription');
+        return $this->belongsTo('App\Models\Institution\BudgetDescription');
     }
 }

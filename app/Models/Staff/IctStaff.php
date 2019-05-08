@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Staff\Specialization;
+namespace App\Models\Staff;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
-class AdministrativeStaff extends Model
+class IctStaff extends Model
 {
     use Uuids;
     use Enums;
@@ -18,11 +18,16 @@ class AdministrativeStaff extends Model
         'c' => 'challa',
     ];
 
-
-    // Enums //
-
     public function general()
     {
         return $this->morphOne('App\Models\Staff\Staff', 'staffable');
+    }
+
+
+    // Enums //
+
+    public function ictType()
+    {
+        return $this->hasOne('App\Models\Staff\IctStaffType');
     }
 }
