@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Band;
 
 use App\Http\Controllers\Controller;
+use App\Models\Band\BandName;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -18,7 +19,8 @@ class BandNamesController extends Controller
      */
     public function index()
     {
-        //
+        $bands = BandName::all();
+        return view('bands.list')->with('bands', $bands);
     }
 
     /**
@@ -28,7 +30,7 @@ class BandNamesController extends Controller
      */
     public function create()
     {
-        //
+        return view('bands.create');
     }
 
     /**
@@ -39,7 +41,19 @@ class BandNamesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'band_name' => 'required',
+            'band_acronym' => 'required'
+        ]);
+
+        $bandName = new BandName;
+        $bandName->band_name = $request->input('band_name');
+        $bandName->acronym = $request->input('band_acronym');
+        $bandName->save();
+
+        return redirect('/band');
+
+
     }
 
     /**
@@ -50,7 +64,7 @@ class BandNamesController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('bands.details');
     }
 
     /**
@@ -61,7 +75,7 @@ class BandNamesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('bands.edit');
     }
 
     /**
