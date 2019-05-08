@@ -20,7 +20,7 @@ class InstitutionNamesController extends Controller
     public function index()
     {
         $institutions=InstitutionName::all();
-        return view('institutions.list')->with('institutions',$institutions);
+        return view('institutions.institution_name.index')->with('institutions',$institutions);
     }
 
     /**
