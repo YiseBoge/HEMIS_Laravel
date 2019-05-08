@@ -18,29 +18,57 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Adigrat University</td>
-                            <td>AU</td>
-                            <td><a href="#" class="btn btn-sm text-primary" data-toggle="modal" data-target="#editModal">Edit</a></td>
+                      @if(count($institutions)>0)
+                        @foreach($institutions as $institution)
+                          <tr>
+                            <td>{{$institution->institution_name}}</td>
+                            <td>{{$institution->acronym}}</td>
+                            <td><a href="/institution/{{$institution->id}}/edit" class="btn btn-sm text-primary" data-toggle="modal" data-target="#editModal">Edit</a></td>
                             <td><a href="#" class="btn btn-sm text-primary">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td>Addis Ababa University</td>
-                            <td>AAU</td>
-                            <td><a href="#" class="btn btn-sm text-primary" data-toggle="modal" data-target="#editModal">Edit</a></td>
-                            <td><a href="#" class="btn btn-sm text-primary">Delete</a></td>
-                        </tr>
+                          </tr>
+                        @endforeach
+
+                      @endif
                     </tbody>
                 </table>
-                <div class="form-group row mt-4">
-                    <div class="col-md-8">
-                        <input type="text" id="institution_name" name="institution_name" class="form-control"
-                        placeholder="Add New Type">
+
+
+                {!! Form::open(['action'=>'Institution\InstitutionNamesController@store','method'=>'POST'])!!}
+
+                <div class="form-row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+
+                          {{Form::text('institution_name','',['class'=>'form-control','placeholder'=>'Add New Institution'])}}
+
+
+                        </div>
+
                     </div>
+                    <div class="col-md-3 pl-md-5">
+                        <div class="form-group">
+
+                          {{Form::text('institution_acronym','',['class'=>'form-control','placeholder'=>'Acronym'])}}
+
+
+                        </div>
+
+                    </div>
+
                     <div class="col-md-1">
-                        <input type="submit" class="btn btn-outline-primary" value="Add">
+                      <div class="form-group">
+
+                        {{Form::submit('Add',['class'=>'btn btn-outline-primary'])}}
+
+
+                      </div>
+
                     </div>
                 </div>
+
+                {!! Form::close()!!}
+
+
 
             </div>
         </div>
