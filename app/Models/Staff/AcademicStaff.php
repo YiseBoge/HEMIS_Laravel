@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Staff\Specialization;
+namespace App\Models\Staff;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
@@ -29,5 +29,20 @@ class AcademicStaff extends Model
     public function general()
     {
         return $this->morphOne('App\Models\Staff\Staff', 'staffable');
+    }
+
+    public function staffLeave()
+    {
+        return $this->belongsTo('App\Models\Staff\StaffLeave');
+    }
+
+    public function scopeInfo($query)
+    {
+        if($this->staff_leave_id == 0){
+            return $query->with('general');
+        }else{
+            return $query->with('general', 'staffLeave');
+        }
+        
     }
 }

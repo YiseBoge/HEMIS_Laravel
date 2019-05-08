@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Student\Specialization;
+namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ForeignerStudentsController extends Controller
+class DisabledStudentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ForeignerStudentsController extends Controller
      */
     public function index()
     {
-        return view("students.foreigner.list");
+        return view("students.disabled.list");
     }
 
     /**
@@ -25,7 +25,7 @@ class ForeignerStudentsController extends Controller
      */
     public function create()
     {
-        return view("students.foreigner.create");
+        return view("students.disabled.create");
     }
 
     /**
@@ -47,7 +47,7 @@ class ForeignerStudentsController extends Controller
      */
     public function show($id)
     {
-        return view("students.foreigner.details");
+        return view("students.disabled.details");
     }
 
     /**
@@ -58,7 +58,7 @@ class ForeignerStudentsController extends Controller
      */
     public function edit($id)
     {
-        return view("students.foreigner.edit");
+        return view("students.disabled.edit");
     }
 
     /**

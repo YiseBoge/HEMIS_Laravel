@@ -6,9 +6,18 @@
             <div class="col-md-10">
                 <h1 class="font-weight-bold text-primary">Academic Staff</h1>
             </div>
-            <div class="col-md-2 pt-3">
-                <a href="1/edit" class="text-muted mr-3"><i class="far fa-edit"></i> Edit</a>
-                <a href="#" class="text-muted"><i class="far fa-trash-alt"></i> Delete</a>
+            <div class="col-md-1 pt-4">
+                <a href="{{$staff->id}}/edit" class="text-muted mr-3"><i class="far fa-edit"></i> Edit</a>
+                
+            </div>
+            <div class="col-md-1 pt-3 px-0">
+                    <form class="p-0" action="/staff/academic/{{$staff->id}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="form-control form-control-plaintext text-muted p-0">
+                                <i class="far fa-trash-alt"></i> Delete
+                        </button>
+                    </form>
             </div>
         </div>
         
@@ -19,20 +28,20 @@
                         <div class="row">
                             <div class="col-md-4">
                                     <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Name</div>
-                                    <div class="mb-0 text-gray-800">Airi Satou Airi</div>
+                                    <div class="mb-0 text-gray-800">{{$staff->general->name}}</div>
                                     <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Sex</div>
-                                    <div class="mb-0 text-gray-800">Female</div>
+                                    <div class="mb-0 text-gray-800">{{$staff->general->sex}}</div>
                                     
                             </div>
                             <div class="col-md-4">
                                     <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Nationality</div>
-                                    <div class="mb-0 text-gray-800">Indian</div>
+                                    <div class="mb-0 text-gray-800">{{$staff->general->nationality}}</div>
                                     <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Phone Number</div>
-                                    <div class="mb-0 text-gray-800">0000000000</div>
+                                    <div class="mb-0 text-gray-800">{{$staff->general->phone_number}}</div>
                             </div>
                             <div class="col-md-4">
                                     <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Date of Birth</div>
-                                    <div class="mb-0 text-gray-800">1991-04-02</div>
+                                    <div class="mb-0 text-gray-800">{{$staff->general->birth_date}}</div>
                             </div>
                         </div>                 
                     </div>
@@ -48,38 +57,42 @@
                 <div class="row mt-4">
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Job Title</div>
-                        <p>Lecturer</p>
+                        <p>{{$staff->general->job_title}}</p>
                     </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Dedication</div>
-                        <p>Full Time</p>
+                        <p>{{$staff->general->dedication}}</p>
                     </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Employment Type</div>
-                        <p>Employee</p>
+                        <p>{{$staff->general->employment_type}}</p>
                     </div> 
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Status</div>
-                        <p>On Study Leave</p>
+                        <p>On Duty</p>
                     </div>                         
                 </div>  
                 <div class="row mt-4">                       
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Academic Level</div>
-                        <p>phD</p>
+                        <p>{{$staff->general->academic_level}}</p>
                     </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Salary</div>
-                        <p>$162,700</p>
+                        <p>{{$staff->general->salary}}</p>
                     </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Years of Service</div>
-                        <p>5</p>
+                        <p>{{$staff->general->service_year}}</p>
                     </div>
                     <div class="col-md-3">
-                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Rank</div>
-                        <p>Lecturer</p>
-                    </div>
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is Expatriate</div>
+                        @if ($staff->general->is_Expatriate == 0)
+                            <p>No</p>
+                        @else
+                            <p>Yes</p>
+                        @endif                        
+                    </div>                    
                 </div>        
             </div>
         </div>
@@ -88,66 +101,72 @@
                 Academic Staff Information
             </div>
             <div class="card-body">
-                <div class="row mt-4">           
+                <div class="row mt-4"> 
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Rank</div>
+                        <p>{{$staff->staffRank}}</p>
+                    </div>          
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Field of Study</div>
-                        <p>Software Engineering</p>
+                        <p>{{$staff->field_of_study}}</p>
                     </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Teaching Load</div>
-                        <p>10 Credit Hours</p>
+                        <p>{{$staff->teaching_load}}</p>
                     </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Reason for Overload</div>
-                        <p>Shortage of Lecturers</p>
+                        <p>{{$staff->overload_remark}}</p>
                     </div>
                 </div>
             </div>
         </div>
          
-        <div class="card shadow mt-3">
+        @if ($staff->staff_leave_id != 0)            
+            <div class="card shadow mt-3">
                 <div class="card-header text-primary">
-                   Leave Information
+                    Leave Information
                 </div>
                 <div class="card-body">
                     <div class="row mt-4">
                         <div class="col-md-3">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Leave Type</div>
-                            <p>Partial</p>
+                            <p>{{$staff->staffLeave->leave_type}}</p>
                         </div>
                         <div class="col-md-3">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Country</div>
-                            <p>Country</p>
+                            <p>{{$staff->staffLeave->country_of_study}}</p>
                         </div>
                         <div class="col-md-3">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Institution</div>
-                            <p>Institution</p>
+                            <p>{{$staff->staffLeave->institution}}</p>
                         </div>            
                         <div class="col-md-3">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Status</div>
-                            <p>Status</p>
+                            <p>{{$staff->staffLeave->status_of_study}}</p>
                         </div>
                     </div> 
                     <div class="row">
                         <div class="col-md-3">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Rank</div>
-                            <p>Rank</p>
+                            <p>{{$staff->staffLeave->rank_of_study}}</p>
                         </div>
                         <div class="col-md-3">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Scholarship</div>
-                            <p>Government</p>
+                            <p>{{$staff->staffLeave->scholarship_type}}</p>
                         </div>
                     </div>
                 </div>
-        </div>
+            </div>
+        @endif
+       
        
         <div class="card shadow mt-3">
                 <div class="card-header text-primary">
                   Remarks
                 </div>
                 <div class="card-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    <p>{{$staff->general->remarks}}</p>
                 </div>
         </div>      
             
