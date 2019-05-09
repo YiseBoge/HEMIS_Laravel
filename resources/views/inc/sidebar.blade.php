@@ -89,9 +89,20 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link" href="/admin">
-            <i class="fas fa-user-cog"></i>
-            <span>Admin</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
+           aria-controls="collapseAdmin">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span>Admin</span>
+        </a>
+        <div id="collapseAdmin" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Admin Acts:</h6>
+                <a class="collapse-item" href="/institution/institution-name">Institution Names</a>
+                <a class="collapse-item" href="/department/department-name">Department Names</a>
+                <a class="collapse-item" href="/band/band-name">Band Name</a>
+                <a class="collapse-item" href="/institution/budget-description">Budget Description</a>
+            </div>
+        </div>
     </li>
 
     <!-- Divider -->

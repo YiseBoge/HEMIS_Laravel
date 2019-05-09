@@ -51,7 +51,7 @@ class InstitutionNamesController extends Controller
       $institutionName->acronym=$request->input('institution_acronym');
       $institutionName->save();
 
-      return redirect('/institution');
+      return redirect('/institution/institution-name');
     }
 
     /**

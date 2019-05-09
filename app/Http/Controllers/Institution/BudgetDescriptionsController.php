@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Institution\BudgetDescription;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\Institution\BudgetDescription;
 
 class BudgetDescriptionsController extends Controller
 {
@@ -16,7 +17,8 @@ class BudgetDescriptionsController extends Controller
      */
     public function index()
     {
-        //
+        $budgetDescriptions=BudgetDescription::all();
+        return view('institutions.budget_description.index')->with('budgetDescriptions',$budgetDescriptions);
     }
 
     /**

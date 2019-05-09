@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container w-75">
-        <h1 class="font-weight-bold text-primary">Budgets</h1>
+        <h1 class="font-weight-bold text-primary">Bands</h1>
         <div class="card shadow-sm pt-3 mt-3">
             <div class="card-body">
 
@@ -11,33 +11,38 @@
                 style="width: 100%;">
                     <thead class="thead-light">
                         <tr>
-                            <th class="text-primary">Description</th>
-                            <th class="text-primary">Code</th>
+                            <th class="text-primary">Band Name</th>
+                            <th class="text-primary">Acronym</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                      @if(count($budgetDescriptions)>0)
-                        @foreach($budgetDescriptions as $budgetDescription)
+                      @if(count($bands)>0)
+                        @foreach ($bands as $band)
                           <tr>
-                            <td>{{$budgetDescription->description}}</td>
-                            <td>{{$budgetDescription->budget_code}}</td>
+                            <td>{{$band->band_name}}</td>
+                            <td>{{$band->acronym}}</td>
                             <td><a href="#" class="btn btn-sm text-primary" data-toggle="modal" data-target="#editModal">Edit</a></td>
                             <td><a href="#" class="btn btn-sm text-primary">Delete</a></td>
+
                           </tr>
+
+
                         @endforeach
 
                       @endif
+
                     </tbody>
                 </table>
-                {!! Form::open(['action'=>'Institution\BudgetDescriptionsController@store','method'=>'POST'])!!}
+
+                {!! Form::open(['action'=>'Band\BandNamesController@store','method'=>'POST'])!!}
 
                 <div class="form-row">
                     <div class="col-md-5">
                         <div class="form-group">
 
-                          {{Form::text('description','',['class'=>'form-control','placeholder'=>'Add New Budget Description'])}}
+                          {{Form::text('band_name','',['class'=>'form-control','placeholder'=>'Add New Band'])}}
 
 
                         </div>
@@ -46,7 +51,7 @@
                     <div class="col-md-3 pl-md-5">
                         <div class="form-group">
 
-                          {{Form::text('budget_code','',['class'=>'form-control','placeholder'=>'Code'])}}
+                          {{Form::text('band_acronym','',['class'=>'form-control','placeholder'=>'Acronym'])}}
 
 
                         </div>
@@ -67,6 +72,7 @@
                 {!! Form::close()!!}
 
 
+
             </div>
         </div>
 
@@ -83,8 +89,7 @@
             </div>
             <div class="modal-body">
 
-
-                <input class="form-control " id="department_name_edit" type="text" value="Computer Science">
+                <input class="form-control " id="band_name_edit" type="text" value="Engineering & Technology">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">Save changes</button>

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container w-75">
-        <h1 class="font-weight-bold text-primary">Budgets</h1>
+        <h1 class="font-weight-bold text-primary">Departments</h1>
         <div class="card shadow-sm pt-3 mt-3">
             <div class="card-body">
 
@@ -11,19 +11,19 @@
                 style="width: 100%;">
                     <thead class="thead-light">
                         <tr>
-                            <th class="text-primary">Description</th>
-                            <th class="text-primary">Code</th>
+                            <th class="text-primary">Department Name</th>
+                            <th class="text-primary">Acronym</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                      @if(count($budgetDescriptions)>0)
-                        @foreach($budgetDescriptions as $budgetDescription)
+                      @if(count($departments)>0)
+                        @foreach($departments as $department)
                           <tr>
-                            <td>{{$budgetDescription->description}}</td>
-                            <td>{{$budgetDescription->budget_code}}</td>
-                            <td><a href="#" class="btn btn-sm text-primary" data-toggle="modal" data-target="#editModal">Edit</a></td>
+                            <td>{{$department->department_name}}</td>
+                            <td>{{$department->acronym}}</td>
+                            <td><a href="/department/{{$department->id}}/edit" class="btn btn-sm text-primary" data-toggle="modal" data-target="#editModal">Edit</a></td>
                             <td><a href="#" class="btn btn-sm text-primary">Delete</a></td>
                           </tr>
                         @endforeach
@@ -31,13 +31,13 @@
                       @endif
                     </tbody>
                 </table>
-                {!! Form::open(['action'=>'Institution\BudgetDescriptionsController@store','method'=>'POST'])!!}
+                {!! Form::open(['action'=>'Department\DepartmentNamesController@store','method'=>'POST'])!!}
 
                 <div class="form-row">
                     <div class="col-md-5">
                         <div class="form-group">
 
-                          {{Form::text('description','',['class'=>'form-control','placeholder'=>'Add New Budget Description'])}}
+                          {{Form::text('department_name','',['class'=>'form-control','placeholder'=>'Add New Department'])}}
 
 
                         </div>
@@ -46,7 +46,7 @@
                     <div class="col-md-3 pl-md-5">
                         <div class="form-group">
 
-                          {{Form::text('budget_code','',['class'=>'form-control','placeholder'=>'Code'])}}
+                          {{Form::text('department_acronym','',['class'=>'form-control','placeholder'=>'Acronym'])}}
 
 
                         </div>
