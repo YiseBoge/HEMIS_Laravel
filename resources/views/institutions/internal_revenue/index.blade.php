@@ -7,9 +7,8 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col p-3 m-3 text-center">
-                        <a class="btn btn-outline-primary btn-sm mb-0" href="" data-toggle="modal"
-                           data-target="#createModal">Add<i
-                                    class="fas fa-plus ml-2"></i></a>
+                        <a class="btn btn-outline-primary btn-sm mb-0" href="/institution/internal-revenue/create">
+                            Add<i class="fas fa-plus ml-2"></i></a>
                     </div>
                 </div>
                 <div class="row">
@@ -49,8 +48,8 @@
                                     @foreach($data['internal_revenues'] as $internalRevenue)
                                     <tr>
                                         <td class="text-center">
-                                            <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                               data-target="#editModal"><i
+                                            <a href="/institution/internal-revenue/{{ $internalRevenue->id }}/edit"
+                                               class="mr-2 d-inline text-primary"><i
                                                         class="far fa-edit"></i> </a>
                                             <a href="" class="d-inline text-danger" data-toggle="modal"
                                                data-target="#deleteModal"><i class="far fa-trash-alt"></i>
@@ -88,6 +87,7 @@
     </div>
 
 
+    @if ($data['page_name'] == 'institution.internal-revenue.create')
     <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -96,13 +96,13 @@
                 {!! Form::open(['action' => 'Institution\InternalRevenuesController@store', 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Add</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <a href="/institution/internal-revenue" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
-                        </button>
+                        </a>
                     </div>
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
-                            {!! Form::select('revenue_description', \App\Models\Institution\InternalRevenue::getEnum('revenue_description') , null , ['class' => 'form-control', 'id' => 'add_revenue_description']) !!}
+                            {!! Form::select('revenue_description', $data['revenue_descriptions'] , null , ['class' => 'form-control', 'id' => 'add_revenue_description']) !!}
                             {!! Form::label('revenue_description', 'Revenue Description', ['class' => 'form-control-placeholder', 'for' => 'add_revenue_description']) !!}
                         </div>
 
@@ -129,58 +129,52 @@
 
         </div>
     </div>
+    @endif
 
-
+    @if ($data['page_name'] == 'institution.internal-revenue.edit')
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
 
             <div class="modal-content">
-                <form method="post" action="/institution/internal-revenue/update">
-                    <div class="modal-header">
+                {!! Form::open(['action' => ['Institution\InternalRevenuesController@update', $data['internal_revenue']->id], 'method' => 'POST']) !!}
+                <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <a href="/institution/internal-revenue" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
                     </div>
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
-                            <select id="edit_revenue_description" class="form-control">
-                                <option>Farming</option>
-                                <option>Education Programs Tuition Fee</option>
-                                <option>Training and Consultancy</option>
-                                <option>Business Entities*</option>
-                                <option>Funds</option>
-                                <option>Hospital Services</option>
-                                <option>Others/Payable</option>
-                            </select>
-                            <label class="form-control-placeholder" for="edit_revenue_description">Revenue
-                                Description</label>
+                            {!! Form::select('revenue_description', $data['revenue_descriptions'] , $data['revenue_description'] , ['class' => 'form-control', 'id' => 'edit_revenue_description']) !!}
+                            {!! Form::label('revenue_description', 'Revenue Description', ['class' => 'form-control-placeholder', 'for' => 'edit_revenue_description']) !!}
                         </div>
 
-                        <div class="col-md-4 form-group">
-                            <input type="number" id="edit_income" class="form-control" required value="3243">
-                            <label class="form-control-placeholder" for="edit_income">Income</label>
+                        <div class="col-md-6 form-group">
+                            {!! Form::number('income', $data['internal_revenue']->income, ['class' => 'form-control', 'id' => 'edit_income', 'required' => 'true']) !!}
+                            {!! Form::label('income', 'Income', ['class' => 'form-control-placeholder', 'for' => 'edit_income']) !!}
                         </div>
 
-                        <div class="col-md-4 form-group">
-                            <input type="number" id="edit_expense" class="form-control" required value="3243">
-                            <label class="form-control-placeholder" for="edit_expense">Expense</label>
+                        <div class="col-md-6 form-group">
+                            {!! Form::number('expense', $data['internal_revenue']->expense, ['class' => 'form-control', 'id' => 'edit_expense', 'required' => 'true']) !!}
+                            {!! Form::label('expense', 'Expense', ['class' => 'form-control-placeholder', 'for' => 'edit_expense']) !!}
                         </div>
 
-                        <div class="col-md-4 form-group">
-                            <input type="number" id="edit_balance" class="form-control" required value="3243">
-                            <label class="form-control-placeholder" for="edit_balance">Balance</label>
-                        </div>
+                        {{--                        <div class="col-md-4 form-group">--}}
+                        {{--                            {!! Form::number('balance', $data['internal-revenue']->balance, ['class' => 'form-control', 'id' => 'edit_balance', 'required' => 'true']) !!}--}}
+                        {{--                            {!! Form::label('balance', 'Balance', ['class' => 'form-control-placeholder', 'for' => 'edit_balance']) !!}--}}
+                        {{--                        </div>--}}
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        {!! Form::hidden('_method', 'PUT') !!}
+                        {!! Form::submit('Save Changes', ['class' => 'btn btn-primary']) !!}
                     </div>
-                </form>
+                {!! Form::close() !!}
             </div>
 
         </div>
     </div>
+    @endif
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
          aria-hidden="true">

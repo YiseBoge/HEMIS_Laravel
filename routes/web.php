@@ -29,11 +29,9 @@ Route::resource('student/disabled', 'Student\DisabledStudentsController');
 Route::resource('student/foreigner', 'Student\ForeignerStudentsController');
 
 Route::resource('institution', 'Institution\InstitutionNamesController');
-
 Route::resource('band', 'Band\BandNamesController');
-
 Route::resource('department', 'Department\DepartmentNamesController');
-
+Route::resource('staff/ict_staff_types', 'Staff\IctStaffTypesController');
 
 Route::get('/admin', function () {
     return view('admin.index');
@@ -43,8 +41,6 @@ Route::get('/staff_attrition', function () {
     return view('staff.staff_attrition');
 });
 
-Route::resource('staff/ict_staff_types', 'Staff\IctStaffTypesController');
-
 Route::get('/student_attrition', function () {
     return view('students.student_attrition');
 });
@@ -53,5 +49,4 @@ Route::get('/student_attrition', function () {
 
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');

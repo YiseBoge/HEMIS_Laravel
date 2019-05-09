@@ -17,8 +17,10 @@ class InternalRevenuesController extends Controller
      */
     public function index()
     {
-        $data = ['internal_revenues' => InternalRevenue::all()];
-
+        $data = array(
+            'internal_revenues' => InternalRevenue::all(),
+            'page_name' => 'institution.internal-revenue.index'
+        );
         return view('institutions.internal_revenue.index')->with('data', $data);
     }
 
@@ -29,7 +31,15 @@ class InternalRevenuesController extends Controller
      */
     public function create()
     {
-        //
+        $revenueDescriptions = InternalRevenue::getEnum('revenue_description');
+
+        $data = array(
+            'internal_revenues' => InternalRevenue::all(),
+            'revenue_descriptions' => $revenueDescriptions,
+            'page_name' => 'institution.internal-revenue.create'
+        );
+
+        return view('institutions.internal_revenue.index')->with('data', $data);
     }
 
     /**
@@ -80,7 +90,21 @@ class InternalRevenuesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $internalRevenue = InternalRevenue::find($id);
+
+        $revenueDescriptions = InternalRevenue::getEnum('revenue_description');
+        $revenueDescription = InternalRevenue::getValueKey($revenueDescriptions, $internalRevenue->revenue_description);
+
+        $data = array(
+            'internal_revenues' => InternalRevenue::all(),
+            'internal_revenue' => $internalRevenue,
+            'revenue_descriptions' => $revenueDescriptions,
+            'revenue_description' => $revenueDescription,
+            'page_name' => 'institution.internal-revenue.edit'
+        );
+
+
+        return view('institutions.internal_revenue.index')->with('data', $data);
     }
 
     /**
@@ -92,7 +116,22 @@ class InternalRevenuesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'revenue_description' => 'required',
+            'income' => 'required',
+            'expense' => 'required',
+        ]);
+
+
+        $internalRevenue = InternalRevenue::find($id);
+        $internalRevenue->revenue_description = $request->input('revenue_description');
+        $internalRevenue->income = $request->input('income');
+        $internalRevenue->expense = $request->input('expense');
+
+        $internalRevenue->save();
+
+
+        return redirect('/institution/internal-revenue');
     }
 
     /**

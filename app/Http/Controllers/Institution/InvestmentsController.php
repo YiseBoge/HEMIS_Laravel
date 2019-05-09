@@ -17,7 +17,10 @@ class InvestmentsController extends Controller
      */
     public function index()
     {
-        $data = ['investments' => Investment::all()];
+        $data = array(
+            'investments' => Investment::all(),
+            'page_name' => 'institution.investment.index'
+        );
 
         return view('institutions.private_investment.index')->with('data', $data);
     }
@@ -29,7 +32,15 @@ class InvestmentsController extends Controller
      */
     public function create()
     {
-        //
+        $investmentTitles = Investment::getEnum('investment_title');
+
+        $data = array(
+            'investments' => Investment::all(),
+            'investment_titles' => $investmentTitles,
+            'page_name' => 'institution.investment.create'
+        );
+
+        return view('institutions.private_investment.index')->with('data', $data);
     }
 
     /**
@@ -79,7 +90,20 @@ class InvestmentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $investment = Investment::find($id);
+
+        $investmentTitles = Investment::getEnum('investment_title');
+        $investmentTitle = Investment::getValueKey($investmentTitles, $investment->investment_title);
+
+        $data = array(
+            'investments' => Investment::all(),
+            'investment' => $investment,
+            'investment_titles' => $investmentTitles,
+            'investment_title' => $investmentTitle,
+            'page_name' => 'institution.investment.edit'
+        );
+
+        return view('institutions.private_investment.index')->with('data', $data);
     }
 
     /**
@@ -91,7 +115,21 @@ class InvestmentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'investment_title' => 'required',
+            'cost_incurred' => 'required',
+        ]);
+
+
+        $investment = Investment::find($id);
+        $investment->investment_title = $request->input('investment_title');
+        $investment->cost_incurred = $request->input('cost_incurred');
+        $investment->remarks = $request->input('remarks');
+
+        $investment->save();
+
+
+        return redirect('/institution/private-investment');
     }
 
     /**
