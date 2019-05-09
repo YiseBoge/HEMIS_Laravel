@@ -18,7 +18,8 @@ class AdministrativeStaffsController extends Controller
     public function index()
     {
         $data = array(
-            'staffs' => AdministrativeStaff::with('general')->get()
+            'staffs' => AdministrativeStaff::with('general')->get(),
+            'page_name' => 'administrative.list'
         );
         return view('staff.administrative.list')->with($data);
     }
@@ -34,7 +35,8 @@ class AdministrativeStaffsController extends Controller
             'employment_types' => Staff::getEnum("EmploymentTypes"),
             'dedications' => Staff::getEnum("Dedications"),
             'academic_levels' => Staff::getEnum("AcademicLevels"),
-            'staff_ranks' => AdministrativeStaff::getEnum("StaffRanks")
+            'staff_ranks' => AdministrativeStaff::getEnum("StaffRanks"),
+            'page_name' => 'administrative.create'
         );
         return view('staff.administrative.create')->with($data);
     }
@@ -108,7 +110,8 @@ class AdministrativeStaffsController extends Controller
     public function show($id)
     {
         $data = array(
-            'staff' => AdministrativeStaff::with('general')->find($id)
+            'staff' => AdministrativeStaff::with('general')->find($id),
+            'page_name' => 'administrative.details'
         );
         return view('staff.administrative.details')->with($data);
     }
@@ -122,7 +125,8 @@ class AdministrativeStaffsController extends Controller
     public function edit($id)
     {
         $data = array(
-            'staff' => AdministrativeStaff::with('general')->find($id)
+            'staff' => AdministrativeStaff::with('general')->find($id),
+            'page_name' => 'administrative.edit'
         );
         return view('staff.administrative.edit')->with($data);
     }

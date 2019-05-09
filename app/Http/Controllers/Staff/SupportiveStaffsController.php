@@ -18,7 +18,8 @@ class SupportiveStaffsController extends Controller
     public function index()
     {
         $data = array(
-            'staffs' => SupportiveStaff::with('general')->get()
+            'staffs' => SupportiveStaff::with('general')->get(),
+            'page_name' => 'supportive.list'
         );
         return view('staff.supportive.list')->with($data);
     }
@@ -34,7 +35,8 @@ class SupportiveStaffsController extends Controller
             'employment_types' => Staff::getEnum("EmploymentTypes"),
             'dedications' => Staff::getEnum("Dedications"),
             'academic_levels' => Staff::getEnum("AcademicLevels"),
-            'staff_ranks' => SupportiveStaff::getEnum("StaffRanks")
+            'staff_ranks' => SupportiveStaff::getEnum("StaffRanks"),
+            'page_name' => 'supportive.create'
         );
         return view('staff.supportive.create')->with($data);
     }
@@ -108,7 +110,8 @@ class SupportiveStaffsController extends Controller
     public function show($id)
     {
         $data = array(
-            'staff' => SupportiveStaff::with('general')->find($id)
+            'staff' => SupportiveStaff::with('general')->find($id),
+            'page_name' => 'supportive.details'
         );
         return view('staff.supportive.details')->with($data);
     }
@@ -122,7 +125,8 @@ class SupportiveStaffsController extends Controller
     public function edit($id)
     {
         $data = array(
-            'staff' => SupportiveStaff::with('general')->find($id)
+            'staff' => SupportiveStaff::with('general')->find($id),
+            'page_name' => 'supportive.edit'
         );
         return view('staff.supportive.edit')->with($data);
     }

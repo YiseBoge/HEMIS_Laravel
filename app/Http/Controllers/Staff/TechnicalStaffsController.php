@@ -18,7 +18,8 @@ class TechnicalStaffsController extends Controller
     public function index()
     {
         $data = array(
-            'staffs' => TechnicalStaff::with('general')->get()
+            'staffs' => TechnicalStaff::with('general')->get(),
+            'page_name' => 'technical.list'
         );
         return view('staff.technical.list')->with($data);
     }
@@ -34,7 +35,8 @@ class TechnicalStaffsController extends Controller
             'employment_types' => Staff::getEnum("EmploymentTypes"),
             'dedications' => Staff::getEnum("Dedications"),
             'academic_levels' => Staff::getEnum("AcademicLevels"),
-            'staff_ranks' => TechnicalStaff::getEnum("StaffRanks")
+            'staff_ranks' => TechnicalStaff::getEnum("StaffRanks"),
+            'page_name' => 'technical.create'
         );
         return view('staff.technical.create')->with($data);
     }
@@ -109,7 +111,8 @@ class TechnicalStaffsController extends Controller
     public function show($id)
     {
         $data = array(
-            'staff' => TechnicalStaff::with('general')->find($id)
+            'staff' => TechnicalStaff::with('general')->find($id),
+            'page_name' => 'technical.details'
         );
         return view('staff.technical.details')->with($data);
     }
@@ -123,7 +126,8 @@ class TechnicalStaffsController extends Controller
     public function edit($id)
     {
         $data = array(
-            'staff' => TechnicalStaff::with('general')->find($id)
+            'staff' => TechnicalStaff::with('general')->find($id),
+            'page_name' => 'technical.edit'
         );
         return view('staff.technical.edit')->with($data);
     }

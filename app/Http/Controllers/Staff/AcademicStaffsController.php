@@ -19,7 +19,8 @@ class AcademicStaffsController extends Controller
     public function index()
     {
         $data = array(
-            'staffs' => AcademicStaff::with('general')->get()
+            'staffs' => AcademicStaff::with('general')->get(),
+            'page_name' => 'academic.list'
         );
         return view('staff.academic.list')->with($data);
     }
@@ -35,7 +36,8 @@ class AcademicStaffsController extends Controller
             'employment_types' => Staff::getEnum("EmploymentTypes"),
             'dedications' => Staff::getEnum("Dedications"),
             'academic_levels' => Staff::getEnum("AcademicLevels"),
-            'staff_ranks' => AcademicStaff::getEnum("StaffRanks")
+            'staff_ranks' => AcademicStaff::getEnum("StaffRanks"),
+            'page_name' => 'academic.create'
         );
         return view('staff.academic.create')->with($data);
     }
@@ -118,7 +120,8 @@ class AcademicStaffsController extends Controller
     {
         $data = array(
             //'staff' => AcademicStaff::with('general')->find($id)
-            'staff' => AcademicStaff::info()->find($id)
+            'staff' => AcademicStaff::info()->find($id),
+            'page_name' => 'academic.details'
         );
         return view('staff.academic.details')->with($data);
     }
@@ -135,7 +138,8 @@ class AcademicStaffsController extends Controller
             //'staff' => AcademicStaff::with('general')->find($id)
             'staff' => AcademicStaff::info()->find($id),
             'staff_leave_types' => StaffLeave::getEnum('LeaveTypes'),
-            'staff_scholarship_types' => StaffLeave::getEnum('ScholarshipTypes')
+            'staff_scholarship_types' => StaffLeave::getEnum('ScholarshipTypes'),
+            'page_name' => 'academic.edit'
         );
         return view('staff.academic.edit')->with($data);
     }

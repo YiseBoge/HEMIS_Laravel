@@ -19,6 +19,6 @@ class Student extends Model
 
     public function studentService()
     {
-        return $this->hasOne('App\Models\Student\StudentService');
+        return $this->belongsTo('App\Models\Student\StudentService');
     }
 }

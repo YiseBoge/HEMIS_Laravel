@@ -14,7 +14,7 @@
             <h3 class="font-weight-bold text-primary">Add Supportive Staff Member</h3>
             <div class="row my-5">
                 <div class="col-md-5">
-                    <fieldset class="card shadow" style="height: 370px;">
+                    <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
                                 Personal Information
                         </div>
@@ -65,7 +65,7 @@
                     </fieldset>
                 </div>
                 <div class="col-md-7">
-                    <fieldset class="card shadow mt-md-0 mt-5" style="height: 370px;">
+                    <fieldset class="card shadow mt-md-0 mt-5 h-100">
                         <div class="card-header text-primary">
                                 Employment Information
                         </div>
