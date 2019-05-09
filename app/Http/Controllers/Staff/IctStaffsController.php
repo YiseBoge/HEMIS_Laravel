@@ -18,7 +18,8 @@ class IctStaffsController extends Controller
     public function index()
     {
         $data = array(
-            'staffs' => IctStaff::with('general')->get()
+            'staffs' => IctStaff::with('general')->get(),
+            'page_name' => 'ict.list'
         );
         return view('staff.ict.list')->with($data);
     }
@@ -34,7 +35,8 @@ class IctStaffsController extends Controller
             'employment_types' => Staff::getEnum("EmploymentTypes"),
             'dedications' => Staff::getEnum("Dedications"),
             'academic_levels' => Staff::getEnum("AcademicLevels"),
-            'staff_ranks' => IctStaff::getEnum("StaffRanks")
+            'staff_ranks' => IctStaff::getEnum("StaffRanks"),
+            'page_name' => 'ict.create'
         );
         return view('staff.ict.create')->with($data);
     }
@@ -59,7 +61,8 @@ class IctStaffsController extends Controller
     public function show($id)
     {
         $data = array(
-            'staff' => IctStaff::with('general')->find($id)
+            'staff' => IctStaff::with('general')->find($id),
+            'page_name' => 'ict.details'
         );
         return view('staff.ict.details')->with($data);
     }
@@ -73,7 +76,9 @@ class IctStaffsController extends Controller
     public function edit($id)
     {
         $data = array(
-            'staff' => IctStaff::with('general')->find($id)
+            'staff' => IctStaff::with('general')->find($id),
+            'page_name' => 'ict.edit'
+            
         );
         return view('staff.ict.edit')->with($data);
     }

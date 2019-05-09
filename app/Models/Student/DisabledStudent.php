@@ -26,4 +26,15 @@ class DisabledStudent extends Model
     {
         return $this->morphOne('App\Models\Student\Student', 'studentable');
     }
+
+    public function department()
+    {
+        return $this->belongsTo('App\Models\Department\Department');
+    }
+
+    public function scopeInfo($query)
+    {
+        return $query->with('general.studentService.dormitoryService', 'department.departmentName', 'department.band.bandName');
+
+    }
 }

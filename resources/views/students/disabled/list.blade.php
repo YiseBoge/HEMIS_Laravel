@@ -10,22 +10,7 @@
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">
-                            <div class="col-sm-12 col-md-5">
-                                <div class="dataTables_length" id="dataTable_length"><label>Show <select
-                                            name="dataTable_length" aria-controls="dataTable"
-                                            class="custom-select custom-select-sm form-control form-control-sm">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select> entries</label></div>
-                            </div>
-                            <div class="col-sm-12 col-md-5">
-                                <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input
-                                            type="search" class="form-control form-control-sm" placeholder=""
-                                            aria-controls="dataTable"></label></div>
-                            </div>
-                            <div class="col-sm-12 col-md-2 text-right">
+                            <div class="col text-right">
                                 <a class="btn btn-outline-primary btn-sm mb-0" href="disabled/create">Add Student<i
                                     class="fas fa-arrow-right ml-2"></i></a>
                             </div>
@@ -37,6 +22,7 @@
                                         style="width: 100%;">
                                     <thead>
                                     <tr role="row">
+                                        <th width="75"></th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                             rowspan="1" colspan="1" aria-sort="ascending"
                                             aria-label="Name: activate to sort column descending"
@@ -57,11 +43,15 @@
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Phone Number
+                                            style="width: 91px;">Band
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Student Service
+                                            style="width: 91px;">Department
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                            colspan="1" aria-label="Salary: activate to sort column ascending"
+                                            style="width: 91px;">Education Level
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Salary: activate to sort column ascending"
@@ -70,73 +60,40 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr role="row" class="odd" onclick="window.location='disabled/details'">
-                                        <td style="width: 15%;">Jhon The Ripper</td>
-                                        <td>JTR/1212/99</td>
-                                        <td>Male</td>
-                                        <td>1996-02-04</td>
-                                        <td>+1254999999</td>
-                                        <td>In Cash</td>
-                                        <td>Visually Impared</td>
-                                    </tr>
-                                    <tr role="row" class="even">
-                                        <td style="width: 15%;">Jhon The Ripper</td>
-                                        <td>JTR/1212/99</td>
-                                        <td>Male</td>
-                                        <td>1996-02-04</td>
-                                        <td>+1254999999</td>
-                                        <td>In Cash</td>
-                                        <td>Visually Impared</td>
-                                        </tr>
-             
+                                        @if (count($students) > 0)
+                                            @foreach ($students as $student)
+                                                <tr role="row" class="odd" onclick="window.location='disabled/{{$student->id}}'">
+                                                    <td class="pl-4">
+                                                        <div class="row">
+                                                            <div class="col pt-1">
+                                                                <a href="disabled/{{$student->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> </a>
+                                                            </div>
+                                                            <div class="col">
+                                                                <form class="p-0" action="/student/disabled/{{$student->id}}" method="POST">
+                                                                    @csrf
+                                                                    <input type="hidden" name="_method" value="DELETE">
+                                                                    <button type="submit" class="form-control form-control-plaintext text-danger p-0">
+                                                                            <i class="far fa-trash-alt"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </td>  
+                                                    <td>{{$student->general->name}}</td>
+                                                    <td>{{$student->general->student_id}}</td>
+                                                    <td>{{$student->general->sex}}</td>
+                                                    <td>{{$student->general->birth_date}}</td>
+                                                    <td>{{$student->department->band->bandName->band_name}}</td>
+                                                    <td>{{$student->department->departmentName->department_name}}</td>
+                                                    <td>{{$student->department->band->education_level}}</td>
+                                                    <td>{{$student->disability}}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                    
+                                   
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-5">
-                                <div class="dataTables_info " id="dataTable_info" role="status"
-                                        aria-live="polite">Showing 1 to 10 of 57 entries
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                    <ul class="pagination">
-                                        <li class="paginate_button page-item previous disabled"
-                                            id="dataTable_previous"><a href="#" aria-controls="dataTable"
-                                                                        data-dt-idx="0" tabindex="0"
-                                                                        class="page-link">Previous</a></li>
-                                        <li class="paginate_button page-item active"><a href="#"
-                                                                                        aria-controls="dataTable"
-                                                                                        data-dt-idx="1"
-                                                                                        tabindex="0"
-                                                                                        class="page-link">1</a>
-                                        </li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                    aria-controls="dataTable"
-                                                                                    data-dt-idx="2" tabindex="0"
-                                                                                    class="page-link">2</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                    aria-controls="dataTable"
-                                                                                    data-dt-idx="3" tabindex="0"
-                                                                                    class="page-link">3</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                    aria-controls="dataTable"
-                                                                                    data-dt-idx="4" tabindex="0"
-                                                                                    class="page-link">4</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                    aria-controls="dataTable"
-                                                                                    data-dt-idx="5" tabindex="0"
-                                                                                    class="page-link">5</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                    aria-controls="dataTable"
-                                                                                    data-dt-idx="6" tabindex="0"
-                                                                                    class="page-link">6</a></li>
-                                        <li class="paginate_button page-item next" id="dataTable_next"><a
-                                                href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0"
-                                                class="page-link">Next</a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>

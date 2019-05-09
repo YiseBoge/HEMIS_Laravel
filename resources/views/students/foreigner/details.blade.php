@@ -6,101 +6,148 @@
             <div class="col-md-9">
                 <h1 class="font-weight-bold text-primary">Foreigner Student</h1>
             </div>
-            <div class="col-md-3 pt-3">
-                <a href="1/edit" class="text-muted mr-3"><i class="far fa-edit"></i> Edit</a>
-                <a href="#" class="text-muted"><i class="far fa-trash-alt"></i> Delete</a>
-            </div>
+            <div class="col-md-2 pt-4">
+                    <a href="{{$student->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> Edit</a>
+                    <a href="" class="d-inline text-danger" data-toggle="modal"
+                        data-target="#deleteModal"><i class="far fa-trash-alt"></i> Delete
+                    </a>
+                </div>
         </div>
         
         <div class="row my-3">
-            <div class="col-md-11">
-                <div class="card border-left-primary shadow-sm h-100 py-2">
+            <div class="col">
+                <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
                                     <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Name</div>
-                                    <input type="text" value="Airi Satou Airi" class="form-control form-control-plaintext">                                    
+                                    <div class="mb-0 text-gray-800">{{$student->general->name}}</div>                                   
                                     
                             </div>
                             <div class="col-md-4">
                                     <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Sex</div>
-                                    <div class="mb-0 text-gray-800">Female</div>
+                                    <div class="mb-0 text-gray-800">{{$student->general->sex}}</div>
                             </div>
                             <div class="col-md-4">
                                     <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Date of Birth</div>
-                                    <div class="mb-0 text-gray-800">1996-02-04</div>
+                                <div class="mb-0 text-gray-800">{{$student->general->birth_date}}</div>
                             </div>
-                        </div>
+                        </div>   
                         <div class="row mt-3">
                             <div class="col-md-4">
                                 <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Student ID</div>
-                                <div  class="mb-0 text-gray-800">JTR/1212/99</div>
+                                <div  class="mb-0 text-gray-800">{{$student->general->student_id}}</div>
                             </div>
                             <div class="col-md-4">
                                 <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Phone Number</div>
-                                <div  class="mb-0 text-gray-800">0000000000</div>
+                                <div  class="mb-0 text-gray-800">{{$student->general->phone_number}}</div>
                             </div>
-                        </div>                   
+                        </div>              
                     </div>
                 </div>
             </div>
         </div>
- 
-        <div class="row mt-4">
-            <div class="col-md-3">
-                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Band</div>
-                <p>Engineering and Technology</p>
+
+        <div class="card shadow mt-3">
+            <div class="card-header text-primary">
+                Student Information
             </div>
-            <div class="col-md-3">
-                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Department</div>
-                <p>Civil, Construction & Transport engineering</p>
+            <div class="card-body">
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Band</div>
+                        <p>{{$student->department->band->bandName->band_name}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Department</div>
+                        <p>{{$student->department->departmentName->department_name}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Program</div>
+                        <p>{{$student->department->band->education_program}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Education Level</div>
+                        <p>{{$student->department->band->education_level}}</p>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Year Level</div>
+                        <p>{{$student->department->year_level}}</p>
+                    </div>   
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Nationality</div>
+                        <p>{{$student->nationality}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Years in Ethiopia</div>
+                        <p>{{$student->years_in_ethiopia}}</p>
+                    </div>   
+                </div>
             </div>
-            <div class="col-md-3">
-                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Program</div>
-                <p>Daytime</p>
+        </div>
+         
+        <div class="card shadow mt-3">
+            <div class="card-header text-primary">
+                Student Service  Information
             </div>
-            <div class="col-md-3">
-                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Education Level</div>
-                <p>Undergraduate</p>
-            </div>                                           
-        </div>    
-        <div class="row mt-4">
-            <div class="col-md-3">
-                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Year Level</div>
-                <p>2</p>
-            </div>   
-            <div class="col-md-3">
-                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Nationality</div>
-                <p>Natioinality</p>
+            <div class="card-body">
+                <div class="row mt-4">                       
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Food Service</div>
+                        <p>{{$student->general->studentService->food_service_type}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Dormitory Service</div>
+                        <p>{{$student->general->studentService->dormitoryService->dormitory_service_type}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Block Number</div>
+                        <p>{{$student->general->studentService->dormitoryService->block}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Room Number</div>
+                        <p>{{$student->general->studentService->dormitoryService->room_no}}</p>
+                    </div>
+                </div> 
             </div>
-            <div class="col-md-3">
-                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Years in Ethiopia</div>
-                <p>3</p>
-            </div>    
-        </div>    
-        <div class="text-lg font-weight-bold text-gray-900 text-uppercase mt-4">Student Service Information</div>
-        <div class="row mt-4">                       
-            <div class="col-md-3">
-                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Food Service</div>
-                <p>In Cash</p>
+        </div>
+        
+        <div class="card shadow mt-3">
+            <div class="card-header text-primary">
+                Remarks
             </div>
-            <div class="col-md-3">
-                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Dormitory Service</div>
-                <p>In Kind</p>
+            <div class="card-body"> 
+                 <p>{{$student->general->remarks}}</p>
             </div>
-            <div class="col-md-3">
-                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Block Number</div>
-                <p>5</p>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+            aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure you wish to delete?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="/student/foreigner/{{$student->id}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="form-control btn btn-danger">
+                                <i class="far fa-trash-alt"></i> Delete
+                        </button>
+                    </form>
+
+                </div>
             </div>
-            <div class="col-md-3">
-                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Room Number</div>
-                <p>305</p>
-            </div>
-        </div> 
-        <div class="text-sm font-weight-bold text-gray-900 text-uppercase my-2">Remarks</div>  
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>        
-            
+        </div>
     </div>
     
 @endsection
