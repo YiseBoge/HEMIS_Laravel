@@ -94,7 +94,6 @@ class AcademicStaffsController extends Controller
         $academicStaff->teaching_load = $request->input('teaching_load');
         $academicStaff->overload_remark = $request->input('overload_remark');
         $academicStaff->staffRank = $request->input('academic_staff_rank');
-        $academicStaff->field_of_study = $request->input('field_of_study');
         $academicStaff->staff_leave_id = 0;
         $academicStaff->institution_id = 0;
         $academicStaff->overload_remark = $request->input('overload_remark') == null ? " " : $request->input('overload_remark');
@@ -207,7 +206,6 @@ class AcademicStaffsController extends Controller
         $academicStaff->teaching_load = $request->input('teaching_load');
         $academicStaff->overload_remark = $request->input('overload_remark');
         $academicStaff->staffRank = $request->input('academic_staff_rank');
-        $academicStaff->field_of_study = $request->input('field_of_study');
         $academicStaff->institution_id = 0;
         $academicStaff->overload_remark = $request->input('overload_remark') == null ? " " : $request->input('overload_remark');
 
