@@ -20,7 +20,7 @@ class DepartmentNamesController extends Controller
     public function index()
     {
         $departments= DepartmentName::all();
-        return view('departments.list')->with('departments',$departments);
+        return view('departments.department_name.list')->with('departments',$departments);
     }
 
     /**

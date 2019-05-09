@@ -20,7 +20,7 @@ class InstitutionNamesController extends Controller
     public function index()
     {
         $institutions=InstitutionName::all();
-        return view('institutions.list')->with('institutions',$institutions);
+        return view('institutions.institution_name.index')->with('institutions',$institutions);
     }
 
     /**
@@ -51,7 +51,7 @@ class InstitutionNamesController extends Controller
       $institutionName->acronym=$request->input('institution_acronym');
       $institutionName->save();
 
-      return redirect('/institution');
+      return redirect('/institution/institution-name');
     }
 
     /**

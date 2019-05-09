@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::resource('institution/budget', 'Institution\BudgetsController');
+Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
 Route::resource('institution/internal-revenue', 'Institution\InternalRevenuesController');
 Route::resource('institution/private-investment', 'Institution\InvestmentsController');
 
@@ -28,11 +29,13 @@ Route::resource('staff/supportive', 'Staff\Specialization\SupportiveStaffsContro
 Route::resource('student/disabled', 'Student\Specialization\DisabledStudentsController');
 Route::resource('student/foreigner', 'Student\Specialization\ForeignerStudentsController');
 
-Route::resource('institution','Institution\InstitutionNamesController');
+Route::resource('institution/institution-name','Institution\InstitutionNamesController');
 
-Route::resource('band','Band\BandNamesController');
+Route::resource('band/band-name','Band\BandNamesController');
 
-Route::resource('department','Department\DepartmentNamesController');
+Route::resource('department/department-name','Department\DepartmentNamesController');
+
+//Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
 
 
 Route::get('/admin', function () {

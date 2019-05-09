@@ -20,7 +20,7 @@ class BandNamesController extends Controller
     public function index()
     {
         $bands= BandName::all();
-        return view('bands.list')->with('bands',$bands);
+        return view('bands.band_name.list')->with('bands',$bands);
     }
 
     /**
@@ -51,7 +51,7 @@ class BandNamesController extends Controller
         $bandName->acronym=$request->input('band_acronym');
         $bandName->save();
 
-        return redirect('/band');
+        return redirect('/band/band-name');
 
 
     }
