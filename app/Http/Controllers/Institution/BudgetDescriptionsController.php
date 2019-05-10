@@ -17,7 +17,8 @@ class BudgetDescriptionsController extends Controller
     public function index()
     {
         $budgetDescriptions=BudgetDescription::all();
-        return view('institutions.budget_description.index')->with('budgetDescriptions',$budgetDescriptions);
+        $data= ['budgetDescriptions'=>$budgetDescriptions,'page_name'=>'budget.description.index'];
+        return view('institutions.budget_description.index')->with('data',$data);
     }
 
     /**
