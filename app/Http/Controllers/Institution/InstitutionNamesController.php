@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Institution;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\Institution\InstitutionName;
 
 /**
  * A class for the Admin to manage all allowable Institution Names
@@ -18,7 +19,8 @@ class InstitutionNamesController extends Controller
      */
     public function index()
     {
-        return view('institutions.list');
+        $institutions=InstitutionName::all();
+        return view('institutions.institution_name.index')->with('institutions',$institutions);
     }
 
     /**
@@ -39,7 +41,17 @@ class InstitutionNamesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request,[
+        'institution_name'=>'required',
+        'institution_acronym'=>'required'
+      ]);
+
+      $institutionName= new InstitutionName;
+      $institutionName->institution_name=$request->input('institution_name');
+      $institutionName->acronym=$request->input('institution_acronym');
+      $institutionName->save();
+
+      return redirect('/institution/institution-name');
     }
 
     /**

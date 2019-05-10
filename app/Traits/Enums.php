@@ -116,4 +116,16 @@ trait Enums
     {
         return static::getEnum($field)[$key];
     }
+
+    protected function getValueKey(array $array, $string)
+    {
+        $result = null;
+
+        foreach ($array as $key => $value) {
+            if ($string == $value) {
+                $result = $key;
+            }
+        }
+        return $result;
+    }
 }

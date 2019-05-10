@@ -7,9 +7,8 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col p-3 m-3 text-center">
-                        <a class="btn btn-outline-primary btn-sm mb-0" href="" data-toggle="modal"
-                           data-target="#createModal">Add<i
-                                    class="fas fa-plus ml-2"></i></a>
+                        <a class="btn btn-outline-primary btn-sm mb-0" href="/institution/private-investment/create">
+                            Add<i class="fas fa-plus ml-2"></i></a>
                     </div>
                 </div>
                 <div class="row">
@@ -43,114 +42,36 @@
                                             </th>
                                         </tr>
                                         </thead>
-                                        <tbody>
 
+                                        <tbody>
+                                        @foreach($data['investments'] as $investment)
                                         <tr>
                                             <td class="text-center">
-                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                                   data-target="#editModal"><i
+                                                <a href="/institution/private-investment/{{ $investment->id }}/edit"
+                                                   class="mr-2 d-inline text-primary"><i
                                                             class="far fa-edit"></i> </a>
                                                 <a href="" class="d-inline text-danger" data-toggle="modal"
                                                    data-target="#deleteModal"><i class="far fa-trash-alt"></i>
                                                 </a>
                                             </td>
-                                            <td>Buildings</td>
-                                            <td>1000000</td>
-                                            <td>Remaks Go here</td>
+                                            <td>{{ $investment->investment_title }}</td>
+                                            <td>{{ $investment->cost_incurred }}</td>
+                                            <td>{{ $investment->remarks }}</td>
                                         </tr>
-                                        <tr>
+                                        @endforeach
+                                        </tbody>
+
+
+                                        <tfoot>
+                                        <tr class="font-weight-bolder font-italic text-lg">
                                             <td class="text-center">
-                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                                   data-target="#editModal"><i
-                                                            class="far fa-edit"></i> </a>
-                                                <a href="" class="d-inline text-danger" data-toggle="modal"
-                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                                </a>
-                                            </td>
-                                            <td>Vehicles</td>
-                                            <td>1000000</td>
-                                            <td>Remaks Go here</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">
-                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                                   data-target="#editModal"><i
-                                                            class="far fa-edit"></i> </a>
-                                                <a href="" class="d-inline text-danger" data-toggle="modal"
-                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                                </a>
-                                            </td>
-                                            <td>Equipments</td>
-                                            <td>1000000</td>
-                                            <td>Remaks Go here</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">
-                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                                   data-target="#editModal"><i
-                                                            class="far fa-edit"></i> </a>
-                                                <a href="" class="d-inline text-danger" data-toggle="modal"
-                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                                </a>
-                                            </td>
-                                            <td>Furnitures</td>
-                                            <td>1000000</td>
-                                            <td>Remaks Go here</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">
-                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                                   data-target="#editModal"><i
-                                                            class="far fa-edit"></i> </a>
-                                                <a href="" class="d-inline text-danger" data-toggle="modal"
-                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                                </a>
-                                            </td>
-                                            <td>Machines and Paints</td>
-                                            <td>1000000</td>
-                                            <td>Remaks Go here</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">
-                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                                   data-target="#editModal"><i
-                                                            class="far fa-edit"></i> </a>
-                                                <a href="" class="d-inline text-danger" data-toggle="modal"
-                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                                </a>
-                                            </td>
-                                            <td>Educational Materials</td>
-                                            <td>1000000</td>
-                                            <td>Remaks Go here</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">
-                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                                   data-target="#editModal"><i
-                                                            class="far fa-edit"></i> </a>
-                                                <a href="" class="d-inline text-danger" data-toggle="modal"
-                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                                </a>
-                                            </td>
-                                            <td>Others</td>
-                                            <td>1000000</td>
-                                            <td>Remaks Go here</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">
-                                                <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                                   data-target="#editModal"><i
-                                                            class="far fa-edit"></i> </a>
-                                                <a href="" class="d-inline text-danger" data-toggle="modal"
-                                                   data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                                </a>
+
                                             </td>
                                             <td>Total</td>
-                                            <td>1000000</td>
-                                            <td>Remarks Go here</td>
+                                            <td>sum of cost incured</td>
+                                            <td></td>
                                         </tr>
-
-                                        </tbody>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -163,100 +84,85 @@
 
     </div>
 
-
+    @if ($data['page_name'] == 'institution.investment.create')
     <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
 
             <div class="modal-content">
-                <form method="post" action="/institution/private-investment/store">
+                {!! Form::open(['action' => 'Institution\InvestmentsController@store', 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="createTitle">Add</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <a href="/institution/private-investment" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
-                        </button>
+                        </a>
                     </div>
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
-                            <select id="add_investment_title" class="form-control">
-                                <option>Buildings</option>
-                                <option>Vehicles</option>
-                                <option>Equipments</option>
-                                <option>Furnitures</option>
-                                <option>Machinaries and Plants</option>
-                                <option>ducational Materials</option>
-                                <option>Others</option>
-                            </select>
-                            <label class="form-control-placeholder" for="add_investment_title">Investment Title</label>
+                            {!! Form::select('investment_title', $data['investment_titles'] , null , ['class' => 'form-control', 'id' => 'add_investment_title']) !!}
+                            {!! Form::label('investment_title', 'Investment Title', ['class' => 'form-control-placeholder', 'for' => 'add_investment_title']) !!}
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            <input type="number" id="add_cost_incurred" class="form-control" required value="3243">
-                            <label class="form-control-placeholder" for="add_cost_incurred">Cost Incured</label>
+                            {!! Form::number('cost_incurred', null, ['class' => 'form-control', 'id' => 'add_cost_incurred', 'required' => 'true']) !!}
+                            {!! Form::label('cost_incurred', 'Cost Incured', ['class' => 'form-control-placeholder', 'for' => 'add_cost_incurred']) !!}
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            <textarea type="number" id="add_remarks" class="form-control">
-                            </textarea>
-                            <label class="form-control-placeholder" for="add_remarks">Remaks</label>
+                            {!! Form::textarea('remarks', '', ['class' => 'form-control', 'id' => 'add_remarks']) !!}
+                            {!! Form::label('remarks', 'Remarks', ['class' => 'form-control-placeholder', 'for' => 'add_remarks']) !!}
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                     </div>
-                </form>
+                {!! Form::close() !!}
             </div>
 
         </div>
     </div>
+    @endif
 
-
+    @if ($data['page_name'] == 'institution.investment.edit')
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
 
             <div class="modal-content">
-                <form method="post" action="/institution/private-investment/update">
+                {!! Form::open(['action' => ['Institution\InvestmentsController@update', $data['investment']->id], 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <a href="/institution/private-investment" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
-                        </button>
+                        </a>
                     </div>
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
-                            <select id="edit_investment_title" class="form-control">
-                                <option>Buildings</option>
-                                <option>Vehicles</option>
-                                <option>Equipments</option>
-                                <option>Furnitures</option>
-                                <option>Machinaries and Plants</option>
-                                <option>ducational Materials</option>
-                                <option>Others</option>
-                            </select>
-                            <label class="form-control-placeholder" for="edit_investment_title">Investment Title</label>
+                            {!! Form::select('investment_title', $data['investment_titles'] , $data['investment_title'] , ['class' => 'form-control', 'id' => 'edit_investment_title']) !!}
+                            {!! Form::label('investment_title', 'Investment Title', ['class' => 'form-control-placeholder', 'for' => 'edit_investment_title']) !!}
+
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            <input type="number" id="edit_cost_incurred" class="form-control" required value="3243">
-                            <label class="form-control-placeholder" for="edit_cost_incurred">Cost Incured</label>
+                            {!! Form::number('cost_incurred', $data['investment']->cost_incurred, ['class' => 'form-control', 'id' => 'edit_cost_incurred', 'required' => 'true']) !!}
+                            {!! Form::label('cost_incurred', 'Cost Incured', ['class' => 'form-control-placeholder', 'for' => 'edit_cost_incurred']) !!}
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            <textarea type="number" id="edit_remarks" class="form-control"
-                            >Remarks example value
-                            </textarea>
-                            <label class="form-control-placeholder" for="edit_remarks">Remaks</label>
+                            {!! Form::textarea('remarks', $data['investment']->remarks, ['class' => 'form-control', 'id' => 'edit_remarks']) !!}
+                            {!! Form::label('remarks', 'Remarks', ['class' => 'form-control-placeholder', 'for' => 'edit_remarks']) !!}
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        {!! Form::hidden('_method', 'PUT') !!}
+                        {!! Form::submit('Save Changes', ['class' => 'btn btn-primary']) !!}
                     </div>
-                </form>
+                {!! Form::close() !!}
             </div>
 
         </div>
     </div>
+    @endif
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
          aria-hidden="true">

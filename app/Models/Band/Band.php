@@ -28,7 +28,7 @@ class Band extends Model
 
     public function bandName()
     {
-        return $this->hasOne('App\Models\Band\BandName');
+        return $this->belongsTo('App\Models\Band\BandName');
     }
 
     public function departments()

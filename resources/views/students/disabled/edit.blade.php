@@ -1,198 +1,280 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-    <!--  Disabled Students Form  -->
-        <form action="" class="col-12">
-            <h3 class="font-weight-bold text-primary">Add Disabled Student</h3>
-            <hr>
-            <fieldset class="jumbotron shadow py-4">
-                <legend class="text-primary">Personal Information</legend>
-                <div class="form-row">
-                    <div class="col-md form-group">
-                        <input type="text" id="personal_name" class="form-control" required>
-                        <label class="form-control-placeholder" for="personal_name">Personal Name</label>
-                    </div>
-                    <div class="col-md form-group">
-                        <input type="text" id="father_name" class="form-control" required>
-                        <label class="form-control-placeholder" for="father_name">Father's Name</label>
-                    </div>
-                    <div class="col-md form-group">
-                        <input type="text" id="grand_father_name" class="form-control" required>
-                        <label class="form-control-placeholder" for="grand_father_name">Grand Father's Name</label>
-                    </div>
-                </div>
-                <hr>
-                <div class="form-row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="bdate">
-                                Date of Birth
-                            </label>
-                            <input class="form-control" id="bdate" type="date" placeholder="2011-08-19">
-                        </div>                       
-                        <hr>
-                        <div class="form-group">
-                            <input type="text" id="student_id" class="form-control" required>
-                            <label class="form-control-placeholder" for="student_id">Student ID</label>
-                        </div>
-                        
-                    </div>
-                    
-                    <div class="col-md-6 pl-md-5">
-                        <div class="form-group">
-                            <label class="ml-2">
-                                Sex
-                            </label>
-                            <div>
-                                <label class="radio-inline"><input class="d-inline-block m-2 form-check-inline"
-                                                                    type="radio"
-                                                                    name="sex" value="Male">Male</label>
-                                <label class="radio-inline"><input class="d-inline-block m-2 form-check-inline"
-                                                                    type="radio"
-                                                                    name="sex" value="Female">Female</label>
+    <div class="container mb-5">
+        @if(count($errors) > 0)
+        @foreach($errors->all() as $error)
+            <div class="alert alert-danger">
+                {{$error}}
+            </div>
+        @endforeach
+        @endif
+        <form action="/student/disabled/{{$student->id}}" method="POST">
+        @csrf
+        <input type="hidden" name="_method" value="PUT">
+
+        <div class="row">
+            <div class="col-md-10">
+                <h1 class="font-weight-bold text-primary">Disabled Student</h1>
+            </div>
+            <div class="col-md-2 pt-3">
+                    <button type="submit" class="form-control form-control-plaintext text-primary">
+                            <i class="far fa-save mr-2"></i></i> Save
+                    </button>
+                </div> 
+            </div>
+        
+        <div class="row my-3">
+            <div class="col">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Name</div>
+                                <div class="input-group mb-3"> 
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                                    </div>                                      
+                                    <input type="text" class="form-control form-control-plaintext" name="name" value="{{$student->general->name}}">
+                                    
+                                </div>                                   
+                                    
                             </div>
-                        </div>                        
-                        <hr>
-                        <div class="form-group">
-                            <input type="text" id="phoneno" class="form-control" required>
-                            <label class="form-control-placeholder" for="phoneno">Phone Number</label>
+                            <div class="col-md-4">
+                                <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Sex</div>
+                                <div class="input-group mb-3"> 
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                                    </div>                                      
+                                    <input type="text" class="form-control form-control-plaintext" name="sex" value="{{$student->general->sex}}">
+                                </div> 
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Date of Birth</div>
+                                <div class="input-group mb-3"> 
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                                    </div>                                      
+                                    <input type="text" class="form-control form-control-plaintext" name="birth_date" value="{{$student->general->birth_date}}">
+                                </div> 
+                            </div>
+                        </div>   
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Student ID</div>
+                                <div class="input-group mb-3"> 
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                                    </div>                                      
+                                    <input type="text" class="form-control form-control-plaintext" name="student_id" value="{{$student->general->student_id}}">
+                                    
+                                </div> 
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Phone Number</div>
+                                <div class="input-group mb-3"> 
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                                    </div>                                      
+                                    <input type="text" class="form-control form-control-plaintext" name="phone_number" value="{{$student->general->phone_number}}">
+                                    
+                                </div> 
+                            </div>
+                        </div>              
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mt-3">
+            <div class="card-header text-primary">
+                Student Information
+            </div>
+            <div class="card-body">
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Band</div>
+                        <div class="input-group mb-3"> 
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <select class="form-control form-control-plaintext" name="band">
+                            @foreach ($bands as $band)
+                                @if ($band->band_name == $student->department->band->bandName->band_name)
+                                    <option selected value="{{$band->band_name}}">{{$band->band_name}}</option>
+                                @else
+                                    <option value="{{$band->band_name}}">{{$band->band_name}}</option>
+                                @endif
+                            @endforeach
+                            </select>
                         </div>
-                        
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Department</div>
+                        <div class="input-group mb-3"> 
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <select class="form-control form-control-plaintext" name="department">
+                            @foreach ($departments as $department)
+                                @if ($department->department_name == $student->department->departmentName->department_name)
+                                    <option selected value="{{$department->department_name}}">{{$department->department_name}}</option>
+                                @else
+                                    <option value="{{$department->department_name}}">{{$department->department_name}}</option>
+                                @endif
+                            @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Program</div>
+                        <div class="input-group mb-3"> 
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <select class="form-control form-control-plaintext" name="program">
+                            @foreach ($student->department->band->getEnum("EducationPrograms") as $key => $value)
+                                @if ($value == $student->department->band->education_program)
+                                    <option selected value="{{$key}}">{{$value}}</option>
+                                @else
+                                    <option value="{{$key}}">{{$value}}</option>
+                                @endif
+                            @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Education Level</div>
+                        <div class="input-group mb-3"> 
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <select class="form-control form-control-plaintext" name="education_level">
+                            @foreach ($student->department->band->getEnum("EducationLevels") as $key => $value)
+                                @if ($value == $student->department->band->education_level)
+                                    <option selected value="{{$key}}">{{$value}}</option>
+                                @else
+                                    <option value="{{$key}}">{{$value}}</option>
+                                @endif
+                            @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </fieldset>
-
-            <fieldset class="jumbotron shadow py-4">
-                <legend class="text-primary">Academic Information</legend>
-                <div class="form-group row">
-                    <div class="col-md-6 form-group">
-                        <label for="service_type">
-                            Band
-                        </label>
-                        <select class="form-control" name="food_service_type" id="food_service_type">
-                            <option value="kind">Engineering and Technology </option>
-                            <option value="cash"> Business and Economics</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-6 form-group">
-                        <label for="dormitory_service_type">
-                            Department
-                        </label>
-                        <select class="form-control" name="dormitory_service_type" id="dormitory_service_type">
-                            <option value="kind">Civil, Construction & Transport engineering</option>
-                            <option value="cash">Environmental engineering</option>
-                        </select>
-                    </div>
-
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Year Level</div>
+                        <div class="input-group mb-3"> 
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <select class="form-control form-control-plaintext" name="year_level">
+                            @for ($i = 1; $i < 8; $i++)
+                                @if ($i == $student->department->year_level)
+                                    <option selected value="{{$i}}">{{$i}}</option>
+                                @else
+                                    <option value="{{$i}}">{{$i}}</option>
+                                @endif
+                            @endfor
+                            </select>
+                        </div>
+                    </div>   
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Disability</div>
+                        <div class="input-group mb-3"> 
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <select class="form-control form-control-plaintext" name="disability_type">
+                            @foreach ($student->getEnum("Disabilitys") as $key => $value)
+                                @if ($value == $student->disability)
+                                    <option selected value="{{$key}}">{{$value}}</option>
+                                @else
+                                    <option value="{{$key}}">{{$value}}</option>
+                                @endif
+                            @endforeach
+                            </select>
+                        </div>
+                    </div>   
                 </div>
-                <hr>
-                <div class="form-group row">
-                    <div class="col-md-4 form-group">
-                        <label for="service_type">
-                            Program
-                        </label>
-                        <select class="form-control" name="food_service_type" id="food_service_type">
-                            <option value="kind">Daytime</option>
-                            <option value="cash">Extension</option>
-                        </select>
+            </div>
+        </div>
+         
+        <div class="card shadow mt-3">
+            <div class="card-header text-primary">
+                Student Service  Information
+            </div>
+            <div class="card-body">
+                <div class="row mt-4">                       
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Food Service</div>
+                        <div class="input-group mb-3"> 
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <select class="form-control form-control-plaintext" name="food_service_type">
+                            @foreach ($student->general->studentService->getEnum("FoodServiceTypes") as $key => $value)
+                                @if ($value == $student->general->studentService->food_service_type)
+                                    <option selected value="{{$key}}">{{$value}}</option>
+                                @else
+                                    <option value="{{$key}}">{{$value}}</option>
+                                @endif
+                            @endforeach
+                            </select>
+                        </div>
                     </div>
-
-                    <div class="col-md-4 form-group">
-                        <label for="dormitory_service_type">
-                            Education Level
-                        </label>
-                        <select class="form-control" name="dormitory_service_type" id="dormitory_service_type">
-                            <option value="kind">Under Graduate</option>
-                            <option value="cash">Post Graduate</option>
-                        </select>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Dormitory Service</div>
+                        <div class="input-group mb-3"> 
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>
+                            <select class="form-control form-control-plaintext" name="dormitory_service_type">
+                            @foreach ($student->general->studentService->dormitoryService->getEnum("DormitoryServiceTypes") as $key => $value)
+                                @if ($value == $student->general->studentService->dormitoryService->dormitory_service_type)
+                                    <option selected value="{{$key}}">{{$value}}</option>
+                                @else
+                                    <option value="{{$key}}">{{$value}}</option>
+                                @endif
+                            @endforeach
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-4 form-group">
-                        <label for="dormitory_service_type">
-                            Year Level
-                        </label>
-                        <select class="form-control" name="dormitory_service_type" id="dormitory_service_type">
-                            <option value="kind">1</option>
-                            <option value="cash">2</option>
-                        </select>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Block Number</div>
+                        <div class="input-group mb-3"> 
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>                                      
+                            <input type="text" class="form-control form-control-plaintext" name="block_number" value="{{$student->general->studentService->dormitoryService->block}}">
+                            
+                        </div> 
                     </div>
-
-                </div>
-               
-            </fieldset>
-
-            <fieldset class="jumbotron shadow py-4">
-                <legend class="text-primary">Student Service Info</legend>
-                <div class="form-group row" id="student_service">
-                    <div class="col-md-6 form-group">
-                        <label for="service_type">
-                            Food Service Type
-                        </label>
-                        <select class="form-control" name="food_service_type" id="food_service_type">
-                            <option value="kind">In Kind</option>
-                            <option value="cash">In Cash</option>
-                        </select>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Room Number</div>
+                        <div class="input-group mb-3"> 
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                            </div>                                      
+                            <input type="text" class="form-control form-control-plaintext" name="room_number" value="{{$student->general->studentService->dormitoryService->room_no}}">
+                            
+                        </div> 
                     </div>
-
-                    <div class="col-md-6 form-group">
-                        <label for="dormitory_service_type">
-                            Dormitory Service Type
-                        </label>
-                        <select class="form-control" name="dormitory_service_type" id="dormitory_service_type">
-                            <option value="kind">In Kind</option>
-                            <option value="cash">In Cash</option>
-                        </select>
-                    </div>
-                </div>
-                <hr>
-                {{--                                <label for="student_service" class="label-secondary">Dormitory Info</label>--}}
-                <div class="form-group row" id="dormitory_info">
-
-                    <!-- this drop down is going to be changed -->
-                    <div class="col-md-6 form-group">
-                        <input type="text" id="block_number" class="form-control" required>
-                        <label class="form-control-placeholder" for="block_number">Block No</label>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <input type="text" id="room_number" class="form-control" required>
-                        <label class="form-control-placeholder" for="room_number">Room No</label>
-                    </div>
-                </div>
-
-            </fieldset>
-
-
-            <fieldset class="jumbotron shadow py-4">
-                <legend class="text-primary">Disability Information</legend>
-
-                <div class="form-group row">
-                    <div class="col-md-6 form-group">
-                        <label for="service_type">
-                            Disability Type
-                        </label>
-                        <select class="form-control" name="disability_type" id="disability_type">
-                            <option value="">Visually Impaired</option>
-                            <option value="">Hearing Impaired</option>
-                            <option value="">Physically Challenged</option>
-                            <option value="">Other</option>
-                        </select>
-                    </div>
-                </div>
-                <hr>
-                <div class="form-group row">
-                    <div class="col form-group">
-                        <label for="additional_remarks">
-                            Additional Remarks
-                        </label>
-                        <textarea class="form-control" name="" id="additional_remarks" rows="3"></textarea>
-                    </div>
-                </div>
-
-            </fieldset>
-
-            <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit">
+                </div> 
+            </div>
+        </div>
+        
+        <div class="card shadow mt-3">
+            <div class="card-header text-primary">
+                Remarks
+            </div>
+            <div class="card-body"> 
+                    <div class="card-body">
+                            <textarea class="form-control" id="additional_remarks" name="additional_remarks" rows="3">{{$student->general->remarks}}</textarea>
+                        </div>
+            </div>
+        </div>
         </form>
     </div>
+    
 @endsection
-

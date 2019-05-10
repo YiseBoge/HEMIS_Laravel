@@ -26,7 +26,7 @@ class BudgetsController extends Controller
 
         $budgets = Budget::where('budget_type', $budget_type)->get();
 
-        $data = ['budget_type' => $requestedType, 'budgets' => $budgets, 'page_name' => 'budget.index'];
+        $data = ['budget_type' => $requestedType, 'budgets' => $budgets, 'page_name' => 'institution.budget.index'];
         return view('institutions.budget.index')->with('data', $data);
     }
 
@@ -37,7 +37,11 @@ class BudgetsController extends Controller
      */
     public function create()
     {
-        //
+        $budget_type = Budget::getEnum('budget_type')['CAPITAL'];
+        $budgets = Budget::where('budget_type', $budget_type)->get();
+        $data = ['budget_type' => 'CAPITAL', 'budgets' => $budgets, 'page_name' => 'institution.budget.create'];
+
+        return view('institutions.budget.index')->with('data', $data);
     }
 
     /**
@@ -64,7 +68,7 @@ class BudgetsController extends Controller
         $budget->additional_budget = $request->input('additional');
         $budget->utilized_budget = $request->input('utilized');
 
-//        To be removed
+//        Todo remove this
         $budget->institution_id = Uuid::generate()->string;
 
         $exampleDescription->save();
@@ -93,7 +97,28 @@ class BudgetsController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $budget = Budget::find($id);
+        $budget_type = Budget::getValueKey(Budget::getEnum("budget_type"), $budget->budget_type);
+        $budgets = Budget::where('budget_type', $budget_type)->get();
+
+        $budgetDescriptions = [];
+        foreach (BudgetDescription::all() as $description) {
+            array_push($budgetDescriptions, $description->__toString());
+        }
+        $budgetDescription = Budget::getValueKey($budgetDescriptions, $budget->budgetDescription);
+
+
+        $data = array(
+            'budget' => $budget,
+            'budget_type' => $budget_type,
+            'budgets' => $budgets,
+            'budget_descriptions' => $budgetDescriptions,
+            'budget_description' => $budgetDescription,
+            'page_name' => 'institution.budget.edit'
+        );
+
+        return view('institutions.budget.index')->with('data', $data);
     }
 
     /**
@@ -105,7 +130,26 @@ class BudgetsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'budget_type' => 'required',
+            'budget_description' => 'required',
+            'allocated' => 'required',
+            'additional' => 'required',
+            'utilized' => 'required',
+        ]);
+
+        $exampleDescription = BudgetDescription::all()[$request->input('budget_description')];
+
+        $budget = Budget::find($id);
+        $budget->allocated_budget = $request->input('allocated');
+        $budget->additional_budget = $request->input('additional');
+        $budget->utilized_budget = $request->input('utilized');
+
+        $budget->save();
+
+        $exampleDescription->budget()->save($budget);
+
+        return redirect('/institution/budget');
     }
 
     /**

@@ -15,7 +15,12 @@ class Department extends Model
 
     public function departmentName()
     {
-        return $this->hasOne('App\Models\Band\DepartmentName');
+        return $this->belongsTo('App\Models\Department\DepartmentName');
+    }
+
+    public function band()
+    {
+        return $this->belongsTo('App\Models\Band\Band');
     }
 
     public function studentAttritions()
