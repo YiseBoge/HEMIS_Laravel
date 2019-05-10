@@ -39,7 +39,7 @@ class BudgetsController extends Controller
     {
         $budget_type = Budget::getEnum('budget_type')['CAPITAL'];
         $budgets = Budget::where('budget_type', $budget_type)->get();
-        $data = ['budget_type' => 'CAPITAL', 'budgets' => $budgets, 'page_name' => 'budget.create'];
+        $data = ['budget_type' => 'CAPITAL', 'budgets' => $budgets, 'page_name' => 'institution.budget.create'];
 
         return view('institutions.budget.index')->with('data', $data);
     }
