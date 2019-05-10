@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
+use App\Models\Institution\InternalRevenue;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Webpatser\Uuid\Uuid;
 
 class InternalRevenuesController extends Controller
 {
@@ -15,7 +17,11 @@ class InternalRevenuesController extends Controller
      */
     public function index()
     {
-        return view('institutions.internal_revenue.index');
+        $data = array(
+            'internal_revenues' => InternalRevenue::all(),
+            'page_name' => 'institution.internal-revenue.index'
+        );
+        return view('institutions.internal_revenue.index')->with('data', $data);
     }
 
     /**
@@ -25,7 +31,15 @@ class InternalRevenuesController extends Controller
      */
     public function create()
     {
-        //
+        $revenueDescriptions = InternalRevenue::getEnum('revenue_description');
+
+        $data = array(
+            'internal_revenues' => InternalRevenue::all(),
+            'revenue_descriptions' => $revenueDescriptions,
+            'page_name' => 'institution.internal-revenue.create'
+        );
+
+        return view('institutions.internal_revenue.index')->with('data', $data);
     }
 
     /**
@@ -36,7 +50,25 @@ class InternalRevenuesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'revenue_description' => 'required',
+            'income' => 'required',
+            'expense' => 'required',
+        ]);
+
+
+        $internalRevenue = new InternalRevenue();
+        $internalRevenue->revenue_description = $request->input('revenue_description');
+        $internalRevenue->income = $request->input('income');
+        $internalRevenue->expense = $request->input('expense');
+
+//        Todo remove this
+        $internalRevenue->institution_id = Uuid::generate()->string;
+
+        $internalRevenue->save();
+
+
+        return redirect('/institution/internal-revenue');
     }
 
     /**
@@ -58,7 +90,21 @@ class InternalRevenuesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $internalRevenue = InternalRevenue::find($id);
+
+        $revenueDescriptions = InternalRevenue::getEnum('revenue_description');
+        $revenueDescription = InternalRevenue::getValueKey($revenueDescriptions, $internalRevenue->revenue_description);
+
+        $data = array(
+            'internal_revenues' => InternalRevenue::all(),
+            'internal_revenue' => $internalRevenue,
+            'revenue_descriptions' => $revenueDescriptions,
+            'revenue_description' => $revenueDescription,
+            'page_name' => 'institution.internal-revenue.edit'
+        );
+
+
+        return view('institutions.internal_revenue.index')->with('data', $data);
     }
 
     /**
@@ -70,7 +116,22 @@ class InternalRevenuesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'revenue_description' => 'required',
+            'income' => 'required',
+            'expense' => 'required',
+        ]);
+
+
+        $internalRevenue = InternalRevenue::find($id);
+        $internalRevenue->revenue_description = $request->input('revenue_description');
+        $internalRevenue->income = $request->input('income');
+        $internalRevenue->expense = $request->input('expense');
+
+        $internalRevenue->save();
+
+
+        return redirect('/institution/internal-revenue');
     }
 
     /**

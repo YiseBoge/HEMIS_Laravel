@@ -7,9 +7,8 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col p-3 m-3 text-center">
-                        <a class="btn btn-outline-primary btn-sm mb-0" href="" data-toggle="modal"
-                           data-target="#createModal">Add<i
-                                    class="fas fa-plus ml-2"></i></a>
+                        <a href="/institution/budget/create" class="btn btn-outline-primary btn-sm mb-0">
+                            Add<i class="fas fa-plus ml-2"></i></a>
                     </div>
                 </div>
                 <div class="row">
@@ -80,8 +79,8 @@
                                         @foreach($data['budgets'] as $budget)
                                             <tr>
                                                 <td class="text-center">
-                                                    <a href="" class="mr-2 d-inline text-primary" data-toggle="modal"
-                                                       data-target="#editModal"><i
+                                                    <a href="/institution/budget/{{ $budget->id }}/edit"
+                                                       class="mr-2 d-inline text-primary"><i
                                                                 class="far fa-edit"></i> </a>
                                                     <a href="" class="d-inline text-danger" data-toggle="modal"
                                                        data-target="#deleteModal"><i class="far fa-trash-alt"></i>
@@ -99,6 +98,22 @@
                                             </tr>
                                         @endforeach
                                         </tbody>
+
+                                        <tfoot>
+                                        <tr class="font-weight-bolder font-italic text-lg">
+                                            <td class="text-center">
+
+                                            </td>
+                                            <td colspan="2">Total</td>
+                                            <td>allocated sum</td>
+                                            <td>additional sum</td>
+                                            <td>internal transfer sum</td>
+                                            <td>adjusted sum</td>
+                                            <td>utilized sum</td>
+                                            <td>difference sum</td>
+                                            <td>performance average?</td>
+                                        </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -110,7 +125,7 @@
 
     </div>
 
-
+    @if ($data['page_name'] == 'institution.budget.create')
     <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -119,9 +134,9 @@
                 {!! Form::open(['action' => 'Institution\BudgetsController@store', 'method' => 'POST']) !!}
                 <div class="modal-header">
                     <h5 class="modal-title" id="editTitle">Add</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <a href="/institution/budget" class="close" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </a>
                 </div>
 
                 <div class="modal-body row pt-4">
@@ -137,17 +152,17 @@
                     </div>
 
                     <div class="col-md-4 form-group">
-                        {!! Form::number('allocated', null, ['class' => 'form-control', 'id' => 'add_allocated']) !!}
+                        {!! Form::number('allocated', null, ['class' => 'form-control', 'id' => 'add_allocated', 'required' => 'true']) !!}
                         {!! Form::label('allocated', 'Allocated', ['class' => 'form-control-placeholder', 'for' => 'add_allocated']) !!}
                     </div>
 
                     <div class="col-md-4 form-group">
-                        {!! Form::number('additional', null, ['class' => 'form-control', 'id' => 'add_additional']) !!}
+                        {!! Form::number('additional', null, ['class' => 'form-control', 'id' => 'add_additional', 'required' => 'true']) !!}
                         {!! Form::label('additional', 'Additional', ['class' => 'form-control-placeholder', 'for' => 'add_additional']) !!}
                     </div>
 
                     <div class="col-md-4 form-group">
-                        {!! Form::number('utilized', null, ['class' => 'form-control', 'id' => 'add_utilized']) !!}
+                        {!! Form::number('utilized', null, ['class' => 'form-control', 'id' => 'add_utilized', 'required' => 'true']) !!}
                         {!! Form::label('utilized', 'Utilized', ['class' => 'form-control-placeholder', 'for' => 'add_utilized']) !!}
                     </div>
                 </div>
@@ -159,61 +174,60 @@
 
         </div>
     </div>
+    @endif
 
 
+    @if ($data['page_name'] == 'institution.budget.edit')
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
 
             <div class="modal-content">
-                <form method="post" action="/institution/budget/update">
+                {!! Form::open(['action' => ['Institution\BudgetsController@update', $data['budget']->id], 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <a href="/institution/budget" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
-                        </button>
+                        </a>
                     </div>
+
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
-                            <select id="edit_budget_type" class="form-control">
-                                <option>Capital Budget</option>
-                                <option>Recurrent Budget</option>
-                            </select>
-                            <label class="form-control-placeholder" for="edit_budget_type">Budget Type</label>
+                            {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , $data['budget_type'], ['class' => 'form-control', 'id' => 'edit_budget_type']) !!}
+                            {!! Form::label('budget_type', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_type']) !!}
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            <select id="edit_budget_description" class="form-control">
-                                <option>BU003 - This is a budget with this this this this</option>
-                                <option>BU004 - This is a budget with that that that that</option>
-                            </select>
-                            <label class="form-control-placeholder" for="edit_budget_description">Budget
-                                Description</label>
+                            {{--TODO get from budget descriptions--}}
+                            {!! Form::select('budget_description', \App\Models\Institution\BudgetDescription::all() , $data['budget_description'], ['class' => 'form-control', 'id' => 'edit_budget_description']) !!}
+                            {!! Form::label('budget_description', 'Budget Description', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_description']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            <input type="number" id="edit_allocated" class="form-control" required value="3243">
-                            <label class="form-control-placeholder" for="edit_allocated">Allocated</label>
+                            {!! Form::number('allocated', $data['budget']->allocated_budget, ['class' => 'form-control', 'id' => 'edit_allocated', 'required' => 'true']) !!}
+                            {!! Form::label('allocated', 'Allocated', ['class' => 'form-control-placeholder', 'for' => 'edit_allocated']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            <input type="number" id="edit_additional" class="form-control" required value="3243">
-                            <label class="form-control-placeholder" for="edit_additional">Additional</label>
+                            {!! Form::number('additional', $data['budget']->additional_budget, ['class' => 'form-control', 'id' => 'edit_additional', 'required' => 'true']) !!}
+                            {!! Form::label('additional', 'Additional', ['class' => 'form-control-placeholder', 'for' => 'edit_additional']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            <input type="number" id="edit_utilized" class="form-control" required value="3243">
-                            <label class="form-control-placeholder" for="edit_utilized">Utilized</label>
+                            {!! Form::number('utilized', $data['budget']->utilized_budget, ['class' => 'form-control', 'id' => 'edit_utilized', 'required' => 'true']) !!}
+                            {!! Form::label('utilized', 'Utilized', ['class' => 'form-control-placeholder', 'for' => 'edit_utilized']) !!}
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        {!! Form::hidden('_method', 'PUT') !!}
+                        {!! Form::submit('Save Changes', ['class' => 'btn btn-primary']) !!}
                     </div>
-                </form>
+                {!! Form::close() !!}
             </div>
 
         </div>
     </div>
+    @endif
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
          aria-hidden="true">

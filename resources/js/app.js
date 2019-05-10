@@ -6,6 +6,7 @@
 
 require('./bootstrap');
 require('./theme');
+require('./modal');
 
 require('jquery.easing');
 require('chart.js');

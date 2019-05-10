@@ -22,7 +22,7 @@
                                         style="width: 100%;">
                                     <thead>
                                     <tr role="row">
-                                        <th width="75"></th>
+                                        <th style="min-width: 50px; width: 50px"></th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                             rowspan="1" colspan="1" aria-sort="ascending"
                                             aria-label="Name: activate to sort column descending"

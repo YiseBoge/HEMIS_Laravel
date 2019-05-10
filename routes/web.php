@@ -30,11 +30,9 @@ Route::resource('student/disabled', 'Student\DisabledStudentsController');
 Route::resource('student/foreigner', 'Student\ForeignerStudentsController');
 
 Route::resource('institution/institution-name','Institution\InstitutionNamesController');
-
 Route::resource('band/band-name','Band\BandNamesController');
-
 Route::resource('department/department-name','Department\DepartmentNamesController');
-
+Route::resource('staff/ict-staff-types', 'Staff\IctStaffTypesController');
 //Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
 
 
@@ -45,8 +43,6 @@ Route::get('/admin', function () {
 Route::get('/staff_attrition', function () {
     return view('staff.staff_attrition');
 });
-
-Route::resource('staff/ict_staff_types', 'Staff\IctStaffTypesController');
 
 Route::get('/student_attrition', function () {
     return view('students.student_attrition');

@@ -101,6 +101,7 @@
                 <a class="collapse-item" href="/department/department-name">Department Names</a>
                 <a class="collapse-item" href="/band/band-name">Band Name</a>
                 <a class="collapse-item" href="/institution/budget-description">Budget Description</a>
+                <a class="collapse-item" href="/staff/ict-staff-types">ICT Staff Types</a>
             </div>
         </div>
     </li>
