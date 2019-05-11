@@ -14,8 +14,26 @@ class CreateBuildingsTable extends Migration
     public function up()
     {
         Schema::create('buildings', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id');
+            $table->boolean('admin_purpose');
+            $table->boolean('class_rooms');
+            $table->boolean('library');
+            $table->boolean('dormitories');
+            $table->boolean('staff_residence');
+            $table->boolean('workshop');
+            $table->boolean('laboratories');
+            $table->boolean('cafeteria');
+            $table->boolean('start_date');
+            $table->date('date_of_completion');
+            $table->text('contractor_name');
+            $table->text('consultant_name');
+            $table->double('completion_status');
+            $table->decimal('budget_allocated');
             $table->timestamps();
+
+            $table->primary('id');
+
+            $table->uuid('institution_id');
         });
     }
 

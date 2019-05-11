@@ -14,8 +14,17 @@ class CreateAgeEnrollmentsTable extends Migration
     public function up()
     {
         Schema::create('age_enrollments', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id');
+            $table->bigInteger('male_students_number');
+            $table->bigInteger('female_students_number');
+
             $table->timestamps();
+
+            $table->string('age');
+
+            $table->primary('id');
+
+            $table->uuid('institution_id');
         });
     }
 
