@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Models\Department;
+namespace App;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
-class PostGraduateDiplomaTraining extends Model
+class ForeignStudent extends Model
 {
+    
     use Uuids;
     use Enums;
 
@@ -18,8 +19,13 @@ class PostGraduateDiplomaTraining extends Model
         'NON_REGULAR' => 'Non Regular',
     ];
 
+    protected $enumReasons = [
+        'BIL_AGR' => 'Bilateral Agreement',
+        'REFUGIES' => 'Refugies',
+        'SCHOLARSHIPS' => 'Scholarships'
+    ];
+
     public function department(){
         return $this->belongsTo('App\Model\Department\Department');
     }
-    
 }
