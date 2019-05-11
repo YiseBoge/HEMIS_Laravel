@@ -14,8 +14,17 @@ class CreateSpecialProgramTeachersTable extends Migration
     public function up()
     {
         Schema::create('special_program_teachers', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id');
+            $table->bigInteger('male_number');
+            $table->bigInteger('female_number');
+
+            $table->string('program_type');
+            $table->string('program_status');
             $table->timestamps();
+
+            $table->primary('id');
+            
+            $table->uuid('department_id');
         });
     }
 

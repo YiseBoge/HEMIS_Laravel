@@ -14,8 +14,18 @@ class CreateEmergingRegionsTable extends Migration
     public function up()
     {
         Schema::create('emerging_regions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id'); 
+            $table->bigInteger('male_number'); 
+            $table->bigInteger('female_number'); 
+            
+            $table->string('year_level');
+            $table->string('education_program');
             $table->timestamps();
+
+            $table->primary('id');
+            
+            $table->uuid('region_name_id');
+            $table->uuid('institution_id');
         });
     }
 

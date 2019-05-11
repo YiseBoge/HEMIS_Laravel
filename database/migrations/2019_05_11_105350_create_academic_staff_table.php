@@ -14,8 +14,16 @@ class CreateAcademicStaffTable extends Migration
     public function up()
     {
         Schema::create('academic_staff', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id'); 
+            $table->bigInteger('male_number'); 
+            $table->bigInteger('female_number'); 
+            
+            $table->string('staff_rank');
             $table->timestamps();
+
+            $table->primary('id');
+            
+            $table->uuid('department_id');
         });
     }
 

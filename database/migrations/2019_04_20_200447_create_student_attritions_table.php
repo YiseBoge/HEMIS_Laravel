@@ -23,7 +23,7 @@ class CreateStudentAttritionsTable extends Migration
 
             $table->primary('id');
 
-            $table->uuid('department_id');
+            $table->uuid('band_id');
         });
     }
 

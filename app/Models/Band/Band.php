@@ -16,8 +16,9 @@ class Band extends Model
         'UNDERGRADUATE' => 'Undergraduate',
         'GRADUATE' => 'Graduate',
     ];
+
     protected $enumEducationPrograms = [
-        'DAYTIME' => 'Daytime',
+        'REGULAR' => 'Regular',
         'EXTENTION' => 'Extension',
         'SUMMER' => 'Summer',
         'DISTANCE' => 'Distance',
@@ -31,8 +32,13 @@ class Band extends Model
         return $this->belongsTo('App\Models\Band\BandName');
     }
 
-    public function departments()
+    public function studentAttritions()
     {
-        return $this->hasMany('App\Models\Department\Department');
+        return $this->hasMany('App\Models\Department\StudentAttrition');
+    }
+
+    public function college()
+    {
+        return $this->hasMany('App\Models\College\College');
     }
 }
