@@ -14,8 +14,16 @@ class CreateEnrollmentsTable extends Migration
     public function up()
     {
         Schema::create('enrollments', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id');
+            $table->bigInteger('male_students_number');
+            $table->bigInteger('female_students_number');
             $table->timestamps();
+
+            $table->string('student_type');
+
+            $table->primary('id');
+
+            $table->uuid('department_name');
         });
     }
 

@@ -14,8 +14,18 @@ class CreateSpecialNeedsTable extends Migration
     public function up()
     {
         Schema::create('special_needs', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id');
+            $table->bigInteger('male_students_number');
+            $table->bigInteger('female_students_number');
             $table->timestamps();
+
+            $table->string('type');
+            $table->string('year');
+            $table->string('program');
+
+            $table->primary('id');
+
+            $table->uuid('institution_id');
         });
     }
 
