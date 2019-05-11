@@ -26,57 +26,46 @@ class Institution extends Model
         return $this->belongsTo('App\Models\Institution\Instance');
     }
 
-
-    public function budgets()
-    {
-        return $this->hasMany('App\Models\Institution\Budget');
-    }
-
-    public function internalRevenues()
-    {
-        return $this->hasMany('App\Models\Institution\InternalRevenue');
-    }
-
-    public function privateInvestments()
-    {
-        return $this->hasMany('App\Models\Institution\Investment');
-    }
-
-
     public function bands()
     {
         return $this->hasMany('App\Models\Band\Band');
     }
 
-
-    public function academicStaff()
+    public function adminAndNonAcademicStaff()
     {
-        return $this->hasMany('App\Models\Staff\Specialization\AcademicStaff');
+        return $this->hasMany('App\Models\Institution\AdminAndNonAcademicStaff');
     }
 
-    public function administrativeStaff()
+    public function ageEnrollment()
     {
-        return $this->hasMany('App\Models\Staff\Specialization\AdministrativeStaff');
+        return $this->hasMany('App\Models\Institution\AgeEnrollment');
     }
 
-    public function technicalStaff()
-    {
-        return $this->hasMany('App\Models\Staff\Specialization\TechnicalStaff');
+    public function building(){
+        return $this->hasMany('App\Models\Institution\Building');
     }
 
-    public function ictStaff()
-    {
-        return $this->hasMany('App\Models\Staff\Specialization\IctStaff');
+    public function emergingRegion(){
+        return $this->hasMany('App\Models\Institution\EmergingRegion');
     }
 
-    public function supportiveStaff()
-    {
-        return $this->hasMany('App\Models\Staff\Specialization\SupportiveStaff');
+    public function foreignStaff(){
+        return $this->hasMany('App\Models\Institution\ForeignStaff');
+    }
+
+    public function management(){
+        return $this->hasMany('App\Models\Institution\management');
+    }
+
+    public function pastoralRegion(){
+        return $this->hasMany('App\Models\Institution\PastoralRegion');
+    }
+
+    public function specialNeeds(){
+        return $this->hasMany('App\Models\Institution\specialNeeds');
     }
 
 
-    public function staffAttrition()
-    {
-        return $this->hasMany('App\Models\Institution\StaffAttrition');
-    }
+
+
 }

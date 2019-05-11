@@ -12,17 +12,6 @@ class Band extends Model
     use Enums;
 
     public $incrementing = false;
-    protected $enumEducationLevels = [
-        'UNDERGRADUATE' => 'Undergraduate',
-        'GRADUATE' => 'Graduate',
-    ];
-
-    protected $enumEducationPrograms = [
-        'REGULAR' => 'Regular',
-        'EXTENTION' => 'Extension',
-        'SUMMER' => 'Summer',
-        'DISTANCE' => 'Distance',
-    ];
 
 
     // Enums //
@@ -34,7 +23,7 @@ class Band extends Model
 
     public function studentAttritions()
     {
-        return $this->hasMany('App\Models\Department\StudentAttrition');
+        return $this->hasMany('App\Models\Band\StudentAttrition');
     }
 
     public function college()
