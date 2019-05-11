@@ -15,8 +15,6 @@ class CreateBandsTable extends Migration
     {
         Schema::create('bands', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('education_level');
-            $table->string('education_program');
             $table->timestamps();
 
             $table->primary('id');

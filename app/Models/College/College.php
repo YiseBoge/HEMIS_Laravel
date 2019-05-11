@@ -13,4 +13,21 @@ class College extends Model
     use Enums;
 
     public $incrementing = false;
+
+    protected $enumEducationLevels = [
+        'UNDERGRADUATE' => 'Undergraduate',
+        'GRADUATE' => 'Graduate',
+    ];
+
+    protected $enumEducationPrograms = [
+        'REGULAR' => 'Regular',
+        'EXTENTION' => 'Extension',
+        'SUMMER' => 'Summer',
+        'DISTANCE' => 'Distance',
+    ];
+
+    public function technicalStaffs()
+    {
+        return $this->hasMany('App\Models\College\TechnicalStaff');
+    }
 }

@@ -15,6 +15,8 @@ class CreateCollegesTable extends Migration
     {
         Schema::create('colleges', function (Blueprint $table) {
             $table->uuid('id');
+            $table->string('education_level');
+            $table->string('education_program');
             $table->timestamps();
         });
     }
