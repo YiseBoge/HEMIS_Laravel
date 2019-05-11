@@ -14,8 +14,17 @@ class CreateUpgradingStaffTable extends Migration
     public function up()
     {
         Schema::create('upgrading_staff', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id'); 
+            $table->bigInteger('male_number'); 
+            $table->bigInteger('female_number'); 
+            
+            $table->string('place_of_study');
+            $table->string('education_level');
             $table->timestamps();
+
+            $table->primary('id');
+            
+            $table->uuid('department_id');
         });
     }
 

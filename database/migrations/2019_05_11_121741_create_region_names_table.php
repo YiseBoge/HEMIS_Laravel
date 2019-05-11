@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateManagementsTable extends Migration
+class CreateRegionNamesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,12 @@ class CreateManagementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('managements', function (Blueprint $table) {
+        Schema::create('region_names', function (Blueprint $table) {
             $table->uuid('id');
-            $table->bigInteger('required_position_number');
-            $table->bigInteger('currently_assigned_number');
-            $table->bigInteger('female_number'); 
-            
-            $table->string('managment_level');
+            $table->string('name');
             $table->timestamps();
 
             $table->primary('id');
-            
-            $table->uuid('institution_id');
         });
     }
 
@@ -35,6 +29,6 @@ class CreateManagementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('managements');
+        Schema::dropIfExists('region_names');
     }
 }

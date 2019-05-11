@@ -32,4 +32,10 @@ class StudentAttrition extends Model
         'DROPOUTS' => 'Dropouts',
         'OTHERS' => 'Others',
     ];
+
+    public function band()
+    {
+        return $this->belongsTo('App\Models\Band\Band');
+    }
+
 }

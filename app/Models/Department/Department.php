@@ -18,28 +18,8 @@ class Department extends Model
         return $this->belongsTo('App\Models\Department\DepartmentName');
     }
 
-    public function band()
+    public function college()
     {
-        return $this->belongsTo('App\Models\Band\Band');
-    }
-
-    public function studentAttritions()
-    {
-        return $this->hasMany('App\Models\Department\StudentAttrition');
-    }
-
-    public function otherAttritions()
-    {
-        return $this->hasMany('App\Models\Department\OtherAttrition');
-    }
-
-    public function disabledStudents()
-    {
-        return $this->hasMany('App\Models\Student\DisabledStudent');
-    }
-
-    public function foreignerStudents()
-    {
-        return $this->hasMany('App\Models\Student\ForeignerStudent');
+        return $this->belongsTo('App\Models\College\College');
     }
 }
