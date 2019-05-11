@@ -22,9 +22,9 @@ class CreateForeignStudentsTable extends Migration
             $table->string('program');
             $table->string('reason');
 
-            $table()->primary('id');
+            $table->primary('id');
 
-            $table()->uuid('department_id');
+            $table->uuid('department_id');
         });
     }
 
