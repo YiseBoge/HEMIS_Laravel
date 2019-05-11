@@ -18,8 +18,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                      @if(count($budgetDescriptions)>0)
-                        @foreach($budgetDescriptions as $budgetDescription)
+                      @if(count($data['budgetDescriptions'])>0)
+                        @foreach($data['budgetDescriptions'] as $budgetDescription)
                           <tr>
                             <td>{{$budgetDescription->description}}</td>
                             <td>{{$budgetDescription->budget_code}}</td>
