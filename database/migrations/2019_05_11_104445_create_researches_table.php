@@ -14,8 +14,21 @@ class CreateResearchesTable extends Migration
     public function up()
     {
         Schema::create('researches', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id');
+            $table->bigInteger('male_teachers_participating_number');
+            $table->bigInteger('female_teachers_participating_number');
+            $table->bigInteger('female_researchers_number');
+            $table->bigInteger('male_researchers_other_number');
+            $table->bigInteger('female_researchers_other_number');
+            $table->decimal('budget_allocated');
+            $table->decimal('budget_from_externals');
             $table->timestamps();
+
+            $table->string('status');
+            $table->string('type');
+
+            $table->primary('id');
+            $table->uuid('band_id');
         });
     }
 
