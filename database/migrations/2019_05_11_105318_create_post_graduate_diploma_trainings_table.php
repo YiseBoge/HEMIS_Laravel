@@ -14,8 +14,15 @@ class CreatePostGraduateDiplomaTrainingsTable extends Migration
     public function up()
     {
         Schema::create('post_graduate_diploma_trainings', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id');
+            $table->bigInteger('number_of_male_students');
+            $table->bigInteger('number_of_female_students');
+            $table->boolean('is_lead');
             $table->timestamps();
+
+            $table->string('program');
+
+            $table->uuid('department_id');
         });
     }
 

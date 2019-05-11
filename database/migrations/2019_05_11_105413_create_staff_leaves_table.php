@@ -14,8 +14,17 @@ class CreateStaffLeavesTable extends Migration
     public function up()
     {
         Schema::create('staff_leaves', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id');
+            $table->bigInteger('number_of_male_students');
+            $table->bigInteger('number_of_female_students');
             $table->timestamps();
+
+            $table->string('level_of_study');
+            $table->string('place_of_study');
+
+            $table->primary('id');
+
+            $table->uuid('department_id');
         });
     }
 
