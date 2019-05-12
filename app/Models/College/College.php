@@ -18,7 +18,8 @@ class College extends Model
         'UNDERGRADUATE' => 'Undergraduate',
         'POST_GRADUATE_MASTERS' => 'Post Graduate(Masters)',
         'POST_GRADUATE_PHD' => 'Post Graduate(PhD)',
-        'POST_DOCTRIAL' => 'Post Doctrial'
+        'POST_DOCTRIAL' => 'Post Doctrial',
+        'SPECIALIZATION' => 'Specialization'
     ];
 
     protected $enumEducationPrograms = [
@@ -39,5 +40,10 @@ class College extends Model
 
     public function departments(){
         return $this->hasMany('App\Models\Department\Department');
+    }
+
+    public function band()
+    {
+        return $this->belongsTo('App\Models\Band\Band');
     }
 }

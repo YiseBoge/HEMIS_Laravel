@@ -119,14 +119,14 @@
                                     <tbody>
                                         @if (count($enrollments) > 0)
                                             @foreach ($enrollments as $enrollment)
-                                                <tr role="row" class="odd" onclick="window.location='disabled/{{$student->id}}'">
+                                                <tr role="row" class="odd" onclick="window.location='normal/{{$enrollment->id}}'">
                                                     <td class="pl-4">
                                                         <div class="row">
                                                             <div class="col pt-1">
-                                                                <a href="disabled/{{$student->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> </a>
+                                                                <a href="normal/{{$enrollment->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> </a>
                                                             </div>
                                                             <div class="col">
-                                                                <form class="p-0" action="/student/disabled/{{$student->id}}" method="POST">
+                                                                <form class="p-0" action="/enrollment/normal/{{$enrollment->id}}" method="POST">
                                                                     @csrf
                                                                     <input type="hidden" name="_method" value="DELETE">
                                                                     <button type="submit" class="form-control form-control-plaintext text-danger p-0">
@@ -136,9 +136,9 @@
                                                             </div>
                                                         </div>
                                                     </td>  
-                                                    <td>{{$enrollment->departmentName->department_name}}</td>
-                                                    <td>{{$enrollment->male_number}}</td>
-                                                    <td>{{$enrollment->female_number}}</td>
+                                                    <td>{{$enrollment->department->departmentName->department_name}}</td>
+                                                    <td>{{$enrollment->male_students_number}}</td>
+                                                    <td>{{$enrollment->female_students_number}}</td>
                                                 </tr>
                                             @endforeach
                                         @endif

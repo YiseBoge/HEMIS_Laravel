@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Institution;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Institution\SpecialNeeds;
+use App\Models\Institution\Institution;
+use App\Models\College\College;
+use App\Models\Department\Department;
+use Illuminate\Support\Facades\Auth;
 
 class SpecialNeedStudentsEnrollmentsController extends Controller
 {
@@ -15,7 +19,13 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
      */
     public function index()
     {
-        //
+        $data = array(
+            'enrollments' => SpecialNeeds::all(),
+            'programs' => SpecialNeeds::getEnum("EducationPrograms"),
+            'year_levels' => SpecialNeeds::getEnum('Years'),
+            'page_name' => 'enrollment.specializing_student_enrollment.index'
+        );
+        return view("enrollment.special_need_students.index")->with($data);
     }
 
     /**
@@ -42,7 +52,25 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'male_number' => 'required',
+            'female_number' => 'required'
+        ]);
+
+        $enrollment = new SpecialNeeds;
+        $enrollment->male_students_number = $request->input('male_number');
+        $enrollment->female_students_number = $request->input('female_number');
+        $enrollment->type = $request->input('need_type');
+        $enrollment->year = $request->input('year_level');
+        $enrollment->program = $request->input('program');
+
+        $user = Auth::user();
+
+        $institution = Institution::where('id', $user->institution_id)->first();
+        
+        $institution->specialNeeds()->save($enrollment);
+
+        return redirect("/enrollment/special-need-student");
     }
 
     /**

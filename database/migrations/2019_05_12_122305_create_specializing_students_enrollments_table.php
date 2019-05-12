@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSpecializingStudentsEnrollmentTable extends Migration
+class CreateSpecializingStudentsEnrollmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -26,6 +26,7 @@ class CreateSpecializingStudentsEnrollmentTable extends Migration
             $table->primary('id');
 
             $table->uuid('department_id');
+
         });
     }
 

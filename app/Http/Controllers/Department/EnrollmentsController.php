@@ -70,20 +70,21 @@ class EnrollmentsController extends Controller
         ]);
 
         $enrollment = new Enrollment;
-        $enrollment->male_number = $request->input('male_number');
-        $enrollment->female_number = $request->input('female_number');
+        $enrollment->male_students_number = $request->input('male_number');
+        $enrollment->female_students_number = $request->input('female_number');
         $enrollment->student_type = $request->input('student_type');
 
         $user = Auth::user();
 
-        $institution = Institution::where($user->institution_id)->first();
+        $institution = Institution::where('id', $user->institution_id)->first();
 
         $bandName = BandName::where('band_name', $request->input("band"))->first();
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if($band == null){
             $band = new Band;
-            $institution->band()->save($band);
-            $bandName->bands()->save($band);
+            $band->band_name_id = 0;
+            $institution->bands()->save($band);            
+            $bandName->band()->save($band);
         }
 
         $collegeName = CollegeName::where('college_name', $request->input("college"))->first();
@@ -91,9 +92,10 @@ class EnrollmentsController extends Controller
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
         if($college == null){
             $college = new College;
-            $band->education_level = $request->input("education_level");
-            $band->education_program = $request->input("program");
-            $band->college()->save($college);
+            $college->education_level = $request->input("education_level");
+            $college->education_program = $request->input("program");
+            $college->college_name_id = 0;
+            $band->colleges()->save($college);           
             $collegeName->college()->save($college);
         }
 
@@ -102,8 +104,9 @@ class EnrollmentsController extends Controller
             'college_id' => $college->id])->first();
         if($department == null){
             $department = new Department;
-            $department->year_level = $request->input("year_level");            
-            $college->departments()->save($department); 
+            $department->year_level = $request->input("year_level");
+            $department->department_name_id = 0;             
+            $college->departments()->save($department);            
             $departmentName->department()->save($department);                      
         }
 

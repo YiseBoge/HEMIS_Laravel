@@ -17,7 +17,14 @@ class SpecialRegionsEnrollmentsController extends Controller
      */
     public function index()
     {
-        //
+        $data = array(
+            'enrollments' => EmergingRegion::all(),
+            'regions' => RegionName::all(),
+            'programs' => EmergingRegion::getEnum("EducationPrograms"),
+            'year_levels' => EmergingRegion::getEnum('Years'),
+            'page_name' => 'enrollment.special_regions.index'
+        );
+        return view("enrollment.special_regions.index")->with($data);
     }
 
     /**
