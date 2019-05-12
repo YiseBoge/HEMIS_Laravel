@@ -17,8 +17,10 @@ class AdminAndNonAcademicStaffsController extends Controller
      */
     public function index()
     {
-        $data = ['page_name' => 'institution.admin_and_non_academic_staff.list' , 'staffs' => 'abc'];
-        return view('institutions.admin_and_non_academic_staff.list')->with('data', $data);
+       
+        $data = ['staffs' => AdminAndNonAcademicStaff::all(),
+                 'page_name' => 'institution.admin_and_non_academic_staff.index'];
+        return view('institutions.admin_and_non_academic_staff.index')->with('data', $data);
     }
 
     /**
@@ -29,14 +31,12 @@ class AdminAndNonAcademicStaffsController extends Controller
     public function create()
     {
         $data = array(
+            'staffs' => AdminAndNonAcademicStaff::all(),
             'education_levels' => AdminAndNonAcademicStaff::getEnum("EducationLevels"),
-            // 'dedications' => Staff::getEnum("Dedications"),
-            // 'academic_levels' => Staff::getEnum("AcademicLevels"),
-            // 'staff_ranks' => AcademicStaff::getEnum("StaffRanks"),
             'page_name' => 'institution.admin_and_non_academic_staff.create'
         );
 
-        return view('institutions.admin_and_non_academic_staff.list')->with('data' , $data);
+        return view('institutions.admin_and_non_academic_staff.index')->with('data' , $data);
     }
 
     /**
@@ -62,7 +62,7 @@ class AdminAndNonAcademicStaffsController extends Controller
 
         $admin_staff->save();
 
-        return redirect('institutions/non-admin');
+        return redirect('institution/non-admin');
 
     }
 
@@ -74,8 +74,7 @@ class AdminAndNonAcademicStaffsController extends Controller
      */
     public function show($id)
     {
-        $data = ['page_name' => 'institution.admin_and_non_academic_staff.list'];
-        return view('institutions.admin_and_non_academic_staff.list')->with('data', $data);
+       
     }
 
     /**
@@ -86,8 +85,10 @@ class AdminAndNonAcademicStaffsController extends Controller
      */
     public function edit($id)
     {
-        $data = ['page_name' => 'institution.admin_and_non_academic_staff.edit'];
-        return view('institutions.admin_and_non_academic_staff.list')->with('data', $data);
+        $data = ['staffs' => AdminAndNonAcademicStaff::all(),
+        'education_levels' => AdminAndNonAcademicStaff::getEnum("EducationLevels"),
+            'page_name' => 'institution.admin_and_non_academic_staff.edit'];
+        return view('institutions.admin_and_non_academic_staff.index')->with('data', $data);
     }
 
     /**

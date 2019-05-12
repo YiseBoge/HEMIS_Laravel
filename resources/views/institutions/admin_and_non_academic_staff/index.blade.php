@@ -39,16 +39,16 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                      {{-- @if (count($staffs) > 0)
-                                        @foreach ($staffs as $staff)
+                                      @if (count($data['staffs']) > 0)
+                                        @foreach ($data['staffs'] as $staff)
                                             <tr role="row" class="odd" onclick="window.location='academic/{{$staff->id}}'">
                                                 <td class="pl-4">
                                                     <div class="row">
                                                         <div class="col pt-1">
-                                                            <a href="academic/{{$staff->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> </a>
+                                                            <a href="non-admin/{{$staff->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> </a>
                                                         </div>
                                                         <div class="col">
-                                                            <form class="p-0" action="/staff/academic/{{$staff->id}}" method="POST">
+                                                            <form class="p-0" action="/institution/non-admin/{{$staff->id}}" method="POST">
                                                                 @csrf
                                                                 <input type="hidden" name="_method" value="DELETE">
                                                                 <button type="submit" class="form-control form-control-plaintext text-danger p-0">
@@ -60,24 +60,14 @@
 
 
                                                 </td>
-                                                <td class="sorting_1">{{$staff->general->name}}</td>
-                                                <td>{{$staff->general->job_title}}</td>
-                                                <td>{{$staff->general->dedication}}</td>
-                                                <td>{{$staff->general->employment_type}}</td>
-                                                @if ($staff->general->is_expatriate == 0)
-                                                    <td>No</td>
-                                                @else
-                                                    <td>Yes</td>
-                                                @endif
-                                                <td>{{$staff->general->salary}}</td> 
-                                                <td>{{$staff->general->academic_level}}</td>                                            
-                                                <td>{{$staff->field_of_study}}</td>
-                                                <td>{{$staff->staffRank}}</td>                                                                                          
+                                                <td class="sorting_1">{{$staff->education_level}}</td>
+                                                <td>{{$staff->male_staff_number}}</td>
+                                                <td>{{$staff->female_staff_number}}</td>                                                                                   
                                             </tr>
                                         @endforeach
                                       @else
                                           
-                                      @endif  --}}
+                                      @endif 
 
                                     </tbody>
                                 </table>
