@@ -32,4 +32,8 @@ class College extends Model
     {
         return $this->hasMany('App\Models\College\TechnicalStaff');
     }
+
+    public function collegeName(){
+        return $this->belongsTo('App\Models\College\CollegeName');
+    }
 }

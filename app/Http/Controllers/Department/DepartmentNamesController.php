@@ -20,7 +20,8 @@ class DepartmentNamesController extends Controller
     public function index()
     {
         $departments= DepartmentName::all();
-        return view('departments.department_name.list')->with('departments',$departments);
+        $data=['departments'=>$departments,'page_name'=>'department.department-name.list'];
+        return view('departments.department_name.list')->with('data',$data);
     }
 
     /**
@@ -30,7 +31,9 @@ class DepartmentNamesController extends Controller
      */
     public function create()
     {
-        return view('departments.create');
+        $departments= DepartmentName::all();
+        $data=['departments'=>$departments,'page_name'=>'department.department-name.create'];
+        return view('departments.department_name.list')->with('data',$data);
     }
 
     /**
@@ -51,7 +54,7 @@ class DepartmentNamesController extends Controller
         $departmentName->acronym = $request->input('department_acronym');
         $departmentName->save();
 
-        return redirect('/department');
+        return redirect('/department/department-name');
     }
 
     /**
