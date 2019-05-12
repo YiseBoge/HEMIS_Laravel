@@ -8,6 +8,7 @@ use App\Models\Band\BandName;
 use App\Models\Department\DepartmentName;
 use App\Models\Band\Band;
 use App\Models\College\College;
+use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\SpecializingStudentEnrollment;
 
@@ -31,6 +32,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
     public function create()
     {
         $data = array(
+            'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
             'programs' => College::getEnum("EducationPrograms"),

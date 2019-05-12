@@ -8,6 +8,7 @@ use App\Models\Band\BandName;
 use App\Models\Department\DepartmentName;
 use App\Models\Band\Band;
 use App\Models\College\College;
+use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\Enrollment;
 
@@ -20,7 +21,17 @@ class EnrollmentsController extends Controller
      */
     public function index()
     {
-        //
+        $data = array(
+            'enrollments' => Enrollment::info()->get(),
+            'colleges' => CollegeName::all(),
+            'bands' => BandName::all(),
+            'programs' => College::getEnum("EducationPrograms"),
+            'education_levels' => College::getEnum("EducationLevels"),
+            'student_types' => Enrollment::getEnum('StudentTypes'),
+            'year_levels' => Department::getEnum('YearLevels'),
+            'page_name' => 'enrollment.normal.index'
+        );
+        return view("enrollment.normal.index")->with($data);
     }
 
     /**
@@ -31,6 +42,7 @@ class EnrollmentsController extends Controller
     public function create()
     {
         $data = array(
+            'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
             'programs' => College::getEnum("EducationPrograms"),

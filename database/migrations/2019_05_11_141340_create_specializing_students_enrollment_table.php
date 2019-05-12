@@ -25,7 +25,7 @@ class CreateSpecializingStudentsEnrollmentTable extends Migration
 
             $table->primary('id');
 
-            $table->uuid('department_name');
+            $table->uuid('department_id');
         });
     }
 

@@ -68,8 +68,8 @@
                                     <div class="col form-group">
                                         
                                         <select class="form-control" name="college" id="college">
-                                            @foreach ($departments as $department)
-                                                <option value="{{$department->department_name}}">{{$department->department_name}}</option>
+                                            @foreach ($colleges as $college)
+                                                <option value="{{$college->college_name}}">{{$college->college_name}}</option>
                                             @endforeach
                                         </select>
                                         <label for="dormitory_service_type" class="form-control-placeholder">
