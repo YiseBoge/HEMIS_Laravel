@@ -28,7 +28,7 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Institution Name') }}</label>
                             <div class="col-md-6">
-                            {!! Form::select('institution_id', $institutions ,null  , ['class' => 'form-control']) !!}
+                            {!! Form::select('institution_name_id', $institutions ,null  , ['class' => 'form-control']) !!}
                             </div>
 
                         </div>
