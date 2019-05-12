@@ -36,4 +36,8 @@ class College extends Model
     public function collegeName(){
         return $this->belongsTo('App\Models\College\CollegeName');
     }
+
+    public function departments(){
+        return $this->hasMany('App\Models\Department\Department');
+    }
 }

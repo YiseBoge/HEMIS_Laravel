@@ -32,4 +32,8 @@ class Department extends Model
     {
         return $this->belongsTo('App\Models\College\College');
     }
+
+    public function enrollments(){
+        return $this->hasMany('App\Models\Department\Enrollment');
+    }
 }

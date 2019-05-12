@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Band\BandName;
 use App\Models\Department\DepartmentName;
+use App\Models\Institution\Institution;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\Enrollment;
+use Illuminate\Support\Facades\Auth;
 
 class EnrollmentsController extends Controller
 {
@@ -62,7 +64,53 @@ class EnrollmentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'male_number' => 'required',
+            'female_number' => 'required'
+        ]);
+
+        $enrollment = new Enrollment;
+        $enrollment->male_number = $request->input('male_number');
+        $enrollment->female_number = $request->input('female_number');
+        $enrollment->student_type = $request->input('student_type');
+
+        $user = Auth::user();
+
+        $institution = Institution::where($user->institution_id)->first();
+
+        $bandName = BandName::where('band_name', $request->input("band"))->first();
+        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
+        if($band == null){
+            $band = new Band;
+            $institution->band()->save($band);
+            $bandName->bands()->save($band);
+        }
+
+        $collegeName = CollegeName::where('college_name', $request->input("college"))->first();
+        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
+            'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
+        if($college == null){
+            $college = new College;
+            $band->education_level = $request->input("education_level");
+            $band->education_program = $request->input("program");
+            $band->college()->save($college);
+            $collegeName->college()->save($college);
+        }
+
+        $departmentName = DepartmentName::where('department_name', $request->input("department"))->first();
+        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
+            'college_id' => $college->id])->first();
+        if($department == null){
+            $department = new Department;
+            $department->year_level = $request->input("year_level");            
+            $college->departments()->save($department); 
+            $departmentName->department()->save($department);                      
+        }
+
+        $department->enrollments()->save($enrollment);
+
+        return redirect("/enrollment/normal");
+
     }
 
     /**

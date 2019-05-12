@@ -10,7 +10,7 @@
                 </div>
             @endforeach
         @endif
-        <form class="pb-5" action="/student/disabled" method="POST">
+        <form class="pb-5" action="/enrollment/normal" method="POST">
             @csrf
             <div class="row my-5">
                 <div class="col">
@@ -33,6 +33,16 @@
                             </div>
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
+                                    <select class="form-control" name="band" id="band">
+                                        @foreach ($bands as $band)
+                                            <option value="{{$band->band_name}}">{{$band->band_name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="service_type" class="form-control-placeholder">
+                                            Band
+                                        </label>
+                                </div>   
+                                <div class="col form-group">
                                 
                                     <select class="form-control" name="college" id="college">
                                         @foreach ($colleges as $college)
@@ -43,16 +53,7 @@
                                             College
                                         </label>
                                 </div>
-                                <div class="col form-group">
-                                    <select class="form-control" name="band" id="band">
-                                        @foreach ($bands as $band)
-                                            <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="service_type" class="form-control-placeholder">
-                                            Band
-                                        </label>
-                                </div>            
+                                        
                                 <div class="col form-group">
                                     
                                     <select class="form-control" name="department" id="department">
