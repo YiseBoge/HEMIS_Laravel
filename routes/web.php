@@ -33,13 +33,11 @@ Route::resource('institution/institution-name','Institution\InstitutionNamesCont
 Route::resource('band/band-name','Band\BandNamesController');
 Route::resource('department/department-name','Department\DepartmentNamesController');
 Route::resource('staff/ict-staff-types', 'Staff\IctStaffTypesController');
-<<<<<<< HEAD
 
 Route::resource('institution/non-admin', 'Institution\AdminAndNonAcademicStaffsController');
-=======
+Route::resource('institution/management-data', 'Institution\ManagementDatasController');
 Route::resource('college/college-name','College\CollegeNamesController');
 
->>>>>>> f79255f99882163de6f89af30e24b34f6bc379ea
 //Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
 
 
