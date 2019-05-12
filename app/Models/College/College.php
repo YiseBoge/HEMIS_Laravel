@@ -16,7 +16,9 @@ class College extends Model
 
     protected $enumEducationLevels = [
         'UNDERGRADUATE' => 'Undergraduate',
-        'GRADUATE' => 'Graduate',
+        'POST_GRADUATE_MASTERS' => 'Post Graduate(Masters)',
+        'POST_GRADUATE_PHD' => 'Post Graduate(PhD)',
+        'POST_DOCTRIAL' => 'Post Doctrial'
     ];
 
     protected $enumEducationPrograms = [

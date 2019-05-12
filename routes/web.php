@@ -35,6 +35,11 @@ Route::resource('department/department-name','Department\DepartmentNamesControll
 Route::resource('staff/ict-staff-types', 'Staff\IctStaffTypesController');
 //Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
 
+Route::resource('enrollment/normal','Department\EnrollmentsController');
+Route::resource('enrollment/special-regions','Institution\SpecialRegionsEnrollmentsController');
+Route::resource('enrollment/special-need-students','Institution\SpecialNeedStudentsEnrollmentsController');
+Route::resource('enrollment/specializing-students','Department\SpecializingStudentsEnrollmentsController');
+
 
 Route::get('/admin', function () {
     return view('admin.index');

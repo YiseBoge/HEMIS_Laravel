@@ -13,7 +13,7 @@ class Department extends Model
 
     public $incrementing = false;
 
-    protected $enumYearLevel=[
+    protected $enumYearLevels=[
         'ONE'=>'1',
         'TWO'=>'2',
         'THREE'=>'3',

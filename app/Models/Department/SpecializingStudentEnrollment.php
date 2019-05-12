@@ -6,7 +6,7 @@ use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
-class SpecializingStudent extends Model
+class SpecializingStudentEnrollment extends Model
 {
     use Uuids;
     use Enums;

@@ -14,10 +14,10 @@ class SpecialNeeds extends Model
     public $incrementing = false;
 
     protected $enumNeedsTypes = [
-        'PHYSICALLY_CHALLENGED_LEGS' => 'physically challenged /legs/',
-        'PHYSICALLY_CHALLENGED_HANDS' => 'physically challenged /hands/',
-        'VISUALLY_IMPAIRED'=>'visually impaired',
-        'HEARING_IMPAIRED'=>'hearing_impaired',
+        'PHYSICALLY_CHALLENGED_LEGS' => 'Physically Challenged /legs/',
+        'PHYSICALLY_CHALLENGED_HANDS' => 'Physically Challenged/hands/',
+        'VISUALLY_IMPAIRED'=>'Visually Impaired',
+        'HEARING_IMPAIRED'=>'Hearing Impaired',
         'OTHERS'=>'others'
     ];
 
@@ -31,10 +31,11 @@ class SpecialNeeds extends Model
         'SEVEN'=>'7'
     ];
 
-    protected $enumPrograms=[
-        'REGULAR'=>'regular',
-        'SUMMER'=>'summer',
-        'DISTANCE'=>'distance'
+    protected $enumEducationPrograms=[
+        'REGULAR'=>'Regular',
+        'EXTENSION'=>'Extension',
+        'SUMMER'=>'Summer',
+        'DISTANCE'=>'Distance'
     ];
 
     public function institution()
