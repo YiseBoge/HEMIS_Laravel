@@ -3,10 +3,17 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Institution\Instance;
+use App\Models\Institution\Institution;
+use App\Models\Institution\InstitutionName;
+use App\Traits\Uuids;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
+use Webpatser\Uuid\Uuid;
+
 
 class RegisterController extends Controller
 {
@@ -22,6 +29,7 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    use Uuids;
 
     /**
      * Where to redirect users after registration.
@@ -51,6 +59,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'institution_name_id'=>['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -63,10 +72,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $institution=Institution::where('institution_name_id',$data['institution_name_id'])->first();
+        if($institution==null){
+            $institution = new Institution();
+            $instance=Instance::all()->first();
+            //$institution->id=Uuid::generate()->string;
+            $institution->institution_name_id = $data['institution_name_id'];
+            $institution->instance_id=$instance->id;
+            $institution->save();
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'institution_id'=>$institution->id,
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    public function getRegistrationForm(){
+        $institutions= InstitutionName::pluck('institution_name','id');
+
+        return view('auth.register',compact('id','institutions'));
+
+    }
+
+
 }
