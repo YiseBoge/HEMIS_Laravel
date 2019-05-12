@@ -65,6 +65,10 @@ class Institution extends Model
         return $this->hasMany('App\Models\Institution\specialNeeds');
     }
 
+    public function user(){
+        return $this->hasMany('App\Models\User');
+    }
+
 
 
 
