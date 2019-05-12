@@ -1,14 +1,13 @@
 @extends('layouts.app')
-@extends('layouts.app')
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
-            <div class="text-primary card-header">Departments</div>
+            <div class="text-primary card-header">Colleges</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col p-1 m-3 text-center">
-                        <a href="/department/department-name/create" class="btn btn-outline-primary btn-sm mb-0">
+                        <a href="/college/college-name/create" class="btn btn-outline-primary btn-sm mb-0">
                             Add<i class="fas fa-plus ml-2"></i></a>
                     </div>
                 </div>
@@ -30,7 +29,7 @@
                                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                                 rowspan="1" colspan="1" aria-sort="ascending"
                                                 aria-label="Name: activate to sort column descending"
-                                            >Department Name
+                                            >College Name
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Acronym: activate to sort column ascending"
@@ -40,7 +39,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($data['departments'] as $department)
+                                        @foreach($data['colleges'] as $college)
                                             <tr>
                                                 <td class="text-center">
                                                     <a href=""
@@ -50,8 +49,8 @@
                                                        data-target="#deleteModal"><i class="far fa-trash-alt"></i>
                                                     </a>
                                                 </td>
-                                                <td>{{ $department->department_name }}</td>
-                                                <td>{{ $department->acronym }}</td>
+                                                <td>{{ $college->college_name }}</td>
+                                                <td>{{ $college->acronym }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -66,34 +65,37 @@
 
     </div>
 
-    @if ($data['page_name'] == 'department.department-name.create')
+    @if ($data['page_name'] == 'colleges.colleges-name.create')
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    {!! Form::open(['action' => 'Department\DepartmentNamesController@store', 'method' => 'POST']) !!}
+                    {!! Form::open(['action' => 'College\CollegeNamesController@store', 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Add</h5>
-                        <a href="/department/department-name" class="close" aria-label="Close">
+                        <a href="/college/college-name" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
                     </div>
 
 
-                    <div class="modal-body row pt-4">
-                        <div class="col-12 form-group pb-2">
-                            {{Form::text('department_name','',['class'=>'form-control','placeholder'=>'Add New Department'])}}
+                        <div class="modal-body row pt-4">
+                            <div class="col-12 form-group pb-2">
+                                {{Form::text('college_name','',['class'=>'form-control','placeholder'=>'Add New College'])}}
+                            </div>
+                            <div class="col-12 form-group pb-2">
+                                {{Form::text('college_acronym','',['class'=>'form-control','placeholder'=>'Acronym'])}}
+                            </div>
                         </div>
-                        <div class="col-12 form-group pb-2">
-                            {{Form::text('department_acronym','',['class'=>'form-control','placeholder'=>'Acronym'])}}
-                        </div>
-                    </div>
 
 
-                    <div class="modal-footer">
-                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                    </div>
+
+
+
+                        <div class="modal-footer">
+                            {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                        </div>
 
                     {!! Form::close() !!}
                 </div>

@@ -20,7 +20,8 @@ class BandNamesController extends Controller
     public function index()
     {
         $bands= BandName::all();
-        return view('bands.band_name.list')->with('bands',$bands);
+        $data=['bands'=>$bands,'page_name'=>'band.band-name.list'];
+        return view('bands.band_name.list')->with('data',$data);
     }
 
     /**
@@ -30,7 +31,9 @@ class BandNamesController extends Controller
      */
     public function create()
     {
-        return view('bands.create');
+        $bands= BandName::all();
+        $data=['bands'=>$bands,'page_name'=>'band.band-name.create'];
+        return view('bands.band_name.list')->with('data',$data);
     }
 
     /**
