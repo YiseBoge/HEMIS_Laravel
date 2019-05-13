@@ -13,7 +13,7 @@ class AgeEnrollment extends Model
 
     public $incrementing = false;
 
-    protected $enumAge=[
+    protected $enumAges=[
         'UNDER18'=>'<18',
         'EIGHTEEN'=>'18',
         'NINETEEN'=>'19',
