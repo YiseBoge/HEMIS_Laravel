@@ -13,13 +13,13 @@ class AdminAndNonAcademicStaff extends Model
 
     public $incrementing = false;
 
-    protected $enumEducationLevel=[
-        'DIPLOMA'=>'diploma',
-        'Bachelors'=>'bachelors',
+    protected $enumEducationLevels=[
+        'DIPLOMA'=>'Diploma',
+        'Bachelors'=>'Bachelors',
         'MD_DV'=>'M.D/D.V',
-        'MASTERS'=>'masters',
-        'PHD'=>'phd',
-        'SPECIALITY'=>'speciality'
+        'MASTERS'=>'Masters',
+        'PHD'=>'P.h.d',
+        'SPECIALITY'=>'Speciality'
     ];
 
     public function institution()

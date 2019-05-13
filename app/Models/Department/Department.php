@@ -13,7 +13,7 @@ class Department extends Model
 
     public $incrementing = false;
 
-    protected $enumYearLevel=[
+    protected $enumYearLevels=[
         'ONE'=>'1',
         'TWO'=>'2',
         'THREE'=>'3',
@@ -31,5 +31,9 @@ class Department extends Model
     public function college()
     {
         return $this->belongsTo('App\Models\College\College');
+    }
+
+    public function enrollments(){
+        return $this->hasMany('App\Models\Department\Enrollment');
     }
 }

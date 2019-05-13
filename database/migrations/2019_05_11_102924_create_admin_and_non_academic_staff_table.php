@@ -15,8 +15,8 @@ class CreateAdminAndNonAcademicStaffTable extends Migration
     {
         Schema::create('admin_and_non_academic_staff', function (Blueprint $table) {
             $table->uuid('id');
-            $table->bigInteger('male_students_number');
-            $table->bigInteger('female_student_number');
+            $table->bigInteger('male_staff_number');
+            $table->bigInteger('female_staff_number');
             $table->timestamps();
 
             $table->string('education_level');

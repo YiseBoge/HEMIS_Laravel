@@ -13,15 +13,20 @@ class Enrollment extends Model
 
     public $incrementing = false;
     protected $enumStudentTypes = [
-        'PROSPECTIVE' => 'Prospective',
-        'GRADUATES' => 'Graduates',
-        'PREVIOUSLY_GRADUATED'=>'Previously Graduated',
-        'Normal'=>'Normal'
+        'Normal'=>'Normal',
+        'PROSPECTIVE' => 'Prospective Graduates',
+        'GRADUATES' => 'Graduates'
+        
     ];
 
     public function department()
     {
         return $this->belongsTo('App\Models\Department\Department');
+    }
+
+    public function scopeInfo($query)
+    {
+        return $query->with('department.college.band', 'department.departmentName');
     }
 
 }

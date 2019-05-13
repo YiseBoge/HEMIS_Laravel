@@ -33,10 +33,21 @@ Route::resource('institution/institution-name','Institution\InstitutionNamesCont
 Route::resource('band/band-name','Band\BandNamesController');
 Route::resource('department/department-name','Department\DepartmentNamesController');
 Route::resource('staff/ict-staff-types', 'Staff\IctStaffTypesController');
+
+Route::resource('institution/non-admin', 'Institution\AdminAndNonAcademicStaffsController');
+Route::resource('institution/management-data', 'Institution\ManagementDatasController');
 Route::resource('college/college-name','College\CollegeNamesController');
 Route::resource('department/special-program-teacher','Department\SpecialProgramTeacherController');
 Route::resource('institution/region-name','Institution\RegionNamesController');
 //Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
+
+Route::resource('enrollment/normal','Department\EnrollmentsController');
+Route::resource('enrollment/special-region-students','Institution\SpecialRegionsEnrollmentsController');
+Route::resource('enrollment/special-need-students','Institution\SpecialNeedStudentsEnrollmentsController');
+Route::resource('enrollment/specializing-students','Department\SpecializingStudentsEnrollmentsController');
+Route::resource('enrollment/foreign-students','Department\ForeignStudentsEnrollmentsController');
+
+Route::resource('band/researches','Band\ResearchsController');
 
 
 Route::get('/admin', function () {
