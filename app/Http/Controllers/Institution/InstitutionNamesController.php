@@ -20,7 +20,8 @@ class InstitutionNamesController extends Controller
     public function index()
     {
         $institutions=InstitutionName::all();
-        return view('institutions.institution_name.index')->with('institutions',$institutions);
+        $data=['institutions'=>$institutions,'page_name'=>'institution.institution-name.index'];
+        return view('institutions.institution_name.index')->with('data',$data);
     }
 
     /**
@@ -30,7 +31,9 @@ class InstitutionNamesController extends Controller
      */
     public function create()
     {
-        return view('institutions.create');
+        $institutions=InstitutionName::all();
+        $data=['institutions'=>$institutions,'page_name'=>'institution.institution-name.create'];
+        return view('institutions.institution_name.index')->with('data',$data);
     }
 
     /**

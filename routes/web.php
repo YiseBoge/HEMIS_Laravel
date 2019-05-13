@@ -33,7 +33,21 @@ Route::resource('institution/institution-name','Institution\InstitutionNamesCont
 Route::resource('band/band-name','Band\BandNamesController');
 Route::resource('department/department-name','Department\DepartmentNamesController');
 Route::resource('staff/ict-staff-types', 'Staff\IctStaffTypesController');
+
+Route::resource('institution/non-admin', 'Institution\AdminAndNonAcademicStaffsController');
+Route::resource('institution/management-data', 'Institution\ManagementDatasController');
+Route::resource('college/college-name','College\CollegeNamesController');
+
 //Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
+
+Route::resource('enrollment/normal','Department\EnrollmentsController');
+Route::resource('enrollment/special-region-students','Institution\SpecialRegionsEnrollmentsController');
+Route::resource('enrollment/special-need-students','Institution\SpecialNeedStudentsEnrollmentsController');
+Route::resource('enrollment/specializing-students','Department\SpecializingStudentsEnrollmentsController');
+Route::resource('enrollment/foreign-students','Department\ForeignStudentsEnrollmentsController');
+
+Route::resource('band/researches','Band\ResearchsController');
+Route::resource('band/university-linkage','Band\UniversityIndustryLinkageController');
 
 
 Route::get('/admin', function () {
@@ -49,8 +63,19 @@ Route::get('/student_attrition', function () {
 });
 
 
+// Authentication Routes...
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
+// Registration Routes...
+Route::get('register', 'Auth\RegisterController@getRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
 
-Auth::routes();
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/home', 'HomeController@index')->name('home');

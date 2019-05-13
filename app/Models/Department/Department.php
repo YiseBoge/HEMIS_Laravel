@@ -13,33 +13,27 @@ class Department extends Model
 
     public $incrementing = false;
 
+    protected $enumYearLevels=[
+        'ONE'=>'1',
+        'TWO'=>'2',
+        'THREE'=>'3',
+        'FOUR'=>'4',
+        'FIVE'=>'5',
+        'SIX'=>'6',
+        'SEVEN'=>'7'
+    ];
+
     public function departmentName()
     {
         return $this->belongsTo('App\Models\Department\DepartmentName');
     }
 
-    public function band()
+    public function college()
     {
-        return $this->belongsTo('App\Models\Band\Band');
+        return $this->belongsTo('App\Models\College\College');
     }
 
-    public function studentAttritions()
-    {
-        return $this->hasMany('App\Models\Department\StudentAttrition');
-    }
-
-    public function otherAttritions()
-    {
-        return $this->hasMany('App\Models\Department\OtherAttrition');
-    }
-
-    public function disabledStudents()
-    {
-        return $this->hasMany('App\Models\Student\DisabledStudent');
-    }
-
-    public function foreignerStudents()
-    {
-        return $this->hasMany('App\Models\Student\ForeignerStudent');
+    public function enrollments(){
+        return $this->hasMany('App\Models\Department\Enrollment');
     }
 }
