@@ -34,7 +34,8 @@ Route::resource('band/band-name','Band\BandNamesController');
 Route::resource('department/department-name','Department\DepartmentNamesController');
 Route::resource('staff/ict-staff-types', 'Staff\IctStaffTypesController');
 Route::resource('college/college-name','College\CollegeNamesController');
-
+Route::resource('department/special-program-teacher','Department\SpecialProgramTeacherController');
+Route::resource('institution/region-name','Institution\RegionNamesController');
 //Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
 
 
