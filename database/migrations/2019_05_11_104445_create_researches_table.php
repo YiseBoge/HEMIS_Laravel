@@ -15,6 +15,7 @@ class CreateResearchesTable extends Migration
     {
         Schema::create('researches', function (Blueprint $table) {
             $table->uuid('id');
+            $table->bigInteger('number');
             $table->bigInteger('male_teachers_participating_number');
             $table->bigInteger('female_teachers_participating_number');
             $table->bigInteger('female_researchers_number');
