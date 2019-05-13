@@ -19,7 +19,7 @@ class CreateManagementsTable extends Migration
             $table->bigInteger('currently_assigned_number');
             $table->bigInteger('female_number'); 
             
-            $table->string('managment_level');
+            $table->string('management_level');
             $table->timestamps();
 
             $table->primary('id');
