@@ -78,7 +78,7 @@ class RegisterController extends Controller
             $instance=Instance::all()->first();
             //$institution->id=Uuid::generate()->string;
             $institution->institution_name_id = $data['institution_name_id'];
-            $institution->instance_id=$instance->id;
+            $institution->instance_id=Uuid::generate()->string;
             $institution->save();
         }
 

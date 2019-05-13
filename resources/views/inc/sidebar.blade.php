@@ -37,9 +37,7 @@
         <div id="collapseInstitution" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Institution Info:</h6>
-                <a class="collapse-item" href="/institution/budget">Budget</a>
-                <a class="collapse-item" href="/institution/internal-revenue">Internal Revenue</a>
-                <a class="collapse-item" href="/institution/private-investment">Private Investments</a>
+                <a class="collapse-item" href="/institution/buildings">Buildings</a>
             </div>
         </div>
     </li>

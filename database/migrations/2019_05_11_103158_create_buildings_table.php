@@ -15,6 +15,7 @@ class CreateBuildingsTable extends Migration
     {
         Schema::create('buildings', function (Blueprint $table) {
             $table->uuid('id');
+            $table->string('building_name');
             $table->boolean('admin_purpose');
             $table->boolean('class_rooms');
             $table->boolean('library');
@@ -29,6 +30,7 @@ class CreateBuildingsTable extends Migration
             $table->text('consultant_name');
             $table->double('completion_status');
             $table->decimal('budget_allocated');
+            $table->decimal('financial_status');
             $table->timestamps();
 
             $table->primary('id');
