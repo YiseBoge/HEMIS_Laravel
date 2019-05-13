@@ -47,6 +47,7 @@ Route::resource('enrollment/specializing-students','Department\SpecializingStude
 Route::resource('enrollment/foreign-students','Department\ForeignStudentsEnrollmentsController');
 
 Route::resource('band/researches','Band\ResearchsController');
+Route::resource('band/university-linkage','Band\UniversityIndustryLinkageController');
 
 
 Route::get('/admin', function () {
