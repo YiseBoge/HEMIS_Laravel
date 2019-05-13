@@ -10,4 +10,16 @@ class RegionName extends Model
     use Uuids;
 
     public $incrementing = false;
+
+    public function emergingRegion()
+    {
+        return $this->hasOne('App\Models\Institution\EmergingRegion');
+    }
+
+    public function pastoralRegion()
+    {
+        return $this->hasOne('App\Models\Institution\PastoralRegion');
+    }
 }
+
+

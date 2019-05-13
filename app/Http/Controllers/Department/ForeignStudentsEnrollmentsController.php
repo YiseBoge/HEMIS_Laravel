@@ -11,10 +11,10 @@ use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Institution\Institution;
-use App\Models\Department\SpecializingStudentsEnrollment;
+use App\Models\Department\ForeignStudent;
 use Illuminate\Support\Facades\Auth;
 
-class SpecializingStudentsEnrollmentsController extends Controller
+class ForeignStudentsEnrollmentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,17 +24,17 @@ class SpecializingStudentsEnrollmentsController extends Controller
     public function index()
     {
         $data = array(
-            'enrollments' => SpecializingStudentsEnrollment::info()->get(),
+            'enrollments' => ForeignStudent::info()->get(),
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
             'programs' => College::getEnum("EducationPrograms"),
-            'specialization_types' => SpecializingStudentsEnrollment::getEnum("SpecializationTypes"),
-            'student_types' => SpecializingStudentsEnrollment::getEnum('StudentTypes'),
+            'education_levels' => College::getEnum("EducationLevels"),
+            'reasons' => ForeignStudent::getEnum("Reasons"),
             'year_levels' => Department::getEnum('YearLevels'),
-            'page_name' => 'enrollment.specializing_student_enrollment.index'
+            'page_name' => 'enrollment.foreign_students.index'
         );
-        return view("enrollment.specializing_students.index")->with($data);
+        return view("enrollment.foreign_students.index")->with($data);
     }
 
     /**
@@ -49,12 +49,12 @@ class SpecializingStudentsEnrollmentsController extends Controller
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
             'programs' => College::getEnum("EducationPrograms"),
-            'specialization_types' => SpecializingStudentsEnrollment::getEnum("SpecializationTypes"),
-            'student_types' => SpecializingStudentsEnrollment::getEnum('StudentTypes'),
+            'education_levels' => College::getEnum("EducationLevels"),
+            'reasons' => ForeignStudent::getEnum("Reasons"),
             'year_levels' => Department::getEnum('YearLevels'),
-            'page_name' => 'enrollment.specializing_students.create'
+            'page_name' => 'enrollment.foreign_students.create'
         );
-        return view('enrollment.specializing_students.create')->with($data);
+        return view('enrollment.foreign_students.create')->with($data);
     }
 
     /**
@@ -70,12 +70,10 @@ class SpecializingStudentsEnrollmentsController extends Controller
             'female_number' => 'required'
         ]);
 
-        $enrollment = new SpecializingStudentsEnrollment;
-        $enrollment->male_students_number = $request->input('male_number');
-        $enrollment->female_students_number = $request->input('female_number');
-        $enrollment->student_type = $request->input('student_type');
-        $enrollment->specialization_type = $request->input('specialization_type');
-        $enrollment->field_of_specialization = $request->input('field_of_specialization');
+        $enrollment = new ForeignStudent;
+        $enrollment->number_of_male_students = $request->input('male_number');
+        $enrollment->number_of_female_students = $request->input('female_number');
+        $enrollment->reason = $request->input('reason');
 
         $user = Auth::user();
 
@@ -95,7 +93,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
         if($college == null){
             $college = new College;
-            $college->education_level = "Specialization";
+            $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
             $college->college_name_id = 0;
             $band->colleges()->save($college);           
@@ -115,7 +113,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
 
         $department->enrollments()->save($enrollment);
 
-        return redirect("/enrollment/specializing-student");
+        return redirect("/enrollment/foreign-students");
     }
 
     /**

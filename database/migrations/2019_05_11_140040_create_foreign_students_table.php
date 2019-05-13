@@ -19,7 +19,6 @@ class CreateForeignStudentsTable extends Migration
             $table->bigInteger('number_of_female_students');
             $table->timestamps();
 
-            $table->string('program');
             $table->string('reason');
 
             $table->primary('id');

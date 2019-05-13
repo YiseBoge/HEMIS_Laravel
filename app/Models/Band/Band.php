@@ -30,4 +30,9 @@ class Band extends Model
     {
         return $this->hasMany('App\Models\College\College');
     }
+
+    public function researchs()
+    {
+        return $this->hasMany('App\Models\Band\Research');
+    }
 }

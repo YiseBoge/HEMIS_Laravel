@@ -13,7 +13,7 @@ class Research extends Model
 
     public $incrementing = false;
 
-    protected $enumStatus=[
+    protected $enumCompletions=[
         'ONGOING'=>'On Going',
         'COMPLETED'=>'Completed'
     ];

@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="card shadow-sm mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Disabled Students</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Specializing Students</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -22,7 +22,7 @@
                                             <option value="{{$key}}">{{$value}}</option>
                                         @endforeach
                                     </select>
-                                    <label for="service_type" class="form-control-placeholder">
+                                    <label for="student_type" class="form-control-placeholder">
                                             Student Type
                                     </label>
                                 </div>
@@ -32,7 +32,7 @@
                                             <option value="{{$college->college_name}}">{{$college->college_name}}</option>
                                         @endforeach
                                     </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
+                                    <label for="college" class="form-control-placeholder">
                                             College
                                         </label>
                                 </div>
@@ -42,7 +42,7 @@
                                             <option value="{{$band->band_name}}">{{$band->band_name}}</option>
                                         @endforeach
                                     </select>
-                                    <label for="service_type" class="form-control-placeholder">
+                                    <label for="band" class="form-control-placeholder">
                                             Band
                                         </label>
                                 </div>            
@@ -56,19 +56,19 @@
                                             <option value="{{$key}}">{{$value}}</option>
                                         @endforeach
                                     </select>
-                                    <label for="service_type" class="form-control-placeholder">
+                                    <label for="program" class="form-control-placeholder">
                                             Program
                                         </label>
                                 </div>
             
                                 <div class="col form-group">
                                     
-                                    <select class="form-control" name="education_level" id="level">
+                                    <select class="form-control" name="education_level" id="education_level">
                                         @foreach ($specialization_types as $key => $value)
                                             <option value="{{$key}}">{{$value}}</option>
                                         @endforeach
                                     </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
+                                    <label for="education_level" class="form-control-placeholder">
                                         Specialization Type
                                     </label>
                                 </div>
@@ -79,7 +79,7 @@
                                             <option value="{{$key}}">{{$value}}</option>
                                         @endforeach
                                     </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
+                                    <label for="year_level" class="form-control-placeholder">
                                         Year Level
                                     </label>
                                 </div>

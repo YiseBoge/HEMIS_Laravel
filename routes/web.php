@@ -38,9 +38,12 @@ Route::resource('college/college-name','College\CollegeNamesController');
 //Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
 
 Route::resource('enrollment/normal','Department\EnrollmentsController');
-Route::resource('enrollment/special-regions','Institution\SpecialRegionsEnrollmentsController');
+Route::resource('enrollment/special-region-students','Institution\SpecialRegionsEnrollmentsController');
 Route::resource('enrollment/special-need-students','Institution\SpecialNeedStudentsEnrollmentsController');
 Route::resource('enrollment/specializing-students','Department\SpecializingStudentsEnrollmentsController');
+Route::resource('enrollment/foreign-students','Department\ForeignStudentsEnrollmentsController');
+
+Route::resource('band/researches','Band\ResearchsController');
 
 
 Route::get('/admin', function () {

@@ -10,7 +10,7 @@
                 </div>
             @endforeach
         @endif
-        <form class="pb-5" action="/student/disabled" method="POST">
+        <form class="pb-5" action="/enrollment/special-regions" method="POST">
             @csrf
             <div class="row my-5">
                 <div class="col">
@@ -31,8 +31,8 @@
                                     </div>
                                     <div class="col form-group">
                                         <select class="form-control" name="region" id="region">
-                                            @foreach ($regions as $key => $value)
-                                                <option value="{{$key}}">{{$value}}</option>
+                                            @foreach ($regions as $region)
+                                                <option value="{{$region->name}}">{{$region->name}}</option>
                                             @endforeach
                                         </select>
                                         <label for="region" class="form-control-placeholder">
