@@ -24,6 +24,6 @@ class UniversityIndustryLinkage extends Model
     ];
 
     public function band(){
-        return $this->belongsTo('App\Model\Band\Band');
+        return $this->belongsTo('App\Models\Band\Band');
     }
 }

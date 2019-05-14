@@ -21,10 +21,71 @@ class EnrollmentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $requestedType=$request->input('student_type');
+        if($requestedType==null){
+            $requestedType='Normal';
+        }
+
+        $requestedProgram=$request->input('program');
+        if($requestedProgram==null){
+            $requestedProgram='Regular';
+        }
+
+        $requestedCollege=$request->input('college');
+        if($requestedCollege==null){
+            $requestedCollege='Addis Ababa Institute of Technology';
+        }
+
+        $requestedLevel=$request->input('education_level');
+        if($requestedLevel==null){
+            $requestedLevel='Undergraduate';
+        }
+
+
+        $requestedBand=$request->input('band');
+        if($requestedBand==null){
+            $requestedBand='Medicine and Health Science';
+        }
+
+        $requestedYearLevel=$request->input('year_level');
+        if($requestedYearLevel==null){
+            $requestedYearLevel='1';
+        }
+
+        $studentTypes=Enrollment::getEnum('StudentTypes');
+        $educationPrograms=College::getEnum('EducationPrograms');
+        $colleges=CollegeName::all();
+        $bands=BandName::all();
+        $educationLevels=College::getEnum("EducationLevels");
+        $yearLevels=Department::getEnum('YearLevels');
+
+
+        $bandNameId=BandName::where('band_name',$requestedBand)->first();
+
+        $collegeNameId=CollegeName::where('college_name',$requestedCollege)->first();
+        $band=Band::where('band_name_id',$bandNameId->id)->first();
+        $college=College::where(['college_name_id'=>$collegeNameId->id,'band_id'=>$band->id,'education_level'=>$requestedLevel,'education_program'=>$requestedProgram])->first();
+        $departments=Department::where(['college_id'=>$college->id,'year_level'=>$requestedYearLevel])->get();
+        $filteredEnrollments = array();
+
+        foreach ($departments as $department){
+
+                foreach ($department->enrollments as $enrollment ){
+
+                    if($enrollment->student_type==$requestedType){
+                        $filteredEnrollments[]=$enrollment;
+                    }
+
+                }
+
+        }
+        //$enrollments=Enrollment::where('department_id',$department->id)->get();
+
+
         $data = array(
-            'enrollments' => Enrollment::info()->get(),
+            'enrollments' => $filteredEnrollments,
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'programs' => College::getEnum("EducationPrograms"),
@@ -33,6 +94,7 @@ class EnrollmentsController extends Controller
             'year_levels' => Department::getEnum('YearLevels'),
             'page_name' => 'enrollment.normal.index'
         );
+        //return $filteredEnrollments;
         return view("enrollment.normal.index")->with($data);
     }
 
