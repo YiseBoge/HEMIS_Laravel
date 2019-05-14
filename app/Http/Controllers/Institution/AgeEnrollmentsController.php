@@ -1,47 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Department;
-
+namespace App\Http\Controllers\Institution;
 use App\Http\Controllers\Controller;
-use App\Models\Band\BandName;
-use App\Models\College\CollegeName;
-use App\Models\Department\SpecialProgramTeacher;
+use App\Models\Institution\AgeEnrollment;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Webpatser\Uuid\Uuid;
 
-class SpecialProgramTeacherController extends Controller
+class AgeEnrollmentsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $requestedType=$request->input('program_type');
-        if($requestedType==null){
-            $requestedType='ELIP';
-        }
-
-        $requestedStatus=$request->input('program_status');
-        if($requestedStatus==null){
-            $requestedStatus='COMPLETED';
-        }
-        //$budget_type = Budget::getEnum('budget_type')[$requestedType];
-
-        $specialProgramTeachers=SpecialProgramTeacher::all();
-        //$specialProgramTeachers= SpecialProgramTeacher::where(['program_type'=>$requestedType,'program_status'=>$requestedStatus])->get();
-        $data=[
-            'program_type'=>$requestedType,
-            'program_status'=>$requestedStatus,
-            'special_program_teachers'=>$specialProgramTeachers,
-            'colleges'=>CollegeName::all(),
-            'bands'=>BandName::all(),
-            'page_name'=>'departments.special-program-teacher.index'
-        ];
-        return $data['colleges'];
-        return view('departments.special_program_teacher.index')->with('data',$data);
-
+        $data = ['enrollemnt_info' => AgeEnrollment::all(),
+                 'age_range'=>AgeEnrollment::getEnum('Ages'),
+                 'page_name' => 'institution.age_enrollment.index'];
+        return view('institutions.age_enrollment.index')->with('data', $data);
     }
 
     /**
@@ -51,7 +28,10 @@ class SpecialProgramTeacherController extends Controller
      */
     public function create()
     {
-        //
+        $data = ['enrollemnt_info' => AgeEnrollment::all(),
+                 'age_range'=>AgeEnrollment::getEnum('Ages'),
+                 'page_name' => 'institution.age_enrollment.create'];
+        return view('institutions.age_enrollment.index')->with('data', $data);
     }
 
     /**
@@ -62,7 +42,22 @@ class SpecialProgramTeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'number_of_males' => 'required',
+            'number_of_females' => 'required',
+        ]);
+
+        $age_enrollment = new AgeEnrollment();
+         $age_enrollment->male_students_number = $request->input('number_of_males');
+         $age_enrollment->female_students_number = $request->input('number_of_females');
+
+         $age_enrollment->age = $request->input('age_range');
+
+         $age_enrollment->institution_id = Uuid::generate()->string;
+
+         $age_enrollment->save();
+
+         return redirect('institution/age-enrollment');
     }
 
     /**

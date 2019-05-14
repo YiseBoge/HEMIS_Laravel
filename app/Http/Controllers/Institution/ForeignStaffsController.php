@@ -1,47 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Department;
-
+namespace App\Http\Controllers\Institution;
 use App\Http\Controllers\Controller;
-use App\Models\Band\BandName;
-use App\Models\College\CollegeName;
-use App\Models\Department\SpecialProgramTeacher;
+use App\Models\Institution\ForeignStaff;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Webpatser\Uuid\Uuid;
 
-class SpecialProgramTeacherController extends Controller
+class ForeignStaffsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $requestedType=$request->input('program_type');
-        if($requestedType==null){
-            $requestedType='ELIP';
-        }
-
-        $requestedStatus=$request->input('program_status');
-        if($requestedStatus==null){
-            $requestedStatus='COMPLETED';
-        }
-        //$budget_type = Budget::getEnum('budget_type')[$requestedType];
-
-        $specialProgramTeachers=SpecialProgramTeacher::all();
-        //$specialProgramTeachers= SpecialProgramTeacher::where(['program_type'=>$requestedType,'program_status'=>$requestedStatus])->get();
-        $data=[
-            'program_type'=>$requestedType,
-            'program_status'=>$requestedStatus,
-            'special_program_teachers'=>$specialProgramTeachers,
-            'colleges'=>CollegeName::all(),
-            'bands'=>BandName::all(),
-            'page_name'=>'departments.special-program-teacher.index'
-        ];
-        return $data['colleges'];
-        return view('departments.special_program_teacher.index')->with('data',$data);
-
+        $data = ['staffs' => ForeignStaff::all(),
+        'page_name' => 'institution.foreign_staff.list'];
+        return view('institutions.foreign_staff.list')->with('data', $data);
     }
 
     /**
@@ -51,7 +27,13 @@ class SpecialProgramTeacherController extends Controller
      */
     public function create()
     {
-        //
+        $data = ['staffs' => ForeignStaff::all(),
+        'employment_types' => [],
+        'staff_ranks' => [],
+        'academic_levels' => [],
+        'dedications' => [],
+        'page_name' => 'institution.foreign_staff.create'];
+        return view('institutions.foreign_staff.create')->with('data', $data);
     }
 
     /**
