@@ -61,7 +61,7 @@ class EnrollmentsController extends Controller
         $educationLevels=College::getEnum("EducationLevels");
         $yearLevels=Department::getEnum('YearLevels');
 
-
+        return $requestedBand;
         $bandNameId=BandName::where('band_name',$requestedBand->band_name)->first();
 
         $collegeNameId=CollegeName::where('college_name',$requestedCollege->college_name)->first();

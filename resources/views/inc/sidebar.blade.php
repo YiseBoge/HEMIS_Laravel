@@ -62,7 +62,7 @@
                 <a class="collapse-item" href="/enrollment/special-need-students">Special Need Students</a>
                 <a class="collapse-item" href="/enrollment/special-region-students">Special Region Students</a>
                 <a class="collapse-item" href="/enrollment/specializing-students">Specializing Students</a>
-                <a class="collapse-item" href="#">Enrollment With Age</a>
+                <a class="collapse-item" href="/institution/age-enrollment">Enrollment With Age</a>
             </div>
         </div>
     </li>
