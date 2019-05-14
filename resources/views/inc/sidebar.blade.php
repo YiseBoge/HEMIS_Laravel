@@ -83,7 +83,7 @@
                 <a class="collapse-item text-wrap" href="/staff/academic">Upgrading Level of Education</a>
                 <a class="collapse-item" href="/staff/technical-staff">Technical Staff</a>
                 <a class="collapse-item text-wrap" href="/institution/non-admin">Administrative and Non-Academic Staff</a>
-                <a class="collapse-item text-wrap" href="/staff/ict">Special Programs</a>
+                <a class="collapse-item text-wrap" href="department/special-program-teacher">Special Programs</a>
                 <a class="collapse-item text-wrap" href="/staff/supportive">Post Graduate Diploma Training</a>
                 <a class="collapse-item text-wrap" href="/institution/management-data">Managment Data</a>
             </div>
