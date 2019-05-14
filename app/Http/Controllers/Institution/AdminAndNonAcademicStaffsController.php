@@ -47,6 +47,7 @@ class AdminAndNonAcademicStaffsController extends Controller
      */
     public function store(Request $request)
     {
+        die("asfg");
         $this->validate($request, [
             'number_of_males' => 'required',
             'number_of_females' => 'required',

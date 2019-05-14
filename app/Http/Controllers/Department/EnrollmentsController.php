@@ -102,8 +102,8 @@ class EnrollmentsController extends Controller
             'enrollments' => $filteredEnrollments,
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
-            'programs' => College::getEnum("EducationPrograms"),
-            'education_levels' => College::getEnum("EducationLevels"),
+            'programs' => $educationPrograms,
+            'education_levels' => $educationLevels,
             'student_types' => Enrollment::getEnum('StudentTypes'),
             'year_levels' => Department::getEnum('YearLevels'),
             'page_name' => 'enrollment.normal.index'
@@ -119,12 +119,17 @@ class EnrollmentsController extends Controller
      */
     public function create()
     {
+        $educationPrograms = College::getEnum("EducationPrograms");
+        $educationLevels = College::getEnum("EducationLevels");
+        array_pop($educationPrograms);
+        array_pop($educationLevels);
+
         $data = array(
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
-            'programs' => College::getEnum("EducationPrograms"),
-            'education_levels' => College::getEnum("EducationLevels"),
+            'programs' => $educationPrograms,
+            'education_levels' => $educationLevels,
             'student_types' => Enrollment::getEnum('StudentTypes'),
             'year_levels' => Department::getEnum('YearLevels'),
             'page_name' => 'enrollment.normal.create'
@@ -159,7 +164,7 @@ class EnrollmentsController extends Controller
         if($band == null){
             $band = new Band;
             $band->band_name_id = 0;
-            $institution->bands()->save($band);            
+            $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
 
@@ -171,7 +176,7 @@ class EnrollmentsController extends Controller
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
             $college->college_name_id = 0;
-            $band->colleges()->save($college);           
+            $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
 
@@ -181,9 +186,9 @@ class EnrollmentsController extends Controller
         if($department == null){
             $department = new Department;
             $department->year_level = $request->input("year_level");
-            $department->department_name_id = 0;             
-            $college->departments()->save($department);            
-            $departmentName->department()->save($department);                      
+            $department->department_name_id = 0;
+            $college->departments()->save($department);
+            $departmentName->department()->save($department);
         }
 
         $department->enrollments()->save($enrollment);

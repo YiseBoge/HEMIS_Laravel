@@ -20,7 +20,7 @@ class College extends Model
         'POST_GRADUATE_PHD' => 'Post Graduate(PhD)',
         'POST_DOCTRIAL' => 'Post Doctrial',
         'SPECIALIZATION' => 'Specialization',
-        'NONE'=>'none'
+        'NONE' => 'None'
     ];
 
     protected $enumEducationPrograms = [
@@ -28,7 +28,7 @@ class College extends Model
         'EXTENTION' => 'Extension',
         'SUMMER' => 'Summer',
         'DISTANCE' => 'Distance',
-        'NONE'=>'none'
+        'NONE' => 'None'
     ];
 
     public function technicalStaffs()

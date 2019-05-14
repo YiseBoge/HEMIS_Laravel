@@ -67,7 +67,11 @@
 
                                     <select class="form-control" name="education_level" id="level" onchange="this.form.submit()">
                                         @foreach ($education_levels as $key => $value)
-                                            <option value="{{$value}}">{{$value}}</option>
+                                        @if ($key == 'SPECIALIZATION')
+                                            <option disabled value="{{$key}}">{{$value}}</option>
+                                        @else
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endif
                                         @endforeach
                                     </select>
                                     <label for="dormitory_service_type" class="form-control-placeholder">
