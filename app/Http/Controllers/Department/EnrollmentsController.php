@@ -35,7 +35,7 @@ class EnrollmentsController extends Controller
 
         $requestedCollege=$request->input('college');
         if($requestedCollege==null){
-            $requestedCollege='Addis Ababa Institute of Technology';
+            $requestedCollege=CollegeName::all()->first();
         }
 
         $requestedLevel=$request->input('education_level');
@@ -46,7 +46,7 @@ class EnrollmentsController extends Controller
 
         $requestedBand=$request->input('band');
         if($requestedBand==null){
-            $requestedBand='Medicine and Health Science';
+            $requestedBand=BandName::all()->first();
         }
 
         $requestedYearLevel=$request->input('year_level');
@@ -62,9 +62,9 @@ class EnrollmentsController extends Controller
         $yearLevels=Department::getEnum('YearLevels');
 
 
-        $bandNameId=BandName::where('band_name',$requestedBand)->first();
+        $bandNameId=BandName::where('band_name',$requestedBand->band_name)->first();
 
-        $collegeNameId=CollegeName::where('college_name',$requestedCollege)->first();
+        $collegeNameId=CollegeName::where('college_name',$requestedCollege->college_name)->first();
         $band=Band::where('band_name_id',$bandNameId->id)->first();
         $college=College::where(['college_name_id'=>$collegeNameId->id,'band_id'=>$band->id,'education_level'=>$requestedLevel,'education_program'=>$requestedProgram])->first();
         $departments=Department::where(['college_id'=>$college->id,'year_level'=>$requestedYearLevel])->get();
