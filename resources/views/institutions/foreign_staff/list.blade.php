@@ -12,7 +12,7 @@
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">
                             <div class="col text-right">
-                                <a class="btn btn-outline-primary btn-sm mb-0" href="create">Add<i
+                                <a class="btn btn-outline-primary btn-sm mb-0" href="foreign-staff/create">Add<i
                                     class="fas fa-arrow-right ml-2"></i></a>
                             </div>
                         </div>
