@@ -44,7 +44,7 @@ class SpecialProgramTeacherController extends Controller
             $requestedBand=BandName::all()->first()->id;
         }
 
-        //return $requestedType;
+        return $requestedType;
 
         $band=Band::where('band_name_id',$requestedBand)->first();
         $college=College::where(['college_name_id'=>$requestedCollege,'band_id'=>$band->id])->first();
@@ -118,7 +118,7 @@ class SpecialProgramTeacherController extends Controller
         $specialProgramTeacher->program_status=$request->input('program_status');
         $specialProgramTeacher->program_type=$request->input('program_type');
 
-        //return $specialProgramTeacher->program_type;
+        return $request->input('program_type');
 
         $user = Auth::user();
         $institution = Institution::where('id', $user->institution_id)->first();

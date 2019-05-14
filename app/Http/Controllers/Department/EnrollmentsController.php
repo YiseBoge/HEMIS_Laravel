@@ -35,7 +35,7 @@ class EnrollmentsController extends Controller
 
         $requestedCollege=$request->input('college');
         if($requestedCollege==null){
-            $requestedCollege=CollegeName::all()->first();
+            $requestedCollege=CollegeName::all()->first()->id;
         }
 
         $requestedLevel=$request->input('education_level');
@@ -46,7 +46,7 @@ class EnrollmentsController extends Controller
 
         $requestedBand=$request->input('band');
         if($requestedBand==null){
-            $requestedBand=BandName::all()->first();
+            $requestedBand=BandName::all()->first()->id;
         }
 
         $requestedYearLevel=$request->input('year_level');
@@ -61,26 +61,40 @@ class EnrollmentsController extends Controller
         $educationLevels=College::getEnum("EducationLevels");
         $yearLevels=Department::getEnum('YearLevels');
 
+        //return $requestedBand;
 
-        $bandNameId=BandName::where('band_name',$requestedBand->band_name)->first();
-
-        $collegeNameId=CollegeName::where('college_name',$requestedCollege->college_name)->first();
-        $band=Band::where('band_name_id',$bandNameId->id)->first();
-        $college=College::where(['college_name_id'=>$collegeNameId->id,'band_id'=>$band->id,'education_level'=>$requestedLevel,'education_program'=>$requestedProgram])->first();
-        $departments=Department::where(['college_id'=>$college->id,'year_level'=>$requestedYearLevel])->get();
         $filteredEnrollments = array();
 
-        foreach ($departments as $department){
 
-                foreach ($department->enrollments as $enrollment ){
+        $bandNameId=BandName::where('band_name',$requestedBand)->first();
 
-                    if($enrollment->student_type==$requestedType){
-                        $filteredEnrollments[]=$enrollment;
+        $collegeNameId=CollegeName::where('college_name',$requestedCollege)->first();
+        $band=Band::where('band_name_id',$requestedBand)->first();
+        //return $band;
+        if($band!=null){
+            $college=College::where(['college_name_id'=>$requestedCollege,'band_id'=>$band->id,'education_level'=>$requestedLevel,'education_program'=>$requestedProgram])->first();
+            if($college!=null){
+                $departments=Department::where(['college_id'=>$college->id,'year_level'=>$requestedYearLevel])->get();
+                foreach ($departments as $department){
+
+                    foreach ($department->enrollments as $enrollment ){
+
+                        if($enrollment->student_type==$requestedType){
+                            $filteredEnrollments[]=$enrollment;
+                        }
+
                     }
 
                 }
+            }
+
+
+
 
         }
+
+
+
         //$enrollments=Enrollment::where('department_id',$department->id)->get();
 
 

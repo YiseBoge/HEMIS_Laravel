@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d8ffb81-ad34-454b-891f-fbf73861b70a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/departments/special_program_teacher/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Department/EnrollmentsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Department/EnrollmentsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Department/SpecialProgramTeacherController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Department/SpecialProgramTeacherController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/College/College.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/College/College.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Department/Department.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Department/Department.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/departments/special_program_teacher/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/departments/special_program_teacher/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/enrollment/normal/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/enrollment/normal/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Department/SpecialProgramTeacher.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Department/SpecialProgramTeacher.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/enrollment/normal/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/enrollment/normal/index.blade.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -100,107 +96,64 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Department/SpecialProgramTeacherController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="46" column="10" selection-start-line="46" selection-start-column="10" selection-end-line="46" selection-end-column="10" />
-              <folding>
-                <element signature="e#51#87#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_11_104852_create_special_program_teachers_table.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="20" column="38" lean-forward="true" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Models/Institution/Institution.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="775">
-              <caret line="68" column="46" selection-start-line="68" selection-start-column="46" selection-end-line="68" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Department/EnrollmentsController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="66" column="88" selection-start-line="66" selection-start-column="88" selection-end-line="66" selection-end-column="88" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/departments/special_program_teacher/index.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="65" column="20" lean-forward="true" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Models/Department/SpecialProgramTeacher.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="21" column="31" lean-forward="true" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Models/Department/Department.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
-              <folding>
-                <element signature="e#41#62#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Models/Band/Band.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="20" column="60" lean-forward="true" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="60" />
-              <folding>
-                <element signature="e#35#56#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/departments/special_program_teacher/create.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="28" column="225" selection-start-line="28" selection-start-column="225" selection-end-line="28" selection-end-column="225" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/enrollment/normal/create.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="65" column="48" lean-forward="true" selection-start-line="58" selection-start-column="36" selection-end-line="65" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/resources/views/departments/special_program_teacher/index.blade.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1105">
+                  <caret line="65" column="20" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="41" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Department/EnrollmentsController.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="412">
+                  <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/resources/views/enrollment/normal/index.blade.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="204">
+                  <caret line="78" column="128" selection-start-line="78" selection-start-column="128" selection-end-line="78" selection-end-column="128" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/resources/views/departments/special_program_teacher/index.blade.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="748">
+                  <caret line="65" column="20" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="41" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Department/SpecialProgramTeacherController.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="272">
+                  <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
+                  <folding>
+                    <element signature="e#51#87#0#PHP" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -242,7 +195,6 @@
         <option value="$PROJECT_DIR$/database/migrations/2019_04_20_223442_create_institutions_table.php" />
         <option value="$PROJECT_DIR$/app/User.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" />
-        <option value="$PROJECT_DIR$/app/Models/Department/SpecialProgramTeacher.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Institution/RegionNamesContorller.php" />
         <option value="$PROJECT_DIR$/resources/views/institutions/Region_name/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/institutions/region_name/index.blade.php" />
@@ -251,14 +203,15 @@
         <option value="$PROJECT_DIR$/resources/views/auth/register.blade.php" />
         <option value="$PROJECT_DIR$/app/Models/College/CollegeName.php" />
         <option value="$PROJECT_DIR$/app/Models/Department/Enrollment.php" />
-        <option value="$PROJECT_DIR$/resources/views/enrollment/normal/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/departments/special_program_teacher/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Models/Department/Department.php" />
         <option value="$PROJECT_DIR$/app/Models/College/College.php" />
         <option value="$PROJECT_DIR$/resources/views/enrollment/normal/create.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/departments/special_program_teacher/create.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Department/EnrollmentsController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Department/SpecialProgramTeacherController.php" />
+        <option value="$PROJECT_DIR$/app/Models/Department/SpecialProgramTeacher.php" />
+        <option value="$PROJECT_DIR$/resources/views/enrollment/normal/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Department/EnrollmentsController.php" />
       </list>
     </option>
   </component>
@@ -592,18 +545,18 @@
       <updated>1557408625667</updated>
       <workItem from="1557408632210" duration="3804000" />
       <workItem from="1557571622283" duration="8893000" />
-      <workItem from="1557620189250" duration="64685000" />
+      <workItem from="1557620189250" duration="67132000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79737000" />
+    <option name="totallyTimeSpent" value="82184000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1549" height="837" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2696177" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12810194" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -629,9 +582,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_20_211251_create_institution_names_table.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_20_213058_create_general_information_table.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -885,17 +835,10 @@
     <entry file="file://$PROJECT_DIR$/app/Models/Department/DepartmentName.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/enrollment/normal/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1241">
-          <caret line="85" column="44" lean-forward="true" selection-start-line="83" selection-start-column="36" selection-end-line="85" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Models/Band/Band.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
-          <caret line="20" column="60" lean-forward="true" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="60" />
+          <caret line="20" column="60" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="60" />
           <folding>
             <element signature="e#35#56#0#PHP" expanded="true" />
           </folding>
@@ -922,14 +865,7 @@
     <entry file="file://$PROJECT_DIR$/resources/views/enrollment/normal/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="65" column="48" lean-forward="true" selection-start-line="58" selection-start-column="36" selection-end-line="65" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/departments/special_program_teacher/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="65" column="20" lean-forward="true" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="41" />
+          <caret line="65" column="48" selection-start-line="58" selection-start-column="36" selection-end-line="65" selection-end-column="48" />
         </state>
       </provider>
     </entry>
@@ -947,34 +883,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Department/SpecialProgramTeacher.php">
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_11_104852_create_special_program_teachers_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="21" column="31" lean-forward="true" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+          <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_11_104852_create_special_program_teachers_table.php">
+    <entry file="file://$PROJECT_DIR$/app/Models/Department/SpecialProgramTeacher.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="20" column="38" lean-forward="true" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
+        <state relative-caret-position="374">
+          <caret line="24" column="36" lean-forward="true" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Institution/ForeignStaff.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-13" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Department/SpecialProgramTeacherController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
+          <folding>
+            <element signature="e#51#87#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/departments/special_program_teacher/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1105">
+          <caret line="65" column="20" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/enrollment/normal/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="78" column="128" selection-start-line="78" selection-start-column="128" selection-end-line="78" selection-end-column="128" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Department/EnrollmentsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="66" column="88" selection-start-line="66" selection-start-column="88" selection-end-line="66" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Department/SpecialProgramTeacherController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="46" column="10" selection-start-line="46" selection-start-column="10" selection-end-line="46" selection-end-column="10" />
-          <folding>
-            <element signature="e#51#87#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="412">
+          <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
         </state>
       </provider>
     </entry>
