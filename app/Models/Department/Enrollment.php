@@ -13,7 +13,7 @@ class Enrollment extends Model
 
     public $incrementing = false;
     protected $enumStudentTypes = [
-        'Normal'=>'Normal',
+        'NORMAL'=>'Normal',
         'PROSPECTIVE' => 'Prospective Graduates',
         'GRADUATES' => 'Graduates'
         

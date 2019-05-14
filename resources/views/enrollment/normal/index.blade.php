@@ -15,15 +15,17 @@
                                         class="fas fa-arrow-right ml-2"></i></a>
                                 </div>
                             </div>
+                        <form action="" method="get">
+
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <select class="form-control" name="student_type" id="student_type">
+                                    <select class="form-control" name="student_type" id="student_type" onchange="this.form.submit()">
                                         @foreach ($student_types as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                            <option value="{{$value}}">{{$value}}</option>
                                         @endforeach
                                     </select>
                                     <label for="service_type" class="form-control-placeholder">
-                                            Student Type
+                                        Student Type
                                     </label>
                                 </div>
                                 <div class="col form-group">
@@ -33,8 +35,8 @@
                                         @endforeach
                                     </select>
                                     <label for="dormitory_service_type" class="form-control-placeholder">
-                                            College
-                                        </label>
+                                        College
+                                    </label>
                                 </div>
                                 <div class="col form-group">
                                     <select class="form-control" name="band" id="band">
@@ -43,29 +45,29 @@
                                         @endforeach
                                     </select>
                                     <label for="service_type" class="form-control-placeholder">
-                                            Band
-                                        </label>
-                                </div>            
-                               
+                                        Band
+                                    </label>
+                                </div>
+
                             </div>
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    
+
                                     <select class="form-control" name="program" id="program">
                                         @foreach ($programs as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                            <option value="{{$value}}">{{$value}}</option>
                                         @endforeach
                                     </select>
                                     <label for="service_type" class="form-control-placeholder">
-                                            Program
-                                        </label>
+                                        Program
+                                    </label>
                                 </div>
-            
+
                                 <div class="col form-group">
-                                    
+
                                     <select class="form-control" name="education_level" id="level">
                                         @foreach ($education_levels as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                            <option value="{{$value}}">{{$value}}</option>
                                         @endforeach
                                     </select>
                                     <label for="dormitory_service_type" class="form-control-placeholder">
@@ -73,18 +75,22 @@
                                     </label>
                                 </div>
                                 <div class="col form-group">
-                                    
+
                                     <select class="form-control" name="year_level" id="year_level">
                                         @foreach ($year_levels as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                            <option value="{{$value}}">{{$value}}</option>
                                         @endforeach
                                     </select>
                                     <label for="dormitory_service_type" class="form-control-placeholder">
                                         Year Level
                                     </label>
                                 </div>
-            
+
                             </div>
+
+                        </form>
+
+
                             <div class="row">
                                 <div class="col text-right">
                                     <a class="btn btn-outline-primary btn-sm mb-0" href="normal/">Reload</a>

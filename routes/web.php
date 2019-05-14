@@ -39,7 +39,8 @@ Route::resource('institution/management-data', 'Institution\ManagementDatasContr
 Route::resource('institution/age-enrollment', 'Institution\AgeEnrollmentsController');
 Route::resource('institution/foreign-staff', 'Institution\ForeignStaffsController');
 Route::resource('college/college-name','College\CollegeNamesController');
-
+Route::resource('department/special-program-teacher','Department\SpecialProgramTeacherController');
+Route::resource('institution/region-name','Institution\RegionNamesController');
 //Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
 
 Route::resource('enrollment/normal','Department\EnrollmentsController');
@@ -49,6 +50,7 @@ Route::resource('enrollment/specializing-students','Department\SpecializingStude
 Route::resource('enrollment/foreign-students','Department\ForeignStudentsEnrollmentsController');
 
 Route::resource('band/researches','Band\ResearchsController');
+Route::resource('band/university-linkage','Band\UniversityIndustryLinkageController');
 
 
 Route::get('/admin', function () {

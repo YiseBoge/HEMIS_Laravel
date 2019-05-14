@@ -15,7 +15,7 @@ class CreateUniversityIndustryLinkagesTable extends Migration
     {
         Schema::create('university_industry_linkages', function (Blueprint $table) {
             $table->uuid('id');
-            $table->bigInteger("number_of_industry_liks");
+            $table->bigInteger("number_of_industry_links");
             $table->string('training_area');
             $table->bigInteger('number_of_students');
             $table->timestamps();
