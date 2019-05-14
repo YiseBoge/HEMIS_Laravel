@@ -79,7 +79,7 @@ class UniversityIndustryLinkageController extends Controller
 
         $band->universityIndustryLinkages()->save($linkage);
 
-        return redirect("/band/university-linkage");
+        return redirect("/institution/university-industry-linkage");
     }
 
     /**

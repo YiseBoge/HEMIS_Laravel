@@ -23,12 +23,15 @@ class SpecializingStudentsEnrollmentsController extends Controller
      */
     public function index()
     {
+        $educationPrograms = College::getEnum("EducationPrograms");
+        array_pop($educationPrograms);
+
         $data = array(
             'enrollments' => SpecializingStudentsEnrollment::info()->get(),
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
-            'programs' => College::getEnum("EducationPrograms"),
+            'programs' => $educationPrograms,
             'specialization_types' => SpecializingStudentsEnrollment::getEnum("SpecializationTypes"),
             'student_types' => SpecializingStudentsEnrollment::getEnum('StudentTypes'),
             'year_levels' => Department::getEnum('YearLevels'),
@@ -44,11 +47,14 @@ class SpecializingStudentsEnrollmentsController extends Controller
      */
     public function create()
     {
+        $educationPrograms = College::getEnum("EducationPrograms");
+        array_pop($educationPrograms);
+
         $data = array(
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
-            'programs' => College::getEnum("EducationPrograms"),
+            'programs' => $educationPrograms,
             'specialization_types' => SpecializingStudentsEnrollment::getEnum("SpecializationTypes"),
             'student_types' => SpecializingStudentsEnrollment::getEnum('StudentTypes'),
             'year_levels' => Department::getEnum('YearLevels'),

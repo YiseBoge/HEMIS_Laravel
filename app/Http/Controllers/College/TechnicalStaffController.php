@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Department;
+namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Band\BandName;
-use App\Models\Department\DepartmentName;
 use App\Models\Institution\Institution;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\College\CollegeName;
-use App\Models\Department\Department;
-use App\Models\Department\Enrollment;
+use App\Models\College\TechnicalStaff;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
-class EnrollmentsController extends Controller
+class TechnicalStaffController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,22 +21,14 @@ class EnrollmentsController extends Controller
      */
     public function index()
     {
-        $educationPrograms = College::getEnum("EducationPrograms");
-        $educationLevels = College::getEnum("EducationLevels");
-        array_pop($educationPrograms);
-        array_pop($educationLevels);
-
         $data = array(
-            'enrollments' => Enrollment::info()->get(),
-            'colleges' => CollegeName::all(),
+            'staffs' => TechnicalStaff::with('college')->get(),
             'bands' => BandName::all(),
-            'programs' => $educationPrograms,
-            'education_levels' => $educationLevels,
-            'student_types' => Enrollment::getEnum('StudentTypes'),
-            'year_levels' => Department::getEnum('YearLevels'),
-            'page_name' => 'enrollment.normal.index'
+            'colleges' => CollegeName::all(),
+            'levels' => TechnicalStaff::getEnum('EducationLevels'),
+            'page_name' => 'college.technical_staff.index'
         );
-        return view("enrollment.normal.index")->with($data);
+        return view("colleges.technical_staff.index")->with($data);
     }
 
     /**
@@ -48,22 +38,14 @@ class EnrollmentsController extends Controller
      */
     public function create()
     {
-        $educationPrograms = College::getEnum("EducationPrograms");
-        $educationLevels = College::getEnum("EducationLevels");
-        array_pop($educationPrograms);
-        array_pop($educationLevels);
-
         $data = array(
-            'colleges' => CollegeName::all(),
+            'staffs' => TechnicalStaff::with('college')->get(),
             'bands' => BandName::all(),
-            'departments' => DepartmentName::all(),
-            'programs' => $educationPrograms,
-            'education_levels' => $educationLevels,
-            'student_types' => Enrollment::getEnum('StudentTypes'),
-            'year_levels' => Department::getEnum('YearLevels'),
-            'page_name' => 'enrollment.normal.create'
+            'colleges' => CollegeName::all(),
+            'levels' => TechnicalStaff::getEnum('EducationLevels'),
+            'page_name' => 'college.technical_staff.create'
         );
-        return view('enrollment.normal.create')->with($data);
+        return view("colleges.technical_staff.index")->with($data);
     }
 
     /**
@@ -76,13 +58,13 @@ class EnrollmentsController extends Controller
     {
         $this->validate($request, [
             'male_number' => 'required',
-            'female_number' => 'required'
+            'female_number' => 'required'            
         ]);
 
-        $enrollment = new Enrollment;
-        $enrollment->male_students_number = $request->input('male_number');
-        $enrollment->female_students_number = $request->input('female_number');
-        $enrollment->student_type = $request->input('student_type');
+        $staff = new TechnicalStaff;
+        $staff->level = $request->input('level');
+        $staff->male_staff_number = $request->input('male_number');
+        $staff->female_staff_number = $request->input('female_number');
 
         $user = Auth::user();
 
@@ -102,28 +84,16 @@ class EnrollmentsController extends Controller
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
         if($college == null){
             $college = new College;
-            $college->education_level = $request->input("education_level");
-            $college->education_program = $request->input("program");
+            $college->education_level = 'None';
+            $college->education_program = 'None';
             $college->college_name_id = 0;
             $band->colleges()->save($college);           
             $collegeName->college()->save($college);
         }
 
-        $departmentName = DepartmentName::where('department_name', $request->input("department"))->first();
-        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
-            'college_id' => $college->id])->first();
-        if($department == null){
-            $department = new Department;
-            $department->year_level = $request->input("year_level");
-            $department->department_name_id = 0;             
-            $college->departments()->save($department);            
-            $departmentName->department()->save($department);                      
-        }
+        $college->technicalStaffs()->save($staff);
 
-        $department->enrollments()->save($enrollment);
-
-        return redirect("/enrollment/normal");
-
+        return redirect("/staff/technical-staff");
     }
 
     /**
