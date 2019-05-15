@@ -19,6 +19,7 @@ Route::resource('institution/budget', 'Institution\BudgetsController');
 Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
 Route::resource('institution/internal-revenue', 'Institution\InternalRevenuesController');
 Route::resource('institution/private-investment', 'Institution\InvestmentsController');
+Route::resource('institution/buildings', 'Institution\BuildingsController');
 
 Route::resource('staff/academic', 'Staff\AcademicStaffsController');
 Route::resource('staff/technical', 'Staff\TechnicalStaffsController');
