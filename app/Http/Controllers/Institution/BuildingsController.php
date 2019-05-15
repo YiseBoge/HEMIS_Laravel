@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Institution;
 
+use App\Models\Institution\Building;
 use App\Models\Institution\BuildingPurpose;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class BuildingsController extends Controller
 {
@@ -25,10 +28,11 @@ class BuildingsController extends Controller
         if ($requestedPurpose == null){
             $requestedPurpose = 0;
         }
-        $buildingPurpose = BuildingPurpose::where('purpose', $buildingPurposes[$requestedPurpose])->get()->first();
+
+        $buildingPurpose = $buildingPurposes[$requestedPurpose];
 
         $data = array(
-            'buildings' => $buildingPurpose->buildings(),
+            'buildings' => $buildingPurpose->buildings,
             'building_purposes' => $buildingPurposes,
             'current_purpose' => $requestedPurpose,
             'page_name' => 'institution.buildings.index'
@@ -44,7 +48,14 @@ class BuildingsController extends Controller
      */
     public function create()
     {
-        //
+        $buildingPurposes = BuildingPurpose::all();
+
+        $data = array(
+            'building_purposes' => $buildingPurposes,
+            'page_name' => 'institution.buildings.create'
+        );
+
+        return view('institutions.buildings.create')->with('data', $data);
     }
 
     /**
@@ -55,7 +66,40 @@ class BuildingsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'building_name' => 'required',
+            'contractor_name' => 'required',
+            'consultant_name' => 'required',
+            'date_started' => 'required',
+            'date_completed' => 'required',
+            'budget_allocated' => 'required',
+        ]);
+
+        $building = new Building();
+        $building->building_name = $request->input('building_name');
+        $building->contractor_name = $request->input('contractor_name');
+        $building->consultant_name = $request->input('consultant_name');
+        $building->date_started = $request->input('date_started');
+        $building->date_completed = $request->input('date_completed');
+        $building->budget_allocated = $request->input('budget_allocated');
+        $building->completion_status = $request->input('financial_status');
+        $building->financial_status = $request->input('financial_status');
+
+        $user = Auth::user();
+        $institution = Institution::where('id', $user->institution_id)->first();
+        $building->institution_id = $institution->id;
+
+        $building->save();
+
+        $purposes = $request->input('building_purposes');
+        if ($purposes != null){
+            foreach ($purposes as $purposeString){
+                $purpose = BuildingPurpose::where('purpose', $purposeString)->first();
+                $purpose->buildings()->attach([$building->id]);
+            }
+        }
+
+        return redirect('institution/buildings');
     }
 
     /**

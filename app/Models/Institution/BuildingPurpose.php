@@ -12,7 +12,7 @@ class BuildingPurpose extends Model
     public $incrementing = false;
 
     public function buildings() {
-        return $this->belongsToMany(Building::class, 'building_building_purpose');
+        return $this->belongsToMany('App\Models\Institution\Building', 'building_building_purpose', 'building_purpose_id', 'building_id');
     }
 
     public function __toString()

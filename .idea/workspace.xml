@@ -2,25 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d8ffb81-ad34-454b-891f-fbf73861b70a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Institution/AgeEnrollmentsController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Institution/ForeignStaffsController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Institution/RegionNamesController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/departments/special_program_teacher/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/institutions/age_enrollment/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/institutions/foreign_staff/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/institutions/foreign_staff/details.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/institutions/foreign_staff/edit.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/institutions/foreign_staff/list.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/institutions/region_name/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/institutions/buildings/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Department/EnrollmentsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Department/EnrollmentsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Department/SpecialProgramTeacherController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Department/SpecialProgramTeacherController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/College/CollegeName.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/College/CollegeName.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Department/Enrollment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Department/Enrollment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Department/SpecialProgramTeacher.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Department/SpecialProgramTeacher.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Institution/AgeEnrollment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Institution/AgeEnrollment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/enrollment/normal/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/enrollment/normal/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Institution/BuildingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Institution/BuildingsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Institution/Building.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Institution/Building.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Institution/BuildingPurpose.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Institution/BuildingPurpose.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_05_11_103158_create_buildings_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_05_11_103158_create_buildings_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/institutions/buildings/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/institutions/buildings/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/institutions/institution_name/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/institutions/institution_name/index.blade.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -142,23 +131,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/BuildingsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="35" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="306">
+              <caret line="101" column="46" selection-start-line="101" selection-start-column="46" selection-end-line="101" selection-end-column="46" />
               <folding>
-                <element signature="e#52#95#0#PHP" expanded="true" />
+                <element signature="e#52#88#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_13_212606_create_building_purposes_table.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/AdminAndNonAcademicStaffsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
+            <state relative-caret-position="346">
+              <caret line="64" column="46" selection-start-line="64" selection-start-column="25" selection-end-line="64" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Models/Institution/Building.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="19" column="117" selection-start-line="19" selection-start-column="117" selection-end-line="19" selection-end-column="117" />
             </state>
           </provider>
         </entry>
@@ -166,8 +164,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Models/Institution/BuildingPurpose.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
+            <state relative-caret-position="238">
+              <caret line="14" column="68" selection-start-line="14" selection-start-column="68" selection-end-line="14" selection-end-column="68" />
               <folding>
                 <element signature="e#42#63#0#PHP" expanded="true" />
               </folding>
@@ -176,10 +174,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Models/Institution/Building.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
+        <entry file="das://27064634-89a6-4295-a290-264b9cdfa3a3/schema/hemis_database/table/building_building_purpose">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true">
+                <filter text="" />
+              </filtering>
             </state>
           </provider>
         </entry>
@@ -187,26 +187,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/institutions/buildings/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1037">
-              <caret line="61" column="56" selection-start-line="61" selection-start-column="56" selection-end-line="61" selection-end-column="56" />
+            <state relative-caret-position="629">
+              <caret line="37" column="56" selection-start-line="37" selection-start-column="56" selection-end-line="37" selection-end-column="56" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/bands/band_name/list.blade.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/institutions/buildings/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="55" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
+            <state relative-caret-position="918">
+              <caret line="54" column="78" selection-start-line="54" selection-start-column="62" selection-end-line="54" selection-end-column="78" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_11_103158_create_buildings_table.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="32" column="45" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
+            <state relative-caret-position="393">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
             </state>
           </provider>
         </entry>
@@ -219,7 +219,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Models/Department/StaffLeave.php" />
         <option value="$PROJECT_DIR$/app/Models/Department/PostGraduateDiplomaTraining.php" />
         <option value="$PROJECT_DIR$/app/Models/Department/AcademicStaff.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_05_11_102924_create_admin_and_non_academic_staff_table.php" />
@@ -250,7 +249,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Department/DepartmentNamesController.php" />
         <option value="$PROJECT_DIR$/resources/views/bands/band_name/list.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/departments/department_name/list.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/institutions/institution_name/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Institution/InstitutionNamesController.php" />
         <option value="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" />
         <option value="$PROJECT_DIR$/app/Models/Institution/Institution.php" />
@@ -262,14 +260,16 @@
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" />
         <option value="$PROJECT_DIR$/resources/views/inc/sidebar.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_05_11_103158_create_buildings_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_05_13_210151_create_building_building_purpose_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_05_13_212606_create_building_purposes_table.php" />
-        <option value="$PROJECT_DIR$/app/Models/Institution/BuildingPurpose.php" />
-        <option value="$PROJECT_DIR$/resources/views/institutions/buildings/index.blade.php" />
-        <option value="$PROJECT_DIR$/app/Models/Institution/Building.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_05_13_212650_create_building_building_purpose_table.php" />
+        <option value="$PROJECT_DIR$/resources/views/institutions/institution_name/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/institutions/buildings/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/institutions/buildings/create.blade.php" />
+        <option value="$PROJECT_DIR$/app/Models/Institution/Building.php" />
+        <option value="$PROJECT_DIR$/app/Models/Institution/BuildingPurpose.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Institution/BuildingsController.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_05_11_103158_create_buildings_table.php" />
       </list>
     </option>
   </component>
@@ -401,6 +401,22 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="Http" type="462c0819:PsiDirectoryNode" />
               <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Auth" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HEMISDataManagement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HEMISDataManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Band" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HEMISDataManagement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HEMISDataManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
               <item name="Institution" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -471,23 +487,7 @@
               <item name="HEMISDataManagement" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="enrollment" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HEMISDataManagement" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HEMISDataManagement" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="enrollment" type="462c0819:PsiDirectoryNode" />
-              <item name="normal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HEMISDataManagement" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HEMISDataManagement" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="enrollment" type="462c0819:PsiDirectoryNode" />
-              <item name="specializing_students" type="462c0819:PsiDirectoryNode" />
+              <item name="institutions" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="HEMISDataManagement" type="b2602c69:ProjectViewProjectNode" />
@@ -495,6 +495,15 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="institutions" type="462c0819:PsiDirectoryNode" />
+              <item name="admin_and_non_academic_staff" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HEMISDataManagement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HEMISDataManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="institutions" type="462c0819:PsiDirectoryNode" />
+              <item name="age_enrollment" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="HEMISDataManagement" type="b2602c69:ProjectViewProjectNode" />
@@ -503,6 +512,37 @@
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="institutions" type="462c0819:PsiDirectoryNode" />
               <item name="buildings" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HEMISDataManagement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HEMISDataManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="institutions" type="462c0819:PsiDirectoryNode" />
+              <item name="foreign_staff" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HEMISDataManagement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HEMISDataManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="institutions" type="462c0819:PsiDirectoryNode" />
+              <item name="institution_name" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HEMISDataManagement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HEMISDataManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="staff" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HEMISDataManagement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HEMISDataManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="staff" type="462c0819:PsiDirectoryNode" />
+              <item name="academic" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="HEMISDataManagement" type="b2602c69:ProjectViewProjectNode" />
@@ -518,7 +558,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="database.console.LAST_STATE" value="true" />
+    <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
   </component>
@@ -560,7 +600,9 @@
       <workItem from="1557778439197" duration="337000" />
       <workItem from="1557778913348" duration="6980000" />
       <workItem from="1557786469166" duration="65000" />
-      <workItem from="1557819278461" duration="251000" />
+      <workItem from="1557819278461" duration="12235000" />
+      <workItem from="1557923071969" duration="105000" />
+      <workItem from="1557951239186" duration="2131000" />
     </task>
     <task id="LOCAL-00001" summary="Merge branch 'newdev' of https://github.com/YiseBoge/HEMIS_Laravel into yise&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources.local.xml&#10;#&#9;.idea/workspace.xml">
       <created>1557755273709</created>
@@ -583,16 +625,24 @@
       <option name="project" value="LOCAL" />
       <updated>1557819447073</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Merge branch 'newdev' of https://github.com/YiseBoge/HEMIS_Laravel into yise&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1557819547049</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1557819547049</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51246000" />
+    <option name="totallyTimeSpent" value="65466000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="605" y="23" width="1315" height="1177" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2631579" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2340927" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -604,15 +654,15 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.21013825" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.21013825" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.23686635" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.24884793" />
-      <window_info anchor="bottom" id="Database Console" order="12" weight="0.3299539" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.24884793" />
+      <window_info anchor="bottom" id="Database Console" order="12" weight="0.2562212" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.24980362" />
+      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.21131186" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -638,124 +688,10 @@
     <MESSAGE value="merging" />
     <MESSAGE value="Merge branch 'newdev' of https://github.com/YiseBoge/HEMIS_Laravel into yise&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources.local.xml&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Start the listing of buildings in institutuion" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start the listing of buildings in institutuion" />
+    <MESSAGE value="Merge branch 'newdev' of https://github.com/YiseBoge/HEMIS_Laravel into yise&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'newdev' of https://github.com/YiseBoge/HEMIS_Laravel into yise&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/College/CollageName.php" />
-    <entry file="file://$PROJECT_DIR$/app/Models/Band/BandName.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#35#56#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_20_195908_create_department_names_table.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Band/Band.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="20" column="60" lean-forward="true" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="60" />
-          <folding>
-            <element signature="e#35#56#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/College/College.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/students/disabled/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="10" lean-forward="true" selection-end-line="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_20_193843_create_bands_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_12_002249_create_college_names_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/College/CollegeName.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
-          <folding>
-            <element signature="e#23#44#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/view.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-663" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/colleges/college_name/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="622">
-          <caret line="182" lean-forward="true" selection-end-line="182" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/College/CollegeNamesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-364">
-          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
-          <folding>
-            <element signature="e#50#86#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/departments/department_name/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="70" column="27" selection-end-line="180" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/institutions/institution_name/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="85" column="53" selection-start-line="85" selection-start-column="53" selection-end-line="85" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/InstitutionNamesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="51" column="15" selection-start-line="51" selection-start-column="15" selection-end-line="51" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Models/Institution/Institution.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="526">
@@ -843,13 +779,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/AdminAndNonAcademicStaffsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="22" column="92" lean-forward="true" selection-start-line="20" selection-start-column="8" selection-end-line="22" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="537">
@@ -857,27 +786,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="80" column="62" selection-start-line="80" selection-start-column="62" selection-end-line="80" selection-end-column="62" />
-          <folding>
-            <element signature="e#45#81#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/inc/sidebar.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="366">
           <caret line="42" column="9" lean-forward="true" selection-start-line="42" selection-start-column="9" selection-end-line="42" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/institutions/admin_and_non_academic_staff/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="33" lean-forward="true" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -902,60 +814,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_13_210151_create_building_building_purpose_table.php" />
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_13_210325_create_building_purposes_table.php" />
-    <entry file="das://27064634-89a6-4295-a290-264b9cdfa3a3/schema/hemis_database/table/building_purposes">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true">
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_13_212650_create_building_building_purpose_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/BuildingsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-          <folding>
-            <element signature="e#52#95#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_13_212606_create_building_purposes_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Institution/BuildingPurpose.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
-          <folding>
-            <element signature="e#42#63#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Institution/Building.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/institutions/buildings/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="61" column="56" selection-start-line="61" selection-start-column="56" selection-end-line="61" selection-end-column="56" />
         </state>
       </provider>
     </entry>
@@ -966,10 +828,205 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="662">
+          <caret line="69" column="25" lean-forward="true" selection-start-line="69" selection-start-column="25" selection-end-line="69" selection-end-column="25" />
+          <folding>
+            <element signature="e#45#81#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/institutions/foreign_staff/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1818">
+          <caret line="44" column="43" lean-forward="true" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/institutions/admin_and_non_academic_staff/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-483">
+          <caret line="3" column="33" lean-forward="true" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/institutions/age_enrollment/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2223" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/enrollment/foreign_students/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-22" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/institutions/institution_name/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="123" column="30" lean-forward="true" selection-start-line="123" selection-start-column="30" selection-end-line="123" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/SpecialNeedStudentsEnrollmentsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="57" column="11" lean-forward="true" selection-start-line="54" selection-start-column="8" selection-end-line="57" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/RegionNamesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/InstitutionNamesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="51" column="15" selection-start-line="51" selection-start-column="15" selection-end-line="51" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/InstancesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_13_212606_create_building_purposes_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/staff/academic/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="44" column="26" lean-forward="true" selection-end-line="186" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/InstitutionsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Institution/Management.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://27064634-89a6-4295-a290-264b9cdfa3a3/schema/hemis_database/table/migrations">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true">
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Band/UniversityIndustryLinkageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="68" column="80" selection-start-line="66" selection-start-column="8" selection-end-line="68" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/institutions/buildings/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="56" selection-start-line="37" selection-start-column="56" selection-end-line="37" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/institutions/buildings/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="918">
+          <caret line="54" column="78" selection-start-line="54" selection-start-column="62" selection-end-line="54" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://27064634-89a6-4295-a290-264b9cdfa3a3/schema/hemis_database/table/buildings">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true">
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://27064634-89a6-4295-a290-264b9cdfa3a3/schema/hemis_database/table/building_purposes">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true">
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://27064634-89a6-4295-a290-264b9cdfa3a3/schema/hemis_database/table/building_building_purpose">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true">
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Institution/Building.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="19" column="117" selection-start-line="19" selection-start-column="117" selection-end-line="19" selection-end-column="117" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Institution/BuildingPurpose.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="68" selection-start-line="14" selection-start-column="68" selection-end-line="14" selection-end-column="68" />
+          <folding>
+            <element signature="e#42#63#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/ForeignStaffsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-149">
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/AdminAndNonAcademicStaffsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="64" column="46" selection-start-line="64" selection-start-column="25" selection-end-line="64" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/BuildingsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="101" column="46" selection-start-line="101" selection-start-column="46" selection-end-line="101" selection-end-column="46" />
+          <folding>
+            <element signature="e#52#88#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_11_103158_create_buildings_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="32" column="45" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
+        <state relative-caret-position="393">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
         </state>
       </provider>
     </entry>
