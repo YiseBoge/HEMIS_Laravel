@@ -3,25 +3,68 @@
 @section('content')
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
-            <div class="text-primary card-header">University Industry Linkage</div>
+            <div class="text-primary card-header">Teachers on Special Program</div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col p-1 m-3 text-center">
-                        <a href="/institution/university-industry-linkage/create" class="btn btn-outline-primary btn-sm mb-0">
+                    <div class="col p-3 m-3 text-center">
+                        <a href="/department/special-program-teacher/create"
+                           class="btn btn-outline-primary btn-sm mb-0">
                             Add<i class="fas fa-plus ml-2"></i></a>
                     </div>
                 </div>
-                <div class="form-group row pt-3">
-                    <div class="col-md-4 form-group">
-                        <select class="form-control" name="year" id="year">
-                            @foreach ($years as $key => $value)
-                                <option value="{{$key}}">{{$value}}</option>
-                            @endforeach
-                        </select>
-                        <label for="year" class="form-control-placeholder">
-                               Year Level
-                        </label>
+                <div class="row">
+
+                    {!! Form::open(['action' => 'Department\SpecialProgramTeacherController@index', 'method' => 'GET', 'class' => 'w-100']) !!}
+                    <div class="form-row">
+                        <div class="col-md-5 px-3 py-md-1 col">
+                            <div class="form-group">
+                                {!! Form::select('program_type', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramTypes') , $data['program_type'] , ['class' => 'form-control', 'id' => 'add_program_type', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('program_type', 'Program Type', ['class' => 'form-control-placeholder', 'for' => 'add_program_type']) !!}
+                            </div>
+                        </div>
+                        <div class="col-md-5 px-3 py-md-1 col">
+                            <div class="form-group">
+                                {!! Form::select('program_status', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramStats') , $data['program_status'] , ['class' => 'form-control', 'id' => 'add_program_status', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('program_status', 'Program Status', ['class' => 'form-control-placeholder', 'for' => 'add_program_status']) !!}
+                            </div>
+                        </div>
+
                     </div>
+                    <div class="form-row">
+                        <div class="col-md-5 px-3 py-md-1 col">
+                            <select name="band_names" class="form-control" id="band_names">
+                                @foreach ($data['bands'] as $band)
+                                    <option value="{{ $band->id }}">{{ $band->band_name }}</option>
+                                @endforeach
+                            </select>
+                            <label for="dormitory_service_type" class="form-control-placeholder">
+                                Band Name
+                            </label>
+                            {{--{!! Form::select('band_names',$data['bands'],null, ['class' => 'form-control', 'id' => 'add_band_ name', 'onchange' => 'this.form.submit()']) !!}--}}
+                            {{--{!! Form::label('band','Band',['class'=> 'form-control-placeholder','for'=>'add_band']) !!}--}}
+
+                        </div>
+                        <div class="col-md-5 px-3 py-md-1 col">
+                            <div class="form-group">
+                                <select name="college_names" class="form-control" id="college_names">
+                                    @foreach ($data['colleges'] as $college)
+                                        <option value="{{ $college->id }}">{{ $college->college_name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="dormitory_service_type" class="form-control-placeholder">
+                                    College Name
+                                </label>
+                                {{--{!! Form::select('college_names',$data['colleges'],null, ['class' => 'form-control', 'id' => 'add_college_name', 'onchange' => 'this.form.submit()']) !!}--}}
+                                {{--{!! Form::label('college','College',['class'=> 'form-control-placeholder','for'=>'add_college']) !!}--}}
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    {!! Form::close() !!}
+
                 </div>
 
                 <div class="row">
@@ -38,27 +81,24 @@
                                         <thead>
                                         <tr role="row">
                                             <th style="min-width: 50px; width: 50px"></th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                                rowspan="1" colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending"
-                                            >Band
+
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                            >Department
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                            >Number of Industries Linked
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                            >Male
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                            >Training Area
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                            >Female
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                            >Number of Students
-                                            </th>
+
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($linkages as $linkage)
+                                        @foreach($data['special_program_teachers'] as $specialProgramTeacher)
                                             <tr>
                                                 <td class="text-center">
                                                     <a href=""
@@ -68,13 +108,15 @@
                                                        data-target="#deleteModal"><i class="far fa-trash-alt"></i>
                                                     </a>
                                                 </td>
-                                                <td>{{ $linkage->band->bandName->band_name }}</td>
-                                                <td>{{ $linkage->number_of_industry_links }}</td>
-                                                <td>{{ $linkage->training_area }}</td>
-                                                <td>{{ $linkage->number_of_students }}</td>
+
+                                                <td>{{ $specialProgramTeacher->department->departmentName->department_name}}</td>
+                                                <td>{{ $specialProgramTeacher->male_number }}</td>
+                                                <td>{{ $specialProgramTeacher->female_number }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
+
+
                                     </table>
                                 </div>
                             </div>
@@ -86,69 +128,51 @@
 
     </div>
 
-    @if ($page_name == 'bands.university_industry_linkage.create')
+    @if ($data['page_name'] == 'institution.budget.create')
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    <form class="pb-5" action="/institution/university-industry-linkage" method="POST">
-                    @csrf
+                    {!! Form::open(['action' => 'Institution\BudgetsController@store', 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Add</h5>
-                        <a href="/institution/university-industry-linkage" class="close" aria-label="Close">
+                        <a href="/institution/budget" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
                     </div>
 
+                    <div class="modal-body row pt-4">
+                        <div class="col-12 form-group pb-2">
+                            {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , null , ['class' => 'form-control', 'id' => 'add_budget_type']) !!}
+                            {!! Form::label('budget_type', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'add_budget_type']) !!}
+                        </div>
 
-                    <div class="modal-body pt-4">
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <select class="form-control" name="band" id="band">
-                                    @foreach ($bands as $band)
-                                        <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="band" class="form-control-placeholder">
-                                        Band
-                                    </label>
-                            </div>
+                        <div class="col-12 form-group pb-2">
+                            {{--TODO get from budget descriptions--}}
+                            {!! Form::select('budget_description', \App\Models\Institution\BudgetDescription::all() , null , ['class' => 'form-control', 'id' => 'add_budget_description']) !!}
+                            {!! Form::label('budget_description', 'Budget Description', ['class' => 'form-control-placeholder', 'for' => 'add_budget_description']) !!}
                         </div>
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <select class="form-control" name="year" id="year">
-                                    @foreach ($years as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="year" class="form-control-placeholder">
-                                        Year Level
-                                </label>
-                            </div>
-                            <div class="col form-group">
-                                <input type="text" id="industry_number" name="industry_number" class="form-control" required>
-                                <label class="form-control-placeholder" for="industry_number">Number of Industries Linked</label>
-                            </div>
+
+                        <div class="col-md-4 form-group">
+                            {!! Form::number('allocated', null, ['class' => 'form-control', 'id' => 'add_allocated', 'required' => 'true']) !!}
+                            {!! Form::label('allocated', 'Allocated', ['class' => 'form-control-placeholder', 'for' => 'add_allocated']) !!}
                         </div>
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <input type="text" id="training_area" name="training_area" class="form-control" required>
-                                <label class="form-control-placeholder" for="training_area">Training Area</label>
-                            </div>
-                            <div class="col form-group">
-                                <input type="text" id="number_of_students" name="number_of_students" class="form-control" required>
-                                <label class="form-control-placeholder" for="number_of_students">Number of Students</label>
-                            </div>
+
+                        <div class="col-md-4 form-group">
+                            {!! Form::number('additional', null, ['class' => 'form-control', 'id' => 'add_additional', 'required' => 'true']) !!}
+                            {!! Form::label('additional', 'Additional', ['class' => 'form-control-placeholder', 'for' => 'add_additional']) !!}
+                        </div>
+
+                        <div class="col-md-4 form-group">
+                            {!! Form::number('utilized', null, ['class' => 'form-control', 'id' => 'add_utilized', 'required' => 'true']) !!}
+                            {!! Form::label('utilized', 'Utilized', ['class' => 'form-control-placeholder', 'for' => 'add_utilized']) !!}
                         </div>
                     </div>
-
-
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-primary" value="Submit">
+                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                     </div>
-
-                    </form>
+                    {!! Form::close() !!}
                 </div>
 
             </div>
@@ -156,7 +180,7 @@
     @endif
 
 
-    @if ($page_name == 'institution.budget.edit')
+    @if ($data['page_name'] == 'institution.budget.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -170,7 +194,7 @@
                         </a>
                     </div>
 
-                    <div class="modal-body row pt-6">
+                    <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
                             {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , $data['budget_type'], ['class' => 'form-control', 'id' => 'edit_budget_type']) !!}
                             {!! Form::label('budget_type', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_type']) !!}

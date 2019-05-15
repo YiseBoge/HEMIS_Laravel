@@ -23,13 +23,18 @@ class ForeignStudentsEnrollmentsController extends Controller
      */
     public function index()
     {
+        $educationPrograms = College::getEnum("EducationPrograms");
+        $educationLevels = College::getEnum("EducationLevels");
+        array_pop($educationPrograms);
+        array_pop($educationLevels);
+
         $data = array(
             'enrollments' => ForeignStudent::info()->get(),
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
-            'programs' => College::getEnum("EducationPrograms"),
-            'education_levels' => College::getEnum("EducationLevels"),
+            'programs' => $educationPrograms,
+            'education_levels' => $educationLevels,
             'reasons' => ForeignStudent::getEnum("Reasons"),
             'year_levels' => Department::getEnum('YearLevels'),
             'page_name' => 'enrollment.foreign_students.index'
@@ -44,12 +49,17 @@ class ForeignStudentsEnrollmentsController extends Controller
      */
     public function create()
     {
+        $educationPrograms = College::getEnum("EducationPrograms");
+        $educationLevels = College::getEnum("EducationLevels");
+        array_pop($educationPrograms);
+        array_pop($educationLevels);
+
         $data = array(
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
-            'programs' => College::getEnum("EducationPrograms"),
-            'education_levels' => College::getEnum("EducationLevels"),
+            'programs' => $educationPrograms,
+            'education_levels' => $educationLevels,
             'reasons' => ForeignStudent::getEnum("Reasons"),
             'year_levels' => Department::getEnum('YearLevels'),
             'page_name' => 'enrollment.foreign_students.create'

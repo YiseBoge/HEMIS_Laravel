@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Institution;
 use App\Http\Controllers\Controller;
-use App\Models\Institution\AdminAndNonAcademicStaff;
+use App\Models\Institution\AgeEnrollment;
 use Illuminate\Http\Request;
 use Webpatser\Uuid\Uuid;
 
-
-class AdminAndNonAcademicStaffsController extends Controller
+class AgeEnrollmentsController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -17,10 +15,10 @@ class AdminAndNonAcademicStaffsController extends Controller
      */
     public function index()
     {
-       
-        $data = ['staffs' => AdminAndNonAcademicStaff::all(),
-                 'page_name' => 'institution.admin_and_non_academic_staff.index'];
-        return view('institutions.admin_and_non_academic_staff.index')->with('data', $data);
+        $data = ['enrollemnt_info' => AgeEnrollment::all(),
+                 'age_range'=>AgeEnrollment::getEnum('Ages'),
+                 'page_name' => 'institution.age_enrollment.index'];
+        return view('institutions.age_enrollment.index')->with('data', $data);
     }
 
     /**
@@ -30,13 +28,10 @@ class AdminAndNonAcademicStaffsController extends Controller
      */
     public function create()
     {
-        $data = array(
-            'staffs' => AdminAndNonAcademicStaff::all(),
-            'education_levels' => AdminAndNonAcademicStaff::getEnum("EducationLevels"),
-            'page_name' => 'institution.admin_and_non_academic_staff.create'
-        );
-
-        return view('institutions.admin_and_non_academic_staff.index')->with('data' , $data);
+        $data = ['enrollemnt_info' => AgeEnrollment::all(),
+                 'age_range'=>AgeEnrollment::getEnum('Ages'),
+                 'page_name' => 'institution.age_enrollment.create'];
+        return view('institutions.age_enrollment.index')->with('data', $data);
     }
 
     /**
@@ -47,24 +42,22 @@ class AdminAndNonAcademicStaffsController extends Controller
      */
     public function store(Request $request)
     {
-        die("asfg");
         $this->validate($request, [
             'number_of_males' => 'required',
             'number_of_females' => 'required',
         ]);
 
-        $admin_staff = new AdminAndNonAcademicStaff();
+        $age_enrollment = new AgeEnrollment();
+         $age_enrollment->male_students_number = $request->input('number_of_males');
+         $age_enrollment->female_students_number = $request->input('number_of_females');
 
-        $admin_staff->male_staff_number = $request->input('number_of_males');
-        $admin_staff->female_staff_number = $request->input('number_of_females');
-        $admin_staff->education_level = $request->input('education_level');
+         $age_enrollment->age = $request->input('age_range');
 
-        $admin_staff->institution_id = Uuid::generate()->string;
+         $age_enrollment->institution_id = Uuid::generate()->string;
 
-        $admin_staff->save();
+         $age_enrollment->save();
 
-        return redirect('institution/non-admin');
-
+         return redirect('institution/age-enrollment');
     }
 
     /**
@@ -75,7 +68,7 @@ class AdminAndNonAcademicStaffsController extends Controller
      */
     public function show($id)
     {
-       
+        //
     }
 
     /**
@@ -86,10 +79,7 @@ class AdminAndNonAcademicStaffsController extends Controller
      */
     public function edit($id)
     {
-        $data = ['staffs' => AdminAndNonAcademicStaff::all(),
-        'education_levels' => AdminAndNonAcademicStaff::getEnum("EducationLevels"),
-            'page_name' => 'institution.admin_and_non_academic_staff.edit'];
-        return view('institutions.admin_and_non_academic_staff.index')->with('data', $data);
+        //
     }
 
     /**

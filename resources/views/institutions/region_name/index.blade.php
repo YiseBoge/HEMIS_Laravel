@@ -1,26 +1,15 @@
 @extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
-            <div class="text-primary card-header">University Industry Linkage</div>
+            <div class="text-primary card-header">Institutions</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col p-1 m-3 text-center">
-                        <a href="/institution/university-industry-linkage/create" class="btn btn-outline-primary btn-sm mb-0">
+                        <a href="/institution/region-name/create" class="btn btn-outline-primary btn-sm mb-0">
                             Add<i class="fas fa-plus ml-2"></i></a>
-                    </div>
-                </div>
-                <div class="form-group row pt-3">
-                    <div class="col-md-4 form-group">
-                        <select class="form-control" name="year" id="year">
-                            @foreach ($years as $key => $value)
-                                <option value="{{$key}}">{{$value}}</option>
-                            @endforeach
-                        </select>
-                        <label for="year" class="form-control-placeholder">
-                               Year Level
-                        </label>
                     </div>
                 </div>
 
@@ -41,24 +30,13 @@
                                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                                 rowspan="1" colspan="1" aria-sort="ascending"
                                                 aria-label="Name: activate to sort column descending"
-                                            >Band
+                                            >Region Name
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                            >Number of Industries Linked
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                            >Training Area
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                            >Number of Students
-                                            </th>
+
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($linkages as $linkage)
+                                        @foreach($data['region_names'] as $region)
                                             <tr>
                                                 <td class="text-center">
                                                     <a href=""
@@ -68,10 +46,7 @@
                                                        data-target="#deleteModal"><i class="far fa-trash-alt"></i>
                                                     </a>
                                                 </td>
-                                                <td>{{ $linkage->band->bandName->band_name }}</td>
-                                                <td>{{ $linkage->number_of_industry_links }}</td>
-                                                <td>{{ $linkage->training_area }}</td>
-                                                <td>{{ $linkage->number_of_students }}</td>
+                                                <td>{{ $region->name }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -86,69 +61,33 @@
 
     </div>
 
-    @if ($page_name == 'bands.university_industry_linkage.create')
+    @if ($data['page_name'] == 'institution.region-name.create')
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    <form class="pb-5" action="/institution/university-industry-linkage" method="POST">
-                    @csrf
+                    {!! Form::open(['action' => 'Institution\RegionNamesController@store', 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Add</h5>
-                        <a href="/institution/university-industry-linkage" class="close" aria-label="Close">
+                        <a href="/institution/region-name" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
                     </div>
 
 
-                    <div class="modal-body pt-4">
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <select class="form-control" name="band" id="band">
-                                    @foreach ($bands as $band)
-                                        <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="band" class="form-control-placeholder">
-                                        Band
-                                    </label>
-                            </div>
-                        </div>
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <select class="form-control" name="year" id="year">
-                                    @foreach ($years as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="year" class="form-control-placeholder">
-                                        Year Level
-                                </label>
-                            </div>
-                            <div class="col form-group">
-                                <input type="text" id="industry_number" name="industry_number" class="form-control" required>
-                                <label class="form-control-placeholder" for="industry_number">Number of Industries Linked</label>
-                            </div>
-                        </div>
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <input type="text" id="training_area" name="training_area" class="form-control" required>
-                                <label class="form-control-placeholder" for="training_area">Training Area</label>
-                            </div>
-                            <div class="col form-group">
-                                <input type="text" id="number_of_students" name="number_of_students" class="form-control" required>
-                                <label class="form-control-placeholder" for="number_of_students">Number of Students</label>
-                            </div>
+                    <div class="modal-body row pt-4">
+                        <div class="col-12 form-group pb-2">
+                            {{Form::text('name','',['class'=>'form-control','placeholder'=>'Add New Region'])}}
                         </div>
                     </div>
 
 
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-primary" value="Submit">
+                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                     </div>
 
-                    </form>
+                    {!! Form::close() !!}
                 </div>
 
             </div>
@@ -156,7 +95,7 @@
     @endif
 
 
-    @if ($page_name == 'institution.budget.edit')
+    @if ($data['page_name'] == 'institution.budget.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">

@@ -19,7 +19,7 @@ class SpecialProgramTeacher extends Model
         'HDP' => 'Higher Diploma Program'
     ];
 
-    protected $enumProgramStatus = [
+    protected $enumProgramStatuss= [
         'COMPLETED' => 'Completed',
         'ON_TRAINING' => 'On Training',
         'NOT_YET_STARTED' => 'Not Yet Started'
@@ -28,5 +28,9 @@ class SpecialProgramTeacher extends Model
     public function department()
     {
         return $this->belongsTo('App\Models\Department\Department');
+    }
+
+    public function scopeInfo($query){
+        return $query->with('department.College.band','department.departmentName');
     }
 }

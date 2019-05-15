@@ -14,14 +14,14 @@ class TechnicalStaff extends Model
 
     public $incrementing = false;
 
-    protected $enumTechnicalStaffs = [
+    protected $enumEducationLevels = [
         'LEVEL_III' => 'Level III',
         'LEVEL_IV' => 'Level IV',
         'LEVEL_V' => 'Level V',
         'DIPLOMA' => 'Diploma',
         'ADVANCED_DIPLOMA' => 'Advanced Diploma',
         'BACHELORS' => 'Bachelors',
-        'OTHERS' => 'Others',
+        'OTHERS' => 'Others'
     ];
 
     public function college(){

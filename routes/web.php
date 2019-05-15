@@ -36,8 +36,11 @@ Route::resource('staff/ict-staff-types', 'Staff\IctStaffTypesController');
 
 Route::resource('institution/non-admin', 'Institution\AdminAndNonAcademicStaffsController');
 Route::resource('institution/management-data', 'Institution\ManagementDatasController');
+Route::resource('institution/age-enrollment', 'Institution\AgeEnrollmentsController');
+Route::resource('institution/foreign-staff', 'Institution\ForeignStaffsController');
 Route::resource('college/college-name','College\CollegeNamesController');
-
+Route::resource('department/special-program-teacher','Department\SpecialProgramTeacherController');
+Route::resource('institution/region-name','Institution\RegionNamesController');
 //Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
 
 Route::resource('enrollment/normal','Department\EnrollmentsController');
@@ -46,8 +49,9 @@ Route::resource('enrollment/special-need-students','Institution\SpecialNeedStude
 Route::resource('enrollment/specializing-students','Department\SpecializingStudentsEnrollmentsController');
 Route::resource('enrollment/foreign-students','Department\ForeignStudentsEnrollmentsController');
 
-Route::resource('band/researches','Band\ResearchsController');
-Route::resource('band/university-linkage','Band\UniversityIndustryLinkageController');
+Route::resource('institution/researches','Band\ResearchsController');
+Route::resource('institution/university-industry-linkage','Band\UniversityIndustryLinkageController');
+Route::resource('staff/technical-staff','College\TechnicalStaffController');
 
 
 Route::get('/admin', function () {
