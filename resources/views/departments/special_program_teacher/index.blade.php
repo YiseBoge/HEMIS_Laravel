@@ -32,9 +32,30 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-5 px-3 py-md-1 col">
+                            <select name="band_names" class="form-control" id="band_names">
+                                @foreach ($data['bands'] as $band)
+                                    <option value="{{ $band->id }}">{{ $band->band_name }}</option>
+                                @endforeach
+                            </select>
+                            <label for="dormitory_service_type" class="form-control-placeholder">
+                                Band Name
+                            </label>
+                            {{--{!! Form::select('band_names',$data['bands'],null, ['class' => 'form-control', 'id' => 'add_band_ name', 'onchange' => 'this.form.submit()']) !!}--}}
+                            {{--{!! Form::label('band','Band',['class'=> 'form-control-placeholder','for'=>'add_band']) !!}--}}
+
+                        </div>
+                        <div class="col-md-5 px-3 py-md-1 col">
                             <div class="form-group">
-                                {!! Form::select('college_names',$data['colleges'],null, ['class' => 'form-control', 'id' => 'add_program_status', 'onchange' => 'this.form.submit()']) !!}
-                                {!! Form::label('college','College',['class'=> 'form-control-placeholder','for'=>'add_college']) !!}}
+                                <select name="college_names" class="form-control" id="college_names">
+                                    @foreach ($data['colleges'] as $college)
+                                        <option value="{{ $college->id }}">{{ $college->college_name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="dormitory_service_type" class="form-control-placeholder">
+                                    College Name
+                                </label>
+                                {{--{!! Form::select('college_names',$data['colleges'],null, ['class' => 'form-control', 'id' => 'add_college_name', 'onchange' => 'this.form.submit()']) !!}--}}
+                                {{--{!! Form::label('college','College',['class'=> 'form-control-placeholder','for'=>'add_college']) !!}--}}
 
                             </div>
 
@@ -60,15 +81,7 @@
                                         <thead>
                                         <tr role="row">
                                             <th style="min-width: 50px; width: 50px"></th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                                rowspan="1" colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending"
-                                            >Band
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending"
-                                            >College
-                                            </th>
+
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Age: activate to sort column ascending"
                                             >Department
@@ -95,11 +108,10 @@
                                                        data-target="#deleteModal"><i class="far fa-trash-alt"></i>
                                                     </a>
                                                 </td>
-                                                <td>{{ $specialProgramTeacher->department->collage->band->band_name }}</td>
-                                                <td>{{ $specialProgramTeacher->department->collage->college_name}}</td>
-                                                <td>{{ $specialProgramTeacher->department->department_name}}</td>
-                                                <td>{{ $specialProgramTeacher->male_student_number }}</td>
-                                                <td>{{ $specialProgramTeacher->female_student_number }}</td>
+
+                                                <td>{{ $specialProgramTeacher->department->departmentName->department_name}}</td>
+                                                <td>{{ $specialProgramTeacher->male_number }}</td>
+                                                <td>{{ $specialProgramTeacher->female_number }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>

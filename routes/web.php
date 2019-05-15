@@ -50,8 +50,9 @@ Route::resource('enrollment/special-need-students','Institution\SpecialNeedStude
 Route::resource('enrollment/specializing-students','Department\SpecializingStudentsEnrollmentsController');
 Route::resource('enrollment/foreign-students','Department\ForeignStudentsEnrollmentsController');
 
-Route::resource('band/researches','Band\ResearchsController');
-Route::resource('band/university-linkage','Band\UniversityIndustryLinkageController');
+Route::resource('institution/researches','Band\ResearchsController');
+Route::resource('institution/university-industry-linkage','Band\UniversityIndustryLinkageController');
+Route::resource('staff/technical-staff','College\TechnicalStaffController');
 
 
 Route::get('/admin', function () {

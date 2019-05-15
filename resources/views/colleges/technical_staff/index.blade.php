@@ -3,23 +3,43 @@
 @section('content')
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
-            <div class="text-primary card-header">University Industry Linkage</div>
+            <div class="text-primary card-header">Technical Staff</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col p-1 m-3 text-center">
-                        <a href="/institution/university-industry-linkage/create" class="btn btn-outline-primary btn-sm mb-0">
+                        <a href="/staff/technical-staff/create" class="btn btn-outline-primary btn-sm mb-0">
                             Add<i class="fas fa-plus ml-2"></i></a>
                     </div>
                 </div>
                 <div class="form-group row pt-3">
-                    <div class="col-md-4 form-group">
-                        <select class="form-control" name="year" id="year">
-                            @foreach ($years as $key => $value)
+                    <div class="col form-group">
+                        <select class="form-control" name="band" id="band">
+                            @foreach ($bands as $band)
+                                <option value="{{$band->band_name}}">{{$band->band_name}}</option>
+                            @endforeach
+                        </select>
+                        <label for="band" class="form-control-placeholder">
+                               Band
+                        </label>
+                    </div>
+                    <div class="col form-group">
+                        <select class="form-control" name="college" id="college">
+                            @foreach ($colleges as $college)
+                                <option value="{{$college->college_name}}">{{$college->college_name}}</option>
+                            @endforeach
+                        </select>
+                        <label for="college" class="form-control-placeholder">
+                                College
+                        </label>
+                    </div>
+                    <div class="col form-group">
+                        <select class="form-control" name="level" id="level">
+                            @foreach ($levels as $key => $value)
                                 <option value="{{$key}}">{{$value}}</option>
                             @endforeach
                         </select>
-                        <label for="year" class="form-control-placeholder">
-                               Year Level
+                        <label for="level" class="form-control-placeholder">
+                               Education Level
                         </label>
                     </div>
                 </div>
@@ -41,24 +61,20 @@
                                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                                 rowspan="1" colspan="1" aria-sort="ascending"
                                                 aria-label="Name: activate to sort column descending"
-                                            >Band
+                                            >College
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                            >Number of Industries Linked
+                                            >Number of Male Staff Members
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                            >Training Area
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                            >Number of Students
+                                            >Number of Female Staff Members
                                             </th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($linkages as $linkage)
+                                        @foreach($staffs as $staff)
                                             <tr>
                                                 <td class="text-center">
                                                     <a href=""
@@ -68,10 +84,9 @@
                                                        data-target="#deleteModal"><i class="far fa-trash-alt"></i>
                                                     </a>
                                                 </td>
-                                                <td>{{ $linkage->band->bandName->band_name }}</td>
-                                                <td>{{ $linkage->number_of_industry_links }}</td>
-                                                <td>{{ $linkage->training_area }}</td>
-                                                <td>{{ $linkage->number_of_students }}</td>
+                                                <td>{{ $staff->college->collegeName->college_name }}</td>
+                                                <td>{{ $staff->male_staff_number }}</td>
+                                                <td>{{ $staff->female_staff_number }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -86,17 +101,17 @@
 
     </div>
 
-    @if ($page_name == 'bands.university_industry_linkage.create')
+    @if ($page_name == 'college.technical_staff.create')
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    <form class="pb-5" action="/institution/university-industry-linkage" method="POST">
+                    <form class="pb-5" action="/staff/technical-staff" method="POST">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Add</h5>
-                        <a href="/institution/university-industry-linkage" class="close" aria-label="Close">
+                        <a href="/staff/technical-staff" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
                     </div>
@@ -117,28 +132,34 @@
                         </div>
                         <div class="form-group row pt-3">
                             <div class="col form-group">
-                                <select class="form-control" name="year" id="year">
-                                    @foreach ($years as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
+                                <select class="form-control" name="college" id="college">
+                                    @foreach ($colleges as $college)
+                                        <option value="{{$college->college_name}}">{{$college->college_name}}</option>
                                     @endforeach
                                 </select>
-                                <label for="year" class="form-control-placeholder">
-                                        Year Level
+                                <label for="college" class="form-control-placeholder">
+                                        College
                                 </label>
                             </div>
                             <div class="col form-group">
-                                <input type="text" id="industry_number" name="industry_number" class="form-control" required>
-                                <label class="form-control-placeholder" for="industry_number">Number of Industries Linked</label>
+                                <select class="form-control" name="level" id="level">
+                                    @foreach ($levels as $key => $value)
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endforeach
+                                </select>
+                                <label for="level" class="form-control-placeholder">
+                                        Education Level
+                                </label>
                             </div>
                         </div>
                         <div class="form-group row pt-3">
                             <div class="col form-group">
-                                <input type="text" id="training_area" name="training_area" class="form-control" required>
-                                <label class="form-control-placeholder" for="training_area">Training Area</label>
+                                <input type="text" id="male_number" name="male_number" class="form-control" required>
+                                <label class="form-control-placeholder" for="male_number">Number of Male Staff</label>
                             </div>
                             <div class="col form-group">
-                                <input type="text" id="number_of_students" name="number_of_students" class="form-control" required>
-                                <label class="form-control-placeholder" for="number_of_students">Number of Students</label>
+                                <input type="text" id="female_number" name="female_number" class="form-control" required>
+                                <label class="form-control-placeholder" for="female_number">Number of Female Staff</label>
                             </div>
                         </div>
                     </div>
@@ -156,57 +177,6 @@
     @endif
 
 
-    @if ($page_name == 'institution.budget.edit')
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-
-                <div class="modal-content">
-                    {!! Form::open(['action' => ['Institution\BudgetsController@update', $data['budget']->id], 'method' => 'POST']) !!}
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <a href="/institution/budget" class="close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </a>
-                    </div>
-
-                    <div class="modal-body row pt-6">
-                        <div class="col-12 form-group pb-2">
-                            {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , $data['budget_type'], ['class' => 'form-control', 'id' => 'edit_budget_type']) !!}
-                            {!! Form::label('budget_type', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_type']) !!}
-                        </div>
-
-                        <div class="col-12 form-group pb-2">
-                            {{--TODO get from budget descriptions--}}
-                            {!! Form::select('budget_description', \App\Models\Institution\BudgetDescription::all() , $data['budget_description'], ['class' => 'form-control', 'id' => 'edit_budget_description']) !!}
-                            {!! Form::label('budget_description', 'Budget Description', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_description']) !!}
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('allocated', $data['budget']->allocated_budget, ['class' => 'form-control', 'id' => 'edit_allocated', 'required' => 'true']) !!}
-                            {!! Form::label('allocated', 'Allocated', ['class' => 'form-control-placeholder', 'for' => 'edit_allocated']) !!}
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('additional', $data['budget']->additional_budget, ['class' => 'form-control', 'id' => 'edit_additional', 'required' => 'true']) !!}
-                            {!! Form::label('additional', 'Additional', ['class' => 'form-control-placeholder', 'for' => 'edit_additional']) !!}
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('utilized', $data['budget']->utilized_budget, ['class' => 'form-control', 'id' => 'edit_utilized', 'required' => 'true']) !!}
-                            {!! Form::label('utilized', 'Utilized', ['class' => 'form-control-placeholder', 'for' => 'edit_utilized']) !!}
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        {!! Form::hidden('_method', 'PUT') !!}
-                        {!! Form::submit('Save Changes', ['class' => 'btn btn-primary']) !!}
-                    </div>
-                    {!! Form::close() !!}
-                </div>
-
-            </div>
-        </div>
-    @endif
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
          aria-hidden="true">

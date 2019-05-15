@@ -91,7 +91,7 @@ class ResearchsController extends Controller
 
         $band->researchs()->save($research);
 
-        return redirect("/band/researches");
+        return redirect("/institution/researches");
     }
 
     /**

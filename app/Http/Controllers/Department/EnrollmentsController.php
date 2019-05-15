@@ -35,7 +35,7 @@ class EnrollmentsController extends Controller
 
         $requestedCollege=$request->input('college');
         if($requestedCollege==null){
-            $requestedCollege='Addis Ababa Institute of Technology';
+            $requestedCollege=CollegeName::all()->first()->id;
         }
 
         $requestedLevel=$request->input('education_level');
@@ -46,7 +46,7 @@ class EnrollmentsController extends Controller
 
         $requestedBand=$request->input('band');
         if($requestedBand==null){
-            $requestedBand='Medicine and Health Science';
+            $requestedBand=BandName::all()->first()->id;
         }
 
         $requestedYearLevel=$request->input('year_level');
@@ -61,26 +61,40 @@ class EnrollmentsController extends Controller
         $educationLevels=College::getEnum("EducationLevels");
         $yearLevels=Department::getEnum('YearLevels');
 
+        //return $requestedBand;
+
+        $filteredEnrollments = array();
+
 
         $bandNameId=BandName::where('band_name',$requestedBand)->first();
 
         $collegeNameId=CollegeName::where('college_name',$requestedCollege)->first();
-        $band=Band::where('band_name_id',$bandNameId->id)->first();
-        $college=College::where(['college_name_id'=>$collegeNameId->id,'band_id'=>$band->id,'education_level'=>$requestedLevel,'education_program'=>$requestedProgram])->first();
-        $departments=Department::where(['college_id'=>$college->id,'year_level'=>$requestedYearLevel])->get();
-        $filteredEnrollments = array();
+        $band=Band::where('band_name_id',$requestedBand)->first();
+        //return $band;
+        if($band!=null){
+            $college=College::where(['college_name_id'=>$requestedCollege,'band_id'=>$band->id,'education_level'=>$requestedLevel,'education_program'=>$requestedProgram])->first();
+            if($college!=null){
+                $departments=Department::where(['college_id'=>$college->id,'year_level'=>$requestedYearLevel])->get();
+                foreach ($departments as $department){
 
-        foreach ($departments as $department){
+                    foreach ($department->enrollments as $enrollment ){
 
-                foreach ($department->enrollments as $enrollment ){
+                        if($enrollment->student_type==$requestedType){
+                            $filteredEnrollments[]=$enrollment;
+                        }
 
-                    if($enrollment->student_type==$requestedType){
-                        $filteredEnrollments[]=$enrollment;
                     }
 
                 }
+            }
+
+
+
 
         }
+
+
+
         //$enrollments=Enrollment::where('department_id',$department->id)->get();
 
 
@@ -88,8 +102,8 @@ class EnrollmentsController extends Controller
             'enrollments' => $filteredEnrollments,
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
-            'programs' => College::getEnum("EducationPrograms"),
-            'education_levels' => College::getEnum("EducationLevels"),
+            'programs' => $educationPrograms,
+            'education_levels' => $educationLevels,
             'student_types' => Enrollment::getEnum('StudentTypes'),
             'year_levels' => Department::getEnum('YearLevels'),
             'page_name' => 'enrollment.normal.index'
@@ -105,12 +119,17 @@ class EnrollmentsController extends Controller
      */
     public function create()
     {
+        $educationPrograms = College::getEnum("EducationPrograms");
+        $educationLevels = College::getEnum("EducationLevels");
+        array_pop($educationPrograms);
+        array_pop($educationLevels);
+
         $data = array(
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
-            'programs' => College::getEnum("EducationPrograms"),
-            'education_levels' => College::getEnum("EducationLevels"),
+            'programs' => $educationPrograms,
+            'education_levels' => $educationLevels,
             'student_types' => Enrollment::getEnum('StudentTypes'),
             'year_levels' => Department::getEnum('YearLevels'),
             'page_name' => 'enrollment.normal.create'
@@ -145,7 +164,7 @@ class EnrollmentsController extends Controller
         if($band == null){
             $band = new Band;
             $band->band_name_id = 0;
-            $institution->bands()->save($band);            
+            $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
 
@@ -157,7 +176,7 @@ class EnrollmentsController extends Controller
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
             $college->college_name_id = 0;
-            $band->colleges()->save($college);           
+            $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
 
@@ -167,9 +186,9 @@ class EnrollmentsController extends Controller
         if($department == null){
             $department = new Department;
             $department->year_level = $request->input("year_level");
-            $department->department_name_id = 0;             
-            $college->departments()->save($department);            
-            $departmentName->department()->save($department);                      
+            $department->department_name_id = 0;
+            $college->departments()->save($department);
+            $departmentName->department()->save($department);
         }
 
         $department->enrollments()->save($enrollment);
