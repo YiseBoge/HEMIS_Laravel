@@ -51,7 +51,7 @@
                                         </label>
                                     </div>
                             </div>
-                           
+                            <hr>
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <input type="text" id="number" name="number" class="form-control" required>

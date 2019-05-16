@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Department;
+namespace App\Models\Band;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
@@ -22,6 +22,13 @@ class StudentAttrition extends Model
         'CAES' => 'CAES',
         'CBE' => 'CBE',
         'CSSH' => 'CSSH',
+    ];
+
+    protected $enumEducationPrograms = [
+        'REGULAR' => 'Regular',
+        'EXTENSION' => 'Extension',
+        'SUMMER' => 'Summer',
+        'DISTANCE' => 'Distance'
     ];
 
     protected $enumCases = [

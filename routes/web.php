@@ -51,6 +51,7 @@ Route::resource('enrollment/foreign-students','Department\ForeignStudentsEnrollm
 
 Route::resource('institution/researches','Band\ResearchsController');
 Route::resource('institution/university-industry-linkage','Band\UniversityIndustryLinkageController');
+Route::resource('institution/student-attrition','Band\StudentAttritionController');
 Route::resource('staff/technical-staff','College\TechnicalStaffController');
 
 
