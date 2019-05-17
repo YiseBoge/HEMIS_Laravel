@@ -77,8 +77,6 @@
         crossorigin="anonymous"></script>
 
 <script src="{{ asset('js/app.js') }}" defer></script>
-<script src="{{ asset('js/script.js') }}"></script>
-<script type="text/javascript" src="../vendor/DataTables/datatables.min.js"></script>
 <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('article-ckeditor');

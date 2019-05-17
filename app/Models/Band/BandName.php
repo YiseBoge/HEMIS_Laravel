@@ -15,4 +15,9 @@ class BandName extends Model
     {
         return $this->hasOne('App\Models\Band\Band');
     }
+
+    public function __toString()
+    {
+        return "$this->acronym - $this->band_name";
+    }
 }

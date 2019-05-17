@@ -10,4 +10,9 @@ class GeneralInformation extends Model
     use Uuids;
 
     public $incrementing = false;
+
+    public function institution()
+    {
+        return $this->hasMany('App\Models\Institution\Institution');
+    }
 }

@@ -12,17 +12,26 @@ class Instance extends Model
     use Enums;
 
     public $incrementing = false;
-    protected $enumSemesters = [
-        'ONE' => 'one',
-        'TWO' => 'two',
-        'SUMMER' => 'summer',
-    ];
+
+//    protected $enumSemesters = [
+//        'ONE' => 'one',
+//        'TWO' => 'two',
+//        'SUMMER' => 'summer',
+//    ];
 
 
-    // Enums //
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
 
     public function institutions()
     {
         return $this->hasMany('App\Models\Institution\Institution');
+    }
+
+    public function __toString()
+    {
+        return "Year $this->year, Semester $this->semester";
     }
 }

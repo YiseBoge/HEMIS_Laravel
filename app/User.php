@@ -39,6 +39,50 @@ class User extends Authenticatable
 
     public function institution()
     {
-        return $this->belongsTo('App\Models\Institution\Institution');
+        $currentInstanceId = $this->currentInstance->id;
+        $institution = $this->institutionName->institutions()->where('instance_id', $currentInstanceId)->first();
+
+//        return array_intersect ( $this->currentInstance->institutions, $this->institutionName->institutions);
+        return $institution;
+    }
+
+    public function institutionName()
+    {
+        return $this->belongsTo('App\Models\Institution\InstitutionName', 'institution_name_id');
+    }
+
+    public function currentInstance()
+    {
+        return $this->belongsTo('App\Models\Institution\Instance', 'instance_id');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
+    }
+
+    public function hasRole($role)
+    {
+        return null !== $this->roles()->where('role_name', $role)->first();
+    }
+
+    public function hasAnyRole($roles)
+    {
+        return null !== $this->roles()->whereIn('role_name', $roles)->first();
+    }
+
+    public function authorizeRoles($roles)
+    {
+        if (is_array($roles)) {
+            return $this->hasAnyRole($roles) ||
+                abort(401, 'This action is unauthorized.');
+        }
+        return $this->hasRole($roles) ||
+            abort(401, 'This action is unauthorized.');
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

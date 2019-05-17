@@ -20,6 +20,8 @@ class CreateInstitutionsTable extends Migration
             $table->primary('id');
             $table->uuid('institution_name_id');
             $table->uuid('instance_id');
+
+            $table->uuid('general_information_id');
         });
     }
 

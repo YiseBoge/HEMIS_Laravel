@@ -11,8 +11,18 @@ class InstitutionName extends Model
 
     public $incrementing = false;
 
-    public function institution()
+    public function institutions()
     {
-        return $this->hasOne('App\Models\Band\Band');
+        return $this->hasMany('App\Models\Institution\Institution');
+    }
+
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
+
+    public function __toString()
+    {
+        return "$this->acronym - $this->institution_name";
     }
 }

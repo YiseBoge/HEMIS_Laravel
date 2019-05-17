@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
+use App\Models\Institution\GeneralInformation;
+use App\Models\Institution\Institution;
+use App\Models\Institution\InstitutionName;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Institution\InstitutionName;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * A class for the Admin to manage all allowable Institution Names
@@ -19,9 +22,9 @@ class InstitutionNamesController extends Controller
      */
     public function index()
     {
-        $institutions=InstitutionName::all();
-        $data=['institutions'=>$institutions,'page_name'=>'institution.institution-name.index'];
-        return view('institutions.institution_name.index')->with('data',$data);
+        $institutions = InstitutionName::all();
+        $data = ['institutions' => $institutions, 'page_name' => 'institution.institution-name.index'];
+        return view('institutions.institution_name.index')->with('data', $data);
     }
 
     /**
@@ -31,9 +34,9 @@ class InstitutionNamesController extends Controller
      */
     public function create()
     {
-        $institutions=InstitutionName::all();
-        $data=['institutions'=>$institutions,'page_name'=>'institution.institution-name.create'];
-        return view('institutions.institution_name.index')->with('data',$data);
+        $institutions = InstitutionName::all();
+        $data = ['institutions' => $institutions, 'page_name' => 'institution.institution-name.create'];
+        return view('institutions.institution_name.index')->with('data', $data);
     }
 
     /**
@@ -44,17 +47,30 @@ class InstitutionNamesController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request,[
-        'institution_name'=>'required',
-        'institution_acronym'=>'required'
-      ]);
+        $this->validate($request, [
+            'institution_name' => 'required',
+            'institution_acronym' => 'required'
+        ]);
 
-      $institutionName= new InstitutionName;
-      $institutionName->institution_name=$request->input('institution_name');
-      $institutionName->acronym=$request->input('institution_acronym');
-      $institutionName->save();
+        $instance = Auth::user()->currentInstance;
 
-      return redirect('/institution/institution-name');
+        $institutionName = new InstitutionName;
+        $institutionName->institution_name = $request->input('institution_name');
+        $institutionName->acronym = $request->input('institution_acronym');
+        $institutionName->save();
+
+
+        $generalInformation = new GeneralInformation();
+        $generalInformation->save();
+
+        $institution = new Institution();
+        $institution->institution_name_id = $institutionName->id;
+        $institution->instance_id = $instance->id;
+
+        $generalInformation->institution()->save($institution);
+
+
+        return redirect('/institution/institution-name');
     }
 
     /**
@@ -63,7 +79,8 @@ class InstitutionNamesController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show($id)
+    public
+    function show($id)
     {
         return view('institutions.details');
     }
@@ -74,7 +91,8 @@ class InstitutionNamesController extends Controller
      * @param int $id
      * @return Response
      */
-    public function edit($id)
+    public
+    function edit($id)
     {
         return view('institutions.edit');
     }
@@ -86,7 +104,8 @@ class InstitutionNamesController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public
+    function update(Request $request, $id)
     {
         //
     }
@@ -97,7 +116,8 @@ class InstitutionNamesController extends Controller
      * @param int $id
      * @return Response
      */
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         //
     }

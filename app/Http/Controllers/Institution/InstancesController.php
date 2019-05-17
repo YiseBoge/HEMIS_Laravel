@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
+use App\Models\Institution\Instance;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class InstancesController extends Controller
 {
@@ -15,7 +17,15 @@ class InstancesController extends Controller
      */
     public function index()
     {
-        //
+        $instances = Instance::all();
+        $currentInstance = Auth::user()->currentInstance;
+
+        $data = ['instances' => $instances,
+            'current_instance' => $currentInstance,
+            'page_name' => 'institution.instance.index'
+        ];
+        return view('institutions.instance.index')->with('data', $data);
+
     }
 
     /**
@@ -25,7 +35,15 @@ class InstancesController extends Controller
      */
     public function create()
     {
-        //
+        $instances = Instance::all();
+        $currentInstance = Auth::user()->currentInstance;
+
+        $data = [
+            'instances' => $instances,
+            'current_instance' => $currentInstance,
+            'page_name' => 'institution.instance.create'
+        ];
+        return view('institutions.instance.index')->with('data', $data);
     }
 
     /**
@@ -36,7 +54,40 @@ class InstancesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'year' => 'required',
+            'semester' => 'required'
+        ]);
+
+        $instance = new Instance();
+        $instance->year = $request->input('year');
+        $instance->semester = $request->input('semester');
+
+        $instance->save();
+
+        return redirect('institution/instance');
+    }
+
+
+    /**
+     * Update the current Instance of the admin
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function updateCurrentInstance(Request $request)
+    {
+        $this->validate($request, [
+            'current_instance' => 'required'
+        ]);
+
+        $user = Auth::user();
+        $currentInstances = Instance::all();
+        $currentInstance = $currentInstances[$request->input('current_instance')];
+
+        $currentInstance->users()->save($user);
+
+        return redirect('institution/instance');
     }
 
     /**

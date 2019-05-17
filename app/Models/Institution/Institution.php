@@ -13,12 +13,12 @@ class Institution extends Model
 
     public function institutionName()
     {
-        return $this->hasOne('App\Models\Institution\InstitutionName');
+        return $this->belongsTo('App\Models\Institution\InstitutionName');
     }
 
     public function generalInformation()
     {
-        return $this->hasOne('App\Models\Institution\GeneralInformation');
+        return $this->belongsTo('App\Models\Institution\GeneralInformation');
     }
 
     public function instance()
@@ -65,11 +65,8 @@ class Institution extends Model
         return $this->hasMany('App\Models\Institution\specialNeeds');
     }
 
-    public function user(){
-        return $this->hasMany('App\Models\User');
+    public function __toString()
+    {
+        return $this->institutionName->__toString() . ' (' . $this->instance->__toString() . ')';
     }
-
-
-
-
 }
