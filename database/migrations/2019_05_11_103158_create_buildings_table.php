@@ -15,20 +15,14 @@ class CreateBuildingsTable extends Migration
     {
         Schema::create('buildings', function (Blueprint $table) {
             $table->uuid('id');
-            $table->boolean('admin_purpose');
-            $table->boolean('class_rooms');
-            $table->boolean('library');
-            $table->boolean('dormitories');
-            $table->boolean('staff_residence');
-            $table->boolean('workshop');
-            $table->boolean('laboratories');
-            $table->boolean('cafeteria');
-            $table->boolean('start_date');
-            $table->date('date_of_completion');
+            $table->string('building_name');
             $table->text('contractor_name');
             $table->text('consultant_name');
-            $table->double('completion_status');
-            $table->decimal('budget_allocated');
+            $table->date('date_started');
+            $table->date('date_completed');
+            $table->double('completion_status')->nullable();
+            $table->decimal('budget_allocated',10,3);
+            $table->decimal('financial_status',10,3)->nullable();
             $table->timestamps();
 
             $table->primary('id');

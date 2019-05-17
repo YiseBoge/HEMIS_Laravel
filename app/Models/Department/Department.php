@@ -20,7 +20,8 @@ class Department extends Model
         'FOUR'=>'4',
         'FIVE'=>'5',
         'SIX'=>'6',
-        'SEVEN'=>'7'
+        'SEVEN'=>'7',
+        'NONE'=>'none'
     ];
 
     public function departmentName()
@@ -35,5 +36,9 @@ class Department extends Model
 
     public function enrollments(){
         return $this->hasMany('App\Models\Department\Enrollment');
+    }
+
+    public function specialProgramTeachers(){
+        return $this->hasMany('App\Models\Department\SpecialProgramTeacher');
     }
 }

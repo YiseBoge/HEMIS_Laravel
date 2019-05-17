@@ -3,29 +3,58 @@
 namespace App\Http\Controllers\Band;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Band\BandName;
 use App\Models\Institution\Institution;
 use App\Models\Band\Band;
-use App\Models\Band\UniversityIndustryLinkage;
+use App\Models\Band\StudentAttrition;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
-class UniversityIndustryLinkageController extends Controller
+class StudentAttritionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        $requestedProgram=$request->input('program');
+        if($requestedProgram==null){
+            $requestedProgram='REGULAR';
+        }
+
+        $requestedType=$request->input('type');
+        if($requestedType==null){
+            $requestedType='CET';
+        }
+
+        $requestedCase=$request->input('case');
+        if($requestedCase==null){
+            $requestedCase='Academic Dismissals With Readmission';
+        }
+
+        $filteredAttritions = array();
+        $attritions = StudentAttrition::with('band')->get();
+
+        foreach ($attritions as $attrition ){
+
+            if($attrition->program==$requestedProgram && $attrition->type == $requestedType && $attrition->case == $requestedCase){
+                $filteredAttritions[]=$attrition;
+            }
+        }
+        
+
         $data = array(
-            'linkages' => UniversityIndustryLinkage::with('band')->get(),
+            'attritions' => $filteredAttritions,
             'bands' => BandName::all(),
-            'years' => UniversityIndustryLinkage::getEnum('Years'),
-            'page_name' => 'bands.university_industry_linkage.index'
+            'programs' => StudentAttrition::getEnum('EducationPrograms'),
+            'types' => StudentAttrition::getEnum('Types'),
+            'cases' => StudentAttrition::getEnum('Cases'),
+            'page_name' => 'bands.student_attritions.index'
         );
-        return view("bands.university_industry_linkage.index")->with($data);
+        return view("bands.student_attrition.index")->with($data);
     }
 
     /**
@@ -36,12 +65,13 @@ class UniversityIndustryLinkageController extends Controller
     public function create()
     {
         $data = array(
-            'linkages' => UniversityIndustryLinkage::with('band')->get(),
             'bands' => BandName::all(),
-            'years' => UniversityIndustryLinkage::getEnum('Years'),
-            'page_name' => 'bands.university_industry_linkage.create'
+            'programs' => StudentAttrition::getEnum('EducationPrograms'),
+            'types' => StudentAttrition::getEnum('Types'),
+            'cases' => StudentAttrition::getEnum('Cases'),
+            'page_name' => 'bands.student_attritions.create'
         );
-        return view("bands.university_industry_linkage.index")->with($data);
+        return view("bands.student_attrition.create")->with($data);
     }
 
     /**
@@ -53,16 +83,16 @@ class UniversityIndustryLinkageController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'training_area' => 'required',
-            'number_of_students' => 'required',
-            'industry_number' => 'required'            
+            'male_number' => 'required',
+            'female_number' => 'required',
         ]);
 
-        $linkage = new UniversityIndustryLinkage;
-        $linkage->year = $request->input('year');
-        $linkage->number_of_industry_links = $request->input('industry_number');
-        $linkage->number_of_students = $request->input('number_of_students');
-        $linkage->training_area = $request->input('training_area');
+        $attrition = new StudentAttrition;
+        $attrition->program = $request->input('program');
+        $attrition->type = $request->input('type');
+        $attrition->case = $request->input('case');
+        $attrition->male_students_number = $request->input('male_number');
+        $attrition->female_students_number = $request->input('female_number');
 
         $user = Auth::user();
 
@@ -77,9 +107,9 @@ class UniversityIndustryLinkageController extends Controller
             $bandName->band()->save($band);
         }
 
-        $band->universityIndustryLinkages()->save($linkage);
+        $band->studentAttritions()->save($attrition);
 
-        return redirect("/institution/university-industry-linkage");
+        return redirect("/institution/student-attrition");
     }
 
     /**

@@ -10,7 +10,7 @@
                 </div>
             @endforeach
         @endif
-        <form class="pb-5" action="/band/researches" method="POST">
+        <form class="pb-5" action="/institution/researches" method="POST">
             @csrf
             <div class="row my-5">
                 <div class="col">
@@ -51,7 +51,7 @@
                                         </label>
                                     </div>
                             </div>
-                           
+                            <hr>
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <input type="text" id="number" name="number" class="form-control" required>

@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="card shadow-sm mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Foreign Students</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Research</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -16,16 +16,6 @@
                                 </div>
                             </div>
                             <div class="form-group row pt-3">
-                                    <div class="col form-group">
-                                        <select class="form-control" name="band" id="band">
-                                            @foreach ($bands as $band)
-                                                <option value="{{$band->id}}">{{$band->band_name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <label for="band" class="form-control-placeholder">
-                                                Band
-                                            </label>
-                                    </div>
                                     <div class="col form-group">
                                         <select class="form-control" name="type" id="type">
                                             @foreach ($types as $key => $value)

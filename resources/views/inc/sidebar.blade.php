@@ -37,9 +37,11 @@
         <div id="collapseInstitution" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Institution Info:</h6>
-                <a class="collapse-item" href="/institution/budget">Budget</a>
-                <a class="collapse-item" href="/institution/internal-revenue">Internal Revenue</a>
-                <a class="collapse-item" href="/institution/private-investment">Private Investments</a>
+                <a class="collapse-item" href="/institution/researches">Research</a>
+                <a class="collapse-item" href="/institution/student-attrition">Student Attrition</a>
+                <a class="collapse-item" href="/institution/university-industry-linkage">University Industry Linkage</a>
+                <a class="collapse-item" href="/institution/genral-information">General Information</a>
+                <a class="collapse-item" href="/institution/buildings">Buildings</a>
             </div>
         </div>
     </li>
@@ -50,13 +52,17 @@
            aria-expanded="false"
            aria-controls="collapseStudents">
             <i class="fas fa-user-graduate"></i>
-            <span>Students</span>
+            <span>Enrollment</span>
         </a>
         <div id="collapseStudents" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Student Acts:</h6>
-                <a class="collapse-item" href="/student/disabled">Disabled Students</a>
-                <a class="collapse-item" href="/student/foreigner">Foreigner Students</a>
+                <a class="collapse-item" href="/enrollment/normal">Normal Students</a>
+                <a class="collapse-item" href="/enrollment/foreign-students">Foreign Students</a>
+                <a class="collapse-item" href="/enrollment/special-need-students">Special Need Students</a>
+                <a class="collapse-item" href="/enrollment/special-region-students">Special Region Students</a>
+                <a class="collapse-item" href="/enrollment/specializing-students">Specializing Students</a>
+                <a class="collapse-item" href="/institution/age-enrollment">Enrollment With Age</a>
             </div>
         </div>
     </li>
@@ -72,10 +78,14 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Staff Acts:</h6>
                 <a class="collapse-item" href="/staff/academic">Academic Staff</a>
-                <a class="collapse-item" href="/staff/technical">Technical Staff</a>
-                <a class="collapse-item" href="/staff/administrative">Administrative Staff</a>
-                <a class="collapse-item" href="/staff/ict">ICT Staff</a>
-                <a class="collapse-item" href="/staff/supportive">Supportive Staff</a>
+                <a class="collapse-item" href="/staff/academic">Expatriate Academic Staff</a>
+                <a class="collapse-item text-wrap" href="/staff/academic">Study Leave</a>
+                <a class="collapse-item text-wrap" href="/staff/academic">Upgrading Level of Education</a>
+                <a class="collapse-item" href="/staff/technical-staff">Technical Staff</a>
+                <a class="collapse-item text-wrap" href="/institution/non-admin">Administrative and Non-Academic Staff</a>
+                <a class="collapse-item text-wrap" href="/department/special-program-teacher">Special Programs</a>
+                <a class="collapse-item text-wrap" href="/staff/supportive">Post Graduate Diploma Training</a>
+                <a class="collapse-item text-wrap" href="/institution/management-data">Managment Data</a>
             </div>
         </div>
     </li>
