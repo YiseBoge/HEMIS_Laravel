@@ -11,6 +11,7 @@ require('./modal');
 require('jquery.easing');
 require('chart.js');
 require('datatables');
+require('bootstrap-select');
 
 window.Vue = require('vue');
 

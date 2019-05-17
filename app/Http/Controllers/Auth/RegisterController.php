@@ -3,16 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Institution\Instance;
-use App\Models\Institution\Institution;
 use App\Models\Institution\InstitutionName;
+use App\Role;
 use App\Traits\Uuids;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\View\View;
-use Webpatser\Uuid\Uuid;
 
 
 class RegisterController extends Controller
@@ -72,22 +69,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $institution=Institution::where('institution_name_id',$data['institution_name_id'])->first();
-        if($institution==null){
-            $institution = new Institution();
-            $instance=Instance::all()->first();
-            //$institution->id=Uuid::generate()->string;
-            $institution->institution_name_id = $data['institution_name_id'];
-            $institution->instance_id=Uuid::generate()->string;
-            $institution->save();
-        }
-
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'institution_id'=>$institution->id,
+            'institution_name_id' => 0,
+            'currentInstance_id' => 0,
             'password' => Hash::make($data['password']),
         ]);
+
+        $user
+            ->roles()
+            ->attach(Role::where('role_name', 'Viewer')->first());
+
+        return $user;
     }
 
     public function getRegistrationForm(){

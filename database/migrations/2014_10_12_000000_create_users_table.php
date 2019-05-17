@@ -23,7 +23,8 @@ class CreateUsersTable extends Migration
             $table->timestamps();
 
             $table->primary('id');
-            $table->uuid('institution_id');
+            $table->uuid('institution_name_id');
+            $table->uuid('instance_id')->default(0);
         });
     }
 

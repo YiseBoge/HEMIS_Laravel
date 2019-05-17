@@ -15,4 +15,9 @@ class DepartmentName extends Model
     {
         return $this->hasOne('App\Models\Department\Department');
     }
+
+    public function __toString()
+    {
+        return "$this->acronym - $this->department_name";
+    }
 }

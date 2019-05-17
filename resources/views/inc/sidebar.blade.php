@@ -107,10 +107,11 @@
         <div id="collapseAdmin" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Admin Acts:</h6>
+                <a class="collapse-item" href="/institution/instance">Instances</a>
+                <a class="collapse-item" href="/institution/institution-name">Institution Names</a>
                 <a class="collapse-item" href="/band/band-name">Band Names</a>
                 <a class="collapse-item" href="/college/college-name">College Names</a>
                 <a class="collapse-item" href="/department/department-name">Department Names</a>
-                <a class="collapse-item" href="/institution/institution-name">Institution Names</a>
             </div>
         </div>
     </li>

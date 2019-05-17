@@ -15,10 +15,9 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::resource('institution/budget', 'Institution\BudgetsController');
-Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
-Route::resource('institution/internal-revenue', 'Institution\InternalRevenuesController');
-Route::resource('institution/private-investment', 'Institution\InvestmentsController');
+Route::resource('institution/instance', 'Institution\InstancesController');
+Route::post('/institution/instance/update-current', 'Institution\InstancesController@updateCurrentInstance')->name('updateCurrentInstance');
+
 Route::resource('institution/buildings', 'Institution\BuildingsController');
 
 Route::resource('staff/academic', 'Staff\AcademicStaffsController');
@@ -76,6 +75,7 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 // Registration Routes...
 Route::get('register', 'Auth\RegisterController@getRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
+Route::resource('editors', 'EditorsController');
 
 // Password Reset Routes...
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
