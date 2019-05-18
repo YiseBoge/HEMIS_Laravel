@@ -17,18 +17,33 @@ class ResearchsController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
         $institution = $user->institution();
+
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        $requestedType=$request->input('type');
+        if($requestedType==null){
+            $requestedType='Normal';
+        }
+
+        $requestedStatus=$request->input('status');
+        if($requestedStatus==null){
+            $requestedStatus='On Going';
+        }
 
         $researches = array();
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
                 foreach ($band->researches as $research) {
-                    $researches[] = $research;
+                    if($research->type == $requestedType && $research->status == $requestedStatus){
+                        $researches[] = $research;
+                    }                    
                 }
             }
         } else {

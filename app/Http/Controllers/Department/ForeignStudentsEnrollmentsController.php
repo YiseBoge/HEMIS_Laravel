@@ -21,15 +21,73 @@ class ForeignStudentsEnrollmentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        $requestedProgram=$request->input('program');
+        if($requestedProgram==null){
+            $requestedProgram='Regular';
+        }
+
+        $requestedCollege=$request->input('college');
+        if($requestedCollege==null){
+            $requestedCollege=null;
+        }
+
+        $requestedReason=$request->input('reason');
+        if($requestedReason==null){
+            $requestedReason='Bilateral Agreement';
+        }
+
+        $requestedLevel=$request->input('education_level');
+        if($requestedLevel==null){
+            $requestedLevel='Undergraduate';
+        }
+
+        $requestedBand=$request->input('band');
+        if($requestedBand==null){
+            $requestedBand=null;
+        }
+
+        $requestedYearLevel=$request->input('year_level');
+        if($requestedYearLevel==null){
+            $requestedYearLevel='1';
+        }
+
+        $enrollments = array();
+
+        if($institution!=null){
+            foreach($institution->bands as $band){
+                if($band->bandName->band_name == $requestedBand){
+                    foreach($band->colleges as $college){
+                        if($college->collegeName->college_name == $requestedCollege && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram){
+                            foreach($college->departments as $department){
+                                if($department->year_level == $requestedYearLevel){
+                                   
+                                    foreach($department->foreignStudentEnrollments as $enrollment){
+                                        if($enrollment->reason == $requestedReason){
+                                            $enrollments[]=$enrollment;
+                                        }
+                                    }
+                                }                                
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            $enrollments = ForeignStudent::with('department')->get();
+        }
+
         $educationPrograms = College::getEnum("EducationPrograms");
         $educationLevels = College::getEnum("EducationLevels");
         array_pop($educationPrograms);
         array_pop($educationLevels);
 
         $data = array(
-            'enrollments' => ForeignStudent::info()->get(),
+            'enrollments' => $enrollments,
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
@@ -86,8 +144,7 @@ class ForeignStudentsEnrollmentsController extends Controller
         $enrollment->reason = $request->input('reason');
 
         $user = Auth::user();
-
-        $institution = Institution::where('id', $user->institution_id)->first();
+        $institution = $user->institution();
 
         $bandName = BandName::where('band_name', $request->input("band"))->first();
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
@@ -121,7 +178,7 @@ class ForeignStudentsEnrollmentsController extends Controller
             $departmentName->department()->save($department);                      
         }
 
-        $department->enrollments()->save($enrollment);
+        $department->foreignStudentEnrollments()->save($enrollment);
 
         return redirect("/enrollment/foreign-students");
     }

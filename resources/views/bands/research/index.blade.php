@@ -13,28 +13,30 @@
                                     class="fas fa-arrow-right ml-2"></i></a>
                     </div>
                 </div>
-                <div class="form-group row pt-3">
-                    <div class="col form-group">
-                        <select class="form-control" name="type" id="type">
-                            @foreach ($types as $key => $value)
-                                <option value="{{$key}}">{{$value}}</option>
-                            @endforeach
-                        </select>
-                        <label for="type" class="form-control-placeholder">
-                            Research Type
-                        </label>
+                <form action="" method="get">
+                    <div class="form-group row pt-3">
+                        <div class="col form-group">
+                            <select class="form-control" name="type" id="type" onchange="this.form.submit()">
+                                @foreach ($types as $key => $value)
+                                    <option value="{{$value}}">{{$value}}</option>
+                                @endforeach
+                            </select>
+                            <label for="type" class="form-control-placeholder">
+                                Research Type
+                            </label>
+                        </div>
+                        <div class="col form-group">
+                            <select class="form-control" name="status" id="status" onchange="this.form.submit()">
+                                @foreach ($completions as $key => $value)
+                                    <option value="{{$value}}">{{$value}}</option>
+                                @endforeach
+                            </select>
+                            <label for="status" class="form-control-placeholder" onchange="this.form.submit()">
+                                Completion Status
+                            </label>
+                        </div>
                     </div>
-                    <div class="col form-group">
-                        <select class="form-control" name="status" id="status">
-                            @foreach ($completions as $key => $value)
-                                <option value="{{$key}}">{{$value}}</option>
-                            @endforeach
-                        </select>
-                        <label for="status" class="form-control-placeholder">
-                            Completion Status
-                        </label>
-                    </div>
-                </div>
+                </form>
                         <div class="row mt-3">
                             <div class="col-sm-12">
                                 <div class="table-responsive">

@@ -11,18 +11,20 @@
                             Add<i class="fas fa-plus ml-2"></i></a>
                     </div>
                 </div>
-                <div class="form-group row pt-3">
-                    <div class="col-md-4 form-group">
-                        <select class="form-control" name="year" id="year">
-                            @foreach ($years as $key => $value)
-                                <option value="{{$key}}">{{$value}}</option>
-                            @endforeach
-                        </select>
-                        <label for="year" class="form-control-placeholder">
-                               Year Level
-                        </label>
+                <form action="" method="get">
+                    <div class="form-group row pt-3">
+                        <div class="col-md-4 form-group">
+                            <select class="form-control" name="year" id="year" onchange="this.form.submit()">
+                                @foreach ($years as $key => $value)
+                                    <option value="{{$value}}">{{$value}}</option>
+                                @endforeach
+                            </select>
+                            <label for="year" class="form-control-placeholder">
+                                Year Level
+                            </label>
+                        </div>
                     </div>
-                </div>
+                </form>
 
                 <div class="row">
                     <div class="table-responsive col-12 py-3">

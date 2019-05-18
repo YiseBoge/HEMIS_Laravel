@@ -15,82 +15,75 @@
                                         class="fas fa-arrow-right ml-2"></i></a>
                                 </div>
                             </div>
-                            <div class="form-group row pt-3">
-                                <div class="col form-group">
-                                    <select class="form-control" name="student_type" id="student_type">
-                                        @foreach ($student_types as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="student_type" class="form-control-placeholder">
-                                            Student Type
-                                    </label>
-                                </div>
-                                <div class="col form-group">
-                                    <select class="form-control" name="college" id="college">
-                                        @foreach ($colleges as $college)
-                                            <option value="{{$college->college_name}}">{{$college->college_name}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="college" class="form-control-placeholder">
-                                            College
+                            <form action="" method="get">
+                                <div class="form-group row pt-3">
+                                    <div class="col form-group">
+                                        <select class="form-control" name="student_type" id="student_type" onchange="this.form.submit()">
+                                            @foreach ($student_types as $key => $value)
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="student_type" class="form-control-placeholder">
+                                                Student Type
                                         </label>
+                                    </div>
+                                    <div class="col form-group">
+                                        <select class="form-control" name="college" id="college" onchange="this.form.submit()">
+                                            @foreach ($colleges as $college)
+                                                <option value="{{$college->college_name}}">{{$college->college_name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="college" class="form-control-placeholder">
+                                                College
+                                            </label>
+                                    </div>
+                                    <div class="col form-group">
+                                        <select class="form-control" name="band" id="band" onchange="this.form.submit()">
+                                            @foreach ($bands as $band)
+                                                <option value="{{$band->band_name}}">{{$band->band_name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="band" class="form-control-placeholder">
+                                                Band
+                                            </label>
+                                    </div>            
+                                
                                 </div>
-                                <div class="col form-group">
-                                    <select class="form-control" name="band" id="band">
-                                        @foreach ($bands as $band)
-                                            <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="band" class="form-control-placeholder">
-                                            Band
+                                <div class="form-group row pt-3">
+                                    <div class="col form-group">
+                                        <select class="form-control" name="program" id="program" onchange="this.form.submit()">
+                                            @foreach ($programs as $key => $value)
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="program" class="form-control-placeholder">
+                                                Program
+                                            </label>
+                                    </div>
+                
+                                    <div class="col form-group">
+                                        <select class="form-control" name="education_level" id="education_level" onchange="this.form.submit()">
+                                            @foreach ($specialization_types as $key => $value)
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="education_level" class="form-control-placeholder">
+                                            Specialization Type
                                         </label>
-                                </div>            
-                               
-                            </div>
-                            <div class="form-group row pt-3">
-                                <div class="col form-group">
-                                    
-                                    <select class="form-control" name="program" id="program">
-                                        @foreach ($programs as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="program" class="form-control-placeholder">
-                                            Program
+                                    </div>
+                                    <div class="col form-group">
+                                        <select class="form-control" name="year_level" id="year_level" onchange="this.form.submit()">
+                                            @foreach ($year_levels as $key => $value)
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="year_level" class="form-control-placeholder">
+                                            Year Level
                                         </label>
+                                    </div>
+                
                                 </div>
-            
-                                <div class="col form-group">
-                                    
-                                    <select class="form-control" name="education_level" id="education_level">
-                                        @foreach ($specialization_types as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="education_level" class="form-control-placeholder">
-                                        Specialization Type
-                                    </label>
-                                </div>
-                                <div class="col form-group">
-                                    
-                                    <select class="form-control" name="year_level" id="year_level">
-                                        @foreach ($year_levels as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="year_level" class="form-control-placeholder">
-                                        Year Level
-                                    </label>
-                                </div>
-            
-                            </div>
-                            <div class="row">
-                                <div class="col text-right">
-                                    <a class="btn btn-outline-primary btn-sm mb-0" href="normal/">Reload</a>
-                                </div>
-                            </div>
-                            <hr>                        
+                            </form>                      
                         <div class="row mt-3">
                             <div class="col-sm-12">
                                 <table class="table table-bordered dataTable table-striped table-hover" id="dataTable" width="100%"

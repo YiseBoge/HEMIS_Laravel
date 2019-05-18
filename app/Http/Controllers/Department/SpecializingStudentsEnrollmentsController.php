@@ -22,13 +22,72 @@ class SpecializingStudentsEnrollmentsController extends Controller
      *
      * @return Response
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {        
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        $requestedType=$request->input('student_type');
+        if($requestedType==null){
+            $requestedType='Normal';
+        }
+
+        $requestedProgram=$request->input('program');
+        if($requestedProgram==null){
+            $requestedProgram='Regular';
+        }
+
+        $requestedCollege=$request->input('college');
+        if($requestedCollege==null){
+            $requestedCollege=null;
+        }
+
+        $requestedSpecializationType=$request->input('specialization_type');
+        if($requestedSpecializationType==null){
+            $requestedSpecializationType='Specialization';
+        }
+
+
+        $requestedBand=$request->input('band');
+        if($requestedBand==null){
+            $requestedBand=null;
+        }
+
+        $requestedYearLevel=$request->input('year_level');
+        if($requestedYearLevel==null){
+            $requestedYearLevel='1';
+        }
+
+        $enrollments = array();
+
+        if($institution!=null){
+            foreach($institution->bands as $band){
+                if($band->bandName->band_name == $requestedBand){
+                    foreach($band->colleges as $college){
+                        if($college->collegeName->college_name == $requestedCollege && $college->education_level == "Specialization" && $college->education_program == $requestedProgram){
+                            foreach($college->departments as $department){
+                                if($department->year_level == $requestedYearLevel){
+                                    foreach($department->specializingStudentEnrollments as $enrollment){
+                                        if($enrollment->student_type==$requestedType && $enrollment->specialization_type == $requestedSpecializationType){
+                                            $enrollments[]=$enrollment;
+                                        }
+                                    }
+                                }                                
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            $enrollments = SpecializingStudentsEnrollment::with('department')->get();
+        }
+
+
         $educationPrograms = College::getEnum("EducationPrograms");
         array_pop($educationPrograms);
 
         $data = array(
-            'enrollments' => SpecializingStudentsEnrollment::info()->get(),
+            'enrollments' => $enrollments,
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
@@ -86,7 +145,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
 
         $user = Auth::user();
 
-        $institution = Institution::where('id', $user->institution_id)->first();
+        $institution = $user->institution();
 
         $bandName = BandName::where('band_name', $request->input("band"))->first();
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
@@ -120,7 +179,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
             $departmentName->department()->save($department);                      
         }
 
-        $department->enrollments()->save($enrollment);
+        $department->specializingStudentEnrollments()->save($enrollment);
 
         return redirect("/enrollment/specializing-students");
     }

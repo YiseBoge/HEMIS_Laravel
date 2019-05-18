@@ -38,6 +38,14 @@ class Department extends Model
         return $this->hasMany('App\Models\Department\Enrollment');
     }
 
+    public function foreignStudentEnrollments(){
+        return $this->hasMany('App\Models\Department\ForeignStudent');
+    }
+
+    public function specializingStudentEnrollments(){
+        return $this->hasMany('App\Models\Department\SpecializingStudentsEnrollment');
+    }
+
     public function specialProgramTeachers(){
         return $this->hasMany('App\Models\Department\SpecialProgramTeacher');
     }
