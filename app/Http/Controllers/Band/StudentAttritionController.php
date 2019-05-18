@@ -19,6 +19,9 @@ class StudentAttritionController extends Controller
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
+
+        $institution = $user->institution();
 
         $requestedProgram=$request->input('program');
         if($requestedProgram==null){
@@ -35,8 +38,19 @@ class StudentAttritionController extends Controller
             $requestedCase='Academic Dismissals With Readmission';
         }
 
+        $attritions = array();
         $filteredAttritions = array();
-        $attritions = StudentAttrition::with('band')->get();
+
+        if($institution!=null){
+            foreach($institution->bands as $band){
+                foreach($band->studentAttritions as $attrition){
+                    $attritions[]=$attrition;
+                }
+            } 
+        }else{
+            $attritions = StudentAttrition::with('band')->get();
+        }
+        
 
         foreach ($attritions as $attrition ){
 
@@ -96,7 +110,7 @@ class StudentAttritionController extends Controller
 
         $user = Auth::user();
 
-        $institution = Institution::where('id', $user->institution_id)->first();
+        $institution = $user->institution();
 
         $bandName = BandName::where('band_name', $request->input("band"))->first();
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();

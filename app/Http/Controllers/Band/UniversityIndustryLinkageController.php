@@ -19,8 +19,23 @@ class UniversityIndustryLinkageController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        $linkages = array();
+
+        if($institution!=null){
+            foreach($institution->bands as $band){
+                foreach($band->universityIndustryLinkages as $linkage){
+                    $linkages[]=$linkage;
+                }
+            } 
+        }else{
+            $linkages = UniversityIndustryLinkage::with('band')->get();
+        }
+
         $data = array(
-            'linkages' => UniversityIndustryLinkage::with('band')->get(),
+            'linkages' => $linkages,
             'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
             'page_name' => 'bands.university_industry_linkage.index'
@@ -35,8 +50,23 @@ class UniversityIndustryLinkageController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        $linkages = array();
+
+        if($institution!=null){
+            foreach($institution->bands as $band){
+                foreach($band->universityIndustryLinkages as $linkage){
+                    $linkages[]=$linkage;
+                }
+            } 
+        }else{
+            $linkages = UniversityIndustryLinkage::with('band')->get();
+        }
+
         $data = array(
-            'linkages' => UniversityIndustryLinkage::with('band')->get(),
+            'linkages' => $linkages,
             'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
             'page_name' => 'bands.university_industry_linkage.create'
@@ -66,7 +96,7 @@ class UniversityIndustryLinkageController extends Controller
 
         $user = Auth::user();
 
-        $institution = Institution::where('id', $user->institution_id)->first();
+        $institution = $user->institution();
 
         $bandName = BandName::where('band_name', $request->input("band"))->first();
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();

@@ -21,8 +21,25 @@ class TechnicalStaffController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        $technicalStaffs = array();
+
+        if($institution!=null){
+            foreach($institution->bands as $band){
+                foreach($band->colleges as $college){
+                    foreach($college->technicalStaffs as $technicalStaff){
+                        $technicalStaffs[]=$technicalStaff;
+                    }
+                }
+            } 
+        }else{
+            $technicalStaffs = TechnicalStaff::with('college')->get();
+        }
+
         $data = array(
-            'staffs' => TechnicalStaff::with('college')->get(),
+            'staffs' => $technicalStaffs,
             'bands' => BandName::all(),
             'colleges' => CollegeName::all(),
             'levels' => TechnicalStaff::getEnum('EducationLevels'),
@@ -38,8 +55,25 @@ class TechnicalStaffController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        $technicalStaffs = array();
+
+        if($institution!=null){
+            foreach($institution->bands as $band){
+                foreach($band->colleges as $college){
+                    foreach($college->technicalStaffs as $technicalStaff){
+                        $technicalStaffs[]=$technicalStaff;
+                    }
+                }
+            } 
+        }else{
+            $technicalStaffs = TechnicalStaff::with('college')->get();
+        }
+
         $data = array(
-            'staffs' => TechnicalStaff::with('college')->get(),
+            'staffs' => $technicalStaffs,
             'bands' => BandName::all(),
             'colleges' => CollegeName::all(),
             'levels' => TechnicalStaff::getEnum('EducationLevels'),
@@ -68,8 +102,8 @@ class TechnicalStaffController extends Controller
 
         $user = Auth::user();
 
-        $institution = Institution::where('id', $user->institution_id)->first();
-
+        $institution = $user->institution();
+        
         $bandName = BandName::where('band_name', $request->input("band"))->first();
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if($band == null){

@@ -70,7 +70,7 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
         
         $institution->specialNeeds()->save($enrollment);
 
-        return redirect("/enrollment/special-need-student");
+        return redirect("/enrollment/special-need-students");
     }
 
     /**

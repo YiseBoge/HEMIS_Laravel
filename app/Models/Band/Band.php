@@ -31,7 +31,7 @@ class Band extends Model
         return $this->hasMany('App\Models\College\College');
     }
 
-    public function researchs()
+    public function researches()
     {
         return $this->hasMany('App\Models\Band\Research');
     }

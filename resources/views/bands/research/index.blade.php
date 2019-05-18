@@ -7,45 +7,41 @@
                 <h6 class="m-0 font-weight-bold text-primary">Research</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                            <div class="row">
-                                <div class="col text-right">
-                                    <a class="btn btn-outline-primary btn-sm mb-0" href="researches/create">New Entry<i
-                                        class="fas fa-arrow-right ml-2"></i></a>
+                    <div class="row">
+                            <div class="col text-right">
+                                <a class="btn btn-outline-primary btn-sm mb-0" href="researches/create">New Entry<i
+                                    class="fas fa-arrow-right ml-2"></i></a>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-3">
+                                <div class="col form-group">
+                                    <select class="form-control" name="type" id="type">
+                                        @foreach ($types as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="type" class="form-control-placeholder">
+                                            Research Type
+                                    </label>
                                 </div>
-                            </div>
-                            <div class="form-group row pt-3">
-                                    <div class="col form-group">
-                                        <select class="form-control" name="type" id="type">
-                                            @foreach ($types as $key => $value)
-                                                <option value="{{$key}}">{{$value}}</option>
-                                            @endforeach
-                                        </select>
-                                        <label for="type" class="form-control-placeholder">
-                                                Research Type
-                                        </label>
-                                    </div>
-                                    <div class="col form-group">
-                                        <select class="form-control" name="status" id="status">
-                                            @foreach ($completions as $key => $value)
-                                                <option value="{{$key}}">{{$value}}</option>
-                                            @endforeach
-                                        </select>
-                                        <label for="status" class="form-control-placeholder">
-                                                Completion Status
-                                        </label>
-                                    </div>
-                            </div>
-                           
-                            <div class="row">
-                                <div class="col text-right">
-                                    <a class="btn btn-outline-primary btn-sm mb-0" href="normal/">Reload</a>
+                                <div class="col form-group">
+                                    <select class="form-control" name="status" id="status">
+                                        @foreach ($completions as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="status" class="form-control-placeholder">
+                                            Completion Status
+                                    </label>
                                 </div>
-                            </div>
-                            <hr>                        
+                        </div>
                         <div class="row mt-3">
-                            <div class="col-sm-12">
+                                <div class="col-sm-12">
+                            <div class="table-responsive">
+                            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                                  
+                        
+                            
                                 <table class="table table-bordered dataTable table-striped table-hover" id="dataTable" width="100%"
                                         cellspacing="0" role="grid" aria-describedby="dataTable_info"
                                         style="width: 100%;">

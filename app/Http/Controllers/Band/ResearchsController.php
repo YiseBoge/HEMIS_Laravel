@@ -19,8 +19,24 @@ class ResearchsController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+
+        $institution = $user->institution();
+
+        $researches = array();
+
+        if($institution!=null){
+            foreach($institution->bands as $band){
+                foreach($band->researches as $research){
+                    $researches[]=$research;
+                }
+            } 
+        }else{
+            $researches = Research::with('band')->get();
+        }
+
         $data = array(
-            'researchs' => Research::with('band')->get(),
+            'researchs' => $researches,
             'bands' => BandName::all(),
             'completions' => Research::getEnum('Completions'),
             'types' => Research::getEnum('Types'),
@@ -78,7 +94,7 @@ class ResearchsController extends Controller
 
         $user = Auth::user();
 
-        $institution = Institution::where('id', $user->institution_id)->first();
+        $institution = $user->institution();
 
         $bandName = BandName::where('band_name', $request->input("band"))->first();
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
@@ -89,7 +105,7 @@ class ResearchsController extends Controller
             $bandName->band()->save($band);
         }
 
-        $band->researchs()->save($research);
+        $band->researches()->save($research);
 
         return redirect("/institution/researches");
     }

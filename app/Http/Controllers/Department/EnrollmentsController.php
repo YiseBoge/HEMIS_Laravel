@@ -23,6 +23,9 @@ class EnrollmentsController extends Controller
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
+        $institution = $user->institution();
+
         $requestedType=$request->input('student_type');
         if($requestedType==null){
             $requestedType='Normal';
@@ -54,6 +57,26 @@ class EnrollmentsController extends Controller
             $requestedYearLevel='1';
         }
 
+        $enrollments = array();
+
+        if($institution!=null){
+            foreach($institution->bands as $band){
+                if($band->bandName->band_name == $requestedBand){
+                    foreach($band->colleges as $college){
+                        if($college->collegeName->college_name == $requestedCollege){
+                            foreach($college->deparments as $department){
+                                foreach($department->enrollments as $enrollment){
+                                    $enrollments[]=$enrollment;
+                                }
+                            }
+                        }
+                    }
+                }
+            } 
+        }else{
+            $enrollments = Enrollment::with('department')->get();
+        }
+
         $studentTypes=Enrollment::getEnum('StudentTypes');
         $educationPrograms=College::getEnum('EducationPrograms');
         $colleges=CollegeName::all();
@@ -69,6 +92,7 @@ class EnrollmentsController extends Controller
         $bandNameId=BandName::where('band_name',$requestedBand)->first();
 
         $collegeNameId=CollegeName::where('college_name',$requestedCollege)->first();
+        $band = $institution->bands()->where('band_name_id',$requestedBand)->first();
         $band=Band::where('band_name_id',$requestedBand)->first();
         //return $band;
         if($band!=null){

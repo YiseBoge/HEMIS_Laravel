@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
-use App\RegionName;
+use App\Models\Institution\RegionName;
 use Illuminate\Http\Request;
 
 class RegionNamesController extends Controller
@@ -48,7 +48,7 @@ class RegionNamesController extends Controller
         $regionNames->name = $request->input('name');
         $regionNames->save();
 
-        return redirect('/institution/region-Name');
+        return redirect('/institution/region-name');
     }
 
     /**

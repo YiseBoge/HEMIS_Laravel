@@ -121,7 +121,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
 
         $department->enrollments()->save($enrollment);
 
-        return redirect("/enrollment/specializing-student");
+        return redirect("/enrollment/specializing-students");
     }
 
     /**
