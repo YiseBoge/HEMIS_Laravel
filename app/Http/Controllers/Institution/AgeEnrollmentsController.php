@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Institution;
 use App\Http\Controllers\Controller;
 use App\Models\Institution\AgeEnrollment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Institution\Institution;
 use Webpatser\Uuid\Uuid;
 
 class AgeEnrollmentsController extends Controller
@@ -47,17 +49,20 @@ class AgeEnrollmentsController extends Controller
             'number_of_females' => 'required',
         ]);
 
+        $user = Auth::user();
+        $institution = Institution::where('id', $user->institution_id)->first();
+
         $age_enrollment = new AgeEnrollment();
-         $age_enrollment->male_students_number = $request->input('number_of_males');
-         $age_enrollment->female_students_number = $request->input('number_of_females');
+        $age_enrollment->male_students_number = $request->input('number_of_males');
+        $age_enrollment->female_students_number = $request->input('number_of_females');
 
-         $age_enrollment->age = $request->input('age_range');
+        $age_enrollment->age = $request->input('age_range');
 
-         $age_enrollment->institution_id = Uuid::generate()->string;
+        $age_enrollment->institution_id = $institution->id;
 
-         $age_enrollment->save();
+        $age_enrollment->save();
 
-         return redirect('institution/age-enrollment');
+        return redirect('institution/age-enrollment');
     }
 
     /**
