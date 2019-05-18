@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Institution;
 use App\Http\Controllers\Controller;
 use App\Models\Institution\Management;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Institution\Institution;
 use Webpatser\Uuid\Uuid;
 
 class ManagementDatasController extends Controller
@@ -46,6 +48,9 @@ class ManagementDatasController extends Controller
             'number_of_females' => 'required'
         ]);
 
+        $user = Auth::user();
+        $institution = Institution::where('id', $user->institution_id)->first();
+
         $managment_data = new Management();
 
         $managment_data->required_position_number = $request->input('required_positions');
@@ -55,7 +60,7 @@ class ManagementDatasController extends Controller
 
         // die( $request->input('management_level'));
 
-        $managment_data->institution_id = Uuid::generate()->string;
+        $managment_data->institution_id = $institution->id;
 
         $managment_data->save();
         
