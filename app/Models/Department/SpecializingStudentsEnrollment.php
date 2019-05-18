@@ -14,7 +14,8 @@ class SpecializingStudentsEnrollment extends Model
     public $incrementing = false;
     protected $enumStudentTypes = [
         'CURRENT' => 'Current',
-        'PREVIOUS_YEAR' => 'Previous Year'
+        'PREVIOUS_YEAR_GRADUATES' => 'Previous Year Graduates',
+        'PROSPECTIVE_GRADUATES' => 'Prospective Graduates'
     ];
 
     protected $enumSpecializationTypes = [

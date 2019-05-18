@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Band;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Band\BandName;
-use App\Models\Institution\Institution;
 use App\Models\Band\Band;
+use App\Models\Band\BandName;
 use App\Models\Band\Research;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class ResearchsController extends Controller
@@ -15,12 +15,28 @@ class ResearchsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
+        $user = Auth::user();
+
+        $institution = $user->institution();
+
+        $researches = array();
+
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                foreach ($band->researches as $research) {
+                    $researches[] = $research;
+                }
+            }
+        } else {
+            $researches = Research::with('band')->get();
+        }
+
         $data = array(
-            'researchs' => Research::with('band')->get(),
+            'researchs' => $researches,
             'bands' => BandName::all(),
             'completions' => Research::getEnum('Completions'),
             'types' => Research::getEnum('Types'),
@@ -32,7 +48,7 @@ class ResearchsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -48,8 +64,8 @@ class ResearchsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -78,7 +94,7 @@ class ResearchsController extends Controller
 
         $user = Auth::user();
 
-        $institution = Institution::where('id', $user->institution_id)->first();
+        $institution = $user->institution();
 
         $bandName = BandName::where('band_name', $request->input("band"))->first();
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
@@ -89,7 +105,7 @@ class ResearchsController extends Controller
             $bandName->band()->save($band);
         }
 
-        $band->researchs()->save($research);
+        $band->researches()->save($research);
 
         return redirect("/institution/researches");
     }
@@ -98,7 +114,7 @@ class ResearchsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -109,7 +125,7 @@ class ResearchsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -119,9 +135,9 @@ class ResearchsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -132,7 +148,7 @@ class ResearchsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

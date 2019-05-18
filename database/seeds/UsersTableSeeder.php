@@ -14,14 +14,12 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::where('role_name', 'Admin')->first();
+        $role = Role::where('role_name', 'Super Admin')->first();
 
         $user = new User();
-        $user->name = 'Admin User';
+        $user->name = 'Super Admin';
         $user->email = 'admin@admin.com';
         $user->password = Hash::make('00000000');
-        $user->institution_name_id = 0;
-        $user->instance_id = 0;
 
         $user->save();
         $user->roles()->attach($role);

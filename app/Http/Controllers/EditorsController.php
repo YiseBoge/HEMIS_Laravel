@@ -21,7 +21,7 @@ class EditorsController extends Controller
     {
         $editors = [];
         foreach (User::all() as $user) {
-            if ($user->hasRole('Editor')) {
+            if ($user->hasRole('Admin')) {
                 array_push($editors, $user);
             }
         }
@@ -80,7 +80,7 @@ class EditorsController extends Controller
 
         $user
             ->roles()
-            ->attach(Role::where('role_name', 'Editor')->first());
+            ->attach(Role::where('role_name', 'Admin')->first());
 
         return redirect('/editors');
     }

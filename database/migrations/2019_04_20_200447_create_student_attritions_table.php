@@ -17,6 +17,7 @@ class CreateStudentAttritionsTable extends Migration
             $table->uuid('id');
             $table->string('type');
             $table->string('case');
+            $table->string('program');
             $table->bigInteger('male_students_number');
             $table->bigInteger('female_students_number');
             $table->timestamps();
