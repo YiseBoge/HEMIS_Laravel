@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Institution;
-
 use App\Http\Controllers\Controller;
 use App\Models\Institution\AgeEnrollment;
 use Illuminate\Http\Request;
@@ -74,8 +73,6 @@ class AgeEnrollmentsController extends Controller
         $age_enrollment->female_students_number = $request->input('number_of_females');
 
         $age_enrollment->age = $request->input('age_range');
-
-        $age_enrollment->save();
 
         $institution->ageEnrollment()->save($age_enrollment);
 

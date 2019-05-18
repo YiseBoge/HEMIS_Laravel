@@ -6,7 +6,6 @@ use App\Models\Institution\AdminAndNonAcademicStaff;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Webpatser\Uuid\Uuid;
 
 
 class AdminAndNonAcademicStaffsController extends Controller
@@ -61,7 +60,6 @@ class AdminAndNonAcademicStaffsController extends Controller
      */
     public function store(Request $request)
     {
-        die("asfg");
         $this->validate($request, [
             'number_of_males' => 'required',
             'number_of_females' => 'required',
@@ -77,7 +75,7 @@ class AdminAndNonAcademicStaffsController extends Controller
         $admin_staff->female_staff_number = $request->input('number_of_females');
         $admin_staff->education_level = $request->input('education_level');
 
-        $admin_staff->institution_id = Uuid::generate()->string;
+        $admin_staff->institution_id = $institution->id;
 
         $admin_staff->save();
 

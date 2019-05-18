@@ -1,13 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Institution;
-
 use App\Http\Controllers\Controller;
 use App\Models\Institution\Management;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Webpatser\Uuid\Uuid;
 
 class ManagementDatasController extends Controller
 {
@@ -68,20 +66,14 @@ class ManagementDatasController extends Controller
         $user = Auth::user();
         $institution = $user->institution();
 
-        $managment_data = new Management();
+        $management_data = new Management();
 
-        $managment_data->required_position_number = $request->input('required_positions');
-        $managment_data->currently_assigned_number = $request->input('assigned_positions');
-        $managment_data->female_number = $request->input('number_of_females');
-        $managment_data->management_level = $request->input('management_level');
+        $management_data->required_position_number = $request->input('required_positions');
+        $management_data->currently_assigned_number = $request->input('assigned_positions');
+        $management_data->female_number = $request->input('number_of_females');
+        $management_data->management_level = $request->input('management_level');
 
-        // die( $request->input('management_level'));
-
-        $managment_data->institution_id = Uuid::generate()->string;
-
-        $managment_data->save();
-
-//        $institution->managements()->save($management_data);
+        $institution->managements()->save($management_data);
 
         return redirect('institution/management-data/');
     }
