@@ -3,24 +3,37 @@
 namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Institution\RegionName;
 use App\Models\Institution\EmergingRegion;
 use App\Models\Institution\PastoralRegion;
+use App\Models\Institution\RegionName;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Institution\Institution;
 
 class SpecialRegionsEnrollmentsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        $enrollments = array();
+
+        if ($institution != null) {
+            foreach ($institution->emergingRegion as $enrollment) {
+                $enrollments[] = $enrollment;
+            }
+        } else {
+            $enrollments = EmergingRegion::all();
+        }
+
         $data = array(
-            'enrollments' => EmergingRegion::all(),
+            'enrollments' => $enrollments,
             'regions' => RegionName::all(),
             'programs' => EmergingRegion::getEnum("EducationPrograms"),
             'year_levels' => EmergingRegion::getEnum('Years'),
@@ -32,7 +45,7 @@ class SpecialRegionsEnrollmentsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -48,8 +61,8 @@ class SpecialRegionsEnrollmentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -57,6 +70,10 @@ class SpecialRegionsEnrollmentsController extends Controller
             'male_number' => 'required',
             'female_number' => 'required'
         ]);
+
+        $user = Auth::user();
+        $institution = $user->institution();
+
 
         if($request->input('region_type') == 'emerging_regions'){
             $enrollment = new EmergingRegion;
@@ -68,11 +85,6 @@ class SpecialRegionsEnrollmentsController extends Controller
         $enrollment->female_number = $request->input('female_number');
         $enrollment->year_level = $request->input('year_level');
         $enrollment->education_program = $request->input('program');
-
-        $user = Auth::user();
-
-        $institution = Institution::where('id', $user->institution_id)->first();
-        
         $enrollment->region_name_id = 0; 
         $regionName = RegionName::where('name', $request->input("region"))->first();
         if($request->input('region_type') == 'emerging_regions'){
@@ -90,7 +102,7 @@ class SpecialRegionsEnrollmentsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -101,7 +113,7 @@ class SpecialRegionsEnrollmentsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -111,9 +123,9 @@ class SpecialRegionsEnrollmentsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -124,7 +136,7 @@ class SpecialRegionsEnrollmentsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

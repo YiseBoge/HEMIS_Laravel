@@ -4,26 +4,42 @@ namespace App\Http\Controllers\Institution;
 use App\Http\Controllers\Controller;
 use App\Models\Institution\ForeignStaff;
 use Illuminate\Http\Request;
-use Webpatser\Uuid\Uuid;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ForeignStaffsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
-        $data = ['staffs' => ForeignStaff::all(),
-        'page_name' => 'institution.foreign_staff.list'];
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        $staffs = array();
+
+        if ($institution != null) {
+            foreach ($institution->foreignStaff as $staff) {
+                $staffs[] = $staff;
+            }
+        } else {
+            $staffs = ForeignStaff::all();
+        }
+
+        $data = [
+            'staffs' => $staffs,
+            'page_name' => 'institution.foreign_staff.list'
+        ];
         return view('institutions.foreign_staff.list')->with('data', $data);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -39,19 +55,20 @@ class ForeignStaffsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $institution = $user->institution();
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -62,7 +79,7 @@ class ForeignStaffsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -72,9 +89,9 @@ class ForeignStaffsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -85,7 +102,7 @@ class ForeignStaffsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

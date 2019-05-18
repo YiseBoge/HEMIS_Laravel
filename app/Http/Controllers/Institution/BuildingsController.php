@@ -18,21 +18,34 @@ class BuildingsController extends Controller
      */
     public function index(Request $request)
     {
-//        $purpose = new BuildingPurpose();
-//        $purpose->purpose = 'Others';
-//        $purpose->save();
-
         $buildingPurposes = BuildingPurpose::all();
 
         $requestedPurpose = $request->input('building_purpose');
         if ($requestedPurpose == null){
             $requestedPurpose = 0;
         }
-
         $buildingPurpose = $buildingPurposes[$requestedPurpose];
 
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        $buildings = array();
+
+        if ($institution != null) {
+            foreach ($institution->buildings as $building) {
+                foreach ($building->buildingPurposes as $purpose) {
+                    if ($purpose->purpose == $buildingPurpose->purpose) {
+                        $buildings[] = $building;
+                    }
+                }
+            }
+        } else {
+            $buildings = $buildingPurpose->buildings;
+        }
+
+
         $data = array(
-            'buildings' => $buildingPurpose->buildings,
+            'buildings' => $buildings,
             'building_purposes' => $buildingPurposes,
             'current_purpose' => $requestedPurpose,
             'page_name' => 'institution.buildings.index'
@@ -75,6 +88,13 @@ class BuildingsController extends Controller
             'budget_allocated' => 'required',
         ]);
 
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        if ($institution == null) {
+            return "No Institution";
+        }
+
         $building = new Building();
         $building->building_name = $request->input('building_name');
         $building->contractor_name = $request->input('contractor_name');
@@ -82,8 +102,8 @@ class BuildingsController extends Controller
         $building->date_started = $request->input('date_started');
         $building->date_completed = $request->input('date_completed');
         $building->budget_allocated = $request->input('budget_allocated');
-        $building->completion_status = $request->input('financial_status');
         $building->financial_status = $request->input('financial_status');
+        $building->completion_status = $request->input('completion_status');
 
         $user = Auth::user();
         $institution = $user->institution();
@@ -98,6 +118,8 @@ class BuildingsController extends Controller
                 $purpose->buildings()->attach([$building->id]);
             }
         }
+
+        $institution->buildings()->save($building);
 
         return redirect('institution/buildings');
     }

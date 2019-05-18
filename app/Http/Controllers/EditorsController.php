@@ -30,7 +30,7 @@ class EditorsController extends Controller
             'editors' => $editors,
             'page_name' => 'auth.editors.index',
         );
-        return view('auth.editors.index')->with('data', $data);
+        return view('auth.editors.index')->with($data);
     }
 
     /**
