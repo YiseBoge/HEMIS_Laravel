@@ -7,10 +7,10 @@
 require('./bootstrap');
 require('./theme');
 require('./modal');
-
 require('jquery.easing');
 require('chart.js');
 require('datatables');
+require('datatables.net-bs4');
 require('bootstrap-select');
 
 window.Vue = require('vue');

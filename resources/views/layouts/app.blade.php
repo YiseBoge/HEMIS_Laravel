@@ -18,10 +18,7 @@
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Fenix" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="../vendor/DataTables/datatables.min.css"/>
 
 
 </head>
@@ -77,18 +74,9 @@
         crossorigin="anonymous"></script>
 
 <script src="{{ asset('js/app.js') }}" defer></script>
-<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('article-ckeditor');
-</script>
 <script>
     $(document).ready(function () {
         $('#dataTable').DataTable();
-    });
-</script>
-<script>
-    $(function () {
-        $('select').selectpicker();
     });
 </script>
 

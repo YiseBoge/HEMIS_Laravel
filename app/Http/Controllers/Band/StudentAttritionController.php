@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Band;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Band\BandName;
-use App\Models\Institution\Institution;
 use App\Models\Band\Band;
+use App\Models\Band\BandName;
 use App\Models\Band\StudentAttrition;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class StudentAttritionController extends Controller
@@ -15,7 +15,7 @@ class StudentAttritionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -23,42 +23,42 @@ class StudentAttritionController extends Controller
 
         $institution = $user->institution();
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='REGULAR';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'REGULAR';
         }
 
-        $requestedType=$request->input('type');
-        if($requestedType==null){
-            $requestedType='CET';
+        $requestedType = $request->input('type');
+        if ($requestedType == null) {
+            $requestedType = 'CET';
         }
 
-        $requestedCase=$request->input('case');
-        if($requestedCase==null){
-            $requestedCase='Academic Dismissals With Readmission';
+        $requestedCase = $request->input('case');
+        if ($requestedCase == null) {
+            $requestedCase = 'Academic Dismissals With Readmission';
         }
 
         $attritions = array();
         $filteredAttritions = array();
 
-        if($institution!=null){
-            foreach($institution->bands as $band){
-                foreach($band->studentAttritions as $attrition){
-                    $attritions[]=$attrition;
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                foreach ($band->studentAttritions as $attrition) {
+                    $attritions[] = $attrition;
                 }
-            } 
-        }else{
+            }
+        } else {
             $attritions = StudentAttrition::with('band')->get();
         }
-        
 
-        foreach ($attritions as $attrition ){
 
-            if($attrition->program==$requestedProgram && $attrition->type == $requestedType && $attrition->case == $requestedCase){
-                $filteredAttritions[]=$attrition;
+        foreach ($attritions as $attrition) {
+
+            if ($attrition->program == $requestedProgram && $attrition->type == $requestedType && $attrition->case == $requestedCase) {
+                $filteredAttritions[] = $attrition;
             }
         }
-        
+
 
         $data = array(
             'attritions' => $filteredAttritions,
@@ -74,7 +74,7 @@ class StudentAttritionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -91,8 +91,8 @@ class StudentAttritionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -114,10 +114,10 @@ class StudentAttritionController extends Controller
 
         $bandName = BandName::where('band_name', $request->input("band"))->first();
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
-            $institution->bands()->save($band);            
+            $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
 
@@ -129,8 +129,8 @@ class StudentAttritionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function show($id)
     {
@@ -140,8 +140,8 @@ class StudentAttritionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function edit($id)
     {
@@ -151,9 +151,9 @@ class StudentAttritionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -163,8 +163,8 @@ class StudentAttritionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function destroy($id)
     {

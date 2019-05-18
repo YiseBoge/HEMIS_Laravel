@@ -37,11 +37,11 @@
 
                                     <div class="row">
                                         <div class="form-group col-md">
-                                            {!! Form::date('date_started', null, ['class'=>'form-control', 'id'=>'create_date_started', 'required' => 'true']) !!}
+                                            {!! Form::date('date_started', null, ['class'=>'form-control', 'id'=>'create_date_started']) !!}
                                             {!! Form::label('date_started', 'Date Started', ['class' => 'form-control-placeholder', 'for' => 'create_date_started']) !!}
                                         </div>
                                         <div class="form-group col-md">
-                                            {!! Form::date('date_completed', null, ['class'=>'form-control', 'id'=>'create_date_completed', 'required' => 'true']) !!}
+                                            {!! Form::date('date_completed', null, ['class'=>'form-control', 'id'=>'create_date_completed']) !!}
                                             {!! Form::label('date_completed', 'Date Completed', ['class' => 'form-control-placeholder', 'for' => 'create_date_completed']) !!}
                                         </div>
                                     </div>

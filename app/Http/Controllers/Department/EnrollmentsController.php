@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Band\BandName;
-use App\Models\Department\DepartmentName;
-use App\Models\Institution\Institution;
 use App\Models\Band\Band;
+use App\Models\Band\BandName;
 use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
 use App\Models\Department\Enrollment;
+use App\Models\Institution\Institution;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class EnrollmentsController extends Controller
@@ -19,7 +20,7 @@ class EnrollmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -59,6 +60,7 @@ class EnrollmentsController extends Controller
 
         $enrollments = array();
 
+<<<<<<< HEAD
         if($institution!=null){
             foreach($institution->bands as $band){
                 if($band->bandName->band_name == $requestedBand){
@@ -72,15 +74,71 @@ class EnrollmentsController extends Controller
                                         }
                                     }
                                 }                                
+=======
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                if ($band->bandName->band_name == $requestedBand) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $requestedCollege) {
+                            foreach ($college->deparments as $department) {
+                                foreach ($department->enrollments as $enrollment) {
+                                    $enrollments[] = $enrollment;
+                                }
+>>>>>>> 0a603e59ff65840c96bc5c6471370215ba9904e9
                             }
                         }
                     }
                 }
-            } 
-        }else{
+            }
+        } else {
             $enrollments = Enrollment::with('department')->get();
         }
 
+<<<<<<< HEAD
+=======
+        $studentTypes=Enrollment::getEnum('StudentTypes');
+        $educationPrograms=College::getEnum('EducationPrograms');
+        $colleges=CollegeName::all();
+        $bands=BandName::all();
+        $educationLevels=College::getEnum("EducationLevels");
+        $yearLevels=Department::getEnum('YearLevels');
+
+        //return $requestedBand;
+
+        $filteredEnrollments = array();
+
+
+        $bandNameId=BandName::where('band_name',$requestedBand)->first();
+
+        $collegeNameId=CollegeName::where('college_name',$requestedCollege)->first();
+        $band = $institution->bands()->where('band_name_id', $requestedBand)->first();
+        $band=Band::where('band_name_id',$requestedBand)->first();
+        //return $band;
+        if($band!=null){
+            $college=College::where(['college_name_id'=>$requestedCollege,'band_id'=>$band->id,'education_level'=>$requestedLevel,'education_program'=>$requestedProgram])->first();
+            if($college!=null){
+                $departments=Department::where(['college_id'=>$college->id,'year_level'=>$requestedYearLevel])->get();
+                foreach ($departments as $department){
+
+                    foreach ($department->enrollments as $enrollment ){
+
+                        if($enrollment->student_type==$requestedType){
+                            $filteredEnrollments[]=$enrollment;
+                        }
+
+                    }
+
+                }
+            }
+
+
+
+
+        }
+
+
+
+>>>>>>> 0a603e59ff65840c96bc5c6471370215ba9904e9
         //$enrollments=Enrollment::where('department_id',$department->id)->get();
 
 
@@ -101,7 +159,7 @@ class EnrollmentsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -126,8 +184,8 @@ class EnrollmentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -187,7 +245,7 @@ class EnrollmentsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -198,7 +256,7 @@ class EnrollmentsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -208,9 +266,9 @@ class EnrollmentsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -221,7 +279,7 @@ class EnrollmentsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

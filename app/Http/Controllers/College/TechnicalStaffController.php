@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\BandName;
-use App\Models\Institution\Institution;
 use App\Models\Band\Band;
+use App\Models\Band\BandName;
 use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\College\TechnicalStaff;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class TechnicalStaffController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -26,15 +26,15 @@ class TechnicalStaffController extends Controller
 
         $technicalStaffs = array();
 
-        if($institution!=null){
-            foreach($institution->bands as $band){
-                foreach($band->colleges as $college){
-                    foreach($college->technicalStaffs as $technicalStaff){
-                        $technicalStaffs[]=$technicalStaff;
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                foreach ($band->colleges as $college) {
+                    foreach ($college->technicalStaffs as $technicalStaff) {
+                        $technicalStaffs[] = $technicalStaff;
                     }
                 }
-            } 
-        }else{
+            }
+        } else {
             $technicalStaffs = TechnicalStaff::with('college')->get();
         }
 
@@ -51,7 +51,7 @@ class TechnicalStaffController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -60,15 +60,15 @@ class TechnicalStaffController extends Controller
 
         $technicalStaffs = array();
 
-        if($institution!=null){
-            foreach($institution->bands as $band){
-                foreach($band->colleges as $college){
-                    foreach($college->technicalStaffs as $technicalStaff){
-                        $technicalStaffs[]=$technicalStaff;
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                foreach ($band->colleges as $college) {
+                    foreach ($college->technicalStaffs as $technicalStaff) {
+                        $technicalStaffs[] = $technicalStaff;
                     }
                 }
-            } 
-        }else{
+            }
+        } else {
             $technicalStaffs = TechnicalStaff::with('college')->get();
         }
 
@@ -85,8 +85,8 @@ class TechnicalStaffController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -134,7 +134,7 @@ class TechnicalStaffController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -145,7 +145,7 @@ class TechnicalStaffController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -155,9 +155,9 @@ class TechnicalStaffController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -168,7 +168,7 @@ class TechnicalStaffController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
