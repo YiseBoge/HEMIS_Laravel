@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid p-0 px-md-3">
         <div class="card shadow-sm mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Research</h6>
@@ -16,7 +16,7 @@
                                 </div>
                             </div>
                             <div class="form-group row pt-3">
-                                    <div class="col form-group">
+                                <div class="col-md-4 form-group">
                                         <select class="form-control" name="band" id="band">
                                             @foreach ($bands as $band)
                                                 <option value="{{$band->id}}">{{$band->band_name}}</option>
@@ -26,7 +26,7 @@
                                                 Band
                                             </label>
                                     </div>
-                                    <div class="col form-group">
+                                <div class="col-md-4 form-group">
                                         <select class="form-control" name="type" id="type">
                                             @foreach ($types as $key => $value)
                                                 <option value="{{$key}}">{{$value}}</option>
@@ -36,7 +36,7 @@
                                                 Research Type
                                         </label>
                                     </div>
-                                    <div class="col form-group">
+                                <div class="col-md-4 form-group">
                                         <select class="form-control" name="status" id="status">
                                             @foreach ($completions as $key => $value)
                                                 <option value="{{$key}}">{{$value}}</option>

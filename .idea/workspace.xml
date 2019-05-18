@@ -3,7 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="1d8ffb81-ad34-454b-891f-fbf73861b70a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/institutions/buildings/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/institutions/buildings/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/bands/band_name/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/bands/band_name/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/bands/research/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/bands/research/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/departments/department_name/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/departments/department_name/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/institutions/instance/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/institutions/instance/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/institutions/institution_name/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/institutions/institution_name/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/institutions/region_name/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/institutions/region_name/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -92,6 +98,9 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -126,91 +135,75 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Band/BandNamesController.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/colleges/college_name/index.blade.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/departments/department_name/list.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+            <state>
+              <caret column="23" selection-start-column="23" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Band/ResearchsController.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/institutions/instance/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="581">
-              <caret line="71" column="79" selection-start-line="71" selection-start-column="79" selection-end-line="71" selection-end-column="79" />
+            <state relative-caret-position="51">
+              <caret line="3" column="43" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="43" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/institutions/institution_name/index.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="23" selection-start-column="23" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/institutions/list.blade.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/institutions/edit.blade.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/institutions/region_name/index.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="23" selection-start-column="23" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/staff/ict_staff_type/index.blade.php">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/institutions/buildings/create.blade.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/bands/research/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="43" column="138" selection-start-line="43" selection-start-column="138" selection-end-line="43" selection-end-column="138" />
+            <state relative-caret-position="628">
+              <caret line="42" column="55" lean-forward="true" selection-start-line="42" selection-start-column="55" selection-end-line="42" selection-end-column="55" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Band/UniversityIndustryLinkageController.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/bands/research/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1054">
-              <caret line="68" column="80" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="80" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Models/Institution/Institution.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/College/CollegeNamesController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/College/TechnicalStaffController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1054">
-              <caret line="70" column="80" selection-start-line="70" selection-start-column="23" selection-end-line="70" selection-end-column="80" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Department/DepartmentNamesController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Department/EnrollmentsController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1071">
-              <caret line="73" column="24" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Models/Institution/Instance.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="34" column="60" selection-start-line="34" selection-start-column="60" selection-end-line="34" selection-end-column="60" />
+            <state relative-caret-position="51">
+              <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -228,19 +221,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Department/SpecialProgramTeacherController.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_05_13_210151_create_building_building_purpose_table.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_05_13_212606_create_building_purposes_table.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_05_13_212650_create_building_building_purpose_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/institutions/institution_name/index.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/institutions/buildings/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Models/Institution/Building.php" />
         <option value="$PROJECT_DIR$/app/Models/Institution/BuildingPurpose.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_05_11_103158_create_buildings_table.php" />
         <option value="$PROJECT_DIR$/database/seeds/BudgetPurposesTableSeeder.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_05_16_161205_create_roles_table.php" />
         <option value="$PROJECT_DIR$/public/js/script.js" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/database/seeds/RolesTableSeeder.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_05_16_161903_create_users_roles_table.php" />
         <option value="$PROJECT_DIR$/database/seeds/UsersTableSeeder.php" />
@@ -256,7 +242,6 @@
         <option value="$PROJECT_DIR$/database/seeds/InstancesTableSeeder.php" />
         <option value="$PROJECT_DIR$/resources/views/auth/register.blade.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/resources/views/institutions/instance/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/auth/editors/create.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_20_213058_create_general_information_table.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Institution/InstitutionNamesController.php" />
@@ -279,6 +264,14 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Band/UniversityIndustryLinkageController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Band/ResearchsController.php" />
         <option value="$PROJECT_DIR$/resources/views/institutions/buildings/create.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/bands/band_name/list.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/departments/department_name/list.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/institutions/instance/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/institutions/institution_name/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/institutions/region_name/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/bands/research/create.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/bands/research/index.blade.php" />
       </list>
     </option>
   </component>
@@ -378,28 +371,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="HEMISDataManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="~/PHP/HEMISDataManagement" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-            <path>
-              <item name="HEMISDataManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="~/PHP/HEMISDataManagement" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="HEMISDataManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="~/PHP/HEMISDataManagement" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="js" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -478,15 +449,37 @@
               <item name="HEMISDataManagement" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="institutions" type="462c0819:PsiDirectoryNode" />
+              <item name="bands" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="HEMISDataManagement" type="b2602c69:ProjectViewProjectNode" />
               <item name="HEMISDataManagement" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="institutions" type="462c0819:PsiDirectoryNode" />
-              <item name="buildings" type="462c0819:PsiDirectoryNode" />
+              <item name="bands" type="462c0819:PsiDirectoryNode" />
+              <item name="research" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="HEMISDataManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/PHP/HEMISDataManagement" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="HEMISDataManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/PHP/HEMISDataManagement" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="HEMISDataManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/PHP/HEMISDataManagement" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="js" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
@@ -549,7 +542,8 @@
       <workItem from="1558034718431" duration="16588000" />
       <workItem from="1558073514844" duration="2355000" />
       <workItem from="1558096202019" duration="151000" />
-      <workItem from="1558099817796" duration="999000" />
+      <workItem from="1558099817796" duration="1265000" />
+      <workItem from="1558178194178" duration="1556000" />
     </task>
     <task id="LOCAL-00001" summary="Merge branch 'newdev' of https://github.com/YiseBoge/HEMIS_Laravel into yise&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources.local.xml&#10;#&#9;.idea/workspace.xml">
       <created>1557755273709</created>
@@ -607,17 +601,24 @@
       <option name="project" value="LOCAL" />
       <updated>1558089943418</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Enable Role based Authentication along with seeded data, Add instance crud, add and view editors crud">
+      <created>1558103500241</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1558103500241</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92422000" />
+    <option name="totallyTimeSpent" value="94244000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="605" y="23" width="1315" height="1177" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22466615" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22780833" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -674,92 +675,6 @@
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Exceptions/Handler.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="587">
-          <caret line="55" column="66" selection-start-line="55" selection-start-column="66" selection-end-line="55" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Exceptions/InvalidEnumException.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/institutions/institution_name/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="44" selection-end-line="179" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/inc/sidebar.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="109" column="83" selection-start-line="109" selection-start-column="83" selection-end-line="109" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_20_205552_create_instances_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="18" column="36" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://27064634-89a6-4295-a290-264b9cdfa3a3/schema/hemis_database/table/instances">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true">
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/InstancesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="65" column="26" lean-forward="true" selection-start-line="61" selection-start-column="8" selection-end-line="65" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/seeds/InstancesTableSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
-          <folding>
-            <element signature="e#7#43#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/seeds/DatabaseSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://27064634-89a6-4295-a290-264b9cdfa3a3/schema/hemis_database/table/users">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true">
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://27064634-89a6-4295-a290-264b9cdfa3a3/schema/hemis_database/table/roles">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true">
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Foundation/Auth/RedirectsUsers.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -785,13 +700,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1156">
           <caret line="77" column="48" lean-forward="true" selection-start-line="77" selection-start-column="48" selection-end-line="77" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/institutions/instance/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="107" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -983,6 +891,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Band/ResearchsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1105">
+          <caret line="71" column="79" selection-start-line="71" selection-start-column="79" selection-end-line="71" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Band/UniversityIndustryLinkageController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1054">
@@ -1032,17 +947,78 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Band/ResearchsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="581">
-          <caret line="71" column="79" selection-start-line="71" selection-start-column="79" selection-end-line="71" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/institutions/buildings/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
           <caret line="43" column="138" selection-start-line="43" selection-start-column="138" selection-end-line="43" selection-end-column="138" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="479">
+          <caret line="78" column="54" selection-start-line="78" selection-start-column="54" selection-end-line="78" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/bands/band_name/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="23" selection-start-column="23" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/colleges/college_name/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/departments/department_name/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="23" selection-start-column="23" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/institutions/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/staff/ict_staff_type/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/bands/research/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/institutions/instance/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="43" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/institutions/institution_name/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="23" selection-start-column="23" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/institutions/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/institutions/region_name/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="23" selection-start-column="23" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/bands/research/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="628">
+          <caret line="42" column="55" lean-forward="true" selection-start-line="42" selection-start-column="55" selection-end-line="42" selection-end-column="55" />
         </state>
       </provider>
     </entry>
