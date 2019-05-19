@@ -54,6 +54,7 @@ Route::resource('institution/university-industry-linkage','Band\UniversityIndust
 Route::resource('institution/student-attrition', 'Band\StudentAttritionController');
 Route::resource('staff/technical-staff','College\TechnicalStaffController');
 Route::resource('department/upgrading-staff','Department\UpgradingStaffController');
+Route::resource('department/staff-leave','Department\StaffLeaveController');
 
 Route::get('/admin', function () {
     return view('admin.index');

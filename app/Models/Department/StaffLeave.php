@@ -23,8 +23,8 @@ class StaffLeave extends Model
     ];
 
     protected $enumPlaceOfStudies = [
-        'ET' => 'Ethiopia',
-        'AB' => 'Abroad'
+        'ETHIOPIA' => 'Ethiopia',
+        'ABROAD' => 'Abroad'
     ];
 
     public function department(){

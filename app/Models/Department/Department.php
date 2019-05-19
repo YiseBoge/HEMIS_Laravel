@@ -45,4 +45,7 @@ class Department extends Model
     public function upgradingStaffs(){
         return $this->hasMany('App\Models\Department\UpgradingStaff');
     }
+    public function staffLeaves(){
+        return $this->hasMany('App\Models\Department\StaffLeave');
+    }
 }
