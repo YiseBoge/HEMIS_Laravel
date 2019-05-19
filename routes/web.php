@@ -55,6 +55,7 @@ Route::resource('institution/student-attrition', 'Band\StudentAttritionControlle
 Route::resource('staff/technical-staff','College\TechnicalStaffController');
 Route::resource('department/upgrading-staff','Department\UpgradingStaffController');
 Route::resource('department/staff-leave','Department\StaffLeaveController');
+Route::resource('department/academic-staff','Department\AcademicStaffController');
 
 Route::get('/admin', function () {
     return view('admin.index');

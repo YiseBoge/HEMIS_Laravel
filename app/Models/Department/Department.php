@@ -48,4 +48,8 @@ class Department extends Model
     public function staffLeaves(){
         return $this->hasMany('App\Models\Department\StaffLeave');
     }
+    public function academicStaffs(){
+        return $this->hasMany('App\Models\Department\AcademicStaff');
+    }
+
 }
