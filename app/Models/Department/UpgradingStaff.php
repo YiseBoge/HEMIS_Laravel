@@ -12,11 +12,11 @@ class UpgradingStaff extends Model
     use Enums;
 
     public $incrementing = false;
-    protected $enumEducationPrograms = [
+    protected $enumEducationLevels = [
         'MASTERS' => 'Masters',
         'PHD' => 'PhD',
         'SPECIALITY' => 'Speciality',
-        'SUB_SPECIALITY' => 'Sub Speciality'
+        'SUB SPECIALITY' => 'Sub Speciality'
     ];
 
     protected $enumStudyPlaces = [

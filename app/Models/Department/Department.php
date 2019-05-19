@@ -41,4 +41,8 @@ class Department extends Model
     public function specialProgramTeachers(){
         return $this->hasMany('App\Models\Department\SpecialProgramTeacher');
     }
+
+    public function upgradingStaffs(){
+        return $this->hasMany('App\Models\Department\UpgradingStaff');
+    }
 }
