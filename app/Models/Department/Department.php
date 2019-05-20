@@ -21,7 +21,7 @@ class Department extends Model
         'FIVE'=>'5',
         'SIX'=>'6',
         'SEVEN'=>'7',
-        'NONE'=>'none'
+        'NONE'=>'None'
     ];
 
     public function departmentName()
@@ -58,6 +58,12 @@ class Department extends Model
     }
     public function academicStaffs(){
         return $this->hasMany('App\Models\Department\AcademicStaff');
+    }
+    public function postgraduateDiplomaTrainings(){
+        return $this->hasMany('App\Models\Department\PostGraduateDiplomaTraining');
+    }
+    public function teachers(){
+        return $this->hasMany('App\Models\Department\Teacher');
     }
 
 }
