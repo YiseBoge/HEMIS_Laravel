@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
-class ExaptriateStaffsController extends Controller
+class ExpatriateStaffsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -111,6 +111,8 @@ class ExaptriateStaffsController extends Controller
         $expat->male_number = $request->input('male_number');
         $expat->female_number = $request->input('female_number');
         $expat->staff_rank = $request->input('staff_rank');
+
+        // die($request->input('staff_rank'));
         
 
         $user = Auth::user();

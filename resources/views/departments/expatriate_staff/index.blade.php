@@ -14,7 +14,7 @@
                 </div>
                 <div class="row">
 
-                    {!! Form::open(['action' => 'Department\ExaptriateStaffsController@index', 'method' => 'GET', 'class' => 'w-100']) !!}
+                    {!! Form::open(['action' => 'Department\ExpatriateStaffsController@index', 'method' => 'GET', 'class' => 'w-100']) !!}
                     <div class="form-row">
                         <div class="col-md-5 px-3 py-md-1 col">
                             <div class="form-group">
