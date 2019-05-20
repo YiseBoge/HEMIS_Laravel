@@ -14,11 +14,11 @@ class SpecialNeeds extends Model
     public $incrementing = false;
 
     protected $enumNeedsTypes = [
-        'PHYSICALLY_CHALLENGED_LEGS' => 'Physically Challenged /legs/',
-        'PHYSICALLY_CHALLENGED_HANDS' => 'Physically Challenged/hands/',
+        'PHYSICALLY_CHALLENGED_LEGS' => 'Physically Challenged (Legs)',
+        'PHYSICALLY_CHALLENGED_HANDS' => 'Physically Challenged (Hands)',
         'VISUALLY_IMPAIRED'=>'Visually Impaired',
         'HEARING_IMPAIRED'=>'Hearing Impaired',
-        'OTHERS'=>'others'
+        'OTHERS' => 'Others'
     ];
 
     protected $enumYears=[

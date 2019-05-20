@@ -35,14 +35,6 @@
                                         </th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                             rowspan="1" colspan="1" aria-sort="ascending">
-                                            Date Started
-                                        </th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                            rowspan="1" colspan="1" aria-sort="ascending">
-                                            Date Completed
-                                        </th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                            rowspan="1" colspan="1" aria-sort="ascending">
                                             Contractor's Name
                                         </th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
@@ -51,10 +43,22 @@
                                         </th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                             rowspan="1" colspan="1" aria-sort="ascending">
+                                            Date Started
+                                        </th>
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                            rowspan="1" colspan="1" aria-sort="ascending">
+                                            Date Completed
+                                        </th>
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                            rowspan="1" colspan="1" aria-sort="ascending">
                                             Budget Allocated
                                         </th><th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                                  rowspan="1" colspan="1" aria-sort="ascending">
-                                            Financial Status ??
+                                            Financial Status
+                                        </th>
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                            rowspan="1" colspan="1" aria-sort="ascending">
+                                            Completion Status
                                         </th>
                                     </tr>
                                     </thead>
@@ -80,11 +84,12 @@
                                                 </td>
                                                 <td class="sorting_1">{{$building->building_name}}</td>
                                                 <td>{{$building->date_started}}</td>
-                                                <td>{{$building->date_completed}}</td>
                                                 <td>{{$building->contractor_name}}</td>
                                                 <td>{{$building->consultant_name}}</td>
+                                                <td>{{$building->date_completed}}</td>
                                                 <td>{{$building->budget_allocated}}</td>
                                                 <td>{{$building->financial_status}}</td>
+                                                <td>{{$building->completion_status}}%</td>
                                             </tr>
                                         @endforeach
 

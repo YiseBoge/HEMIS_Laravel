@@ -41,7 +41,8 @@ class Institution extends Model
         return $this->hasMany('App\Models\Institution\AgeEnrollment');
     }
 
-    public function building(){
+    public function buildings()
+    {
         return $this->hasMany('App\Models\Institution\Building');
     }
 
@@ -53,7 +54,8 @@ class Institution extends Model
         return $this->hasMany('App\Models\Institution\ForeignStaff');
     }
 
-    public function management(){
+    public function managements()
+    {
         return $this->hasMany('App\Models\Institution\management');
     }
 

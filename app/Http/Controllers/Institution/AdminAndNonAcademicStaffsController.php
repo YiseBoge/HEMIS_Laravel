@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Institution;
 use App\Http\Controllers\Controller;
 use App\Models\Institution\AdminAndNonAcademicStaff;
 use Illuminate\Http\Request;
-use Webpatser\Uuid\Uuid;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 
 class AdminAndNonAcademicStaffsController extends Controller
@@ -13,12 +14,24 @@ class AdminAndNonAcademicStaffsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
-       
-        $data = ['staffs' => AdminAndNonAcademicStaff::all(),
+        $user = Auth::user();
+
+        $institution = $user->institution();
+
+        $adminAndNonAcademics = array();
+
+        if ($institution != null) {
+            foreach ($institution->adminAndNonAcademicStaff as $adminAndNonAcademic) {
+                $adminAndNonAcademics[] = $adminAndNonAcademic;
+            }
+        } else {
+            $adminAndNonAcademics = AdminAndNonAcademicStaff::all();
+        }
+        $data = ['staffs' => $adminAndNonAcademics,
                  'page_name' => 'institution.admin_and_non_academic_staff.index'];
         return view('institutions.admin_and_non_academic_staff.index')->with('data', $data);
     }
@@ -26,7 +39,7 @@ class AdminAndNonAcademicStaffsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -42,16 +55,19 @@ class AdminAndNonAcademicStaffsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
-        die("asfg");
         $this->validate($request, [
             'number_of_males' => 'required',
             'number_of_females' => 'required',
         ]);
+
+        $user = Auth::user();
+
+        $institution = $user->institution();
 
         $admin_staff = new AdminAndNonAcademicStaff();
 
@@ -59,7 +75,7 @@ class AdminAndNonAcademicStaffsController extends Controller
         $admin_staff->female_staff_number = $request->input('number_of_females');
         $admin_staff->education_level = $request->input('education_level');
 
-        $admin_staff->institution_id = Uuid::generate()->string;
+        $admin_staff->institution_id = $institution->id;
 
         $admin_staff->save();
 
@@ -71,7 +87,7 @@ class AdminAndNonAcademicStaffsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -82,7 +98,7 @@ class AdminAndNonAcademicStaffsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -95,9 +111,9 @@ class AdminAndNonAcademicStaffsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -108,7 +124,7 @@ class AdminAndNonAcademicStaffsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

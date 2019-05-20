@@ -14,15 +14,15 @@ class SpecialProgramTeacher extends Model
     public $incrementing = false;    
 
     protected $enumProgramTypes = [
-        'ELIP' => 'English Language Improvement Program',
-        'CCPD' => 'Comprehensive Continous Professional Development',
-        'HDP' => 'Higher Diploma Program'
+        'English LANGUAGE IMPROVEMENT PROGRAM' => 'English Language Improvement Program',
+        'COMPREHENSIVE CONTINUOUS PROFESSIONAL DEVELOPMENT' => 'Comprehensive Continuous Professional Development',
+        'HIGHER DIPLOMA PROGRAM' => 'Higher Diploma Program'
     ];
 
-    protected $enumProgramStatuss= [
+    protected $enumProgramStats= [
         'COMPLETED' => 'Completed',
-        'ON_TRAINING' => 'On Training',
-        'NOT_YET_STARTED' => 'Not Yet Started'
+        'ON TRAINING' => 'On Training',
+        'NOT YET STARTED' => 'Not Yet Started'
     ];
 
     public function department()

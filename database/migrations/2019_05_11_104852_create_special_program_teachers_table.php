@@ -19,7 +19,7 @@ class CreateSpecialProgramTeachersTable extends Migration
             $table->bigInteger('female_number');
 
             $table->string('program_type');
-            $table->string('program_status');
+            $table->string('program_stat');
             $table->timestamps();
 
             $table->primary('id');

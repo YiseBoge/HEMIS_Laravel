@@ -74,19 +74,12 @@
 
 
                                                 </td>
-                                                <td class="sorting_1">{{$staff->general->name}}</td>
-                                                <td>{{$staff->general->job_title}}</td>
-                                                <td>{{$staff->general->dedication}}</td>
-                                                <td>{{$staff->general->employment_type}}</td>
-                                                @if ($staff->general->is_expatriate == 0)
-                                                    <td>No</td>
-                                                @else
-                                                    <td>Yes</td>
-                                                @endif
-                                                <td>{{$staff->general->salary}}</td> 
-                                                <td>{{$staff->general->academic_level}}</td>                                            
-                                                <td>{{$staff->field_of_study}}</td>
-                                                <td>{{$staff->staffRank}}</td>                                                                                          
+                                                <td class="sorting_1">{{$staff->name}}</td>
+                                                <td>{{$staff->sex}}</td>
+                                                <td>{{$staff->education_level}}</td>
+                                                <td>{{$staff->specialization}}</td>
+                                                <td>{{$staff->department}}</td>
+                                                <td>{{$staff->country_of_origin}}</td>
                                             </tr>
                                         @endforeach
                                       @else

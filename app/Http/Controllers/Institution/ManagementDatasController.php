@@ -4,38 +4,55 @@ namespace App\Http\Controllers\Institution;
 use App\Http\Controllers\Controller;
 use App\Models\Institution\Management;
 use Illuminate\Http\Request;
-use Webpatser\Uuid\Uuid;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ManagementDatasController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
-        $data=['management_data'=>Management::all() , 'page_name'=>'institutions.management_data.index'];
-        return view('institutions.management_data.index')->with('data',$data);
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        $managements = array();
+
+        if ($institution != null) {
+            foreach ($institution->managements as $management) {
+                $managements[] = $management;
+            }
+        } else {
+            $managements = Management::all();
+        }
+
+        $data = [
+            'management_data' => $managements,
+            'page_name' => 'institutions.management_data.index'
+        ];
+        return view('institutions.management_data.index')->with('data', $data);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
-        $data=['management_data'=>[],'page_name'=>'institutions.management_data.create',
-         'management_levels'=>Management::getEnum('ManagementLevels')];
-        return view('institutions.management_data.index')->with('data',$data);
+        $data = ['management_data' => [], 'page_name' => 'institutions.management_data.create',
+            'management_levels' => Management::getEnum('ManagementLevels')];
+        return view('institutions.management_data.index')->with('data', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -46,27 +63,26 @@ class ManagementDatasController extends Controller
             'number_of_females' => 'required'
         ]);
 
-        $managment_data = new Management();
+        $user = Auth::user();
+        $institution = $user->institution();
 
-        $managment_data->required_position_number = $request->input('required_positions');
-        $managment_data->currently_assigned_number = $request->input('assigned_positions');
-        $managment_data->female_number = $request->input('number_of_females');
-        $managment_data->management_level = $request->input('management_level');
+        $management_data = new Management();
 
-        // die( $request->input('management_level'));
+        $management_data->required_position_number = $request->input('required_positions');
+        $management_data->currently_assigned_number = $request->input('assigned_positions');
+        $management_data->female_number = $request->input('number_of_females');
+        $management_data->management_level = $request->input('management_level');
 
-        $managment_data->institution_id = Uuid::generate()->string;
+        $institution->managements()->save($management_data);
 
-        $managment_data->save();
-        
         return redirect('institution/management-data/');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function show($id)
     {
@@ -76,23 +92,23 @@ class ManagementDatasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function edit($id)
     {
         // die('This is edit');
-        $data=['page_name'=>'institutions.management_data.edit', 'management_data'=>[],
-         'management_levels'=>Management::getEnum('ManagementLevels')];
-        return view('institutions.management_data.index')->with('data',$data);
+        $data = ['page_name' => 'institutions.management_data.edit', 'management_data' => [],
+            'management_levels' => Management::getEnum('ManagementLevels')];
+        return view('institutions.management_data.index')->with('data', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -102,8 +118,8 @@ class ManagementDatasController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function destroy($id)
     {

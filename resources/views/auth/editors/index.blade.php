@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@extends('layouts.app')
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
@@ -44,7 +43,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($data['editors'] as $editor)
+                                        @foreach($editors as $editor)
                                             <tr>
                                                 <td class="text-center">
                                                     <a href=""

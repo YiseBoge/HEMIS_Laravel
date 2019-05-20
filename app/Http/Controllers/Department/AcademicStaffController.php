@@ -7,15 +7,13 @@ use App\Models\Band\Band;
 use App\Models\Band\BandName;
 use App\Models\College\College;
 use App\Models\College\CollegeName;
+use App\Models\Department\AcademicStaff;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
-use App\Models\Department\SpecialProgramTeacher;
-use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class SpecialProgramTeacherController extends Controller
+class AcademicStaffController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,14 +25,9 @@ class SpecialProgramTeacherController extends Controller
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedType=$request->input('program_type');
-        if($requestedType==null){
-            $requestedType='ENGLISH LANGUAGE IMPROVEMENT PROGRAM';
-        }
-
-        $requestedStatus=$request->input('program_status');
-        if($requestedStatus==null){
-            $requestedStatus='COMPLETED';
+        $requestedLevel=$request->input('rank_level');
+        if($requestedLevel==null){
+            $requestedLevel='GRADUATE ASSISTANT I';
         }
 
         $requestedCollege=$request->input('college_names');
@@ -59,9 +52,9 @@ class SpecialProgramTeacherController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->id == $requestedCollege) {
                             foreach ($college->departments as $department) {
-                                foreach ($department->SpecialProgramTeachers as $teacher){
-                                    if(strtoupper($teacher->program_type)==$requestedType && strtoupper($teacher->program_stat)==$requestedStatus){
-                                        $filteredTeachers[]=$teacher;
+                                foreach ($department->academicStaffs as $staff){
+                                    if(strtoupper($staff->staff_rank)==$requestedLevel){
+                                        $filteredTeachers[]=$staff;
                                     }
                                 }
                             }
@@ -70,7 +63,7 @@ class SpecialProgramTeacherController extends Controller
                 }
             }
         } else {
-            $filteredTeachers = SpecialProgramTeacher::with('department')->get();
+            $filteredTeachers = AcademicStaff::with('department')->get();
         }
 
 
@@ -78,16 +71,15 @@ class SpecialProgramTeacherController extends Controller
         //$specialProgramTeachers=SpecialProgramTeacher::all();
         //$specialProgramTeachers= SpecialProgramTeacher::where(['program_type'=>$requestedType,'program_status'=>$requestedStatus])->get();
         $data=[
-            'program_type'=>$requestedType,
-            'program_status'=>$requestedStatus,
-            'special_program_teachers'=>$filteredTeachers,
+            'rank_level'=>$requestedLevel,
+            'upgrading_staff'=>$filteredTeachers,
             'colleges'=>CollegeName::all(),
             'bands'=>BandName::all(),
-            'page_name'=>'departments.special-program-teacher.index'
+            'page_name'=>'departments.academic-staff.index'
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
-        return view('departments.special_program_teacher.index')->with('data',$data);
+        return view('departments.academic_staff.index')->with('data',$data);
 
     }
 
@@ -99,16 +91,15 @@ class SpecialProgramTeacherController extends Controller
     public function create()
     {
         $data=[
-            'program_type'=>SpecialProgramTeacher::getEnum("ProgramTypes"),
-            'program_status'=>SpecialProgramTeacher::getEnum("ProgramStats"),
+            'rank_level'=>AcademicStaff::getEnum("StaffRanks"),
             'colleges'=>CollegeName::all(),
             'bands'=>BandName::all(),
             'departments'=>DepartmentName::all(),
-            'page_name'=>'departments.special-program-teacher.create'
+            'page_name'=>'departments.academic-staff.create'
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
-        return view('departments.special_program_teacher.create')->with('data',$data);
+        return view('departments.academic_staff.create')->with('data',$data);
     }
 
     /**
@@ -126,11 +117,11 @@ class SpecialProgramTeacherController extends Controller
 
 
 
-        $specialProgramTeacher=new SpecialProgramTeacher;
-        $specialProgramTeacher->male_number= $request->input('male_number');
-        $specialProgramTeacher->female_number= $request->input('female_number');
-        $specialProgramTeacher->program_stat=$request->input('program_status');
-        $specialProgramTeacher->program_type=$request->input('program_type');
+        $academicStaff=new AcademicStaff();
+        $academicStaff->male_number= $request->input('male_number');
+        $academicStaff->female_number= $request->input('female_number');
+        $academicStaff->staff_rank=$request->input('rank_level');
+
 
 
 
@@ -167,11 +158,9 @@ class SpecialProgramTeacherController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->specialProgramTeachers()->save($specialProgramTeacher);
+        $department->academicStaffs()->save($academicStaff);
 
-        return redirect("/department/special-program-teacher");
-
-
+        return redirect("/department/academic-staff");
     }
 
     /**

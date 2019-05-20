@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateForeignStaffTable extends Migration
 {
@@ -22,11 +22,10 @@ class CreateForeignStaffTable extends Migration
             $table->date('contract_end_date');
             $table->string('specialization');
             $table->string('department');
-            $table->bigInteger('country_of_origin');
+            $table->string('country_of_origin');
 
             $table->string('sex');
-            $table->string('education_level');            
-            $table->bigInteger('staff_rank'); 
+            $table->string('education_level');
             $table->timestamps();
 
             $table->primary('id');
