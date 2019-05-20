@@ -20,7 +20,7 @@ Route::post('/institution/instance/update-current', 'Institution\InstancesContro
 
 Route::resource('institution/buildings', 'Institution\BuildingsController');
 
-Route::resource('staff/academic', 'Staff\AcademicStaffsController');
+//Route::resource('staff/academic', 'Staff\AcademicStaffsController');
 Route::resource('staff/technical', 'Staff\TechnicalStaffsController');
 Route::resource('staff/administrative', 'Staff\AdministrativeStaffsController');
 Route::resource('staff/ict', 'Staff\IctStaffsController');
