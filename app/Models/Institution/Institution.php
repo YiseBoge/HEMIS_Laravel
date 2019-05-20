@@ -56,7 +56,7 @@ class Institution extends Model
 
     public function managements()
     {
-        return $this->hasMany('App\Models\Institution\management');
+        return $this->hasMany('App\Models\Institution\Management');
     }
 
     public function pastoralRegion(){

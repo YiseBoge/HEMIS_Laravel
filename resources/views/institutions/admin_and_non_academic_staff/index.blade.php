@@ -94,10 +94,8 @@
                 </div>
                 <div class="modal-body row p-2">
                         <div class="col-12">
-                                <fieldset class="card shadow h-100">
-                                    <div class="card-header text-primary">
-                                            Aggregate Information
-                                    </div>
+                                <fieldset class="h-100">
+                                    
 
                                     <div class="form-row pt-3">
                                             <div class="col-md form-group">
@@ -111,7 +109,7 @@
                                             </div>
                                         </div>  
 
-                                    <div class="card-body px-4">
+                                    <div class="">
                                         <div class="form-row ptt-1">
                                             <div class="col form-group">
                                                 <input type="text" id="no_of_females" name="number_of_females" class="form-control" required>
