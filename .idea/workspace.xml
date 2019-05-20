@@ -2,7 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d8ffb81-ad34-454b-891f-fbf73861b70a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Department/AcademicStaffController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Department/StaffLeaveController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Department/UpgradingStaffController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/departments/academic_staff/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/departments/academic_staff/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/departments/staff_leave/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/departments/staff_leave/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/departments/upgrading_staff/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/departments/upgrading_staff/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Band/ResearchsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Band/ResearchsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Band/StudentAttritionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Band/StudentAttritionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Band/UniversityIndustryLinkageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Band/UniversityIndustryLinkageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/College/TechnicalStaffController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/College/TechnicalStaffController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Department/EnrollmentsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Department/EnrollmentsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Department/ForeignStudentsEnrollmentsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Department/ForeignStudentsEnrollmentsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Department/SpecialProgramTeacherController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Department/SpecialProgramTeacherController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Department/SpecializingStudentsEnrollmentsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Department/SpecializingStudentsEnrollmentsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Department/AcademicStaff.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Department/AcademicStaff.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Department/Department.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Department/Department.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Department/SpecialProgramTeacher.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Department/SpecialProgramTeacher.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Department/StaffLeave.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Department/StaffLeave.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Department/UpgradingStaff.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Department/UpgradingStaff.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_05_11_104852_create_special_program_teachers_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_05_11_104852_create_special_program_teachers_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_05_11_105221_create_upgrading_staff_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_05_11_105221_create_upgrading_staff_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/bands/research/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/bands/research/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/bands/student_attrition/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/bands/student_attrition/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/bands/university_industry_linkage/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/bands/university_industry_linkage/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/colleges/technical_staff/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/colleges/technical_staff/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/enrollment/foreign_students/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/enrollment/foreign_students/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/enrollment/normal/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/enrollment/normal/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/enrollment/specializing_students/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/enrollment/specializing_students/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/inc/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/inc/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -139,12 +171,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/SpecialRegionsEnrollmentsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1070">
-              <caret line="27" column="67" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
+            <state relative-caret-position="125">
+              <caret line="106" column="29" selection-start-line="106" selection-start-column="29" selection-end-line="106" selection-end-column="29" />
               <folding>
                 <element signature="e#52#88#0#PHP" expanded="true" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-10347" />
           </provider>
         </entry>
       </file>
@@ -427,7 +466,7 @@
       <workItem from="1558099817796" duration="1265000" />
       <workItem from="1558178194178" duration="8940000" />
       <workItem from="1558195501324" duration="2104000" />
-      <workItem from="1558338086239" duration="82000" />
+      <workItem from="1558338086239" duration="203000" />
     </task>
     <task id="LOCAL-00001" summary="Merge branch 'newdev' of https://github.com/YiseBoge/HEMIS_Laravel into yise&#10;&#10;# Conflicts:&#10;#&#9;.idea/dataSources.local.xml&#10;#&#9;.idea/workspace.xml">
       <created>1557755273709</created>
@@ -527,11 +566,18 @@
       <option name="project" value="LOCAL" />
       <updated>1558338130537</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Filter by Institution">
+      <created>1558338184212</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1558338184212</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104119000" />
+    <option name="totallyTimeSpent" value="104240000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="605" y="23" width="1315" height="1177" extended-state="0" />
@@ -549,7 +595,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49882168" weight="0.21013825" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49882168" visible="true" weight="0.21013825" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5011783" side_tool="true" weight="0.21013825" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49960724" weight="0.24884793" />
@@ -598,13 +644,6 @@
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_20_195908_create_department_names_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Models/Band/BandName.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -940,12 +979,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Institution/SpecialRegionsEnrollmentsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1070">
-          <caret line="27" column="67" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
+        <state relative-caret-position="125">
+          <caret line="106" column="29" selection-start-line="106" selection-start-column="29" selection-end-line="106" selection-end-column="29" />
           <folding>
             <element signature="e#52#88#0#PHP" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10347" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
