@@ -17,17 +17,24 @@ class UniversityIndustryLinkageController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $institution = $user->institution();
+
+        $requestedYear = $request->input('year');
+        if ($requestedYear == null) {
+            $requestedYear = 'Normal';
+        }
 
         $linkages = array();
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
                 foreach ($band->universityIndustryLinkages as $linkage) {
-                    $linkages[] = $linkage;
+                    if ($linkage->year == $requestedYear) {
+                        $linkages[] = $linkage;
+                    }                    
                 }
             }
         } else {
@@ -48,17 +55,24 @@ class UniversityIndustryLinkageController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $user = Auth::user();
         $institution = $user->institution();
+
+        $requestedYear = $request->input('year');
+        if ($requestedYear == null) {
+            $requestedYear = 'Normal';
+        }
 
         $linkages = array();
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
                 foreach ($band->universityIndustryLinkages as $linkage) {
-                    $linkages[] = $linkage;
+                    if ($linkage->year == $requestedYear) {
+                        $linkages[] = $linkage;
+                    }                    
                 }
             }
         } else {

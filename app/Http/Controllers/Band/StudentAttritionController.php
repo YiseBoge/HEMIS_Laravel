@@ -39,29 +39,22 @@ class StudentAttritionController extends Controller
         }
 
         $attritions = array();
-        $filteredAttritions = array();
+        $attritions = array();
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
                 foreach ($band->studentAttritions as $attrition) {
-                    $attritions[] = $attrition;
+                    if ($attrition->program == $requestedProgram && $attrition->type == $requestedType && $attrition->case == $requestedCase) {
+                        $attritions[] = $attrition;
+                    }
                 }
             }
         } else {
             $attritions = StudentAttrition::with('band')->get();
         }
 
-
-        foreach ($attritions as $attrition) {
-
-            if ($attrition->program == $requestedProgram && $attrition->type == $requestedType && $attrition->case == $requestedCase) {
-                $filteredAttritions[] = $attrition;
-            }
-        }
-
-
         $data = array(
-            'attritions' => $filteredAttritions,
+            'attritions' => $attritions,
             'bands' => BandName::all(),
             'programs' => StudentAttrition::getEnum('EducationPrograms'),
             'types' => StudentAttrition::getEnum('Types'),

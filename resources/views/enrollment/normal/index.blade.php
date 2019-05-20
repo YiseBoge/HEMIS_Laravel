@@ -16,7 +16,6 @@
                                 </div>
                             </div>
                         <form action="" method="get">
-
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <select class="form-control" name="student_type" id="student_type" onchange="this.form.submit()">
@@ -31,7 +30,7 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="college" id="college" onchange="this.form.submit()" >
                                         @foreach ($colleges as $college)
-                                            <option value="{{$college->id}}">{{$college->college_name}}</option>
+                                            <option value="{{$college->college_name}}">{{$college->college_name}}</option>
                                         @endforeach
                                     </select>
                                     <label for="dormitory_service_type" class="form-control-placeholder">
@@ -41,7 +40,7 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="band" id="band" onchange="this.form.submit()">
                                         @foreach ($bands as $band)
-                                            <option value="{{$band->id}}">{{$band->band_name}}</option>
+                                            <option value="{{$band->band_name}}">{{$band->band_name}}</option>
                                         @endforeach
                                     </select>
                                     <label for="service_type" class="form-control-placeholder">
@@ -68,9 +67,9 @@
                                     <select class="form-control" name="education_level" id="level" onchange="this.form.submit()">
                                         @foreach ($education_levels as $key => $value)
                                         @if ($key == 'SPECIALIZATION')
-                                            <option disabled value="{{$key}}">{{$value}}</option>
+                                                <option disabled value="{{$value}}">{{$value}}</option>
                                         @else
-                                            <option value="{{$key}}">{{$value}}</option>
+                                                <option value="{{$value}}">{{$value}}</option>
                                         @endif
                                         @endforeach
                                     </select>
@@ -93,14 +92,6 @@
                             </div>
 
                         </form>
-
-
-                            <div class="row">
-                                <div class="col text-right">
-                                    <a class="btn btn-outline-primary btn-sm mb-0" href="normal/">Reload</a>
-                                </div>
-                            </div>
-                            <hr>                        
                         <div class="row mt-3">
                             <div class="col-sm-12">
                                 <table class="table table-bordered dataTable table-striped table-hover" id="dataTable" width="100%"

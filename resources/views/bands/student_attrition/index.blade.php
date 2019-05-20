@@ -20,7 +20,7 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="band" id="band" onchange="this.form.submit()">
                                         @foreach ($programs as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                            <option value="{{$value}}">{{$value}}</option>
                                         @endforeach
                                     </select>
                                     <label for="band" class="form-control-placeholder">
@@ -30,7 +30,7 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="type" id="type" onchange="this.form.submit()">
                                         @foreach ($types as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                            <option value="{{$value}}">{{$value}}</option>
                                         @endforeach
                                     </select>
                                     <label for="type" class="form-control-placeholder">
@@ -49,12 +49,6 @@
                                 </div>
                             </div>
                         </form>
-
-                        <div class="row">
-                            <div class="col text-right">
-                                <a class="btn btn-outline-primary btn-sm mb-0" href="normal/">Reload</a>
-                            </div>
-                        </div>
                         <hr>
                         <div class="row mt-3">
                             <div class="col-sm-12">

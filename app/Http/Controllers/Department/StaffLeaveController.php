@@ -9,12 +9,12 @@ use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
-use App\Models\Department\SpecialProgramTeacher;
+use App\Models\Department\StaffLeave;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class SpecialProgramTeacherController extends Controller
+class StaffLeaveController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,24 +26,24 @@ class SpecialProgramTeacherController extends Controller
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedType=$request->input('program_type');
-        if($requestedType==null){
-            $requestedType = 'ENGLISH LANGUAGE IMPROVEMENT PROGRAM';
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'MASTERS';
         }
 
-        $requestedStatus=$request->input('program_status');
-        if($requestedStatus==null){
-            $requestedStatus='COMPLETED';
+        $requestedPlace = $request->input('study_place');
+        if ($requestedPlace == null) {
+            $requestedPlace = 'ETHIOPIA';
         }
 
-        $requestedCollege=$request->input('college_names');
-        if($requestedCollege==null){
-            $requestedCollege=CollegeName::all()->first()->id;
+        $requestedCollege = $request->input('college_names');
+        if ($requestedCollege == null) {
+            $requestedCollege = CollegeName::all()->first()->id;
         }
 
-        $requestedBand=$request->input('band_names');
-        if($requestedBand==null){
-            $requestedBand=BandName::all()->first()->id;
+        $requestedBand = $request->input('band_names');
+        if ($requestedBand == null) {
+            $requestedBand = BandName::all()->first()->id;
         }
 
 
@@ -58,9 +58,9 @@ class SpecialProgramTeacherController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->id == $requestedCollege) {
                             foreach ($college->departments as $department) {
-                                foreach ($department->SpecialProgramTeachers as $teacher) {
-                                    if (strtoupper($teacher->program_type) == $requestedType && strtoupper($teacher->program_stat) == $requestedStatus) {
-                                        $filteredTeachers[] = $teacher;
+                                foreach ($department->staffLeaves as $staff) {
+                                    if (strtoupper($staff->place_of_study) == $requestedPlace && strtoupper($staff->level_of_study) == $requestedLevel) {
+                                        $filteredTeachers[] = $staff;
                                     }
                                 }
                             }
@@ -69,24 +69,23 @@ class SpecialProgramTeacherController extends Controller
                 }
             }
         } else {
-            $filteredTeachers = SpecialProgramTeacher::with('department')->get();
+            $filteredTeachers = StaffLeave::with('department')->get();
         }
-
 
 
         //$specialProgramTeachers=SpecialProgramTeacher::all();
         //$specialProgramTeachers= SpecialProgramTeacher::where(['program_type'=>$requestedType,'program_status'=>$requestedStatus])->get();
-        $data=[
-            'program_type'=>$requestedType,
-            'program_status'=>$requestedStatus,
-            'special_program_teachers'=>$filteredTeachers,
-            'colleges'=>CollegeName::all(),
-            'bands'=>BandName::all(),
-            'page_name'=>'departments.special-program-teacher.index'
+        $data = [
+            'education_level' => $requestedLevel,
+            'study_place' => $requestedPlace,
+            'upgrading_staff' => $filteredTeachers,
+            'colleges' => CollegeName::all(),
+            'bands' => BandName::all(),
+            'page_name' => 'departments.staff-leave.index'
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
-        return view('departments.special_program_teacher.index')->with('data',$data);
+        return view('departments.staff_leave.index')->with('data', $data);
 
     }
 
@@ -97,18 +96,19 @@ class SpecialProgramTeacherController extends Controller
      */
     public function create()
     {
-        $data=[
-            'program_type'=>SpecialProgramTeacher::getEnum("ProgramTypes"),
-            'program_status'=>SpecialProgramTeacher::getEnum("ProgramStats"),
-            'colleges'=>CollegeName::all(),
-            'bands'=>BandName::all(),
-            'departments'=>DepartmentName::all(),
-            'page_name'=>'departments.special-program-teacher.create'
+        $data = [
+            'education_level' => StaffLeave::getEnum("LevelOfStudies"),
+            'study_place' => StaffLeave::getEnum("PlaceOfStudies"),
+            'colleges' => CollegeName::all(),
+            'bands' => BandName::all(),
+            'departments' => DepartmentName::all(),
+            'page_name' => 'departments.staff-leave.create'
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
-        return view('departments.special_program_teacher.create')->with('data',$data);
+        return view('departments.staff_leave.create')->with('data', $data);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -124,13 +124,11 @@ class SpecialProgramTeacherController extends Controller
         ]);
 
 
-
-        $specialProgramTeacher=new SpecialProgramTeacher;
-        $specialProgramTeacher->male_number= $request->input('male_number');
-        $specialProgramTeacher->female_number= $request->input('female_number');
-        $specialProgramTeacher->program_stat = $request->input('program_status');
-        $specialProgramTeacher->program_type=$request->input('program_type');
-
+        $staffLeave = new staffLeave();
+        $staffLeave->number_of_male_students = $request->input('male_number');
+        $staffLeave->number_of_female_students = $request->input('female_number');
+        $staffLeave->level_of_study = $request->input('education_level');
+        $staffLeave->place_of_study = $request->input('study_place');
 
 
         $user = Auth::user();
@@ -138,7 +136,7 @@ class SpecialProgramTeacherController extends Controller
 
         $bandName = BandName::where('id', $request->input("band_names"))->first();
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -147,7 +145,7 @@ class SpecialProgramTeacherController extends Controller
 
         $collegeName = CollegeName::where('id', $request->input("college_names"))->first();
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = 'NONE';
             $college->education_program = 'NONE';
@@ -157,18 +155,18 @@ class SpecialProgramTeacherController extends Controller
         }
 
         $departmentName = DepartmentName::where('id', $request->input("department"))->first();
-        $department = Department::where(['department_name_id' => $departmentName->id,'college_id' => $college->id])->first();
-        if($department == null){
+        $department = Department::where(['department_name_id' => $departmentName->id, 'college_id' => $college->id])->first();
+        if ($department == null) {
             $department = new Department;
-            $department->year_level ='NONE';
+            $department->year_level = 'NONE';
             $department->department_name_id = 0;
             $college->departments()->save($department);
             $departmentName->department()->save($department);
         }
 
-        $department->specialProgramTeachers()->save($specialProgramTeacher);
+        $department->staffLeaves()->save($staffLeave);
 
-        return redirect("/department/special-program-teacher");
+        return redirect("/department/staff-leave");
 
 
     }
@@ -176,7 +174,7 @@ class SpecialProgramTeacherController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -187,7 +185,7 @@ class SpecialProgramTeacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -199,7 +197,7 @@ class SpecialProgramTeacherController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -210,7 +208,7 @@ class SpecialProgramTeacherController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)

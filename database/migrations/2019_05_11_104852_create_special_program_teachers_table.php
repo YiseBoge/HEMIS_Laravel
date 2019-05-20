@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateSpecialProgramTeachersTable extends Migration
 {
@@ -19,7 +19,7 @@ class CreateSpecialProgramTeachersTable extends Migration
             $table->bigInteger('female_number');
 
             $table->string('program_type');
-            $table->string('program_status');
+            $table->string('program_stat');
             $table->timestamps();
 
             $table->primary('id');
