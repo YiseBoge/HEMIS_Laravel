@@ -9,13 +9,13 @@ use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
-use App\Models\Department\PostGraduateDiplomaTraining;
+use App\Models\Department\Teacher;
 use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class PostGraduateDiplomaTrainingController extends Controller
+class TeachersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,22 +27,14 @@ class PostGraduateDiplomaTrainingController extends Controller
         $user = Auth::user();
         $institution = $user->institution();
 
-        if($request->input('type')==null){
-            $requestedType=0;
-        }else if($request->input('type') == "Normal"){
-            $requestedType=0;
-        }else{
-            $requestedType=1;
-        }
-
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
-        }
-
         $requestedCollege=$request->input('college');
         if($requestedCollege==null){
             $requestedCollege=null;
+        }
+
+        $requestedLevel=$request->input('education_level');
+        if($requestedLevel==null){
+            $requestedLevel='Undergraduate';
         }
 
         $requestedBand=$request->input('band');
@@ -50,18 +42,19 @@ class PostGraduateDiplomaTrainingController extends Controller
             $requestedBand=null;
         }
 
-        $trainings = array();
+        $teachers = array();
 
         if($institution!=null){
             foreach($institution->bands as $band){
                 if($band->bandName->band_name == $requestedBand){
                     foreach($band->colleges as $college){
-                        if($college->collegeName->college_name == $requestedCollege && $college->education_level == "None" && $college->education_program == $requestedProgram){
+                        if($college->collegeName->college_name == $requestedCollege && $college->education_level == "None" && $college->education_program == "None"){
                             foreach($college->departments as $department){
                                 if($department->year_level == "None"){
-                                    foreach($department->postgraduateDiplomaTrainings as $training){
-                                        if($training->is_lead==$requestedType){
-                                            $trainings[]=$training;
+                                    return $department;
+                                    foreach($department->teachers as $teacher){
+                                        if($teacher->level_of_education==$requestedLevel){
+                                            $teachers[]=$teacher;
                                         }
                                     }
                                 }                                
@@ -71,21 +64,21 @@ class PostGraduateDiplomaTrainingController extends Controller
                 }
             }
         } else {
-            $training = PostGraduateDiplomaTraining::with('department')->get();
+            $teachers = Teacher::with('department')->get();
         }
 
         //$enrollments=Enrollment::where('department_id',$department->id)->get();
 
 
         $data = array(
-            'trainings' => $trainings,
+            'teachers' => $teachers,
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
-            'programs' => PostGraduateDiplomaTraining::getEnum("Programs"),
-            'types' => PostGraduateDiplomaTraining::getEnum('Types'),
-            'page_name' => 'departments.postgraduate_diploma_training.index'
+            'education_levels' => Teacher::getEnum("EducationLevels"),
+            'page_name' => 'departments.teachers.index'
         );
-        return view("departments.postgraduate_diploma_training.index")->with($data);
+        //return $filteredEnrollments;
+        return view("departments.teachers.index")->with($data);
     }
 
     /**
@@ -99,13 +92,10 @@ class PostGraduateDiplomaTrainingController extends Controller
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
-            'programs' => PostGraduateDiplomaTraining::getEnum("Programs"),
-            'types' => PostGraduateDiplomaTraining::getEnum('Types'),
-            'page_name' => 'departments.postgraduate_diploma_training.create'
+            'education_levels' => Teacher::getEnum("EducationLevels"),
+            'page_name' => 'departments.teachers.create'
         );
-
-        return view("departments.postgraduate_diploma_training.create")->with($data);
-
+        return view('departments.teachers.create')->with($data);
     }
 
     /**
@@ -118,17 +108,16 @@ class PostGraduateDiplomaTrainingController extends Controller
     {
         $this->validate($request, [
             'male_number' => 'required',
-            'female_number' => 'required'
+            'female_number' => 'required',
+            'citizenship' => 'required'
         ]);
 
-        $training = new PostGraduateDiplomaTraining;
-        $training->number_of_male_students = $request->input('male_number');
-        $training->number_of_female_students = $request->input('female_number');
-        if($request->input('type') == "NORMAL"){
-            $training->is_lead = 0;
-        }else{
-            $training->is_lead = 1;
-        }
+        $teacher = new Teacher;
+        $teacher->male_number = $request->input('male_number');
+        $teacher->female_number = $request->input('female_number');
+        $teacher->level_of_education = $request->input('education_level');
+        $teacher->citizenship = $request->input('citizenship');
+        
 
         $user = Auth::user();
 
@@ -145,11 +134,11 @@ class PostGraduateDiplomaTrainingController extends Controller
 
         $collegeName = CollegeName::where('college_name', $request->input("college"))->first();
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => "None", 'education_program' => $request->input("program")])->first();
+            'education_level' => "None", 'education_program' => "None"])->first();
         if($college == null){
             $college = new College;
             $college->education_level = "None";
-            $college->education_program = $request->input("program");
+            $college->education_program = "None";
             $college->college_name_id = 0;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
@@ -166,9 +155,10 @@ class PostGraduateDiplomaTrainingController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->postgraduateDiplomaTrainings()->save($training);
+        $department->teachers()->save($teacher);
 
-        return redirect("/department/postgraduate-diploma-training");
+        return redirect("/department/teachers");
+
     }
 
     /**

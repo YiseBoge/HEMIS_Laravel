@@ -10,26 +10,17 @@
                 </div>
             @endforeach
         @endif
-        <form class="pb-5" action="/department/postgraduate-diploma-training" method="POST">
+        <form class="pb-5" action="/department/teachers" method="POST">
             @csrf
             <div class="row my-5">
                 <div class="col">
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
-                                PostGraduate Diploma Training
+                                Teachers
                         </div>
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
-                                    <div class="col form-group">
-                                        <select class="form-control" name="type" id="type">
-                                            @foreach ($types as $key => $value)
-                                                <option value="{{$key}}">{{$value}}</option>
-                                            @endforeach
-                                        </select>
-                                        <label for="type" class="form-control-placeholder">
-                                                Teacher Type
-                                        </label>
-                                    </div>
+                                   
                                     <div class="col form-group">
                                         <select class="form-control" name="band" id="band">
                                             @foreach ($bands as $band)
@@ -62,20 +53,26 @@
                                             Department
                                         </label>
                                 </div>
+
                                 <div class="col-md-6 form-group">
-                                    <select class="form-control" name="program" id="program">
-                                        @foreach ($programs as $key => $value)
+                                    <select class="form-control" name="education_level" id="education_level">
+                                        @foreach ($education_levels as $key => $value)
                                             <option value="{{$key}}">{{$value}}</option>
                                         @endforeach
                                     </select>
-                                    <label for="service_type" class="form-control-placeholder">
-                                            Program
+                                    <label for="education_level" class="form-control-placeholder">
+                                            Education Level
                                         </label>
-                                </div>                              
+                                </div>              
                             </div>
-                            <hr>
+
 
                         <div class="form-group row pt-3">
+                            <div class="col form-group">
+                                <input type="text" id="citizenship" name="citizenship" class="form-control" required>
+                                <label class="form-control-placeholder" for="citizenship">Citizenship</label>
+                            </div>
+
                             <div class="col form-group">
                                 <input type="text" id="male_number" name="male_number" class="form-control" required>
                                 <label class="form-control-placeholder" for="male_number">Number of Male Teachers</label>

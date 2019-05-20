@@ -78,6 +78,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Staff Acts:</h6>
                 <a class="collapse-item" href="/department/academic-staff">Academic Staff</a>
+                <a class="collapse-item" href="/department/teachers">Teachers</a>
                 <a class="collapse-item" href="/institution/foreign-staff">Expatriate Academic Staff</a>
                 <a class="collapse-item text-wrap" href="/department/staff-leave">Study Leave</a>
                 <a class="collapse-item text-wrap" href="/department/upgrading-staff">Upgrading Level of Education</a>

@@ -13,13 +13,18 @@ class PostGraduateDiplomaTraining extends Model
 
     public $incrementing = false;
 
+    protected $enumTypes = [
+        'NORMAL' => 'Normal',
+        'LEADER' => 'School Leaders',
+    ];
+    
     protected $enumPrograms = [
         'REGULAR' => 'Regular',
         'NON_REGULAR' => 'Non Regular',
     ];
 
     public function department(){
-        return $this->belongsTo('App\Model\Department\Department');
+        return $this->belongsTo('App\Models\Department\Department');
     }
     
 }

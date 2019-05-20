@@ -57,6 +57,7 @@ Route::resource('department/upgrading-staff','Department\UpgradingStaffControlle
 Route::resource('department/staff-leave','Department\StaffLeaveController');
 Route::resource('department/academic-staff','Department\AcademicStaffController');
 Route::resource('department/postgraduate-diploma-training','Department\PostGraduateDiplomaTrainingController');
+Route::resource('department/teachers','Department\TeachersController');
 
 Route::get('/admin', function () {
     return view('admin.index');
