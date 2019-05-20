@@ -87,7 +87,7 @@
 
             <div class="modal-content">
                 <div class="modal-header">
-                        <form class="" action="/institution/non-admin/" method="POST">
+                        <form class="" action="/institution/non-admin" method="POST">
                             @csrf
                             <h3 class="font-weight-bold text-primary">Add Admin(Non Academic) Staff Member</h3>
                             <div class="row">

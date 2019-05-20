@@ -87,7 +87,7 @@
 
             <div class="modal-content">
                 <div class="modal-header">
-                        <form class="" action="/institution/age-enrollment/" method="POST">
+                        <form class="" action="/institution/age-enrollment" method="POST">
                             @csrf
                             <h3 class="font-weight-bold text-primary">Add Age Enrollment Data</h3>
                             <div class="row">
