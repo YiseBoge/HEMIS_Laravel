@@ -56,12 +56,9 @@ Route::resource('staff/technical-staff','College\TechnicalStaffController');
 Route::resource('department/upgrading-staff','Department\UpgradingStaffController');
 Route::resource('department/staff-leave','Department\StaffLeaveController');
 Route::resource('department/academic-staff','Department\AcademicStaffController');
-<<<<<<< HEAD
 Route::resource('department/expatriate-staff','Department\ExaptriateStaffsController');
-=======
 Route::resource('department/postgraduate-diploma-training','Department\PostGraduateDiplomaTrainingController');
-Route::resource('department/teachers','Department\TeachersController');
->>>>>>> 670e08c100f8625569998183c26e02ff691a3f61
+Route::resource('/teachers','Department\TeachersController');
 
 Route::get('/admin', function () {
     return view('admin.index');

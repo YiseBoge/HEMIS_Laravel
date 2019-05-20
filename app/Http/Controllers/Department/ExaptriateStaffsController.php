@@ -84,11 +84,10 @@ class ExaptriateStaffsController extends Controller
     public function create()
     {
         $data=[
-            'rank_level'=>'Professor',
-            'expatriate_staff' => [],
             'staff_rank'=> ExpatriateStaff::getEnum('StaffRank'),
             'colleges'=>CollegeName::all(),
             'bands'=>BandName::all(),
+            'departments'=>DepartmentName::all(),
             'page_name'=>'departments.expatriate_staff.create'
         ];
 
@@ -104,24 +103,21 @@ class ExaptriateStaffsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'number_of_females' => 'required',
-            'number_of_females' => 'required'
+            'male_number' => 'required',
+            'female_number' => 'required',
         ]);
 
-
-
-        $academicStaff=new AcademicStaff();
-        $academicStaff->male_number= $request->input('number_of_females');
-        $academicStaff->female_number= $request->input('number_of_females');
-        $academicStaff->staff_rank=$request->input('staff_rank');
-
-
-
+        $expat = new ExpatriateStaff();
+        $expat->male_number = $request->input('male_number');
+        $expat->female_number = $request->input('female_number');
+        $expat->staff_rank = $request->input('staff_rank');
+        
 
         $user = Auth::user();
+
         $institution = $user->institution();
 
-        $bandName = BandName::where('id', $request->input("band_names"))->first();
+        $bandName = BandName::where('band_name', $request->input("band"))->first();
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if($band == null){
             $band = new Band;
@@ -130,30 +126,32 @@ class ExaptriateStaffsController extends Controller
             $bandName->band()->save($band);
         }
 
-        $collegeName = CollegeName::where('id', $request->input("college_names"))->first();
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id])->first();
+        $collegeName = CollegeName::where('college_name', $request->input("college"))->first();
+        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
+            'education_level' => "None", 'education_program' => "None"])->first();
         if($college == null){
             $college = new College;
-            $college->education_level = 'NONE';
-            $college->education_program = 'NONE';
+            $college->education_level = "None";
+            $college->education_program = "None";
             $college->college_name_id = 0;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
 
-        $departmentName = DepartmentName::where('id', $request->input("department"))->first();
-        $department = Department::where(['department_name_id' => $departmentName->id,'college_id' => $college->id])->first();
+        $departmentName = DepartmentName::where('department_name', $request->input("department"))->first();
+        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => "None",
+            'college_id' => $college->id])->first();
         if($department == null){
             $department = new Department;
-            $department->year_level ='NONE';
+            $department->year_level = "None";
             $department->department_name_id = 0;
             $college->departments()->save($department);
             $departmentName->department()->save($department);
         }
 
-        $department->academicStaffs()->save($academicStaff);
+        $department->expatriates()->save($expat);
 
-        return redirect("/department/academic-staff");
+        return redirect("/department/expatriate-staff");
     }
 
     /**

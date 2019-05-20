@@ -122,62 +122,6 @@
         </div>
 
     </div>
-
-    @if ($data['page_name'] == 'departments.expatriate_staff.create')
-    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
-    aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-
-       <div class="modal-content">
-           <div class="modal-header">
-                   <form class="" action="/institution/non-admin" method="POST">
-                       @csrf
-                       <h3 class="font-weight-bold text-primary">Add Admin(Non Academic) Staff Member</h3>
-                       <div class="row">
-           </div>
-           <div class="modal-body row p-2">
-                   <div class="col-12">
-                           <fieldset class="h-100">
-                               
-
-                               <div class="form-row pt-3">
-                                       <div class="col-md form-group">
-                                           
-                                           <select class="form-control" id="staffRnk" name="staff_rank">
-                                               @foreach ($data['staff_rank'] as $key => $value)
-                                                   <option value="{{$key}}">{{$value}}</option>
-                                               @endforeach
-                                           </select>
-                                           <label for="staffRnk" class="form-control-placeholder pt-3">Staff Rank</label>
-                                       </div>
-                                   </div>  
-
-                               <div class="">
-                                   <div class="form-row ptt-1">
-                                       <div class="col form-group">
-                                           <input type="text" id="no_of_females" name="number_of_females" class="form-control" required>
-                                           <label class="form-control-placeholder" for="no_of_females">Females(Aggregate)</label>
-                                       </div>
-
-                                       <div class="col form-group">
-                                           <input type="text" id="no_of_males" name="number_of_males" class="form-control" required>
-                                           <label class="form-control-placeholder" for="no_of_males">Males(Aggregate)</label>
-                                       </div>
-                                   </div>
-                               </div>  
-                           </fieldset>
-                       </div>
-                   </div>    
-           </div>
-           <div class="modal-footer">
-                   <button class="btn btn-outline-secondary float-right my-1" type="submit">Submit</button>
-           </div>
-       </div>
-
-   </div>
-</div>
-    @endif
-
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
