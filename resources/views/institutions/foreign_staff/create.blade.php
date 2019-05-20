@@ -9,7 +9,7 @@
                 </div>
             @endforeach
             @endif
-        <form class="pb-5" action="/institution/foreign-staff/" method="POST">
+        <form class="pb-5" action="/institution/foreign-staff" method="POST">
             @csrf
             <h3 class="font-weight-bold text-primary">Add Foreign Staff Member</h3>
             <div class="row my-5">

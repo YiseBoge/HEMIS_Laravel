@@ -87,17 +87,17 @@
 
             <div class="modal-content">
                 <div class="modal-header">
-                        <form class="" action="/institution/age-enrollment/" method="POST">
+                        <form class="" action="/institution/age-enrollment" method="POST">
                             @csrf
                             <h3 class="font-weight-bold text-primary">Add Age Enrollment Data</h3>
                             <div class="row">
                 </div>
                 <div class="modal-body row p-2">
                         <div class="col-12">
-                                <fieldset class="card shadow h-100">
-                                    <div class="card-header text-primary">
+                                <fieldset class="h-100">
+                                    {{-- <div class="card-header text-primary">
                                             Aggregate Information
-                                    </div>
+                                    </div> --}}
 
                                     <div class="form-row pt-3">
                                             <div class="col-md form-group">
@@ -111,7 +111,7 @@
                                             </div>
                                         </div>  
 
-                                    <div class="card-body px-4">
+                                    {{-- <div class="card-body px-4"> --}}
                                         <div class="form-row ptt-1">
                                             <div class="col form-group">
                                                 <input type="text" id="no_of_females" name="number_of_females" class="form-control" required>
@@ -123,7 +123,7 @@
                                                 <label class="form-control-placeholder" for="no_of_males">Males(Aggregate)</label>
                                             </div>
                                         </div>
-                                    </div>  
+                                    {{-- </div>   --}}
                                 </fieldset>
                             </div>
                         </div>    
