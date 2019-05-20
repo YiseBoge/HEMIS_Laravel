@@ -18,7 +18,7 @@ class CreateUpgradingStaffTable extends Migration
             $table->bigInteger('male_number'); 
             $table->bigInteger('female_number'); 
             
-            $table->string('place_of_study');
+            $table->string('study_place');
             $table->string('education_level');
             $table->timestamps();
 

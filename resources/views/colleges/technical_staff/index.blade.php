@@ -11,38 +11,40 @@
                             Add<i class="fas fa-plus ml-2"></i></a>
                     </div>
                 </div>
-                <div class="form-group row pt-3">
-                    <div class="col form-group">
-                        <select class="form-control" name="band" id="band">
-                            @foreach ($bands as $band)
-                                <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                            @endforeach
-                        </select>
-                        <label for="band" class="form-control-placeholder">
-                               Band
-                        </label>
-                    </div>
-                    <div class="col form-group">
-                        <select class="form-control" name="college" id="college">
-                            @foreach ($colleges as $college)
-                                <option value="{{$college->college_name}}">{{$college->college_name}}</option>
-                            @endforeach
-                        </select>
-                        <label for="college" class="form-control-placeholder">
-                                College
-                        </label>
-                    </div>
-                    <div class="col form-group">
-                        <select class="form-control" name="level" id="level">
-                            @foreach ($levels as $key => $value)
-                                <option value="{{$key}}">{{$value}}</option>
-                            @endforeach
-                        </select>
-                        <label for="level" class="form-control-placeholder">
-                               Education Level
-                        </label>
-                    </div>
+                <form action="" method="get">
+                    <div class="form-group row pt-3">
+                        <div class="col form-group">
+                            <select class="form-control" name="band" id="band" onchange="this.form.submit()">
+                                @foreach ($bands as $band)
+                                    <option value="{{$band->band_name}}">{{$band->band_name}}</option>
+                                @endforeach
+                            </select>
+                            <label for="band" class="form-control-placeholder">
+                                Band
+                            </label>
+                        </div>
+                        <div class="col form-group">
+                            <select class="form-control" name="college" id="college" onchange="this.form.submit()">
+                                @foreach ($colleges as $college)
+                                    <option value="{{$college->college_name}}">{{$college->college_name}}</option>
+                                @endforeach
+                            </select>
+                            <label for="college" class="form-control-placeholder">
+                                    College
+                            </label>
+                        </div>
+                        <div class="col form-group">
+                            <select class="form-control" name="level" id="level" onchange="this.form.submit()">
+                                @foreach ($levels as $key => $value)
+                                    <option value="{{$key}}">{{$value}}</option>
+                                @endforeach
+                            </select>
+                            <label for="level" class="form-control-placeholder">
+                                Education Level
+                            </label>
+                        </div>
                 </div>
+                </form>
 
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
