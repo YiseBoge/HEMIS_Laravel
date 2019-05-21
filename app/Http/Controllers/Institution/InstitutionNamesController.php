@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
+use App\Models\Institution\Budget;
+use App\Models\Institution\CommunityService;
 use App\Models\Institution\GeneralInformation;
 use App\Models\Institution\Institution;
 use App\Models\Institution\InstitutionName;
+use App\Models\Institution\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -61,7 +64,14 @@ class InstitutionNamesController extends Controller
 
 
         $generalInformation = new GeneralInformation();
+        $budget = new Budget();
+        $communityService = new CommunityService();
+        $resource = new Resource();
+
         $generalInformation->save();
+        $generalInformation->budget()->associate($budget)->save();
+        $generalInformation->communityService()->associate($communityService)->save();
+        $generalInformation->resource()->associate($resource)->save();
 
         $institution = new Institution();
         $institution->institution_name_id = $institutionName->id;
