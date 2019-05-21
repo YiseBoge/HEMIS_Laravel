@@ -78,13 +78,16 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Staff Acts:</h6>
                 <a class="collapse-item" href="/department/academic-staff">Academic Staff</a>
+                <a class="collapse-item" href="/department/expatriate-staff">Expatriate Staff</a>
+                <a class="collapse-item" href="/department/teachers">Teachers</a>
                 <a class="collapse-item" href="/institution/foreign-staff">Expatriate Academic Staff</a>
                 <a class="collapse-item text-wrap" href="/department/staff-leave">Study Leave</a>
                 <a class="collapse-item text-wrap" href="/department/upgrading-staff">Upgrading Level of Education</a>
                 <a class="collapse-item" href="/staff/technical-staff">Technical Staff</a>
                 <a class="collapse-item text-wrap" href="/institution/non-admin">Administrative and Non-Academic Staff</a>
                 <a class="collapse-item text-wrap" href="/department/special-program-teacher">Special Programs</a>
-                <a class="collapse-item text-wrap" href="/staff/supportive">Post Graduate Diploma Training</a>
+                <a class="collapse-item text-wrap" href="/department/postgraduate-diploma-training">Post Graduate
+                    Diploma Training</a>
                 <a class="collapse-item text-wrap" href="/institution/management-data">Managment Data</a>
             </div>
         </div>
