@@ -31,4 +31,10 @@ class ExpatriateStaff extends Model
         return $this->belongsTo('App\Models\Department\Department');
     }
 
+    public function scopeInfo($query)
+    {
+        return $query->with('department.college.band', 'department.departmentName');
+    }
+
+
 }
