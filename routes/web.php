@@ -53,13 +53,13 @@ Route::resource('institution/researches','Band\ResearchsController');
 Route::resource('institution/university-industry-linkage','Band\UniversityIndustryLinkageController');
 Route::resource('institution/student-attrition', 'Band\StudentAttritionController');
 Route::resource('staff/technical-staff','College\TechnicalStaffController');
-Route::resource('department/upgrading-staff','Department\UpgradingStaffController');
-Route::resource('department/staff-leave','Department\StaffLeaveController');
-Route::resource('department/academic-staff','Department\AcademicStaffController');
-Route::resource('department/expatriate-staff','Department\ExaptriateStaffsController');
-Route::resource('department/postgraduate-diploma-training','Department\PostGraduateDiplomaTrainingController');
-Route::resource('department/teachers','Department\TeachersController');
-Route::resource('department/expatriate-staff','Department\ExpatriateStaffsController');
+Route::resource('department/upgrading-staff', 'Department\UpgradingStaffController');
+Route::resource('department/staff-leave', 'Department\StaffLeaveController');
+Route::resource('department/academic-staff', 'Department\AcademicStaffController');
+Route::resource('department/expatriate-staff', 'Department\ExaptriateStaffsController');
+Route::resource('department/postgraduate-diploma-training', 'Department\PostGraduateDiplomaTrainingController');
+Route::resource('department/teachers', 'Department\TeachersController');
+Route::resource('department/expatriate-staff', 'Department\ExpatriateStaffsController');
 
 Route::get('/admin', function () {
     return view('admin.index');

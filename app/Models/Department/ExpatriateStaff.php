@@ -8,7 +8,7 @@ use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
 class ExpatriateStaff extends Model
-{   
+{
     use Enums;
     use Uuids;
 

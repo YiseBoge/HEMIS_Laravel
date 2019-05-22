@@ -30,7 +30,7 @@
                                 @endforeach
                             </select>
                             <label for="college" class="form-control-placeholder">
-                                    College
+                                College
                             </label>
                         </div>
                         <div class="col form-group">

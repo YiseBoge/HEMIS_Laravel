@@ -19,7 +19,7 @@ class SpecialProgramTeacher extends Model
         'HIGHER DIPLOMA PROGRAM' => 'Higher Diploma Program'
     ];
 
-    protected $enumProgramStats= [
+    protected $enumProgramStats = [
         'COMPLETED' => 'Completed',
         'ON TRAINING' => 'On Training',
         'NOT YET STARTED' => 'Not Yet Started'

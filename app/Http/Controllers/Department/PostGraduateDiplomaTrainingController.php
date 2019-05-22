@@ -10,7 +10,6 @@ use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\PostGraduateDiplomaTraining;
-use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -20,51 +19,51 @@ class PostGraduateDiplomaTrainingController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
         $institution = $user->institution();
 
-        if($request->input('type')==null){
-            $requestedType=0;
-        }else if($request->input('type') == "Normal"){
-            $requestedType=0;
-        }else{
-            $requestedType=1;
+        if ($request->input('type') == null) {
+            $requestedType = 0;
+        } else if ($request->input('type') == "Normal") {
+            $requestedType = 0;
+        } else {
+            $requestedType = 1;
         }
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
         }
 
-        $requestedCollege=$request->input('college');
-        if($requestedCollege==null){
-            $requestedCollege=null;
+        $requestedCollege = $request->input('college');
+        if ($requestedCollege == null) {
+            $requestedCollege = null;
         }
 
-        $requestedBand=$request->input('band');
-        if($requestedBand==null){
-            $requestedBand=null;
+        $requestedBand = $request->input('band');
+        if ($requestedBand == null) {
+            $requestedBand = null;
         }
 
         $trainings = array();
 
-        if($institution!=null){
-            foreach($institution->bands as $band){
-                if($band->bandName->band_name == $requestedBand){
-                    foreach($band->colleges as $college){
-                        if($college->collegeName->college_name == $requestedCollege && $college->education_level == "None" && $college->education_program == $requestedProgram){
-                            foreach($college->departments as $department){
-                                if($department->year_level == "None"){
-                                    foreach($department->postgraduateDiplomaTrainings as $training){
-                                        if($training->is_lead==$requestedType){
-                                            $trainings[]=$training;
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                if ($band->bandName->band_name == $requestedBand) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $requestedCollege && $college->education_level == "None" && $college->education_program == $requestedProgram) {
+                            foreach ($college->departments as $department) {
+                                if ($department->year_level == "None") {
+                                    foreach ($department->postgraduateDiplomaTrainings as $training) {
+                                        if ($training->is_lead == $requestedType) {
+                                            $trainings[] = $training;
                                         }
                                     }
-                                }                                
+                                }
                             }
                         }
                     }
@@ -91,7 +90,7 @@ class PostGraduateDiplomaTrainingController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -111,8 +110,8 @@ class PostGraduateDiplomaTrainingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -124,9 +123,9 @@ class PostGraduateDiplomaTrainingController extends Controller
         $training = new PostGraduateDiplomaTraining;
         $training->number_of_male_students = $request->input('male_number');
         $training->number_of_female_students = $request->input('female_number');
-        if($request->input('type') == "NORMAL"){
+        if ($request->input('type') == "NORMAL") {
             $training->is_lead = 0;
-        }else{
+        } else {
             $training->is_lead = 1;
         }
 
@@ -136,7 +135,7 @@ class PostGraduateDiplomaTrainingController extends Controller
 
         $bandName = BandName::where('band_name', $request->input("band"))->first();
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -146,7 +145,7 @@ class PostGraduateDiplomaTrainingController extends Controller
         $collegeName = CollegeName::where('college_name', $request->input("college"))->first();
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => "None", 'education_program' => $request->input("program")])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = "None";
             $college->education_program = $request->input("program");
@@ -158,7 +157,7 @@ class PostGraduateDiplomaTrainingController extends Controller
         $departmentName = DepartmentName::where('department_name', $request->input("department"))->first();
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => "None",
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = "None";
             $department->department_name_id = 0;
@@ -174,8 +173,8 @@ class PostGraduateDiplomaTrainingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function show($id)
     {
@@ -185,8 +184,8 @@ class PostGraduateDiplomaTrainingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function edit($id)
     {
@@ -196,9 +195,9 @@ class PostGraduateDiplomaTrainingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -208,8 +207,8 @@ class PostGraduateDiplomaTrainingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function destroy($id)
     {

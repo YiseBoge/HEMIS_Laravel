@@ -21,7 +21,7 @@ class Department extends Model
         'FIVE'=>'5',
         'SIX'=>'6',
         'SEVEN'=>'7',
-        'NONE'=>'None'
+        'NONE' => 'None'
     ];
 
     public function departmentName()
@@ -38,11 +38,13 @@ class Department extends Model
         return $this->hasMany('App\Models\Department\Enrollment');
     }
 
-    public function foreignStudentEnrollments(){
+    public function foreignStudentEnrollments()
+    {
         return $this->hasMany('App\Models\Department\ForeignStudent');
     }
 
-    public function specializingStudentEnrollments(){
+    public function specializingStudentEnrollments()
+    {
         return $this->hasMany('App\Models\Department\SpecializingStudentsEnrollment');
     }
 
@@ -50,22 +52,33 @@ class Department extends Model
         return $this->hasMany('App\Models\Department\SpecialProgramTeacher');
     }
 
-    public function upgradingStaffs(){
+    public function upgradingStaffs()
+    {
         return $this->hasMany('App\Models\Department\UpgradingStaff');
     }
-    public function staffLeaves(){
+
+    public function staffLeaves()
+    {
         return $this->hasMany('App\Models\Department\StaffLeave');
     }
-    public function academicStaffs(){
+
+    public function academicStaffs()
+    {
         return $this->hasMany('App\Models\Department\AcademicStaff');
     }
-    public function postgraduateDiplomaTrainings(){
+
+    public function postgraduateDiplomaTrainings()
+    {
         return $this->hasMany('App\Models\Department\PostGraduateDiplomaTraining');
     }
-    public function teachers(){
+
+    public function teachers()
+    {
         return $this->hasMany('App\Models\Department\Teacher');
     }
-    public function expatriates(){
+
+    public function expatriates()
+    {
         return $this->hasMany('App\Models\Department\ExpatriateStaff');
     }
 

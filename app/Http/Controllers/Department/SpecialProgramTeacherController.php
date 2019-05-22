@@ -10,7 +10,6 @@ use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\SpecialProgramTeacher;
-use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +19,7 @@ class SpecialProgramTeacherController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -29,7 +28,7 @@ class SpecialProgramTeacherController extends Controller
 
         $requestedType=$request->input('program_type');
         if($requestedType==null){
-            $requestedType='ENGLISH LANGUAGE IMPROVEMENT PROGRAM';
+            $requestedType = 'ENGLISH LANGUAGE IMPROVEMENT PROGRAM';
         }
 
         $requestedStatus=$request->input('program_status');
@@ -59,9 +58,9 @@ class SpecialProgramTeacherController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->id == $requestedCollege) {
                             foreach ($college->departments as $department) {
-                                foreach ($department->SpecialProgramTeachers as $teacher){
-                                    if(strtoupper($teacher->program_type)==$requestedType && strtoupper($teacher->program_stat)==$requestedStatus){
-                                        $filteredTeachers[]=$teacher;
+                                foreach ($department->SpecialProgramTeachers as $teacher) {
+                                    if (strtoupper($teacher->program_type) == $requestedType && strtoupper($teacher->program_stat) == $requestedStatus) {
+                                        $filteredTeachers[] = $teacher;
                                     }
                                 }
                             }
@@ -94,7 +93,7 @@ class SpecialProgramTeacherController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -114,8 +113,8 @@ class SpecialProgramTeacherController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -129,7 +128,7 @@ class SpecialProgramTeacherController extends Controller
         $specialProgramTeacher=new SpecialProgramTeacher;
         $specialProgramTeacher->male_number= $request->input('male_number');
         $specialProgramTeacher->female_number= $request->input('female_number');
-        $specialProgramTeacher->program_stat=$request->input('program_status');
+        $specialProgramTeacher->program_stat = $request->input('program_status');
         $specialProgramTeacher->program_type=$request->input('program_type');
 
 
@@ -178,7 +177,7 @@ class SpecialProgramTeacherController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -189,7 +188,7 @@ class SpecialProgramTeacherController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -199,9 +198,9 @@ class SpecialProgramTeacherController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -212,7 +211,7 @@ class SpecialProgramTeacherController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

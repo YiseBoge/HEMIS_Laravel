@@ -26,14 +26,14 @@ class ResearchsController extends Controller
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedType=$request->input('type');
-        if($requestedType==null){
-            $requestedType='Normal';
+        $requestedType = $request->input('type');
+        if ($requestedType == null) {
+            $requestedType = 'Normal';
         }
 
-        $requestedStatus=$request->input('status');
-        if($requestedStatus==null){
-            $requestedStatus='On Going';
+        $requestedStatus = $request->input('status');
+        if ($requestedStatus == null) {
+            $requestedStatus = 'On Going';
         }
 
         $researches = array();
@@ -41,7 +41,7 @@ class ResearchsController extends Controller
         if ($institution != null) {
             foreach ($institution->bands as $band) {
                 foreach ($band->researches as $research) {
-                    if($research->type == $requestedType && $research->status == $requestedStatus){
+                    if ($research->type == $requestedType && $research->status == $requestedStatus) {
                         $researches[] = $research;
                     }                    
                 }

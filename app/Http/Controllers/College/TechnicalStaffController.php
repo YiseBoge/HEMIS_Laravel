@@ -24,32 +24,32 @@ class TechnicalStaffController extends Controller
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedBand=$request->input('band');
-        if($requestedBand==null){
-            $requestedBand=null;
+        $requestedBand = $request->input('band');
+        if ($requestedBand == null) {
+            $requestedBand = null;
         }
 
-        $requestedCollege=$request->input('college');
-        if($requestedCollege==null){
-            $requestedCollege=null;
+        $requestedCollege = $request->input('college');
+        if ($requestedCollege == null) {
+            $requestedCollege = null;
         }
 
-        $requestedLevel=$request->input('level');
-        if($requestedLevel==null){
-            $requestedLevel='Level III';
+        $requestedLevel = $request->input('level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Level III';
         }
 
         $technicalStaffs = array();
 
-        if($institution!=null){
-            foreach($institution->bands as $band){
-                if($band->bandName->band_name == $requestedBand){
-                    foreach($band->colleges as $college){
-                        if($college->collegeName->college_name == $requestedCollege && $college->education_level == "None" && $college->education_program == "None"){
-                            foreach($college->technicalStaffs as $staff){
-                                if($staff->level == $requestedLevel){
-                                    $technicalStaffs[]=$staff;
-                                }                               
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                if ($band->bandName->band_name == $requestedBand) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $requestedCollege && $college->education_level == "None" && $college->education_program == "None") {
+                            foreach ($college->technicalStaffs as $staff) {
+                                if ($staff->level == $requestedLevel) {
+                                    $technicalStaffs[] = $staff;
+                                }
                             }
                         }
                     }
@@ -79,32 +79,32 @@ class TechnicalStaffController extends Controller
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedBand=$request->input('band');
-        if($requestedBand==null){
-            $requestedBand=null;
+        $requestedBand = $request->input('band');
+        if ($requestedBand == null) {
+            $requestedBand = null;
         }
 
-        $requestedCollege=$request->input('college');
-        if($requestedCollege==null){
-            $requestedCollege=null;
+        $requestedCollege = $request->input('college');
+        if ($requestedCollege == null) {
+            $requestedCollege = null;
         }
 
-        $requestedLevel=$request->input('level');
-        if($requestedLevel==null){
-            $requestedLevel='Level III';
+        $requestedLevel = $request->input('level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Level III';
         }
 
         $technicalStaffs = array();
 
-        if($institution!=null){
-            foreach($institution->bands as $band){
-                if($band->bandName->band_name == $requestedBand){
-                    foreach($band->colleges as $college){
-                        if($college->collegeName->college_name == $requestedCollege && $college->education_level == "None" && $college->education_program == "None"){
-                            foreach($college->technicalStaffs as $staff){
-                                if($staff->level == $requestedLevel){
-                                    $technicalStaffs[]=$staff;
-                                }                               
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                if ($band->bandName->band_name == $requestedBand) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $requestedCollege && $college->education_level == "None" && $college->education_program == "None") {
+                            foreach ($college->technicalStaffs as $staff) {
+                                if ($staff->level == $requestedLevel) {
+                                    $technicalStaffs[] = $staff;
+                                }
                             }
                         }
                     }

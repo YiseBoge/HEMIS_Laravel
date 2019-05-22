@@ -19,7 +19,8 @@ class Teacher extends Model
         'THIRD_DEGREE' => 'Third Degree(PhD)'
     ];
 
-    public function department(){
+    public function department()
+    {
         return $this->belongsTo('App\Models\Department\Department');
     }
 
