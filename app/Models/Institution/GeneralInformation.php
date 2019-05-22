@@ -13,6 +13,21 @@ class GeneralInformation extends Model
 
     public function institution()
     {
-        return $this->hasMany('App\Models\Institution\Institution');
+        return $this->hasOne('App\Models\Institution\Institution');
+    }
+
+    public function budget()
+    {
+        return $this->belongsTo('App\Models\Institution\Budget');
+    }
+
+    public function resource()
+    {
+        return $this->belongsTo('App\Models\Institution\Resource');
+    }
+
+    public function communityService()
+    {
+        return $this->belongsTo('App\Models\Institution\CommunityService');
     }
 }

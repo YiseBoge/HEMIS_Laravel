@@ -17,6 +17,8 @@ class CreateRolesTable extends Migration
             $table->uuid('id');
             $table->string('role_name');
             $table->timestamps();
+
+            $table->primary('id');
         });
     }
 

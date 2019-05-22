@@ -67,9 +67,9 @@
                                     <select class="form-control" name="education_level" id="level" onchange="this.form.submit()">
                                         @foreach ($education_levels as $key => $value)
                                         @if ($key == 'SPECIALIZATION')
-                                            <option disabled value="{{$value}}">{{$value}}</option>
+                                                <option disabled value="{{$value}}">{{$value}}</option>
                                         @else
-                                            <option value="{{$value}}">{{$value}}</option>
+                                                <option value="{{$value}}">{{$value}}</option>
                                         @endif
                                         @endforeach
                                     </select>
@@ -91,7 +91,7 @@
 
                             </div>
 
-                        </form>                    
+                        </form>
                         <div class="row mt-3">
                             <div class="col-sm-12">
                                 <table class="table table-bordered dataTable table-striped table-hover" id="dataTable" width="100%"

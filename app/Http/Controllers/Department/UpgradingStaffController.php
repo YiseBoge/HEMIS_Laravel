@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Department;
 
+use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\Band\BandName;
 use App\Models\College\College;
@@ -10,7 +11,7 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\UpgradingStaff;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class UpgradingStaffController extends Controller
@@ -18,31 +19,31 @@ class UpgradingStaffController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedLevel=$request->input('education_level');
-        if($requestedLevel==null){
-            $requestedLevel='MASTERS';
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'MASTERS';
         }
 
-        $requestedPlace=$request->input('study_place');
-        if($requestedPlace==null){
-            $requestedPlace='ETHIOPIA';
+        $requestedPlace = $request->input('study_place');
+        if ($requestedPlace == null) {
+            $requestedPlace = 'ETHIOPIA';
         }
 
-        $requestedCollege=$request->input('college_names');
-        if($requestedCollege==null){
-            $requestedCollege=CollegeName::all()->first()->id;
+        $requestedCollege = $request->input('college_names');
+        if ($requestedCollege == null) {
+            $requestedCollege = CollegeName::all()->first()->id;
         }
 
-        $requestedBand=$request->input('band_names');
-        if($requestedBand==null){
-            $requestedBand=BandName::all()->first()->id;
+        $requestedBand = $request->input('band_names');
+        if ($requestedBand == null) {
+            $requestedBand = BandName::all()->first()->id;
         }
 
 
@@ -57,9 +58,9 @@ class UpgradingStaffController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->id == $requestedCollege) {
                             foreach ($college->departments as $department) {
-                                foreach ($department->UpgradingStaffs as $staff){
-                                    if(strtoupper($staff->study_place)==$requestedPlace && strtoupper($staff->education_level)==$requestedLevel){
-                                        $filteredTeachers[]=$staff;
+                                foreach ($department->UpgradingStaffs as $staff) {
+                                    if (strtoupper($staff->study_place) == $requestedPlace && strtoupper($staff->education_level) == $requestedLevel) {
+                                        $filteredTeachers[] = $staff;
                                     }
                                 }
                             }
@@ -72,48 +73,47 @@ class UpgradingStaffController extends Controller
         }
 
 
-
         //$specialProgramTeachers=SpecialProgramTeacher::all();
         //$specialProgramTeachers= SpecialProgramTeacher::where(['program_type'=>$requestedType,'program_status'=>$requestedStatus])->get();
-        $data=[
-            'education_level'=>$requestedLevel,
-            'study_place'=>$requestedPlace,
-            'upgrading_staff'=>$filteredTeachers,
-            'colleges'=>CollegeName::all(),
-            'bands'=>BandName::all(),
-            'page_name'=>'departments.upgrading-staff.index'
+        $data = [
+            'education_level' => $requestedLevel,
+            'study_place' => $requestedPlace,
+            'upgrading_staff' => $filteredTeachers,
+            'colleges' => CollegeName::all(),
+            'bands' => BandName::all(),
+            'page_name' => 'departments.upgrading-staff.index'
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
-        return view('departments.upgrading_staff.index')->with('data',$data);
+        return view('departments.upgrading_staff.index')->with('data', $data);
 
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
-        $data=[
-            'education_level'=>UpgradingStaff::getEnum("EducationLevels"),
-            'study_place'=>UpgradingStaff::getEnum("StudyPlaces"),
-            'colleges'=>CollegeName::all(),
-            'bands'=>BandName::all(),
-            'departments'=>DepartmentName::all(),
-            'page_name'=>'departments.upgrading-staff.create'
+        $data = [
+            'education_level' => UpgradingStaff::getEnum("EducationLevels"),
+            'study_place' => UpgradingStaff::getEnum("StudyPlaces"),
+            'colleges' => CollegeName::all(),
+            'bands' => BandName::all(),
+            'departments' => DepartmentName::all(),
+            'page_name' => 'departments.upgrading-staff.create'
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
-        return view('departments.upgrading_staff.create')->with('data',$data);
+        return view('departments.upgrading_staff.create')->with('data', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -123,13 +123,11 @@ class UpgradingStaffController extends Controller
         ]);
 
 
-
-        $upgradingStaff=new UpgradingStaff();
-        $upgradingStaff->male_number= $request->input('male_number');
-        $upgradingStaff->female_number= $request->input('female_number');
-        $upgradingStaff->education_level=$request->input('education_level');
-        $upgradingStaff->study_place=$request->input('study_place');
-
+        $upgradingStaff = new UpgradingStaff();
+        $upgradingStaff->male_number = $request->input('male_number');
+        $upgradingStaff->female_number = $request->input('female_number');
+        $upgradingStaff->education_level = $request->input('education_level');
+        $upgradingStaff->study_place = $request->input('study_place');
 
 
         $user = Auth::user();
@@ -137,7 +135,7 @@ class UpgradingStaffController extends Controller
 
         $bandName = BandName::where('id', $request->input("band_names"))->first();
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -146,7 +144,7 @@ class UpgradingStaffController extends Controller
 
         $collegeName = CollegeName::where('id', $request->input("college_names"))->first();
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = 'NONE';
             $college->education_program = 'NONE';
@@ -156,10 +154,10 @@ class UpgradingStaffController extends Controller
         }
 
         $departmentName = DepartmentName::where('id', $request->input("department"))->first();
-        $department = Department::where(['department_name_id' => $departmentName->id,'college_id' => $college->id])->first();
-        if($department == null){
+        $department = Department::where(['department_name_id' => $departmentName->id, 'college_id' => $college->id])->first();
+        if ($department == null) {
             $department = new Department;
-            $department->year_level ='NONE';
+            $department->year_level = 'NONE';
             $department->department_name_id = 0;
             $college->departments()->save($department);
             $departmentName->department()->save($department);
@@ -175,8 +173,8 @@ class UpgradingStaffController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function show($id)
     {
@@ -186,8 +184,8 @@ class UpgradingStaffController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function edit($id)
     {
@@ -197,9 +195,9 @@ class UpgradingStaffController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -209,8 +207,8 @@ class UpgradingStaffController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function destroy($id)
     {

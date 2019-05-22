@@ -11,6 +11,7 @@ use App\Models\Department\AcademicStaff;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class AcademicStaffController extends Controller
@@ -18,26 +19,26 @@ class AcademicStaffController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedLevel=$request->input('rank_level');
-        if($requestedLevel==null){
-            $requestedLevel='GRADUATE ASSISTANT I';
+        $requestedLevel = $request->input('rank_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'GRADUATE ASSISTANT I';
         }
 
-        $requestedCollege=$request->input('college_names');
-        if($requestedCollege==null){
-            $requestedCollege=CollegeName::all()->first()->id;
+        $requestedCollege = $request->input('college_names');
+        if ($requestedCollege == null) {
+            $requestedCollege = CollegeName::all()->first()->id;
         }
 
-        $requestedBand=$request->input('band_names');
-        if($requestedBand==null){
-            $requestedBand=BandName::all()->first()->id;
+        $requestedBand = $request->input('band_names');
+        if ($requestedBand == null) {
+            $requestedBand = BandName::all()->first()->id;
         }
 
 
@@ -52,9 +53,9 @@ class AcademicStaffController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->id == $requestedCollege) {
                             foreach ($college->departments as $department) {
-                                foreach ($department->academicStaffs as $staff){
-                                    if(strtoupper($staff->staff_rank)==$requestedLevel){
-                                        $filteredTeachers[]=$staff;
+                                foreach ($department->academicStaffs as $staff) {
+                                    if (strtoupper($staff->staff_rank) == $requestedLevel) {
+                                        $filteredTeachers[] = $staff;
                                     }
                                 }
                             }
@@ -67,46 +68,45 @@ class AcademicStaffController extends Controller
         }
 
 
-
         //$specialProgramTeachers=SpecialProgramTeacher::all();
         //$specialProgramTeachers= SpecialProgramTeacher::where(['program_type'=>$requestedType,'program_status'=>$requestedStatus])->get();
-        $data=[
-            'rank_level'=>$requestedLevel,
-            'upgrading_staff'=>$filteredTeachers,
-            'colleges'=>CollegeName::all(),
-            'bands'=>BandName::all(),
-            'page_name'=>'departments.academic-staff.index'
+        $data = [
+            'rank_level' => $requestedLevel,
+            'upgrading_staff' => $filteredTeachers,
+            'colleges' => CollegeName::all(),
+            'bands' => BandName::all(),
+            'page_name' => 'departments.academic-staff.index'
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
-        return view('departments.academic_staff.index')->with('data',$data);
+        return view('departments.academic_staff.index')->with('data', $data);
 
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
-        $data=[
-            'rank_level'=>AcademicStaff::getEnum("StaffRanks"),
-            'colleges'=>CollegeName::all(),
-            'bands'=>BandName::all(),
-            'departments'=>DepartmentName::all(),
-            'page_name'=>'departments.academic-staff.create'
+        $data = [
+            'rank_level' => AcademicStaff::getEnum("StaffRanks"),
+            'colleges' => CollegeName::all(),
+            'bands' => BandName::all(),
+            'departments' => DepartmentName::all(),
+            'page_name' => 'departments.academic-staff.create'
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
-        return view('departments.academic_staff.create')->with('data',$data);
+        return view('departments.academic_staff.create')->with('data', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -116,13 +116,10 @@ class AcademicStaffController extends Controller
         ]);
 
 
-
-        $academicStaff=new AcademicStaff();
-        $academicStaff->male_number= $request->input('male_number');
-        $academicStaff->female_number= $request->input('female_number');
-        $academicStaff->staff_rank=$request->input('rank_level');
-
-
+        $academicStaff = new AcademicStaff();
+        $academicStaff->male_number = $request->input('male_number');
+        $academicStaff->female_number = $request->input('female_number');
+        $academicStaff->staff_rank = $request->input('rank_level');
 
 
         $user = Auth::user();
@@ -130,7 +127,7 @@ class AcademicStaffController extends Controller
 
         $bandName = BandName::where('id', $request->input("band_names"))->first();
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -139,7 +136,7 @@ class AcademicStaffController extends Controller
 
         $collegeName = CollegeName::where('id', $request->input("college_names"))->first();
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = 'NONE';
             $college->education_program = 'NONE';
@@ -149,10 +146,10 @@ class AcademicStaffController extends Controller
         }
 
         $departmentName = DepartmentName::where('id', $request->input("department"))->first();
-        $department = Department::where(['department_name_id' => $departmentName->id,'college_id' => $college->id])->first();
-        if($department == null){
+        $department = Department::where(['department_name_id' => $departmentName->id, 'college_id' => $college->id])->first();
+        if ($department == null) {
             $department = new Department;
-            $department->year_level ='NONE';
+            $department->year_level = 'NONE';
             $department->department_name_id = 0;
             $college->departments()->save($department);
             $departmentName->department()->save($department);
@@ -166,8 +163,8 @@ class AcademicStaffController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function show($id)
     {
@@ -177,8 +174,8 @@ class AcademicStaffController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function edit($id)
     {
@@ -188,9 +185,9 @@ class AcademicStaffController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -200,8 +197,8 @@ class AcademicStaffController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function destroy($id)
     {

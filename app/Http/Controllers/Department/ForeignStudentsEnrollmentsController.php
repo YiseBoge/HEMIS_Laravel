@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Band\BandName;
-use App\Models\Department\DepartmentName;
 use App\Models\Band\Band;
+use App\Models\Band\BandName;
 use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
-use App\Models\Institution\Institution;
+use App\Models\Department\DepartmentName;
 use App\Models\Department\ForeignStudent;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class ForeignStudentsEnrollmentsController extends Controller
@@ -19,59 +19,59 @@ class ForeignStudentsEnrollmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
         }
 
-        $requestedCollege=$request->input('college');
-        if($requestedCollege==null){
-            $requestedCollege=null;
+        $requestedCollege = $request->input('college');
+        if ($requestedCollege == null) {
+            $requestedCollege = null;
         }
 
-        $requestedReason=$request->input('reason');
-        if($requestedReason==null){
-            $requestedReason='Bilateral Agreement';
+        $requestedReason = $request->input('reason');
+        if ($requestedReason == null) {
+            $requestedReason = 'Bilateral Agreement';
         }
 
-        $requestedLevel=$request->input('education_level');
-        if($requestedLevel==null){
-            $requestedLevel='Undergraduate';
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Undergraduate';
         }
 
-        $requestedBand=$request->input('band');
-        if($requestedBand==null){
-            $requestedBand=null;
+        $requestedBand = $request->input('band');
+        if ($requestedBand == null) {
+            $requestedBand = null;
         }
 
-        $requestedYearLevel=$request->input('year_level');
-        if($requestedYearLevel==null){
-            $requestedYearLevel='1';
+        $requestedYearLevel = $request->input('year_level');
+        if ($requestedYearLevel == null) {
+            $requestedYearLevel = '1';
         }
 
         $enrollments = array();
 
-        if($institution!=null){
-            foreach($institution->bands as $band){
-                if($band->bandName->band_name == $requestedBand){
-                    foreach($band->colleges as $college){
-                        if($college->collegeName->college_name == $requestedCollege && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram){
-                            foreach($college->departments as $department){
-                                if($department->year_level == $requestedYearLevel){
-                                   
-                                    foreach($department->foreignStudentEnrollments as $enrollment){
-                                        if($enrollment->reason == $requestedReason){
-                                            $enrollments[]=$enrollment;
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                if ($band->bandName->band_name == $requestedBand) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $requestedCollege && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
+                            foreach ($college->departments as $department) {
+                                if ($department->year_level == $requestedYearLevel) {
+
+                                    foreach ($department->foreignStudentEnrollments as $enrollment) {
+                                        if ($enrollment->reason == $requestedReason) {
+                                            $enrollments[] = $enrollment;
                                         }
                                     }
-                                }                                
+                                }
                             }
                         }
                     }
@@ -103,7 +103,7 @@ class ForeignStudentsEnrollmentsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -128,8 +128,8 @@ class ForeignStudentsEnrollmentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -187,7 +187,7 @@ class ForeignStudentsEnrollmentsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -198,7 +198,7 @@ class ForeignStudentsEnrollmentsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -208,9 +208,9 @@ class ForeignStudentsEnrollmentsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -221,7 +221,7 @@ class ForeignStudentsEnrollmentsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

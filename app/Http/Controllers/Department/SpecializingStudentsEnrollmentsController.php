@@ -10,7 +10,6 @@ use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\SpecializingStudentsEnrollment;
-use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -23,56 +22,56 @@ class SpecializingStudentsEnrollmentsController extends Controller
      * @return Response
      */
     public function index(Request $request)
-    {        
+    {
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedType=$request->input('student_type');
-        if($requestedType==null){
-            $requestedType='Normal';
+        $requestedType = $request->input('student_type');
+        if ($requestedType == null) {
+            $requestedType = 'Normal';
         }
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
         }
 
-        $requestedCollege=$request->input('college');
-        if($requestedCollege==null){
-            $requestedCollege=null;
+        $requestedCollege = $request->input('college');
+        if ($requestedCollege == null) {
+            $requestedCollege = null;
         }
 
-        $requestedSpecializationType=$request->input('specialization_type');
-        if($requestedSpecializationType==null){
-            $requestedSpecializationType='Specialization';
+        $requestedSpecializationType = $request->input('specialization_type');
+        if ($requestedSpecializationType == null) {
+            $requestedSpecializationType = 'Specialization';
         }
 
 
-        $requestedBand=$request->input('band');
-        if($requestedBand==null){
-            $requestedBand=null;
+        $requestedBand = $request->input('band');
+        if ($requestedBand == null) {
+            $requestedBand = null;
         }
 
-        $requestedYearLevel=$request->input('year_level');
-        if($requestedYearLevel==null){
-            $requestedYearLevel='1';
+        $requestedYearLevel = $request->input('year_level');
+        if ($requestedYearLevel == null) {
+            $requestedYearLevel = '1';
         }
 
         $enrollments = array();
 
-        if($institution!=null){
-            foreach($institution->bands as $band){
-                if($band->bandName->band_name == $requestedBand){
-                    foreach($band->colleges as $college){
-                        if($college->collegeName->college_name == $requestedCollege && $college->education_level == "Specialization" && $college->education_program == $requestedProgram){
-                            foreach($college->departments as $department){
-                                if($department->year_level == $requestedYearLevel){
-                                    foreach($department->specializingStudentEnrollments as $enrollment){
-                                        if($enrollment->student_type==$requestedType && $enrollment->specialization_type == $requestedSpecializationType){
-                                            $enrollments[]=$enrollment;
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                if ($band->bandName->band_name == $requestedBand) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $requestedCollege && $college->education_level == "Specialization" && $college->education_program == $requestedProgram) {
+                            foreach ($college->departments as $department) {
+                                if ($department->year_level == $requestedYearLevel) {
+                                    foreach ($department->specializingStudentEnrollments as $enrollment) {
+                                        if ($enrollment->student_type == $requestedType && $enrollment->specialization_type == $requestedSpecializationType) {
+                                            $enrollments[] = $enrollment;
                                         }
                                     }
-                                }                                
+                                }
                             }
                         }
                     }

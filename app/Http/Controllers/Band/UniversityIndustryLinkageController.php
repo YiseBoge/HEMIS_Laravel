@@ -22,9 +22,9 @@ class UniversityIndustryLinkageController extends Controller
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedYear=$request->input('year');
-        if($requestedYear==null){
-            $requestedYear='Normal';
+        $requestedYear = $request->input('year');
+        if ($requestedYear == null) {
+            $requestedYear = 'Normal';
         }
 
         $linkages = array();
@@ -32,7 +32,7 @@ class UniversityIndustryLinkageController extends Controller
         if ($institution != null) {
             foreach ($institution->bands as $band) {
                 foreach ($band->universityIndustryLinkages as $linkage) {
-                    if($linkage->year == $requestedYear){
+                    if ($linkage->year == $requestedYear) {
                         $linkages[] = $linkage;
                     }                    
                 }
@@ -60,9 +60,9 @@ class UniversityIndustryLinkageController extends Controller
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedYear=$request->input('year');
-        if($requestedYear==null){
-            $requestedYear='Normal';
+        $requestedYear = $request->input('year');
+        if ($requestedYear == null) {
+            $requestedYear = 'Normal';
         }
 
         $linkages = array();
@@ -70,7 +70,7 @@ class UniversityIndustryLinkageController extends Controller
         if ($institution != null) {
             foreach ($institution->bands as $band) {
                 foreach ($band->universityIndustryLinkages as $linkage) {
-                    if($linkage->year == $requestedYear){
+                    if ($linkage->year == $requestedYear) {
                         $linkages[] = $linkage;
                     }                    
                 }

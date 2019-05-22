@@ -10,7 +10,6 @@ use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\Enrollment;
-use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +38,7 @@ class EnrollmentsController extends Controller
 
         $requestedCollege=$request->input('college');
         if($requestedCollege==null){
-            $requestedCollege=null;
+            $requestedCollege = null;
         }
 
         $requestedLevel=$request->input('education_level');
@@ -50,7 +49,7 @@ class EnrollmentsController extends Controller
 
         $requestedBand=$request->input('band');
         if($requestedBand==null){
-            $requestedBand=null;
+            $requestedBand = null;
         }
 
         $requestedYearLevel=$request->input('year_level');
@@ -60,17 +59,17 @@ class EnrollmentsController extends Controller
 
         $enrollments = array();
 
-        if($institution!=null){
-            foreach($institution->bands as $band){
-                if($band->bandName->band_name == $requestedBand){
-                    foreach($band->colleges as $college){
-                        if($college->collegeName->college_name == $requestedCollege && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram){
-                            
-                            foreach($college->departments as $department){
-                                if($department->year_level == $requestedYearLevel){
-                                    foreach($department->enrollments as $enrollment){
-                                        if($enrollment->student_type==$requestedType){
-                                            $enrollments[]=$enrollment;
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                if ($band->bandName->band_name == $requestedBand) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $requestedCollege && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
+
+                            foreach ($college->departments as $department) {
+                                if ($department->year_level == $requestedYearLevel) {
+                                    foreach ($department->enrollments as $enrollment) {
+                                        if ($enrollment->student_type == $requestedType) {
+                                            $enrollments[] = $enrollment;
                                         }
                                     }
                                 }                                
