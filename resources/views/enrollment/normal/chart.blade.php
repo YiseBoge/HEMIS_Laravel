@@ -11,13 +11,12 @@
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="row">
                                 <div class="col text-right">
-                                    <a class="btn btn-outline-primary btn-sm mb-0 mr-3" href="normal-chart">Generate Report</a>
                                     <a class="btn btn-outline-primary btn-sm mb-0" href="normal/create">New Entry<i
                                         class="fas fa-arrow-right ml-2"></i></a>
-                                    
                                 </div>
                             </div>
                         <form action="" method="get">
+                            <input type="hidden" value="">
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <select class="form-control" name="student_type" id="student_type" onchange="this.form.submit()">
@@ -102,85 +101,76 @@
                                 </div>
                                 <div class="col form-group">
 
-                                    <select class="form-control" name="year_level" id="year_level" onchange="this.form.submit()">
-                                        @foreach ($year_levels as $key => $value)
-                                            @if ($value == $selected_year)
-                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                    <select class="form-control" name="department" id="department" onchange="this.form.submit()">
+                                        @foreach ($departments as $department)
+                                            @if ($department->department_name == $selected_department)
+                                            <option value="{{$department->department_name}}" selected>{{$department->department_name}}</option>
                                             @else
-                                            <option value="{{$value}}">{{$value}}</option>
+                                            <option value="{{$department->department_name}}">{{$department->department_name}}</option>
                                             @endif
                                            
                                         @endforeach
                                     </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
-                                        Year Level
+                                    <label for="department" class="form-control-placeholder">
+                                        Department
                                     </label>
                                 </div>
 
                             </div>
 
                         </form>
-                        <div class="row mt-3">
-                            <div class="col-sm-12">
-                                <table class="table table-bordered dataTable table-striped table-hover" id="dataTable" width="100%"
-                                        cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                        style="width: 100%;">
-                                    <thead>
-                                    <tr role="row">
-                                        <th style="min-width: 50px; width: 50px"></th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                            rowspan="1" colspan="1" aria-sort="ascending"
-                                            aria-label="Name: activate to sort column descending"
-                                            style="width: 151px;">Department
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                            style="width: 46px;">Number of Male Students
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1"
-                                            aria-label="Start date: activate to sort column ascending"
-                                            style="width: 99px;">Number of Female Students
-                                        </th>
-                                        
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (count($enrollments) > 0)
-                                            @foreach ($enrollments as $enrollment)
-                                                <tr role="row" class="odd" onclick="window.location='normal/{{$enrollment->id}}'">
-                                                    <td class="pl-4">
-                                                        <div class="row">
-                                                            <div class="col pt-1">
-                                                                <a href="normal/{{$enrollment->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> </a>
-                                                            </div>
-                                                            <div class="col">
-                                                                <form class="p-0" action="/enrollment/normal/{{$enrollment->id}}" method="POST">
-                                                                    @csrf
-                                                                    <input type="hidden" name="_method" value="DELETE">
-                                                                    <button type="submit" class="form-control form-control-plaintext text-danger p-0">
-                                                                            <i class="far fa-trash-alt"></i>
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </td>  
-                                                    <td>{{$enrollment->department->departmentName->department_name}}</td>
-                                                    <td>{{$enrollment->male_students_number}}</td>
-                                                    <td>{{$enrollment->female_students_number}}</td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
-                                    
-                                   
-                                    </tbody>
-                                </table>
+                            <div class="container w-50">
+                                    <canvas id="enrollment" class="text-center" height="20" width="30"></canvas>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    crossorigin="anonymous"></script>
+
+    <script>
+            var url = "{{url('enrollment/student-enrollment-chart?student_type=' . $selected_student_type . '&college=' . $selected_college . '&band=' . $selected_band . '&program=' . $selected_program . '&education_level=' . $selected_education_level . '&department=' . $selected_department )}}";
+            var Enrollments = new Array();
+            var Years = new Array();
+            $(document).ready(function(){
+                $.get(url, function(response){
+                    Enrollments = response.enrollments
+                    Years = response.year_levels
+                    alert(response.enrollments);
+
+                    var ctx = document.getElementById('enrollment').getContext('2d');
+                    var chart = new Chart(ctx, {
+                        // The type of chart we want to create
+                        type: 'bar',
+    
+                        // The data for our dataset
+                        data: {
+                            labels: Years,
+                            datasets: [{
+                                label: 'Enrollment',                   
+                                data: Enrollments
+                            }]
+                        },
+    
+                        // Configuration options go here
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero:true
+                                    }
+                                }]
+                            }
+                        },
+                       
+                    });
+                });
+            });
+        </script>
     
 @endsection

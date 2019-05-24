@@ -38,7 +38,7 @@ class EnrollmentsController extends Controller
 
         $requestedCollege=$request->input('college');
         if($requestedCollege==null){
-            $requestedCollege = null;
+            $requestedCollege = CollegeName::get()->first()->college_name;
         }
 
         $requestedLevel=$request->input('education_level');
@@ -49,7 +49,7 @@ class EnrollmentsController extends Controller
 
         $requestedBand=$request->input('band');
         if($requestedBand==null){
-            $requestedBand = null;
+            $requestedBand = BandName::get()->first->college_name;
         }
 
         $requestedYearLevel=$request->input('year_level');
@@ -93,6 +93,14 @@ class EnrollmentsController extends Controller
             'education_levels' => College::getEnum("EducationLevels"),
             'student_types' => Enrollment::getEnum('StudentTypes'),
             'year_levels' => Department::getEnum('YearLevels'),
+
+            'selected_student_type' => $requestedType,
+            'selected_program' => $requestedProgram,
+            'selected_college' => $requestedCollege,
+            'selected_education_level' => $requestedLevel,
+            'selected_band' => $requestedBand,
+            'selected_year' => $requestedYearLevel,
+
             'page_name' => 'enrollment.normal.index'
         );
         //return $filteredEnrollments;
@@ -227,5 +235,172 @@ class EnrollmentsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function viewChart(Request $request){
+
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        $requestedType=$request->input('student_type');
+        if($requestedType==null){
+            $requestedType='Normal';
+        }
+
+        $requestedProgram=$request->input('program');
+        if($requestedProgram==null){
+            $requestedProgram='Regular';
+        }
+
+        $requestedCollege=$request->input('college');
+        if($requestedCollege==null){
+            $requestedCollege = CollegeName::get()->first()->college_name;
+        }
+
+        $requestedLevel=$request->input('education_level');
+        if($requestedLevel==null){
+            $requestedLevel='Undergraduate';
+        }
+
+
+        $requestedBand=$request->input('band');
+        if($requestedBand==null){
+            $requestedBand = BandName::get()->first()->band_name;
+        }
+
+        $requestedDepartment=$request->input('department');
+        if($requestedDepartment==null){
+            $requestedDepartment=DepartmentName::get()->first()->department_name;
+        }
+
+        $enrollments = array();
+
+        /*if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                if ($band->bandName->band_name == $requestedBand) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $requestedCollege && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
+
+                            foreach ($college->departments as $department) {
+                                if ($department->year_level == $requestedYearLevel) {
+                                    foreach ($department->enrollments as $enrollment) {
+                                        if ($enrollment->student_type == $requestedType) {
+                                            $enrollments[] = $enrollment;
+                                        }
+                                    }
+                                }                                
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            $enrollments = Enrollment::with('department')->get();
+        }*/
+
+        //$enrollments=Enrollment::where('department_id',$department->id)->get();
+
+
+        $data = array(
+            'colleges' => CollegeName::all(),
+            'bands' => BandName::all(),
+            'programs' => College::getEnum("EducationPrograms"),
+            'education_levels' => College::getEnum("EducationLevels"),
+            'student_types' => Enrollment::getEnum('StudentTypes'),
+            'departments' => DepartmentName::all(),
+
+            'selected_student_type' => $requestedType,
+            'selected_program' => $requestedProgram,
+            'selected_college' => $requestedCollege,
+            'selected_education_level' => $requestedLevel,
+            'selected_band' => $requestedBand,
+            'selected_department' => $requestedDepartment,
+
+            'page_name' => 'enrollment.normal.index'
+        );
+        //return $filteredEnrollments;
+        return view("enrollment.normal.chart")->with($data);
+    }
+
+    public function chart(Request $request){
+
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        $requestedType=$request->input('student_type');
+        if($requestedType==null){
+            $requestedType='Normal';
+        }
+
+        $requestedProgram=$request->input('program');
+        if($requestedProgram==null){
+            $requestedProgram='Regular';
+        }
+
+        $requestedCollege=$request->input('college');
+        if($requestedCollege==null){
+            $requestedCollege = CollegeName::get()->first()->college_name;
+        }
+
+        $requestedLevel=$request->input('education_level');
+        if($requestedLevel==null){
+            $requestedLevel='Undergraduate';
+        }
+
+
+        $requestedBand=$request->input('band');
+        if($requestedBand==null){
+            $requestedBand = BandName::get()->first()->band_name;
+        }
+
+        $requestedDepartment=$request->input('department');
+        if($requestedDepartment==null){
+            $requestedDepartment=DepartmentName::get()->first()->department_name;
+        }
+
+        $year_levels = array();
+        foreach(Department::getEnum('YearLevels') as $key => $value){
+            $year_levels[] = $value;
+        }
+        array_pop($year_levels);
+
+        $enrollments = array();
+
+        foreach($year_levels as $year){
+            $yearEnrollment = 0;
+            foreach ($institution->bands as $band) {
+                if ($band->bandName->band_name == $requestedBand) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $requestedCollege && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
+
+                            foreach ($college->departments as $department) {
+                                if ($department->departmentName->department_name == $requestedDepartment && $department->year_level == $year) {
+                                    foreach ($department->enrollments as $enrollment) {
+                                        if ($enrollment->student_type == $requestedType) {
+                                            $yearEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
+                                            
+                                        }
+                                    }
+                                }                                
+                            }
+                           
+                        }
+                    }
+                }
+                
+            }
+           
+            $enrollments[] = $yearEnrollment;
+            //return $enrollments;
+            
+        }
+
+        
+        
+        $result = array(
+            "year_levels" => $year_levels,
+            "enrollments" => $enrollments
+        );
+        return response()->json($result);
     }
 }

@@ -44,6 +44,8 @@ Route::resource('institution/region-name','Institution\RegionNamesController');
 //Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
 
 Route::resource('enrollment/normal','Department\EnrollmentsController');
+Route::get('enrollment/normal-chart','Department\EnrollmentsController@viewChart');
+Route::get('enrollment/student-enrollment-chart','Department\EnrollmentsController@chart');
 Route::resource('enrollment/special-region-students','Institution\SpecialRegionsEnrollmentsController');
 Route::resource('enrollment/special-need-students','Institution\SpecialNeedStudentsEnrollmentsController');
 Route::resource('enrollment/specializing-students','Department\SpecializingStudentsEnrollmentsController');
@@ -91,3 +93,5 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('home/student-enrollment-chart','HomeController@enrollmentChart');
+Route::get('home/age-enrollment-chart','HomeController@ageEnrollmentChart');
