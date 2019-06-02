@@ -24,7 +24,7 @@ class UniversityIndustryLinkageController extends Controller
 
         $requestedYear = $request->input('year');
         if ($requestedYear == null) {
-            $requestedYear = 'Normal';
+            $requestedYear = 1;
         }
 
         $linkages = array();
@@ -45,7 +45,9 @@ class UniversityIndustryLinkageController extends Controller
             'linkages' => $linkages,
             'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
-            'page_name' => 'bands.university_industry_linkage.index'
+            'page_name' => 'bands.university_industry_linkage.index',
+
+            "selected_year" => $requestedYear
         );
         return view("bands.university_industry_linkage.index")->with($data);
     }

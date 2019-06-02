@@ -55,7 +55,10 @@ class ResearchsController extends Controller
             'bands' => BandName::all(),
             'completions' => Research::getEnum('Completions'),
             'types' => Research::getEnum('Types'),
-            'page_name' => 'bands.research.index'
+            'page_name' => 'bands.research.index',
+
+            "selected_type" => $requestedType,
+            "selected_status" => $requestedStatus
         );
         return view("bands.research.index")->with($data);
     }

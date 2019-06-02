@@ -64,7 +64,11 @@ class TechnicalStaffController extends Controller
             'bands' => BandName::all(),
             'colleges' => CollegeName::all(),
             'levels' => TechnicalStaff::getEnum('EducationLevels'),
-            'page_name' => 'college.technical_staff.index'
+            'page_name' => 'college.technical_staff.index',
+
+            "selected_band" => $requestedBand,
+            "selected_college" => $requestedCollege,
+            "selected_level" => $requestedLevel
         );
         return view("colleges.technical_staff.index")->with($data);
     }

@@ -16,7 +16,12 @@
                         <div class="col-md-4 form-group">
                             <select class="form-control" name="year" id="year" onchange="this.form.submit()">
                                 @foreach ($years as $key => $value)
-                                    <option value="{{$value}}">{{$value}}</option>
+                                @if ($value == $selected_year)
+                                <option value="{{$value}}" selected>{{$value}}</option>
+                                @else
+                                <option value="{{$value}}">{{$value}}</option>
+                                @endif
+                                    
                                 @endforeach
                             </select>
                             <label for="year" class="form-control-placeholder">

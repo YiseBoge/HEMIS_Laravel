@@ -18,19 +18,29 @@
                         <form action="" method="get">
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <select class="form-control" name="band" id="band" onchange="this.form.submit()">
+                                    <select class="form-control" name="program" id="program" onchange="this.form.submit()">
                                         @foreach ($programs as $key => $value)
+                                        @if ($value == $selected_program)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
                                             <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                            
                                         @endforeach
                                     </select>
-                                    <label for="band" class="form-control-placeholder">
+                                    <label for="program" class="form-control-placeholder">
                                         Education Program
                                     </label>
                                 </div>
                                 <div class="col form-group">
                                     <select class="form-control" name="type" id="type" onchange="this.form.submit()">
                                         @foreach ($types as $key => $value)
-                                            <option value="{{$value}}">{{$value}}</option>
+                                        @if ($value == $selected_type)
+                                        <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                        <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                            
                                         @endforeach
                                     </select>
                                     <label for="type" class="form-control-placeholder">
@@ -38,9 +48,14 @@
                                     </label>
                                 </div>
                                 <div class="col form-group">
-                                    <select class="form-control" name="case" id="case">
+                                    <select class="form-control" name="case" id="case" onchange="this.form.submit()">
                                         @foreach ($cases as $key => $value)
-                                            <option value="{{$value}}">{{$value}}</option>
+                                        @if ($value == $selected_case)
+                                        <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                        <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                           
                                         @endforeach
                                     </select>
                                     <label for="case" class="form-control-placeholder">

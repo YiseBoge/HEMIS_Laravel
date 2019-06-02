@@ -59,7 +59,11 @@ class StudentAttritionController extends Controller
             'programs' => StudentAttrition::getEnum('EducationPrograms'),
             'types' => StudentAttrition::getEnum('Types'),
             'cases' => StudentAttrition::getEnum('Cases'),
-            'page_name' => 'bands.student_attritions.index'
+            'page_name' => 'bands.student_attritions.index',
+
+            "selected_program" => $requestedProgram,
+            "selected_type" => $requestedType,
+            "selected_case" => $requestedCase,
         );
         return view("bands.student_attrition.index")->with($data);
     }
