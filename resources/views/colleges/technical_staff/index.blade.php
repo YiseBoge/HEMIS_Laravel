@@ -120,29 +120,9 @@
 
 
                     <div class="modal-body pt-4">
+                   
                         <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <select class="form-control" name="band" id="band">
-                                    @foreach ($bands as $band)
-                                        <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="band" class="form-control-placeholder">
-                                        Band
-                                    </label>
-                            </div>
-                        </div>
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <select class="form-control" name="college" id="college">
-                                    @foreach ($colleges as $college)
-                                        <option value="{{$college->college_name}}">{{$college->college_name}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="college" class="form-control-placeholder">
-                                        College
-                                </label>
-                            </div>
+                            
                             <div class="col form-group">
                                 <select class="form-control" name="level" id="level">
                                     @foreach ($levels as $key => $value)

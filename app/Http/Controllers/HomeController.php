@@ -32,13 +32,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $institution = $user->institution();
-
-        $data = array(
-            "name" => $institution->institutionName->institution_name
-        );
-        return view('home')->with($data);
+        if (Auth::user()->hasRole('Super Admin')){
+            return view('home');
+        }else{
+            $user = Auth::user();
+            $institution = $user->institution();
+    
+            $data = array(
+                "name" => $institution->institutionName->institution_name
+            );
+            return view('home')->with($data);
+        }
+       
     }
 
     public function enrollmentChart()

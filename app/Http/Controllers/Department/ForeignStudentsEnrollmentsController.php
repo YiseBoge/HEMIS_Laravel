@@ -146,7 +146,7 @@ class ForeignStudentsEnrollmentsController extends Controller
         $user = Auth::user();
         $institution = $user->institution();
 
-        $bandName = BandName::where('band_name', $request->input("band"))->first();
+        $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if($band == null){
             $band = new Band;
@@ -155,7 +155,7 @@ class ForeignStudentsEnrollmentsController extends Controller
             $bandName->band()->save($band);
         }
 
-        $collegeName = CollegeName::where('college_name', $request->input("college"))->first();
+        $collegeName = $collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
         if($college == null){
@@ -167,7 +167,7 @@ class ForeignStudentsEnrollmentsController extends Controller
             $collegeName->college()->save($college);
         }
 
-        $departmentName = DepartmentName::where('department_name', $request->input("department"))->first();
+        $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
             'college_id' => $college->id])->first();
         if($department == null){

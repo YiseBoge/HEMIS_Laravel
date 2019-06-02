@@ -30,47 +30,7 @@
                                     {!! Form::label('program_status', 'Program Status', ['class' => 'form-control-placeholder', 'for' => 'add_program_status']) !!}
                                 </div>
                             </div>
-                            <div class="form-group row pt-3">
-
-                                <div class="col form-group">
-
-                                    <select name="band_names" class="form-control" id="band_names">
-                                        @foreach ($data['bands'] as $band)
-                                            <option value="{{ $band->id }}">{{ $band->band_name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
-                                        Band Name
-                                    </label>
-                                </div>
-
-                                <div class="col form-group">
-
-                                    <select name="college_names" class="form-control" id="college_names">
-                                        @foreach ($data['colleges'] as $college)
-                                            <option value="{{ $college->id }}">{{ $college->college_name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
-                                        College Name
-                                    </label>
-                                </div>
-
-                                <div class="col form-group">
-
-                                    <select class="form-control" name="department" id="department">
-                                        @foreach ($data['departments'] as $department)
-                                            <option value="{{$department->id}}">{{$department->department_name}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
-                                        Department
-                                    </label>
-                                </div>
-
-                            </div>
-                            <hr>
-
+                         
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <input type="text" id="male_number" name="male_number" class="form-control" required>

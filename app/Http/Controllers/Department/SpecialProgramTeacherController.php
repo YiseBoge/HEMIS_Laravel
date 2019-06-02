@@ -136,7 +136,7 @@ class SpecialProgramTeacherController extends Controller
         $user = Auth::user();
         $institution = $user->institution();
 
-        $bandName = BandName::where('id', $request->input("band_names"))->first();
+        $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if($band == null){
             $band = new Band;
@@ -145,7 +145,7 @@ class SpecialProgramTeacherController extends Controller
             $bandName->band()->save($band);
         }
 
-        $collegeName = CollegeName::where('id', $request->input("college_names"))->first();
+        $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id])->first();
         if($college == null){
             $college = new College;
@@ -156,7 +156,7 @@ class SpecialProgramTeacherController extends Controller
             $collegeName->college()->save($college);
         }
 
-        $departmentName = DepartmentName::where('id', $request->input("department"))->first();
+        $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id,'college_id' => $college->id])->first();
         if($department == null){
             $department = new Department;

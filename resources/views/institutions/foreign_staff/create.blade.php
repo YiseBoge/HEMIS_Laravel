@@ -47,16 +47,7 @@
                                 </div>
                             </div>       
                                 
-                            <div class="col">
-                            {{-- This input must be replaced with a drop down  --}}
-                                <div class="form-group">
-                                    <select class="form-control" id="dept" name="department">
-                                        @foreach ($data['department'] as $dept)
-                                            <option value="{{$dept->department_name}}">{{$dept->department_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
+                        
                         </div>
                     </fieldset>
                 </div>

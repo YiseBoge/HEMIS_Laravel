@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Institution\InstitutionName;
+use App\Models\College\CollegeName;
+use App\Models\Band\BandName;
+use App\Models\Department\DepartmentName;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
@@ -41,9 +44,15 @@ class EditorsController extends Controller
     public function create()
     {
         $institutionNames = InstitutionName::all();
+        $collegeNames = CollegeName::all();
+        $bandNames = BandName::all();
+        $departmentNames = DepartmentName::all();
 
         $data = array(
             'institution_names' => $institutionNames,
+            'college_names' => $collegeNames,
+            'band_names' => $bandNames,
+            'department_names' => $departmentNames,
             'page_name' => 'auth.editors.create',
         );
         return view('auth.editors.create')->with('data', $data);
@@ -63,11 +72,23 @@ class EditorsController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'institution_name_id' => ['required'],
+            'band_name_id' => ['required'],
+            'college_name_id' => ['required'],
+            'department_name_id' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $institutionNames = InstitutionName::all();
         $institutionName = $institutionNames[$request->input('institution_name_id')];
+
+        $bandNames = BandName::all();
+        $bandName = $bandNames[$request->input('band_name_id')];
+
+        $collegeNames = CollegeName::all();
+        $collegeName = $collegeNames[$request->input('college_name_id')];
+
+        $departmentNames = DepartmentName::all();
+        $departmentName = $departmentNames[$request->input('department_name_id')];
 
 
         $user = new User();
@@ -76,6 +97,9 @@ class EditorsController extends Controller
         $user->password = Hash::make($request->input('password'));
 
         $institutionName->users()->save($user);
+        $bandName->users()->save($user);
+        $collegeName->users()->save($user);
+        $departmentName->users()->save($user);
         $currentInstanceId->users()->save($user);
 
         $user

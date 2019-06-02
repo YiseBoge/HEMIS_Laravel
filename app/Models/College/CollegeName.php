@@ -19,4 +19,9 @@ class CollegeName extends Model
     {
         return "$this->acronym - $this->college_name";
     }
+
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
 }

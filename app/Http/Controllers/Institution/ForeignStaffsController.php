@@ -71,7 +71,7 @@ class ForeignStaffsController extends Controller
         $foreign_staff->name = $request->input('full_name');
         $foreign_staff->sex = $request->input('sex');
         $foreign_staff->country_of_origin = $request->input('origin');
-        $foreign_staff->department = $request->input('department');
+        $foreign_staff->department = $user->departmentName->department_name;
         $foreign_staff->education_level = $request->input('education_level');
         $foreign_staff->specialization = $request->input('specialization');
         $foreign_staff->employment_date = $request->input('date_of_employment');

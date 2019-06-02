@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-5 px-3 py-md-1 col">
-                            <select name="band_names" class="form-control" id="band_names">
+                            <select name="band_names" class="form-control" id="band_names" onchange = "this.form.submit()">
                                 @foreach ($data['bands'] as $band)
                                     <option value="{{ $band->id }}">{{ $band->band_name }}</option>
                                 @endforeach
@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-md-5 px-3 py-md-1 col">
                             <div class="form-group">
-                                <select name="college_names" class="form-control" id="college_names">
+                                <select name="college_names" class="form-control" id="college_names" onchange = "this.form.submit()">
                                     @foreach ($data['colleges'] as $college)
                                         <option value="{{ $college->id }}">{{ $college->college_name }}</option>
                                     @endforeach

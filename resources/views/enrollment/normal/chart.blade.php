@@ -141,8 +141,7 @@
                 $.get(url, function(response){
                     Enrollments = response.enrollments
                     Years = response.year_levels
-                    alert(response.enrollments);
-
+                    alert(Enrollments)
                     var ctx = document.getElementById('enrollment').getContext('2d');
                     var chart = new Chart(ctx, {
                         // The type of chart we want to create

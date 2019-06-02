@@ -106,28 +106,19 @@
 
                     <div class="modal-body pt-4">
                         <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <select class="form-control" name="band" id="band">
-                                    @foreach ($bands as $band)
-                                        <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="band" class="form-control-placeholder">
-                                        Band
-                                    </label>
-                            </div>
+                                <div class="col form-group">
+                                        <select class="form-control" name="year" id="year">
+                                            @foreach ($years as $key => $value)
+                                                <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="year" class="form-control-placeholder">
+                                                Year Level
+                                        </label>
+                                    </div>
                         </div>
                         <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <select class="form-control" name="year" id="year">
-                                    @foreach ($years as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="year" class="form-control-placeholder">
-                                        Year Level
-                                </label>
-                            </div>
+                            
                             <div class="col form-group">
                                 <input type="text" id="industry_number" name="industry_number" class="form-control" required>
                                 <label class="form-control-placeholder" for="industry_number">Number of Industries Linked</label>

@@ -20,4 +20,9 @@ class DepartmentName extends Model
     {
         return "$this->acronym - $this->department_name";
     }
+
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
 }

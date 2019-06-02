@@ -20,4 +20,9 @@ class BandName extends Model
     {
         return "$this->acronym - $this->band_name";
     }
+
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
 }

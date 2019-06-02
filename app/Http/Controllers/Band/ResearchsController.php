@@ -111,7 +111,7 @@ class ResearchsController extends Controller
 
         $institution = $user->institution();
 
-        $bandName = BandName::where('band_name', $request->input("band"))->first();
+        $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if($band == null){
             $band = new Band;
