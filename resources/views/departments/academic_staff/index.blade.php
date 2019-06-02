@@ -29,7 +29,7 @@
                         <div class="col-md-5 px-3 py-md-1 col">
                             <select name="band_names" class="form-control" id="band_names" onchange = "this.form.submit()">
                                 @foreach ($data['bands'] as $band)
-                                @if ($band->band_name == $data['selected_band'])
+                                @if ($band->id == $data['selected_band'])
                                 <option value="{{ $band->id }}" selected>{{ $band->band_name }}</option>
                                 @else
                                 <option value="{{ $band->id }}">{{ $band->band_name }}</option>
@@ -48,7 +48,7 @@
                             <div class="form-group">
                                 <select name="college_names" class="form-control" id="college_names" onchange = "this.form.submit()">
                                     @foreach ($data['colleges'] as $college)
-                                    @if ($college->college_name == $data['selected_college'])
+                                    @if ($college->id == $data['selected_college'])
                                     <option value="{{ $college->id }}" selected>{{ $college->college_name }}</option>
                                     @else
                                     <option value="{{ $college->id }}">{{ $college->college_name }}</option>

@@ -15,12 +15,18 @@
                                         class="fas fa-arrow-right ml-2"></i></a>
                                 </div>
                             </div>
+                            <form action="" method="get">
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     
-                                    <select class="form-control" name="program" id="program">
+                                    <select class="form-control" name="program" id="program" onchange="this.form.submit()">
                                         @foreach ($programs as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                        @if ($value == $selected_program)
+                                        <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                        <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                            
                                         @endforeach
                                     </select>
                                     <label for="service_type" class="form-control-placeholder">
@@ -30,9 +36,14 @@
             
                                 <div class="col form-group">
                                     
-                                    <select class="form-control" name="year_level" id="year_level">
+                                    <select class="form-control" name="year_level" id="year_level" onchange="this.form.submit()">
                                         @foreach ($year_levels as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                            @if ($value == $selected_year)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                            @else
+                                            <option value="{{$value}}">{{$value}}</option> 
+                                            @endif
+                                            
                                         @endforeach
                                     </select>
                                     <label for="dormitory_service_type" class="form-control-placeholder">
@@ -41,6 +52,7 @@
                                 </div>
             
                             </div>
+                            </form>
                             <div class="row">
                                 <div class="col text-right">
                                     <a class="btn btn-outline-primary btn-sm mb-0" href="normal/">Reload</a>

@@ -21,7 +21,11 @@
                                     <select class="form-control" name="college" id="college"
                                             onchange="this.form.submit()">
                                         @foreach ($colleges as $college)
-                                            <option value="{{$college->college_name}}">{{$college->college_name}}</option>
+                                        @if ($college->college_name == $selected_college)
+                                        <option value="{{$college->college_name}}" selected>{{$college->college_name}}</option>
+                                        @else
+                                        <option value="{{$college->college_name}}">{{$college->college_name}}</option>
+                                        @endif
                                         @endforeach
                                     </select>
                                     <label for="dormitory_service_type" class="form-control-placeholder">
@@ -32,7 +36,12 @@
                                 <div class="col-md-4 form-group">
                                     <select class="form-control" name="band" id="band" onchange="this.form.submit()">
                                         @foreach ($bands as $band)
-                                            <option value="{{$band->band_name}}">{{$band->band_name}}</option>
+                                        @if ($band->band_name == $selected_band)
+                                        <option value="{{$band->band_name}}" selected>{{$band->band_name}}</option>
+                                        @else
+                                        <option value="{{$band->band_name}}">{{$band->band_name}}</option> 
+                                        @endif
+                                            
                                         @endforeach
                                     </select>
                                     <label for="service_type" class="form-control-placeholder">
@@ -44,7 +53,12 @@
                                     <select class="form-control" name="education_level" id="education_level"
                                             onchange="this.form.submit()">
                                         @foreach ($education_levels as $key => $value)
-                                            <option value="{{$value}}">{{$value}}</option>
+                                        @if ($value == $selected_level)
+                                        <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                        <option value="{{$value}}">{{$value}}</option> 
+                                        @endif
+                                            
                                         @endforeach
                                     </select>
                                     <label for="education_level" class="form-control-placeholder">

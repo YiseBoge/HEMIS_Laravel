@@ -18,13 +18,13 @@
                     <div class="form-row">
                         <div class="col-md-5 px-3 py-md-1 col">
                             <div class="form-group">
-                                {!! Form::select('program_type', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramTypes') , $data['program_type'] , ['class' => 'form-control', 'id' => 'add_program_type', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::select('program_type', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramTypes') , $data['selected_type'] , ['class' => 'form-control', 'id' => 'add_program_type', 'onchange' => 'this.form.submit()']) !!}
                                 {!! Form::label('program_type', 'Program Type', ['class' => 'form-control-placeholder', 'for' => 'add_program_type']) !!}
                             </div>
                         </div>
                         <div class="col-md-5 px-3 py-md-1 col">
                             <div class="form-group">
-                                {!! Form::select('program_status', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramStats') , $data['program_status'] , ['class' => 'form-control', 'id' => 'add_program_status', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::select('program_status', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramStats') , $data['selected_status'] , ['class' => 'form-control', 'id' => 'add_program_status', 'onchange' => 'this.form.submit()']) !!}
                                 {!! Form::label('program_status', 'Program Status', ['class' => 'form-control-placeholder', 'for' => 'add_program_status']) !!}
                             </div>
                         </div>
@@ -32,9 +32,14 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-5 px-3 py-md-1 col">
-                            <select name="band_names" class="form-control" id="band_names">
+                            <select name="band_names" class="form-control" id="band_names" onchange = "this.form.submit()">
                                 @foreach ($data['bands'] as $band)
-                                    <option value="{{ $band->id }}">{{ $band->band_name }}</option>
+                                @if ($band->id == $data['selected_band'])
+                                <option value="{{ $band->id }}" selected>{{ $band->band_name }}</option>
+                                @else
+                                <option value="{{ $band->id }}">{{ $band->band_name }}</option>
+                                @endif
+                                    
                                 @endforeach
                             </select>
                             <label for="dormitory_service_type" class="form-control-placeholder">
@@ -46,9 +51,14 @@
                         </div>
                         <div class="col-md-5 px-3 py-md-1 col">
                             <div class="form-group">
-                                <select name="college_names" class="form-control" id="college_names">
+                                <select name="college_names" class="form-control" id="college_names" onchange = "this.form.submit()">
                                     @foreach ($data['colleges'] as $college)
-                                        <option value="{{ $college->id }}">{{ $college->college_name }}</option>
+                                    @if ($college->id == $data['selected_college'])
+                                    <option value="{{ $college->id }}" selected>{{ $college->college_name }}</option>
+                                    @else
+                                    <option value="{{ $college->id }}">{{ $college->college_name }}</option>
+                                    @endif
+                                        
                                     @endforeach
                                 </select>
                                 <label for="dormitory_service_type" class="form-control-placeholder">

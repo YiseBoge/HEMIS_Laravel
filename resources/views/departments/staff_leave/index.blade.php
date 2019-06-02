@@ -18,13 +18,13 @@
                     <div class="form-row">
                         <div class="col-md-5 px-3 py-md-1 col">
                             <div class="form-group">
-                                {!! Form::select('education_level', \App\Models\Department\StaffLeave::getEnum('LevelOfStudies') , $data['education_level'] , ['class' => 'form-control', 'id' => 'add_education_level', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::select('education_level', \App\Models\Department\StaffLeave::getEnum('LevelOfStudies') , $data['selected_level'] , ['class' => 'form-control', 'id' => 'add_education_level', 'onchange' => 'this.form.submit()']) !!}
                                 {!! Form::label('education_level', 'Level Of Studies', ['class' => 'form-control-placeholder', 'for' => 'education_level']) !!}
                             </div>
                         </div>
                         <div class="col-md-5 px-3 py-md-1 col">
                             <div class="form-group">
-                                {!! Form::select('study_place', \App\Models\Department\StaffLeave::getEnum('PlaceOfStudies') , $data['study_place'] , ['class' => 'form-control', 'id' => 'add_study_place', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::select('study_place', \App\Models\Department\StaffLeave::getEnum('PlaceOfStudies') , $data['selected_place'] , ['class' => 'form-control', 'id' => 'add_study_place', 'onchange' => 'this.form.submit()']) !!}
                                 {!! Form::label('study_place', 'Place Of Study', ['class' => 'form-control-placeholder', 'for' => 'add_study_place']) !!}
                             </div>
                         </div>
@@ -32,9 +32,14 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-5 px-3 py-md-1 col">
-                            <select name="band_names" class="form-control" id="band_names">
+                            <select name="band_names" class="form-control" id="band_names" onchange="this.form.submit()">
                                 @foreach ($data['bands'] as $band)
-                                    <option value="{{ $band->id }}">{{ $band->band_name }}</option>
+                                @if ($band->id == $data['selected_band'])
+                                <option value="{{ $band->id }}" selected>{{ $band->band_name }}</option>
+                                @else
+                                <option value="{{ $band->id }}">{{ $band->band_name }}</option>
+                                @endif
+                                    
                                 @endforeach
                             </select>
                             <label for="dormitory_service_type" class="form-control-placeholder">
@@ -46,9 +51,14 @@
                         </div>
                         <div class="col-md-5 px-3 py-md-1 col">
                             <div class="form-group">
-                                <select name="college_names" class="form-control" id="college_names">
+                                <select name="college_names" class="form-control" id="college_names" onchange="this.form.submit()">
                                     @foreach ($data['colleges'] as $college)
-                                        <option value="{{ $college->id }}">{{ $college->college_name }}</option>
+                                    @if ($college->id == $data['selected_college'])
+                                    <option value="{{ $college->id }}" selected>{{ $college->college_name }}</option>
+                                    @else
+                                    <option value="{{ $college->id }}">{{ $college->college_name }}</option>
+                                    @endif
+                                       
                                     @endforeach
                                 </select>
                                 <label for="dormitory_service_type" class="form-control-placeholder">

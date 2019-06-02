@@ -82,7 +82,13 @@ class PostGraduateDiplomaTrainingController extends Controller
             'bands' => BandName::all(),
             'programs' => PostGraduateDiplomaTraining::getEnum("Programs"),
             'types' => PostGraduateDiplomaTraining::getEnum('Types'),
-            'page_name' => 'departments.postgraduate_diploma_training.index'
+            'page_name' => 'departments.postgraduate_diploma_training.index',
+
+            'selected_type' => $requestedType,
+            'selected_program' => $requestedProgram,
+            'selected_college' => $requestedCollege,
+            'selected_band' => $requestedBand
+
         );
         return view("departments.postgraduate_diploma_training.index")->with($data);
     }

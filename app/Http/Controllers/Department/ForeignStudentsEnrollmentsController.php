@@ -95,7 +95,14 @@ class ForeignStudentsEnrollmentsController extends Controller
             'education_levels' => $educationLevels,
             'reasons' => ForeignStudent::getEnum("Reasons"),
             'year_levels' => Department::getEnum('YearLevels'),
-            'page_name' => 'enrollment.foreign_students.index'
+            'page_name' => 'enrollment.foreign_students.index',
+
+            'selected_reason' => $requestedReason,
+            'selected_program' => $requestedProgram,
+            'selected_college' => $requestedCollege,
+            'selected_education_level' => $requestedLevel,
+            'selected_band' => $requestedBand,
+            'selected_year' => $requestedYearLevel,
         );
         return view("enrollment.foreign_students.index")->with($data);
     }

@@ -82,6 +82,12 @@ class SpecialProgramTeacherController extends Controller
             'special_program_teachers'=>$filteredTeachers,
             'colleges'=>CollegeName::all(),
             'bands'=>BandName::all(),
+
+            'selected_type' => $requestedType,
+            'selected_status' => $requestedStatus,
+            'selected_college' => $requestedCollege,
+            'selected_band' => $requestedBand,
+
             'page_name'=>'departments.special-program-teacher.index'
         ];
         //return $data['special_program_teachers'];
