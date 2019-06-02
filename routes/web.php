@@ -66,6 +66,7 @@ Route::resource('department/expatriate-staff', 'Department\ExpatriateStaffsContr
 Route::get('/admin', function () {
     return view('admin.index');
 });
+Route::get('admin/student-enrollment-chart','HomeController@adminEnrollmentChart');
 
 Route::get('/staff_attrition', function () {
     return view('staff.staff_attrition');
