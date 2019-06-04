@@ -18,7 +18,12 @@
                         <div class="col form-group">
                             <select class="form-control" name="type" id="type" onchange="this.form.submit()">
                                 @foreach ($types as $key => $value)
+                                @if ($value == $selected_type)
+                                    <option value="{{$value}}" selected>{{$value}}</option>
+                                @else
                                     <option value="{{$value}}">{{$value}}</option>
+                                @endif
+                                    
                                 @endforeach
                             </select>
                             <label for="type" class="form-control-placeholder">
@@ -28,7 +33,12 @@
                         <div class="col form-group">
                             <select class="form-control" name="status" id="status" onchange="this.form.submit()">
                                 @foreach ($completions as $key => $value)
+                                @if ($value == $selected_status)
+                                    <option value="{{$value}}" selected>{{$value}}</option>
+                                @else 
                                     <option value="{{$value}}">{{$value}}</option>
+                                @endif
+                                    
                                 @endforeach
                             </select>
                             <label for="status" class="form-control-placeholder" onchange="this.form.submit()">

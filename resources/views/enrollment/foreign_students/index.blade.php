@@ -15,83 +15,109 @@
                                         class="fas fa-arrow-right ml-2"></i></a>
                                 </div>
                             </div>
-                        <form action="" method="get">
-                            <div class="form-group row pt-3">
-                                <div class="col form-group">
-                                    <select class="form-control" name="college" id="college"
-                                            onchange="this.form.submit()">
-                                        @foreach ($colleges as $college)
-                                            <option value="{{$college->college_name}}">{{$college->college_name}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="college" class="form-control-placeholder">
-                                        College
-                                    </label>
-                                </div>
-                                <div class="col form-group">
-                                    <select class="form-control" name="band" id="band" onchange="this.form.submit()">
-                                        @foreach ($bands as $band)
-                                            <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="band" class="form-control-placeholder">
-                                        Band
-                                    </label>
-                                </div>
-                                <div class="col form-group">
-                                    <select class="form-control" name="education_level" id="education_level"
-                                            onchange="this.form.submit()">
-                                        @foreach ($education_levels as $key => $value)
-                                            <option value="{{$value}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="education_level" class="form-control-placeholder">
-                                        Education Level
-                                    </label>
-                                </div>
-
-                            </div>
-                            <div class="form-group row pt-3">
-                                <div class="col form-group">
-
-                                    <select class="form-control" name="program" id="program"
-                                            onchange="this.form.submit()">
-                                        @foreach ($programs as $key => $value)
-                                            <option value="{{$value}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="program" class="form-control-placeholder">
-                                        Program
-                                    </label>
-                                </div>
-
-                                <div class="col form-group">
-
-                                    <select class="form-control" name="reason" id="reason"
-                                            onchange="this.form.submit()">
-                                        @foreach ($reasons as $key => $value)
-                                            <option value="{{$value}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="reason" class="form-control-placeholder">
-                                        Reason
-                                    </label>
-                                </div>
-                                <div class="col form-group">
-
-                                    <select class="form-control" name="year_level" id="year_level"
-                                            onchange="this.form.submit()">
-                                        @foreach ($year_levels as $key => $value)
-                                            <option value="{{$value}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="year_level" class="form-control-placeholder">
-                                        Year Level
-                                    </label>
-                                </div>
-
-                            </div>
-                        </form>
+                            <form action="" method="get">
+                                    <div class="form-group row pt-3">
+                                        <div class="col form-group">
+                                            <select class="form-control" name="reason" id="reason" onchange="this.form.submit()">
+                                                @foreach ($reasons as $key => $value)
+                                                    @if ($value == $selected_reason)
+                                                        <option value="{{$value}}" selected>{{$value}}</option>
+                                                    @else
+                                                        <option value="{{$value}}">{{$value}}</option>
+                                                    @endif                                            
+                                                @endforeach
+                                            </select>
+                                            <label for="reason" class="form-control-placeholder">
+                                               Reason
+                                            </label>
+                                        </div>
+                                        <div class="col form-group">
+                                            <select class="form-control" name="college" id="college" onchange="this.form.submit()" >
+                                                @foreach ($colleges as $college)
+                                                    @if ($college->college_name == $selected_college)
+                                                        <option value="{{$college->college_name}}" selected>{{$college->college_name}}</option>
+                                                    @else
+                                                        <option value="{{$college->college_name}}">{{$college->college_name}}</option>
+                                                    @endif
+                                                    
+                                                @endforeach
+                                            </select>
+                                            <label for="dormitory_service_type" class="form-control-placeholder">
+                                                College
+                                            </label>
+                                        </div>
+                                        <div class="col form-group">
+                                            <select class="form-control" name="band" id="band" onchange="this.form.submit()">
+                                                @foreach ($bands as $band)
+                                                    @if ($band->band_name == $selected_band)
+                                                    <option value="{{$band->band_name}}" selected>{{$band->band_name}}</option>
+                                                    @else
+                                                    <option value="{{$band->band_name}}">{{$band->band_name}}</option>
+                                                    @endif
+                                                    
+                                                @endforeach
+                                            </select>
+                                            <label for="service_type" class="form-control-placeholder">
+                                                Band
+                                            </label>
+                                        </div>
+        
+                                    </div>
+                                    <div class="form-group row pt-3">
+                                        <div class="col form-group">
+        
+                                            <select class="form-control" name="program" id="program" onchange="this.form.submit()">
+                                                @foreach ($programs as $key => $value)
+                                                @if ($value == $selected_program)
+                                                <option value="{{$value}}" selected>{{$value}}</option>
+                                                @else
+                                                <option value="{{$value}}">{{$value}}</option> 
+                                                @endif
+                                                    
+                                                @endforeach
+                                            </select>
+                                            <label for="service_type" class="form-control-placeholder">
+                                                Program
+                                            </label>
+                                        </div>
+        
+                                        <div class="col form-group">
+        
+                                            <select class="form-control" name="education_level" id="level" onchange="this.form.submit()">
+                                                @foreach ($education_levels as $key => $value)
+                                                @if ($key == 'SPECIALIZATION')
+                                                        <option disabled value="{{$value}}">{{$value}}</option>
+                                                @elseif($value == $selected_education_level)
+                                                        <option value="{{$value}}" selected>{{$value}}</option>
+                                                @else
+                                                        <option value="{{$value}}">{{$value}}</option>
+                                                @endif
+                                                @endforeach
+                                            </select>
+                                            <label for="dormitory_service_type" class="form-control-placeholder">
+                                                Education Level
+                                            </label>
+                                        </div>
+                                        <div class="col form-group">
+        
+                                            <select class="form-control" name="year_level" id="year_level" onchange="this.form.submit()">
+                                                @foreach ($year_levels as $key => $value)
+                                                    @if ($value == $selected_year)
+                                                    <option value="{{$value}}" selected>{{$value}}</option>
+                                                    @else
+                                                    <option value="{{$value}}">{{$value}}</option>
+                                                    @endif
+                                                   
+                                                @endforeach
+                                            </select>
+                                            <label for="dormitory_service_type" class="form-control-placeholder">
+                                                Year Level
+                                            </label>
+                                        </div>
+        
+                                    </div>
+        
+                                </form>
                             <hr>                        
                         <div class="row mt-3">
                             <div class="col-sm-12">

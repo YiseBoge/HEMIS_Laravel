@@ -50,7 +50,6 @@ class TeachersController extends Controller
                         if ($college->collegeName->college_name == $requestedCollege && $college->education_level == "None" && $college->education_program == "None") {
                             foreach ($college->departments as $department) {
                                 if ($department->year_level == "None") {
-                                    return $department;
                                     foreach ($department->teachers as $teacher) {
                                         if ($teacher->level_of_education == $requestedLevel) {
                                             $teachers[] = $teacher;
@@ -74,6 +73,10 @@ class TeachersController extends Controller
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'education_levels' => Teacher::getEnum("EducationLevels"),
+
+            'selected_college' => $requestedCollege,
+            'selected_level' => $requestedLevel,
+            'selected_band' => $requestedBand,
             'page_name' => 'departments.teachers.index'
         );
         //return $filteredEnrollments;

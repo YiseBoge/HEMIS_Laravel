@@ -15,21 +15,32 @@
                                         class="fas fa-arrow-right ml-2"></i></a>
                                 </div>
                             </div>
-                        
+                            <form action="" method="get">
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <select class="form-control" name="region_type" id="region_type">
-                                        <option value="emerging_regions">Emerging Regions</option>
+                                    <select class="form-control" name="region_type" id="region_type" onchange="this.form.submit()">
+                                        @if ($selected_type == "Emerging Regions")
+                                        <option value="emerging_regions" selected>Emerging Regions</option>
                                         <option value="pastoral_regions">Pastoral Regions</option>
+                                        @else
+                                        <option value="emerging_regions">Emerging Regions</option>
+                                        <option value="pastoral_regions" selected>Pastoral Regions</option>
+                                        @endif
+                                        
                                     </select>
                                     <label for="region_type" class="form-control-placeholder">
                                             Region Type
                                     </label>
                                 </div>
                                 <div class="col form-group">
-                                    <select class="form-control" name="region" id="region">
+                                    <select class="form-control" name="region" id="region" onchange="this.form.submit()">
                                         @foreach ($regions as $region)
-                                            <option value="{{$region->name}}">{{$region->name}}</option>
+                                        @if ($region->region_name == $selected_region)
+                                        <option value="{{$region->name}}">{{$region->name}}</option>
+                                        @else
+                                        <option value="{{$region->name}}">{{$region->name}}</option>
+                                        @endif
+                                            
                                         @endforeach
                                     </select>
                                     <label for="region" class="form-control-placeholder">
@@ -37,13 +48,19 @@
                                     </label>
                                 </div>
                         </div>
+                        
                        
                         <div class="form-group row pt-3">
                             <div class="col form-group">
                                 
-                                <select class="form-control" name="program" id="program">
+                                <select class="form-control" name="program" id="program" onchange="this.form.submit()">
                                     @foreach ($programs as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
+                                    @if ($value == $selected_program)
+                                    <option value="{{$value}}" selected>{{$value}}</option>
+                                    @else
+                                    <option value="{{$value}}">{{$value}}</option>
+                                    @endif
+                                       
                                     @endforeach
                                 </select>
                                 <label for="service_type" class="form-control-placeholder">
@@ -53,9 +70,14 @@
         
                             <div class="col form-group">
                                 
-                                <select class="form-control" name="year_level" id="year_level">
+                                <select class="form-control" name="year_level" id="year_level"  onchange="this.form.submit()">
                                     @foreach ($year_levels as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
+                                    @if ($value == $selected_year)
+                                    <option value="{{$value}}" selected>{{$value}}</option>
+                                    @else
+                                    <option value="{{$value}}">{{$value}}</option>
+                                    @endif
+                                        
                                     @endforeach
                                 </select>
                                 <label for="dormitory_service_type" class="form-control-placeholder">
@@ -64,6 +86,7 @@
                             </div>
         
                         </div>
+                            </form>
                             <div class="row">
                                 <div class="col text-right">
                                     <a class="btn btn-outline-primary btn-sm mb-0" href="normal/">Reload</a>

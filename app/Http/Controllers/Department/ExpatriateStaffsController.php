@@ -71,7 +71,11 @@ class ExpatriateStaffsController extends Controller
             'expatriate_staff' => $filteredExpatriates,
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
-            'page_name' => 'departments.expatriate_staff.index'
+            'page_name' => 'departments.expatriate_staff.index',
+
+            'selected_level' => $requestedLevel,
+            'selected_band' => $requestedBand,
+            'selected_college' => $requestedCollege
         ];
 
         return view('departments.expatriate_staff.index')->with('data', $data);

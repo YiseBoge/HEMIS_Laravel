@@ -75,7 +75,11 @@ class AcademicStaffController extends Controller
             'upgrading_staff' => $filteredTeachers,
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
-            'page_name' => 'departments.academic-staff.index'
+            'page_name' => 'departments.academic-staff.index',
+
+            "selected_level" => $requestedLevel,
+            "selected_band" => $requestedBand,
+            "selected_college" => $requestedCollege
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;

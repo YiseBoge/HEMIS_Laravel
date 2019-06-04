@@ -17,10 +17,31 @@ class SpecialRegionsEnrollmentsController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $institution = $user->institution();
+
+
+        $requestedProgram=$request->input('program');
+        if($requestedProgram==null){
+            $requestedProgram='Regular';
+        }
+
+        $requestedYearLevel=$request->input('year_level');
+        if($requestedYearLevel==null){
+            $requestedYearLevel='1';
+        }
+
+        $requestedType=$request->input('region_type');
+        if($requestedType==null){
+            $requestedType='Emerging Regions';
+        }
+
+        $requestedRegion=$request->input('region');
+        if($requestedRegion==null){
+            $requestedRegion= RegionName::get()->first->region_name;
+        }
 
         $enrollments = array();
 
@@ -37,6 +58,11 @@ class SpecialRegionsEnrollmentsController extends Controller
             'regions' => RegionName::all(),
             'programs' => EmergingRegion::getEnum("EducationPrograms"),
             'year_levels' => EmergingRegion::getEnum('Years'),
+
+            'selected_program' => $requestedProgram,
+            'selected_year' => $requestedYearLevel,
+            'selected_type' => $requestedType,
+            'selected_region' => $requestedRegion,
             'page_name' => 'enrollment.special_region_students.index'
         );
         return view("enrollment.special_region_students.index")->with($data);

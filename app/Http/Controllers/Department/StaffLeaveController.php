@@ -81,6 +81,11 @@ class StaffLeaveController extends Controller
             'upgrading_staff' => $filteredTeachers,
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
+            
+            'selected_college' => $requestedCollege,
+            'selected_level' => $requestedLevel,
+            'selected_place' => $requestedPlace,
+            'selected_band' => $requestedBand,
             'page_name' => 'departments.staff-leave.index'
         ];
         //return $data['special_program_teachers'];

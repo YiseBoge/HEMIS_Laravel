@@ -1,61 +1,114 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (Auth::user()->hasRole('Super Admin'))
-
-    @else
+  
     <div class="container-fluid">
-            <h1 class="text-primary">{{$name}}</h1>
-            <div class="row my-3">
-                <div class="col-md-3">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Number of Campuses
+            @if (Auth::user()->hasRole('Super Admin'))
+                <div class="row my-3">
+                    <div class="col-md-3">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Number of Institutions
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{$institutions_number}}
+                                </div>
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                4
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Number of Colleges
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{$colleges_number}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Number of Bands
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{$bands_number}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Number of Departments
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{$departments_number}}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Number of Colleges
+            @else 
+                <h1 class="text-primary">{{$name}}</h1>
+                <div class="row my-3">
+                        <div class="col-md-3">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Number of Campuses
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{$campuses_number}}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                6
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Number of Colleges
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{$colleges_number}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Number of Institutes
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{$institutes_number}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Number of Schools
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{$schools_number}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Number of Institutes
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                2
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Number of Schools
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                1
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endif
+            
+     
             <div class="row my-5">
                 <div class="col-md-7">                
                     <div class="card shadow">
@@ -123,7 +176,6 @@
                 </div>
             </div>
         </div>
-    @endif
     
     <script
         src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

@@ -15,10 +15,20 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $institution = $user->institution();
+
+        $requestedProgram=$request->input('program');
+        if($requestedProgram==null){
+            $requestedProgram='Regular';
+        }
+
+        $requestedYearLevel=$request->input('year_level');
+        if($requestedYearLevel==null){
+            $requestedYearLevel='1';
+        }
 
         $enrollments = array();
 
@@ -34,6 +44,9 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
             'enrollments' => $enrollments,
             'programs' => SpecialNeeds::getEnum("EducationPrograms"),
             'year_levels' => SpecialNeeds::getEnum('Years'),
+
+            'selected_program' => $requestedProgram,
+            'selected_year' => $requestedYearLevel,
             'page_name' => 'enrollment.specializing_student_enrollment.index'
         );
         return view("enrollment.special_need_students.index")->with($data);

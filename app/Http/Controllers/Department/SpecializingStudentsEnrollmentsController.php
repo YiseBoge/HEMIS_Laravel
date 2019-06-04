@@ -94,6 +94,14 @@ class SpecializingStudentsEnrollmentsController extends Controller
             'specialization_types' => SpecializingStudentsEnrollment::getEnum("SpecializationTypes"),
             'student_types' => SpecializingStudentsEnrollment::getEnum('StudentTypes'),
             'year_levels' => Department::getEnum('YearLevels'),
+
+            'selected_student_type' => $requestedType,
+            'selected_program' => $requestedProgram,
+            'selected_college' => $requestedCollege,
+            'selected_specialization' => $requestedSpecializationType,
+            'selected_band' => $requestedBand,
+            'selected_year' => $requestedYearLevel,
+
             'page_name' => 'enrollment.specializing_student_enrollment.index'
         );
         return view("enrollment.specializing_students.index")->with($data);
