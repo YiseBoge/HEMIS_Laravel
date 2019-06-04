@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateBudgetsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('budgets', function (Blueprint $table) {
+            $table->uuid('id');
+            $table->bigInteger('allocated_budget');
+            $table->bigInteger('additional_budget');
+            $table->bigInteger('utilized_budget');
+            $table->string('budget_type');
+            $table->timestamps();
+
+            $table->primary('id');
+            $table->uuid('budget_description_id');
+
+            $table->uuid('college_id');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('budgets');
+    }
+}
