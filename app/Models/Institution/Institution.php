@@ -64,7 +64,7 @@ class Institution extends Model
     }
 
     public function specialNeeds(){
-        return $this->hasMany('App\Models\Institution\specialNeeds');
+        return $this->hasMany('App\Models\Institution\SpecialNeeds');
     }
 
     public function __toString()
