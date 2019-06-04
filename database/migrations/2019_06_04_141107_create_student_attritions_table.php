@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateStudentAttritionsTable extends Migration
 {
@@ -17,14 +17,11 @@ class CreateStudentAttritionsTable extends Migration
             $table->uuid('id');
             $table->string('type');
             $table->string('case');
-            $table->string('program');
             $table->bigInteger('male_students_number');
             $table->bigInteger('female_students_number');
             $table->timestamps();
-
             $table->primary('id');
-
-            $table->uuid('band_id');
+            $table->uuid('department_id');
         });
     }
 

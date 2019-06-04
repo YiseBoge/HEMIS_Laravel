@@ -21,13 +21,14 @@ Route::post('/institution/instance/update-current', 'Institution\InstancesContro
 Route::resource('institution/buildings', 'Institution\BuildingsController');
 
 //Route::resource('staff/academic', 'Staff\AcademicStaffsController');
+Route::resource('staff/academic', 'Staff\AcademicStaffsController');
 Route::resource('staff/technical', 'Staff\TechnicalStaffsController');
 Route::resource('staff/administrative', 'Staff\AdministrativeStaffsController');
 Route::resource('staff/ict', 'Staff\IctStaffsController');
 Route::resource('staff/supportive', 'Staff\SupportiveStaffsController');
 
-Route::resource('student/disabled', 'Student\DisabledStudentsController');
-Route::resource('student/foreigner', 'Student\ForeignerStudentsController');
+Route::resource('student/special-need', 'Student\SpecialNeedStudentsController');
+Route::resource('student/foreign', 'Student\ForeignStudentsController');
 
 Route::resource('institution/institution-name','Institution\InstitutionNamesController');
 Route::resource('band/band-name','Band\BandNamesController');
@@ -47,9 +48,7 @@ Route::resource('enrollment/normal','Department\EnrollmentsController');
 Route::get('enrollment/normal-chart','Department\EnrollmentsController@viewChart');
 Route::get('enrollment/student-enrollment-chart','Department\EnrollmentsController@chart');
 Route::resource('enrollment/special-region-students','Institution\SpecialRegionsEnrollmentsController');
-Route::resource('enrollment/special-need-students','Institution\SpecialNeedStudentsEnrollmentsController');
 Route::resource('enrollment/specializing-students','Department\SpecializingStudentsEnrollmentsController');
-Route::resource('enrollment/foreign-students','Department\ForeignStudentsEnrollmentsController');
 
 Route::resource('institution/researches','Band\ResearchsController');
 Route::resource('institution/university-industry-linkage','Band\UniversityIndustryLinkageController');
@@ -57,7 +56,6 @@ Route::resource('institution/student-attrition', 'Band\StudentAttritionControlle
 Route::resource('staff/technical-staff','College\TechnicalStaffController');
 Route::resource('department/upgrading-staff', 'Department\UpgradingStaffController');
 Route::resource('department/staff-leave', 'Department\StaffLeaveController');
-Route::resource('department/academic-staff', 'Department\AcademicStaffController');
 Route::resource('department/expatriate-staff', 'Department\ExaptriateStaffsController');
 Route::resource('department/postgraduate-diploma-training', 'Department\PostGraduateDiplomaTrainingController');
 Route::resource('department/teachers', 'Department\TeachersController');

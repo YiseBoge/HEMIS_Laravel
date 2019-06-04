@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateForeignStudentsTable extends Migration
+class CreateDormitoryServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,13 @@ class CreateForeignStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('foreign_students', function (Blueprint $table) {
+        Schema::create('dormitory_services', function (Blueprint $table) {
             $table->uuid('id');
-            $table->bigInteger('number_of_male_students');
-            $table->bigInteger('number_of_female_students');
+            $table->string('block');
+            $table->string('room_no');
+            $table->string('dormitory_service_type');
             $table->timestamps();
-
-            $table->string('reason');
-
             $table->primary('id');
-
-            $table->uuid('department_id');
         });
     }
 
@@ -34,6 +30,6 @@ class CreateForeignStudentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('foreign_students');
+        Schema::dropIfExists('dormitory_services');
     }
 }

@@ -4,14 +4,14 @@
     <div class="container-fluid">
         <div class="card shadow-sm mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Disabled Students</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Special Need Students</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">
                             <div class="col text-right">
-                                <a class="btn btn-outline-primary btn-sm mb-0" href="disabled/create">Add Student<i
+                                <a class="btn btn-outline-primary btn-sm mb-0" href="special-need/create">Add Student<i
                                     class="fas fa-arrow-right ml-2"></i></a>
                             </div>
                         </div>
@@ -62,14 +62,14 @@
                                     <tbody>
                                         @if (count($students) > 0)
                                             @foreach ($students as $student)
-                                                <tr role="row" class="odd" onclick="window.location='disabled/{{$student->id}}'">
+                                                <tr role="row" class="odd" onclick="window.location='special-need/{{$student->id}}'">
                                                     <td class="pl-4">
                                                         <div class="row">
                                                             <div class="col pt-1">
-                                                                <a href="disabled/{{$student->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> </a>
+                                                                <a href="special-need/{{$student->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> </a>
                                                             </div>
                                                             <div class="col">
-                                                                <form class="p-0" action="/student/disabled/{{$student->id}}" method="POST">
+                                                                <form class="p-0" action="/student/special-need/{{$student->id}}" method="POST">
                                                                     @csrf
                                                                     <input type="hidden" name="_method" value="DELETE">
                                                                     <button type="submit" class="form-control form-control-plaintext text-danger p-0">
@@ -83,9 +83,9 @@
                                                     <td>{{$student->general->student_id}}</td>
                                                     <td>{{$student->general->sex}}</td>
                                                     <td>{{$student->general->birth_date}}</td>
-                                                    <td>{{$student->department->band->bandName->band_name}}</td>
+                                                    <td>{{$student->department->college->band->bandName->band_name}}</td>
                                                     <td>{{$student->department->departmentName->department_name}}</td>
-                                                    <td>{{$student->department->band->education_level}}</td>
+                                                    <td>{{$student->department->college->education_level}}</td>
                                                     <td>{{$student->disability}}</td>
                                                 </tr>
                                             @endforeach

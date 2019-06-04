@@ -4,7 +4,7 @@
     <div class="container mb-5">
         <div class="row">
             <div class="col-md-9">
-                <h1 class="font-weight-bold text-primary">Disabled Student</h1>
+                <h1 class="font-weight-bold text-primary">Special Need Student</h1>
             </div>
             <div class="col-md-2 pt-4">
                     <a href="{{$student->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> Edit</a>
@@ -56,7 +56,11 @@
                 <div class="row mt-4">
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Band</div>
-                        <p>{{$student->department->band->bandName->band_name}}</p>
+                        <p>{{$student->department->college->band->bandName->band_name}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">College</div>
+                        <p>{{$student->department->college->collegeName->college_name}}</p>
                     </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Department</div>
@@ -64,14 +68,15 @@
                     </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Program</div>
-                        <p>{{$student->department->band->education_program}}</p>
+                        <p>{{$student->department->college->education_program}}</p>
                     </div>
-                    <div class="col-md-3">
-                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Education Level</div>
-                        <p>{{$student->department->band->education_level}}</p>
-                    </div>
+                   
                 </div>
                 <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Education Level</div>
+                        <p>{{$student->department->college->education_level}}</p>
+                    </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Year Level</div>
                         <p>{{$student->department->year_level}}</p>
@@ -133,7 +138,7 @@
                 <div class="modal-body">Are you sure you wish to delete?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="/student/disabled/{{$student->id}}" method="POST">
+                    <form action="/student/special-need/{{$student->id}}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="form-control btn btn-danger">

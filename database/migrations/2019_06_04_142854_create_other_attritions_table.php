@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAcademicStaffTable extends Migration
+class CreateOtherAttritionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateAcademicStaffTable extends Migration
      */
     public function up()
     {
-        Schema::create('academic_staff', function (Blueprint $table) {
-            $table->uuid('id'); 
-            $table->bigInteger('male_number'); 
-            $table->bigInteger('female_number'); 
-            
-            $table->string('staff_rank');
+        Schema::create('other_attritions', function (Blueprint $table) {
+            $table->uuid('id');
+            $table->string('type');
+            $table->string('case');
+            $table->bigInteger('male_students_number');
+            $table->bigInteger('female_students_number');
             $table->timestamps();
-
             $table->primary('id');
-            
             $table->uuid('department_id');
         });
     }
@@ -34,6 +32,6 @@ class CreateAcademicStaffTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('academic_staff');
+        Schema::dropIfExists('other_attritions');
     }
 }

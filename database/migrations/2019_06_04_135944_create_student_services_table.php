@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStaffLeavesTable extends Migration
+class CreateStudentServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,12 @@ class CreateStaffLeavesTable extends Migration
      */
     public function up()
     {
-        Schema::create('staff_leaves', function (Blueprint $table) {
+        Schema::create('student_services', function (Blueprint $table) {
             $table->uuid('id');
-            $table->bigInteger('number_of_male_students');
-            $table->bigInteger('number_of_female_students');
+            $table->string('food_service_type');
             $table->timestamps();
-
-            $table->string('level_of_study');
-            $table->string('place_of_study');
-
             $table->primary('id');
-
-            $table->uuid('department_id');
+            $table->uuid('dormitory_service_id');
         });
     }
 
@@ -35,6 +29,6 @@ class CreateStaffLeavesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('staff_leaves');
+        Schema::dropIfExists('student_services');
     }
 }

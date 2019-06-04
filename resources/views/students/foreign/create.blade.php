@@ -10,9 +10,9 @@
                 </div>
             @endforeach
         @endif
-        <form class="pb-5" action="/student/foreigner" method="POST">
+        <form class="pb-5" action="/student/foreign" method="POST">
             @csrf
-            <h3 class="font-weight-bold text-primary">Add Foreigner Student</h3>
+            <h3 class="font-weight-bold text-primary">Add Foreign Student</h3>
             <hr>
             <div class="row my-5">
                 <div class="col-md-5">
@@ -190,7 +190,7 @@
 
             <fieldset class="card shadow h-100 my-5">
                 <div class="card-header text-primary">
-                        Foreigner Student Information
+                        Foreign Student Information
                 </div>
                 <div class="card-body px-4">
                     <div class="form-group row pt-3">

@@ -38,16 +38,6 @@ class Department extends Model
         return $this->hasMany('App\Models\Department\Enrollment');
     }
 
-    public function foreignStudentEnrollments()
-    {
-        return $this->hasMany('App\Models\Department\ForeignStudent');
-    }
-
-    public function specializingStudentEnrollments()
-    {
-        return $this->hasMany('App\Models\Department\SpecializingStudentsEnrollment');
-    }
-
     public function specialProgramTeachers(){
         return $this->hasMany('App\Models\Department\SpecialProgramTeacher');
     }
@@ -80,6 +70,26 @@ class Department extends Model
     public function expatriates()
     {
         return $this->hasMany('App\Models\Department\ExpatriateStaff');
+    }
+
+    public function specialNeedStudents()
+    {
+        return $this->hasMany('App\Models\Student\SpecialNeedStudent');
+    }
+
+    public function foreignStudents()
+    {
+        return $this->hasMany('App\Models\Student\ForeignStudent');
+    }
+
+    public function studentAttritions()
+    {
+        return $this->hasMany('App\Models\Department\StudentAttrition');
+    }
+
+    public function otherAttritions()
+    {
+        return $this->hasMany('App\Models\Department\OtherAttrition');
     }
 
 

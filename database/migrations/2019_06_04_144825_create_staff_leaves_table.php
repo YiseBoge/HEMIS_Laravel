@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSpecialNeedsTable extends Migration
+class CreateStaffLeavesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,16 @@ class CreateSpecialNeedsTable extends Migration
      */
     public function up()
     {
-        Schema::create('special_needs', function (Blueprint $table) {
+        Schema::create('staff_leaves', function (Blueprint $table) {
             $table->uuid('id');
-            $table->bigInteger('male_students_number');
-            $table->bigInteger('female_students_number');
+            $table->string('institution');
+            $table->string('country_of_study');
+            $table->string('rank_of_study');
+            $table->string('status_of_study');
+            $table->string('leave_type');
+            $table->string('scholarship_type');
             $table->timestamps();
-
-            $table->string('type');
-            $table->string('year');
-            $table->string('program');
-
             $table->primary('id');
-
-            $table->uuid('institution_id');
         });
     }
 
@@ -36,6 +33,6 @@ class CreateSpecialNeedsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('special_needs');
+        Schema::dropIfExists('staff_leaves');
     }
 }

@@ -85,13 +85,24 @@
             </a>
             <div id="collapseStudents" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Student Acts:</h6>
                     <a class="collapse-item" href="/enrollment/normal">Normal Students</a>
-                    <a class="collapse-item" href="/enrollment/foreign-students">Foreign Students</a>
-                    <a class="collapse-item" href="/enrollment/special-need-students">Special Need Students</a>
                     <a class="collapse-item" href="/enrollment/special-region-students">Special Region Students</a>
                     <a class="collapse-item" href="/enrollment/specializing-students">Specializing Students</a>
                     <a class="collapse-item" href="/institution/age-enrollment">Enrollment With Age</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudent"
+               aria-expanded="false"
+               aria-controls="collapseInstitution">
+                <i class="fas fa-university"></i>
+                <span>Students</span>
+            </a>
+            <div id="collapseStudent" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/student/foreign">Foreign Students</a>
+                    <a class="collapse-item" href="/student/special-need">Special Need Students</a>
                 </div>
             </div>
         </li>
@@ -106,7 +117,7 @@
             <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Staff Acts:</h6>
-                    <a class="collapse-item" href="/department/academic-staff">Academic Staff</a>
+                    <a class="collapse-item" href="/staff/academic">Academic Staff</a>
                     <a class="collapse-item" href="/department/expatriate-staff">Expatriate Staff</a>
                     <a class="collapse-item" href="/department/teachers">Teachers</a>
                     <a class="collapse-item" href="/institution/foreign-staff">Foreign Academic Staff</a>

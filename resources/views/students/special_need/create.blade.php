@@ -10,9 +10,9 @@
                 </div>
             @endforeach
         @endif
-        <form class="pb-5" action="/student/disabled" method="POST">
+        <form class="pb-5" action="/student/special-need" method="POST">
             @csrf
-            <h3 class="font-weight-bold text-primary">Add Disabled Student</h3>
+            <h3 class="font-weight-bold text-primary">Add Special Need Student</h3>
             <hr>
             <div class="row my-5">
                 <div class="col-md-5">
