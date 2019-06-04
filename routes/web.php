@@ -94,3 +94,4 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('home/student-enrollment-chart','HomeController@enrollmentChart');
 Route::get('home/age-enrollment-chart','HomeController@ageEnrollmentChart');
+Route::get('home/specialNeeds-enrollment-chart','HomeController@specialNeedEnrollmentChart');
