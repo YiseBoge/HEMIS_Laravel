@@ -7,6 +7,7 @@ use App\Models\College\Investment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class InvestmentsController extends Controller
 {
@@ -39,10 +40,10 @@ class InvestmentsController extends Controller
 
         $data = array(
             'investments' => $investments,
-            'page_name' => 'institution.investment.index'
+            'page_name' => 'budgets.investment.index'
         );
 
-        return view('institutions.private_investment.index')->with('data', $data);
+        return view('budgets.private_investment.index')->with('data', $data);
     }
 
     /**
@@ -77,10 +78,10 @@ class InvestmentsController extends Controller
         $data = array(
             'investments' => $investments,
             'investment_titles' => $investmentTitles,
-            'page_name' => 'institution.investment.create'
+            'page_name' => 'budgets.investment.create'
         );
 
-        return view('institutions.private_investment.index')->with('data', $data);
+        return view('budgets.private_investment.index')->with('data', $data);
     }
 
     /**
@@ -88,6 +89,7 @@ class InvestmentsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -117,11 +119,10 @@ class InvestmentsController extends Controller
                 }
             }
         } else {
-            $investments = Investment::all();
         }
 
 
-        return redirect('/institution/private-investment');
+        return redirect('/budgets/private-investment');
     }
 
     /**
@@ -173,10 +174,10 @@ class InvestmentsController extends Controller
             'investment' => $investment,
             'investment_titles' => $investmentTitles,
             'investment_title' => $investmentTitle,
-            'page_name' => 'institution.investment.edit'
+            'page_name' => 'budgets.private_investment.edit'
         );
 
-        return view('institutions.private_investment.index')->with('data', $data);
+        return view('budgets.private_investment.index')->with('data', $data);
     }
 
     /**
@@ -185,6 +186,7 @@ class InvestmentsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
@@ -202,7 +204,7 @@ class InvestmentsController extends Controller
         $investment->save();
 
 
-        return redirect('/institution/private-investment');
+        return redirect('/budgets/private-investment');
     }
 
     /**

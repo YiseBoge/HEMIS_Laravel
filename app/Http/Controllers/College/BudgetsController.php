@@ -18,7 +18,6 @@ class BudgetsController extends Controller
      */
     public function index(Request $request)
     {
-
         $requestedType = $request->input('budget_type');
         if ($requestedType == null) {
             $requestedType = 'CAPITAL';
@@ -49,8 +48,13 @@ class BudgetsController extends Controller
         }
 
 
-        $data = ['budget_type' => $requestedType, 'budgets' => $budgets, 'page_name' => 'institution.budget.index'];
-        return view('institutions.budget.index')->with('data', $data);
+        $data = [
+            'budget_type' => $requestedType,
+            'budget_types' => Budget::getEnum('budget_type'),
+            'budgets' => $budgets,
+            'page_name' => 'budgets.budget.index'
+        ];
+        return view('budgets.budget.index')->with('data', $data);
     }
 
     /**
@@ -84,9 +88,15 @@ class BudgetsController extends Controller
             $budgets = Budget::where('budget_type', $budget_type)->get();
         }
 
-        $data = ['budget_type' => 'CAPITAL', 'budgets' => $budgets, 'page_name' => 'institution.budget.create'];
+        $data = [
+            'budget_type' => 'CAPITAL',
+            'budget_types' => Budget::getEnum('budget_type'),
+            'budget_descriptions' => BudgetDescription::all(),
+            'budgets' => $budgets,
+            'page_name' => 'budgets.budget.create'
+        ];
 
-        return view('institutions.budget.index')->with('data', $data);
+        return view('budgets.budget.index')->with('data', $data);
     }
 
     /**
@@ -132,7 +142,7 @@ class BudgetsController extends Controller
         } else {
         }
 
-        return redirect('/institution/budget');
+        return redirect('/budgets/budget');
     }
 
     /**
@@ -189,13 +199,14 @@ class BudgetsController extends Controller
         $data = array(
             'budget' => $budget,
             'budget_type' => $budget_type,
+            'budget_types' => Budget::getEnum('budget_type'),
             'budgets' => $budgets,
             'budget_descriptions' => $budgetDescriptions,
             'budget_description' => $budgetDescription,
-            'page_name' => 'institution.budget.edit'
+            'page_name' => 'budgets.budget.edit'
         );
 
-        return view('institutions.budget.index')->with('data', $data);
+        return view('budgets.budget.index')->with('data', $data);
     }
 
     /**
@@ -226,7 +237,7 @@ class BudgetsController extends Controller
 
         $exampleDescription->budget()->save($budget);
 
-        return redirect('/institution/budget');
+        return redirect('/budgets/budget');
     }
 
     /**

@@ -17,8 +17,12 @@ Route::get('/', function () {
 
 Route::resource('institution/instance', 'Institution\InstancesController');
 Route::post('/institution/instance/update-current', 'Institution\InstancesController@updateCurrentInstance')->name('updateCurrentInstance');
-
 Route::resource('institution/buildings', 'Institution\BuildingsController');
+
+Route::resource('budgets/budget', 'College\BudgetsController');
+Route::resource('budgets/budget-description', 'College\BudgetDescriptionsController');
+Route::resource('budgets/internal-revenue', 'College\InternalRevenuesController');
+Route::resource('budgets/private-investment', 'College\InvestmentsController');
 
 //Route::resource('staff/academic', 'Staff\AcademicStaffsController');
 Route::resource('staff/technical', 'Staff\TechnicalStaffsController');

@@ -7,7 +7,7 @@ use App\Models\College\InternalRevenue;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Webpatser\Uuid\Uuid;
+use Illuminate\Validation\ValidationException;
 
 class InternalRevenuesController extends Controller
 {
@@ -40,9 +40,9 @@ class InternalRevenuesController extends Controller
 
         $data = array(
             'internal_revenues' => $revenues,
-            'page_name' => 'institution.internal-revenue.index'
+            'page_name' => 'budgets.internal-revenue.index'
         );
-        return view('institutions.internal_revenue.index')->with('data', $data);
+        return view('budgets.internal_revenue.index')->with('data', $data);
     }
 
     /**
@@ -77,10 +77,10 @@ class InternalRevenuesController extends Controller
         $data = array(
             'internal_revenues' => $revenues,
             'revenue_descriptions' => $revenueDescriptions,
-            'page_name' => 'institution.internal-revenue.create'
+            'page_name' => 'budgets.internal-revenue.create'
         );
 
-        return view('institutions.internal_revenue.index')->with('data', $data);
+        return view('budgets.internal_revenue.index')->with('data', $data);
     }
 
     /**
@@ -88,6 +88,7 @@ class InternalRevenuesController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -102,10 +103,6 @@ class InternalRevenuesController extends Controller
         $internalRevenue->revenue_description = $request->input('revenue_description');
         $internalRevenue->income = $request->input('income');
         $internalRevenue->expense = $request->input('expense');
-
-//        Todo remove this
-        $internalRevenue->institution_id = Uuid::generate()->string;
-
         $internalRevenue->save();
 
         $user = Auth::user();
@@ -124,7 +121,7 @@ class InternalRevenuesController extends Controller
         }
 
 
-        return redirect('/institution/internal-revenue');
+        return redirect('/budgets/internal-revenue');
     }
 
     /**
@@ -176,11 +173,11 @@ class InternalRevenuesController extends Controller
             'internal_revenue' => $internalRevenue,
             'revenue_descriptions' => $revenueDescriptions,
             'revenue_description' => $revenueDescription,
-            'page_name' => 'institution.internal-revenue.edit'
+            'page_name' => 'budgets.internal-revenue.edit'
         );
 
 
-        return view('institutions.internal_revenue.index')->with('data', $data);
+        return view('budgets.internal_revenue.index')->with('data', $data);
     }
 
     /**
@@ -189,6 +186,7 @@ class InternalRevenuesController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
@@ -207,7 +205,7 @@ class InternalRevenuesController extends Controller
         $internalRevenue->save();
 
 
-        return redirect('/institution/internal-revenue');
+        return redirect('/budgets/internal-revenue');
     }
 
     /**
