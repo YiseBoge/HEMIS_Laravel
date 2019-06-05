@@ -18,6 +18,8 @@ Route::get('/', function () {
 Route::resource('institution/instance', 'Institution\InstancesController');
 Route::post('/institution/instance/update-current', 'Institution\InstancesController@updateCurrentInstance')->name('updateCurrentInstance');
 
+Route::resource('institution/budget', 'Institution\BudgetsController');
+Route::resource('college/budget-description', 'College\BudgetDescriptionsController');
 Route::resource('institution/buildings', 'Institution\BuildingsController');
 
 //Route::resource('staff/academic', 'Staff\AcademicStaffsController');

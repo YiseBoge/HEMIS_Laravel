@@ -38,6 +38,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Admin Acts:</h6>
                     <a class="collapse-item" href="/institution/instance">Instances</a>
+                    <a class="collapse-item" href="/college/budget-description">Budget Description</a>
                     <a class="collapse-item" href="/editors">Editors</a>
                     <a class="collapse-item" href="/institution/institution-name">Institution Names</a>
                     <a class="collapse-item" href="/band/band-name">Band Names</a>
