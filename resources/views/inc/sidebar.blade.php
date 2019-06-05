@@ -44,6 +44,7 @@
                     <a class="collapse-item" href="/band/band-name">Band Names</a>
                     <a class="collapse-item" href="/college/college-name">College Names</a>
                     <a class="collapse-item" href="/department/department-name">Department Names</a>
+                    <a class="collapse-item" href="/staff/ict-staff-types">Ict Staff Types</a>
                 </div>
             </div>
         </li>
