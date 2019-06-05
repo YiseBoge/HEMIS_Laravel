@@ -64,12 +64,10 @@ class InstitutionNamesController extends Controller
 
 
         $generalInformation = new GeneralInformation();
-        $budget = new Budget();
         $communityService = new CommunityService();
         $resource = new Resource();
 
         $generalInformation->save();
-        $generalInformation->budget()->associate($budget)->save();
         $generalInformation->communityService()->associate($communityService)->save();
         $generalInformation->resource()->associate($resource)->save();
 

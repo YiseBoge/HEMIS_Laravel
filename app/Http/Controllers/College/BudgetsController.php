@@ -121,6 +121,8 @@ class BudgetsController extends Controller
         $institution = $user->institution();
         $collegeName = $user->collegeName();
 
+        return $institution->bands;
+
         $budget = new Budget();
 
         $budget->budget_type = $request->input('budget_type');
@@ -128,10 +130,8 @@ class BudgetsController extends Controller
         $budget->additional_budget = $request->input('additional');
         $budget->utilized_budget = $request->input('utilized');
 
-        $exampleDescription->save();
-        $exampleDescription->budget()->save($budget);
-
         if ($institution != null) {
+            // TODO finish up the filtering considering lack of bands
             foreach ($institution->bands as $band) {
                 foreach ($band->colleges as $college) {
                     if ($college->collegeName->id == $collegeName->id) {
@@ -141,6 +141,8 @@ class BudgetsController extends Controller
             }
         } else {
         }
+        $exampleDescription->budget()->save($budget);
+
 
         return redirect('/budgets/budget');
     }

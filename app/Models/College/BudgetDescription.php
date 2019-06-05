@@ -18,7 +18,7 @@ class BudgetDescription extends Model
 
     public function budget()
     {
-        return $this->hasMany('App\Models\Institution\Budget');
+        return $this->hasMany('App\Models\College\Budget');
     }
 
     public function __toString()
