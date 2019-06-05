@@ -25,13 +25,16 @@ Route::resource('budgets/internal-revenue', 'College\InternalRevenuesController'
 Route::resource('budgets/private-investment', 'College\InvestmentsController');
 
 //Route::resource('staff/academic', 'Staff\AcademicStaffsController');
+Route::resource('staff/academic', 'Staff\AcademicStaffsController');
 Route::resource('staff/technical', 'Staff\TechnicalStaffsController');
 Route::resource('staff/administrative', 'Staff\AdministrativeStaffsController');
 Route::resource('staff/ict', 'Staff\IctStaffsController');
 Route::resource('staff/supportive', 'Staff\SupportiveStaffsController');
 
-Route::resource('student/disabled', 'Student\DisabledStudentsController');
-Route::resource('student/foreigner', 'Student\ForeignerStudentsController');
+Route::resource('student/special-need', 'Student\SpecialNeedStudentsController');
+Route::resource('student/foreign', 'Student\ForeignStudentsController');
+Route::resource('student/student-attrition', 'Department\StudentAttritionController');
+Route::resource('student/other-attrition', 'Department\OtherAttritionController');
 
 Route::resource('institution/institution-name','Institution\InstitutionNamesController');
 Route::resource('band/band-name','Band\BandNamesController');
@@ -51,17 +54,13 @@ Route::resource('enrollment/normal','Department\EnrollmentsController');
 Route::get('enrollment/normal-chart','Department\EnrollmentsController@viewChart');
 Route::get('enrollment/student-enrollment-chart','Department\EnrollmentsController@chart');
 Route::resource('enrollment/special-region-students','Institution\SpecialRegionsEnrollmentsController');
-Route::resource('enrollment/special-need-students','Institution\SpecialNeedStudentsEnrollmentsController');
 Route::resource('enrollment/specializing-students','Department\SpecializingStudentsEnrollmentsController');
-Route::resource('enrollment/foreign-students','Department\ForeignStudentsEnrollmentsController');
 
 Route::resource('institution/researches','Band\ResearchsController');
 Route::resource('institution/university-industry-linkage','Band\UniversityIndustryLinkageController');
-Route::resource('institution/student-attrition', 'Band\StudentAttritionController');
 Route::resource('staff/technical-staff','College\TechnicalStaffController');
 Route::resource('department/upgrading-staff', 'Department\UpgradingStaffController');
 Route::resource('department/staff-leave', 'Department\StaffLeaveController');
-Route::resource('department/academic-staff', 'Department\AcademicStaffController');
 Route::resource('department/expatriate-staff', 'Department\ExaptriateStaffsController');
 Route::resource('department/postgraduate-diploma-training', 'Department\PostGraduateDiplomaTrainingController');
 Route::resource('department/teachers', 'Department\TeachersController');
@@ -76,11 +75,6 @@ Route::get('/staff_attrition', function () {
     return view('staff.staff_attrition');
 });
 
-Route::get('/student_attrition', function () {
-    return view('students.student_attrition');
-});
-
-
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
@@ -89,7 +83,11 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 // Registration Routes...
 Route::get('register', 'Auth\RegisterController@getRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
-Route::resource('editors', 'EditorsController');
+
+
+Route::resource('university-admin', 'User\UniversityAdminController');
+Route::resource('department-admin', 'User\DepartmentAdminController');
+Route::resource('college-admin', 'User\CollegeAdminController');
 
 // Password Reset Routes...
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');

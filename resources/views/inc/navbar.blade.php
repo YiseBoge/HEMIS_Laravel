@@ -24,7 +24,11 @@
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                        @if (Auth::user()->hasRole('Editor'))
+                        @if (Auth::user()->hasRole('Department Admin'))
+                            {{ Auth::user()->departmentName }} -
+                        @elseif (Auth::user()->hasRole('College Admin'))
+                            {{ Auth::user()->collegeName }} -
+                        @elseif (Auth::user()->hasRole('University Admin'))
                             {{ Auth::user()->institution()->institutionName }} -
                         @endif
                         {{ Auth::user()->name }}</span>

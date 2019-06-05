@@ -6,14 +6,12 @@ use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
-class OtherAttrition extends Model
+class StudentAttrition extends Model
 {
     use Uuids;
     use Enums;
 
     public $incrementing = false;
-
-
     // Enums //
     protected $enumTypes = [
         'CET' => 'CET',
@@ -23,11 +21,13 @@ class OtherAttrition extends Model
         'CBE' => 'CBE',
         'CSSH' => 'CSSH',
     ];
-
     protected $enumCases = [
-        'READMISSIONS_OF_NEXT_SEMESTER' => 'Readmission of Next Semester',
-        'TRANSFER_FROM_OTHER_INSTITUTES' => 'Transfer from Other Institutes',
-        'TRANSFERS_TO_OTHER_INSTITUTES' => 'Transfer to Other Inistitutes',
+        'ACADEMIC_DISMISSALS_WITH_READMISSION' => 'Academic Dismissals With Readmission',
+        'ACADEMIC_DISMISSALS_FOR_GOOD' => 'Academic Dismissals For Good',
+        'DISCIPLINE_DISMISSALS' => 'Discipline Dismissals',
+        'WITHDRAWALS' => 'Withdrawals',
+        'DROPOUTS' => 'Dropouts',
+        'OTHERS' => 'Others',
     ];
 
     public function department()
