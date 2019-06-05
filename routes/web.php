@@ -29,6 +29,8 @@ Route::resource('staff/supportive', 'Staff\SupportiveStaffsController');
 
 Route::resource('student/special-need', 'Student\SpecialNeedStudentsController');
 Route::resource('student/foreign', 'Student\ForeignStudentsController');
+Route::resource('student/student-attrition', 'Department\StudentAttritionController');
+Route::resource('student/other-attrition', 'Department\OtherAttritionController');
 
 Route::resource('institution/institution-name','Institution\InstitutionNamesController');
 Route::resource('band/band-name','Band\BandNamesController');
@@ -52,7 +54,6 @@ Route::resource('enrollment/specializing-students','Department\SpecializingStude
 
 Route::resource('institution/researches','Band\ResearchsController');
 Route::resource('institution/university-industry-linkage','Band\UniversityIndustryLinkageController');
-Route::resource('institution/student-attrition', 'Band\StudentAttritionController');
 Route::resource('staff/technical-staff','College\TechnicalStaffController');
 Route::resource('department/upgrading-staff', 'Department\UpgradingStaffController');
 Route::resource('department/staff-leave', 'Department\StaffLeaveController');
@@ -69,11 +70,6 @@ Route::get('admin/student-enrollment-chart','HomeController@adminEnrollmentChart
 Route::get('/staff_attrition', function () {
     return view('staff.staff_attrition');
 });
-
-Route::get('/student_attrition', function () {
-    return view('students.student_attrition');
-});
-
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

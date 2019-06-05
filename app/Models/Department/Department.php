@@ -54,7 +54,7 @@ class Department extends Model
 
     public function academicStaffs()
     {
-        return $this->hasMany('App\Models\Department\AcademicStaff');
+        return $this->hasMany('App\Models\Staff\AcademicStaff');
     }
 
     public function postgraduateDiplomaTrainings()

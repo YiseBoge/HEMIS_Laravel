@@ -4,14 +4,14 @@
     <div class="container-fluid">
         <div class="card shadow-sm mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Student Attrition</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Other Information</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">
                             <div class="col text-right">
-                                <a class="btn btn-outline-primary btn-sm mb-0" href="student-attrition/create">New Entry<i
+                                <a class="btn btn-outline-primary btn-sm mb-0" href="other-attrition/create">New Entry<i
                                             class="fas fa-arrow-right ml-2"></i></a>
                             </div>
                         </div>
@@ -32,6 +32,38 @@
                                         Education Program
                                     </label>
                                 </div>
+                                <div class="col form-group">
+                                    <select class="form-control" name="education_level" id="education_level" onchange="this.form.submit()">
+                                        @foreach ($education_levels as $key => $value)
+                                        @if ($value == $selected_level)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                            
+                                        @endforeach
+                                    </select>
+                                    <label for="education_level" class="form-control-placeholder">
+                                        Education Level
+                                    </label>
+                                </div>
+                                <div class="col form-group">
+                                    <select class="form-control" name="year_level" id="year_level" onchange="this.form.submit()">
+                                        @foreach ($years as $key => $value)
+                                        @if ($value == $selected_year)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                            
+                                        @endforeach
+                                    </select>
+                                    <label for="year_level" class="form-control-placeholder">
+                                        Year Level
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <select class="form-control" name="type" id="type" onchange="this.form.submit()">
                                         @foreach ($types as $key => $value)
@@ -77,7 +109,7 @@
                                         <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                             rowspan="1" colspan="1" aria-sort="ascending"
                                             aria-label="Name: activate to sort column descending"
-                                            style="width: 151px;">Band
+                                            style="width: 151px;">Department
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Age: activate to sort column ascending"
@@ -115,7 +147,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>{{$attrition->band->bandName->band_name}}</td>
+                                                <td>{{$attrition->department->departmentName->department_name}}</td>
                                                 <td>{{$attrition->male_students_number}}</td>
                                                 <td>{{$attrition->female_students_number}}</td>
                                             </tr>

@@ -67,7 +67,6 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Institution Info:</h6>
                     <a class="collapse-item" href="/institution/researches">Research</a>
-                    <a class="collapse-item" href="/institution/student-attrition">Student Attrition</a>
                     <a class="collapse-item" href="/institution/university-industry-linkage">University Industry Linkage</a>
                     <a class="collapse-item" href="/institution/genral-information">General Information</a>
                     <a class="collapse-item" href="/institution/buildings">Buildings</a>
@@ -103,6 +102,8 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="/student/foreign">Foreign Students</a>
                     <a class="collapse-item" href="/student/special-need">Special Need Students</a>
+                    <a class="collapse-item" href="/student/student-attrition">Student Attrition</a>
+                    <a class="collapse-item" href="/student/other-attrition">Other Attrition</a>
                 </div>
             </div>
         </li>

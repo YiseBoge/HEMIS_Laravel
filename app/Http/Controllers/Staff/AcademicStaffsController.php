@@ -5,9 +5,16 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\Band\Band;
+use App\Models\Band\BandName;
+use App\Models\College\College;
+use App\Models\College\CollegeName;
+use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
 use App\Models\Staff\Staff;
 use App\Models\Staff\AcademicStaff;
 use App\Models\Staff\StaffLeave;
+use Illuminate\Support\Facades\Auth;
 
 class AcademicStaffsController extends Controller
 {
@@ -22,6 +29,7 @@ class AcademicStaffsController extends Controller
             'staffs' => AcademicStaff::with('general')->get(),
             'page_name' => 'staff.academic.list'
         );
+        //return AcademicStaff::with('general')->get();
         return view('staff.academic.list')->with($data);
     }
     /**
@@ -93,7 +101,6 @@ class AcademicStaffsController extends Controller
         $academicStaff->overload_remark = $request->input('overload_remark');
         $academicStaff->staffRank = $request->input('academic_staff_rank');
         $academicStaff->staff_leave_id = 0;
-        $academicStaff->institution_id = 0;
         $academicStaff->overload_remark = $request->input('overload_remark') == null ? " " : $request->input('overload_remark');
        
         $user = Auth::user();
@@ -111,11 +118,11 @@ class AcademicStaffsController extends Controller
 
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => "None", 'education_program' => "None"])->first();
+            'education_level' => 'None', 'education_program' => 'None'])->first();
         if($college == null){
             $college = new College;
-            $college->education_level = $request->input("education_level");
-            $college->education_program = $request->input("program");
+            $college->education_level = 'None';
+            $college->education_program = "None";
             $college->college_name_id = 0;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
@@ -126,7 +133,7 @@ class AcademicStaffsController extends Controller
             'college_id' => $college->id])->first();
         if($department == null){
             $department = new Department;
-            $department->year_level = $request->input("year_level");
+            $department->year_level = "None";
             $department->department_name_id = 0;
             $college->departments()->save($department);
             $departmentName->department()->save($department);
