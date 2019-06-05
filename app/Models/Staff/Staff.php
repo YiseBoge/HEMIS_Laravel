@@ -47,4 +47,6 @@ class Staff extends Model
         'EMPLOYEE' => 'Employee',
         'CONTRACTOR' => 'Contractor',
     ];
+
+    
 }

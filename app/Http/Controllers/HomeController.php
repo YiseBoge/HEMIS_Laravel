@@ -51,7 +51,6 @@ class HomeController extends Controller
         }else{
             $user = Auth::user();
             $institution = $user->institution();
-            
             $generalInformation = $institution->generalInformation;
             $colleges = 0;
             foreach($institution->bands as $band){
