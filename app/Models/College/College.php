@@ -44,6 +44,31 @@ class College extends Model
         return $this->hasMany('App\Models\Department\Department');
     }
 
+    public function budgets()
+    {
+        return $this->hasMany('App\Models\College\Budget');
+    }
+
+    public function internalRevenues()
+    {
+        return $this->hasMany('App\Models\College\InternalRevenue');
+    }
+
+    public function investments()
+    {
+        return $this->hasMany('App\Models\College\Investment');
+    }
+
+    public function ictStaff()
+    {
+        return $this->hasMany('App\Models\Staff\IctStaff');
+    }
+
+    public function technicalStaff()
+    {
+        return $this->hasMany('App\Models\Staff\TechnicalStaff');
+    }
+
     public function band()
     {
         return $this->belongsTo('App\Models\Band\Band');
