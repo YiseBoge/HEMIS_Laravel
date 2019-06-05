@@ -21,11 +21,6 @@ class Band extends Model
         return $this->belongsTo('App\Models\Band\BandName');
     }
 
-    public function studentAttritions()
-    {
-        return $this->hasMany('App\Models\Band\StudentAttrition');
-    }
-
     public function colleges()
     {
         return $this->hasMany('App\Models\College\College');

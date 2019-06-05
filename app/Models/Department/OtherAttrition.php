@@ -29,4 +29,9 @@ class OtherAttrition extends Model
         'TRANSFER_FROM_OTHER_INSTITUTES' => 'Transfer from Other Institutes',
         'TRANSFERS_TO_OTHER_INSTITUTES' => 'Transfer to Other Inistitutes',
     ];
+
+    public function department()
+    {
+        return $this->belongsTo('App\Models\Department\Department');
+    }
 }
