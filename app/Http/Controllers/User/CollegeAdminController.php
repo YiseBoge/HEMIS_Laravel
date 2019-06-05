@@ -45,9 +45,11 @@ class CollegeAdminController extends Controller
     public function create()
     {
         $collegeNames = CollegeName::all();
+        $bandNames = BandName::all();
 
         $data = array(
             'college_names' => $collegeNames,
+            'band_names' => $bandNames,
             'page_name' => 'users.college_admin.create',
         );
         return view('users.college_admin.create')->with('data', $data);
@@ -73,6 +75,9 @@ class CollegeAdminController extends Controller
         $user = Auth::user();
         $institutionName = $user->institution()->institutionName;
 
+        $bandNames = BandName::all();
+        $bandName = $bandNames[$request->input('band_name_id')];
+
         $collegeNames = CollegeName::all();
         $collegeName = $collegeNames[$request->input('college_name_id')];
 
@@ -82,6 +87,7 @@ class CollegeAdminController extends Controller
         $user->password = Hash::make($request->input('password'));
 
         $institutionName->users()->save($user);
+        $bandName->users()->save($user);
         $collegeName->users()->save($user);
         $currentInstanceId->users()->save($user);
 
