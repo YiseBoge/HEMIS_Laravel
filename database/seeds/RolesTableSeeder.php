@@ -12,7 +12,7 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        $allRoles = ['Super Admin', 'Admin', 'Editor', 'Viewer'];
+        $allRoles = ['Super Admin', 'University Admin', 'College Admin', 'Department Admin', 'Viewer'];
 
         foreach ($allRoles as $role) {
             $userRole = new Role();

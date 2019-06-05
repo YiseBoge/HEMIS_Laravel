@@ -4,48 +4,18 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <div class="card shadow jumbotron pt-4">
-                    <h3>Add Editor</h3>
-                    <hr>
-                    <div class="card-body">
-                        {!! Form::open(['action' => 'EditorsController@store', 'method' => 'POST']) !!}
-                       
-                        <div class="row">
-                            <div class="form-group col-md-6 row">
-                                <label for="name"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Institution') }}</label>
-                                <div class="col-md-8">
-                                    {!! Form::select('institution_name_id', $data['institution_names'] ,null  , ['class' => 'form-control']) !!}
-                                </div>
-    
+                <div class="card shadow">
+                    <h3 class="card-header text-primary">Add Department Admin</h3>
+                    <div class="card-body pt-4">
+                        {!! Form::open(['action' => 'User\DepartmentAdminController@store', 'method' => 'POST']) !!}
+
+                        <div class="form-group row">
+                            <label for="name"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Department') }}</label>
+                            <div class="col-md-6">
+                                {!! Form::select('department_name_id', $data['department_names'] ,null  , ['class' => 'form-control']) !!}
                             </div>
-                            <div class="form-group col-md-6 row">
-                                <label for="name"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('College') }}</label>
-                                <div class="col-md-8">
-                                    {!! Form::select('college_name_id', $data['college_names'] ,null  , ['class' => 'form-control']) !!}
-                                </div>
-    
-                            </div>
-                                                    
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6 row">
-                                <label for="name"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Band') }}</label>
-                                <div class="col-md-8">
-                                    {!! Form::select('band_name_id', $data['band_names'] ,null  , ['class' => 'form-control']) !!}
-                                </div>
-    
-                            </div>
-                            <div class="form-group col-md-6 row">
-                                <label for="name"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Department') }}</label>
-                                <div class="col-md-8">
-                                    {!! Form::select('department_name_id', $data['department_names'] ,null  , ['class' => 'form-control']) !!}
-                                </div>
-    
-                            </div>   
+
                         </div>
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
@@ -108,7 +78,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-12 offset-md-5">
-                                {!! Form::submit('Add Editor', ['class' => 'btn btn-primary']) !!}
+                                {!! Form::submit('Add Admin', ['class' => 'btn btn-primary']) !!}
                             </div>
                         </div>
                         {!! Form::close() !!}

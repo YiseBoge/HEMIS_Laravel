@@ -22,46 +22,7 @@
                         </div>
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
-                                <div class="col-md-6 form-group">
-                                    <select class="form-control" name="band" id="band">
-                                        @foreach ($bands as $band)
-                                            <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="service_type" class="form-control-placeholder">
-                                            Band
-                                        </label>
-                                </div>
-            
-                                <div class="col-md-6 form-group">
-                                    
-                                    <select class="form-control" name="department" id="department">
-                                        @foreach ($departments as $department)
-                                            <option value="{{$department->department_name}}">{{$department->department_name}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
-                                            Department
-                                        </label>
-                                </div>
-            
-                            </div>
-                            <hr>
-                            <div class="form-group row pt-3">
-                                <div class="col-md-4 form-group">
-                                    
-                                    <select class="form-control" name="program" id="program">
-                                        @foreach ($programs as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="service_type" class="form-control-placeholder">
-                                            Program
-                                        </label>
-                                </div>
-            
-                                <div class="col-md-5 form-group">
-                                    
+                                <div class="col form-group">                                    
                                     <select class="form-control" name="education_level" id="level">
                                         @foreach ($education_levels as $key => $value)
                                             <option value="{{$key}}">{{$value}}</option>
@@ -71,8 +32,21 @@
                                         Education Level
                                     </label>
                                 </div>
-                                <div class="col-md-3 form-group">
-                                    
+                            </div>
+                            <hr>
+                            <div class="form-group row pt-3">
+                                <div class="col-md-6 form-group">                                    
+                                    <select class="form-control" name="program" id="program">
+                                        @foreach ($programs as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="service_type" class="form-control-placeholder">
+                                            Program
+                                        </label>
+                                </div>
+                            
+                                <div class="col-md-6 form-group">                                    
                                     <select class="form-control" name="year_level" id="year_level">
                                         @for ($i = 1; $i < 7; $i++)
                                         <option value="{{$i}}">{{$i}}</option>

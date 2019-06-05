@@ -3,11 +3,11 @@
 @section('content')
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
-            <div class="text-primary card-header">Semesters</div>
+            <div class="text-primary card-header">University Admin</div>
             <div class="card-body">
                 <div class="row py-2">
                     <div class="col-md-6 text-right">
-                        <a href="/editors/create" class="btn btn-outline-primary btn-sm mb-0">
+                        <a href="/university-admin/create" class="btn btn-outline-primary btn-sm mb-0">
                             New Entry<i class="fas fa-plus ml-2"></i></a>
                     </div>
                 </div>

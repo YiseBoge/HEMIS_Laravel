@@ -199,7 +199,7 @@ class ForeignStudentsController extends Controller
         $foreignerStudent->nationality = $request->input("nationality");
         $foreignerStudent->years_in_ethiopia = $request->input("years_in_ethiopia");
 
-         $user = Auth::user();
+        $user = Auth::user();
 
         $institution = $user->institution();
 

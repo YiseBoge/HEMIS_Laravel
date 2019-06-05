@@ -51,16 +51,13 @@ class HomeController extends Controller
         }else{
             $user = Auth::user();
             $institution = $user->institution();
-<<<<<<< HEAD
-
-=======
+            
             $generalInformation = $institution->generalInformation;
             $colleges = 0;
             foreach($institution->bands as $band){
                 $colleges += $band->colleges->count();
             } 
     
->>>>>>> 052d34f3a5cae0c880acf78ddfcb373319025d2d
             $data = array(
                 "name" => $institution->institutionName->institution_name,
                 "campuses_number" => $generalInformation->campuses,
@@ -151,7 +148,6 @@ class HomeController extends Controller
         return response()->json($result);
     }
 
-<<<<<<< HEAD
     public function specialNeedEnrollmentChart(){
         $disability_type = array();
         $disability_type_code = array();
@@ -188,7 +184,4 @@ class HomeController extends Controller
         );
         return response()->json($result);
     }
-=======
-    
->>>>>>> 052d34f3a5cae0c880acf78ddfcb373319025d2d
 }

@@ -79,7 +79,11 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 // Registration Routes...
 Route::get('register', 'Auth\RegisterController@getRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
-Route::resource('editors', 'EditorsController');
+
+
+Route::resource('university-admin', 'User\UniversityAdminController');
+Route::resource('department-admin', 'User\DepartmentAdminController');
+Route::resource('college-admin', 'User\CollegeAdminController');
 
 // Password Reset Routes...
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
