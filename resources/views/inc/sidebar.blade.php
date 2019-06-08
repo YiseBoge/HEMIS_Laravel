@@ -31,6 +31,22 @@
 
 
         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudent"
+               aria-expanded="false"
+               aria-controls="collapseInstitution">
+                <i class="fas fa-university"></i>
+                <span>Budgets</span>
+            </a>
+            <div id="collapseStudent" class="collapse" aria-labelledby="headingTwo"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/budgets/budget">Budget</a>
+                    <a class="collapse-item" href="/budgets/internal-revenue">Internal Revenue</a>
+                    <a class="collapse-item" href="/budgets/private-investment">Private Investment</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
                aria-controls="collapseAdmin">
                 <i class="fas fa-chalkboard-teacher"></i>
