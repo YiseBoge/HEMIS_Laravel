@@ -62,16 +62,16 @@
                                         </tbody>
 
 
-                                        <tfoot>
-                                        <tr class="font-weight-bolder font-italic text-lg">
-                                            <td class="text-center">
+                                        {{--                                        <tfoot>--}}
+                                        {{--                                        <tr class="font-weight-bolder font-italic text-lg">--}}
+                                        {{--                                            <td class="text-center">--}}
 
-                                            </td>
-                                            <td>Total</td>
-                                            <td>sum of cost incured</td>
-                                            <td></td>
-                                        </tr>
-                                        </tfoot>
+                                        {{--                                            </td>--}}
+                                        {{--                                            <td>Total</td>--}}
+                                        {{--                                            <td>sum of cost incured</td>--}}
+                                        {{--                                            <td></td>--}}
+                                        {{--                                        </tr>--}}
+                                        {{--                                        </tfoot>--}}
                                     </table>
                                 </div>
                             </div>

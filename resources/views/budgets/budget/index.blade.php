@@ -99,21 +99,21 @@
                                         @endforeach
                                         </tbody>
 
-                                        <tfoot>
-                                        <tr class="font-weight-bolder font-italic text-lg">
-                                            <td class="text-center">
+                                        {{--                                        <tfoot>--}}
+                                        {{--                                        <tr class="font-weight-bolder font-italic text-lg">--}}
+                                        {{--                                            <td class="text-center">--}}
 
-                                            </td>
-                                            <td colspan="2">Total</td>
-                                            <td>allocated sum</td>
-                                            <td>additional sum</td>
-                                            <td>internal transfer sum</td>
-                                            <td>adjusted sum</td>
-                                            <td>utilized sum</td>
-                                            <td>difference sum</td>
-                                            <td>performance average?</td>
-                                        </tr>
-                                        </tfoot>
+                                        {{--                                            </td>--}}
+                                        {{--                                            <td colspan="2">Total</td>--}}
+                                        {{--                                            <td>allocated sum</td>--}}
+                                        {{--                                            <td>additional sum</td>--}}
+                                        {{--                                            <td>internal transfer sum</td>--}}
+                                        {{--                                            <td>adjusted sum</td>--}}
+                                        {{--                                            <td>utilized sum</td>--}}
+                                        {{--                                            <td>difference sum</td>--}}
+                                        {{--                                            <td>performance average?</td>--}}
+                                        {{--                                        </tr>--}}
+                                        {{--                                        </tfoot>--}}
                                     </table>
                                 </div>
                             </div>
