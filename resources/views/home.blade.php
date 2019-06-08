@@ -146,32 +146,30 @@
                             <canvas id="age-enrollment" height="400" width="600"></canvas>
                         </div>
 
-                       
-                        
+
                     </div>
                 </div>
 
 
-
-                <div class="col-md-5 m-4">                
+                <div class="col-md-5 m-4">
                     <div class="card shadow h-100">
                         <div class="card-header text-primary font-weight-bold">Special Needs Enrollment</div>
-    
-                        <!--<div class="card-body">
+
+                    <!--<div class="card-body">
                             @if (session('status'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ session('status') }}
+                        <div class="alert alert-success" role="alert">
+{{ session('status') }}
                                 </div>
                             @endif
-    
+
                             You are logged in!
                         </div>-->
                         <div class="card-body">
-                            <canvas id="specialNeeds-enrollment"  class="chartjs-render-monitor" height="400" width="600"></canvas>
+                            <canvas id="specialNeeds-enrollment" class="chartjs-render-monitor" height="400"
+                                    width="600"></canvas>
                         </div>
 
-                       
-                        
+
                     </div>
                 </div>
             </div>
@@ -183,12 +181,12 @@
         crossorigin="anonymous"></script>
     <script>
         var url = "{{url('home/student-enrollment-chart')}}";
-        var Enrollments = new Array();
-        var Years = new Array();
+        var Enrollments = [];
+        var Years = [];
         $(document).ready(function(){
             $.get(url, function(response){
-                Years = response.year_levels
-                Enrollments = response.enrollments
+                Years = response.year_levels;
+                Enrollments = response.enrollments;
 
                 var ctx = document.getElementById('year-enrollment').getContext('2d');
                 var chart = new Chart(ctx, {
@@ -221,12 +219,12 @@
     </script>
     <script>
         var url2 = "{{url('home/age-enrollment-chart')}}";
-        var Enrollments = new Array();
-        var Ages = new Array();
+        var Enrollments = [];
+        var Ages = [];
         $(document).ready(function(){
             $.get(url2, function(response){
-                Ages = response.ages
-                Enrollments = response.enrollments
+                Ages = response.ages;
+                Enrollments = response.enrollments;
 
                 var ctx = document.getElementById('age-enrollment').getContext('2d');
                 var chart = new Chart(ctx, {
@@ -258,49 +256,49 @@
         });
     </script>
 
-<script>
-    var url3 = "{{url('home/specialNeeds-enrollment-chart')}}";
-    var specialNeedsTypes = new Array();
-    var numberOfMale = new Array();
-    var numberOfFemale = new Array();
-    $(document).ready(function(){
-        $.get(url3, function(response){
-            specialNeedsTypes = response.types
-            numberOfMale = response.male
-            numberOfFemale = response.female
-            
-            
-            var ctx = document.getElementById('specialNeeds-enrollment').getContext('2d');
-            var chart = new Chart(ctx, {
-                // The type of chart we want to create
-                type: 'pie',
+    <script>
+        var url3 = "{{url('home/specialNeeds-enrollment-chart')}}";
+        var specialNeedsTypes = [];
+        var numberOfMale = [];
+        var numberOfFemale = [];
+        $(document).ready(function () {
+            $.get(url3, function (response) {
+                specialNeedsTypes = response.types;
+                numberOfMale = response.male;
+                numberOfFemale = response.female;
 
-                // The data for our dataset
-                data: {
-                    labels: specialNeedsTypes,
-                    datasets: [{
-                        label: 'SpecialNeeds',                   
-                        data: numberOfMale,
-                        backgroundColor: [ 'red' , 'purple' , 'green'  ],
-                        // backgroundColor: [ red , blue , green]
-                    }]
-                },
 
-                // Configuration options go here
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            }
+                var ctx = document.getElementById('specialNeeds-enrollment').getContext('2d');
+                var chart = new Chart(ctx, {
+                    // The type of chart we want to create
+                    type: 'pie',
+
+                    // The data for our dataset
+                    data: {
+                        labels: specialNeedsTypes,
+                        datasets: [{
+                            label: 'SpecialNeeds',
+                            data: numberOfMale,
+                            backgroundColor: ['red', 'purple', 'green'],
+                            // backgroundColor: [ red , blue , green]
                         }]
-                    }
-                },
-                
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    },
+
+                });
             });
         });
-    });
-</script>
+    </script>
 
     
 @endsection

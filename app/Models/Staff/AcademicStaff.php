@@ -22,26 +22,30 @@ class AcademicStaff extends Model
         'PROFESSOR' => 'Professor',
         'OTHERS' => 'Others'
     ];
+
     // Enums //
     public function general()
     {
         return $this->morphOne('App\Models\Staff\Staff', 'staffable');
     }
+
     public function staffLeave()
     {
         return $this->belongsTo('App\Models\Staff\StaffLeave');
     }
+
     public function department()
     {
         return $this->belongsTo('App\Models\Department\Department');
     }
+
     public function scopeInfo($query)
     {
-        if($this->staff_leave_id == 0){
+        if ($this->staff_leave_id == 0) {
             return $query->with('general');
-        }else{
+        } else {
             return $query->with('general', 'staffLeave');
         }
-        
+
     }
 }

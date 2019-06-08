@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\Band\BandName;
 use App\Models\College\College;
-use App\Models\College\CollegeName;
 use App\Models\Department\Department;
-use App\Models\Department\DepartmentName;
 use App\Models\Department\StudentAttrition;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -42,14 +40,14 @@ class StudentAttritionController extends Controller
             $requestedCase = 'Academic Dismissals With Readmission';
         }
 
-        $requestedLevel=$request->input('education_level');
-        if($requestedLevel==null){
-            $requestedLevel='Undergraduate';
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Undergraduate';
         }
 
-        $requestedYearLevel=$request->input('year_level');
-        if($requestedYearLevel==null){
-            $requestedYearLevel='1';
+        $requestedYearLevel = $request->input('year_level');
+        if ($requestedYearLevel == null) {
+            $requestedYearLevel = '1';
         }
 
         $attritions = array();
@@ -57,10 +55,10 @@ class StudentAttritionController extends Controller
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
-                foreach($band->colleges as $college){
-                    if($college->education_program == $requestedProgram && $college->education_level == $requestedLevel){
-                        foreach($college->departments as $department){
-                            if($department->year_level == $requestedYearLevel){
+                foreach ($band->colleges as $college) {
+                    if ($college->education_program == $requestedProgram && $college->education_level == $requestedLevel) {
+                        foreach ($college->departments as $department) {
+                            if ($department->year_level == $requestedYearLevel) {
                                 foreach ($department->studentAttritions as $attrition) {
                                     if ($attrition->type == $requestedType && $attrition->case == $requestedCase) {
                                         $attritions[] = $attrition;
@@ -69,7 +67,7 @@ class StudentAttritionController extends Controller
                             }
                         }
                     }
-                    
+
                 }
                 
             }
@@ -140,7 +138,7 @@ class StudentAttritionController extends Controller
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -150,7 +148,7 @@ class StudentAttritionController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
@@ -162,7 +160,7 @@ class StudentAttritionController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = $request->input("year_level");
             $department->department_name_id = 0;

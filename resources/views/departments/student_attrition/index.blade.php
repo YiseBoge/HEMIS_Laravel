@@ -33,14 +33,15 @@
                                     </label>
                                 </div>
                                 <div class="col form-group">
-                                    <select class="form-control" name="education_level" id="education_level" onchange="this.form.submit()">
+                                    <select class="form-control" name="education_level" id="education_level"
+                                            onchange="this.form.submit()">
                                         @foreach ($education_levels as $key => $value)
-                                        @if ($value == $selected_level)
-                                            <option value="{{$value}}" selected>{{$value}}</option>
-                                        @else
-                                            <option value="{{$value}}">{{$value}}</option>
-                                        @endif
-                                            
+                                            @if ($value == $selected_level)
+                                                <option value="{{$value}}" selected>{{$value}}</option>
+                                            @else
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endif
+
                                         @endforeach
                                     </select>
                                     <label for="education_level" class="form-control-placeholder">
@@ -48,14 +49,15 @@
                                     </label>
                                 </div>
                                 <div class="col form-group">
-                                    <select class="form-control" name="year_level" id="year_level" onchange="this.form.submit()">
+                                    <select class="form-control" name="year_level" id="year_level"
+                                            onchange="this.form.submit()">
                                         @foreach ($years as $key => $value)
-                                        @if ($value == $selected_year)
-                                            <option value="{{$value}}" selected>{{$value}}</option>
-                                        @else
-                                            <option value="{{$value}}">{{$value}}</option>
-                                        @endif
-                                            
+                                            @if ($value == $selected_year)
+                                                <option value="{{$value}}" selected>{{$value}}</option>
+                                            @else
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endif
+
                                         @endforeach
                                     </select>
                                     <label for="year_level" class="form-control-placeholder">
@@ -67,12 +69,12 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="type" id="type" onchange="this.form.submit()">
                                         @foreach ($types as $key => $value)
-                                        @if ($value == $selected_type)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                        @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                        @endif
-                                            
+                                            @if ($value == $selected_type)
+                                                <option value="{{$value}}" selected>{{$value}}</option>
+                                            @else
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endif
+
                                         @endforeach
                                     </select>
                                     <label for="type" class="form-control-placeholder">
@@ -82,12 +84,12 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="case" id="case" onchange="this.form.submit()">
                                         @foreach ($cases as $key => $value)
-                                        @if ($value == $selected_case)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                        @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                        @endif
-                                           
+                                            @if ($value == $selected_case)
+                                                <option value="{{$value}}" selected>{{$value}}</option>
+                                            @else
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endif
+
                                         @endforeach
                                     </select>
                                     <label for="case" class="form-control-placeholder">

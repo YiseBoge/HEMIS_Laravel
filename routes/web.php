@@ -17,10 +17,12 @@ Route::get('/', function () {
 
 Route::resource('institution/instance', 'Institution\InstancesController');
 Route::post('/institution/instance/update-current', 'Institution\InstancesController@updateCurrentInstance')->name('updateCurrentInstance');
-
-Route::resource('institution/budget', 'Institution\BudgetsController');
-Route::resource('college/budget-description', 'College\BudgetDescriptionsController');
 Route::resource('institution/buildings', 'Institution\BuildingsController');
+
+Route::resource('budgets/budget', 'College\BudgetsController');
+Route::resource('budgets/budget-description', 'College\BudgetDescriptionsController');
+Route::resource('budgets/internal-revenue', 'College\InternalRevenuesController');
+Route::resource('budgets/private-investment', 'College\InvestmentsController');
 
 //Route::resource('staff/academic', 'Staff\AcademicStaffsController');
 Route::resource('staff/academic', 'Staff\AcademicStaffsController');
@@ -96,4 +98,3 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('home/student-enrollment-chart','HomeController@enrollmentChart');
 Route::get('home/age-enrollment-chart','HomeController@ageEnrollmentChart');
-Route::get('home/specialNeeds-enrollment-chart','HomeController@specialNeedEnrollmentChart');

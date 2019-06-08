@@ -48,5 +48,5 @@ class Staff extends Model
         'CONTRACTOR' => 'Contractor',
     ];
 
-    
+
 }

@@ -62,14 +62,19 @@
                                     <tbody>
                                         @if (count($students) > 0)
                                             @foreach ($students as $student)
-                                                <tr role="row" class="odd" onclick="window.location='special-need/{{$student->id}}'">
+                                                <tr role="row" class="odd"
+                                                    onclick="window.location='special-need/{{$student->id}}'">
                                                     <td class="pl-4">
                                                         <div class="row">
                                                             <div class="col pt-1">
-                                                                <a href="special-need/{{$student->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> </a>
+                                                                <a href="special-need/{{$student->id}}/edit"
+                                                                   class="text-primary mr-3"><i class="far fa-edit"></i>
+                                                                </a>
                                                             </div>
                                                             <div class="col">
-                                                                <form class="p-0" action="/student/special-need/{{$student->id}}" method="POST">
+                                                                <form class="p-0"
+                                                                      action="/student/special-need/{{$student->id}}"
+                                                                      method="POST">
                                                                     @csrf
                                                                     <input type="hidden" name="_method" value="DELETE">
                                                                     <button type="submit" class="form-control form-control-plaintext text-danger p-0">

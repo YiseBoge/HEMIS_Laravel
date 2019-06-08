@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateStudentsTable extends Migration
 {
@@ -23,7 +23,7 @@ class CreateStudentsTable extends Migration
 
             $table->string('sex');
             $table->timestamps();
-            
+
             $table->primary('id');
             $table->uuid('student_service_id');
             $table->uuid('studentable_id');

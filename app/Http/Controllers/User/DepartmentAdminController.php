@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\Institution\InstitutionName;
-use App\Models\College\CollegeName;
-use App\Models\Band\BandName;
+use App\Http\Controllers\Controller;
 use App\Models\Department\DepartmentName;
 use App\Role;
 use App\User;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;

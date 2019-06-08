@@ -23,44 +23,60 @@
 
 
     <!-- Heading -->
-   
+
     @if(!Auth::user()->hasRole('Department Admin'))
         <div class="sidebar-heading">
             Lesser Components
         </div>
 
-       
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
-                aria-controls="collapseAdmin">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    <span>Admin</span>
-                </a>
-                <div id="collapseAdmin" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Admin Acts:</h6>
-                        @if (Auth::user()->hasRole('Super Admin'))
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudent"
+               aria-expanded="false"
+               aria-controls="collapseInstitution">
+                <i class="fas fa-university"></i>
+                <span>Budgets</span>
+            </a>
+            <div id="collapseStudent" class="collapse" aria-labelledby="headingTwo"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/budgets/budget">Budget</a>
+                    <a class="collapse-item" href="/budgets/internal-revenue">Internal Revenue</a>
+                    <a class="collapse-item" href="/budgets/private-investment">Private Investment</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
+               aria-controls="collapseAdmin">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Admin</span>
+            </a>
+            <div id="collapseAdmin" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Admin Acts:</h6>
+                    @if (Auth::user()->hasRole('Super Admin'))
                         <a class="collapse-item" href="/institution/instance">Instances</a>
                         <a class="collapse-item" href="/university-admin">University Admin</a>
                         <a class="collapse-item" href="/institution/institution-name">Institution Names</a>
                         <a class="collapse-item" href="/band/band-name">Band Names</a>
-                        @elseif(Auth::user()->hasRole('University Admin'))
+                    @elseif(Auth::user()->hasRole('University Admin'))
                         <a class="collapse-item" href="/college-admin">College Admin</a>
                         <a class="collapse-item" href="/college/college-name">College Names</a>
                         <a class="collapse-item" href="/department/department-name">Department Names</a>
-                        @elseif(Auth::user()->hasRole('College Admin'))
+                    @elseif(Auth::user()->hasRole('College Admin'))
                         <a class="collapse-item" href="/department-admin">Department Admin</a>
-                        @endif
-                    
-                    </div>
+                    @endif
+
                 </div>
-            </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-        @endif
+            </div>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+@endif
 
 
-    @if(Auth::user()->hasRole('Department Admin'))
+@if(Auth::user()->hasRole('Department Admin'))
          <!-- Heading -->
     <div class="sidebar-heading">
             Major Components
@@ -102,22 +118,23 @@
                 </div>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudent"
-               aria-expanded="false"
-               aria-controls="collapseInstitution">
-                <i class="fas fa-university"></i>
-                <span>Students</span>
-            </a>
-            <div id="collapseStudent" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/student/foreign">Foreign Students</a>
-                    <a class="collapse-item" href="/student/special-need">Special Need Students</a>
-                    <a class="collapse-item" href="/student/student-attrition">Student Attrition</a>
-                    <a class="collapse-item" href="/student/other-attrition">Other Information</a>
-                </div>
-            </div>
-        </li>
+             <li class="nav-item">
+                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudent"
+                    aria-expanded="false"
+                    aria-controls="collapseInstitution">
+                     <i class="fas fa-university"></i>
+                     <span>Students</span>
+                 </a>
+                 <div id="collapseStudent" class="collapse" aria-labelledby="headingTwo"
+                      data-parent="#accordionSidebar">
+                     <div class="bg-white py-2 collapse-inner rounded">
+                         <a class="collapse-item" href="/student/foreign">Foreign Students</a>
+                         <a class="collapse-item" href="/student/special-need">Special Need Students</a>
+                         <a class="collapse-item" href="/student/student-attrition">Student Attrition</a>
+                         <a class="collapse-item" href="/student/other-attrition">Other Information</a>
+                     </div>
+                 </div>
+             </li>
     
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">

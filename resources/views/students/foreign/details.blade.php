@@ -70,13 +70,13 @@
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Program</div>
                         <p>{{$student->department->college->education_program}}</p>
                     </div>
-                   
+
                 </div>
                 <div class="row mt-4">
-                        <div class="col-md-3">
-                                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Education Level</div>
-                                <p>{{$student->department->college->education_level}}</p>
-                            </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Education Level</div>
+                        <p>{{$student->department->college->education_level}}</p>
+                    </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Year Level</div>
                         <p>{{$student->department->year_level}}</p>

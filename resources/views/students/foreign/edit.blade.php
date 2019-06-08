@@ -100,29 +100,31 @@
                             </div>
                             <select class="form-control form-control-plaintext" name="band">
                             @foreach ($bands as $band)
-                                @if ($band->band_name == $student->department->college->band->bandName->band_name)
+                                    @if ($band->band_name == $student->department->college->band->bandName->band_name)
                                     <option selected value="{{$band->band_name}}">{{$band->band_name}}</option>
                                 @else
                                     <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                @endif
-                            @endforeach
+                                    @endif
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">College</div>
-                        <div class="input-group mb-3"> 
+                        <div class="input-group mb-3">
                             <div class="input-group-append">
-                                <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
+                                <span class="input-group-text bg-white border-0"><i
+                                            class="text-gray-400 float-right far fa-edit "></i></span>
                             </div>
                             <select class="form-control form-control-plaintext" name="band">
-                            @foreach ($colleges as $college)
-                                @if ($college->college_name == $student->department->college->collegeName->college_name)
-                                    <option selected value="{{$college->college_name}}">{{$college->college_name}}</option>
-                                @else
-                                    <option value="{{$college->college_name}}">{{$college->college_name}}</option>
-                                @endif
-                            @endforeach
+                                @foreach ($colleges as $college)
+                                    @if ($college->college_name == $student->department->college->collegeName->college_name)
+                                        <option selected
+                                                value="{{$college->college_name}}">{{$college->college_name}}</option>
+                                    @else
+                                        <option value="{{$college->college_name}}">{{$college->college_name}}</option>
+                                    @endif
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -150,8 +152,8 @@
                                 <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
                             </div>
                             <select class="form-control form-control-plaintext" name="program">
-                            @foreach ($student->department->college->getEnum("EducationPrograms") as $key => $value)
-                                @if ($value == $student->department->college->education_program)
+                                @foreach ($student->department->college->getEnum("EducationPrograms") as $key => $value)
+                                    @if ($value == $student->department->college->education_program)
                                     <option selected value="{{$key}}">{{$value}}</option>
                                 @else
                                     <option value="{{$key}}">{{$value}}</option>
@@ -160,26 +162,27 @@
                             </select>
                         </div>
                     </div>
-                  
+
                 </div>
                 <div class="row mt-4">
-                        <div class="col-md-3">
-                                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Education Level</div>
-                                <div class="input-group mb-3"> 
-                                    <div class="input-group-append">
-                                        <span class="input-group-text bg-white border-0"><i class="text-gray-400 float-right far fa-edit "></i></span>
-                                    </div>
-                                    <select class="form-control form-control-plaintext" name="education_level">
-                                    @foreach ($student->department->college->getEnum("EducationLevels") as $key => $value)
-                                        @if ($value == $student->department->college->education_level)
-                                            <option selected value="{{$key}}">{{$value}}</option>
-                                        @else
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endif
-                                    @endforeach
-                                    </select>
-                                </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Education Level</div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i
+                                            class="text-gray-400 float-right far fa-edit "></i></span>
                             </div>
+                            <select class="form-control form-control-plaintext" name="education_level">
+                                @foreach ($student->department->college->getEnum("EducationLevels") as $key => $value)
+                                    @if ($value == $student->department->college->education_level)
+                                        <option selected value="{{$key}}">{{$value}}</option>
+                                    @else
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Year Level</div>
                         <div class="input-group mb-3"> 

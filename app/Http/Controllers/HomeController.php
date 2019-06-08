@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
-use App\Models\Band\Band;
 use App\Models\Band\BandName;
-use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
-use App\Models\Institution\InstitutionName;
-use App\Models\Institution\GeneralInformation;
 use App\Models\Department\Enrollment;
 use App\Models\Institution\AgeEnrollment;
+use App\Models\Institution\InstitutionName;
 use App\Models\Institution\SpecialNeeds;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -147,7 +144,8 @@ class HomeController extends Controller
         return response()->json($result);
     }
 
-    public function specialNeedEnrollmentChart(){
+    public function specialNeedEnrollmentChart()
+    {
         $disability_type = array();
         $disability_type_code = array();
         $number_of_male = array();
@@ -155,23 +153,23 @@ class HomeController extends Controller
         // $user = Auth::user();
         // $institution = $user->institution();
 
-        foreach(SpecialNeeds::getEnum('NeedsTypes') as $key => $value){
+        foreach (SpecialNeeds::getEnum('NeedsTypes') as $key => $value) {
             $disability_type_code[] = $key;
             $disability_type[] = $value;
         }
 
         $total = SpecialNeeds::all();
         // die(var_dump($disability_type));
-        foreach($disability_type_code as $type){
-            foreach($total as $info){
+        foreach ($disability_type_code as $type) {
+            foreach ($total as $info) {
                 // die($info);
                 // die($info->type == $type);
-                if($info->type == $type){
-                        // die(var_dump($info['male_students_number']));
-                        $number_of_male[] = $info['male_students_number'];
-                        // array_push($number_of_male , intval($info['male_student_number']));
-                        // die(var_dump($number_of_male));
-                        $number_of_female[] = $info['female_students_number'];
+                if ($info->type == $type) {
+                    // die(var_dump($info['male_students_number']));
+                    $number_of_male[] = $info['male_students_number'];
+                    // array_push($number_of_male , intval($info['male_student_number']));
+                    // die(var_dump($number_of_male));
+                    $number_of_female[] = $info['female_students_number'];
                 }
             }
         }

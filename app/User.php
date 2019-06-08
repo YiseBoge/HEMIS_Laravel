@@ -56,11 +56,6 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\College\CollegeName', 'college_name_id');
     }
 
-    public function bandName()
-    {
-        return $this->belongsTo('App\Models\Band\BandName', 'band_name_id');
-    }
-
     public function departmentName()
     {
         return $this->belongsTo('App\Models\Department\DepartmentName', 'department_name_id');

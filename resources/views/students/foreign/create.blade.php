@@ -22,7 +22,7 @@
                         </div>
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
-                                <div class="col form-group">                                    
+                                <div class="col form-group">
                                     <select class="form-control" name="education_level" id="level">
                                         @foreach ($education_levels as $key => $value)
                                             <option value="{{$key}}">{{$value}}</option>
@@ -35,7 +35,7 @@
                             </div>
                             <hr>
                             <div class="form-group row pt-3">
-                                <div class="col-md-6 form-group">                                    
+                                <div class="col-md-6 form-group">
                                     <select class="form-control" name="program" id="program">
                                         @foreach ($programs as $key => $value)
                                             <option value="{{$key}}">{{$value}}</option>
@@ -46,7 +46,7 @@
                                         </label>
                                 </div>
 
-                                <div class="col-md-6 form-group">                                    
+                                <div class="col-md-6 form-group">
                                     <select class="form-control" name="year_level" id="year_level">
                                         @for ($i = 1; $i < 7; $i++)
                                         <option value="{{$i}}">{{$i}}</option>
@@ -164,7 +164,7 @@
 
             <fieldset class="card shadow h-100 my-5">
                 <div class="card-header text-primary">
-                        Foreign Student Information
+                    Foreign Student Information
                 </div>
                 <div class="card-body px-4">
                     <div class="form-group row pt-3">

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Models\Staff\AdministrativeStaff;
+use App\Models\Staff\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Staff\Staff;
-use App\Models\Staff\AdministrativeStaff;
 
 class AdministrativeStaffsController extends Controller
 {
@@ -67,10 +67,9 @@ class AdministrativeStaffsController extends Controller
             'administrative_staff_rank' => 'required',
         ]);
 
-        if($request->get('expatriate') == null){
+        if ($request->get('expatriate') == null) {
             $expatriate = 0;
-        }
-        else{
+        } else {
             $expatriate = 1;
         }
 
@@ -88,18 +87,18 @@ class AdministrativeStaffsController extends Controller
         $staff->academic_level = $request->input('academic_level');
         $staff->is_expatriate = $expatriate;
         $staff->salary = $request->input('salary');
-        $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark'); 
+        $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
         $administrativeStaff = new AdministrativeStaff;
         $administrativeStaff->staffRank = $request->input('administrative_staff_rank');
-        $administrativeStaff->institution_id = 0;       
+        $administrativeStaff->institution_id = 0;
 
         $administrativeStaff->save();
 
         $administrativeStaff = AdministrativeStaff::find($administrativeStaff->id);
 
         $administrativeStaff->general()->save($staff);
-        
+
         return redirect('/staff/administrative');
     }
 
@@ -156,7 +155,7 @@ class AdministrativeStaffsController extends Controller
             'academic_level' => 'required',
             'expatriate' => 'required',
             'administrative_staff_rank' => 'required'
-            
+
         ]);
 
         $administrativeStaff = AdministrativeStaff::find($id);
@@ -178,12 +177,12 @@ class AdministrativeStaffsController extends Controller
         $staff->academic_level = $request->input('academic_level');
         $staff->is_expatriate = $request->input('expatriate');
         $staff->salary = $request->input('salary');
-        $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');        
+        $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
         $administrativeStaff->save();
 
         $administrativeStaff->general()->save($staff);
-        
+
         return redirect('/staff/administrative');
 
     }

@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\Band\Band;
+use App\Models\Band\BandName;
+use App\Models\College\College;
+use App\Models\College\CollegeName;
+use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
+use App\Models\Student\DormitoryService;
+use App\Models\Student\SpecialNeedStudent;
+use App\Models\Student\Student;
+use App\Models\Student\StudentService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Band\BandName;
-use App\Models\Department\DepartmentName;
-use App\Models\College\CollegeName;
-use App\Models\Band\Band;
-use App\Models\College\College;
-use App\Models\Department\Department;
-use App\Models\Student\Student;
-use App\Models\Student\SpecialNeedStudent;
-use App\Models\Student\StudentService;
-use App\Models\Student\DormitoryService;
 use Illuminate\Support\Facades\Auth;
 
 class SpecialNeedStudentsController extends Controller
@@ -30,9 +30,10 @@ class SpecialNeedStudentsController extends Controller
             'students' => SpecialNeedStudent::info()->get(),
             'page_name' => 'students.special_need.index'
         );
-       // return SpecialNeedStudent::info()->get();
+        // return SpecialNeedStudent::info()->get();
         return view("students.special_need.index")->with($data);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -52,6 +53,7 @@ class SpecialNeedStudentsController extends Controller
         );
         return view("students.special_need.create")->with($data);
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -89,7 +91,7 @@ class SpecialNeedStudentsController extends Controller
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -99,7 +101,7 @@ class SpecialNeedStudentsController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
@@ -111,7 +113,7 @@ class SpecialNeedStudentsController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = $request->input("year_level");
             $department->department_name_id = 0;
@@ -126,9 +128,10 @@ class SpecialNeedStudentsController extends Controller
         $student->student_service_id = 0;
         $specialNeedStudent->general()->save($student);
         $studentService->student()->save($student);
-        
+
         return redirect("/student/special-need");
     }
+
     /**
      * Display the specified resource.
      *
@@ -143,6 +146,7 @@ class SpecialNeedStudentsController extends Controller
         );
         return view("students.special_need.details")->with($data);
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -160,6 +164,7 @@ class SpecialNeedStudentsController extends Controller
         );
         return view("students.special_need.edit")->with($data);
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -177,7 +182,7 @@ class SpecialNeedStudentsController extends Controller
             'student_id' => 'required'
         ]);
         $specialNeedStudent = SpecialNeedStudent::find($id);
-        
+
         $dormitoryService = $specialNeedStudent->general->studentService->dormitoryService;
         $dormitoryService->dormitory_service_type = $request->input("dormitory_service_type");
         $dormitoryService->block = $request->input("block_number");
@@ -199,7 +204,7 @@ class SpecialNeedStudentsController extends Controller
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -209,7 +214,7 @@ class SpecialNeedStudentsController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
@@ -221,14 +226,14 @@ class SpecialNeedStudentsController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = $request->input("year_level");
             $department->department_name_id = 0;
             $college->departments()->save($department);
             $departmentName->department()->save($department);
         }
-        
+
         $dormitoryService->save();
         $dormitoryService->studentService()->save($studentService);
         $department->specialNeedStudents()->save($specialNeedStudent);
@@ -236,9 +241,10 @@ class SpecialNeedStudentsController extends Controller
         $student->student_service_id = 0;
         $specialNeedStudent->general()->save($student);
         $studentService->student()->save($student);
-        
+
         return redirect("/student/special-need");
     }
+
     /**
      * Remove the specified resource from storage.
      *

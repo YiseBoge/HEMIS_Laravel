@@ -16,8 +16,8 @@ class BudgetDescriptionsController extends Controller
      */
     public function index()
     {
-        $budgetDescriptions=BudgetDescription::all();
-        return view('colleges.budget_description.index')->with('budgetDescriptions',$budgetDescriptions);
+        $budgetDescriptions = BudgetDescription::all();
+        return view('colleges.budget_description.index')->with('budgetDescriptions', $budgetDescriptions);
     }
 
     /**
@@ -49,7 +49,7 @@ class BudgetDescriptionsController extends Controller
 
         $budgetDescription->save();
 
-        return redirect('/college/budget-description');
+        return redirect('/budgets/budget-description');
     }
 
     /**

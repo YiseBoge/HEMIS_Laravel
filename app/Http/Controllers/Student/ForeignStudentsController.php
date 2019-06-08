@@ -3,24 +3,24 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\Band\Band;
+use App\Models\Band\BandName;
+use App\Models\College\College;
+use App\Models\College\CollegeName;
+use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
+use App\Models\Student\DormitoryService;
+use App\Models\Student\ForeignStudent;
+use App\Models\Student\Student;
+use App\Models\Student\StudentService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Band\BandName;
-use App\Models\College\CollegeName;
-use App\Models\Department\DepartmentName;
-use App\Models\Band\Band;
-use App\Models\College\College;
-use App\Models\Department\Department;
-use App\Models\Student\Student;
-use App\Models\Student\ForeignStudent;
-use App\Models\Student\StudentService;
-use App\Models\Student\DormitoryService;
 use Illuminate\Support\Facades\Auth;
 
 
 class ForeignStudentsController extends Controller
 {
-   
+
     /**
      * Display a listing of the resource.
      *
@@ -34,6 +34,7 @@ class ForeignStudentsController extends Controller
         );
         return view("students.foreign.index")->with($data);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -52,6 +53,7 @@ class ForeignStudentsController extends Controller
         );
         return view("students.foreign.create")->with($data);
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -92,7 +94,7 @@ class ForeignStudentsController extends Controller
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -102,7 +104,7 @@ class ForeignStudentsController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
@@ -114,7 +116,7 @@ class ForeignStudentsController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = $request->input("year_level");
             $department->department_name_id = 0;
@@ -129,9 +131,10 @@ class ForeignStudentsController extends Controller
         $student->student_service_id = 0;
         $foreignerStudent->general()->save($student);
         $studentService->student()->save($student);
-        
+
         return redirect("/student/foreign");
     }
+
     /**
      * Display the specified resource.
      *
@@ -146,6 +149,7 @@ class ForeignStudentsController extends Controller
         );
         return view("students.foreign.details")->with($data);
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -163,6 +167,7 @@ class ForeignStudentsController extends Controller
         );
         return view("students.foreign.edit")->with($data);
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -182,7 +187,7 @@ class ForeignStudentsController extends Controller
             'years_in_ethiopia' => 'required'
         ]);
         $foreignerStudent = ForeignStudent::find($id);
-        
+
         $dormitoryService = $foreignerStudent->general->studentService->dormitoryService;
         $dormitoryService->dormitory_service_type = $request->input("dormitory_service_type");
         $dormitoryService->block = $request->input("block_number");
@@ -205,7 +210,7 @@ class ForeignStudentsController extends Controller
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -215,7 +220,7 @@ class ForeignStudentsController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
@@ -227,14 +232,14 @@ class ForeignStudentsController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = $request->input("year_level");
             $department->department_name_id = 0;
             $college->departments()->save($department);
             $departmentName->department()->save($department);
         }
-        
+
         $dormitoryService->save();
         $dormitoryService->studentService()->save($studentService);
         $department->ForeignStudents()->save($foreignerStudent);
@@ -242,9 +247,10 @@ class ForeignStudentsController extends Controller
         $student->student_service_id = 0;
         $foreignerStudent->general()->save($student);
         $studentService->student()->save($student);
-        
+
         return redirect("/student/foreign");
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -252,7 +258,7 @@ class ForeignStudentsController extends Controller
      * @return Response
      */
     public function destroy($id)
-    {        
+    {
         $foreignerStudent = ForeignStudent::find($id);
         $student = $foreignerStudent->general;
         $dormitoryService = $foreignerStudent->general->studentService->dormitoryService;
@@ -260,7 +266,7 @@ class ForeignStudentsController extends Controller
         $dormitoryService->delete();
         $studentService->delete();
         $foreignerStudent->delete();
-        $student->delete();       
+        $student->delete();
         return redirect('/student/foreigner');
     }
 }
