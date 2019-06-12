@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Models\Band\Band;
+use App\Models\College\College;
 use App\Models\College\TechnicalStaff;
 use App\Models\Staff\IctStaff;
+use App\Models\Staff\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -52,10 +55,10 @@ class TechnicalStaffsController extends Controller
     public function create()
     {
         $data = array(
-            'employment_types' => Staff::getEnum("EmploymentTypes"),
-            'dedications' => Staff::getEnum("Dedications"),
-            'academic_levels' => Staff::getEnum("AcademicLevels"),
-            'staff_ranks' => TechnicalStaff::getEnum("StaffRanks"),
+            'employment_types' => Staff::getEnum("employment_type"),
+            'dedications' => Staff::getEnum("dedication"),
+            'academic_levels' => Staff::getEnum("academic_levels"),
+            'staff_ranks' => TechnicalStaff::getEnum("staff_rank"),
             'page_name' => 'staff.technical.create'
         );
         return view('staff.technical.create')->with($data);
@@ -109,29 +112,35 @@ class TechnicalStaffsController extends Controller
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
         $technicalStaff = new TechnicalStaff;
-        $technicalStaff->staffRank = $request->input('technical_staff_rank');
-        $technicalStaff->institution_id = 0;
-
-        $technicalStaff->save();
-
-        $technicalStaff = TechnicalStaff::find($technicalStaff->id);
-
-        $technicalStaff->general()->save($staff);
+        $technicalStaff->staff_rank = $request->input('technical_staff_rank');
 
         $user = Auth::user();
         $institution = $user->institution();
-        $collegeName = $user->collegeName();
 
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        $college->ictStaffs()->save($technicalStaff);
-                    }
-                }
-            }
-        } else {
+        $bandName = $user->bandName;
+        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
+        if ($band == null) {
+            $band = new Band;
+            $band->band_name_id = 0;
+            $institution->bands()->save($band);
+            $bandName->band()->save($band);
         }
+
+        $collegeName = $user->collegeName;
+        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
+            'education_level' => 'None', 'education_program' => 'None'])->first();
+        if ($college == null) {
+            $college = new College;
+            $college->education_level = 'None';
+            $college->education_program = "None";
+            $college->college_name_id = 0;
+            $band->colleges()->save($college);
+            $collegeName->college()->save($college);
+        }
+
+        $college->technicalStaff()->save($technicalStaff);
+        $technicalStaff = TechnicalStaff::find($technicalStaff->id);
+        $technicalStaff->general()->save($staff);
 
         return redirect('/staff/technical');
     }

@@ -152,7 +152,8 @@
                     <a class="collapse-item" href="/institution/foreign-staff">Foreign Academic Staff</a>
                     <a class="collapse-item text-wrap" href="/department/staff-leave">Study Leave</a>
                     <a class="collapse-item text-wrap" href="/department/upgrading-staff">Upgrading Level of Education</a>
-                    <a class="collapse-item" href="/staff/technical-staff">Technical Staff</a>
+                    <a class="collapse-item" href="/staff/technical">Technical Staff</a>
+                    <a class="collapse-item" href="/staff/ict">Ict Staff</a>
                     <a class="collapse-item text-wrap" href="/institution/non-admin">Administrative and Non-Academic Staff</a>
                     <a class="collapse-item text-wrap" href="/staff/administrative">Administrative Staff(Detail)</a>
                     <a class="collapse-item text-wrap" href="/department/special-program-teacher">Special Programs</a>
