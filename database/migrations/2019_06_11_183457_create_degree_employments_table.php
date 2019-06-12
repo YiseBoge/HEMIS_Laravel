@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateStudentAttritionsTable extends Migration
+class CreateDegreeEmploymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,14 @@ class CreateStudentAttritionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_attritions', function (Blueprint $table) {
+        Schema::create('degree_employments', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('type');
-            $table->string('case');
-
             $table->bigInteger('male_students_number');
             $table->bigInteger('female_students_number');
-
-            $table->string('student_type');
-
             $table->timestamps();
+
             $table->primary('id');
+
             $table->uuid('department_id');
         });
     }
@@ -36,6 +32,6 @@ class CreateStudentAttritionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_attritions');
+        Schema::dropIfExists('degree_employments');
     }
 }

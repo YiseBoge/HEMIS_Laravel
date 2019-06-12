@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\College\CollegeName;
+use App\Models\Band\BandName;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;

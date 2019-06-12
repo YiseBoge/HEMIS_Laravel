@@ -30,6 +30,11 @@ class StudentAttritionController extends Controller
             $requestedProgram = 'Regular';
         }
 
+        $requestedStudentType = $request->input('student_type');
+        if ($requestedStudentType == null) {
+            $requestedStudentType = 'All';
+        }
+
         $requestedType = $request->input('type');
         if ($requestedType == null) {
             $requestedType = 'CET';
@@ -59,8 +64,10 @@ class StudentAttritionController extends Controller
                     if ($college->education_program == $requestedProgram && $college->education_level == $requestedLevel) {
                         foreach ($college->departments as $department) {
                             if ($department->year_level == $requestedYearLevel) {
+                                
                                 foreach ($department->studentAttritions as $attrition) {
-                                    if ($attrition->type == $requestedType && $attrition->case == $requestedCase) {
+                                    if ($attrition->type == $requestedType && $attrition->case == $requestedCase && $attrition->student_type == $requestedStudentType) {
+                                        
                                         $attritions[] = $attrition;
                                     }
                                 }
@@ -81,6 +88,7 @@ class StudentAttritionController extends Controller
             'programs' => College::getEnum('EducationPrograms'),
             'education_levels' => College::getEnum('EducationLevels'),
             'years' => Department::getEnum('YearLevels'),
+            'student_types' => StudentAttrition::getEnum('StudentTypes'),
             'types' => StudentAttrition::getEnum('Types'),
             'cases' => StudentAttrition::getEnum('Cases'),
             'page_name' => 'departments.student_attritions.index',
@@ -88,6 +96,7 @@ class StudentAttritionController extends Controller
             "selected_program" => $requestedProgram,
             "selected_level" => $requestedLevel,
             "selected_year" => $requestedYearLevel,
+            "selected_student_type" => $requestedStudentType,
             "selected_type" => $requestedType,
             "selected_case" => $requestedCase,
         );
@@ -106,6 +115,7 @@ class StudentAttritionController extends Controller
             'programs' => College::getEnum('EducationPrograms'),
             'education_levels' => College::getEnum('EducationLevels'),
             'years' => Department::getEnum('YearLevels'),
+            'student_types' => StudentAttrition::getEnum('StudentTypes'),
             'types' => StudentAttrition::getEnum('Types'),
             'cases' => StudentAttrition::getEnum('Cases'),
             'page_name' => 'departments.student_attritions.create'
@@ -127,6 +137,7 @@ class StudentAttritionController extends Controller
         ]);
 
         $attrition = new StudentAttrition;
+        $attrition->student_type = $request->input('student_type');
         $attrition->type = $request->input('type');
         $attrition->case = $request->input('case');
         $attrition->male_students_number = $request->input('male_number');

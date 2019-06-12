@@ -54,6 +54,16 @@
                             </div>
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
+                                    <select class="form-control" name="student_type" id="student_type">
+                                        @foreach ($student_types as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="student_type" class="form-control-placeholder">
+                                       Student Type
+                                    </label>
+                                </div>
+                                <div class="col form-group">
                                     <select class="form-control" name="type" id="type">
                                         @foreach ($types as $key => $value)
                                             <option value="{{$key}}">{{$value}}</option>

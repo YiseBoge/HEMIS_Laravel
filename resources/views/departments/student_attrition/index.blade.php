@@ -67,6 +67,21 @@
                             </div>
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
+                                    <select class="form-control" name="student_type" id="student_type" onchange="this.form.submit()">
+                                        @foreach ($student_types as $key => $value)
+                                            @if ($value == $selected_type)
+                                                <option value="{{$value}}" selected>{{$value}}</option>
+                                            @else
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endif
+
+                                        @endforeach
+                                    </select>
+                                    <label for="student_type" class="form-control-placeholder">
+                                        Student Type
+                                    </label>
+                                </div>
+                                <div class="col form-group">
                                     <select class="form-control" name="type" id="type" onchange="this.form.submit()">
                                         @foreach ($types as $key => $value)
                                             @if ($value == $selected_type)

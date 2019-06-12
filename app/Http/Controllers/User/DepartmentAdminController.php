@@ -72,6 +72,8 @@ class DepartmentAdminController extends Controller
         $institutionName = $user->institutionName;
         $collegeName = $user->collegeName;
 
+        $bandName = $user->bandName;
+
         $departmentNames = DepartmentName::all();
         $departmentName = $departmentNames[$request->input('department_name_id')];
 
@@ -82,6 +84,7 @@ class DepartmentAdminController extends Controller
 
         $institutionName->users()->save($user);
         $collegeName->users()->save($user);
+        $bandName->users()->save($user);
         $departmentName->users()->save($user);
         $currentInstanceId->users()->save($user);
 

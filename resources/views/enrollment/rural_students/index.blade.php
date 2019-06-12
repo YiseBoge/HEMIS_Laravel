@@ -4,15 +4,14 @@
     <div class="container-fluid">
         <div class="card shadow-sm mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Student Enrollment</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Students From Rural Areas Enrollment</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="row">
                                 <div class="col text-right">
-                                    <a class="btn btn-outline-primary btn-sm mb-0 mr-3" href="normal-chart">Generate Report</a>
-                                    <a class="btn btn-outline-primary btn-sm mb-0" href="normal/create">New Entry<i
+                                    <a class="btn btn-outline-primary btn-sm mb-0" href="rural-area-students/create">New Entry<i
                                         class="fas fa-arrow-right ml-2"></i></a>
                                     
                                 </div>
@@ -20,17 +19,17 @@
                         <form action="" method="get">
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <select class="form-control" name="student_type" id="student_type" onchange="this.form.submit()">
-                                        @foreach ($student_types as $key => $value)
-                                            @if ($value == $selected_student_type)
+                                    <select class="form-control" name="region" id="region" onchange="this.form.submit()">
+                                        @foreach ($regions as $key => $value)
+                                            @if ($value == $selected_region)
                                                 <option value="{{$value}}" selected>{{$value}}</option>
                                             @else
                                                 <option value="{{$value}}">{{$value}}</option>
                                             @endif                                            
                                         @endforeach
                                     </select>
-                                    <label for="service_type" class="form-control-placeholder">
-                                        Student Type
+                                    <label for="region" class="form-control-placeholder">
+                                        Region
                                     </label>
                                 </div>
 

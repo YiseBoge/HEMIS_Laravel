@@ -18,88 +18,14 @@
             <span>Dashboard</span></a>
     </li>
 
-    <!-- Divider -->
+@if(Auth::user()->hasRole('Department Admin'))
+
     <hr class="sidebar-divider">
 
-
-    <!-- Heading -->
-
-    @if(!Auth::user()->hasRole('Department Admin'))
-        <div class="sidebar-heading">
-            Lesser Components
-        </div>
-
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudent"
-               aria-expanded="false"
-               aria-controls="collapseInstitution">
-                <i class="fas fa-university"></i>
-                <span>Budgets</span>
-            </a>
-            <div id="collapseStudent" class="collapse" aria-labelledby="headingTwo"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/budgets/budget">Budget</a>
-                    <a class="collapse-item" href="/budgets/internal-revenue">Internal Revenue</a>
-                    <a class="collapse-item" href="/budgets/private-investment">Private Investment</a>
-                </div>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
-               aria-controls="collapseAdmin">
-                <i class="fas fa-chalkboard-teacher"></i>
-                <span>Admin</span>
-            </a>
-            <div id="collapseAdmin" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Admin Acts:</h6>
-                    @if (Auth::user()->hasRole('Super Admin'))
-                        <a class="collapse-item" href="/institution/instance">Instances</a>
-                        <a class="collapse-item" href="/university-admin">University Admin</a>
-                        <a class="collapse-item" href="/institution/institution-name">Institution Names</a>
-                        <a class="collapse-item" href="/band/band-name">Band Names</a>
-                    @elseif(Auth::user()->hasRole('University Admin'))
-                        <a class="collapse-item" href="/college-admin">College Admin</a>
-                        <a class="collapse-item" href="/college/college-name">College Names</a>
-                        <a class="collapse-item" href="/department/department-name">Department Names</a>
-                    @elseif(Auth::user()->hasRole('College Admin'))
-                        <a class="collapse-item" href="/department-admin">Department Admin</a>
-                    @endif
-
-                </div>
-            </div>
-        </li>
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-@endif
-
-
-@if(Auth::user()->hasRole('Department Admin'))
          <!-- Heading -->
     <div class="sidebar-heading">
             Major Components
         </div>
-    
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInstitution"
-               aria-expanded="false"
-               aria-controls="collapseInstitution">
-                <i class="fas fa-university"></i>
-                <span>Institution</span>
-            </a>
-            <div id="collapseInstitution" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Institution Info:</h6>
-                    <a class="collapse-item" href="/institution/researches">Research</a>
-                    <a class="collapse-item" href="/institution/university-industry-linkage">University Industry Linkage</a>
-                    <a class="collapse-item" href="/institution/genral-information">General Information</a>
-                    <a class="collapse-item" href="/institution/buildings">Buildings</a>
-                </div>
-            </div>
-        </li>
     
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
@@ -111,9 +37,12 @@
             </a>
             <div id="collapseStudents" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/enrollment/normal">Normal Students</a>
+                    <a class="collapse-item" href="/enrollment/normal">Students</a>
                     <a class="collapse-item" href="/enrollment/special-region-students">Special Region Students</a>
                     <a class="collapse-item" href="/enrollment/specializing-students">Specializing Students</a>
+                    <a class="collapse-item" href="/enrollment/rural-area-students">Rural Area Students</a>
+                    <a class="collapse-item text-wrap" href="/enrollment/economically-disadvantaged-students">Economically Disadvantaged Students</a>
+                    <a class="collapse-item text-wrap" href="/enrollment/other-region-students">Students From Other Regions</a>
                     <a class="collapse-item" href="/institution/age-enrollment">Enrollment With Age</a>
                 </div>
             </div>
@@ -122,7 +51,7 @@
                  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudent"
                     aria-expanded="false"
                     aria-controls="collapseInstitution">
-                     <i class="fas fa-university"></i>
+                    <i class="fas fa-user-graduate"></i>
                      <span>Students</span>
                  </a>
                  <div id="collapseStudent" class="collapse" aria-labelledby="headingTwo"
@@ -135,7 +64,25 @@
                      </div>
                  </div>
              </li>
-    
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInstitution"
+               aria-expanded="false"
+               aria-controls="collapseInstitution">
+                <i class="fas fa-university"></i>
+                <span>Students General Info</span>
+            </a>
+            <div id="collapseInstitution" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Student Info:</h6>
+                    <a class="collapse-item" href="/student/exit-examination">Exit Examination</a>
+                    <a class="collapse-item" href="/institution/university-industry-linkage">University Industry Linkage</a>
+                    <a class="collapse-item text-wrap" href="/student/degree-relevant-employment">Degree Relevant Employment</a>
+                    <a class="collapse-item" href="/student/cost-sharing">Cost Sharing</a>
+                </div>
+            </div>
+        </li>
+
+        
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff"
@@ -152,9 +99,6 @@
                     <a class="collapse-item" href="/institution/foreign-staff">Foreign Academic Staff</a>
                     <a class="collapse-item text-wrap" href="/department/staff-leave">Study Leave</a>
                     <a class="collapse-item text-wrap" href="/department/upgrading-staff">Upgrading Level of Education</a>
-                    <a class="collapse-item" href="/staff/technical-staff">Technical Staff</a>
-                    <a class="collapse-item text-wrap" href="/institution/non-admin">Administrative and Non-Academic Staff</a>
-                    <a class="collapse-item text-wrap" href="/staff/administrative">Administrative Staff(Detail)</a>
                     <a class="collapse-item text-wrap" href="/department/special-program-teacher">Special Programs</a>
                     <a class="collapse-item text-wrap" href="/department/postgraduate-diploma-training">Post Graduate
                         Diploma Training</a>
@@ -163,10 +107,102 @@
             </div>
         </li>
 
-        <!-- Divider -->
-    <hr class="sidebar-divider">
+
+        <li class="nav-item">
+            <a class="nav-link" href="/institution/researches">
+                <i class="fas fa-paperclip"></i>
+                <span>Research</span></a>
+        </li>
+
     
+    @elseif(Auth::user()->hasRole('College Admin'))
+    <hr class="sidebar-divider">
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudent"
+           aria-expanded="false"
+           aria-controls="collapseInstitution">
+            <i class="fas fa-university"></i>
+            <span>Budgets</span>
+        </a>
+        <div id="collapseStudent" class="collapse" aria-labelledby="headingTwo"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="/budgets/budget">Budget</a>
+                <a class="collapse-item" href="/budgets/internal-revenue">Internal Revenue</a>
+                <a class="collapse-item" href="/budgets/private-investment">Private Investment</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff"
+           aria-controls="collapseStaff">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span>Staff</span>
+        </a>
+        <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Staff Acts:</h6>
+                <a class="collapse-item" href="/staff/technical-staff">Technical Staff</a>
+                <a class="collapse-item text-wrap" href="/institution/non-admin">Administrative and Non-Academic Staff</a>
+                <a class="collapse-item text-wrap" href="/staff/administrative">Administrative Staff(Detail)</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="institution/buildings">
+            <i class="fas fa-building"></i>
+            <span>Buildings</span></a>
+    </li>
+    @elseif(Auth::user()->hasRole('University Admin'))
+
+    <hr class="sidebar-divider">
+
+    <li class="nav-item">
+        <a class="nav-link" href="/institution/genral-information">
+            <i class="fas fa-info"></i>
+            <span>General Information</span></a>
+    </li>
+    @else
+
     @endif
+
+    <hr class="sidebar-divider">
+
+    @if(!Auth::user()->hasRole('Department Admin'))
+    <div class="sidebar-heading">
+        Lesser Components
+    </div>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
+           aria-controls="collapseAdmin">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span>Admin</span>
+        </a>
+        <div id="collapseAdmin" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Admin Acts:</h6>
+                @if (Auth::user()->hasRole('Super Admin'))
+                    <a class="collapse-item" href="/institution/instance">Instances</a>
+                    <a class="collapse-item" href="/institution/institution-name">University Names</a>
+                    <a class="collapse-item" href="/band/band-name">Band/ICED Names</a>
+                    <a class="collapse-item" href="/university-admin">University Admin</a>                   
+                @elseif(Auth::user()->hasRole('University Admin'))
+                    <a class="collapse-item" href="/college-admin">College/Institute Admin</a>
+                    <a class="collapse-item" href="/college/college-name">College/Institute Names</a>
+                    <a class="collapse-item" href="/department/department-name">School/Department Names</a>
+                @elseif(Auth::user()->hasRole('College Admin'))
+                    <a class="collapse-item" href="/department-admin">School/Department Admin</a>
+                @endif
+
+            </div>
+        </div>
+    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+@endif
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
