@@ -16,11 +16,6 @@ class GeneralInformation extends Model
         return $this->hasOne('App\Models\Institution\Institution');
     }
 
-    public function budget()
-    {
-        return $this->belongsTo('App\Models\Institution\Budget');
-    }
-
     public function resource()
     {
         return $this->belongsTo('App\Models\Institution\Resource');

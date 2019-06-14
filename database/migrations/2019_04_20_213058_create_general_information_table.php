@@ -29,7 +29,6 @@ class CreateGeneralInformationTable extends Migration
 
             $table->primary('id');
 
-            $table->uuid('budget_id')->nullable();
             $table->uuid('resource_id')->nullable();
             $table->uuid('community_service_id')->nullable();
         });

@@ -15,7 +15,7 @@ class InstitutionsController extends Controller
      */
     public function index()
     {
-        //
+        return view("institutions.general_info.index");
     }
 
     /**
@@ -58,7 +58,7 @@ class InstitutionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view("institutions.general_info.edit");
     }
 
     /**
