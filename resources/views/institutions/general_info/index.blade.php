@@ -3,8 +3,12 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col">
+            <div class="col-md-10">
                 <h1 class="text-primary">Institution Name</h1>
+            </div>
+            <div class="col-md-2 pt-4">
+                <a href="general/{{$institution->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i>
+                    Edit</a>
             </div>
         </div>
         <div class="row my-3">
@@ -12,10 +16,10 @@
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Institutions
+                            Campuses
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            0
+                            {{$institution->generalInformation->campuses}}
                         </div>
                     </div>
                 </div>
@@ -27,7 +31,7 @@
                             Colleges
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            0
+                            ---
                         </div>
                     </div>
                 </div>
@@ -36,10 +40,10 @@
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Bands
+                            Schools
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            0
+                            {{$institution->generalInformation->schools}}
                         </div>
                     </div>
                 </div>
@@ -48,10 +52,10 @@
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Departments
+                            Institutes
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            0
+                            {{$institution->generalInformation->institutes}}
                         </div>
                     </div>
                 </div>
@@ -66,7 +70,7 @@
                             Board Members
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            0
+                            {{$institution->generalInformation->board_members}}
                         </div>
                     </div>
                 </div>
@@ -78,7 +82,7 @@
                             Vice Presidents
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            0
+                            {{$institution->generalInformation->vice_presidents}}
                         </div>
                     </div>
                 </div>
@@ -90,7 +94,7 @@
                             Middle Level Leaders
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            0
+                            {{$institution->generalInformation->middle_level_leaders}}
                         </div>
                     </div>
                 </div>
@@ -102,7 +106,7 @@
                             Hospitals
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            0
+                            {{$institution->generalInformation->hospitals}}
                         </div>
                     </div>
                 </div>
@@ -120,40 +124,40 @@
                                 Academic Staff (On Local Duty)
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Males: <span class="font-weight-bold text-gray-800">32</span>
+                                Males: <span class="font-weight-bold text-gray-800">---</span>
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Females: <span class="font-weight-bold text-gray-800">33</span>
+                                Females: <span class="font-weight-bold text-gray-800">---</span>
                             </div>
 
                             <div class="col-md-6 p-3">
                                 Academic Staff (On Study Leave)
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Males: <span class="font-weight-bold text-gray-800">32</span>
+                                Males: <span class="font-weight-bold text-gray-800">---</span>
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Females: <span class="font-weight-bold text-gray-800">33</span>
+                                Females: <span class="font-weight-bold text-gray-800">---</span>
                             </div>
 
                             <div class="col-md-6 p-3">
                                 Administrative Staff
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Males: <span class="font-weight-bold text-gray-800">32</span>
+                                Males: <span class="font-weight-bold text-gray-800">---</span>
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Females: <span class="font-weight-bold text-gray-800">33</span>
+                                Females: <span class="font-weight-bold text-gray-800">---</span>
                             </div>
 
                             <div class="col-md-6 p-3">
                                 Technical Staff
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Males: <span class="font-weight-bold text-gray-800">32</span>
+                                Males: <span class="font-weight-bold text-gray-800">---</span>
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Females: <span class="font-weight-bold text-gray-800">33</span>
+                                Females: <span class="font-weight-bold text-gray-800">---</span>
                             </div>
 
                         </div>
@@ -171,21 +175,21 @@
                                 Recurrent Budget
                             </div>
                             <div class="col-md-4 p-3">
-                                <span class="font-weight-bold text-gray-800">32</span>
+                                <span class="font-weight-bold text-gray-800">---</span>
                             </div>
 
                             <div class="col-md-8 p-3">
                                 Capital Budget
                             </div>
                             <div class="col-md-4 p-3">
-                                <span class="font-weight-bold text-gray-800">32</span>
+                                <span class="font-weight-bold text-gray-800">---</span>
                             </div>
 
                             <div class="col-md-8 p-3">
                                 From Internal Income
                             </div>
                             <div class="col-md-4 p-3">
-                                <span class="font-weight-bold text-gray-800">32</span>
+                                <span class="font-weight-bold text-gray-800">---</span>
                             </div>
 
                         </div>
@@ -205,34 +209,46 @@
                                 Number of Community Services Delivered
                             </div>
                             <div class="col-md-4 p-3">
-                                <span class="font-weight-bold text-gray-800">32</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->communityService->community_services}}
+                                </span>
                             </div>
 
                             <div class="col-md-8 p-3">
                                 Teachers who participated in community Service
                             </div>
                             <div class="col-md-2 col-sm-6 p-3">
-                                Males: <span class="font-weight-bold text-gray-800">32</span>
+                                Males: <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->communityService->male_teachers_participated}}
+                                </span>
                             </div>
                             <div class="col-md-2 col-sm-6 p-3">
-                                Females: <span class="font-weight-bold text-gray-800">33</span>
+                                Females: <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->communityService->female_teachers_participated}}
+                                </span>
                             </div>
 
                             <div class="col-md-8 p-3">
                                 People who benefited from Community Service
                             </div>
                             <div class="col-md-2 col-sm-6 p-3">
-                                Males: <span class="font-weight-bold text-gray-800">32</span>
+                                Males: <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->communityService->male_benefited}}
+                                </span>
                             </div>
                             <div class="col-md-2 col-sm-6 p-3">
-                                Females: <span class="font-weight-bold text-gray-800">33</span>
+                                Females: <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->communityService->female_benefited}}
+                                </span>
                             </div>
 
                             <div class="col-md-8 p-3">
                                 TVET's linked to the University
                             </div>
                             <div class="col-md-4 p-3">
-                                <span class="font-weight-bold text-gray-800">32</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->communityService->linked_tvets}}
+                                </span>
                             </div>
                         </div>
 
@@ -243,27 +259,41 @@
                             </div>
                         </div>
                         <div class="px-5 text-center">
-                            <div class="p-2 mx-2 alert alert-secondary d-inline-block text-gray-700">
-                                Strategic Plan Document
-                            </div>
-                            <div class="p-2 mx-2 alert alert-secondary d-inline-block text-gray-700">
-                                Incubation Center
-                            </div>
-                            <div class="p-2 mx-2 alert alert-secondary d-inline-block text-gray-700">
-                                HDP Lead
-                            </div>
-                            <div class="p-2 mx-2 alert alert-secondary d-inline-block text-gray-700">
-                                CCPD coordinator
-                            </div>
-                            <div class="p-2 mx-2 alert alert-secondary d-inline-block text-gray-700">
-                                ELIP center (for teachers)
-                            </div>
-                            <div class="p-2 mx-2 alert alert-secondary d-inline-block text-gray-700">
-                                ELIP center (for students)
-                            </div>
-                            <div class="p-2 mx-2 alert alert-secondary d-inline-block text-gray-700">
-                                Career Center
-                            </div>
+                            @if ($institution->generalInformation->communityService->has_spd)
+                                <div class="p-2 mx-2 alert alert-secondary d-inline-block text-gray-700">
+                                    Strategic Plan Document
+                                </div>
+                            @endif
+                            @if ($institution->generalInformation->communityService->has_incubation)
+                                <div class="p-2 mx-2 alert alert-secondary d-inline-block text-gray-700">
+                                    Incubation Center
+                                </div>
+                            @endif
+                            @if ($institution->generalInformation->communityService->has_hdp_lead)
+                                <div class="p-2 mx-2 alert alert-secondary d-inline-block text-gray-700">
+                                    HDP Lead
+                                </div>
+                            @endif
+                            @if ($institution->generalInformation->communityService->has_ccpd_coordinator)
+                                <div class="p-2 mx-2 alert alert-secondary d-inline-block text-gray-700">
+                                    CCPD coordinator
+                                </div>
+                            @endif
+                            @if ($institution->generalInformation->communityService->has_elip_teachers)
+                                <div class="p-2 mx-2 alert alert-secondary d-inline-block text-gray-700">
+                                    ELIP center (for teachers)
+                                </div>
+                            @endif
+                            @if ($institution->generalInformation->communityService->has_elip_students)
+                                <div class="p-2 mx-2 alert alert-secondary d-inline-block text-gray-700">
+                                    ELIP center (for students)
+                                </div>
+                            @endif
+                            @if ($institution->generalInformation->communityService->has_career_center)
+                                <div class="p-2 mx-2 alert alert-secondary d-inline-block text-gray-700">
+                                    Career Center
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -281,49 +311,63 @@
                                 Pupil : Teacher Ratio
                             </div>
                             <div class="col-3 p-3">
-                                <span class="font-weight-bold text-gray-800">sth : 1</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->resource->pupil_per_teacher}} : 1
+                                </span>
                             </div>
 
                             <div class="col-9 p-3">
                                 Student : Text (References) ratio
                             </div>
                             <div class="col-3 p-3">
-                                <span class="font-weight-bold text-gray-800">1 : sth</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    1 : {{$institution->generalInformation->resource->text_per_student}}
+                                </span>
                             </div>
 
                             <div class="col-9 p-3">
                                 Graduation Rate (Undergraduates)
                             </div>
                             <div class="col-3 p-3">
-                                <span class="font-weight-bold text-gray-800">Sth %</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    --- %
+                                </span>
                             </div>
 
                             <div class="col-9 p-3">
                                 Graduation Rate (Postgraduates)
                             </div>
                             <div class="col-3 p-3">
-                                <span class="font-weight-bold text-gray-800">Sth %</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    --- %
+                                </span>
                             </div>
 
                             <div class="col-9 p-3">
                                 Graduation Rate (Special Need Students)
                             </div>
                             <div class="col-3 p-3">
-                                <span class="font-weight-bold text-gray-800">Sth %</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    --- %
+                                </span>
                             </div>
 
                             <div class="col-9 p-3">
                                 Graduation Rate (Females)
                             </div>
                             <div class="col-3 p-3">
-                                <span class="font-weight-bold text-gray-800">Sth %</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    --- %
+                                </span>
                             </div>
 
                             <div class="col-9 p-3">
                                 Percentage of Smart Classrooms
                             </div>
                             <div class="col-3 p-3">
-                                <span class="font-weight-bold text-gray-800">Sth %</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->resource->rate_of_smart_classrooms}} %
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -340,30 +384,45 @@
                                 Libraries
                             </div>
                             <div class="col-md-2 col-sm-6 p-3">
-                                <span class="font-weight-bold text-gray-800">3232</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->resource->number_of_libraries}}
+                                </span>
                             </div>
                             <div class="col-md-5 col-sm-6 p-3">
-                                Status: <span class="font-weight-bold text-gray-800">Very Good</span>
+                                Status:
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->resource->status_of_libraries}}
+                                </span>
                             </div>
 
                             <div class="col-md-5 p-3">
                                 Laboratories
                             </div>
                             <div class="col-md-2 col-sm-6 p-3">
-                                <span class="font-weight-bold text-gray-800">3232</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->resource->number_of_laboratories}}
+                                </span>
                             </div>
                             <div class="col-md-5 col-sm-6 p-3">
-                                Status: <span class="font-weight-bold text-gray-800">Very Good</span>
+                                Status:
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->resource->status_of_laboratories}}
+                                </span>
                             </div>
 
                             <div class="col-md-5 p-3">
                                 Workshops
                             </div>
                             <div class="col-md-2 col-sm-6 p-3">
-                                <span class="font-weight-bold text-gray-800">3232</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->resource->number_of_workshops}}
+                                </span>
                             </div>
                             <div class="col-5 p-3">
-                                Status: <span class="font-weight-bold text-gray-800">Very Good</span>
+                                Status:
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->resource->status_of_workshops}}
+                                </span>
                             </div>
 
                         </div>
