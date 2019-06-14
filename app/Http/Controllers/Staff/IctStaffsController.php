@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Models\Band\Band;
+use App\Models\College\College;
 use App\Models\Staff\IctStaff;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -108,22 +110,35 @@ class IctStaffsController extends Controller
 
         $ictStaff->save();
 
-        $ictStaff->general()->save($staff);
 
         $user = Auth::user();
-        $institution = $user->institution();
-        $collegeName = $user->collegeName();
 
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        $college->ictStaffs()->save($staff);
-                    }
-                }
-            }
-        } else {
+        $institution = $user->institution();
+
+        $bandName = $user->bandName;
+        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
+        if ($band == null) {
+            $band = new Band;
+            $band->band_name_id = 0;
+            $institution->bands()->save($band);
+            $bandName->band()->save($band);
         }
+
+        $collegeName = $user->collegeName;
+        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
+            'education_level' => 'None', 'education_program' => 'None'])->first();
+        if ($college == null) {
+            $college = new College;
+            $college->education_level = 'None';
+            $college->education_program = "None";
+            $college->college_name_id = 0;
+            $band->colleges()->save($college);
+            $collegeName->college()->save($college);
+        }
+
+        $college->technicalStaff()->save($ictStaff);
+        $ictStaff = IctStaff::find($ictStaff->id);
+        $ictStaff->general()->save($staff);
 
         return redirect('/staff/ict');
     }

@@ -14,7 +14,7 @@ class TechnicalStaff extends Model
 
     public $incrementing = false;
 
-    protected $enumEducationLevels = [
+    protected $enumStaffRanks = [
         'LEVEL_III' => 'Level III',
         'LEVEL_IV' => 'Level IV',
         'LEVEL_V' => 'Level V',
@@ -26,6 +26,11 @@ class TechnicalStaff extends Model
 
     public function college(){
         return $this->belongsTo('App\Models\College\College');
+    }
+
+    public function general()
+    {
+        return $this->morphOne('App\Models\Staff\Staff', "staffable");
     }
 
     

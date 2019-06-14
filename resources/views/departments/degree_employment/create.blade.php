@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-    <!--  Disabled Students Form  -->
+        <!--  Disabled Students Form  -->
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)
                 <div class="alert alert-danger">
@@ -16,26 +16,30 @@
                 <div class="col">
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
-                                Students Accessing Degree-relevant Employment Within 12 Months After Graduation
+                            Students Accessing Degree-relevant Employment Within 12 Months After Graduation
                         </div>
-                        <div class="card-body px-4">                   
+                        <div class="card-body px-4">
 
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <input type="text" id="male_number" name="male_number" class="form-control" required>
-                                <label class="form-control-placeholder" for="male_number">Number of Male Students</label>
+                            <div class="form-group row pt-3">
+                                <div class="col form-group">
+                                    <input type="text" id="male_number" name="male_number" class="form-control"
+                                           required>
+                                    <label class="form-control-placeholder" for="male_number">Number of Male
+                                        Students</label>
+                                </div>
+
+                                <div class="col form-group">
+                                    <input type="text" id="female_number" name="female_number" class="form-control"
+                                           required>
+                                    <label class="form-control-placeholder" for="female_number">Number of Female
+                                        Students</label>
+                                </div>
                             </div>
-        
-                            <div class="col form-group">
-                                <input type="text" id="female_number" name="female_number" class="form-control" required>
-                                <label class="form-control-placeholder" for="female_number">Number of Female Students</label>
-                            </div>
-                        </div>
                         </div>
                     </fieldset>
-                    </div>
+                </div>
 
-                </div>               
+            </div>
 
             <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit">
         </form>

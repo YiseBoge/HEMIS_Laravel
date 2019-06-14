@@ -38,23 +38,28 @@ class Department extends Model
         return $this->hasMany('App\Models\Department\Enrollment');
     }
 
-    public function ruralStudentEnrollments(){
+    public function ruralStudentEnrollments()
+    {
         return $this->hasMany('App\Models\Department\RuralStudentEnrollment');
     }
 
-    public function disadvantagedStudentEnrollments(){
+    public function disadvantagedStudentEnrollments()
+    {
         return $this->hasMany('App\Models\Department\DisadvantagedStudentEnrollment');
     }
 
-    public function exitExaminations(){
+    public function exitExaminations()
+    {
         return $this->hasMany('App\Models\Department\ExitExamination');
     }
 
-    public function degreeEmployments(){
+    public function degreeEmployments()
+    {
         return $this->hasMany('App\Models\Department\DegreeEmployment');
     }
 
-    public function otherRegionStudents(){
+    public function otherRegionStudents()
+    {
         return $this->hasMany('App\Models\Department\OtherRegionStudent');
     }
 

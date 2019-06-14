@@ -11,12 +11,15 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('index');
 });
 
 Route::resource('institution/instance', 'Institution\InstancesController');
 Route::post('/institution/instance/update-current', 'Institution\InstancesController@updateCurrentInstance')->name('updateCurrentInstance');
+Route::resource('institution/general', 'Institution\InstitutionsController');
 Route::resource('institution/buildings', 'Institution\BuildingsController');
 
 Route::resource('budgets/budget', 'College\BudgetsController');

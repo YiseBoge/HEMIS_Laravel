@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OtherRegionStudent extends Model
 {
-    
+
     use Uuids;
     use Enums;
 

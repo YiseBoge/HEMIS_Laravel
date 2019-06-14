@@ -16,6 +16,7 @@
                                     
                                 </div>
                             </div>
+                        </div>
                         <form action="" method="get">
                             <div class="form-group row pt-3">
                                 <div class="col-md-4 form-group">
@@ -25,7 +26,7 @@
                                                 <option value="{{$value}}" selected>{{$value}}</option>
                                             @else
                                                 <option value="{{$value}}">{{$value}}</option>
-                                            @endif                                            
+                                            @endif
                                         @endforeach
                                     </select>
                                     <label for="quintile" class="form-control-placeholder">
@@ -35,12 +36,12 @@
                                 <div class="col-md-4 form-group">
                                     <select class="form-control" name="program" id="program" onchange="this.form.submit()">
                                         @foreach ($programs as $key => $value)
-                                        @if ($value == $selected_program)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                        @else
-                                        <option value="{{$value}}">{{$value}}</option> 
-                                        @endif
-                                            
+                                            @if ($value == $selected_program)
+                                                <option value="{{$value}}" selected>{{$value}}</option>
+                                            @else
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endif
+
                                         @endforeach
                                     </select>
                                     <label for="service_type" class="form-control-placeholder">
@@ -51,13 +52,13 @@
                                 <div class="col-md-4 form-group">
                                     <select class="form-control" name="education_level" id="level" onchange="this.form.submit()">
                                         @foreach ($education_levels as $key => $value)
-                                        @if ($key == 'SPECIALIZATION')
+                                            @if ($key == 'SPECIALIZATION')
                                                 <option disabled value="{{$value}}">{{$value}}</option>
-                                        @elseif($value == $selected_education_level)
+                                            @elseif($value == $selected_education_level)
                                                 <option value="{{$value}}" selected>{{$value}}</option>
-                                        @else
+                                            @else
                                                 <option value="{{$value}}">{{$value}}</option>
-                                        @endif
+                                            @endif
                                         @endforeach
                                     </select>
                                     <label for="dormitory_service_type" class="form-control-placeholder">
@@ -69,9 +70,10 @@
                         </form>
                         <div class="row mt-3">
                             <div class="col-sm-12">
-                                <table class="table table-bordered dataTable table-striped table-hover" id="dataTable" width="100%"
-                                        cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                        style="width: 100%;">
+                                <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
+                                       width="100%"
+                                       cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                                       style="width: 100%;">
                                     <thead>
                                     <tr role="row">
                                         <th style="min-width: 50px; width: 50px"></th>
@@ -89,27 +91,20 @@
                                             aria-label="Start date: activate to sort column ascending"
                                             style="width: 99px;">Number of Female Students
                                         </th>
-                                        
+
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        @if (count($enrollments) > 0)
-                                            @foreach ($enrollments as $enrollment)
-                                                <tr role="row" class="odd" onclick="window.location='normal/{{$enrollment->id}}'">
-                                                    <td class="pl-4">
-                                                        <div class="row">
-                                                            <div class="col pt-1">
-                                                                <a href="normal/{{$enrollment->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> </a>
-                                                            </div>
-                                                            <div class="col">
-                                                                <form class="p-0" action="/enrollment/normal/{{$enrollment->id}}" method="POST">
-                                                                    @csrf
-                                                                    <input type="hidden" name="_method" value="DELETE">
-                                                                    <button type="submit" class="form-control form-control-plaintext text-danger p-0">
-                                                                            <i class="far fa-trash-alt"></i>
-                                                                    </button>
-                                                                </form>
-                                                            </div>
+                                    @if (count($enrollments) > 0)
+                                        @foreach ($enrollments as $enrollment)
+                                            <tr role="row" class="odd"
+                                                onclick="window.location='normal/{{$enrollment->id}}'">
+                                                <td class="pl-4">
+                                                    <div class="row">
+                                                        <div class="col pt-1">
+                                                            <a href="normal/{{$enrollment->id}}/edit"
+                                                               class="text-primary mr-3"><i class="far fa-edit"></i>
+                                                            </a>
                                                         </div>
                                                     </td>  
                                                     <td>{{$enrollment->department->year_level}}</td>
@@ -129,5 +124,5 @@
             </div>
         </div>
     </div>
-    
+
 @endsection

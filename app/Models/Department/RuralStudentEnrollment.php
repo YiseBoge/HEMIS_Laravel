@@ -13,9 +13,9 @@ class RuralStudentEnrollment extends Model
 
     public $incrementing = false;
     protected $enumRegions = [
-        'RURAL'=>'Rural',
+        'RURAL' => 'Rural',
         'URBAN' => 'Urban'
-        
+
     ];
 
     public function department()
