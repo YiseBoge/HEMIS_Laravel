@@ -41,11 +41,6 @@ class RuralStudentEnrollmentsController extends Controller
             $requestedLevel='Undergraduate';
         }
 
-        $requestedYearLevel=$request->input('year_level');
-        if($requestedYearLevel==null){
-            $requestedYearLevel='1';
-        }
-
         $enrollments = array();
 
         if ($institution != null) {
@@ -53,9 +48,8 @@ class RuralStudentEnrollmentsController extends Controller
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-
                             foreach ($college->departments as $department) {
-                                if ($department->year_level == $requestedYearLevel) {
+                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                     foreach ($department->ruralStudentEnrollments as $enrollment) {
                                         if ($enrollment->region == $requestedRegion) {
                                             $enrollments[] = $enrollment;
@@ -81,12 +75,10 @@ class RuralStudentEnrollmentsController extends Controller
             'programs' => College::getEnum("EducationPrograms"),
             'education_levels' => College::getEnum("EducationLevels"),
             'regions' => RuralStudentEnrollment::getEnum('Regions'),
-            'year_levels' => Department::getEnum('YearLevels'),
 
             'selected_region' => $requestedRegion,
             'selected_program' => $requestedProgram,
             'selected_education_level' => $requestedLevel,
-            'selected_year' => $requestedYearLevel,
 
             'page_name' => 'enrollment.rural_students.index'
         );

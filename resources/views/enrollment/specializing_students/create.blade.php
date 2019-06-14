@@ -42,41 +42,6 @@
                                     </div>
                             </div>
                            
-                            <div class="form-group row pt-3">
-                                    <div class="col form-group">
-                                        <select class="form-control" name="band" id="band">
-                                            @foreach ($bands as $band)
-                                                <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <label for="service_type" class="form-control-placeholder">
-                                                Band
-                                            </label>
-                                    </div>
-                
-                                    <div class="col form-group">
-                                        
-                                        <select class="form-control" name="department" id="department">
-                                            @foreach ($departments as $department)
-                                                <option value="{{$department->department_name}}">{{$department->department_name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <label for="dormitory_service_type" class="form-control-placeholder">
-                                                Department
-                                            </label>
-                                    </div>
-                                    <div class="col form-group">
-                                        
-                                        <select class="form-control" name="college" id="college">
-                                            @foreach ($colleges as $college)
-                                                <option value="{{$college->college_name}}">{{$college->college_name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <label for="dormitory_service_type" class="form-control-placeholder">
-                                                College
-                                            </label>
-                                    </div>
-                                </div>
                                 <div class="form-group row pt-3">
                                         <div class="col-md-4 form-group">
                                             

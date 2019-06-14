@@ -36,20 +36,9 @@ class SpecializingStudentsEnrollmentsController extends Controller
             $requestedProgram = 'Regular';
         }
 
-        $requestedCollege = $request->input('college');
-        if ($requestedCollege == null) {
-            $requestedCollege = null;
-        }
-
         $requestedSpecializationType = $request->input('specialization_type');
         if ($requestedSpecializationType == null) {
             $requestedSpecializationType = 'Specialization';
-        }
-
-
-        $requestedBand = $request->input('band');
-        if ($requestedBand == null) {
-            $requestedBand = null;
         }
 
         $requestedYearLevel = $request->input('year_level');
@@ -61,11 +50,11 @@ class SpecializingStudentsEnrollmentsController extends Controller
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $requestedBand) {
+                if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $requestedCollege && $college->education_level == "Specialization" && $college->education_program == $requestedProgram) {
+                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "Specialization" && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
-                                if ($department->year_level == $requestedYearLevel) {
+                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                     foreach ($department->specializingStudentEnrollments as $enrollment) {
                                         if ($enrollment->student_type == $requestedType && $enrollment->specialization_type == $requestedSpecializationType) {
                                             $enrollments[] = $enrollment;
@@ -88,18 +77,13 @@ class SpecializingStudentsEnrollmentsController extends Controller
         $data = array(
             'enrollments' => $enrollments,
             'colleges' => CollegeName::all(),
-            'bands' => BandName::all(),
-            'departments' => DepartmentName::all(),
             'programs' => $educationPrograms,
             'specialization_types' => SpecializingStudentsEnrollment::getEnum("SpecializationTypes"),
             'student_types' => SpecializingStudentsEnrollment::getEnum('StudentTypes'),
-            'year_levels' => Department::getEnum('YearLevels'),
 
             'selected_student_type' => $requestedType,
             'selected_program' => $requestedProgram,
-            'selected_college' => $requestedCollege,
             'selected_specialization' => $requestedSpecializationType,
-            'selected_band' => $requestedBand,
             'selected_year' => $requestedYearLevel,
 
             'page_name' => 'enrollment.specializing_student_enrollment.index'

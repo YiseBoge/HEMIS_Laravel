@@ -36,11 +36,6 @@ class OtherRegionStudentsController extends Controller
             $requestedLevel='Undergraduate';
         }
 
-        $requestedYearLevel=$request->input('year_level');
-        if($requestedYearLevel==null){
-            $requestedYearLevel='1';
-        }
-
         $enrollments = array();
 
         if ($institution != null) {
@@ -48,9 +43,8 @@ class OtherRegionStudentsController extends Controller
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-
                             foreach ($college->departments as $department) {
-                                if ($department->year_level == $requestedYearLevel) {
+                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                     foreach ($department->otherRegionStudents as $enrollment) {
                                         $enrollments[] = $enrollment;
                                         
@@ -74,11 +68,9 @@ class OtherRegionStudentsController extends Controller
             'bands' => BandName::all(),
             'programs' => College::getEnum("EducationPrograms"),
             'education_levels' => College::getEnum("EducationLevels"),
-            'year_levels' => Department::getEnum('YearLevels'),
 
             'selected_program' => $requestedProgram,
             'selected_education_level' => $requestedLevel,
-            'selected_year' => $requestedYearLevel,
 
             'page_name' => 'enrollment.other_region_students.index'
         );

@@ -41,11 +41,6 @@ class DisadvantagedStudentEnrollmentsController extends Controller
             $requestedLevel='Undergraduate';
         }
 
-        $requestedYearLevel=$request->input('year_level');
-        if($requestedYearLevel==null){
-            $requestedYearLevel='1';
-        }
-
         $enrollments = array();
 
         if ($institution != null) {
@@ -54,11 +49,9 @@ class DisadvantagedStudentEnrollmentsController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
-                                if ($department->year_level == $requestedYearLevel) {
-                                   
+                                if ($department->departmentName->department_name == $user->departmentName->department_name) {                                   
                                     foreach ($department->disadvantagedStudentEnrollments as $enrollment) {
-                                        if ($enrollment->quintile == $requestedQuintile) {
-                                            
+                                        if ($enrollment->quintile == $requestedQuintile) {                                            
                                             $enrollments[] = $enrollment;
                                         }
                                     }
@@ -82,12 +75,10 @@ class DisadvantagedStudentEnrollmentsController extends Controller
             'programs' => College::getEnum("EducationPrograms"),
             'education_levels' => College::getEnum("EducationLevels"),
             'quintiles' => DisadvantagedStudentEnrollment::getEnum('Quintiles'),
-            'year_levels' => Department::getEnum('YearLevels'),
 
             'selected_quintile' => $requestedQuintile,
             'selected_program' => $requestedProgram,
             'selected_education_level' => $requestedLevel,
-            'selected_year' => $requestedYearLevel,
 
             'page_name' => 'enrollment.disadvantaged_students.index'
         );
@@ -176,7 +167,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
 
         $department->enrollments()->save($enrollment);
 
-        return redirect("/enrollment/economically-disadvantaged-students");
+        return redirect("/enrollment/economically-disadvantaged");
     }
 
     /**

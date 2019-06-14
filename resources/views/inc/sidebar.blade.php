@@ -41,7 +41,7 @@
                     <a class="collapse-item" href="/enrollment/special-region-students">Special Region Students</a>
                     <a class="collapse-item" href="/enrollment/specializing-students">Specializing Students</a>
                     <a class="collapse-item" href="/enrollment/rural-area-students">Rural Area Students</a>
-                    <a class="collapse-item text-wrap" href="/enrollment/economically-disadvantaged-students">Economically Disadvantaged Students</a>
+                    <a class="collapse-item text-wrap" href="/enrollment/economically-disadvantaged">Economically Disadvantaged Students</a>
                     <a class="collapse-item text-wrap" href="/enrollment/other-region-students">Students From Other Regions</a>
                     <a class="collapse-item" href="/institution/age-enrollment">Enrollment With Age</a>
                 </div>
@@ -77,7 +77,6 @@
                     <a class="collapse-item" href="/student/exit-examination">Exit Examination</a>
                     <a class="collapse-item" href="/institution/university-industry-linkage">University Industry Linkage</a>
                     <a class="collapse-item text-wrap" href="/student/degree-relevant-employment">Degree Relevant Employment</a>
-                    <a class="collapse-item" href="/student/cost-sharing">Cost Sharing</a>
                 </div>
             </div>
         </li>

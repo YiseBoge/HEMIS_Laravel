@@ -45,11 +45,6 @@ class OtherAttritionController extends Controller
             $requestedLevel = 'Undergraduate';
         }
 
-        $requestedYearLevel = $request->input('year_level');
-        if ($requestedYearLevel == null) {
-            $requestedYearLevel = '1';
-        }
-
         $attritions = array();
         $attritions = array();
 
@@ -58,7 +53,7 @@ class OtherAttritionController extends Controller
                 foreach ($band->colleges as $college) {
                     if ($college->education_program == $requestedProgram && $college->education_level == $requestedLevel) {
                         foreach ($college->departments as $department) {
-                            if ($department->year_level == $requestedYearLevel) {
+                            if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                 foreach ($department->otherAttritions as $attrition) {
                                     if ($attrition->type == $requestedType && $attrition->case == $requestedCase) {
                                         $attritions[] = $attrition;
@@ -80,14 +75,12 @@ class OtherAttritionController extends Controller
             'bands' => BandName::all(),
             'programs' => College::getEnum('EducationPrograms'),
             'education_levels' => College::getEnum('EducationLevels'),
-            'years' => Department::getEnum('YearLevels'),
             'types' => OtherAttrition::getEnum('Types'),
             'cases' => OtherAttrition::getEnum('Cases'),
             'page_name' => 'departments.other_attritions.index',
 
             "selected_program" => $requestedProgram,
             "selected_level" => $requestedLevel,
-            "selected_year" => $requestedYearLevel,
             "selected_type" => $requestedType,
             "selected_case" => $requestedCase,
         );

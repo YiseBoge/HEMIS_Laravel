@@ -17,27 +17,27 @@
                             </div>
                             <form action="" method="get">
                             <div class="form-group row pt-3">
-                                <div class="col form-group">
-                                    <select class="form-control" name="region_type" id="region_type" onchange="this.form.submit()">
-                                        @if ($selected_type == "Emerging Regions")
-                                        <option value="emerging_regions" selected>Emerging Regions</option>
-                                        <option value="pastoral_regions">Pastoral Regions</option>
-                                        @else
-                                        <option value="emerging_regions">Emerging Regions</option>
-                                        <option value="pastoral_regions" selected>Pastoral Regions</option>
-                                        @endif
-                                        
-                                    </select>
-                                    <label for="region_type" class="form-control-placeholder">
-                                            Region Type
-                                    </label>
-                                </div>
+                              
                         </div>
                         
                        
                         <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="region_type" id="region_type" onchange="this.form.submit()">
+                                    @if ($selected_type == "Emerging Regions")
+                                    <option value="emerging_regions" selected>Emerging Regions</option>
+                                    <option value="pastoral_regions">Pastoral Regions</option>
+                                    @else
+                                    <option value="emerging_regions">Emerging Regions</option>
+                                    <option value="pastoral_regions" selected>Pastoral Regions</option>
+                                    @endif
+                                    
+                                </select>
+                                <label for="region_type" class="form-control-placeholder">
+                                        Region Type
+                                </label>
+                            </div>
+                            <div class="col-md-4 form-group">                                
                                 <select class="form-control" name="program" id="program" onchange="this.form.submit()">
                                     @foreach ($programs as $key => $value)
                                     @if ($value == $selected_program)
@@ -53,8 +53,7 @@
                                     </label>
                             </div>
         
-                            <div class="col form-group">
-                                
+                            <div class="col-md-4 form-group">                                
                                 <select class="form-control" name="year_level" id="year_level"  onchange="this.form.submit()">
                                     @foreach ($year_levels as $key => $value)
                                     @if ($value == $selected_year)
@@ -71,13 +70,7 @@
                             </div>
         
                         </div>
-                            </form>
-                            <div class="row">
-                                <div class="col text-right">
-                                    <a class="btn btn-outline-primary btn-sm mb-0" href="normal/">Reload</a>
-                                </div>
-                            </div>
-                            <hr>                        
+                        </form>                    
                         <div class="row mt-3">
                             <div class="col-sm-12">
                                 <table class="table table-bordered dataTable table-striped table-hover" id="dataTable" width="100%"

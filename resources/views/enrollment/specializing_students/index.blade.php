@@ -17,7 +17,7 @@
                             </div>
                             <form action="" method="get">
                                     <div class="form-group row pt-3">
-                                        <div class="col form-group">
+                                        <div class="col-md-4 form-group">
                                             <select class="form-control" name="student_type" id="student_type" onchange="this.form.submit()">
                                                 @foreach ($student_types as $key => $value)
                                                     @if ($value == $selected_student_type)
@@ -30,42 +30,8 @@
                                             <label for="service_type" class="form-control-placeholder">
                                                 Student Type
                                             </label>
-                                        </div>
-                                        <div class="col form-group">
-                                            <select class="form-control" name="college" id="college" onchange="this.form.submit()" >
-                                                @foreach ($colleges as $college)
-                                                    @if ($college->college_name == $selected_college)
-                                                        <option value="{{$college->college_name}}" selected>{{$college->college_name}}</option>
-                                                    @else
-                                                        <option value="{{$college->college_name}}">{{$college->college_name}}</option>
-                                                    @endif
-                                                    
-                                                @endforeach
-                                            </select>
-                                            <label for="dormitory_service_type" class="form-control-placeholder">
-                                                College
-                                            </label>
-                                        </div>
-                                        <div class="col form-group">
-                                            <select class="form-control" name="band" id="band" onchange="this.form.submit()">
-                                                @foreach ($bands as $band)
-                                                    @if ($band->band_name == $selected_band)
-                                                    <option value="{{$band->band_name}}" selected>{{$band->band_name}}</option>
-                                                    @else
-                                                    <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                                    @endif
-                                                    
-                                                @endforeach
-                                            </select>
-                                            <label for="service_type" class="form-control-placeholder">
-                                                Band
-                                            </label>
-                                        </div>
-        
-                                    </div>
-                                    <div class="form-group row pt-3">
-                                        <div class="col form-group">
-        
+                                        </div>  
+                                        <div class="col-md-4 form-group">        
                                             <select class="form-control" name="program" id="program" onchange="this.form.submit()">
                                                 @foreach ($programs as $key => $value)
                                                 @if ($value == $selected_program)
@@ -81,7 +47,7 @@
                                             </label>
                                         </div>
         
-                                        <div class="col form-group">
+                                        <div class="col-md-4 form-group">
                                                 <select class="form-control" name="specialization_type" id="specialization_type"
                                                         onchange="this.form.submit()">
                                                     @foreach ($specialization_types as $key => $value)
@@ -96,23 +62,6 @@
                                                     Specialization Type
                                                 </label>
                                             </div>
-                                        <div class="col form-group">
-        
-                                            <select class="form-control" name="year_level" id="year_level" onchange="this.form.submit()">
-                                                @foreach ($year_levels as $key => $value)
-                                                    @if ($value == $selected_year)
-                                                    <option value="{{$value}}" selected>{{$value}}</option>
-                                                    @else
-                                                    <option value="{{$value}}">{{$value}}</option>
-                                                    @endif
-                                                   
-                                                @endforeach
-                                            </select>
-                                            <label for="dormitory_service_type" class="form-control-placeholder">
-                                                Year Level
-                                            </label>
-                                        </div>
-        
                                     </div>
         
                                 </form>
