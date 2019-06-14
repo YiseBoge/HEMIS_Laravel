@@ -13,6 +13,17 @@ class StudentAttrition extends Model
 
     public $incrementing = false;
     // Enums //
+
+    protected $enumStudentTypes = [
+        'ALL' => 'All',
+        'EMERGING_REGION_STUDENTS' => 'Emerging Region Students',
+        'PASTORAL_REGION_STUDENTS' => 'Pastoral Region Students',
+        'RURAL_AREA_STUDENTS' => 'Rural Area Students',
+        'SPECIAL_NEED_STUDENTS' => 'Special Need Students',
+        'ECONOMICALLY_DISADVANTAGED_STUDENTS' => 'Economically Disadvantaged Students',
+        'FOREIGN_STUDENTS' => 'Foreign Students',
+    ];
+    
     protected $enumTypes = [
         'CET' => 'CET',
         'CNCS' => 'CNCS',

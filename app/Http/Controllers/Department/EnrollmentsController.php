@@ -36,20 +36,9 @@ class EnrollmentsController extends Controller
             $requestedProgram='Regular';
         }
 
-        $requestedCollege=$request->input('college');
-        if($requestedCollege==null){
-            $requestedCollege = CollegeName::get()->first()->college_name;
-        }
-
         $requestedLevel=$request->input('education_level');
         if($requestedLevel==null){
             $requestedLevel='Undergraduate';
-        }
-
-
-        $requestedBand=$request->input('band');
-        if($requestedBand==null){
-            $requestedBand = BandName::get()->first->college_name;
         }
 
         $requestedYearLevel=$request->input('year_level');
@@ -61,9 +50,9 @@ class EnrollmentsController extends Controller
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $requestedBand) {
+                if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $requestedCollege && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
+                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
 
                             foreach ($college->departments as $department) {
                                 if ($department->year_level == $requestedYearLevel) {
@@ -96,9 +85,7 @@ class EnrollmentsController extends Controller
 
             'selected_student_type' => $requestedType,
             'selected_program' => $requestedProgram,
-            'selected_college' => $requestedCollege,
             'selected_education_level' => $requestedLevel,
-            'selected_band' => $requestedBand,
             'selected_year' => $requestedYearLevel,
 
             'page_name' => 'enrollment.normal.index'

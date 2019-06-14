@@ -33,7 +33,7 @@
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                            >Institution
+                                            >Department
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Acronym: activate to sort column ascending"
@@ -54,7 +54,7 @@
                                                     </a>
                                                 </td>
                                                 <td>{{ $editor->name }}</td>
-                                                <td>{{ $editor->institution() }}</td>
+                                                <td>{{ $editor->departmentName }}</td>
                                                 <td>{{ $editor->email }}</td>
                                             </tr>
                                         @endforeach

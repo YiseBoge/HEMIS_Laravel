@@ -32,21 +32,6 @@
                                             Region Type
                                     </label>
                                 </div>
-                                <div class="col form-group">
-                                    <select class="form-control" name="region" id="region" onchange="this.form.submit()">
-                                        @foreach ($regions as $region)
-                                        @if ($region->region_name == $selected_region)
-                                        <option value="{{$region->name}}">{{$region->name}}</option>
-                                        @else
-                                        <option value="{{$region->name}}">{{$region->name}}</option>
-                                        @endif
-                                            
-                                        @endforeach
-                                    </select>
-                                    <label for="region" class="form-control-placeholder">
-                                            Region
-                                    </label>
-                                </div>
                         </div>
                         
                        

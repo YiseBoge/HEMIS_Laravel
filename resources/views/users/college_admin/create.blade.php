@@ -18,6 +18,14 @@
 
                         </div>
                         <div class="form-group row">
+                            <label for="name"
+                                   class="col-md-4 col-form-label text-md-right">{{ __('Band') }}</label>
+                            <div class="col-md-6">
+                                {!! Form::select('band_name_id', $data['band_names'] ,null  , ['class' => 'form-control']) !!}
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">

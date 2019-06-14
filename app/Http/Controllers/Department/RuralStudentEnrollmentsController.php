@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\Band\BandName;
 use App\Models\College\College;
+use App\Models\College\CollegeName;
 use App\Models\Department\Department;
-use App\Models\Department\StudentAttrition;
+use App\Models\Department\DepartmentName;
+use App\Models\Department\RuralStudentEnrollment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class StudentAttritionController extends Controller
+class RuralStudentEnrollmentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,27 +24,16 @@ class StudentAttritionController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-
         $institution = $user->institution();
+
+        $requestedRegion = $request->input('region');
+        if ($requestedRegion == null) {
+            $requestedRegion = 'Rural';
+        }
 
         $requestedProgram = $request->input('program');
         if ($requestedProgram == null) {
             $requestedProgram = 'Regular';
-        }
-
-        $requestedStudentType = $request->input('student_type');
-        if ($requestedStudentType == null) {
-            $requestedStudentType = 'All';
-        }
-
-        $requestedType = $request->input('type');
-        if ($requestedType == null) {
-            $requestedType = 'CET';
-        }
-
-        $requestedCase = $request->input('case');
-        if ($requestedCase == null) {
-            $requestedCase = 'Academic Dismissals With Readmission';
         }
 
         $requestedLevel = $request->input('education_level');
@@ -55,52 +46,52 @@ class StudentAttritionController extends Controller
             $requestedYearLevel = '1';
         }
 
-        $attritions = array();
-        $attritions = array();
+        $enrollments = array();
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->education_program == $requestedProgram && $college->education_level == $requestedLevel) {
-                        foreach ($college->departments as $department) {
-                            if ($department->year_level == $requestedYearLevel) {
+                if ($band->bandName->band_name == $user->bandName->band_name) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
 
-                                foreach ($department->studentAttritions as $attrition) {
-                                    if ($attrition->type == $requestedType && $attrition->case == $requestedCase && $attrition->student_type == $requestedStudentType) {
-                                        
-                                        $attritions[] = $attrition;
+                            foreach ($college->departments as $department) {
+                                if ($department->year_level == $requestedYearLevel) {
+                                    foreach ($department->ruralStudentEnrollments as $enrollment) {
+                                        if ($enrollment->region == $requestedRegion) {
+                                            $enrollments[] = $enrollment;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-
                 }
-                
             }
         } else {
-            $attritions = StudentAttrition::with('band')->get();
+            $enrollments = Enrollment::with('department')->get();
         }
 
-        $data = array(
-            'attritions' => $attritions,
-            'bands' => BandName::all(),
-            'programs' => College::getEnum('EducationPrograms'),
-            'education_levels' => College::getEnum('EducationLevels'),
-            'years' => Department::getEnum('YearLevels'),
-            'student_types' => StudentAttrition::getEnum('StudentTypes'),
-            'types' => StudentAttrition::getEnum('Types'),
-            'cases' => StudentAttrition::getEnum('Cases'),
-            'page_name' => 'departments.student_attritions.index',
+        //$enrollments=Enrollment::where('department_id',$department->id)->get();
 
-            "selected_program" => $requestedProgram,
-            "selected_level" => $requestedLevel,
-            "selected_year" => $requestedYearLevel,
-            "selected_student_type" => $requestedStudentType,
-            "selected_type" => $requestedType,
-            "selected_case" => $requestedCase,
+
+        $data = array(
+            'enrollments' => $enrollments,
+            'colleges' => CollegeName::all(),
+            'bands' => BandName::all(),
+            'programs' => College::getEnum("EducationPrograms"),
+            'education_levels' => College::getEnum("EducationLevels"),
+            'regions' => RuralStudentEnrollment::getEnum('Regions'),
+            'year_levels' => Department::getEnum('YearLevels'),
+
+            'selected_region' => $requestedRegion,
+            'selected_program' => $requestedProgram,
+            'selected_education_level' => $requestedLevel,
+            'selected_year' => $requestedYearLevel,
+
+            'page_name' => 'enrollment.rural_students.index'
         );
-        return view("departments.student_attrition.index")->with($data);
+        //return $filteredEnrollments;
+        return view("enrollment.rural_students.index")->with($data);
     }
 
     /**
@@ -110,17 +101,22 @@ class StudentAttritionController extends Controller
      */
     public function create()
     {
+        $educationPrograms = College::getEnum("EducationPrograms");
+        $educationLevels = College::getEnum("EducationLevels");
+        array_pop($educationPrograms);
+        array_pop($educationLevels);
+
         $data = array(
+            'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
-            'programs' => College::getEnum('EducationPrograms'),
-            'education_levels' => College::getEnum('EducationLevels'),
-            'years' => Department::getEnum('YearLevels'),
-            'student_types' => StudentAttrition::getEnum('StudentTypes'),
-            'types' => StudentAttrition::getEnum('Types'),
-            'cases' => StudentAttrition::getEnum('Cases'),
-            'page_name' => 'departments.student_attritions.create'
+            'departments' => DepartmentName::all(),
+            'programs' => $educationPrograms,
+            'education_levels' => $educationLevels,
+            'regions' => RuralStudentEnrollment::getEnum('Regions'),
+            'year_levels' => Department::getEnum('YearLevels'),
+            'page_name' => 'enrollment.rural_students.create'
         );
-        return view("departments.student_attrition.create")->with($data);
+        return view("enrollment.rural_students.create")->with($data);
     }
 
     /**
@@ -133,15 +129,13 @@ class StudentAttritionController extends Controller
     {
         $this->validate($request, [
             'male_number' => 'required',
-            'female_number' => 'required',
+            'female_number' => 'required'
         ]);
 
-        $attrition = new StudentAttrition;
-        $attrition->student_type = $request->input('student_type');
-        $attrition->type = $request->input('type');
-        $attrition->case = $request->input('case');
-        $attrition->male_students_number = $request->input('male_number');
-        $attrition->female_students_number = $request->input('female_number');
+        $enrollment = new RuralStudentEnrollment;
+        $enrollment->male_students_number = $request->input('male_number');
+        $enrollment->female_students_number = $request->input('female_number');
+        $enrollment->region = $request->input('region');
 
         $user = Auth::user();
 
@@ -179,9 +173,9 @@ class StudentAttritionController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->studentAttritions()->save($attrition);
+        $department->enrollments()->save($enrollment);
 
-        return redirect("/institution/student-attrition");
+        return redirect("/enrollment/rural-area-students");
     }
 
     /**

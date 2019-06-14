@@ -38,6 +38,8 @@ Route::resource('student/special-need', 'Student\SpecialNeedStudentsController')
 Route::resource('student/foreign', 'Student\ForeignStudentsController');
 Route::resource('student/student-attrition', 'Department\StudentAttritionController');
 Route::resource('student/other-attrition', 'Department\OtherAttritionController');
+Route::resource('student/degree-relevant-employment', 'Department\DegreeEmploymentsController');
+Route::resource('student/exit-examination', 'Department\ExitExaminationsController');
 
 Route::resource('institution/institution-name','Institution\InstitutionNamesController');
 Route::resource('band/band-name','Band\BandNamesController');
@@ -58,6 +60,9 @@ Route::get('enrollment/normal-chart','Department\EnrollmentsController@viewChart
 Route::get('enrollment/student-enrollment-chart','Department\EnrollmentsController@chart');
 Route::resource('enrollment/special-region-students','Institution\SpecialRegionsEnrollmentsController');
 Route::resource('enrollment/specializing-students','Department\SpecializingStudentsEnrollmentsController');
+Route::resource('enrollment/rural-area-students', 'Department\RuralStudentEnrollmentsController');
+Route::resource('enrollment/other-region-students', 'Department\OtherRegionStudentsController');
+Route::resource('enrollment/economically-disadvantaged-students', 'Department\DisadvantagedStudentEnrollmentsController');
 
 Route::resource('institution/researches','Band\ResearchsController');
 Route::resource('institution/university-industry-linkage','Band\UniversityIndustryLinkageController');

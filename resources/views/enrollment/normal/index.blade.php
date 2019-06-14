@@ -33,36 +33,6 @@
                                         Student Type
                                     </label>
                                 </div>
-                                <div class="col form-group">
-                                    <select class="form-control" name="college" id="college" onchange="this.form.submit()" >
-                                        @foreach ($colleges as $college)
-                                            @if ($college->college_name == $selected_college)
-                                                <option value="{{$college->college_name}}" selected>{{$college->college_name}}</option>
-                                            @else
-                                                <option value="{{$college->college_name}}">{{$college->college_name}}</option>
-                                            @endif
-                                            
-                                        @endforeach
-                                    </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
-                                        College
-                                    </label>
-                                </div>
-                                <div class="col form-group">
-                                    <select class="form-control" name="band" id="band" onchange="this.form.submit()">
-                                        @foreach ($bands as $band)
-                                            @if ($band->band_name == $selected_band)
-                                            <option value="{{$band->band_name}}" selected>{{$band->band_name}}</option>
-                                            @else
-                                            <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                            @endif
-                                            
-                                        @endforeach
-                                    </select>
-                                    <label for="service_type" class="form-control-placeholder">
-                                        Band
-                                    </label>
-                                </div>
 
                             </div>
                             <div class="form-group row pt-3">

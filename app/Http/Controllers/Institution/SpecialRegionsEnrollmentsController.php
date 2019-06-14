@@ -38,11 +38,6 @@ class SpecialRegionsEnrollmentsController extends Controller
             $requestedType='Emerging Regions';
         }
 
-        $requestedRegion=$request->input('region');
-        if($requestedRegion==null){
-            $requestedRegion= RegionName::get()->first->region_name;
-        }
-
         $enrollments = array();
 
         if ($institution != null) {
@@ -62,7 +57,6 @@ class SpecialRegionsEnrollmentsController extends Controller
             'selected_program' => $requestedProgram,
             'selected_year' => $requestedYearLevel,
             'selected_type' => $requestedType,
-            'selected_region' => $requestedRegion,
             'page_name' => 'enrollment.special_region_students.index'
         );
         return view("enrollment.special_region_students.index")->with($data);
