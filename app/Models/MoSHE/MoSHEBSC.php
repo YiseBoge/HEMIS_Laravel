@@ -22,6 +22,6 @@ class MoSHEBSC extends Model
     ];
 
     public function BSCInfo(){
-        return $this->belongsTo('App\Models\MoSHE\BSCInfo');
+        return $this->hasMany('App\Models\MoSHE\BSCInfo');
     }
 }
