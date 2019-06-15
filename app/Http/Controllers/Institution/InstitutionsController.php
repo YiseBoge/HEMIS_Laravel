@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class InstitutionsController extends Controller
 {
@@ -15,7 +17,14 @@ class InstitutionsController extends Controller
      */
     public function index()
     {
-        return view("institutions.general_info.index");
+        $user = Auth::user();
+        $institution = $user->institution();
+
+        $data = array(
+            'institution' => $institution,
+            'page_name' => 'institutions.general_info.index'
+        );
+        return view("institutions.general_info.index")->with($data);
     }
 
     /**
@@ -58,7 +67,13 @@ class InstitutionsController extends Controller
      */
     public function edit($id)
     {
-        return view("institutions.general_info.edit");
+        $currentInstitution = Institution::find($id);
+
+        $data = array(
+            'institution' => $currentInstitution,
+            'page_name' => 'institutions.general_info.edit'
+        );
+        return view("institutions.general_info.edit")->with($data);
     }
 
     /**

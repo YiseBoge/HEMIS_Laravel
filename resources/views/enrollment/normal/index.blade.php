@@ -13,7 +13,7 @@
                                 <div class="col text-right">
                                     <a class="btn btn-outline-primary btn-sm mb-0 mr-3" href="normal-chart">Generate Report</a>
                                     <a class="btn btn-outline-primary btn-sm mb-0" href="normal/create">New Entry<i
-                                        class="fas fa-arrow-right ml-2"></i></a>                                    
+                                                class="fas fa-arrow-right ml-2"></i></a>
                                 </div>
                             </div>
                         <form class="mt-4" action="" method="get">
@@ -111,7 +111,7 @@
                                                                 </form>
                                                             </div>
                                                         </div>
-                                                    </td>  
+                                                    </td>
                                                     <td>{{$enrollment->department->year_level}}</td>
                                                     <td>{{$enrollment->male_students_number}}</td>
                                                     <td>{{$enrollment->female_students_number}}</td>

@@ -95,13 +95,13 @@
                                                                class="text-primary mr-3"><i class="far fa-edit"></i>
                                                             </a>
                                                         </div>
-                                                    </td>  
-                                                    <td>{{$enrollment->department->year_level}}</td>
-                                                    <td>{{$enrollment->male_students_number}}</td>
-                                                    <td>{{$enrollment->female_students_number}}</td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
+                                                </td>
+                                                <td>{{$enrollment->department->year_level}}</td>
+                                                <td>{{$enrollment->male_students_number}}</td>
+                                                <td>{{$enrollment->female_students_number}}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                     
                                    
                                     </tbody>

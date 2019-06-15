@@ -9,18 +9,20 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                            <div class="row">
-                                <div class="col text-right">
-                                    <a class="btn btn-outline-primary btn-sm mb-0" href="economically-disadvantaged/create">New Entry<i
-                                        class="fas fa-arrow-right ml-2"></i></a>
-                                    
-                                </div>
+                        <div class="row">
+                            <div class="col text-right">
+                                <a class="btn btn-outline-primary btn-sm mb-0" href="economically-disadvantaged/create">New
+                                    Entry<i
+                                            class="fas fa-arrow-right ml-2"></i></a>
+
+                            </div>
                             </div>
                         </div>
                         <form action="" method="get">
                             <div class="form-group row pt-3">
                                 <div class="col-md-4 form-group">
-                                    <select class="form-control" name="quintile" id="quintile" onchange="this.form.submit()">
+                                    <select class="form-control" name="quintile" id="quintile"
+                                            onchange="this.form.submit()">
                                         @foreach ($quintiles as $key => $value)
                                             @if ($value == $selected_quintile)
                                                 <option value="{{$value}}" selected>{{$value}}</option>
@@ -34,7 +36,8 @@
                                     </label>
                                 </div>
                                 <div class="col-md-4 form-group">
-                                    <select class="form-control" name="program" id="program" onchange="this.form.submit()">
+                                    <select class="form-control" name="program" id="program"
+                                            onchange="this.form.submit()">
                                         @foreach ($programs as $key => $value)
                                             @if ($value == $selected_program)
                                                 <option value="{{$value}}" selected>{{$value}}</option>
@@ -50,7 +53,8 @@
                                 </div>
 
                                 <div class="col-md-4 form-group">
-                                    <select class="form-control" name="education_level" id="level" onchange="this.form.submit()">
+                                    <select class="form-control" name="education_level" id="level"
+                                            onchange="this.form.submit()">
                                         @foreach ($education_levels as $key => $value)
                                             @if ($key == 'SPECIALIZATION')
                                                 <option disabled value="{{$value}}">{{$value}}</option>
@@ -106,13 +110,13 @@
                                                                class="text-primary mr-3"><i class="far fa-edit"></i>
                                                             </a>
                                                         </div>
-                                                    </td>  
-                                                    <td>{{$enrollment->department->year_level}}</td>
-                                                    <td>{{$enrollment->male_students_number}}</td>
-                                                    <td>{{$enrollment->female_students_number}}</td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
+                                                </td>
+                                                <td>{{$enrollment->department->year_level}}</td>
+                                                <td>{{$enrollment->male_students_number}}</td>
+                                                <td>{{$enrollment->female_students_number}}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                     
                                    
                                     </tbody>

@@ -30,8 +30,8 @@
                                             <label for="service_type" class="form-control-placeholder">
                                                 Student Type
                                             </label>
-                                        </div>  
-                                        <div class="col-md-4 form-group">        
+                                        </div>
+                                        <div class="col-md-4 form-group">
                                             <select class="form-control" name="program" id="program" onchange="this.form.submit()">
                                                 @foreach ($programs as $key => $value)
                                                 @if ($value == $selected_program)
@@ -46,7 +46,7 @@
                                                 Program
                                             </label>
                                         </div>
-        
+
                                         <div class="col-md-4 form-group">
                                                 <select class="form-control" name="specialization_type" id="specialization_type"
                                                         onchange="this.form.submit()">

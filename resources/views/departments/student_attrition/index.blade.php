@@ -49,7 +49,8 @@
                                     </label>
                                 </div>
                                 <div class="col-md-4 form-group">
-                                    <select class="form-control" name="student_type" id="student_type" onchange="this.form.submit()">
+                                    <select class="form-control" name="student_type" id="student_type"
+                                            onchange="this.form.submit()">
                                         @foreach ($student_types as $key => $value)
                                             @if ($value == $selected_type)
                                                 <option value="{{$value}}" selected>{{$value}}</option>

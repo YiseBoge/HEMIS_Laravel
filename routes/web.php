@@ -60,9 +60,9 @@ Route::get('enrollment/normal-chart','Department\EnrollmentsController@viewChart
 Route::get('enrollment/student-enrollment-chart','Department\EnrollmentsController@chart');
 Route::resource('enrollment/special-region-students','Institution\SpecialRegionsEnrollmentsController');
 Route::resource('enrollment/specializing-students','Department\SpecializingStudentsEnrollmentsController');
-Route::resource('enrollment/rural-area-students','Department\RuralStudentEnrollmentsController');
-Route::resource('enrollment/other-region-students','Department\OtherRegionStudentsController');
-Route::resource('enrollment/economically-disadvantaged','Department\DisadvantagedStudentEnrollmentsController');
+Route::resource('enrollment/rural-area-students', 'Department\RuralStudentEnrollmentsController');
+Route::resource('enrollment/other-region-students', 'Department\OtherRegionStudentsController');
+Route::resource('enrollment/economically-disadvantaged', 'Department\DisadvantagedStudentEnrollmentsController');
 
 Route::resource('institution/researches','Band\ResearchsController');
 Route::resource('institution/university-industry-linkage','Band\UniversityIndustryLinkageController');
