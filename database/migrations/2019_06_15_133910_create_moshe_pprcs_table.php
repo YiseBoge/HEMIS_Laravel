@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInistitutionBSCInfosTable extends Migration
+class CreateMoshePprcsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateInistitutionBSCInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('inistitution_b_s_c_infos', function (Blueprint $table) {
+        Schema::create('moshe_pprcs', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('year');
-            $table->bigInteger('value');
-            $table->string('type');
-            $table->timestamps();
+            $table->string('category');
+            $table->string('policy');
+            $table->string('kpi_description');
+
             $table->primary('id');
-            $table->uuid('institution_id');
-            $table->uuid('institution_bsc_id');
+            $table->timestamps();
         });
     }
 
@@ -32,6 +31,6 @@ class CreateInistitutionBSCInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inistitution_b_s_c_infos');
+        Schema::dropIfExists('moshe_pprcs');
     }
 }

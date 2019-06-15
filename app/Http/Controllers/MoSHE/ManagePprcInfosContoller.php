@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\MoSHE;
 
 use App\Http\Controllers\Controller;
-use App\Models\MoSHE\MoSHEBSC;
+use App\Models\MoSHE\MoshePprc;
+use App\Models\MoSHE\PprcInfo;
 use Illuminate\Http\Request;
 
-class ManageBSCInfosContoller extends Controller
+class ManagePprcInfosContoller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +16,12 @@ class ManageBSCInfosContoller extends Controller
      */
     public function index()
     {
-        $bsc_info = MoSHEBSC::all();
+        $pprc_info = MoshePprc::all();
         $data = [
-            'bsc_info' => $bsc_info,
-            'page_name' => 'moshe_admin.manage_bsc_info.index'
+            'pprc_info' => $pprc_info,
+            'page_name' => 'moshe_admin.manage_pprc_info.index'
         ];
-        return view('moshe_admin.manage_bsc_info.index')->with('data', $data);
+        return view('moshe_admin.manage_pprc_info.index')->with('data', $data);
     }
 
     /**
@@ -46,7 +47,29 @@ class ManageBSCInfosContoller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'categories' => 'required',
+            'policy' => 'required',
+            'kpi_indicator' => 'required'
+        ]);
+
+        $moshe_bsc = new MoSHEBSC();
+        $bsc_info = new BSCInfo();
+
+        $moshe_bsc->category = $request->input('categories');
+        $moshe_bsc->policy = $request->input('policy');
+        $moshe_bsc->kpi_description = $request->input('kpi_indicator');
+
+        $bsc_info->year = 2018;
+        $bsc_info->value = 100000;
+        $bsc_info->type = 'Target';
+
+        $moshe_bsc->save();
+        $moshe_bsc->BSCInfo()->save($bsc_info);
+
+        // die('got to the motherfucker');
+
+
     }
 
     /**
