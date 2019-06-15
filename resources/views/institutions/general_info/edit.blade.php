@@ -4,15 +4,20 @@
     <div class="container-fluid">
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)
-                <div class="alert alert-danger">
+                <div class="alert alert-danger alert-dismissible">
                     {{$error}}
                 </div>
             @endforeach
         @endif
-        {!! Form::open(['action' => ['Institution\BuildingsController@store', $institution->id], 'method' => 'POST']) !!}
+        <div class="row">
+            <div class="col-md">
+                <h1 class="text-primary">{{$institution->institutionName}}</h1>
+            </div>
+        </div>
+        {!! Form::open(['action' => ['Institution\InstitutionsController@update', $institution->id], 'method' => 'POST']) !!}
         <fieldset class="card shadow h-100 my-4">
             <div class="card-header text-primary">
-                Institution Name
+                General
             </div>
             <div class="card-body p-4">
                 <div class="row mb-2">
@@ -22,13 +27,13 @@
                     </div>
 
                     <div class="form-group col-md">
-                        {!! Form::number('colleges', null, ['class'=>'form-control', 'id'=>'edit_colleges', 'required' => 'true']) !!}
+                        {!! Form::number('colleges', $institution->generalInformation->colleges, ['class'=>'form-control', 'id'=>'edit_colleges', 'required' => 'true']) !!}
                         {!! Form::label('colleges', 'Colleges', ['class' => 'form-control-placeholder', 'for' => 'edit_colleges']) !!}
                     </div>
 
                     <div class="form-group col-md">
-                        {!! Form::number('institutes', $institution->generalInformation->schools, ['class'=>'form-control', 'id'=>'edit_institutes', 'required' => 'true']) !!}
-                        {!! Form::label('institutes', 'Institutes', ['class' => 'form-control-placeholder', 'for' => 'edit_institutes']) !!}
+                        {!! Form::number('schools', $institution->generalInformation->schools, ['class'=>'form-control', 'id'=>'edit_schools', 'required' => 'true']) !!}
+                        {!! Form::label('schools', 'Institutes', ['class' => 'form-control-placeholder', 'for' => 'edit_schools']) !!}
                     </div>
 
                     <div class="form-group col-md">
@@ -156,7 +161,7 @@
                         {{ Form::label('number_of_libraries', 'Quantity', ['class' => 'form-control-placeholder', 'for' => 'edit_number_of_libraries']) }}
                     </div>
                     <div class="form-group col-md-4 col-sm-6 mb-2">
-                        {!! Form::select('status_of_libraries', [] , null , ['class' => 'form-control', 'id' => 'edit_status_of_libraries']) !!}
+                        {!! Form::select('status_of_libraries', $status_of_libraries , $institution->generalInformation->resource->status_of_libraries , ['class' => 'form-control', 'id' => 'edit_status_of_libraries']) !!}
                         {!! Form::label('status_of_libraries', 'Status', ['class' => 'form-control-placeholder', 'for' => 'edit_status_of_libraries']) !!}
                     </div>
 
@@ -168,7 +173,7 @@
                         {{ Form::label('number_of_laboratories', 'Quantity', ['class' => 'form-control-placeholder', 'for' => 'edit_number_of_laboratories']) }}
                     </div>
                     <div class="form-group col-md-4 col-sm-6 mb-2">
-                        {!! Form::select('status_of_laboratories', [] , null , ['class' => 'form-control', 'id' => 'edit_status_of_laboratories']) !!}
+                        {!! Form::select('status_of_laboratories', $status_of_laboratories , $institution->generalInformation->resource->status_of_laboratories , ['class' => 'form-control', 'id' => 'edit_status_of_laboratories']) !!}
                         {!! Form::label('status_of_laboratories', 'Status', ['class' => 'form-control-placeholder', 'for' => 'edit_status_of_laboratories']) !!}
                     </div>
 
@@ -180,7 +185,7 @@
                         {{ Form::label('number_of_workshops', 'Quantity', ['class' => 'form-control-placeholder', 'for' => 'edit_number_of_workshops']) }}
                     </div>
                     <div class="form-group col-md-4 col-sm-6 mb-2">
-                        {!! Form::select('status_of_workshops', [] , null , ['class' => 'form-control', 'id' => 'edit_status_of_workshops']) !!}
+                        {!! Form::select('status_of_workshops', $status_of_workshops , $institution->generalInformation->resource->status_of_workshops , ['class' => 'form-control', 'id' => 'edit_status_of_workshops']) !!}
                         {!! Form::label('status_of_workshops', 'Status', ['class' => 'form-control-placeholder', 'for' => 'edit_status_of_workshops']) !!}
                     </div>
 
@@ -218,6 +223,7 @@
             </div>
         </fieldset>
 
+        {!! Form::hidden('_method', 'PUT') !!}
         {!! Form::submit('Save', ['class' => 'btn btn-outline-secondary float-right my-1']) !!}
         {!! Form::close() !!}
     </div>

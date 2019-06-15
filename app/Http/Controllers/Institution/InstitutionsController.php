@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
 use App\Models\Institution\Institution;
+use App\Models\Institution\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -68,9 +69,15 @@ class InstitutionsController extends Controller
     public function edit($id)
     {
         $currentInstitution = Institution::find($id);
+        $status_of_libraries = Resource::getEnum('status_of_libraries');
+        $status_of_laboratories = Resource::getEnum('status_of_laboratories');
+        $status_of_workshops = Resource::getEnum('status_of_workshops');
 
         $data = array(
             'institution' => $currentInstitution,
+            'status_of_libraries' => $status_of_libraries,
+            'status_of_laboratories' => $status_of_laboratories,
+            'status_of_workshops' => $status_of_workshops,
             'page_name' => 'institutions.general_info.edit'
         );
         return view("institutions.general_info.edit")->with($data);
@@ -85,7 +92,82 @@ class InstitutionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'campuses' => 'required',
+            'colleges' => 'required',
+            'schools' => 'required',
+            'institutes' => 'required',
+
+            'board_members' => 'required',
+            'vice_presidents' => 'required',
+            'middle_level_leaders' => 'required',
+
+            'community_services' => 'required',
+            'male_teachers_participated' => 'required',
+            'female_teachers_participated' => 'required',
+            'male_benefited' => 'required',
+            'female_benefited' => 'required',
+            'linked_tvets' => 'required',
+
+            'number_of_libraries' => 'required',
+            'number_of_laboratories' => 'required',
+            'number_of_workshops' => 'required',
+
+            'status_of_libraries' => 'required',
+            'status_of_laboratories' => 'required',
+            'status_of_workshops' => 'required',
+
+            'pupil_per_teacher' => 'required',
+            'text_per_student' => 'required',
+            'rate_of_smart_classrooms' => 'required',
+        ]);
+
+        $institution = Institution::find($id);
+        $generalInformation = $institution->generalInformation;
+        $communityService = $institution->generalInformation->communityService;
+        $resource = $institution->generalInformation->resource;
+
+        $generalInformation->campuses = $request->input('campuses');
+        $generalInformation->colleges = $request->input('colleges');
+        $generalInformation->schools = $request->input('schools');
+        $generalInformation->institutes = $request->input('institutes');
+
+        $generalInformation->board_members = $request->input('board_members');
+        $generalInformation->vice_presidents = $request->input('vice_presidents');
+        $generalInformation->middle_level_leaders = $request->input('middle_level_leaders');
+
+        $communityService->community_services = $request->input('community_services');
+        $communityService->male_teachers_participated = $request->input('male_teachers_participated');
+        $communityService->female_teachers_participated = $request->input('female_teachers_participated');
+        $communityService->male_benefited = $request->input('male_benefited');
+        $communityService->female_benefited = $request->input('female_benefited');
+        $communityService->linked_tvets = $request->input('linked_tvets');
+
+        $communityService->has_spd = $request->has('has_spd');
+        $communityService->has_incubation = $request->has('has_incubation');
+        $communityService->has_hdp_lead = $request->has('has_hdp_lead');
+        $communityService->has_ccpd_coordinator = $request->has('has_ccpd_coordinator');
+        $communityService->has_ccpd_coordinator = $request->has('has_elip_teachers');
+        $communityService->has_ccpd_coordinator = $request->has('has_elip_students');
+        $communityService->has_ccpd_coordinator = $request->has('has_career_center');
+
+        $resource->number_of_libraries = $request->input('number_of_libraries');
+        $resource->number_of_laboratories = $request->input('number_of_laboratories');
+        $resource->number_of_workshops = $request->input('number_of_workshops');
+
+        $resource->status_of_libraries = $request->input('status_of_libraries');
+        $resource->status_of_laboratories = $request->input('status_of_laboratories');
+        $resource->status_of_workshops = $request->input('status_of_workshops');
+
+        $resource->pupil_per_teacher = $request->input('pupil_per_teacher');
+        $resource->text_per_student = $request->input('text_per_student');
+        $resource->rate_of_smart_classrooms = $request->input('rate_of_smart_classrooms');
+
+        $generalInformation->save();
+        $communityService->save();
+        $resource->save();
+
+        return redirect("/institution/general");
     }
 
     /**

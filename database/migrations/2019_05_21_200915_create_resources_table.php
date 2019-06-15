@@ -19,9 +19,9 @@ class CreateResourcesTable extends Migration
             $table->bigInteger('number_of_laboratories')->default(0);
             $table->bigInteger('number_of_workshops')->default(0);
 
-            $table->string('status_of_libraries')->nullable();
-            $table->string('status_of_laboratories')->nullable();
-            $table->string('status_of_workshops')->nullable();
+            $table->string('status_of_libraries')->nullable()->default('Unknown');
+            $table->string('status_of_laboratories')->nullable()->default('Unknown');
+            $table->string('status_of_workshops')->nullable()->default('Unknown');
 
             $table->bigInteger('pupil_per_teacher')->default(0);
             $table->bigInteger('text_per_student')->default(0);
