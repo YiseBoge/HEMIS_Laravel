@@ -17,7 +17,7 @@
                         </div>
                         <form action="" method="get">
                             <div class="form-group row pt-3">
-                                <div class="col form-group">
+                                <div class="col-md-4 form-group">
                                     <select class="form-control" name="program" id="program" onchange="this.form.submit()">
                                         @foreach ($programs as $key => $value)
                                         @if ($value == $selected_program)
@@ -32,7 +32,7 @@
                                         Education Program
                                     </label>
                                 </div>
-                                <div class="col form-group">
+                                <div class="col-md-4 form-group">
                                     <select class="form-control" name="education_level" id="education_level"
                                             onchange="this.form.submit()">
                                         @foreach ($education_levels as $key => $value)
@@ -48,25 +48,7 @@
                                         Education Level
                                     </label>
                                 </div>
-                                <div class="col form-group">
-                                    <select class="form-control" name="year_level" id="year_level"
-                                            onchange="this.form.submit()">
-                                        @foreach ($years as $key => $value)
-                                            @if ($value == $selected_year)
-                                                <option value="{{$value}}" selected>{{$value}}</option>
-                                            @else
-                                                <option value="{{$value}}">{{$value}}</option>
-                                            @endif
-
-                                        @endforeach
-                                    </select>
-                                    <label for="year_level" class="form-control-placeholder">
-                                        Year Level
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group row pt-3">
-                                <div class="col form-group">
+                                <div class="col-md-4 form-group">
                                     <select class="form-control" name="student_type" id="student_type"
                                             onchange="this.form.submit()">
                                         @foreach ($student_types as $key => $value)
@@ -82,7 +64,9 @@
                                         Student Type
                                     </label>
                                 </div>
-                                <div class="col form-group">
+                            </div>
+                            <div class="form-group row pt-3">
+                                <div class="col-md-6 form-group">
                                     <select class="form-control" name="type" id="type" onchange="this.form.submit()">
                                         @foreach ($types as $key => $value)
                                             @if ($value == $selected_type)
@@ -97,7 +81,7 @@
                                         Type
                                     </label>
                                 </div>
-                                <div class="col form-group">
+                                <div class="col-md-6 form-group">
                                     <select class="form-control" name="case" id="case" onchange="this.form.submit()">
                                         @foreach ($cases as $key => $value)
                                             @if ($value == $selected_case)
@@ -114,7 +98,6 @@
                                 </div>
                             </div>
                         </form>
-                        <hr>
                         <div class="row mt-3">
                             <div class="col-sm-12">
                                 <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
@@ -127,7 +110,7 @@
                                         <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                             rowspan="1" colspan="1" aria-sort="ascending"
                                             aria-label="Name: activate to sort column descending"
-                                            style="width: 151px;">Department
+                                            style="width: 151px;">Year
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Age: activate to sort column ascending"
@@ -165,7 +148,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>{{$attrition->department->departmentName->department_name}}</td>
+                                                <td>{{$attrition->department->year_level}}</td>
                                                 <td>{{$attrition->male_students_number}}</td>
                                                 <td>{{$attrition->female_students_number}}</td>
                                             </tr>

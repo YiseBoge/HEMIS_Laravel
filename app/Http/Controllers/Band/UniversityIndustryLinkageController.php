@@ -47,7 +47,7 @@ class UniversityIndustryLinkageController extends Controller
             'years' => UniversityIndustryLinkage::getEnum('Years'),
             'page_name' => 'bands.university_industry_linkage.index',
 
-            "selected_year" => $requestedYear
+            'selected_year' => $requestedYear
         );
         return view("bands.university_industry_linkage.index")->with($data);
     }
@@ -85,6 +85,8 @@ class UniversityIndustryLinkageController extends Controller
             'linkages' => $linkages,
             'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
+
+            'selected_year' => $requestedYear,
             'page_name' => 'bands.university_industry_linkage.create'
         );
         return view("bands.university_industry_linkage.index")->with($data);
