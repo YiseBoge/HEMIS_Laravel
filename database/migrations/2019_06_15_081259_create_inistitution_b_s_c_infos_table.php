@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMoSHEBSCSTable extends Migration
+class CreateInistitutionBSCInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateMoSHEBSCSTable extends Migration
      */
     public function up()
     {
-        Schema::create('mo_s_h_e_b_s_c_s', function (Blueprint $table) {
+        Schema::create('inistitution_b_s_c_infos', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('category');
-            $table->string('policy');
-            $table->string('kpi_description');
-
-            $table->primary('id');
+            $table->string('year');
+            $table->bigInteger('value');
+            $table->string('type');
             $table->timestamps();
+            $table->primary('id');
+            $table->uuid('institution_id');
+            $table->uuid('institution_bsc_id');
         });
     }
 
@@ -31,6 +32,6 @@ class CreateMoSHEBSCSTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mo_s_h_e_b_s_c_s');
+        Schema::dropIfExists('inistitution_b_s_c_infos');
     }
 }

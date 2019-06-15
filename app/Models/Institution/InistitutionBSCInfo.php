@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\MoSHE;
+namespace App;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
-class BSCInfo extends Model
+class InistitutionBSCInfo extends Model
 {
     use Uuids;
     use Enums;
@@ -14,11 +14,11 @@ class BSCInfo extends Model
 
     protected $enumTypes = [
         'BASELINE' => 'Baseline',
-        'REGULAR' => 'Regular',
+        'CUURENT' => 'Current',
         'TARGET' => 'Target',
     ];
 
-    public function MoSHEBSC(){
-        return $this->hasOne('App\Models\MoSHE\MoSHEBSC');
+    public function InstitutionBSC(){
+        return $this->hasOne('App\Models\Insttution\InstitutionBSC');
     }
 }

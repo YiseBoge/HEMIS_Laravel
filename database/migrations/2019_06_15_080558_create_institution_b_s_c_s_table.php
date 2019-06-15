@@ -20,7 +20,6 @@ class CreateInstitutionBSCSTable extends Migration
             $table->string('kpi_description');
 
             $table->primary('id');
-            $table->uuid('bsc_info_id');
             $table->uuid('institution_id');
             $table->timestamps();
         });
