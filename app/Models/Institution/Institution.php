@@ -67,6 +67,10 @@ class Institution extends Model
         return $this->hasMany('App\Models\Institution\SpecialNeeds');
     }
 
+    public function InstitutionBSC(){
+        return $this->hasMany('App\Models\Institution\InstitutionBSC');
+    }
+
     public function __toString()
     {
         return $this->institutionName->__toString() . ' (' . $this->instance->__toString() . ')';
