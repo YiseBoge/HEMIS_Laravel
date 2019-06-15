@@ -25,10 +25,10 @@ class CreateUsersTable extends Migration
             $table->primary('id');
             $table->uuid('instance_id')->default(0);
             $table->uuid('institution_name_id')->default(0);
-            $table->uuid('college_name_id')->default(0);
             $table->uuid('band_name_id')->default(0);
+            $table->uuid('college_name_id')->default(0);
             $table->uuid('department_name_id')->default(0);
-            
+
         });
     }
 

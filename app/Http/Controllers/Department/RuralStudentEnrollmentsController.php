@@ -19,31 +19,26 @@ class RuralStudentEnrollmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedRegion=$request->input('region');
-        if($requestedRegion==null){
-            $requestedRegion='Rural';
+        $requestedRegion = $request->input('region');
+        if ($requestedRegion == null) {
+            $requestedRegion = 'Rural';
         }
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
         }
 
-        $requestedLevel=$request->input('education_level');
-        if($requestedLevel==null){
-            $requestedLevel='Undergraduate';
-        }
-
-        $requestedYearLevel=$request->input('year_level');
-        if($requestedYearLevel==null){
-            $requestedYearLevel='1';
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Undergraduate';
         }
 
         $enrollments = array();
@@ -53,15 +48,14 @@ class RuralStudentEnrollmentsController extends Controller
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-
                             foreach ($college->departments as $department) {
-                                if ($department->year_level == $requestedYearLevel) {
+                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                     foreach ($department->ruralStudentEnrollments as $enrollment) {
                                         if ($enrollment->region == $requestedRegion) {
                                             $enrollments[] = $enrollment;
                                         }
                                     }
-                                }                                
+                                }
                             }
                         }
                     }
@@ -81,12 +75,10 @@ class RuralStudentEnrollmentsController extends Controller
             'programs' => College::getEnum("EducationPrograms"),
             'education_levels' => College::getEnum("EducationLevels"),
             'regions' => RuralStudentEnrollment::getEnum('Regions'),
-            'year_levels' => Department::getEnum('YearLevels'),
 
             'selected_region' => $requestedRegion,
             'selected_program' => $requestedProgram,
             'selected_education_level' => $requestedLevel,
-            'selected_year' => $requestedYearLevel,
 
             'page_name' => 'enrollment.rural_students.index'
         );
@@ -97,7 +89,7 @@ class RuralStudentEnrollmentsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -122,8 +114,8 @@ class RuralStudentEnrollmentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -143,7 +135,7 @@ class RuralStudentEnrollmentsController extends Controller
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -153,7 +145,7 @@ class RuralStudentEnrollmentsController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
@@ -165,7 +157,7 @@ class RuralStudentEnrollmentsController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = $request->input("year_level");
             $department->department_name_id = 0;
@@ -181,8 +173,8 @@ class RuralStudentEnrollmentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function show($id)
     {
@@ -192,8 +184,8 @@ class RuralStudentEnrollmentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function edit($id)
     {
@@ -203,9 +195,9 @@ class RuralStudentEnrollmentsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -215,8 +207,8 @@ class RuralStudentEnrollmentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function destroy($id)
     {

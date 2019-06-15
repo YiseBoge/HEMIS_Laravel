@@ -60,7 +60,7 @@
                                         @endforeach
                                     </select>
                                     <label for="student_type" class="form-control-placeholder">
-                                       Student Type
+                                        Student Type
                                     </label>
                                 </div>
                                 <div class="col form-group">

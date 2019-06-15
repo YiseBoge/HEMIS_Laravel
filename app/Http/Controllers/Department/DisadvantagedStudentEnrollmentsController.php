@@ -19,31 +19,26 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedQuintile=$request->input('quintile');
-        if($requestedQuintile==null){
-            $requestedQuintile='Lowest';
+        $requestedQuintile = $request->input('quintile');
+        if ($requestedQuintile == null) {
+            $requestedQuintile = 'Lowest';
         }
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
         }
 
-        $requestedLevel=$request->input('education_level');
-        if($requestedLevel==null){
-            $requestedLevel='Undergraduate';
-        }
-
-        $requestedYearLevel=$request->input('year_level');
-        if($requestedYearLevel==null){
-            $requestedYearLevel='1';
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Undergraduate';
         }
 
         $enrollments = array();
@@ -54,15 +49,13 @@ class DisadvantagedStudentEnrollmentsController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
-                                if ($department->year_level == $requestedYearLevel) {
-                                   
+                                if ($department->departmentName->department_name == $user->departmentName->department_name) {                                   
                                     foreach ($department->disadvantagedStudentEnrollments as $enrollment) {
-                                        if ($enrollment->quintile == $requestedQuintile) {
-                                            
+                                        if ($enrollment->quintile == $requestedQuintile) {                                            
                                             $enrollments[] = $enrollment;
                                         }
                                     }
-                                }                                
+                                }
                             }
                         }
                     }
@@ -82,12 +75,10 @@ class DisadvantagedStudentEnrollmentsController extends Controller
             'programs' => College::getEnum("EducationPrograms"),
             'education_levels' => College::getEnum("EducationLevels"),
             'quintiles' => DisadvantagedStudentEnrollment::getEnum('Quintiles'),
-            'year_levels' => Department::getEnum('YearLevels'),
 
             'selected_quintile' => $requestedQuintile,
             'selected_program' => $requestedProgram,
             'selected_education_level' => $requestedLevel,
-            'selected_year' => $requestedYearLevel,
 
             'page_name' => 'enrollment.disadvantaged_students.index'
         );
@@ -98,7 +89,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -123,8 +114,8 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -144,7 +135,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -154,7 +145,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
@@ -166,7 +157,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = $request->input("year_level");
             $department->department_name_id = 0;
@@ -176,14 +167,14 @@ class DisadvantagedStudentEnrollmentsController extends Controller
 
         $department->enrollments()->save($enrollment);
 
-        return redirect("/enrollment/economically-disadvantaged-students");
+        return redirect("/enrollment/economically-disadvantaged");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function show($id)
     {
@@ -193,8 +184,8 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function edit($id)
     {
@@ -204,9 +195,9 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -216,8 +207,8 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function destroy($id)
     {

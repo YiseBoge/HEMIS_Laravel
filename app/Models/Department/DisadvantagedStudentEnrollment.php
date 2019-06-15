@@ -13,11 +13,11 @@ class DisadvantagedStudentEnrollment extends Model
 
     public $incrementing = false;
     protected $enumQuintiles = [
-        'LOWEST'=>'Lowest',
+        'LOWEST' => 'Lowest',
         'SECOND' => 'Second',
-        'THIRD'=>'Third',
+        'THIRD' => 'Third',
         'FOURTH' => 'Fourth',
-        'HIGHEST_FIFTH'=>'Highest Fifth'        
+        'HIGHEST_FIFTH' => 'Highest Fifth'
     ];
 
     public function department()
