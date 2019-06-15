@@ -17,11 +17,11 @@
                                             class="fas fa-arrow-right ml-2"></i></a>
 
                             </div>
-                            <form action="" method="get">
-                                <div class="form-group row pt-3">
-                                <div class="col form-group">
-                                    <select class="form-control" name="program" id="program"
-                                            onchange="this.form.submit()">
+                        </div>
+                        <form action="" method="get">                          
+                            <div class="form-group row pt-3">
+                                <div class="col-md-6 form-group">
+                                    <select class="form-control" name="program" id="program" onchange="this.form.submit()">
                                         @foreach ($programs as $key => $value)
                                             @if ($value == $selected_program)
                                                 <option value="{{$value}}" selected>{{$value}}</option>
@@ -36,7 +36,7 @@
                                     </label>
                                 </div>
 
-                                <div class="col form-group">
+                                <div class="col-md-6 form-group">
 
                                     <select class="form-control" name="education_level" id="level"
                                             onchange="this.form.submit()">
