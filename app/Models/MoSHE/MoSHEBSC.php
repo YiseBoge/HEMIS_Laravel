@@ -21,5 +21,7 @@ class MoSHEBSC extends Model
         'CAT-VII' => 'Improve resources mobilization',
     ];
 
-    
+    public function BSCInfo(){
+        return $this->belongsTo('App\Models\MoSHE\BSCInfo');
+    }
 }
