@@ -5,7 +5,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-graduation-cap"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">{{config('app.name', 'HEMIS')}}</div>
+        <div class="sidebar-brand-text mx-3">HEMIS</div>
     </a>
 
     <!-- Divider -->
@@ -149,13 +149,13 @@
                     <a class="collapse-item" href="/staff/technical-staff">Technical Staff</a>
                     <a class="collapse-item text-wrap" href="/institution/non-admin">Administrative and Non-Academic
                         Staff</a>
-                    <a class="collapse-item text-wrap" href="/staff/administrative">Administrative Staff(Detail)</a>
+                    <a class="collapse-item text-wrap" href="/staff/administrative">Administrative Staff (Detail)</a>
                 </div>
             </div>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="institution/buildings">
+            <a class="nav-link" href="/institution/buildings">
                 <i class="fas fa-building"></i>
                 <span>Buildings</span></a>
         </li>
@@ -176,7 +176,7 @@
 
     @if(!Auth::user()->hasRole('Department Admin'))
         <div class="sidebar-heading">
-            Lesser Components
+            Management Components
         </div>
 
         <li class="nav-item">

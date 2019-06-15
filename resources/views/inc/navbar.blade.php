@@ -23,13 +23,19 @@
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                    <span class="mr-2 d-none d-lg-inline text-primary small">
                         @if (Auth::user()->hasRole('Department Admin'))
-                            {{ Auth::user()->departmentName }} -
+                            {{ Auth::user()->institution()->institutionName }} <i
+                                    class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->collegeName }}
+                            <i class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->departmentName }}
+                            <i class="fas fa-angle-double-right mx-2 text-gray-400"></i>
                         @elseif (Auth::user()->hasRole('College Admin'))
-                            {{ Auth::user()->collegeName }} -
+                            {{ Auth::user()->institution()->institutionName }} <i
+                                    class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->collegeName }}
+                            <i class="fas fa-angle-double-right mx-2 text-gray-400"></i>
                         @elseif (Auth::user()->hasRole('University Admin'))
-                            {{ Auth::user()->institution()->institutionName }} -
+                            {{ Auth::user()->institution()->institutionName }} <i
+                                    class="fas fa-angle-double-right mx-2 text-gray-400"></i>
                         @endif
                         {{ Auth::user()->name }}</span>
                     {{--                    <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">--}}

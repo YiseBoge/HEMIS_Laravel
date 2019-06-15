@@ -22,7 +22,7 @@ class InvestmentsController extends Controller
     {
         $user = Auth::user();
         $institution = $user->institution();
-        $collegeName = $user->collegeName();
+        $collegeName = $user->collegeName;
 
         $investments = array();
 
@@ -59,7 +59,7 @@ class InvestmentsController extends Controller
 
         $user = Auth::user();
         $institution = $user->institution();
-        $collegeName = $user->collegeName();
+        $collegeName = $user->collegeName;
 
         $investments = array();
 
@@ -162,7 +162,7 @@ class InvestmentsController extends Controller
 
         $user = Auth::user();
         $institution = $user->institution();
-        $collegeName = $user->collegeName();
+        $collegeName = $user->collegeName;
 
         $investments = array();
 
