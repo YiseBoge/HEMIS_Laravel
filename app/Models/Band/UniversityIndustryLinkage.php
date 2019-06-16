@@ -23,7 +23,8 @@ class UniversityIndustryLinkage extends Model
         'SEVEN' => '7'
     ];
 
-    public function band(){
-        return $this->belongsTo('App\Models\Band\Band');
+    public function college()
+    {
+        return $this->belongsTo('App\Models\College\College');
     }
 }

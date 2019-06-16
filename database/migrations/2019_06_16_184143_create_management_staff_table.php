@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInstitutionNamesTable extends Migration
+class CreateManagementStaffTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateInstitutionNamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('institution_names', function (Blueprint $table) {
+        Schema::create('management_staff', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('institution_name');
-            $table->string('acronym');
-            $table->boolean('is_private');
+
+            $table->text('management_level');
             $table->timestamps();
 
             $table->primary('id');
+
+            $table->uuid('college_id');
         });
     }
 
@@ -31,6 +32,6 @@ class CreateInstitutionNamesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('institution_names');
+        Schema::dropIfExists('management_staff');
     }
 }

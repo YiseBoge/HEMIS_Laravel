@@ -5,15 +5,14 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
-use App\Models\College\TechnicalStaff;
-use App\Models\Staff\IctStaff;
+use App\Models\Staff\ManagementStaff;
 use App\Models\Staff\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class TechnicalStaffsController extends Controller
+class ManagementStaffsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,26 +26,26 @@ class TechnicalStaffsController extends Controller
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
-        $technicalStaffs = array();
+        $managementStaffs = array();
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
                 foreach ($band->colleges as $college) {
                     if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->technicalStaff as $staff) {
-                            $technicalStaffs[] = $staff;
+                        foreach ($college->managementStaffs as $managementStaff) {
+                            $managementStaffs[] = $managementStaff;
                         }
                     }
                 }
             }
         } else {
-            $technicalStaffs = IctStaff::all();
+            $managementStaffs = ManagementStaff::all();
         }
         $data = array(
-            'staffs' => $technicalStaffs,
-            'page_name' => 'staff.technical.list'
+            'staffs' => $managementStaffs,
+            'page_name' => 'staff.management.list'
         );
-        return view('staff.technical.list')->with($data);
+        return view('staff.management.list')->with($data);
     }
 
     /**
@@ -63,10 +62,10 @@ class TechnicalStaffsController extends Controller
             'employment_types' => Staff::getEnum("employment_type"),
             'dedications' => Staff::getEnum("dedication"),
             'academic_levels' => Staff::getEnum("academic_levels"),
-            'staff_ranks' => TechnicalStaff::getEnum("staff_rank"),
-            'page_name' => 'staff.technical.create'
+            'levels' => ManagementStaff::getEnum("management_levels"),
+            'page_name' => 'staff.management.create'
         );
-        return view('staff.technical.create')->with($data);
+        return view('staff.management.create')->with($data);
     }
 
     /**
@@ -78,7 +77,6 @@ class TechnicalStaffsController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'name' => 'required',
             'birth_date' => 'required',
@@ -90,8 +88,7 @@ class TechnicalStaffsController extends Controller
             'service_year' => 'required',
             'employment_type' => 'required',
             'dedication' => 'required',
-            'academic_level' => 'required',
-            'technical_staff_rank' => 'required',
+            'academic_level' => 'required'
         ]);
 
         $staff = new Staff;
@@ -106,13 +103,13 @@ class TechnicalStaffsController extends Controller
         $staff->employment_type = $request->input('employment_type');
         $staff->dedication = $request->input('dedication');
         $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $expatriate;
+        $staff->is_expatriate = $request->has('expatriate');
         $staff->is_from_other_region = $request->has('other_region');
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
-        $technicalStaff = new TechnicalStaff;
-        $technicalStaff->staff_rank = $request->input('technical_staff_rank');
+        $managementStaff = new ManagementStaff;
+        $managementStaff->management_level = $request->input('management_level');
 
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
@@ -139,11 +136,11 @@ class TechnicalStaffsController extends Controller
             $collegeName->college()->save($college);
         }
 
-        $college->technicalStaff()->save($technicalStaff);
-        $technicalStaff = TechnicalStaff::find($technicalStaff->id);
-        $technicalStaff->general()->save($staff);
+        $college->managementStaffs()->save($managementStaff);
+        $managementStaff = ManagementStaff::find($managementStaff->id);
+        $managementStaff->general()->save($staff);
 
-        return redirect('/staff/technical');
+        return redirect('/staff/management');
     }
 
     /**
@@ -154,14 +151,7 @@ class TechnicalStaffsController extends Controller
      */
     public function show($id)
     {
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-
-        $data = array(
-            'staff' => TechnicalStaff::with('general')->find($id),
-            'page_name' => 'staff.technical.details'
-        );
-        return view('staff.technical.details')->with($data);
+        //
     }
 
     /**
@@ -172,14 +162,7 @@ class TechnicalStaffsController extends Controller
      */
     public function edit($id)
     {
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-
-        $data = array(
-            'staff' => TechnicalStaff::with('general')->find($id),
-            'page_name' => 'staff.technical.edit'
-        );
-        return view('staff.technical.edit')->with($data);
+        //
     }
 
     /**
@@ -188,56 +171,10 @@ class TechnicalStaffsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
-     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-
-        $this->validate($request, [
-            'name' => 'required',
-            'birth_date' => 'required',
-            'sex' => 'required',
-            'phone_number' => 'required',
-            'nationality' => 'required',
-            'job_title' => 'required',
-            'salary' => 'required',
-            'service_year' => 'required',
-            'employment_type' => 'required',
-            'dedication' => 'required',
-            'academic_level' => 'required',
-            'expatriate' => 'required',
-            'technical_staff_rank' => 'required'
-
-        ]);
-
-        $technicalStaff = TechnicalStaff::find($id);
-
-        $technicalStaff->staffRank = $request->input('technical_staff_rank');
-        $technicalStaff->institution_id = 0;
-
-        $staff = $technicalStaff->general;
-        $staff->name = $request->input('name');
-        $staff->birth_date = $request->input('birth_date');
-        $staff->sex = $request->input('sex');
-        $staff->phone_number = $request->input('phone_number');
-        $staff->nationality = $request->input('nationality');
-        $staff->job_title = $request->input('job_title');
-        $staff->salary = $request->input('salary');
-        $staff->service_year = $request->input('service_year');
-        $staff->employment_type = $request->input('employment_type');
-        $staff->dedication = $request->input('dedication');
-        $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $request->input('expatriate');
-        $staff->salary = $request->input('salary');
-        $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
-
-        $technicalStaff->save();
-
-        $technicalStaff->general()->save($staff);
-
-        return redirect('/staff/technical');
+        //
     }
 
     /**
@@ -248,13 +185,6 @@ class TechnicalStaffsController extends Controller
      */
     public function destroy($id)
     {
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-
-        $technicalStaff = TechnicalStaff::find($id);
-        $staff = $technicalStaff->general;
-        $technicalStaff->delete();
-        $staff->delete();
-        return redirect('/staff/technical');
+        //
     }
 }

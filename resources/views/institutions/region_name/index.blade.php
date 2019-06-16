@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col p-1 m-3 text-center">
-                        <a href="/institution/region-name/create" class="btn btn-outline-primary btn-sm mb-0">
+                        <a href="/region-name/create" class="btn btn-outline-primary btn-sm mb-0">
                             Add<i class="fas fa-plus ml-2"></i></a>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                     {!! Form::open(['action' => 'Institution\RegionNamesController@store', 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Add</h5>
-                        <a href="/institution/region-name" class="close" aria-label="Close">
+                        <a href="/region-name" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
                     </div>

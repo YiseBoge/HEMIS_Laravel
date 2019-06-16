@@ -19,7 +19,7 @@ class RegionNamesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $user->authorizeRoles('University Admin');
+        $user->authorizeRoles('Super Admin');
 
         $regionNames= RegionName::all();
         $data=['region_names'=>$regionNames,'page_name'=>'institution.region-name.index'];
@@ -34,7 +34,7 @@ class RegionNamesController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $user->authorizeRoles('University Admin');
+        $user->authorizeRoles('Super Admin');
 
         $regionNames= RegionName::all();
         $data=['region_names'=>$regionNames,'page_name'=>'institution.region-name.create'];
@@ -50,6 +50,9 @@ class RegionNamesController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
         $this->validate($request, [
             'name' => 'required'
         ]);

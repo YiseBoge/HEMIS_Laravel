@@ -42,7 +42,21 @@
                             </div>
                            
                             <div class="form-group row pt-3">
-                                <div class="col form-group">
+                                <div class="col-md-4 form-group">
+                                    <select class="form-control" name="education_level" id="level">
+                                        @foreach ($education_levels as $key => $value)
+                                            @if ($key == 'SPECIALIZATION')
+                                                <option disabled value="{{$key}}">{{$value}}</option>
+                                            @else
+                                                <option value="{{$key}}">{{$value}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    <label for="dormitory_service_type" class="form-control-placeholder">
+                                        Education Level
+                                    </label>
+                                </div>
+                                <div class="col-md-4 form-group">
                                     
                                     <select class="form-control" name="program" id="program">
                                         @foreach ($programs as $key => $value)
@@ -53,8 +67,8 @@
                                             Program
                                         </label>
                                 </div>
-            
-                                <div class="col form-group">
+
+                                <div class="col-md-4 form-group">
                                     
                                     <select class="form-control" name="year_level" id="year_level">
                                         @foreach ($year_levels as $key => $value)

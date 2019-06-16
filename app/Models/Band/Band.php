@@ -31,11 +31,6 @@ class Band extends Model
         return $this->hasMany('App\Models\Band\Research');
     }
 
-    public function universityIndustryLinkages()
-    {
-        return $this->hasMany('App\Models\Band\UniversityIndustryLinkage');
-    }
-
     public function technicalStaffs()
     {
         return $this->hasMany('App\Models\College\TechnicalStaff');

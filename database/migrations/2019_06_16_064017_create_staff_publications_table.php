@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInstitutionNamesTable extends Migration
+class CreateStaffPublicationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateInstitutionNamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('institution_names', function (Blueprint $table) {
+        Schema::create('staff_publications', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('institution_name');
-            $table->string('acronym');
-            $table->boolean('is_private');
+            $table->string('title');
+            $table->date('date_of_publication');
             $table->timestamps();
 
             $table->primary('id');
+            $table->uuid('academic_staff_id');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateInstitutionNamesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('institution_names');
+        Schema::dropIfExists('staff_publications');
     }
 }

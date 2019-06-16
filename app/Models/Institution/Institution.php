@@ -46,10 +46,6 @@ class Institution extends Model
         return $this->hasMany('App\Models\Institution\Building');
     }
 
-    public function emergingRegion(){
-        return $this->hasMany('App\Models\Institution\EmergingRegion');
-    }
-
     public function foreignStaff(){
         return $this->hasMany('App\Models\Institution\ForeignStaff');
     }
@@ -57,10 +53,6 @@ class Institution extends Model
     public function managements()
     {
         return $this->hasMany('App\Models\Institution\Management');
-    }
-
-    public function pastoralRegion(){
-        return $this->hasMany('App\Models\Institution\PastoralRegion');
     }
 
     public function specialNeeds(){

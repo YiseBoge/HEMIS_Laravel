@@ -87,6 +87,10 @@
                         <div class="col-12 form-group pb-2">
                             {{Form::text('institution_acronym','',['class'=>'form-control','placeholder'=>'Acronym'])}}
                         </div>
+                        <div class="col-12 form-group form-check pb-2 pl-5">
+                            {!! Form::checkbox('is_private', null, null, ['id' => "is_private", 'class' =>'form-check-input']) !!}
+                            {!! Form::label('Private', null, ['class' => 'form-check-label', 'for' => "is_private"]) !!}
+                        </div>
                     </div>
 
 

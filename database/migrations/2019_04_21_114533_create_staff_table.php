@@ -21,6 +21,7 @@ class CreateStaffTable extends Migration
             $table->string('nationality');
             $table->date('birth_date');
             $table->boolean('is_expatriate');
+            $table->boolean('is_from_other_region');
             $table->bigInteger('salary');
             $table->bigInteger('service_year');
             $table->text('remarks');
