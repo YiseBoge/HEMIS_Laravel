@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-10">
-                <h1 class="text-primary">Institution Name</h1>
+                <h1 class="text-primary">{{$institution->institutionName}}</h1>
             </div>
             <div class="col-md-2 pt-4">
                 <a href="general/{{$institution->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i>
@@ -31,7 +31,7 @@
                             Colleges
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            ---
+                            {{$institution->generalInformation->colleges}}
                         </div>
                     </div>
                 </div>

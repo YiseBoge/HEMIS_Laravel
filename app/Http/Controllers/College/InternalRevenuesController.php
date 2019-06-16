@@ -22,7 +22,7 @@ class InternalRevenuesController extends Controller
     {
         $user = Auth::user();
         $institution = $user->institution();
-        $collegeName = $user->collegeName();
+        $collegeName = $user->collegeName;
 
         $revenues = array();
 
@@ -56,7 +56,7 @@ class InternalRevenuesController extends Controller
     {
         $user = Auth::user();
         $institution = $user->institution();
-        $collegeName = $user->collegeName();
+        $collegeName = $user->collegeName;
 
         $revenues = array();
 
@@ -161,7 +161,7 @@ class InternalRevenuesController extends Controller
 
         $user = Auth::user();
         $institution = $user->institution();
-        $collegeName = $user->collegeName();
+        $collegeName = $user->collegeName;
 
         $revenues = array();
 

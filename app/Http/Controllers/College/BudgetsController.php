@@ -31,7 +31,7 @@ class BudgetsController extends Controller
 
         $user = Auth::user();
         $institution = $user->institution();
-        $collegeName = $user->collegeName();
+        $collegeName = $user->collegeName;
 
         $budgets = array();
 
@@ -72,7 +72,7 @@ class BudgetsController extends Controller
 
         $user = Auth::user();
         $institution = $user->institution();
-        $collegeName = $user->collegeName();
+        $collegeName = $user->collegeName;
 
         $budgets = array();
 
@@ -185,7 +185,7 @@ class BudgetsController extends Controller
 
         $user = Auth::user();
         $institution = $user->institution();
-        $collegeName = $user->collegeName();
+        $collegeName = $user->collegeName;
 
         $budgets = array();
         if ($institution != null) {

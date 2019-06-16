@@ -17,6 +17,7 @@ class CreateGeneralInformationTable extends Migration
             $table->uuid('id');
 
             $table->bigInteger('campuses')->default(0);
+            $table->bigInteger('colleges')->default(0);
             $table->bigInteger('schools')->default(0);
             $table->bigInteger('institutes')->default(0);
             $table->bigInteger('hospitals')->default(0);
