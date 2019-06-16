@@ -24,7 +24,7 @@ class CreateUniversityIndustryLinkagesTable extends Migration
 
             $table->primary('id');
 
-            $table->uuid('band_id');
+            $table->uuid('college_id');
         });
     }
 

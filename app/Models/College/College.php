@@ -69,8 +69,19 @@ class College extends Model
         return $this->hasMany('App\Models\Staff\TechnicalStaff');
     }
 
+    public function managementStaffs()
+    {
+        return $this->hasMany('App\Models\Staff\ManagementStaff');
+    }
+
     public function band()
     {
         return $this->belongsTo('App\Models\Band\Band');
     }
+
+    public function universityIndustryLinkages()
+    {
+        return $this->hasMany('App\Models\Band\UniversityIndustryLinkage');
+    }
+
 }

@@ -7,30 +7,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col p-1 m-3 text-center">
-                        <a href="/institution/university-industry-linkage/create" class="btn btn-outline-primary btn-sm mb-0">
+                        <a href="/student/university-industry-linkage/create" class="btn btn-outline-primary btn-sm mb-0">
                             Add<i class="fas fa-plus ml-2"></i></a>
                     </div>
                 </div>
-                <form action="" method="get">
-                    <div class="form-group row pt-3">
-                        <div class="col-md-4 form-group">
-                            <select class="form-control" name="year" id="year" onchange="this.form.submit()">
-                                @foreach ($years as $key => $value)
-                                @if ($value == $selected_year)
-                                <option value="{{$value}}" selected>{{$value}}</option>
-                                @else
-                                <option value="{{$value}}">{{$value}}</option>
-                                @endif
-                                    
-                                @endforeach
-                            </select>
-                            <label for="year" class="form-control-placeholder">
-                                Year Level
-                            </label>
-                        </div>
-                    </div>
-                </form>
-
+            
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
                         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -48,7 +29,7 @@
                                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                                 rowspan="1" colspan="1" aria-sort="ascending"
                                                 aria-label="Name: activate to sort column descending"
-                                            >Band
+                                            >Year
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Acronym: activate to sort column ascending"
@@ -75,7 +56,7 @@
                                                        data-target="#deleteModal"><i class="far fa-trash-alt"></i>
                                                     </a>
                                                 </td>
-                                                <td>{{ $linkage->band->bandName->band_name }}</td>
+                                                <td>{{ $linkage->year}}</td>
                                                 <td>{{ $linkage->number_of_industry_links }}</td>
                                                 <td>{{ $linkage->training_area }}</td>
                                                 <td>{{ $linkage->number_of_students }}</td>
@@ -99,11 +80,11 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    <form class="pb-5" action="/institution/university-industry-linkage" method="POST">
+                    <form class="pb-5" action="/student/university-industry-linkage" method="POST">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Add</h5>
-                        <a href="/institution/university-industry-linkage" class="close" aria-label="Close">
+                        <a href="/student/university-industry-linkage" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
                     </div>
@@ -155,55 +136,7 @@
 
 
     @if ($page_name == 'institution.budget.edit')
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
 
-                <div class="modal-content">
-                    {!! Form::open(['action' => ['Institution\BudgetsController@update', $data['budget']->id], 'method' => 'POST']) !!}
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <a href="/institution/budget" class="close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </a>
-                    </div>
-
-                    <div class="modal-body row pt-6">
-                        <div class="col-12 form-group pb-2">
-                            {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , $data['budget_type'], ['class' => 'form-control', 'id' => 'edit_budget_type']) !!}
-                            {!! Form::label('budget_type', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_type']) !!}
-                        </div>
-
-                        <div class="col-12 form-group pb-2">
-                            {{--TODO get from budget descriptions--}}
-                            {!! Form::select('budget_description', \App\Models\Institution\BudgetDescription::all() , $data['budget_description'], ['class' => 'form-control', 'id' => 'edit_budget_description']) !!}
-                            {!! Form::label('budget_description', 'Budget Description', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_description']) !!}
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('allocated', $data['budget']->allocated_budget, ['class' => 'form-control', 'id' => 'edit_allocated', 'required' => 'true']) !!}
-                            {!! Form::label('allocated', 'Allocated', ['class' => 'form-control-placeholder', 'for' => 'edit_allocated']) !!}
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('additional', $data['budget']->additional_budget, ['class' => 'form-control', 'id' => 'edit_additional', 'required' => 'true']) !!}
-                            {!! Form::label('additional', 'Additional', ['class' => 'form-control-placeholder', 'for' => 'edit_additional']) !!}
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('utilized', $data['budget']->utilized_budget, ['class' => 'form-control', 'id' => 'edit_utilized', 'required' => 'true']) !!}
-                            {!! Form::label('utilized', 'Utilized', ['class' => 'form-control-placeholder', 'for' => 'edit_utilized']) !!}
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        {!! Form::hidden('_method', 'PUT') !!}
-                        {!! Form::submit('Save Changes', ['class' => 'btn btn-primary']) !!}
-                    </div>
-                    {!! Form::close() !!}
-                </div>
-
-            </div>
-        </div>
     @endif
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
@@ -219,7 +152,7 @@
                 <div class="modal-body">Are you sure you wish to delete?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-danger" href="/institution/budget/delete">
+                    <a class="btn btn-danger" href="/student/university-industry-linkage/delete">
                         Delete
                     </a>
 

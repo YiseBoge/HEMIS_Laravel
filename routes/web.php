@@ -33,6 +33,7 @@ Route::resource('staff/technical', 'Staff\TechnicalStaffsController');
 Route::resource('staff/administrative', 'Staff\AdministrativeStaffsController');
 Route::resource('staff/ict', 'Staff\IctStaffsController');
 Route::resource('staff/supportive', 'Staff\SupportiveStaffsController');
+Route::resource('staff/management', 'Staff\ManagementStaffsController');
 Route::resource('publication', 'Staff\PublicationsController');
 
 Route::resource('student/special-need', 'Student\SpecialNeedStudentsController');
@@ -54,21 +55,21 @@ Route::resource('institution/age-enrollment', 'Institution\AgeEnrollmentsControl
 Route::resource('institution/foreign-staff', 'Institution\ForeignStaffsController');
 Route::resource('college/college-name','College\CollegeNamesController');
 Route::resource('department/special-program-teacher','Department\SpecialProgramTeacherController');
-Route::resource('institution/region-name','Institution\RegionNamesController');
+Route::resource('region-name','Institution\RegionNamesController');
 //Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
 
 Route::resource('enrollment/normal','Department\EnrollmentsController');
 Route::get('enrollment/normal-chart','Department\EnrollmentsController@viewChart');
 Route::get('enrollment/student-enrollment-chart','Department\EnrollmentsController@chart');
-Route::resource('enrollment/special-region-students','Institution\SpecialRegionsEnrollmentsController');
+Route::resource('enrollment/special-region-students','Department\SpecialRegionsEnrollmentsController');
 Route::resource('enrollment/specializing-students','Department\SpecializingStudentsEnrollmentsController');
 Route::resource('enrollment/rural-area-students', 'Department\RuralStudentEnrollmentsController');
 Route::resource('enrollment/other-region-students', 'Department\OtherRegionStudentsController');
 Route::resource('enrollment/economically-disadvantaged', 'Department\DisadvantagedStudentEnrollmentsController');
 
 Route::resource('institution/researches','Band\ResearchsController');
-Route::resource('institution/university-industry-linkage','Band\UniversityIndustryLinkageController');
-Route::resource('staff/technical-staff','College\TechnicalStaffController');
+Route::resource('student/university-industry-linkage','College\UniversityIndustryLinkageController');
+//Route::resource('staff/technical-staff','College\TechnicalStaffController');
 Route::resource('department/upgrading-staff', 'Department\UpgradingStaffController');
 Route::resource('department/staff-leave', 'Department\StaffLeaveController');
 Route::resource('department/expatriate-staff', 'Department\ExaptriateStaffsController');

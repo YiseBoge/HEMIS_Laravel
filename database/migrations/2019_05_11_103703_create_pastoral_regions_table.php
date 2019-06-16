@@ -18,14 +18,12 @@ class CreatePastoralRegionsTable extends Migration
             $table->bigInteger('male_number'); 
             $table->bigInteger('female_number'); 
             
-            $table->string('year_level');
-            $table->string('education_program');
             $table->timestamps();
 
             $table->primary('id');
             
             $table->uuid('region_name_id');
-            $table->uuid('institution_id');
+            $table->uuid('department_id');
         });
     }
 

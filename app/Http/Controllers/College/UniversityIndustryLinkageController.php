@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Band;
+namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\Band\BandName;
+use App\Models\College\College;
+use App\Models\College\CollegeName;
 use App\Models\Band\UniversityIndustryLinkage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,20 +24,21 @@ class UniversityIndustryLinkageController extends Controller
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedYear = $request->input('year');
-        if ($requestedYear == null) {
-            $requestedYear = 1;
-        }
-
         $linkages = array();
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
-                foreach ($band->universityIndustryLinkages as $linkage) {
-                    if ($linkage->year == $requestedYear) {
-                        $linkages[] = $linkage;
-                    }                    
-                }
+                if ($band->bandName->band_name == $user->bandName->band_name) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None"){
+                            foreach ($college->universityIndustryLinkages as $linkage) {
+                                $linkages[] = $linkage;                    
+                            }
+                        }
+                        
+                    }
+                    
+                }                
             }
         } else {
             $linkages = UniversityIndustryLinkage::with('band')->get();
@@ -45,9 +48,7 @@ class UniversityIndustryLinkageController extends Controller
             'linkages' => $linkages,
             'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
-            'page_name' => 'bands.university_industry_linkage.index',
-
-            'selected_year' => $requestedYear
+            'page_name' => 'bands.university_industry_linkage.index'
         );
         return view("bands.university_industry_linkage.index")->with($data);
     }
@@ -62,20 +63,21 @@ class UniversityIndustryLinkageController extends Controller
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedYear = $request->input('year');
-        if ($requestedYear == null) {
-            $requestedYear = 'Normal';
-        }
-
         $linkages = array();
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
-                foreach ($band->universityIndustryLinkages as $linkage) {
-                    if ($linkage->year == $requestedYear) {
-                        $linkages[] = $linkage;
-                    }                    
-                }
+                if ($band->bandName->band_name == $user->bandName->band_name) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None"){
+                            foreach ($college->universityIndustryLinkages as $linkage) {
+                                $linkages[] = $linkage;                                                   
+                            }
+                        }
+                        
+                    }
+                    
+                }                
             }
         } else {
             $linkages = UniversityIndustryLinkage::with('band')->get();
@@ -85,8 +87,7 @@ class UniversityIndustryLinkageController extends Controller
             'linkages' => $linkages,
             'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
-
-            'selected_year' => $requestedYear,
+        
             'page_name' => 'bands.university_industry_linkage.create'
         );
         return view("bands.university_industry_linkage.index")->with($data);
@@ -125,9 +126,21 @@ class UniversityIndustryLinkageController extends Controller
             $bandName->band()->save($band);
         }
 
-        $band->universityIndustryLinkages()->save($linkage);
+        $collegeName = $user->collegeName;
+        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
+            'education_level' => "None", 'education_program' => "None"])->first();
+        if($college == null){
+            $college = new College;
+            $college->education_level = "None";
+            $college->education_program = "None";
+            $college->college_name_id = 0;
+            $band->colleges()->save($college);
+            $collegeName->college()->save($college);
+        }
 
-        return redirect("/institution/university-industry-linkage");
+        $college->universityIndustryLinkages()->save($linkage);
+
+        return redirect("/student/university-industry-linkage");
     }
 
     /**

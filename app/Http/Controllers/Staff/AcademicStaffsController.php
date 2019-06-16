@@ -67,16 +67,11 @@ class AcademicStaffsController extends Controller
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
-            'expatriate' => 'boolean|nullable',
             'field_of_study' => 'required',
             'academic_staff_rank' => 'required',
             'teaching_load' => 'required'
         ]);
-        if ($request->get('expatriate') == null) {
-            $expatriate = 0;
-        } else {
-            $expatriate = request('expatriate');
-        }
+        
         $staff = new Staff;
         $staff->name = $request->input('name');
         $staff->birth_date = $request->input('birth_date');
@@ -89,7 +84,7 @@ class AcademicStaffsController extends Controller
         $staff->employment_type = $request->input('employment_type');
         $staff->dedication = $request->input('dedication');
         $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $expatriate;
+        $staff->is_expatriate = $request->has('expatriate');
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
@@ -199,7 +194,6 @@ class AcademicStaffsController extends Controller
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
-            'expatriate' => 'required',
             'field_of_study' => 'required',
             'academic_staff_rank' => 'required',
             'teaching_load' => 'required',
@@ -231,12 +225,13 @@ class AcademicStaffsController extends Controller
             $staffLeave = StaffLeave::find($staffLeave->id);
             $staffLeave->academicStaff()->save($academicStaff);
 
+        }else{
+            //Handle On duty
         }
         $academicStaff->field_of_study = $request->input('field_of_study');
         $academicStaff->teaching_load = $request->input('teaching_load');
         $academicStaff->overload_remark = $request->input('overload_remark');
         $academicStaff->staffRank = $request->input('academic_staff_rank');
-        $academicStaff->institution_id = 0;
         $academicStaff->overload_remark = $request->input('overload_remark') == null ? " " : $request->input('overload_remark');
 
         $staff = $academicStaff->general;
@@ -251,7 +246,8 @@ class AcademicStaffsController extends Controller
         $staff->employment_type = $request->input('employment_type');
         $staff->dedication = $request->input('dedication');
         $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $request->input('expatriate');
+        $staff->is_expatriate = $request->has('expatriate');
+        $staff->is_from_other_region = $request->has('other_region');
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
@@ -270,22 +266,22 @@ class AcademicStaffsController extends Controller
 
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
+            'education_level' => 'None', 'education_program' => 'None'])->first();
         if ($college == null) {
             $college = new College;
-            $college->education_level = $request->input("education_level");
-            $college->education_program = $request->input("program");
+            $college->education_level = 'None';
+            $college->education_program = 'None';
             $college->college_name_id = 0;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
 
         $departmentName = $user->departmentName;
-        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
+        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => 'None',
             'college_id' => $college->id])->first();
         if ($department == null) {
             $department = new Department;
-            $department->year_level = $request->input("year_level");
+            $department->year_level = 'None';
             $department->department_name_id = 0;
             $college->departments()->save($department);
             $departmentName->department()->save($department);

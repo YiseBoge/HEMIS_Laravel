@@ -17,6 +17,7 @@ class CreateInstitutionNamesTable extends Migration
             $table->uuid('id');
             $table->string('institution_name');
             $table->string('acronym');
+            $table->boolean('is_private');
             $table->timestamps();
 
             $table->primary('id');

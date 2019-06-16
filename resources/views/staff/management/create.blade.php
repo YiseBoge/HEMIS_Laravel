@@ -9,9 +9,9 @@
                 </div>
             @endforeach
             @endif
-        <form class="pb-5" action="/staff/academic" method="POST">
+        <form class="pb-5" action="/staff/management" method="POST">
             @csrf
-            <h3 class="font-weight-bold text-primary">Add Academic Staff Member</h3>
+            <h3 class="font-weight-bold text-primary">Add Management Staff Member</h3>
             <div class="row my-5">
                 <div class="col-md-5">
                     <fieldset class="card shadow h-100">
@@ -130,62 +130,34 @@
                                 <label class="form-check-label" for="other_region">From Region Other than the Host Region</label>
                             </div>
                         </div>
+                        
                     </fieldset>
                 </div>
             </div>
             
             <fieldset id="academic-staff" class="card shadow">
                     <div class="card-header text-primary">
-                            Academic Staff Information
+                            Management Staff Information
                     </div>
-                <div class="card-body px-5">
-                <div class="form-row pt-3">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="text" id="field_study" name="field_of_study" class="form-control" required>
-                            <label class="form-control-placeholder" for="field_study">Field of Study</label>
-                        </div>                         
-                    </div>
-
-                    <div class="col-md-6 form-group pl-md-5">
-                        <div class="form-group">
-                            <input type="text" id="teaching_load" name="teaching_load" class="form-control" required>
-                            <label class="form-control-placeholder" for="teaching_load">Teaching Load</label>
-                        </div>
-                       
-                    </div>
-                </div>
-                <hr>
-                <div class="form-row pt-3">
-                    <div class="col-md-6">                        
-                        <div class="form-group">
-                            <select class="form-control" id="aca-staff-rank" name="academic_staff_rank">
-                                @foreach ($staff_ranks as $key => $value)
-                                    <option value="{{$key}}">{{$value}}</option>
-                                @endforeach
-                            </select>
-                            <label for="aca-staff-rank" class="form-control-placeholder">Academic Staff Rank</label> 
-                        </div>                      
-                                        
-                    </div>
-
-                    <div class="col-md-6 form-group pl-md-5">
-                  
-                        <div class="form-group">                           
-                            <textarea rows="1" class="form-control" id="overloadRemark" name="overload_remark"></textarea>
-                            <label for="overloadRemark" class="form-control-placeholder">If Overloaded, why?</label>
+                <div class="card-body px-5"> 
+                    <div class="form-row pt-3">                    
+                        <div class="col form-group">
+                                <select class="form-control" id="management_level" name="management_level">
+                                    @foreach ($levels as $key => $value)
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endforeach
+                                </select>
+                                <label for="management_level" class="form-control-placeholder">Management Level</label> 
+                        </div> 
+                    </div>                               
+                    <div class="form-row pt-3">
+                        <div class="col form-group">                       
+                            <textarea class="form-control" id="additional_remarks" name="additional_remark" rows="3"></textarea>
+                            <label for="additional_remarks" class="form-control-placeholder">Additional Remarks</label>
                         </div>
                     </div>
                 </div>
-                <hr>               
-                <div class="form-row pt-3">
-                    <div class="col form-group">                       
-                        <textarea class="form-control" id="additional_remarks" name="additional_remark" rows="3"></textarea>
-                        <label for="additional_remarks" class="form-control-placeholder">Additional Remarks</label>
-                    </div>
-                </div>
-                </div>
-            </fieldset>      
+            </fieldset>          
             <button class="btn btn-outline-secondary float-right my-1" type="submit">Submit</button>
         </form>
     </div>

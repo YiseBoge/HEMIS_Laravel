@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateManagmentStaffTable extends Migration
+class CreateManagementStaffTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateManagmentStaffTable extends Migration
      */
     public function up()
     {
-        Schema::create('managment_staff', function (Blueprint $table) {
+        Schema::create('management_staff', function (Blueprint $table) {
             $table->uuid('id');
 
-            $table->text('staffRank');
+            $table->text('management_level');
             $table->timestamps();
 
             $table->primary('id');
 
-            $table->uuid('institution_id');
+            $table->uuid('college_id');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateManagmentStaffTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('managment_staff');
+        Schema::dropIfExists('management_staff');
     }
 }
