@@ -20,6 +20,7 @@ class SpecialRegionsEnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
 
@@ -69,6 +70,9 @@ class SpecialRegionsEnrollmentsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'regions' => RegionName::all(),
             'programs' => EmergingRegion::getEnum("EducationPrograms"),
@@ -92,6 +96,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         ]);
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
 

@@ -7,6 +7,7 @@ use App\Models\Institution\Instance;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class InstancesController extends Controller
 {
@@ -17,6 +18,9 @@ class InstancesController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
         $instances = Instance::all();
         $currentInstance = Auth::user()->currentInstance;
 
@@ -35,8 +39,11 @@ class InstancesController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $instances = Instance::all();
-        $currentInstance = Auth::user()->currentInstance;
+        $currentInstance = $user->currentInstance;
 
         $data = [
             'instances' => $instances,
@@ -51,9 +58,13 @@ class InstancesController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
         $this->validate($request, [
             'year' => 'required',
             'semester' => 'required'
@@ -74,6 +85,7 @@ class InstancesController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function updateCurrentInstance(Request $request)
     {
@@ -82,6 +94,7 @@ class InstancesController extends Controller
         ]);
 
         $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
         $currentInstances = Instance::all();
         $currentInstance = $currentInstances[$request->input('current_instance')];
 

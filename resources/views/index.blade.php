@@ -5,8 +5,5 @@
         <div class="title mx-4 display-4 text-dark text-center jumbotron card shadow">
             HEMIS
         </div>
-        <div id="app">
-            <example-component></example-component>
-        </div>
     </div>
 @stop

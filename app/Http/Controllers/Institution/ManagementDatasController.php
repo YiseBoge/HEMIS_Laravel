@@ -6,6 +6,7 @@ use App\Models\Institution\Management;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class ManagementDatasController extends Controller
 {
@@ -17,6 +18,7 @@ class ManagementDatasController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $managements = array();
@@ -43,6 +45,9 @@ class ManagementDatasController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = ['management_data' => [], 'page_name' => 'institutions.management_data.create',
             'management_levels' => Management::getEnum('ManagementLevels')];
         return view('institutions.management_data.index')->with('data', $data);
@@ -53,6 +58,7 @@ class ManagementDatasController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -64,6 +70,7 @@ class ManagementDatasController extends Controller
         ]);
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $management_data = new Management();

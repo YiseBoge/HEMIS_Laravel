@@ -17,6 +17,7 @@ class AgeEnrollmentsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $ageEnrollments = array();
@@ -41,6 +42,9 @@ class AgeEnrollmentsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = ['enrollemnt_info' => AgeEnrollment::all(),
             'age_range' => AgeEnrollment::getEnum('Ages'),
             'page_name' => 'institution.age_enrollment.create'];
@@ -61,6 +65,7 @@ class AgeEnrollmentsController extends Controller
         ]);
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 

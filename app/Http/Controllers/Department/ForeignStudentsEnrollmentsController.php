@@ -13,6 +13,7 @@ use App\Models\Department\ForeignStudent;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class ForeignStudentsEnrollmentsController extends Controller
 {
@@ -24,6 +25,8 @@ class ForeignStudentsEnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $institution = $user->institution();
 
         $requestedProgram = $request->input('program');
@@ -114,6 +117,9 @@ class ForeignStudentsEnrollmentsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $educationPrograms = College::getEnum("EducationPrograms");
         $educationLevels = College::getEnum("EducationLevels");
         array_pop($educationPrograms);
@@ -137,6 +143,7 @@ class ForeignStudentsEnrollmentsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -151,6 +158,7 @@ class ForeignStudentsEnrollmentsController extends Controller
         $enrollment->reason = $request->input('reason');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $bandName = $user->bandName;
@@ -162,7 +170,7 @@ class ForeignStudentsEnrollmentsController extends Controller
             $bandName->band()->save($band);
         }
 
-        $collegeName = $collegeName;
+        $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
         if($college == null){

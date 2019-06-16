@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class UniversityAdminController extends Controller
 {
@@ -23,6 +24,9 @@ class UniversityAdminController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
         $editors = [];
         foreach (User::all() as $user) {
             if ($user->hasRole('University Admin')) {
@@ -44,6 +48,9 @@ class UniversityAdminController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
         $institutionNames = InstitutionName::all();
         $collegeNames = CollegeName::all();
         $bandNames = BandName::all();
@@ -64,16 +71,20 @@ class UniversityAdminController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
-        $currentInstanceId = Auth::user()->currentInstance;
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'institution_name_id' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+        $currentInstanceId = $user->currentInstance;
 
         $institutionNames = InstitutionName::all();
         $institutionName = $institutionNames[$request->input('institution_name_id')];

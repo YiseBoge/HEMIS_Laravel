@@ -27,6 +27,7 @@ class ExpatriateStaffsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $requestedLevel = $request->input('rank_level');
@@ -88,6 +89,9 @@ class ExpatriateStaffsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = [
             'staff_rank' => ExpatriateStaff::getEnum('StaffRank'),
             'colleges' => CollegeName::all(),
@@ -121,6 +125,7 @@ class ExpatriateStaffsController extends Controller
 
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 

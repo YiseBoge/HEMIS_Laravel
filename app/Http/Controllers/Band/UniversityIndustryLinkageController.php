@@ -9,17 +9,20 @@ use App\Models\Band\UniversityIndustryLinkage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class UniversityIndustryLinkageController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
         $requestedYear = $request->input('year');
@@ -60,6 +63,7 @@ class UniversityIndustryLinkageController extends Controller
     public function create(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
         $requestedYear = $request->input('year');
@@ -97,6 +101,7 @@ class UniversityIndustryLinkageController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -113,6 +118,7 @@ class UniversityIndustryLinkageController extends Controller
         $linkage->training_area = $request->input('training_area');
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();
 

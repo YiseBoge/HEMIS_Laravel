@@ -8,6 +8,7 @@ use App\Models\Institution\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class InstitutionsController extends Controller
 {
@@ -19,6 +20,7 @@ class InstitutionsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $user->authorizeRoles('University Admin');
         $institution = $user->institution();
 
         $data = array(
@@ -68,6 +70,9 @@ class InstitutionsController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $currentInstitution = Institution::find($id);
         $status_of_libraries = Resource::getEnum('status_of_libraries');
         $status_of_laboratories = Resource::getEnum('status_of_laboratories');
@@ -89,9 +94,13 @@ class InstitutionsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $this->validate($request, [
             'campuses' => 'required',
             'colleges' => 'required',

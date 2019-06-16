@@ -7,6 +7,8 @@ use App\Models\Staff\AdministrativeStaff;
 use App\Models\Staff\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class AdministrativeStaffsController extends Controller
 {
@@ -17,6 +19,9 @@ class AdministrativeStaffsController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $data = array(
             'staffs' => AdministrativeStaff::with('general')->get(),
             'page_name' => 'administrative.list'
@@ -33,6 +38,9 @@ class AdministrativeStaffsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $data = array(
             'employment_types' => Staff::getEnum("EmploymentTypes"),
             'dedications' => Staff::getEnum("Dedications"),
@@ -48,6 +56,7 @@ class AdministrativeStaffsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -72,6 +81,9 @@ class AdministrativeStaffsController extends Controller
         } else {
             $expatriate = 1;
         }
+
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
 
         $staff = new Staff;
         $staff->name = $request->input('name');
@@ -110,6 +122,9 @@ class AdministrativeStaffsController extends Controller
      */
     public function show($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $data = array(
             'staff' => AdministrativeStaff::with('general')->find($id),
             'page_name' => 'administrative.details'

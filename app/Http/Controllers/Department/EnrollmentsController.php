@@ -24,6 +24,7 @@ class EnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $requestedType=$request->input('student_type');
@@ -97,6 +98,9 @@ class EnrollmentsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $educationPrograms = College::getEnum("EducationPrograms");
         $educationLevels = College::getEnum("EducationLevels");
         array_pop($educationPrograms);
@@ -134,6 +138,7 @@ class EnrollmentsController extends Controller
         $enrollment->student_type = $request->input('student_type');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 
@@ -223,6 +228,7 @@ class EnrollmentsController extends Controller
     public function viewChart(Request $request){
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $requestedType=$request->input('student_type');

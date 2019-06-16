@@ -21,6 +21,7 @@ class InternalRevenuesController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
@@ -55,6 +56,7 @@ class InternalRevenuesController extends Controller
     public function create()
     {
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
@@ -107,6 +109,7 @@ class InternalRevenuesController extends Controller
         $internalRevenue->expense = $request->input('expense');
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
         $bandName = $user->bandName;
@@ -160,6 +163,7 @@ class InternalRevenuesController extends Controller
         $revenueDescription = InternalRevenue::getValueKey($revenueDescriptions, $internalRevenue->revenue_description);
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
@@ -201,12 +205,14 @@ class InternalRevenuesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $this->validate($request, [
             'revenue_description' => 'required',
             'income' => 'required',
             'expense' => 'required',
         ]);
-
 
         $internalRevenue = InternalRevenue::find($id);
         $internalRevenue->revenue_description = $request->input('revenue_description');
@@ -214,7 +220,6 @@ class InternalRevenuesController extends Controller
         $internalRevenue->expense = $request->input('expense');
 
         $internalRevenue->save();
-
 
         return redirect('/budgets/internal-revenue');
     }

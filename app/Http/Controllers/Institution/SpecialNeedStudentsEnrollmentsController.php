@@ -7,6 +7,7 @@ use App\Models\Institution\SpecialNeeds;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class SpecialNeedStudentsEnrollmentsController extends Controller
 {
@@ -18,6 +19,7 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('University Admin');
         $institution = $user->institution();
 
         $requestedProgram=$request->input('program');
@@ -59,6 +61,9 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $data = array(
             'need_types' => SpecialNeeds::getEnum('NeedsTypes'),
             'programs' => SpecialNeeds::getEnum("EducationPrograms"),
@@ -73,6 +78,7 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -82,6 +88,7 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
         ]);
 
         $user = Auth::user();
+        $user->authorizeRoles('University Admin');
         $institution = $user->institution();
 
         $enrollment = new SpecialNeeds;

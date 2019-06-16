@@ -16,6 +16,7 @@ use App\Models\Student\StudentService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class SpecialNeedStudentsController extends Controller
 {
@@ -26,6 +27,9 @@ class SpecialNeedStudentsController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'students' => SpecialNeedStudent::info()->get(),
             'page_name' => 'students.special_need.index'
@@ -41,6 +45,9 @@ class SpecialNeedStudentsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
@@ -59,6 +66,7 @@ class SpecialNeedStudentsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -86,6 +94,7 @@ class SpecialNeedStudentsController extends Controller
         $specialNeedStudent->disability = $request->input("disability_type");
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 
@@ -140,6 +149,9 @@ class SpecialNeedStudentsController extends Controller
      */
     public function show($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'student' => SpecialNeedStudent::info()->find($id),
             'page_name' => 'students.special_need.details'
@@ -155,6 +167,9 @@ class SpecialNeedStudentsController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'student' => SpecialNeedStudent::info()->find($id),
             'bands' => BandName::all(),
@@ -171,6 +186,7 @@ class SpecialNeedStudentsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
@@ -199,6 +215,7 @@ class SpecialNeedStudentsController extends Controller
         $specialNeedStudent->disability = $request->input("disability_type");
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 
@@ -253,6 +270,9 @@ class SpecialNeedStudentsController extends Controller
      */
     public function destroy($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $specialNeedStudent = SpecialNeedStudent::find($id);
         $student = $specialNeedStudent->general;
         $dormitoryService = $specialNeedStudent->general->studentService->dormitoryService;

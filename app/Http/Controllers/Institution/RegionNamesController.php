@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Institution\RegionName;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class RegionNamesController extends Controller
 {
@@ -16,6 +18,9 @@ class RegionNamesController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $regionNames= RegionName::all();
         $data=['region_names'=>$regionNames,'page_name'=>'institution.region-name.index'];
         return view('institutions.region_name.index')->with('data',$data);
@@ -28,6 +33,9 @@ class RegionNamesController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $regionNames= RegionName::all();
         $data=['region_names'=>$regionNames,'page_name'=>'institution.region-name.create'];
         return view('institutions.region_name.index')->with('data',$data);
@@ -38,6 +46,7 @@ class RegionNamesController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {

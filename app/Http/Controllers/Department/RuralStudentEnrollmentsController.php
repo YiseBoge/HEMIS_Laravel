@@ -19,11 +19,13 @@ class RuralStudentEnrollmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $requestedRegion = $request->input('region');
@@ -93,6 +95,9 @@ class RuralStudentEnrollmentsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $educationPrograms = College::getEnum("EducationPrograms");
         $educationLevels = College::getEnum("EducationLevels");
         array_pop($educationPrograms);
@@ -130,6 +135,7 @@ class RuralStudentEnrollmentsController extends Controller
         $enrollment->region = $request->input('region');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 

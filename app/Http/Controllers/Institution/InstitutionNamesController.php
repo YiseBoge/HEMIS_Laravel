@@ -12,6 +12,7 @@ use App\Models\Institution\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 /**
  * A class for the Admin to manage all allowable Institution Names
@@ -25,6 +26,9 @@ class InstitutionNamesController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
         $institutions = InstitutionName::all();
         $data = ['institutions' => $institutions, 'page_name' => 'institution.institution-name.index'];
         return view('institutions.institution_name.index')->with('data', $data);
@@ -37,6 +41,9 @@ class InstitutionNamesController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
         $institutions = InstitutionName::all();
         $data = ['institutions' => $institutions, 'page_name' => 'institution.institution-name.create'];
         return view('institutions.institution_name.index')->with('data', $data);
@@ -47,6 +54,7 @@ class InstitutionNamesController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -55,7 +63,9 @@ class InstitutionNamesController extends Controller
             'institution_acronym' => 'required'
         ]);
 
-        $instance = Auth::user()->currentInstance;
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+        $instance = $user->currentInstance;
 
         $institutionName = new InstitutionName;
         $institutionName->institution_name = $request->input('institution_name');
@@ -93,6 +103,8 @@ class InstitutionNamesController extends Controller
     public
     function show($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
         return view('institutions.details');
     }
 
@@ -105,6 +117,8 @@ class InstitutionNamesController extends Controller
     public
     function edit($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
         return view('institutions.edit');
     }
 

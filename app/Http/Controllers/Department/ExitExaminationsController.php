@@ -21,6 +21,8 @@ class ExitExaminationsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $institution = $user->institution();
 
         $examinations = array();
@@ -51,7 +53,6 @@ class ExitExaminationsController extends Controller
 
         $data = array(
             'examinations' => $examinations,
-
             'page_name' => 'departments.exit_examination.index'
         );
         //return $filteredEnrollments;
@@ -65,6 +66,9 @@ class ExitExaminationsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'page_name' => 'departments.exit_examination.create'
         );
@@ -90,6 +94,7 @@ class ExitExaminationsController extends Controller
         $examination->female_students_number = $request->input('female_number');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 

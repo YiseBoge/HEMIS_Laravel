@@ -11,17 +11,20 @@ use App\Models\Department\StudentAttrition;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class StudentAttritionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 
@@ -50,7 +53,6 @@ class StudentAttritionController extends Controller
             $requestedLevel = 'Undergraduate';
         }
 
-        $attritions = array();
         $attritions = array();
 
         if ($institution != null) {
@@ -101,6 +103,9 @@ class StudentAttritionController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'bands' => BandName::all(),
             'programs' => College::getEnum('EducationPrograms'),
@@ -119,6 +124,7 @@ class StudentAttritionController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -135,6 +141,7 @@ class StudentAttritionController extends Controller
         $attrition->female_students_number = $request->input('female_number');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 

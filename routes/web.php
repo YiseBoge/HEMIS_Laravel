@@ -11,7 +11,7 @@
 |
 */
 
-use Illuminate\Support\Facades\Route;              
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
@@ -66,7 +66,6 @@ Route::resource('enrollment/economically-disadvantaged', 'Department\Disadvantag
 
 Route::resource('institution/researches','Band\ResearchsController');
 Route::resource('institution/university-industry-linkage','Band\UniversityIndustryLinkageController');
-Route::resource('staff/technical-staff','College\TechnicalStaffController');
 Route::resource('department/upgrading-staff', 'Department\UpgradingStaffController');
 Route::resource('department/staff-leave', 'Department\StaffLeaveController');
 Route::resource('department/expatriate-staff', 'Department\ExaptriateStaffsController');

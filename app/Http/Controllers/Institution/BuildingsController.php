@@ -8,12 +8,14 @@ use App\Models\Institution\BuildingPurpose;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class BuildingsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -27,6 +29,7 @@ class BuildingsController extends Controller
         $buildingPurpose = $buildingPurposes[$requestedPurpose];
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
         $buildings = array();
@@ -61,6 +64,9 @@ class BuildingsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $buildingPurposes = BuildingPurpose::all();
 
         $data = array(
@@ -76,6 +82,7 @@ class BuildingsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -88,13 +95,6 @@ class BuildingsController extends Controller
             'budget_allocated' => 'required',
         ]);
 
-        $user = Auth::user();
-        $institution = $user->institution();
-
-        if ($institution == null) {
-            return "No Institution";
-        }
-
         $building = new Building();
         $building->building_name = $request->input('building_name');
         $building->contractor_name = $request->input('contractor_name');
@@ -106,6 +106,7 @@ class BuildingsController extends Controller
         $building->completion_status = $request->input('completion_status');
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $building->institution_id = $institution->id;
 

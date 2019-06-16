@@ -39,6 +39,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="/enrollment/normal">Students</a>
                     <a class="collapse-item" href="/enrollment/special-region-students">Special Region Students</a>
+                    <a class="collapse-item" href="/student/special-need">Special Need Students</a>
                     <a class="collapse-item" href="/enrollment/specializing-students">Specializing Students</a>
                     <a class="collapse-item" href="/enrollment/rural-area-students">Rural Area Students</a>
                     <a class="collapse-item text-wrap" href="/enrollment/economically-disadvantaged">Economically
@@ -146,7 +147,8 @@
             <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Staff Acts:</h6>
-                    <a class="collapse-item" href="/staff/technical-staff">Technical Staff</a>
+                    <a class="collapse-item" href="/staff/ict">ICT Staff</a>
+                    <a class="collapse-item" href="/staff/technical">Technical Staff</a>
                     <a class="collapse-item text-wrap" href="/institution/non-admin">Administrative and Non-Academic
                         Staff</a>
                     <a class="collapse-item text-wrap" href="/staff/administrative">Administrative Staff (Detail)</a>
@@ -197,8 +199,11 @@
                         <a class="collapse-item" href="/college-admin">College/Institute Admin</a>
                         <a class="collapse-item" href="/college/college-name">College/Institute Names</a>
                         <a class="collapse-item" href="/department/department-name">School/Department Names</a>
+                        <a class="collapse-item" href="/institution/region-name">Region Names</a>
+                        {{--                        <a class="collapse-item" href="/staff/ict-staff-types">Budget Descriptions</a>--}}
+                        <a class="collapse-item" href="/budgets/budget-description">Budget Descriptions</a>
                     @elseif(Auth::user()->hasRole('College Admin'))
-                        <a class="collapse-item" href="/department-admin">School/Department Admin</a>
+                        <a class="collapse-item" href="/department-admin">School/Department Admins</a>
                     @endif
 
                 </div>

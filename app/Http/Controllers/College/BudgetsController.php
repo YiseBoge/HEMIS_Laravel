@@ -30,6 +30,7 @@ class BudgetsController extends Controller
 
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
@@ -71,6 +72,7 @@ class BudgetsController extends Controller
         $budget_type = Budget::getEnum('budget_type')['CAPITAL'];
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
@@ -130,6 +132,7 @@ class BudgetsController extends Controller
         $budget->utilized_budget = $request->input('utilized');
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
         $bandName = $user->bandName;
@@ -184,6 +187,7 @@ class BudgetsController extends Controller
         $budget_type = Budget::getValueKey(Budget::getEnum("budget_type"), $budget->budget_type);
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
@@ -234,6 +238,9 @@ class BudgetsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $this->validate($request, [
             'budget_type' => 'required',
             'budget_description' => 'required',

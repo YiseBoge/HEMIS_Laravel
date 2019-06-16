@@ -18,6 +18,7 @@ class ForeignStaffsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $staffs = array();
@@ -44,6 +45,8 @@ class ForeignStaffsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $department_names = DepartmentName::all();
 
@@ -65,6 +68,7 @@ class ForeignStaffsController extends Controller
         // die('reached here');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $foreign_staff = new ForeignStaff();

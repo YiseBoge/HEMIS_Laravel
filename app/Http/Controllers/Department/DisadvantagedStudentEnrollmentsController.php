@@ -24,6 +24,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $requestedQuintile = $request->input('quintile');
@@ -93,6 +94,9 @@ class DisadvantagedStudentEnrollmentsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $educationPrograms = College::getEnum("EducationPrograms");
         $educationLevels = College::getEnum("EducationLevels");
         array_pop($educationPrograms);
@@ -130,6 +134,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $enrollment->quintile = $request->input('quintile');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 

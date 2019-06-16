@@ -59,7 +59,7 @@ class College extends Model
         return $this->hasMany('App\Models\College\Investment');
     }
 
-    public function ictStaff()
+    public function ictStaffs()
     {
         return $this->hasMany('App\Models\Staff\IctStaff');
     }

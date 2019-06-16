@@ -13,17 +13,20 @@ use App\Models\Department\UpgradingStaff;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class UpgradingStaffController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $requestedLevel = $request->input('education_level');
@@ -101,6 +104,9 @@ class UpgradingStaffController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = [
             'education_level' => UpgradingStaff::getEnum("EducationLevels"),
             'study_place' => UpgradingStaff::getEnum("StudyPlaces"),
@@ -119,6 +125,7 @@ class UpgradingStaffController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -136,6 +143,7 @@ class UpgradingStaffController extends Controller
 
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $bandName = $user->bandName;
