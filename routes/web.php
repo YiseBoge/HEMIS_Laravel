@@ -33,6 +33,7 @@ Route::resource('staff/technical', 'Staff\TechnicalStaffsController');
 Route::resource('staff/administrative', 'Staff\AdministrativeStaffsController');
 Route::resource('staff/ict', 'Staff\IctStaffsController');
 Route::resource('staff/supportive', 'Staff\SupportiveStaffsController');
+Route::resource('publication', 'Staff\PublicationsController');
 
 Route::resource('student/special-need', 'Student\SpecialNeedStudentsController');
 Route::resource('student/foreign', 'Student\ForeignStudentsController');
@@ -40,6 +41,7 @@ Route::resource('student/student-attrition', 'Department\StudentAttritionControl
 Route::resource('student/other-attrition', 'Department\OtherAttritionController');
 Route::resource('student/degree-relevant-employment', 'Department\DegreeEmploymentsController');
 Route::resource('student/exit-examination', 'Department\ExitExaminationsController');
+Route::resource('student/cost-sharing', 'Department\CostSharingController');
 
 Route::resource('institution/institution-name','Institution\InstitutionNamesController');
 Route::resource('band/band-name','Band\BandNamesController');

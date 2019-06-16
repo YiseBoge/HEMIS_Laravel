@@ -34,6 +34,11 @@ class AcademicStaff extends Model
         return $this->belongsTo('App\Models\Staff\StaffLeave');
     }
 
+    public function publications()
+    {
+        return $this->hasMany('App\Models\Staff\StaffPublication');
+    }
+
     public function department()
     {
         return $this->belongsTo('App\Models\Department\Department');

@@ -58,6 +58,11 @@ class Department extends Model
         return $this->hasMany('App\Models\Department\DegreeEmployment');
     }
 
+    public function costSharings()
+    {
+        return $this->hasMany('App\Models\Department\CostSharing');
+    }
+
     public function otherRegionStudents()
     {
         return $this->hasMany('App\Models\Department\OtherRegionStudent');
@@ -115,6 +120,11 @@ class Department extends Model
     public function otherAttritions()
     {
         return $this->hasMany('App\Models\Department\OtherAttrition');
+    }
+
+    public function publicationsAndPatents()
+    {
+        return $this->hasMany('App\Models\Department\PublicationsAndPatents');
     }
 
 

@@ -80,6 +80,7 @@
                     <a class="collapse-item" href="/institution/university-industry-linkage">University Industry Linkage</a>
                     <a class="collapse-item text-wrap" href="/student/degree-relevant-employment">Degree Relevant
                         Employment</a>
+                    <a class="collapse-item text-wrap" href="/student/cost-sharing">Cost Sharing</a>
                 </div>
             </div>
         </li>
@@ -116,6 +117,12 @@
                 <i class="fas fa-paperclip"></i>
                 <span>Research</span></a>
         </li>
+
+        <li class="nav-item">
+                <a class="nav-link" href="/publication">
+                    <i class="fas fa-paperclip"></i>
+                    <span>Publications</span></a>
+            </li>
 
 
     @elseif(Auth::user()->hasRole('College Admin'))
