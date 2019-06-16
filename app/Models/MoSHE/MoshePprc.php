@@ -5,7 +5,7 @@ namespace App\Models\MoSHE;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
-class MohePprc extends Model
+class MoshePprc extends Model
 {
     use Uuids;
     use Enums;
@@ -21,7 +21,7 @@ class MohePprc extends Model
         'CAT-VII' => 'Improve resources mobilization',
     ];
 
-    public function Pprcnfo(){
+    public function PprcInfo(){
         return $this->hasMany('App\Models\MoSHE\PprcInfo');
     }
 }

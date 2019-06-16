@@ -33,10 +33,10 @@ class ManagePprcInfosContoller extends Controller
     {
         // $bsc_info = MoSHEBSC::all();
         // die('Allah is good');
-        $data = [ 'bsc_info' => [],
-         'page_name' => 'moshe_admin.manage_bsc_info.create',
-         'categories' => MoSHEBSC::getEnum('Categories')];
-        return view('moshe_admin.manage_bsc_info.index')->with('data', $data);
+        $data = [ 'pprc_info' => [],
+         'page_name' => 'moshe_admin.manage_pprc_info.create',
+         'categories' => MoshePprc::getEnum('Categories')];
+        return view('moshe_admin.manage_pprc_info.index')->with('data', $data);
     }
 
     /**
@@ -53,20 +53,21 @@ class ManagePprcInfosContoller extends Controller
             'kpi_indicator' => 'required'
         ]);
 
-        $moshe_bsc = new MoSHEBSC();
-        $bsc_info = new BSCInfo();
+        $moshe_pprc = new MoshePprc();
+        $pprc_info = new PprcInfo();
 
-        $moshe_bsc->category = $request->input('categories');
-        $moshe_bsc->policy = $request->input('policy');
-        $moshe_bsc->kpi_description = $request->input('kpi_indicator');
+        $moshe_pprc->category = $request->input('categories');
+        $moshe_pprc->policy = $request->input('policy');
+        $moshe_pprc->kpi_description = $request->input('kpi_indicator');
 
-        $bsc_info->year = 2018;
-        $bsc_info->value = 100000;
-        $bsc_info->type = 'Target';
+        $pprc_info->year = 2018;
+        $pprc_info->value = 100000;
+        $pprc_info->type = 'Target';
 
-        $moshe_bsc->save();
-        $moshe_bsc->BSCInfo()->save($bsc_info);
+        $moshe_pprc->save();
+        $moshe_pprc->PprcInfo()->save($pprc_info);
 
+        return redirect('moshe-admin/manage-bsc/');
         // die('got to the motherfucker');
 
 
@@ -80,7 +81,7 @@ class ManagePprcInfosContoller extends Controller
      */
     public function show($id)
     {
-        //
+       
     }
 
     /**
@@ -91,7 +92,10 @@ class ManagePprcInfosContoller extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = [ 'pprc_info' => [] , 'pprc_obj' => MoshePprc::find($id),
+        'page_name' => 'moshe_admin.manage_pprc_info.edit',
+        'categories' => MoshePprc::getEnum('Categories')];
+       return view('moshe_admin.manage_pprc_info.index')->with('data', $data);
     }
 
     /**
@@ -103,7 +107,23 @@ class ManagePprcInfosContoller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'categories' => 'required',
+            'policy' => 'required',
+            'kpi_indicator' => 'required'
+        ]);
+        
+        $moshe_pprc = MoshePprc::find($id);
+
+        $moshe_pprc->category = $request->input('categories');
+        $moshe_pprc->policy = $request->input('policy');
+        $moshe_pprc->kpi_description = $request->input('kpi_indicator');
+
+        $moshe_pprc->save();
+
+        return redirect('moshe-admin/manage-bsc/');
+
+
     }
 
     /**
@@ -114,6 +134,14 @@ class ManagePprcInfosContoller extends Controller
      */
     public function destroy($id)
     {
-        //
+        // die('Toast');
+
+        $pprc_obj = MoshePprc::find($id);
+        $pprc_info = PprcInfo::where('moshe_pprc_id' , $pprc_obj->id);
+
+        $pprc_obj->delete();
+        $pprc_info->delete();
+
+        return redirect('moshe-admin/manage-bsc/');
     }
 }

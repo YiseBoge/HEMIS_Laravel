@@ -20,7 +20,7 @@ class CreatePprcInfosTable extends Migration
             $table->string('type');
             $table->timestamps();
             $table->primary('id');
-            $table->uuid('moshepprc_id');
+            $table->uuid('moshe_pprc_id');
         });
     }
 

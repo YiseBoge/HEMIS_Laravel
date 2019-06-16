@@ -18,7 +18,7 @@ class PprcInfo extends Model
         'TARGET' => 'Target',
     ];
 
-    public function MoSHEBSC(){
+    public function MohePprc(){
         return $this->hasOne('App\Models\MoSHE\MoshePprc');
     }
 }
