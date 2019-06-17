@@ -156,9 +156,9 @@ class InstitutionsController extends Controller
         $communityService->has_incubation = $request->has('has_incubation');
         $communityService->has_hdp_lead = $request->has('has_hdp_lead');
         $communityService->has_ccpd_coordinator = $request->has('has_ccpd_coordinator');
-        $communityService->has_ccpd_coordinator = $request->has('has_elip_teachers');
-        $communityService->has_ccpd_coordinator = $request->has('has_elip_students');
-        $communityService->has_ccpd_coordinator = $request->has('has_career_center');
+        $communityService->has_elip_teachers = $request->has('has_elip_teachers');
+        $communityService->has_elip_students = $request->has('has_elip_students');
+        $communityService->has_career_center = $request->has('has_career_center');
 
         $resource->number_of_libraries = $request->input('number_of_libraries');
         $resource->number_of_laboratories = $request->input('number_of_laboratories');
