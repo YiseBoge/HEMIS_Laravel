@@ -56,10 +56,24 @@ class DisplayMoshePprcsController extends Controller
     {
 
         $pprc = MoshePprc::find($id);
-        $baseline = PprcInfo::where(['moshe_pprc_id'=>$pprc->id , 'type'=>'BASELINE']);
-        $current = PprcInfo::where(['moshe_pprc_id'=>$pprc->id , 'type'=>'REGULAR' , 'year'=>0]);
-        $target = PprcInfo::where('moshe_pprc_id' , $id)->first();
-        die(var_dump($target->id));
+        $baseline = PprcInfo::where(['moshe_pprc_id'=>$pprc->id , 'type'=>'Baseline'])->first();
+        $current = PprcInfo::where(['moshe_pprc_id'=>$pprc->id , 'type'=>'regular' , 'year'=>'0'])->first();
+        $target = PprcInfo::where(['moshe_pprc_id' => $id , 'type'=>'Target'])->first();
+        $change = round((($current->value - $baseline->value)/($target->value - $baseline->value))*100 , 2);
+        // die($change);
+        // die(var_dump($target->id));
+
+        $data = [
+            'pprc_info' => [],
+            'pprc' => $pprc,
+            'baseline'=>$baseline,
+            'current' => $current,
+            'target' => $target,
+            'change' => $change,
+            'page_name' => 'moshe_admin.display_moshe_pprc.detail'
+        ];
+
+        return view('moshe_admin.display_moshe_pprc.index')->with('data', $data);
     }
 
     /**
@@ -70,7 +84,26 @@ class DisplayMoshePprcsController extends Controller
      */
     public function edit($id)
     {
-        //
+        // die('MotherFUckerr');
+        $pprc = MoshePprc::find($id);
+        $baseline = PprcInfo::where(['moshe_pprc_id'=>$pprc->id , 'type'=>'Baseline'])->first();
+        $current = PprcInfo::where(['moshe_pprc_id'=>$pprc->id , 'type'=>'regular' , 'year'=>'0'])->first();
+        $target = PprcInfo::where(['moshe_pprc_id' => $id , 'type'=>'Target'])->first();
+        $change = round((($current->value - $baseline->value)/($target->value - $baseline->value))*100 , 2);
+        // die($change);
+        // die(var_dump($target->id));
+
+        $data = [
+            'pprc_info' => [],
+            'pprc' => $pprc,
+            'baseline'=>$baseline,
+            'current' => $current,
+            'target' => $target,
+            'change' => $change,
+            'page_name' => 'moshe_admin.display_moshe_pprc.edit'
+        ];
+
+        return view('moshe_admin.display_moshe_pprc.index')->with('data', $data);
     }
 
     /**
@@ -82,7 +115,13 @@ class DisplayMoshePprcsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // die('WokkaFlokka');
+        $target_info = PprcInfo::find($id);
+        // die($target_info->type);
+        $target_info->value = $request->input('target');
+        $target_info->save();
+
+        return redirect('moshe-admin/display-pprc/');
     }
 
     /**

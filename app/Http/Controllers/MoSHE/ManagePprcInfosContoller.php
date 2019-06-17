@@ -52,18 +52,30 @@ class ManagePprcInfosContoller extends Controller
         ]);
 
         $moshe_pprc = new MoshePprc();
-        $pprc_info = new PprcInfo();
+        $pprc_info_target = new PprcInfo();
+        $pprc_info_baseline = new PprcInfo();
+        $pprc_info_current = new PprcInfo();
 
         $moshe_pprc->category = $request->input('categories');
         $moshe_pprc->policy = $request->input('policy');
         $moshe_pprc->kpi_description = $request->input('kpi_indicator');
 
-        $pprc_info->year = 0;//get this from the current year
-        $pprc_info->value = 0;
-        $pprc_info->type = 'Target';
+        $pprc_info_target->year = '0';//get this from the current year
+        $pprc_info_target->value = 4;
+        $pprc_info_target->type = 'TARGET';
+
+        $pprc_info_current->year = '0';//get this from the current year
+        $pprc_info_current->value = 3;
+        $pprc_info_current->type = 'REGULAR';
+
+        $pprc_info_baseline->year = '0';//get this from the current year
+        $pprc_info_baseline->value = 2;
+        $pprc_info_baseline->type = 'BASELINE';
 
         $moshe_pprc->save();
-        $moshe_pprc->PprcInfo()->save($pprc_info);
+        $moshe_pprc->PprcInfo()->save($pprc_info_target);
+        $moshe_pprc->PprcInfo()->save($pprc_info_current);
+        $moshe_pprc->PprcInfo()->save($pprc_info_baseline);
 
         return redirect('moshe-admin/manage-pprc/');
 
