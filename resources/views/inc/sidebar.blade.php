@@ -1,12 +1,13 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-graduation-cap"></i>
-            <img src="">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center my-2" href="/">
+        <div class="sidebar-brand-icon">
+            <img class="rounded-circle d-inline-block" width="50" height="50" src="{{ asset('img/logo.png') }}">
         </div>
-        <div class="sidebar-brand-text mx-3">HEMIS</div>
+        <div class="sidebar-brand-text mx-3">
+            <img class="d-inline-block" height="50" src="{{ asset('img/brand.png') }}">
+        </div>
     </a>
 
     <!-- Divider -->
