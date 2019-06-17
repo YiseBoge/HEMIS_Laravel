@@ -1,10 +1,11 @@
+
 <?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBscInfosTable extends Migration
+class CreateInistitutionBSCInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +14,15 @@ class CreateBscInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('bsc_infos', function (Blueprint $table) {
+        Schema::create('inistitution_b_s_c_infos', function (Blueprint $table) {
             $table->uuid('id');
             $table->string('year');
             $table->bigInteger('value');
             $table->string('type');
             $table->timestamps();
             $table->primary('id');
-            $table->uuid('moshebsc_id');
+            $table->uuid('institution_id');
+            $table->uuid('institution_bsc_id');
         });
     }
 
@@ -31,6 +33,6 @@ class CreateBscInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bsc_infos');
+        Schema::dropIfExists('inistitution_b_s_c_infos');
     }
 }

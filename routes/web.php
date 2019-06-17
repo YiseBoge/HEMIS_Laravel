@@ -77,6 +77,12 @@ Route::resource('department/postgraduate-diploma-training', 'Department\PostGrad
 Route::resource('department/teachers', 'Department\TeachersController');
 Route::resource('department/expatriate-staff', 'Department\ExpatriateStaffsController');
 
+Route::resource('moshe-admin/manage-pprc', 'MoSHE\ManagePprcInfosContoller');
+Route::resource('moshe-admin/display-pprc', 'MoSHE\DisplayMoshePprcsController');
+
+Route::get('/admin', function () {
+    return view('admin.index');
+});
 Route::get('admin/student-enrollment-chart','HomeController@adminEnrollmentChart');
 
 Route::get('/staff_attrition', function () {

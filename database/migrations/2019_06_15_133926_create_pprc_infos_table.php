@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBscInfosTable extends Migration
+class CreatePprcInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateBscInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('bsc_infos', function (Blueprint $table) {
+        Schema::create('pprc_infos', function (Blueprint $table) {
             $table->uuid('id');
             $table->string('year');
             $table->bigInteger('value');
             $table->string('type');
             $table->timestamps();
             $table->primary('id');
-            $table->uuid('moshebsc_id');
+            $table->uuid('moshe_pprc_id');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateBscInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bsc_infos');
+        Schema::dropIfExists('pprc_infos');
     }
 }
