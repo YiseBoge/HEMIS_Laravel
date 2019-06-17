@@ -13,17 +13,20 @@ use App\Models\Department\StaffLeave;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class StaffLeaveController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $requestedLevel = $request->input('education_level');
@@ -101,6 +104,9 @@ class StaffLeaveController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = [
             'education_level' => StaffLeave::getEnum("LevelOfStudies"),
             'study_place' => StaffLeave::getEnum("PlaceOfStudies"),
@@ -120,6 +126,7 @@ class StaffLeaveController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -137,6 +144,7 @@ class StaffLeaveController extends Controller
 
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $bandName = $user->bandName;

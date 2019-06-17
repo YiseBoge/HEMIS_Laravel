@@ -127,11 +127,13 @@ class Department extends Model
         return $this->hasMany('App\Models\Department\PublicationsAndPatents');
     }
 
-    public function emergingRegion(){
+    public function emergingRegion()
+    {
         return $this->hasMany('App\Models\Institution\EmergingRegion');
     }
 
-    public function pastoralRegion(){
+    public function pastoralRegion()
+    {
         return $this->hasMany('App\Models\Institution\PastoralRegion');
     }
 

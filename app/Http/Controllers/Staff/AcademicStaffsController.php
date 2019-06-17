@@ -12,6 +12,7 @@ use App\Models\Staff\StaffLeave;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class AcademicStaffsController extends Controller
 {
@@ -22,6 +23,9 @@ class AcademicStaffsController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'staffs' => AcademicStaff::with('general')->get(),
             'page_name' => 'staff.academic.list'
@@ -37,6 +41,9 @@ class AcademicStaffsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'employment_types' => Staff::getEnum("EmploymentTypes"),
             'dedications' => Staff::getEnum("Dedications"),
@@ -71,7 +78,7 @@ class AcademicStaffsController extends Controller
             'academic_staff_rank' => 'required',
             'teaching_load' => 'required'
         ]);
-        
+
         $staff = new Staff;
         $staff->name = $request->input('name');
         $staff->birth_date = $request->input('birth_date');
@@ -97,6 +104,7 @@ class AcademicStaffsController extends Controller
         $academicStaff->overload_remark = $request->input('overload_remark') == null ? " " : $request->input('overload_remark');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 
@@ -147,6 +155,9 @@ class AcademicStaffsController extends Controller
      */
     public function show($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             //'staff' => AcademicStaff::with('general')->find($id)
             'staff' => AcademicStaff::info()->find($id),
@@ -163,6 +174,9 @@ class AcademicStaffsController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             //'staff' => AcademicStaff::with('general')->find($id)
             'staff' => AcademicStaff::info()->find($id),
@@ -179,6 +193,7 @@ class AcademicStaffsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
@@ -225,7 +240,7 @@ class AcademicStaffsController extends Controller
             $staffLeave = StaffLeave::find($staffLeave->id);
             $staffLeave->academicStaff()->save($academicStaff);
 
-        }else{
+        } else {
             //Handle On duty
         }
         $academicStaff->field_of_study = $request->input('field_of_study');
@@ -252,6 +267,7 @@ class AcademicStaffsController extends Controller
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 
@@ -302,6 +318,9 @@ class AcademicStaffsController extends Controller
      */
     public function destroy($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $academicStaff = AcademicStaff::find($id);
         $staff = $academicStaff->general;
         $academicStaff->delete();

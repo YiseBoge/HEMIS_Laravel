@@ -16,6 +16,7 @@ use App\Models\Student\StudentService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 
 class ForeignStudentsController extends Controller
@@ -28,6 +29,9 @@ class ForeignStudentsController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'students' => ForeignStudent::info()->get(),
             'page_name' => 'students.foreign.list'
@@ -42,6 +46,9 @@ class ForeignStudentsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
@@ -59,6 +66,7 @@ class ForeignStudentsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -89,6 +97,7 @@ class ForeignStudentsController extends Controller
         $foreignerStudent->years_in_ethiopia = $request->input("years_in_ethiopia");
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 
@@ -143,6 +152,9 @@ class ForeignStudentsController extends Controller
      */
     public function show($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'student' => ForeignStudent::info()->find($id),
             'page_name' => 'students.foreign.details'
@@ -158,6 +170,9 @@ class ForeignStudentsController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'student' => ForeignStudent::info()->find($id),
             'bands' => BandName::all(),
@@ -174,6 +189,7 @@ class ForeignStudentsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
@@ -205,6 +221,7 @@ class ForeignStudentsController extends Controller
         $foreignerStudent->years_in_ethiopia = $request->input("years_in_ethiopia");
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 
@@ -259,6 +276,9 @@ class ForeignStudentsController extends Controller
      */
     public function destroy($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $foreignerStudent = ForeignStudent::find($id);
         $student = $foreignerStudent->general;
         $dormitoryService = $foreignerStudent->general->studentService->dormitoryService;

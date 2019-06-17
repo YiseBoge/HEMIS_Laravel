@@ -16,74 +16,76 @@
                                 </div>
                             </div>
                             <form action="" method="get">
-                                 <div class="form-group row pt-3">
+                                <div class="form-group row pt-3">
                                     <div class="col-md form-group">
-                                            <select class="form-control" name="region_type" id="region_type"
-                                                    onchange="this.form.submit()">
-                                                @if ($selected_type == "Emerging Regions")
-                                                    <option value="emerging_regions" selected>Emerging Regions</option>
-                                                    <option value="pastoral_regions">Pastoral Regions</option>
-                                                @else
-                                                    <option value="emerging_regions">Emerging Regions</option>
-                                                    <option value="pastoral_regions" selected>Pastoral Regions</option>
-                                                @endif
-    
-                                            </select>
-                                            <label for="region_type" class="form-control-placeholder">
-                                                Region Type
-                                            </label>
-                                        </div>
+                                        <select class="form-control" name="region_type" id="region_type"
+                                                onchange="this.form.submit()">
+                                            @if ($selected_type == "Emerging Regions")
+                                                <option value="emerging_regions" selected>Emerging Regions</option>
+                                                <option value="pastoral_regions">Pastoral Regions</option>
+                                            @else
+                                                <option value="emerging_regions">Emerging Regions</option>
+                                                <option value="pastoral_regions" selected>Pastoral Regions</option>
+                                            @endif
+
+                                        </select>
+                                        <label for="region_type" class="form-control-placeholder">
+                                            Region Type
+                                        </label>
+                                    </div>
                                 </div>
 
-                                <div class="form-group row pt-3">   
+                                <div class="form-group row pt-3">
                                     <div class="col-md-4 form-group">
-                                        <select class="form-control" name="education_level" id="level" onchange="this.form.submit()">
+                                        <select class="form-control" name="education_level" id="level"
+                                                onchange="this.form.submit()">
                                             @foreach ($education_levels as $key => $value)
-                                            @if ($key == 'SPECIALIZATION')
+                                                @if ($key == 'SPECIALIZATION')
                                                     <option disabled value="{{$value}}">{{$value}}</option>
-                                            @elseif($value == $selected_education_level)
+                                                @elseif($value == $selected_education_level)
                                                     <option value="{{$value}}" selected>{{$value}}</option>
-                                            @else
+                                                @else
                                                     <option value="{{$value}}">{{$value}}</option>
-                                            @endif
+                                                @endif
                                             @endforeach
                                         </select>
                                         <label for="dormitory_service_type" class="form-control-placeholder">
                                             Education Level
                                         </label>
-                                    </div>                               
+                                    </div>
                                     <div class="col-md-4 form-group">
                                         <select class="form-control" name="program" id="program" onchange="this.form.submit()">
                                             @foreach ($programs as $key => $value)
-                                            @if ($value == $selected_program)
-                                            <option value="{{$value}}" selected>{{$value}}</option>
-                                            @else
-                                            <option value="{{$value}}">{{$value}}</option>
-                                            @endif
-                                            
+                                                @if ($value == $selected_program)
+                                                    <option value="{{$value}}" selected>{{$value}}</option>
+                                                @else
+                                                    <option value="{{$value}}">{{$value}}</option>
+                                                @endif
+
                                             @endforeach
                                         </select>
                                         <label for="service_type" class="form-control-placeholder">
-                                                Program
+                                            Program
                                         </label>
-                                </div>
+                                    </div>
 
-                                <div class="col-md-4 form-group">
-                                    <select class="form-control" name="year_level" id="year_level"  onchange="this.form.submit()">
-                                        @foreach ($year_levels as $key => $value)
-                                        @if ($value == $selected_year)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                        @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                        @endif
-                                            
-                                        @endforeach
-                                    </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
+                                    <div class="col-md-4 form-group">
+                                        <select class="form-control" name="year_level" id="year_level"
+                                                onchange="this.form.submit()">
+                                            @foreach ($year_levels as $key => $value)
+                                                @if ($value == $selected_year)
+                                                    <option value="{{$value}}" selected>{{$value}}</option>
+                                                @else
+                                                    <option value="{{$value}}">{{$value}}</option>
+                                                @endif
+
+                                            @endforeach
+                                        </select>
+                                        <label for="dormitory_service_type" class="form-control-placeholder">
                                             Year Level
                                     </label>
-                                </div>
-        
+                                    </div>
+
                                 </div>
                             </form>
                         <div class="row mt-3">

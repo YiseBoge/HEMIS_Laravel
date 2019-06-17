@@ -11,17 +11,20 @@ use App\Models\College\TechnicalStaff;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class TechnicalStaffController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
         $requestedBand = $request->input('band');
@@ -76,11 +79,13 @@ class TechnicalStaffController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function create(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
         $requestedBand = $request->input('band');
@@ -133,6 +138,7 @@ class TechnicalStaffController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -147,6 +153,7 @@ class TechnicalStaffController extends Controller
         $staff->female_staff_number = $request->input('female_number');
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();
         

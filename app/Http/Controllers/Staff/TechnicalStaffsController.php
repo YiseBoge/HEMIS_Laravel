@@ -11,6 +11,7 @@ use App\Models\Staff\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class TechnicalStaffsController extends Controller
 {
@@ -22,8 +23,9 @@ class TechnicalStaffsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
-        $collegeName = $user->collegeName();
+        $collegeName = $user->collegeName;
 
         $technicalStaffs = array();
 
@@ -31,8 +33,8 @@ class TechnicalStaffsController extends Controller
             foreach ($institution->bands as $band) {
                 foreach ($band->colleges as $college) {
                     if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->ictStaffs as $technicalStaff) {
-                            $technicalStaffs[] = $technicalStaff;
+                        foreach ($college->technicalStaff as $staff) {
+                            $technicalStaffs[] = $staff;
                         }
                     }
                 }
@@ -54,6 +56,9 @@ class TechnicalStaffsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $data = array(
             'employment_types' => Staff::getEnum("employment_type"),
             'dedications' => Staff::getEnum("dedication"),
@@ -69,6 +74,7 @@ class TechnicalStaffsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -109,6 +115,7 @@ class TechnicalStaffsController extends Controller
         $technicalStaff->staff_rank = $request->input('technical_staff_rank');
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
         $bandName = $user->bandName;
@@ -147,6 +154,9 @@ class TechnicalStaffsController extends Controller
      */
     public function show($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $data = array(
             'staff' => TechnicalStaff::with('general')->find($id),
             'page_name' => 'staff.technical.details'
@@ -162,6 +172,9 @@ class TechnicalStaffsController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $data = array(
             'staff' => TechnicalStaff::with('general')->find($id),
             'page_name' => 'staff.technical.edit'
@@ -175,9 +188,13 @@ class TechnicalStaffsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $this->validate($request, [
             'name' => 'required',
             'birth_date' => 'required',
@@ -231,6 +248,9 @@ class TechnicalStaffsController extends Controller
      */
     public function destroy($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $technicalStaff = TechnicalStaff::find($id);
         $staff = $technicalStaff->general;
         $technicalStaff->delete();

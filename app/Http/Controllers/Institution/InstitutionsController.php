@@ -8,6 +8,7 @@ use App\Models\Institution\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class InstitutionsController extends Controller
 {
@@ -19,6 +20,7 @@ class InstitutionsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $user->authorizeRoles('University Admin');
         $institution = $user->institution();
 
         $data = array(
@@ -68,6 +70,9 @@ class InstitutionsController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $currentInstitution = Institution::find($id);
         $status_of_libraries = Resource::getEnum('status_of_libraries');
         $status_of_laboratories = Resource::getEnum('status_of_laboratories');
@@ -89,9 +94,13 @@ class InstitutionsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $this->validate($request, [
             'campuses' => 'required',
             'colleges' => 'required',
@@ -147,9 +156,9 @@ class InstitutionsController extends Controller
         $communityService->has_incubation = $request->has('has_incubation');
         $communityService->has_hdp_lead = $request->has('has_hdp_lead');
         $communityService->has_ccpd_coordinator = $request->has('has_ccpd_coordinator');
-        $communityService->has_ccpd_coordinator = $request->has('has_elip_teachers');
-        $communityService->has_ccpd_coordinator = $request->has('has_elip_students');
-        $communityService->has_ccpd_coordinator = $request->has('has_career_center');
+        $communityService->has_elip_teachers = $request->has('has_elip_teachers');
+        $communityService->has_elip_students = $request->has('has_elip_students');
+        $communityService->has_career_center = $request->has('has_career_center');
 
         $resource->number_of_libraries = $request->input('number_of_libraries');
         $resource->number_of_laboratories = $request->input('number_of_laboratories');

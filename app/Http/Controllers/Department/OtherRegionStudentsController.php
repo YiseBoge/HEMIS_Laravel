@@ -24,6 +24,7 @@ class OtherRegionStudentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $requestedProgram = $request->input('program');
@@ -85,6 +86,9 @@ class OtherRegionStudentsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $educationPrograms = College::getEnum("EducationPrograms");
         $educationLevels = College::getEnum("EducationLevels");
         array_pop($educationPrograms);
@@ -120,6 +124,7 @@ class OtherRegionStudentsController extends Controller
         $enrollment->female_students_number = $request->input('female_number');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 

@@ -13,17 +13,20 @@ use App\Models\Department\SpecialProgramTeacher;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class SpecialProgramTeacherController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $requestedType=$request->input('program_type');
@@ -103,6 +106,9 @@ class SpecialProgramTeacherController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data=[
             'program_type'=>SpecialProgramTeacher::getEnum("ProgramTypes"),
             'program_status'=>SpecialProgramTeacher::getEnum("ProgramStats"),
@@ -121,6 +127,7 @@ class SpecialProgramTeacherController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -140,6 +147,7 @@ class SpecialProgramTeacherController extends Controller
 
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $bandName = $user->bandName;

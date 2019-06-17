@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\BandName;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 /**
  * A class for the Admin to manage allowable Band Names
@@ -19,6 +21,9 @@ class BandNamesController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
         $bands= BandName::all();
         $data=['bands'=>$bands,'page_name'=>'band.band-name.list'];
         return view('bands.band_name.list')->with('data',$data);
@@ -31,8 +36,14 @@ class BandNamesController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
         $bands= BandName::all();
-        $data=['bands'=>$bands,'page_name'=>'band.band-name.create'];
+        $data = [
+            'bands' => $bands,
+            'page_name' => 'band.band-name.create'
+        ];
         return view('bands.band_name.list')->with('data',$data);
     }
 
@@ -41,9 +52,13 @@ class BandNamesController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
         $this->validate($request, [
             'band_name' => 'required',
             'band_acronym' => 'required'
@@ -67,6 +82,9 @@ class BandNamesController extends Controller
      */
     public function show($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
         return view('bands.details');
     }
 
@@ -78,6 +96,9 @@ class BandNamesController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
         return view('bands.edit');
     }
 

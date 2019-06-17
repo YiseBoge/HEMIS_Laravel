@@ -24,6 +24,7 @@ class ResearchsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 
@@ -84,6 +85,9 @@ class ResearchsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'completions' => Research::getEnum('Completions'),
             'types' => Research::getEnum('Types'),
@@ -124,7 +128,7 @@ class ResearchsController extends Controller
         $research->type = $request->input('type');
 
         $user = Auth::user();
-
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $bandName = $user->bandName;
@@ -183,7 +187,8 @@ class ResearchsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
     }
 
     /**
@@ -195,7 +200,8 @@ class ResearchsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
     }
 
     /**
@@ -206,6 +212,7 @@ class ResearchsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
     }
 }

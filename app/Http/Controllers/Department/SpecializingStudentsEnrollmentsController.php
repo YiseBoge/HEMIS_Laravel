@@ -19,11 +19,13 @@ class SpecializingStudentsEnrollmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $requestedType = $request->input('student_type');
@@ -98,6 +100,9 @@ class SpecializingStudentsEnrollmentsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $educationPrograms = College::getEnum("EducationPrograms");
         array_pop($educationPrograms);
 
@@ -135,6 +140,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
         $enrollment->field_of_specialization = $request->input('field_of_specialization');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 

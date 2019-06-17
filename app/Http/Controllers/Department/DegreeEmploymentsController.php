@@ -10,6 +10,7 @@ use App\Models\Department\Department;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class DegreeEmploymentsController extends Controller
 {
@@ -21,6 +22,7 @@ class DegreeEmploymentsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $employments = array();
@@ -64,6 +66,9 @@ class DegreeEmploymentsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'page_name' => 'departments.degree_employment.create'
         );
@@ -76,6 +81,7 @@ class DegreeEmploymentsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -89,6 +95,7 @@ class DegreeEmploymentsController extends Controller
         $employment->female_students_number = $request->input('female_number');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateStaffPublicationsTable extends Migration
 {
@@ -18,7 +18,7 @@ class CreateStaffPublicationsTable extends Migration
             $table->string('title');
             $table->date('date_of_publication');
             $table->timestamps();
-            
+
             $table->primary('id');
             $table->uuid('academic_staff_id');
         });

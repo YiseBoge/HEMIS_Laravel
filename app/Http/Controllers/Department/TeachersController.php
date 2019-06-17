@@ -24,6 +24,7 @@ class TeachersController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $requestedCollege = $request->input('college');
@@ -90,6 +91,9 @@ class TeachersController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
@@ -122,6 +126,7 @@ class TeachersController extends Controller
 
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 

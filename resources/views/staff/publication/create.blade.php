@@ -22,9 +22,9 @@
                             <div class="form-group row pt-3">
                                 <div class="col-md form-group">
                                     <input type="text" id="title" name="title" class="form-control"
-                                            required>
+                                           required>
                                     <label class="form-control-placeholder" for="title">Title</label>
-                                </div>  
+                                </div>
                             </div>
                             <div class="form-group row pt-3">
                                 <div class="col-md-6 form-group">
@@ -38,11 +38,12 @@
                                     </label>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">                                    
-                                        <input class="form-control" id="date" name="date" type="date" placeholder="2011-08-19">
+                                    <div class="form-group">
+                                        <input class="form-control" id="date" name="date" type="date"
+                                               placeholder="2011-08-19">
                                         <label for="date" class="form-control-placeholder">Date of Publication</label>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                     </fieldset>

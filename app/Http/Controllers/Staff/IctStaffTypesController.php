@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * A class for the Admin to manage all allowable Ict Staff Types
@@ -18,6 +19,9 @@ class IctStaffTypesController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         return view('staff.ict_staff_type.index');
     }
 
@@ -28,7 +32,9 @@ class IctStaffTypesController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
     }
 
     /**

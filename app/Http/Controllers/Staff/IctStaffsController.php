@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Staff\IctStaff;
+use App\Models\Staff\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class IctStaffsController extends Controller
 {
@@ -20,8 +22,10 @@ class IctStaffsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $institution = $user->institution();
-        $collegeName = $user->collegeName();
+        $collegeName = $user->collegeName;
 
         $ictStaffs = array();
 
@@ -52,6 +56,9 @@ class IctStaffsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $data = array(
             'employment_types' => Staff::getEnum("EmploymentTypes"),
             'dedications' => Staff::getEnum("Dedications"),
@@ -67,6 +74,7 @@ class IctStaffsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -112,6 +120,7 @@ class IctStaffsController extends Controller
 
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();
 
@@ -136,7 +145,7 @@ class IctStaffsController extends Controller
             $collegeName->college()->save($college);
         }
 
-        $college->technicalStaff()->save($ictStaff);
+        $college->ictStaffs()->save($ictStaff);
         $ictStaff = IctStaff::find($ictStaff->id);
         $ictStaff->general()->save($staff);
 
@@ -151,6 +160,9 @@ class IctStaffsController extends Controller
      */
     public function show($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $data = array(
             'staff' => IctStaff::with('general')->find($id),
             'page_name' => 'staff.ict.details'
@@ -166,6 +178,9 @@ class IctStaffsController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $data = array(
             'staff' => IctStaff::with('general')->find($id),
             'page_name' => 'staff.ict.edit'
@@ -180,6 +195,7 @@ class IctStaffsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
@@ -226,8 +242,9 @@ class IctStaffsController extends Controller
         $ictStaff->general()->save($staff);
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
-        $collegeName = $user->collegeName();
+        $collegeName = $user->collegeName;
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
@@ -251,6 +268,9 @@ class IctStaffsController extends Controller
      */
     public function destroy($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $ictStaff = IctStaff::find($id);
         $staff = $ictStaff->general;
         $ictStaff->delete();

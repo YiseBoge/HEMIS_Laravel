@@ -4,10 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow jumbotron pt-4">
-                <h3>{{ __('Register') }}</h3>
-                <hr>
-                <div class="card-body">
+            <div class="card shadow">
+                <div class="text-primary card-header">{{ __('Register') }}</div>
+                <div class="card-body p-5">
                     <form method="POST" class="user" action="{{ route('register') }}">
                         @csrf
 

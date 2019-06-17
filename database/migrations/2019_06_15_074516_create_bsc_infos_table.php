@@ -20,6 +20,7 @@ class CreateBscInfosTable extends Migration
             $table->string('type');
             $table->timestamps();
             $table->primary('id');
+            $table->uuid('moshebsc_id');
         });
     }
 

@@ -5,23 +5,25 @@ namespace App\Http\Controllers\College;
 use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\Band\BandName;
-use App\Models\College\College;
-use App\Models\College\CollegeName;
 use App\Models\Band\UniversityIndustryLinkage;
+use App\Models\College\College;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class UniversityIndustryLinkageController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
         $linkages = array();
@@ -30,14 +32,14 @@ class UniversityIndustryLinkageController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None"){
+                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
                             foreach ($college->universityIndustryLinkages as $linkage) {
-                                $linkages[] = $linkage;                    
+                                $linkages[] = $linkage;
                             }
                         }
-                        
+
                     }
-                    
+
                 }                
             }
         } else {
@@ -61,6 +63,7 @@ class UniversityIndustryLinkageController extends Controller
     public function create(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
         $linkages = array();
@@ -69,14 +72,14 @@ class UniversityIndustryLinkageController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None"){
+                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
                             foreach ($college->universityIndustryLinkages as $linkage) {
-                                $linkages[] = $linkage;                                                   
+                                $linkages[] = $linkage;
                             }
                         }
-                        
+
                     }
-                    
+
                 }                
             }
         } else {
@@ -87,7 +90,7 @@ class UniversityIndustryLinkageController extends Controller
             'linkages' => $linkages,
             'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
-        
+
             'page_name' => 'bands.university_industry_linkage.create'
         );
         return view("bands.university_industry_linkage.index")->with($data);
@@ -98,6 +101,7 @@ class UniversityIndustryLinkageController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -114,6 +118,7 @@ class UniversityIndustryLinkageController extends Controller
         $linkage->training_area = $request->input('training_area');
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();
 
@@ -129,7 +134,7 @@ class UniversityIndustryLinkageController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => "None", 'education_program' => "None"])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = "None";
             $college->education_program = "None";

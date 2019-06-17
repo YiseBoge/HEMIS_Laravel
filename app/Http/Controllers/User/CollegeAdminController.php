@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class CollegeAdminController extends Controller
 {
@@ -21,6 +22,9 @@ class CollegeAdminController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $editors = [];
         foreach (User::all() as $user) {
             if ($user->hasRole('College Admin')) {
@@ -42,6 +46,9 @@ class CollegeAdminController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $collegeNames = CollegeName::all();
         $bandNames = BandName::all();
 
@@ -59,10 +66,11 @@ class CollegeAdminController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
-        $currentInstanceId = Auth::user()->currentInstance;
+
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -71,6 +79,9 @@ class CollegeAdminController extends Controller
         ]);
 
         $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
+        $currentInstanceId = $user->currentInstance;
         $institutionName = $user->institution()->institutionName;
 
         $bandNames = BandName::all();

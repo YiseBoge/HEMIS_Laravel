@@ -4,28 +4,27 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
-use App\Models\Band\BandName;
 use App\Models\College\College;
-use App\Models\College\CollegeName;
 use App\Models\Department\Department;
-use App\Models\Department\DepartmentName;
-use App\Models\Staff\StaffPublication;
 use App\Models\Department\PublicationsAndPatents;
 use App\Models\Staff\AcademicStaff;
+use App\Models\Staff\StaffPublication;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class PublicationsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $publications = array();
@@ -42,7 +41,7 @@ class PublicationsController extends Controller
                                             $publications[] = $publication;
                                         }
                                     }
-                                }                                
+                                }
                             }
                         }
                     }
@@ -54,7 +53,7 @@ class PublicationsController extends Controller
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -64,10 +63,10 @@ class PublicationsController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => "None", 'education_program' => "None"])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = "None";
-            $college->education_program ="None";
+            $college->education_program = "None";
             $college->college_name_id = 0;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
@@ -76,7 +75,7 @@ class PublicationsController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => "None",
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = "None";
             $department->department_name_id = 0;
@@ -84,8 +83,8 @@ class PublicationsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $publicationsAndPatents =  PublicationsAndPatents::where(['department_id' => $department->id])->first();
-        if($publicationsAndPatents == null){
+        $publicationsAndPatents = PublicationsAndPatents::where(['department_id' => $department->id])->first();
+        if ($publicationsAndPatents == null) {
             $publicationsAndPatents = new PublicationsAndPatents;
             $department->publicationsAndPatents()->save($publicationsAndPatents);
         }
@@ -101,11 +100,12 @@ class PublicationsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $staffs = array();
@@ -118,13 +118,13 @@ class PublicationsController extends Controller
                             foreach ($college->departments as $department) {
                                 if ($department->departmentName->department_name == $user->departmentName->department_name && $department->year_level == "None") {
                                     foreach ($department->academicStaffs as $staff) {
-                                        
+
                                         if ($staff->staffRank == "Associate Professor" || $staff->staffRank == "Professor") {
-                                            
+
                                             $staffs[] = $staff;
                                         }
                                     }
-                                }                                
+                                }
                             }
                         }
                     }
@@ -144,8 +144,9 @@ class PublicationsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -159,12 +160,13 @@ class PublicationsController extends Controller
         $publication->date_of_publication = $request->input('date');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -174,10 +176,10 @@ class PublicationsController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => "None", 'education_program' => "None"])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = "None";
-            $college->education_program ="None";
+            $college->education_program = "None";
             $college->college_name_id = 0;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
@@ -186,7 +188,7 @@ class PublicationsController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => "None",
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = "None";
             $department->department_name_id = 0;
@@ -194,7 +196,7 @@ class PublicationsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $staff = AcademicStaff::where(['id' => $request->input('staff') ,'department_id' => $department->id])->first();
+        $staff = AcademicStaff::where(['id' => $request->input('staff'), 'department_id' => $department->id])->first();
 
         $staff->publications()->save($publication);
 
@@ -204,8 +206,8 @@ class PublicationsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function show($id)
     {
@@ -215,8 +217,8 @@ class PublicationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function edit($id)
     {
@@ -226,9 +228,10 @@ class PublicationsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
@@ -242,11 +245,12 @@ class PublicationsController extends Controller
         $publicationsAndPatents->patents = $request->input('patents');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -256,10 +260,10 @@ class PublicationsController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => "None", 'education_program' => "None"])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = "None";
-            $college->education_program ="None";
+            $college->education_program = "None";
             $college->college_name_id = 0;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
@@ -268,7 +272,7 @@ class PublicationsController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => "None",
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = "None";
             $department->department_name_id = 0;
@@ -278,14 +282,14 @@ class PublicationsController extends Controller
 
         $department->publicationsAndPatents()->save($publicationsAndPatents);
 
-        return redirect("/publication"); 
+        return redirect("/publication");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function destroy($id)
     {

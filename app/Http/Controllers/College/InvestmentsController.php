@@ -21,6 +21,7 @@ class InvestmentsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
@@ -58,6 +59,7 @@ class InvestmentsController extends Controller
         $investmentTitles = Investment::getEnum('investment_title');
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
@@ -107,6 +109,7 @@ class InvestmentsController extends Controller
         $investment->remarks = $request->input('remarks');
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
         $bandName = $user->bandName;
@@ -161,6 +164,7 @@ class InvestmentsController extends Controller
         $investmentTitle = Investment::getValueKey($investmentTitles, $investment->investment_title);
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
@@ -201,11 +205,13 @@ class InvestmentsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $this->validate($request, [
             'investment_title' => 'required',
             'cost_incurred' => 'required',
         ]);
-
 
         $investment = Investment::find($id);
         $investment->investment_title = $request->input('investment_title');

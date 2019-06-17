@@ -4,26 +4,25 @@ namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
-use App\Models\Band\BandName;
 use App\Models\College\College;
-use App\Models\College\CollegeName;
-use App\Models\Department\Department;
-use App\Models\Department\DepartmentName;
 use App\Models\Department\CostSharing;
+use App\Models\Department\Department;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class CostSharingController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $costSharings = array();
@@ -38,7 +37,7 @@ class CostSharingController extends Controller
                                     foreach ($department->costSharings as $costSharing) {
                                         $costSharings[] = $costSharing;
                                     }
-                                }                                
+                                }
                             }
                         }
                     }
@@ -59,10 +58,13 @@ class CostSharingController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'page_name' => 'departments.cost_sharing.create'
         );
@@ -73,8 +75,9 @@ class CostSharingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -110,12 +113,12 @@ class CostSharingController extends Controller
         $costSharing->unpaid_amount = $request->input('unpaid_amount');
 
         $user = Auth::user();
-
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -125,10 +128,10 @@ class CostSharingController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => "None", 'education_program' => "None"])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = "None";
-            $college->education_program ="None";
+            $college->education_program = "None";
             $college->college_name_id = 0;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
@@ -137,7 +140,7 @@ class CostSharingController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => "None",
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = "None";
             $department->department_name_id = 0;
@@ -153,8 +156,8 @@ class CostSharingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function show($id)
     {
@@ -164,8 +167,8 @@ class CostSharingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function edit($id)
     {
@@ -175,9 +178,9 @@ class CostSharingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -187,8 +190,8 @@ class CostSharingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function destroy($id)
     {

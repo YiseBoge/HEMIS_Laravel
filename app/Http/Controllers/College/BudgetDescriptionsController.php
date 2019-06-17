@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\College\BudgetDescription;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class BudgetDescriptionsController extends Controller
 {
@@ -16,6 +18,9 @@ class BudgetDescriptionsController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $budgetDescriptions = BudgetDescription::all();
         return view('colleges.budget_description.index')->with('budgetDescriptions', $budgetDescriptions);
     }
@@ -27,7 +32,9 @@ class BudgetDescriptionsController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
     }
 
     /**
@@ -35,9 +42,13 @@ class BudgetDescriptionsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $this->validate($request, [
             'budget_code' => 'required',
             'description' => 'required',

@@ -5,7 +5,7 @@ namespace App\Models\MoSHE;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
-class MoSHEBSC extends Model
+class MoshePprc extends Model
 {
     use Uuids;
     use Enums;
@@ -21,7 +21,7 @@ class MoSHEBSC extends Model
         'CAT-VII' => 'Improve resources mobilization',
     ];
 
-    public function BSCInfo(){
-        return $this->belongsTo('App\Models\MoSHE\BSCInfo');
+    public function PprcInfo(){
+        return $this->hasMany('App\Models\MoSHE\PprcInfo');
     }
 }

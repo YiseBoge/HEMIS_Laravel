@@ -7,11 +7,12 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col p-1 m-3 text-center">
-                        <a href="/student/university-industry-linkage/create" class="btn btn-outline-primary btn-sm mb-0">
+                        <a href="/student/university-industry-linkage/create"
+                           class="btn btn-outline-primary btn-sm mb-0">
                             Add<i class="fas fa-plus ml-2"></i></a>
                     </div>
                 </div>
-            
+
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
                         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">

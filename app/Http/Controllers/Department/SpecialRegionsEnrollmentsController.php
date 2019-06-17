@@ -4,49 +4,49 @@ namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
-use App\Models\Band\BandName;
 use App\Models\College\College;
-use App\Models\College\CollegeName;
 use App\Models\Department\Department;
-use App\Models\Department\DepartmentName;
 use App\Models\Institution\EmergingRegion;
 use App\Models\Institution\PastoralRegion;
 use App\Models\Institution\RegionName;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class SpecialRegionsEnrollmentsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
         }
 
-        $requestedYearLevel=$request->input('year_level');
-        if($requestedYearLevel==null){
-            $requestedYearLevel='1';
+        $requestedYearLevel = $request->input('year_level');
+        if ($requestedYearLevel == null) {
+            $requestedYearLevel = '1';
         }
 
-        $requestedLevel=$request->input('education_level');
-        if($requestedLevel==null){
-            $requestedLevel='Undergraduate';
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Undergraduate';
         }
 
-        $requestedType=$request->input('region_type');
-        if($requestedType==null){
-            $requestedType='Emerging Regions';
+        $requestedType = $request->input('region_type');
+        if ($requestedType == null) {
+            $requestedType = 'Emerging Regions';
         }
 
         $enrollments = array();
@@ -58,16 +58,16 @@ class SpecialRegionsEnrollmentsController extends Controller
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
                                 if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                    if($requestedType == "Emerging Regions"){
+                                    if ($requestedType == "Emerging Regions") {
                                         foreach ($department->emergionRegions as $enrollment) {
-                                            $enrollments[] = $enrollment;                                            
+                                            $enrollments[] = $enrollment;
                                         }
-                                    }else{
+                                    } else {
                                         foreach ($department->pastoralRegions as $enrollment) {
-                                            $enrollments[] = $enrollment;                                            
+                                            $enrollments[] = $enrollment;
                                         }
-                                    }                                    
-                                }                                
+                                    }
+                                }
                             }
                         }
                     }
@@ -108,6 +108,9 @@ class SpecialRegionsEnrollmentsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $educationPrograms = College::getEnum("EducationPrograms");
         $educationLevels = College::getEnum("EducationLevels");
         $year_levels = Department::getEnum("YearLevels");
@@ -130,6 +133,7 @@ class SpecialRegionsEnrollmentsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -139,23 +143,24 @@ class SpecialRegionsEnrollmentsController extends Controller
         ]);
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
 
-        if($request->input('region_type') == 'emerging_regions'){
+        if ($request->input('region_type') == 'emerging_regions') {
             $enrollment = new EmergingRegion;
-        }else{
+        } else {
             $enrollment = new PastoralRegion;
         }
 
         $enrollment->male_number = $request->input('male_number');
         $enrollment->female_number = $request->input('female_number');
-        $enrollment->region_name_id = 0; 
+        $enrollment->region_name_id = 0;
         $regionName = RegionName::where('name', $request->input("region"))->first();
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -165,7 +170,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
@@ -177,7 +182,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = $request->input("year_level");
             $department->department_name_id = 0;
@@ -185,13 +190,13 @@ class SpecialRegionsEnrollmentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        if($request->input('region_type') == 'emerging_regions'){
-            $department->emergingRegion()->save($enrollment);                                   
-            $regionName->emergingRegion()->save($enrollment); 
-        }else{
-            $department->pastoralRegion()->save($enrollment);   
-            $regionName->pastoralRegion()->save($enrollment);  
-        }   
+        if ($request->input('region_type') == 'emerging_regions') {
+            $department->emergingRegion()->save($enrollment);
+            $regionName->emergingRegion()->save($enrollment);
+        } else {
+            $department->pastoralRegion()->save($enrollment);
+            $regionName->pastoralRegion()->save($enrollment);
+        }
 
         return redirect("/enrollment/special-region-students");
     }
@@ -199,7 +204,7 @@ class SpecialRegionsEnrollmentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -210,7 +215,7 @@ class SpecialRegionsEnrollmentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -222,7 +227,7 @@ class SpecialRegionsEnrollmentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -233,7 +238,7 @@ class SpecialRegionsEnrollmentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)

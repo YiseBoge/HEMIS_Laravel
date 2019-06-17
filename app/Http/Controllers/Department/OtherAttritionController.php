@@ -22,6 +22,7 @@ class OtherAttritionController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 
@@ -45,7 +46,6 @@ class OtherAttritionController extends Controller
             $requestedLevel = 'Undergraduate';
         }
 
-        $attritions = array();
         $attritions = array();
 
         if ($institution != null) {
@@ -94,6 +94,9 @@ class OtherAttritionController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+
         $data = array(
             'bands' => BandName::all(),
             'programs' => College::getEnum('EducationPrograms'),
@@ -126,6 +129,7 @@ class OtherAttritionController extends Controller
         $attrition->female_students_number = $request->input('female_number');
 
         $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
 

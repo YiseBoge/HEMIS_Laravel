@@ -11,7 +11,7 @@
 |
 */
 
-use Illuminate\Support\Facades\Route;              
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
@@ -55,13 +55,13 @@ Route::resource('institution/age-enrollment', 'Institution\AgeEnrollmentsControl
 Route::resource('institution/foreign-staff', 'Institution\ForeignStaffsController');
 Route::resource('college/college-name','College\CollegeNamesController');
 Route::resource('department/special-program-teacher','Department\SpecialProgramTeacherController');
-Route::resource('region-name','Institution\RegionNamesController');
+Route::resource('region-name', 'Institution\RegionNamesController');
 //Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
 
 Route::resource('enrollment/normal','Department\EnrollmentsController');
 Route::get('enrollment/normal-chart','Department\EnrollmentsController@viewChart');
 Route::get('enrollment/student-enrollment-chart','Department\EnrollmentsController@chart');
-Route::resource('enrollment/special-region-students','Department\SpecialRegionsEnrollmentsController');
+Route::resource('enrollment/special-region-students', 'Department\SpecialRegionsEnrollmentsController');
 Route::resource('enrollment/specializing-students','Department\SpecializingStudentsEnrollmentsController');
 Route::resource('enrollment/rural-area-students', 'Department\RuralStudentEnrollmentsController');
 Route::resource('enrollment/other-region-students', 'Department\OtherRegionStudentsController');
@@ -76,6 +76,9 @@ Route::resource('department/expatriate-staff', 'Department\ExaptriateStaffsContr
 Route::resource('department/postgraduate-diploma-training', 'Department\PostGraduateDiplomaTrainingController');
 Route::resource('department/teachers', 'Department\TeachersController');
 Route::resource('department/expatriate-staff', 'Department\ExpatriateStaffsController');
+
+Route::resource('moshe-admin/manage-pprc', 'MoSHE\ManagePprcInfosContoller');
+Route::resource('moshe-admin/display-pprc', 'MoSHE\DisplayMoshePprcsController');
 
 Route::get('/admin', function () {
     return view('admin.index');

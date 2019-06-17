@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Department\DepartmentName;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 /**
  * A class for the Admin to manage all allowable Department Names
@@ -19,6 +21,9 @@ class DepartmentNamesController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $departments= DepartmentName::all();
         $data=['departments'=>$departments,'page_name'=>'department.department-name.list'];
         return view('departments.department_name.list')->with('data',$data);
@@ -31,6 +36,9 @@ class DepartmentNamesController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $departments= DepartmentName::all();
         $data=['departments'=>$departments,'page_name'=>'department.department-name.create'];
         return view('departments.department_name.list')->with('data',$data);
@@ -41,9 +49,13 @@ class DepartmentNamesController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $this->validate($request, [
             'department_name' => 'required',
             'department_acronym' => 'required'
@@ -65,6 +77,9 @@ class DepartmentNamesController extends Controller
      */
     public function show($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         return view('departments.details');
     }
 
@@ -76,6 +91,9 @@ class DepartmentNamesController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
         $department = DepartmentName::find($id);
         return view('departments.list')->with('departmentEdit', $department);
     }

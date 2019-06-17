@@ -6,6 +6,7 @@ use App\Models\Institution\AdminAndNonAcademicStaff;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 
 class AdminAndNonAcademicStaffsController extends Controller
@@ -19,7 +20,7 @@ class AdminAndNonAcademicStaffsController extends Controller
     public function index()
     {
         $user = Auth::user();
-
+        $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
         $adminAndNonAcademics = array();
@@ -43,6 +44,9 @@ class AdminAndNonAcademicStaffsController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $data = array(
             'staffs' => AdminAndNonAcademicStaff::all(),
             'education_levels' => AdminAndNonAcademicStaff::getEnum("EducationLevels"),
@@ -57,6 +61,7 @@ class AdminAndNonAcademicStaffsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -66,6 +71,7 @@ class AdminAndNonAcademicStaffsController extends Controller
         ]);
 
         $user = Auth::user();
+        $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();
 
@@ -102,6 +108,9 @@ class AdminAndNonAcademicStaffsController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+        
         $data = ['staffs' => AdminAndNonAcademicStaff::all(),
         'education_levels' => AdminAndNonAcademicStaff::getEnum("EducationLevels"),
             'page_name' => 'institution.admin_and_non_academic_staff.edit'];
