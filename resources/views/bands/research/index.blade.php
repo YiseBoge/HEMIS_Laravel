@@ -62,7 +62,7 @@
                                         <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                             rowspan="1" colspan="1" aria-sort="ascending"
                                             aria-label="Name: activate to sort column descending"
-                                            style="width: 151px;">Band
+                                            style="width: 151px;">Department
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Age: activate to sort column ascending"
@@ -125,7 +125,7 @@
                                                             </div>
                                                         </div>
                                                     </td>  
-                                                    <td>{{$research->band->bandName->band_name}}</td>
+                                                    <td>{{$research->department->departmentName->department_name}}</td>
                                                     <td>{{$research->number}}</td>
                                                     <td>{{$research->male_teachers_participating_number}}</td>
                                                     <td>{{$research->female_teachers_participating_number}}</td>

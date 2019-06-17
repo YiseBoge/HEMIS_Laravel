@@ -135,4 +135,9 @@ class Department extends Model
         return $this->hasMany('App\Models\Institution\PastoralRegion');
     }
 
+    public function researches()
+    {
+        return $this->hasMany('App\Models\Band\Research');
+    }
+
 }

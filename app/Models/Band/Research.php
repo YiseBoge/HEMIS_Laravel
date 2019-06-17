@@ -23,9 +23,9 @@ class Research extends Model
         'THEMATIC'=>'Thematic'
     ];
 
-    public function band()
+    public function department()
     {
-        return $this->belongsTo('App\Models\Band\Band');
+        return $this->belongsTo('App\Models\Department\Department');
     }
 
 }

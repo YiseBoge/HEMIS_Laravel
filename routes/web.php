@@ -67,7 +67,7 @@ Route::resource('enrollment/rural-area-students', 'Department\RuralStudentEnroll
 Route::resource('enrollment/other-region-students', 'Department\OtherRegionStudentsController');
 Route::resource('enrollment/economically-disadvantaged', 'Department\DisadvantagedStudentEnrollmentsController');
 
-Route::resource('institution/researches','Band\ResearchsController');
+Route::resource('institution/researches','Department\ResearchsController');
 Route::resource('student/university-industry-linkage','College\UniversityIndustryLinkageController');
 //Route::resource('staff/technical-staff','College\TechnicalStaffController');
 Route::resource('department/upgrading-staff', 'Department\UpgradingStaffController');

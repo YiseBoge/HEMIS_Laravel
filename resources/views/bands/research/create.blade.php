@@ -24,7 +24,7 @@
                                     <div class="col form-group">
                                         <select class="form-control" name="type" id="type">
                                             @foreach ($types as $key => $value)
-                                                <option value="{{$key}}">{{$value}}</option>
+                                                <option value="{{$value}}">{{$value}}</option>
                                             @endforeach
                                         </select>
                                         <label for="type" class="form-control-placeholder">
@@ -34,7 +34,7 @@
                                     <div class="col form-group">
                                         <select class="form-control" name="status" id="status">
                                             @foreach ($completions as $key => $value)
-                                                <option value="{{$key}}">{{$value}}</option>
+                                                <option value="{{$value}}">{{$value}}</option>
                                             @endforeach
                                         </select>
                                         <label for="status" class="form-control-placeholder">
@@ -46,12 +46,12 @@
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <input type="text" id="number" name="number" class="form-control" required>
-                                    <label class="form-control-placeholder" for="number">Number of Researh</label>
+                                    <label class="form-control-placeholder" for="number">Number of Researches</label>
                                 </div>
             
                                 <div class="col form-group">
                                     <input type="text" id="female_number" name="female_number" class="form-control" required>
-                                    <label class="form-control-placeholder" for="female_number">Number of Female Researhers</label>
+                                    <label class="form-control-placeholder" for="female_number">Number of Female Researchers</label>
                                 </div>
             
                             </div>

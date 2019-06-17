@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Band;
+namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\Band\BandName;
+use App\Models\College\College;
+use App\Models\College\CollegeName;
+use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
 use App\Models\Band\Research;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -40,14 +44,24 @@ class ResearchsController extends Controller
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
-                foreach ($band->researches as $research) {
-                    if ($research->type == $requestedType && $research->status == $requestedStatus) {
-                        $researches[] = $research;
-                    }                    
+                if ($band->bandName->band_name == $user->bandName->band_name) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
+                            foreach ($college->departments as $department) {
+                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                    foreach ($department->researches as $research) {
+                                        if ($research->type == $requestedType && $research->status == $requestedStatus) {
+                                            $researches[] = $research;
+                                        }
+                                    }
+                                }                                
+                            }
+                        }
+                    }
                 }
             }
         } else {
-            $researches = Research::with('band')->get();
+            $researches = Research::with('department')->get();
         }
 
         $data = array(
@@ -71,7 +85,6 @@ class ResearchsController extends Controller
     public function create()
     {
         $data = array(
-            'bands' => BandName::all(),
             'completions' => Research::getEnum('Completions'),
             'types' => Research::getEnum('Types'),
             'page_name' => 'bands.research.create'
@@ -123,7 +136,30 @@ class ResearchsController extends Controller
             $bandName->band()->save($band);
         }
 
-        $band->researches()->save($research);
+        $collegeName = $user->collegeName;
+        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
+            'education_level' => "None", 'education_program' => "None"])->first();
+        if($college == null){
+            $college = new College;
+            $college->education_level = "None";
+            $college->education_program = "None";
+            $college->college_name_id = 0;
+            $band->colleges()->save($college);
+            $collegeName->college()->save($college);
+        }
+
+        $departmentName = $user->departmentName;
+        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => "None",
+            'college_id' => $college->id])->first();
+        if($department == null){
+            $department = new Department;
+            $department->year_level = "None";
+            $department->department_name_id = 0;
+            $college->departments()->save($department);
+            $departmentName->department()->save($department);
+        }
+
+        $department->researches()->save($research);
 
         return redirect("/institution/researches");
     }

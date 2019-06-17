@@ -29,7 +29,7 @@ class CreateResearchesTable extends Migration
             $table->string('type');
 
             $table->primary('id');
-            $table->uuid('band_id');
+            $table->uuid('department_id');
         });
     }
 
