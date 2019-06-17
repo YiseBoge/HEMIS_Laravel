@@ -4,16 +4,16 @@
     <div class="container-fluid">
         <div class="card shadow-sm mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">PPRC Details</h6>
+                <h6 class="m-0 font-weight-bold text-primary">View PPRC </h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">
-                            <div class="col text-right">
-                                <a class="btn btn-outline-primary btn-sm mb-0" href="/moshe-admin/manage-pprc/create">Add<i
+                            {{-- <div class="col text-right">
+                                <a class="btn btn-outline-primary btn-sm mb-0" href="/moshe-admin/manage-bsc/create">Add<i
                                     class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
@@ -23,11 +23,11 @@
                                     <thead>
                                     <tr role="row">
                                         <th style="min-width: 50px; width: 50px"></th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                        {{-- <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                             rowspan="1" colspan="1" aria-sort="ascending"
                                             aria-label="Name: activate to sort column descending" width="15"
                                             style="width: 15%;">Category
-                                        </th>
+                                        </th> --}}
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Age: activate to sort column ascending"
                                             >Policy
@@ -36,12 +36,31 @@
                                             colspan="1" aria-label="Salary: activate to sort column ascending"
                                             >KPI Indicator
                                         </th>
+
+                                        {{-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                            colspan="1" aria-label="Salary: activate to sort column ascending"
+                                            >Baseline
+                                        </th>
+
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                            colspan="1" aria-label="Salary: activate to sort column ascending"
+                                            >Current
+                                        </th>
+
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                            colspan="1" aria-label="Salary: activate to sort column ascending"
+                                            >Target
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                            colspan="1" aria-label="Salary: activate to sort column ascending"
+                                            >Change
+                                        </th> --}}
                                     </tr>
                                     </thead>
                                     <tbody>
                                       @if (count($data['pprc_info']) > 0)
                                         @foreach ($data['pprc_info'] as $data)
-                                            <tr role="row" class="odd" onclick="window.location='academic/{{$data->id}}'">
+                                            <tr role="row" class="odd" onclick="window.location='display-pprc/{{$data->id}}'">
                                                 <td class="pl-4">
                                                     <div class="row">
                                                         <div class="col-6">
@@ -63,6 +82,9 @@
                                                 <td class="sorting_1">{{$data->category}}</td>
                                                 <td>{{$data->policy}}</td>
                                                 <td>{{$data->kpi_description}}</td>                                                                                   
+                                                {{-- <td>{{$data->kpi_description}}</td>                                                                                   
+                                                <td>{{$data->kpi_description}}</td>                                                                                   
+                                                <td>{{$data->kpi_description}}</td>                                                                                    --}}
                                                 {{-- <td>{{$data->female_number}}</td>                                                                                    --}}
                                             </tr>
                                         @endforeach
@@ -88,7 +110,7 @@
 
             <div class="modal-content">
                 <div class="modal-header">
-                        <form class="" action="/moshe-admin/manage-pprc" method="POST">
+                        <form class="" action="/moshe-admin/manage-bsc" method="POST">
                             @csrf
                             <h3 class="font-weight-bold text-primary">Add PPRC Info</h3>
                             <div class="row">
@@ -148,7 +170,7 @@
 
        <div class="modal-content">
            <div class="modal-header">
-                   <form class="" action="/moshe-admin/manage-pprc/{{$data['pprc_obj']->id}}" method="POST">
+                   <form class="" action="/moshe-admin/manage-bsc/{{$data['pprc_obj']->id}}" method="POST">
                        @csrf
                        <input type="hidden" name="_method" value="PUT">
                        <h3 class="font-weight-bold text-primary">Edit PPRC Info</h3>
