@@ -2,12 +2,12 @@
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-5 static-top shadow">
 
     @guest
-        <a class="btn btn-link rounded-circle mr-3" href="/">
+        <a class="btn btn-primary btn-circle text-white shadow" href="/">
             <i class="fa fa-home"></i>
         </a>
 @else
     <!-- Sidebar Toggle (Topbar) -->
-        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <button id="sidebarToggleTop" class="btn d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
         </button>
 @endguest
@@ -18,8 +18,8 @@
 
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
         @guest
-            <li class="nav-item">
-                <a class="nav-link text-primary" href="{{ route('login') }}"><i class="fas fa-sign-in-alt mx-2"></i>
+            <li class="nav-item btn btn-primary btn-circle shadow">
+                <a class="nav-link text-white" href="{{ route('login') }}"><i class="fas fa-sign-in-alt mx-3"></i>
                     {{--                    {{ __('Login') }}--}}
                 </a>
             </li>
