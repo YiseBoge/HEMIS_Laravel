@@ -1,28 +1,36 @@
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-5 static-top shadow">
 
+    @guest
+        <a class="btn btn-link rounded-circle mr-3" href="/">
+            <i class="fa fa-home"></i>
+        </a>
+@else
     <!-- Sidebar Toggle (Topbar) -->
-    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-        <i class="fa fa-bars"></i>
-    </button>
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+        </button>
+@endguest
 
-    <!-- Topbar Navbar -->
+
+<!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
 
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
         @guest
             <li class="nav-item">
-                <a class="nav-link text-primary" href="{{ route('login') }}">{{ __('Login') }}</a>
+                <a class="nav-link text-primary" href="{{ route('login') }}"><i class="fas fa-sign-in-alt mx-2"></i>
+                    {{--                    {{ __('Login') }}--}}
+                </a>
             </li>
-            @if (Route::has('register'))
-                <li class="nav-item">
-                    <a class="nav-link text-primary" href="{{ route('register') }}">{{ __('Register') }}</a>
-                </li>
-            @endif
+            {{--            @if (Route::has('register'))--}}
+            {{--                <li class="nav-item">--}}
+            {{--                    <a class="nav-link text-primary" href="{{ route('register') }}">{{ __('Register') }}</a>--}}
+            {{--                </li>--}}
+            {{--            @endif--}}
         @else
-            <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
+            <li class="nav-item">
+                <a class="nav-link">
                     <span class="mr-2 d-none d-lg-inline text-primary small">
                         @if (Auth::user()->hasRole('Department Admin'))
                             {{ Auth::user()->institution()->institutionName }} <i
@@ -37,7 +45,14 @@
                             {{ Auth::user()->institution()->institutionName }} <i
                                     class="fas fa-angle-double-right mx-2 text-gray-400"></i>
                         @endif
-                        {{ Auth::user()->name }}</span>
+                        {{ Auth::user()->name }}
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
                     {{--                    <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">--}}
                 </a>
                 <!-- Dropdown - User Information -->
