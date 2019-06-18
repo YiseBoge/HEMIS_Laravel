@@ -21,6 +21,9 @@ class ReportCard extends Model
     public function change()
     {
         $years = $this->reportYearValues()->get()->sortBy('year');
+        if (count($years) <= 1) {
+            return 0;
+        }
         $current = $years[count($years) - 1];
         $baseline = $years[0];
 

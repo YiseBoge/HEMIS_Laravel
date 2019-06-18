@@ -20,7 +20,7 @@ class ReportsController extends Controller
     {
 //        foreach (ReportCard::all() as $rep){
 //            $yearValue = new ReportYearValue();
-//            $yearValue->year = '2021';
+//            $yearValue->year = '2018';
 //            $yearValue->value = 40;
 //            $rep->reportYearValues()->save($yearValue);
 //        }
