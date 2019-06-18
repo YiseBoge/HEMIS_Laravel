@@ -131,7 +131,7 @@
                     </div>
 
                     <div class="modal-body px-5">
-                        <div class="row">
+                        <div class="row my-2">
                             <div class="col-md text-center">
                                 @if($change > 0)
                                     <p class="h3 text-success">{{$change}}% <i
@@ -164,7 +164,12 @@
 
                         <div class="row my-3">
                             <div class="col-md">
-                                Baseline : {{ $baseline->value }}
+                                Baseline :
+                                @if ($baseline != null)
+                                    {{ $baseline->value }}
+                                @else
+                                    0
+                                @endif
                             </div>
                             <div class="col-md form-group">
                                 {!! Form::number('target', $report->target, ['class' => 'form-control', 'id' => 'edit_target', 'required' => 'true']) !!}

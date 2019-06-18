@@ -40,7 +40,7 @@ class InstancesController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $user->authorizeRoles('University Admin');
+        $user->authorizeRoles('Super Admin');
 
         $instances = Instance::all();
         $currentInstance = $user->currentInstance;
