@@ -77,8 +77,8 @@ Route::resource('department/postgraduate-diploma-training', 'Department\PostGrad
 Route::resource('department/teachers', 'Department\TeachersController');
 Route::resource('department/expatriate-staff', 'Department\ExpatriateStaffsController');
 
-Route::resource('moshe-admin/manage-pprc', 'MoSHE\ManagePprcInfosContoller');
-Route::resource('moshe-admin/display-pprc', 'MoSHE\DisplayMoshePprcsController');
+Route::resource('report', 'Report\ReportsController');
+Route::post('/report/new-year-value', 'Report\ReportsController@newYearValue')->name('newYearValue');
 
 Route::get('/admin', function () {
     return view('admin.index');

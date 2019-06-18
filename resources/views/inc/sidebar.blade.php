@@ -193,51 +193,9 @@
             <div id="collapseReport" class="collapse" aria-labelledby="headingTwo"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/moshe-admin/manage-pprc">Manage PPRC</a>
-                    <a class="collapse-item" href="/moshe-admin/display-pprc">Display PPRC</a>
+                    <a class="collapse-item" href="/report">MoSHE Reports</a>
                 </div>
             </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudent"
-               aria-expanded="false"
-               aria-controls="collapseInstitution">
-                <i class="fas fa-user-graduate"></i>
-                <span>Students</span>
-            </a>
-            <div id="collapseStudent" class="collapse" aria-labelledby="headingTwo"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item text-wrap" href="/student/university-industry-linkage">University Industry
-                        Linkage</a>
-                </div>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff"
-               aria-controls="collapseStaff">
-                <i class="fas fa-chalkboard-teacher"></i>
-                <span>Staff</span>
-            </a>
-            <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Details:</h6>
-                    <a class="collapse-item" href="/staff/technical">Technical Staff</a>
-                    <a class="collapse-item" href="/staff/ict">ICT Staff</a>
-                    <a class="collapse-item text-wrap" href="/staff/administrative">Administrative Staff</a>
-
-                    <h6 class="collapse-header">Aggregates:</h6>
-                    <a class="collapse-item text-wrap" href="/staff/management">Management Staff</a>
-                    <a class="collapse-item text-wrap" href="/institution/non-admin">Administrative and Non-Academic
-                        Staff</a>
-                </div>
-            </div>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="/institution/buildings">
-                <i class="fas fa-building"></i>
-                <span>Buildings</span></a>
         </li>
     @else
 

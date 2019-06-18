@@ -20,6 +20,8 @@ class CreateReportYearValuesTable extends Migration
             $table->timestamps();
 
             $table->primary('id');
+
+            $table->uuid('report_card_id');
         });
     }
 
