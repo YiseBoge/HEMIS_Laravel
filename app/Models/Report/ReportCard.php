@@ -18,6 +18,19 @@ class ReportCard extends Model
         return $this->hasMany('App\Models\Report\ReportYearValue');
     }
 
+    public function change()
+    {
+        $years = $this->reportYearValues()->get()->sortBy('year');
+        $current = $years[count($years) - 1];
+        $baseline = $years[0];
+
+        if (($this->target - $baseline->value) == 0) {
+            return 0;
+        }
+
+        return round((($current->value - $baseline->value) / ($this->target - $baseline->value)) * 100, 2);
+    }
+
     private static function policies()
     {
         return ReportCard::groupBy('policy')->pluck('policy', 'policy');
@@ -107,7 +120,7 @@ class ReportCard extends Model
         '2.9.1' => '% decrease in the number of dropouts from emerging regions',
 
         '2.10.1' => 'Decrease in the % of academic faculty leaving their positions for good',
-        '2.10.2' => 'Decrease in the % of academic faculty leaving their positions for good',
+        '2.10.2' => 'Decrease in the % of non-academic professional staff leaving their positions',
 
         '3.1.1' => 'Increase in the proportion of adequately qualified staff',
         '3.1.2' => 'Decrease in adequately qualified teacher to student ratio',

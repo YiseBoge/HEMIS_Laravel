@@ -20,12 +20,12 @@ class ReportsController extends Controller
     {
 //        foreach (ReportCard::all() as $rep){
 //            $yearValue = new ReportYearValue();
-//            $yearValue->year = '2020';
-//            $yearValue->value = 25;
+//            $yearValue->year = '2021';
+//            $yearValue->value = 40;
 //            $rep->reportYearValues()->save($yearValue);
 //        }
         $reports = ReportCard::groupedReports();
-        $card = ReportCard::all()->first();
+        $card = ReportCard::all()->sortBy('year')->first();
         $years = $card != null ? $card->reportYearValues : array();
 
         $data = [
@@ -76,26 +76,24 @@ class ReportsController extends Controller
      */
     public function edit($id)
     {
-        // die('MotherFUckerr');
-//        $pprc = MoshePprc::find($id);
-//        $baseline = PprcInfo::where(['moshe_pprc_id'=>$pprc->id , 'type'=>'Baseline'])->first();
-//        $current = PprcInfo::where(['moshe_pprc_id'=>$pprc->id , 'type'=>'regular' , 'year'=>'0'])->first();
-//        $target = PprcInfo::where(['moshe_pprc_id' => $id , 'type'=>'Target'])->first();
-//        $change = round((($current->value - $baseline->value)/($target->value - $baseline->value))*100 , 2);
-//        // die($change);
-//        // die(var_dump($target->id));
-//
-//        $data = [
-//            'pprc_info' => [],
-//            'pprc' => $pprc,
-//            'baseline'=>$baseline,
-//            'current' => $current,
-//            'target' => $target,
-//            'change' => $change,
-//            'page_name' => 'moshe_admin.display_moshe_pprc.edit'
-//        ];
-//
-//        return view('moshe_admin.display_moshe_pprc.index')->with('data', $data);
+        $reports = ReportCard::groupedReports();
+        $card = ReportCard::all()->sortBy('year')->first();
+        $years = $card != null ? $card->reportYearValues : array();
+
+        $report = ReportCard::find($id);
+        $baseline = $report->reportYearValues->sortBy('year')->first();
+        $change = 0;
+
+        $data = [
+            'reports' => $reports,
+            'report' => $report,
+            'years' => $years,
+            'baseline' => $baseline,
+            'change' => $change,
+            'page_name' => 'reports.report_card.edit'
+        ];
+
+        return view('reports.report_card.index')->with($data);
     }
 
     /**
@@ -107,13 +105,17 @@ class ReportsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $report = ReportCard::find($id);
+        $report->target = $request->input('target');
+
+        $report->save();
 //        // die('WokkaFlokka');
 //        $target_info = PprcInfo::find($id);
 //        // die($target_info->type);
 //        $target_info->value = $request->input('target');
 //        $target_info->save();
 //
-//        return redirect('moshe-admin/display-pprc/');
+        return redirect('/report');
     }
 
     /**

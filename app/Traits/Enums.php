@@ -117,7 +117,7 @@ trait Enums
         return static::getEnum($field)[$key];
     }
 
-    protected function getValueKey(array $array, $string)
+    public static function getValueKey(array $array, $string)
     {
         $result = null;
 

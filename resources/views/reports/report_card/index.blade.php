@@ -4,7 +4,7 @@
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
             <div class="text-primary card-header">Reports</div>
-            <div class="card-body px-5">
+            <div class="card-body px-4">
                 <div class="row my-3">
                     <div class="col-sm text-right">
                         <a class="btn btn-outline-primary btn-sm mb-0" href="">Print to PDF<i
@@ -16,7 +16,7 @@
                         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered dataTable table-hover"
+                                    <table class="table table-bordered"
                                            id="dataTable"
                                            width="100%"
                                            cellspacing="0" role="grid" aria-describedby="dataTable_info"
@@ -80,10 +80,21 @@
                                                             {{ $kpi->target }}
                                                         </td>
                                                         <td>
-                                                            change
+                                                            @if($kpi->change() > 0)
+                                                                <p class="text-success">{{$kpi->change()}}% <i
+                                                                            class="fa fa-caret-up d-inline-block ml-2"></i>
+                                                                </p>
+                                                            @elseif($kpi->change())
+                                                                <p class="text-danger">{{$kpi->change()}}%<i
+                                                                            class="fa fa-caret-down d-inline-block ml-2"></i>
+                                                                </p>
+                                                            @else
+                                                                <p class="text-warning">{{$kpi->change()}}%</p>
+                                                            @endif
                                                         </td>
                                                         <td>
-                                                            <a href="" class="text-primary mr-3" data-toggle="tooltip"
+                                                            <a href="/report/{{ $kpi->id }}/edit"
+                                                               class="mr-3 text-muted" data-toggle="tooltip"
                                                                title="Edit Target">
                                                                 <i class="far fa-edit"></i>
                                                             </a>
@@ -105,6 +116,73 @@
 
     </div>
 
+    @if ($page_name == 'reports.report_card.edit')
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+
+                <div class="modal-content">
+                    {!! Form::open(['action' => ['Report\ReportsController@update', $report->id], 'method' => 'POST']) !!}
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editTitle">Set Target</h5>
+                        <a href="/report" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    </div>
+
+                    <div class="modal-body px-5">
+                        <div class="row">
+                            <div class="col-md text-center">
+                                @if($change > 0)
+                                    <p class="h3 text-success">{{$change}}% <i
+                                                class="fa fa-caret-up d-inline-block ml-2"></i></p>
+                                @elseif($change < 0)
+                                    <p class="h3 text-danger">{{$change}}%<i
+                                                class="fa fa-caret-down d-inline-block ml-2"></i></p>
+                                @else
+                                    <p class="h3 text-warning">{{$change}}%(stagnant)</p>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md alert alert-secondary font-weight-bolder">
+                                {{ $report->policy }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md alert alert-secondary pl-4">
+                                {{ $report->policy_description }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md alert alert-secondary pl-4">
+                                {{\App\Models\Report\ReportCard::getValueKey(\App\Models\Report\ReportCard::getEnum('kpi'), $report->kpi)}}
+                                {{ $report->kpi }}
+                            </div>
+                        </div>
+
+                        <div class="row my-3">
+                            <div class="col-md">
+                                Baseline : {{ $baseline->value }}
+                            </div>
+                            <div class="col-md form-group">
+                                {!! Form::number('target', $report->target, ['class' => 'form-control', 'id' => 'edit_target', 'required' => 'true']) !!}
+                                {!! Form::label('target', 'Target', ['class' => 'form-control-placeholder', 'for' => 'edit_target']) !!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        {!! Form::hidden('_method', 'PUT') !!}
+                        {!! Form::submit('Save Changes', ['class' => 'btn btn-primary']) !!}
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+
+            </div>
+        </div>
+    @endif
+
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
          aria-hidden="true">
@@ -122,7 +200,6 @@
                     <a class="btn btn-danger" href="/budgets/internal-revenue/delete">
                         Delete
                     </a>
-
                 </div>
             </div>
         </div>
