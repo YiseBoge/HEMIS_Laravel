@@ -9,7 +9,7 @@
                 </div>
             @endforeach
         @endif
-        {!! Form::open(['action' => 'Institution\BuildingsController@store', 'method' => 'POST']) !!}
+        {!! Form::open(['action' => 'College\BuildingsController@store', 'method' => 'POST']) !!}
             <div class="row my-5">
                 <div class="col-md">
                     <fieldset class="card shadow h-100">

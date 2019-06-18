@@ -132,8 +132,20 @@ class HomeController extends Controller
             $user = Auth::user();
             $institution = $user->institution();
 
-            foreach($institution->ageEnrollment as $enrollment){
-                $enrollments[] = $enrollment->male_students_number + $enrollment->female_students_number;
+            foreach($ages as $age){
+                $ageEnrollment = 0;
+                foreach($institution->bands as $band){
+                    foreach($band->colleges as $college){
+                        foreach($college->departments as $department){
+                            foreach($department->ageEnrollments as $enrollment){
+                                if($enrollment->age == $age){
+                                    $ageEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
+                                }                                
+                            }                        
+                        }
+                    }
+                }
+                $enrollments[] = $ageEnrollment;
             }
         }       
 

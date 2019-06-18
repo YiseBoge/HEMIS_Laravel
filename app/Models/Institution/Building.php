@@ -11,9 +11,9 @@ class Building extends Model
 
     public $incrementing = false;
 
-    public function institution()
+    public function college()
     {
-        return $this->belongsTo('App\Models\Institution\Institution');
+        return $this->belongsTo('App\Models\College\College');
     }
 
     public function buildingPurposes() {

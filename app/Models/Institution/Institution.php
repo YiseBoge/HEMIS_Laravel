@@ -36,16 +36,6 @@ class Institution extends Model
         return $this->hasMany('App\Models\Institution\AdminAndNonAcademicStaff');
     }
 
-    public function ageEnrollment()
-    {
-        return $this->hasMany('App\Models\Institution\AgeEnrollment');
-    }
-
-    public function buildings()
-    {
-        return $this->hasMany('App\Models\Institution\Building');
-    }
-
     public function foreignStaff(){
         return $this->hasMany('App\Models\Institution\ForeignStaff');
     }

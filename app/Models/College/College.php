@@ -84,4 +84,9 @@ class College extends Model
         return $this->hasMany('App\Models\Band\UniversityIndustryLinkage');
     }
 
+    public function buildings()
+    {
+        return $this->hasMany('App\Models\Institution\Building');
+    }
+
 }

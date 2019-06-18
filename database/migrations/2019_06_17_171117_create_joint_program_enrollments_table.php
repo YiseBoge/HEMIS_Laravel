@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAgeEnrollmentsTable extends Migration
+class CreateJointProgramEnrollmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateAgeEnrollmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('age_enrollments', function (Blueprint $table) {
+        Schema::create('joint_program_enrollments', function (Blueprint $table) {
             $table->uuid('id');
             $table->bigInteger('male_students_number');
             $table->bigInteger('female_students_number');
-
             $table->timestamps();
 
-            $table->string('age');
+            $table->string('sponsor');
 
             $table->primary('id');
 
@@ -35,6 +34,6 @@ class CreateAgeEnrollmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('age_enrollments');
+        Schema::dropIfExists('joint_program_enrollments');
     }
 }

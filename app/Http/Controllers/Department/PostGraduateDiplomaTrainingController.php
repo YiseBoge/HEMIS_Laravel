@@ -40,25 +40,15 @@ class PostGraduateDiplomaTrainingController extends Controller
             $requestedProgram = 'Regular';
         }
 
-        $requestedCollege = $request->input('college');
-        if ($requestedCollege == null) {
-            $requestedCollege = null;
-        }
-
-        $requestedBand = $request->input('band');
-        if ($requestedBand == null) {
-            $requestedBand = null;
-        }
-
         $trainings = array();
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $requestedBand) {
+                if ($band->bandName->id == $user->bandName->id) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $requestedCollege && $college->education_level == "None" && $college->education_program == $requestedProgram) {
+                        if ($college->collegeName->id == $user->collegeName->id && $college->education_level == "None" && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
-                                if ($department->year_level == "None") {
+                                if ($department->departmentName->id == $user->departmentName->id && $department->year_level == "None") {
                                     foreach ($department->postgraduateDiplomaTrainings as $training) {
                                         if ($training->is_lead == $requestedType) {
                                             $trainings[] = $training;
@@ -79,16 +69,12 @@ class PostGraduateDiplomaTrainingController extends Controller
 
         $data = array(
             'trainings' => $trainings,
-            'colleges' => CollegeName::all(),
-            'bands' => BandName::all(),
             'programs' => PostGraduateDiplomaTraining::getEnum("Programs"),
             'types' => PostGraduateDiplomaTraining::getEnum('Types'),
             'page_name' => 'departments.postgraduate_diploma_training.index',
 
             'selected_type' => $requestedType,
-            'selected_program' => $requestedProgram,
-            'selected_college' => $requestedCollege,
-            'selected_band' => $requestedBand
+            'selected_program' => $requestedProgram
 
         );
         return view("departments.postgraduate_diploma_training.index")->with($data);

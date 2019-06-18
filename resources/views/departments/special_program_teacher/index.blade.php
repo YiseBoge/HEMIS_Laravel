@@ -16,61 +16,12 @@
 
                     {!! Form::open(['action' => 'Department\SpecialProgramTeacherController@index', 'method' => 'GET', 'class' => 'w-100']) !!}
                     <div class="form-row">
-                        <div class="col-md-5 px-3 py-md-1 col">
-                            <div class="form-group">
-                                {!! Form::select('program_type', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramTypes') , $data['selected_type'] , ['class' => 'form-control', 'id' => 'add_program_type', 'onchange' => 'this.form.submit()']) !!}
-                                {!! Form::label('program_type', 'Program Type', ['class' => 'form-control-placeholder', 'for' => 'add_program_type']) !!}
-                            </div>
-                        </div>
-                        <div class="col-md-5 px-3 py-md-1 col">
+                        <div class="col-md-6 px-3 py-md-1 col">
                             <div class="form-group">
                                 {!! Form::select('program_status', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramStats') , $data['selected_status'] , ['class' => 'form-control', 'id' => 'add_program_status', 'onchange' => 'this.form.submit()']) !!}
                                 {!! Form::label('program_status', 'Program Status', ['class' => 'form-control-placeholder', 'for' => 'add_program_status']) !!}
                             </div>
                         </div>
-
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-5 px-3 py-md-1 col">
-                            <select name="band_names" class="form-control" id="band_names" onchange = "this.form.submit()">
-                                @foreach ($data['bands'] as $band)
-                                @if ($band->id == $data['selected_band'])
-                                <option value="{{ $band->id }}" selected>{{ $band->band_name }}</option>
-                                @else
-                                <option value="{{ $band->id }}">{{ $band->band_name }}</option>
-                                @endif
-                                    
-                                @endforeach
-                            </select>
-                            <label for="dormitory_service_type" class="form-control-placeholder">
-                                Band Name
-                            </label>
-                            {{--{!! Form::select('band_names',$data['bands'],null, ['class' => 'form-control', 'id' => 'add_band_ name', 'onchange' => 'this.form.submit()']) !!}--}}
-                            {{--{!! Form::label('band','Band',['class'=> 'form-control-placeholder','for'=>'add_band']) !!}--}}
-
-                        </div>
-                        <div class="col-md-5 px-3 py-md-1 col">
-                            <div class="form-group">
-                                <select name="college_names" class="form-control" id="college_names" onchange = "this.form.submit()">
-                                    @foreach ($data['colleges'] as $college)
-                                    @if ($college->id == $data['selected_college'])
-                                    <option value="{{ $college->id }}" selected>{{ $college->college_name }}</option>
-                                    @else
-                                    <option value="{{ $college->id }}">{{ $college->college_name }}</option>
-                                    @endif
-                                        
-                                    @endforeach
-                                </select>
-                                <label for="dormitory_service_type" class="form-control-placeholder">
-                                    College Name
-                                </label>
-                                {{--{!! Form::select('college_names',$data['colleges'],null, ['class' => 'form-control', 'id' => 'add_college_name', 'onchange' => 'this.form.submit()']) !!}--}}
-                                {{--{!! Form::label('college','College',['class'=> 'form-control-placeholder','for'=>'add_college']) !!}--}}
-
-                            </div>
-
-                        </div>
-
 
                     </div>
                     {!! Form::close() !!}
@@ -94,7 +45,7 @@
 
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                            >Department
+                                            >Program
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Age: activate to sort column ascending"
@@ -119,7 +70,7 @@
                                                     </a>
                                                 </td>
 
-                                                <td>{{ $specialProgramTeacher->department->departmentName->department_name}}</td>
+                                                <td>{{ $specialProgramTeacher->program_type}}</td>
                                                 <td>{{ $specialProgramTeacher->male_number }}</td>
                                                 <td>{{ $specialProgramTeacher->female_number }}</td>
                                             </tr>

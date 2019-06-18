@@ -42,7 +42,8 @@
                         Disadvantaged Students</a>
                     <a class="collapse-item text-wrap" href="/enrollment/other-region-students">Students From Other
                         Regions</a>
-                    <a class="collapse-item" href="/institution/age-enrollment">Enrollment With Age</a>
+                    <a class="collapse-item" href="/enrollment/age-enrollment">Enrollment With Age</a>
+                    <a class="collapse-item" href="/enrollment/joint-program">Joint Programs</a>
                 </div>
             </div>
         </li>
@@ -91,6 +92,8 @@
                     <a class="collapse-item text-wrap" href="/department/special-program-teacher">Special Programs</a>
                     <a class="collapse-item text-wrap" href="/department/postgraduate-diploma-training">Post Graduate
                         Diploma Training</a>
+                    <a class="collapse-item text-wrap" href="/department/diaspora-courses">Courses and Researches
+                        By Ethiopian Diaspora</a>
                 </div>
             </div>
         </li>
@@ -103,7 +106,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="/publication">
+            <a class="nav-link" href="/department/publication">
                 <i class="fas fa-book"></i>
                 <span>Publications</span></a>
         </li>

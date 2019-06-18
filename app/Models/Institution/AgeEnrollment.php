@@ -27,9 +27,9 @@ class AgeEnrollment extends Model
         'ABOVE26'=>'>26'
     ];
 
-    public function institution()
+    public function department()
     {
-        return $this->belongsTo('App\Models\Institution\Institution');
+        return $this->belongsTo('App\Models\Department\Department');
     }
 
 

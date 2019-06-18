@@ -49,7 +49,6 @@ class EnrollmentsController extends Controller
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-
                             foreach ($college->departments as $department) {
                                 if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                     foreach ($department->enrollments as $enrollment) {
@@ -103,8 +102,10 @@ class EnrollmentsController extends Controller
 
         $educationPrograms = College::getEnum("EducationPrograms");
         $educationLevels = College::getEnum("EducationLevels");
+        $year_levels = Department::getEnum('YearLevels');
         array_pop($educationPrograms);
         array_pop($educationLevels);
+        array_pop($year_levels);
 
         $data = array(
             'colleges' => CollegeName::all(),
@@ -113,7 +114,7 @@ class EnrollmentsController extends Controller
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
             'student_types' => Enrollment::getEnum('StudentTypes'),
-            'year_levels' => Department::getEnum('YearLevels'),
+            'year_levels' => $year_levels,
             'page_name' => 'enrollment.normal.create'
         );
         return view('enrollment.normal.create')->with($data);

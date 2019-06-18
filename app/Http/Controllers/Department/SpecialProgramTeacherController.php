@@ -29,26 +29,10 @@ class SpecialProgramTeacherController extends Controller
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
-        $requestedType=$request->input('program_type');
-        if($requestedType==null){
-            $requestedType = 'ENGLISH LANGUAGE IMPROVEMENT PROGRAM';
-        }
-
         $requestedStatus=$request->input('program_status');
         if($requestedStatus==null){
-            $requestedStatus='COMPLETED';
+            $requestedStatus='Completed';
         }
-
-        $requestedCollege=$request->input('college_names');
-        if($requestedCollege==null){
-            $requestedCollege=CollegeName::all()->first()->id;
-        }
-
-        $requestedBand=$request->input('band_names');
-        if($requestedBand==null){
-            $requestedBand=BandName::all()->first()->id;
-        }
-
 
 //        $band=Band::where('band_name_id',$requestedBand)->first();
 //        $college=College::where(['college_name_id'=>$requestedCollege,'band_id'=>$band->id])->first();
@@ -57,15 +41,17 @@ class SpecialProgramTeacherController extends Controller
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
-                if ($band->bandName->id == $requestedBand) {
+                if ($band->bandName->id == $user->bandName->id) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->id == $requestedCollege) {
+                        if ($college->collegeName->id == $user->collegeName->id) {
                             foreach ($college->departments as $department) {
-                                foreach ($department->SpecialProgramTeachers as $teacher) {
-                                    if (strtoupper($teacher->program_type) == $requestedType && strtoupper($teacher->program_stat) == $requestedStatus) {
-                                        $filteredTeachers[] = $teacher;
+                                if($department->departmentName->id == $user->departmentName->id){
+                                    foreach ($department->SpecialProgramTeachers as $teacher) {
+                                        if ($teacher->program_stat == $requestedStatus) {
+                                            $filteredTeachers[] = $teacher;
+                                        }
                                     }
-                                }
+                                }                                
                             }
                         }
                     }
@@ -80,16 +66,10 @@ class SpecialProgramTeacherController extends Controller
         //$specialProgramTeachers=SpecialProgramTeacher::all();
         //$specialProgramTeachers= SpecialProgramTeacher::where(['program_type'=>$requestedType,'program_status'=>$requestedStatus])->get();
         $data=[
-            'program_type'=>$requestedType,
             'program_status'=>$requestedStatus,
             'special_program_teachers'=>$filteredTeachers,
-            'colleges'=>CollegeName::all(),
-            'bands'=>BandName::all(),
 
-            'selected_type' => $requestedType,
             'selected_status' => $requestedStatus,
-            'selected_college' => $requestedCollege,
-            'selected_band' => $requestedBand,
 
             'page_name'=>'departments.special-program-teacher.index'
         ];

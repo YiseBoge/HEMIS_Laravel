@@ -11,7 +11,7 @@
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row my-3">
                             <div class="col-sm">
-                                {!! Form::open(['action' => 'Institution\BuildingsController@index', 'method' => 'get']) !!}
+                                {!! Form::open(['action' => 'College\BuildingsController@index', 'method' => 'get']) !!}
                                     {!! Form::select('building_purpose', $data['building_purposes'], $data['current_purpose'], ['class' => 'form-control', 'onchange' => 'this.form.submit()', 'id' => 'select_building_purpose'])!!}
                                     {!! Form::label('building_purpose', 'Building Purpose', ['class' => 'form-control-placeholder', 'for' => 'select_building_purpose']) !!}
                                 {!! Form::close() !!}

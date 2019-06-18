@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Institution;
+namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
+use App\Models\Band\Band;
+use App\Models\College\College;
 use App\Models\Institution\Building;
 use App\Models\Institution\BuildingPurpose;
 use Illuminate\Http\Request;
@@ -35,12 +37,20 @@ class BuildingsController extends Controller
         $buildings = array();
 
         if ($institution != null) {
-            foreach ($institution->buildings as $building) {
-                foreach ($building->buildingPurposes as $purpose) {
-                    if ($purpose->purpose == $buildingPurpose->purpose) {
-                        $buildings[] = $building;
+            foreach ($institution->bands as $band) {
+                if ($band->bandName->band_name == $user->bandName->band_name) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
+                            foreach ($college->buildings as $building) {
+                                foreach ($building->buildingPurposes as $purpose) {
+                                    if ($purpose->purpose == $buildingPurpose->purpose) {
+                                        $buildings[] = $building;
+                                    }
+                                }
+                            }
+                        }
                     }
-                }
+                }                
             }
         } else {
             $buildings = $buildingPurpose->buildings;
@@ -108,7 +118,28 @@ class BuildingsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
-        $building->institution_id = $institution->id;
+
+        $bandName = $user->bandName;
+        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
+        if($band == null){
+            $band = new Band;
+            $band->band_name_id = 0;
+            $institution->bands()->save($band);            
+            $bandName->band()->save($band);
+        }
+
+        $collegeName = $user->collegeName;
+        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
+            'education_level' => "None", 'education_program' => "None"])->first();
+        if ($college == null) {
+            $college = new College;
+            $college->education_level = "None";
+            $college->education_program = "None";
+            $college->college_name_id = 0;
+            $band->colleges()->save($college);
+            $collegeName->college()->save($college);
+        }
+        $building->college_id = $college->id;
 
         $building->save();
 
@@ -120,7 +151,7 @@ class BuildingsController extends Controller
             }
         }
 
-        $institution->buildings()->save($building);
+        $college->buildings()->save($building);
 
         return redirect('institution/buildings');
     }

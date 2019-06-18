@@ -11,10 +11,47 @@
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">
                             <div class="col text-right">
-                                <a class="btn btn-outline-primary btn-sm mb-0" href="/institution/age-enrollment/create">Add<i
+                                <a class="btn btn-outline-primary btn-sm mb-0" href="/enrollment/age-enrollment/create">Add<i
                                     class="fas fa-arrow-right ml-2"></i></a>
                             </div>
                         </div>
+                        <form class="mt-4" action="" method="get">
+                            <div class="form-group row pt-3">
+                                <div class="col-md-6 form-group">
+                                    <select class="form-control" name="program" id="program" onchange="this.form.submit()">
+                                        @foreach ($programs as $key => $value)
+                                        @if ($value == $selected_program)
+                                        <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                        <option value="{{$value}}">{{$value}}</option> 
+                                        @endif
+                                            
+                                        @endforeach
+                                    </select>
+                                    <label for="service_type" class="form-control-placeholder">
+                                        Program
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <select class="form-control" name="education_level" id="level" onchange="this.form.submit()">
+                                        @foreach ($education_levels as $key => $value)
+                                        @if ($key == 'SPECIALIZATION')
+                                                <option disabled value="{{$value}}">{{$value}}</option>
+                                        @elseif($value == $selected_education_level)
+                                                <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                                <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                        @endforeach
+                                    </select>
+                                    <label for="dormitory_service_type" class="form-control-placeholder">
+                                        Education Level
+                                    </label>
+                                </div>
+                            </div>
+
+                        </form>
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table border dataTable table-striped table-hover" id="dataTable" width="100%"
@@ -39,16 +76,16 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                      @if (count($data['enrollemnt_info']) > 0)
-                                        @foreach ($data['enrollemnt_info'] as $info)
-                                            <tr role="row" class="odd" onclick="window.location='academic/{{$info->id}}'">
+                                      @if (count($enrollemnt_info) > 0)
+                                        @foreach ($enrollemnt_info as $info)
+                                            <tr role="row" class="odd" onclick="window.location='age-enrollment/{{$info->id}}'">
                                                 <td class="pl-4">
                                                     <div class="row">
                                                         <div class="col pt-1">
                                                             <a href="non-admin/{{$info->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> </a>
                                                         </div>
                                                         <div class="col">
-                                                            <form class="p-0" action="/institution/non-admin/{{$info->id}}" method="POST">
+                                                            <form class="p-0" action="/enrollment/age-enrollment/{{$info->id}}" method="POST">
                                                                 @csrf
                                                                 <input type="hidden" name="_method" value="DELETE">
                                                                 <button type="submit" class="form-control form-control-plaintext text-danger p-0">
@@ -78,66 +115,7 @@
             </div>
         </div>
 
-
-
-    @if ($data['page_name'] == 'institution.age_enrollment.create')
-    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                        <form class="" action="/institution/age-enrollment" method="POST">
-                            @csrf
-                            <h3 class="font-weight-bold text-primary">Add Age Enrollment Data</h3>
-                            <div class="row">
-                </div>
-                <div class="modal-body row p-2">
-                        <div class="col-12">
-                                <fieldset class="h-100">
-                                    {{-- <div class="card-header text-primary">
-                                            Aggregate Information
-                                    </div> --}}
-
-                                    <div class="form-row pt-3">
-                                            <div class="col-md form-group">
-                                                
-                                                <select class="form-control" id="ageRange" name="age_range">
-                                                    @foreach ($data['age_range'] as $key => $value)
-                                                        <option value="{{$key}}">{{$value}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <label for="empType" class="form-control-placeholder pt-3">Age Range</label>
-                                            </div>
-                                        </div>  
-
-                                    {{-- <div class="card-body px-4"> --}}
-                                        <div class="form-row ptt-1">
-                                            <div class="col form-group">
-                                                <input type="text" id="no_of_females" name="number_of_females" class="form-control" required>
-                                                <label class="form-control-placeholder" for="no_of_females">Females(Aggregate)</label>
-                                            </div>
-    
-                                            <div class="col form-group">
-                                                <input type="text" id="no_of_males" name="number_of_males" class="form-control" required>
-                                                <label class="form-control-placeholder" for="no_of_males">Males(Aggregate)</label>
-                                            </div>
-                                        </div>
-                                    {{-- </div>   --}}
-                                </fieldset>
-                            </div>
-                        </div>    
-                </div>
-                <div class="modal-footer">
-                        <button class="btn btn-outline-secondary float-right my-1" type="submit">Submit</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    @endif
-
-    @if ($data['page_name'] == 'institution.admin_and_non_academic_staff.edit')
+    @if ($page_name == 'institution.admin_and_non_academic_staff.edit')
     <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -160,7 +138,7 @@
                                             <div class="col-md form-group">
                                                 
                                                 <select class="form-control" id="empType" name="employment_type">
-                                                    @foreach ($data['education_levels'] as $key => $value)
+                                                    @foreach ($education_levels as $key => $value)
                                                         <option value="{{$key}}">{{$value}}</option>
                                                     @endforeach
                                                 </select>

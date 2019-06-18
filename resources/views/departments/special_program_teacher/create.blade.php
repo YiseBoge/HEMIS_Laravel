@@ -34,7 +34,7 @@
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <input type="text" id="male_number" name="male_number" class="form-control" required>
-                                    <label class="form-control-placeholder" for="male_number">Number of Male Teacchers</label>
+                                    <label class="form-control-placeholder" for="male_number">Number of Male Teachers</label>
                                 </div>
 
                                 <div class="col form-group">

@@ -92,6 +92,7 @@ class AcademicStaffsController extends Controller
         $staff->dedication = $request->input('dedication');
         $staff->academic_level = $request->input('academic_level');
         $staff->is_expatriate = $request->has('expatriate');
+        $staff->is_from_other_region = $request->has('other_region');
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 

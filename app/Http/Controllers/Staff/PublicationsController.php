@@ -200,7 +200,7 @@ class PublicationsController extends Controller
 
         $staff->publications()->save($publication);
 
-        return redirect("/publication");
+        return redirect("/department/publication");
     }
 
     /**
@@ -282,7 +282,7 @@ class PublicationsController extends Controller
 
         $department->publicationsAndPatents()->save($publicationsAndPatents);
 
-        return redirect("/publication");
+        return redirect("/department/publication");
     }
 
     /**

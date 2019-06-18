@@ -20,7 +20,7 @@ Route::get('/', function () {
 Route::resource('institution/instance', 'Institution\InstancesController');
 Route::post('/institution/instance/update-current', 'Institution\InstancesController@updateCurrentInstance')->name('updateCurrentInstance');
 Route::resource('institution/general', 'Institution\InstitutionsController');
-Route::resource('institution/buildings', 'Institution\BuildingsController');
+Route::resource('institution/buildings', 'College\BuildingsController');
 
 Route::resource('budgets/budget', 'College\BudgetsController');
 Route::resource('budgets/budget-description', 'College\BudgetDescriptionsController');
@@ -34,7 +34,7 @@ Route::resource('staff/administrative', 'Staff\AdministrativeStaffsController');
 Route::resource('staff/ict', 'Staff\IctStaffsController');
 Route::resource('staff/supportive', 'Staff\SupportiveStaffsController');
 Route::resource('staff/management', 'Staff\ManagementStaffsController');
-Route::resource('publication', 'Staff\PublicationsController');
+Route::resource('department/publication', 'Staff\PublicationsController');
 
 Route::resource('student/special-need', 'Student\SpecialNeedStudentsController');
 Route::resource('student/foreign', 'Student\ForeignStudentsController');
@@ -51,7 +51,6 @@ Route::resource('staff/ict-staff-types', 'Staff\IctStaffTypesController');
 
 Route::resource('institution/non-admin', 'Institution\AdminAndNonAcademicStaffsController');
 Route::resource('institution/management-data', 'Institution\ManagementDatasController');
-Route::resource('institution/age-enrollment', 'Institution\AgeEnrollmentsController');
 Route::resource('institution/foreign-staff', 'Institution\ForeignStaffsController');
 Route::resource('college/college-name','College\CollegeNamesController');
 Route::resource('department/special-program-teacher','Department\SpecialProgramTeacherController');
@@ -66,6 +65,8 @@ Route::resource('enrollment/specializing-students','Department\SpecializingStude
 Route::resource('enrollment/rural-area-students', 'Department\RuralStudentEnrollmentsController');
 Route::resource('enrollment/other-region-students', 'Department\OtherRegionStudentsController');
 Route::resource('enrollment/economically-disadvantaged', 'Department\DisadvantagedStudentEnrollmentsController');
+Route::resource('enrollment/age-enrollment', 'Department\AgeEnrollmentsController');
+Route::resource('enrollment/joint-program', 'Department\JointProgramEnrollmentsController');
 
 Route::resource('institution/researches','Department\ResearchsController');
 Route::resource('student/university-industry-linkage','College\UniversityIndustryLinkageController');
@@ -76,6 +77,7 @@ Route::resource('department/expatriate-staff', 'Department\ExaptriateStaffsContr
 Route::resource('department/postgraduate-diploma-training', 'Department\PostGraduateDiplomaTrainingController');
 Route::resource('department/teachers', 'Department\TeachersController');
 Route::resource('department/expatriate-staff', 'Department\ExpatriateStaffsController');
+Route::resource('department/diaspora-courses', 'Department\DiasporaCoursesController');
 
 Route::resource('moshe-admin/manage-pprc', 'MoSHE\ManagePprcInfosContoller');
 Route::resource('moshe-admin/display-pprc', 'MoSHE\DisplayMoshePprcsController');

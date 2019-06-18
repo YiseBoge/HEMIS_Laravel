@@ -48,6 +48,25 @@ class Department extends Model
         return $this->hasMany('App\Models\Department\DisadvantagedStudentEnrollment');
     }
 
+    public function emergingRegion()
+    {
+        return $this->hasMany('App\Models\Institution\EmergingRegion');
+    }
+
+    public function pastoralRegion()
+    {
+        return $this->hasMany('App\Models\Institution\PastoralRegion');
+    }
+
+    public function ageEnrollments()
+    {
+        return $this->hasMany('App\Models\Institution\AgeEnrollment');
+    }
+
+    public function jointProgramEnrollments(){
+        return $this->hasMany('App\Models\Department\JointProgramEnrollment');
+    }
+
     public function exitExaminations()
     {
         return $this->hasMany('App\Models\Department\ExitExamination');
@@ -127,19 +146,16 @@ class Department extends Model
         return $this->hasMany('App\Models\Department\PublicationsAndPatents');
     }
 
-    public function emergingRegion()
-    {
-        return $this->hasMany('App\Models\Institution\EmergingRegion');
-    }
-
-    public function pastoralRegion()
-    {
-        return $this->hasMany('App\Models\Institution\PastoralRegion');
-    }
-
     public function researches()
     {
         return $this->hasMany('App\Models\Band\Research');
     }
+
+    public function diasporaCourses()
+    {
+        return $this->hasMany('App\Models\Department\DiasporaCourses');
+    }
+
+    
 
 }
