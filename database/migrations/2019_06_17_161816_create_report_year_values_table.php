@@ -16,7 +16,7 @@ class CreateReportYearValuesTable extends Migration
         Schema::create('report_year_values', function (Blueprint $table) {
             $table->uuid('id');
             $table->string('year');
-            $table->double('value');
+            $table->double('value')->default(0);
             $table->timestamps();
 
             $table->primary('id');
