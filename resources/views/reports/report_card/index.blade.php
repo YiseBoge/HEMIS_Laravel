@@ -6,12 +6,20 @@
             <div class="text-primary card-header">Reports</div>
             <div class="card-body">
                 <div class="row my-3">
-                    <div class="col-sm text-right">
-                        <button type="button" class="btn btn-outline-primary btn-sm mb-0" id="exporter">
-                            Export to Excel<i class="far fa-file-excel d-inline-block m-1"></i></button>
-                        <button type="button" class="btn btn-outline-primary btn-sm mb-0 mx-1"
+                    <div class="col-sm-4 text-left">
+                        <a href="/report/generate-full-report" class="btn btn-outline-primary btn-sm mb-0"
+                           style="font-size: 1em">
+                            Generate Current Report<i class="fas fa-plus d-inline-block m-1 ml-2"></i></a>
+                    </div>
+                    <div class="col-sm-8 text-right">
+                        <button type="button" class="btn btn-outline-primary btn-sm mb-0" id="exporter"
+                                style="font-size: 1em">
+                            <i class="far fa-file-excel d-inline-block m-1 mr-2"></i>Export to Excel
+                        </button>
+                        <button type="button" class="btn btn-outline-primary btn-sm mb-0 mx-1" style="font-size: 1em"
                                 onclick="printJS({ printable: 'printable', type: 'html', css: '/css/app.css', documentTitle: 'KPI Indicators - MoSHE', ignoreElements: ['unprint'] }) ">
-                            Print to PDF<i class="far fa-file-pdf d-inline-block m-1"></i></button>
+                            <i class="far fa-file-pdf d-inline-block m-1 mr-2"></i>Print to PDF
+                        </button>
                     </div>
                 </div>
                 <div class="row">

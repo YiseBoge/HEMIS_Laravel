@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
 
             BudgetPurposesTableSeeder::class,
-            InstancesTableSeeder::class,
             ReportCardsTableSeeder::class,
         ]);
     }

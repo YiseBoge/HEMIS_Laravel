@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Report;
 use App\Http\Controllers\Controller;
 use App\Models\College\College;
 use App\Models\Department\StudentAttrition;
+use App\Models\Institution\InstitutionName;
 use App\Models\Report\ReportCard;
 use App\Models\Report\ReportYearValue;
 use App\Services\GeneralReportService;
@@ -13,13 +14,10 @@ use Illuminate\Support\Facades\Auth;
 
 class GenerateReportsController extends Controller
 {
-    /**
-     * Generate all institutions KPI Report.
-     *
-     * @return Response
-     */
+
     public function generateFullReport()
     {
+        return 'sth cool';
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
         $year = $user->currentInstance->year;
@@ -365,8 +363,8 @@ class GenerateReportsController extends Controller
         $value = $rep->reportYearValues()->where('year', $year)->get();
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->academicStaffPublication();
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['4.1.2'];
@@ -374,8 +372,8 @@ class GenerateReportsController extends Controller
         $value = $rep->reportYearValues()->where('year', $year)->get();
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->publicationByPostgrads();
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['4.1.3'];
@@ -383,8 +381,8 @@ class GenerateReportsController extends Controller
         $value = $rep->reportYearValues()->where('year', $year)->get();
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->patents();
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
 
@@ -395,8 +393,8 @@ class GenerateReportsController extends Controller
         $value = $rep->reportYearValues()->where('year', $year)->get();
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->academicStaffRate('Female', false);
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['5.2.1'];
@@ -452,8 +450,8 @@ class GenerateReportsController extends Controller
         $value = $rep->reportYearValues()->where('year', $year)->get();
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->diasporaCourses();
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
 
@@ -462,8 +460,10 @@ class GenerateReportsController extends Controller
         $value = $rep->reportYearValues()->where('year', $year)->get();
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->foreignStudents(College::getEnum('education_level')['UNDERGRADUATE']) +
+            $reportService->foreignStudents(College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
+            $reportService->foreignStudents(College::getEnum('education_level')['POST_GRADUATE_PHD']);
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['6.2.2'];
@@ -481,8 +481,8 @@ class GenerateReportsController extends Controller
         $value = $rep->reportYearValues()->where('year', $year)->get();
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->expatriateStaff();
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
 
@@ -511,10 +511,26 @@ class GenerateReportsController extends Controller
         $value = $rep->reportYearValues()->where('year', $year)->get();
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->costSharings();
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
         return redirect('/report');
+    }
+
+    /**
+     * Generate all institutions KPI Report.
+     *
+     * @return Response
+     */
+    public function generateInstitutionReport($id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+        $year = $user->currentInstance->year;
+
+        $institution_name = InstitutionName::find($id);
+
+        // code goes here
     }
 }

@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-5 static-top shadow">
 
     @guest
-        <a class="btn btn-primary btn-circle text-white shadow" href="/" data-toggle="tooltip" title="Home">
+        <a class="btn btn-primary btn-circle text-white shadow-sm" href="/" data-toggle="tooltip" title="Home">
             <i class="fa fa-home"></i>
         </a>
 @else
@@ -18,7 +18,7 @@
 
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
         @guest
-            <li class="nav-item btn btn-primary btn-circle shadow">
+            <li class="nav-item btn btn-primary btn-circle shadow-sm">
                 <a class="nav-link text-white" href="{{ route('login') }}" data-toggle="tooltip" title="Login"><i
                             class="fas fa-sign-in-alt mx-3"></i>
                     {{--                    {{ __('Login') }}--}}
