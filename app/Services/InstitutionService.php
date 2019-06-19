@@ -163,6 +163,25 @@ class InstitutionService
        return $total;
     }
 
+    function totalBudget(){
+        $total = 0;
+        foreach($this->institution->bands as $band){
+            foreach($band->colleges as $college){
+                foreach($college->internalRevenues as $budget){
+                    $total += $budget->income;
+                }
+                foreach($college->investments as $budget){
+                    $total += $budget->cost_incurred;
+                }
+                foreach($college->budgets as $budget){
+                    $total += $budget->allocated_budget + $budget->additional_budget;
+                }
+            }
+        }
+
+        return $total;
+    }
+
     function budgetNotFromGovernemnt(){
         $total = 0;
         foreach($this->institution->bands as $band){
@@ -170,8 +189,70 @@ class InstitutionService
                 foreach($college->internalRevenues as $budget){
                     $total += $budget->income;
                 }
+                foreach($college->investments as $budget){
+                    $total += $budget->cost_incurred;
+                }
             }
         }
+
+        return $total;
+    }
+
+    function nonUtilizedFunds(){
+        $total = 0;
+        foreach($this->institution->bands as $band){
+            foreach($band->colleges as $college){                
+                foreach($college->budgets as $budget){
+                    $total += $budget->allocated_budget + $budget->additional_budget - $budget->utilized_budget;
+                }
+            }
+        }
+
+        return $total;
+    }
+
+    function academicAttrition(){
+        $total = 0;
+        $departments = $this->departments();
+        foreach($departments as $department){
+           $departmentService = new DepartmentService($department);
+           $total += $departmentService->academicAttrition();       
+        }
+        return $total;
+    }
+
+    function nonAcademicAttrition(){
+        $total = 0;
+        foreach($this->institution->bands as $band){
+            foreach($band->colleges as $college){                
+                foreach($college->technicalStaffs as $budget){
+                    if($staff->general->staffAttrition != null){
+                        $total += 1;
+                    }
+                }
+                foreach($college->managementStaffs as $budget){
+                    if($staff->general->staffAttrition != null){
+                        $total += 1;
+                    }
+                }
+                foreach($college->administrativeStaffs as $budget){
+                    if($staff->general->staffAttrition != null){
+                        $total += 1;
+                    }
+                }
+                foreach($college->ictStaffs as $budget){
+                    if($staff->general->staffAttrition != null){
+                        $total += 1;
+                    }
+                }
+                foreach($college->supportiveStaffs as $budget){
+                    if($staff->general->staffAttrition != null){
+                        $total += 1;
+                    }
+                }
+            }
+        }
+        return $total;
     }
 
 }

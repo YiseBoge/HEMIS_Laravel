@@ -21,7 +21,7 @@ class CreateAdministrativeStaffTable extends Migration
 
             $table->primary('id');
 
-            $table->uuid('institution_id');
+            $table->uuid('college_id');
         });
     }
 

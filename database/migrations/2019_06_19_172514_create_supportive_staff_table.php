@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateTechnicalStaffsTable extends Migration
+class CreateSupportiveStaffTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateTechnicalStaffsTable extends Migration
      */
     public function up()
     {
-        Schema::create('technical_staffs', function (Blueprint $table) {
+        Schema::create('supportive_staff', function (Blueprint $table) {
             $table->uuid('id');
-            $table->bigInteger('male_staff_number');
-            $table->bigInteger('female_staff_number');
+            $table->text('staffRank');
             $table->timestamps();
-
-            $table->string('level');
 
             $table->primary('id');
 
@@ -34,6 +31,6 @@ class CreateTechnicalStaffsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('technical_staff');
+        Schema::dropIfExists('supportive_staff');
     }
 }

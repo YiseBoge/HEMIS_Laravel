@@ -34,6 +34,7 @@ Route::resource('staff/administrative', 'Staff\AdministrativeStaffsController');
 Route::resource('staff/ict', 'Staff\IctStaffsController');
 Route::resource('staff/supportive', 'Staff\SupportiveStaffsController');
 Route::resource('staff/management', 'Staff\ManagementStaffsController');
+Route::resource('staff/attrition', 'Staff\StaffAttritionsController');
 Route::resource('department/publication', 'Staff\PublicationsController');
 
 Route::resource('student/special-need', 'Student\SpecialNeedStudentsController');
