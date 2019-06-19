@@ -133,7 +133,7 @@ class InstitutionService
     }
 
 
-    function diasporaCourses($sex, $type, $educationLevel){
+    function diasporaCourses(){
         $total = 0;
         $departments = $this->allDepartments();
         foreach($departments as $department){
@@ -143,7 +143,7 @@ class InstitutionService
         return $total;
     }
 
-    function foreignStudents($sex, $type, $educationLevel){
+    function foreignStudents($educationLevel){
         $total = 0;
         $departments = $this->departmentsByEducationLevel($educationLevel);
         foreach($departments as $department){
@@ -153,7 +153,7 @@ class InstitutionService
         return $total;
     }
 
-    function patents($sex, $type, $educationLevel){
+    function patents(){
         $total = 0;
         $departments =  $this->allDepartments();
         foreach($departments as $department){
@@ -163,7 +163,7 @@ class InstitutionService
         return $total;
     }
 
-    function publicationByPostgrads($sex, $type, $educationLevel){
+    function publicationByPostgrads(){
         $total = 0;
         $departments =  $this->allDepartments();
         foreach($departments as $department){
@@ -173,7 +173,7 @@ class InstitutionService
         return $total;
     }
 
-    function jointEnrollment($sex, $type, $educationLevel){
+    function jointEnrollment($educationLevel){
         $total = 0;
         $departments = $this->departmentsByEducationLevel($educationLevel);
         foreach($departments as $department){
@@ -183,9 +183,9 @@ class InstitutionService
         return $total;
     }
 
-    function costSharings($sex, $type, $educationLevel){
+    function costSharings(){
         $total = 0;
-        $departments = $this->allDepartments($educationLevel);
+        $departments = $this->allDepartments();
         foreach($departments as $department){
            $departmentService = new DepartmentService($department);
            $total += $departmentService->costSharings();       
