@@ -154,4 +154,30 @@ class GeneralReportService
 
         return $total / $totalEnrollments;
     }
+
+    function qualifiedStaff(){
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->qualifiedStaff();
+        }
+
+        return $total;
+    }
+
+    function enrollmentInScienceAndTechnology(){
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->enrollmentInScienceAndTechnology();
+        }
+
+        return $total;
+    }
+
+    function budgetNotFromGovernment(){
+        
+    }
 }

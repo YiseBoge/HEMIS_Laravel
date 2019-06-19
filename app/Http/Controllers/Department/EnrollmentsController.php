@@ -11,6 +11,8 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\Enrollment;
 use App\Services\GeneralReportService;
+use App\Services\DepartmentService;
+use App\Services\InstitutionService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +58,7 @@ class EnrollmentsController extends Controller
                                         if ($enrollment->student_type == $requestedType) {
                                             if($department->year_level == 1){
                                                 $service = new GeneralReportService("2018/19");
-                                                return $service->graduationRate("All", "Undergraduate");
+                                                return $service->qualifiedStaff();
                                             } 
                                             $enrollments[] = $enrollment;
                                         }
