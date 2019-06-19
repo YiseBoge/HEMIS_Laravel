@@ -25,6 +25,14 @@ class InstitutionService
         }
     }
 
+    function departments(){
+        foreach($this->institution->bands as $band){
+            foreach($band->colleges as $college){
+                return $college->departments;
+            }
+        }
+    }
+
     function enrollment($sex, $educationLevel){
         $total = 0;
         $departments = $this->departmentsByEducationLevel($educationLevel);
@@ -85,13 +93,34 @@ class InstitutionService
         return $total;
     }
 
-    function academicDismissal($sex, $type, $educationLevel){
+    function exitExamination(){
+        $total = 0;
+        $departments = $this->departments();
+        foreach($departments as $department){
+           $departmentService = new DepartmentService($department);
+           $total += $departmentService->exitExamination();       
+        }
+        return $total;
+    }
+
+    function degreeEmployment(){
+        $total = 0;
+        $departments = $this->departments();
+        foreach($departments as $department){
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->degreeEmployment();
+        }
+        return $total;
+    }
+
+    function graduationRate($sex, $educationLevel){
         $total = 0;
         $departments = $this->departmentsByEducationLevel($educationLevel);
         foreach($departments as $department){
            $departmentService = new DepartmentService($department);
-           $total += $departmentService->academicDismissal($sex, $type);       
+           $total += $departmentService->graduationRate($sex);       
         }
         return $total;
     }
+
 }
