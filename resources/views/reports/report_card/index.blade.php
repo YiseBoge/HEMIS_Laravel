@@ -7,16 +7,21 @@
             <div class="card-body">
                 <div class="row my-3">
                     <div class="col-sm text-right">
-                        <a class="btn btn-outline-primary btn-sm mb-0" href="">Print<i
-                                    class="fas fa-arrow-right ml-2"></i></a>
+                        <button type="button" class="btn btn-outline-primary btn-sm mb-0" id="exporter">
+                            Export to Excel<i class="far fa-file-excel d-inline-block m-1"></i></button>
+                        <button type="button" class="btn btn-outline-primary btn-sm mb-0 mx-1"
+                                onclick="printJS({ printable: 'printable', type: 'html', css: '/css/app.css', documentTitle: 'KPI Indicators - MoSHE', ignoreElements: ['unprint'] }) ">
+                            Print to PDF<i class="far fa-file-pdf d-inline-block m-1"></i></button>
                     </div>
                 </div>
-                <div class="row px-3">
-                    <div class="table-responsive">
+                <div class="row">
+                    <div class="table-responsive col-12 py-3">
                         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered dataTable" id="dataTable"
+                                    <table id="printable"
+                                           class="table table-bordered responsive"
+                                           width="100%"
                                            cellspacing="0" role="grid" aria-describedby="dataTable_info">
 
                                         <thead>
@@ -37,8 +42,10 @@
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Year: activate to sort column ascending">Change
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Year: activate to sort column ascending">
+                                            <th class="sorting hide-print" tabindex="0" aria-controls="dataTable"
+                                                rowspan="1"
+                                                colspan="1" aria-label="Year: activate to sort column ascending"
+                                                id="unprint">
                                             </th>
                                         </tr>
                                         </thead>
@@ -84,7 +91,7 @@
                                                                 <p class="text-warning">{{$kpi->change()}}%</p>
                                                             @endif
                                                         </td>
-                                                        <td>
+                                                        <td class="hide-print" id="unprint">
                                                             <a href="/report/{{ $kpi->id }}/edit"
                                                                class="mr-3 text-muted" data-toggle="tooltip"
                                                                title="Edit Target">
