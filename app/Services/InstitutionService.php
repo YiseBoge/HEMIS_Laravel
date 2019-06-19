@@ -26,6 +26,19 @@ class InstitutionService
         }
     }
 
+    function institutionsByPrivacy($isPrivate)
+    {
+        $institutions = array();
+        foreach ($this->instances as $instance) {
+            foreach ($instance->institutions as $institution) {
+                if ($institution->institutionName->is_private == $isPrivate) {
+                    $institutions[] = $institution;
+                }
+            }
+        }
+        return $institutions;
+    }
+
 
     function allDepartments()
     {
