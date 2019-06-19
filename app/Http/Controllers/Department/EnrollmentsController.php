@@ -10,6 +10,7 @@ use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\Enrollment;
+use App\Services\InstitutionService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -50,9 +51,13 @@ class EnrollmentsController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
-                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                if ($department->departmentName->department_name == $user->departmentName->department_name) {                                                                      
                                     foreach ($department->enrollments as $enrollment) {
                                         if ($enrollment->student_type == $requestedType) {
+                                            if($department->year_level == 1){
+                                                $service = new InstitutionService($institution);
+                                                return $service->academicDismissal("All", "All", "Undergraduate");
+                                            } 
                                             $enrollments[] = $enrollment;
                                         }
                                     }
