@@ -217,4 +217,77 @@ class GeneralReportService
     function budgetNotFromGovernment(){
 
     }
+
+    function diasporaCourses()
+    {
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->diasporaCourses();
+        }
+
+        return $total;
+    }
+
+
+    function foreignStudents($educationLevel)
+    {
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->foreignStudents($educationLevel);
+        }
+
+        return $total;
+    }
+
+    function patents()
+    {
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->patents();
+        }
+
+        return $total;
+    }
+
+    function publicationByPostgrads()
+    {
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->publicationByPostgrads();
+        }
+
+        return $total;
+    }
+
+    function costSharings()
+    {
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->costSharings();
+        }
+
+        return $total;
+    }
+
+    function jointEnrollment($educationLevel)
+    {
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->jointEnrollment($educationLevel);
+        }
+
+        return $total;
+    }
 }

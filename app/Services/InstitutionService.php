@@ -25,7 +25,9 @@ class InstitutionService
         }
     }
 
-    function departments(){
+
+    function allDepartments()
+    {
         foreach($this->institution->bands as $band){
             foreach($band->colleges as $college){
                 return $college->departments;
@@ -33,7 +35,7 @@ class InstitutionService
         }
     }
 
-    function allDepartments()
+    function departments()
     {
         foreach ($this->institution->bands as $band) {
             foreach ($band->colleges as $college) {
@@ -132,58 +134,8 @@ class InstitutionService
         return $total;
     }
 
-    function qualifiedStaff(){
-        $total = 0;
-        $departments = $this->departments();
 
-       $staffRankValues = [
-            'Graduate Assistant I' => 1,
-            'Graduate Assistant II' => 2,
-            'Assistant Lecturer' => 3,
-            'Lecturer' => 4,
-            'Assistant Professor' => 5,
-            'Associate Professor' => 6,
-            'Professor' => 7,
-            'Others' => 0
-        ];
-
-        foreach($departments as $department){
-            foreach($department->academicStaffs as $staff){
-                $total += $staffRankValues[$staff->staffRank];
-            }
-        }
-
-        return $total;
-    }
-
-    function enrollmentInScienceAndTechnology(){
-        $total = 0;
-       foreach($this->institution->bands as $band){
-           if($band->bandName->band_name == "Engineering and Technology" || $band->bandName->band_name == "Natural and Computational Sciences"){
-               foreach($band->colleges as $college){
-                   foreach($college->departments as $department){
-                        $departmentService = new DepartmentService($department);
-                        $total += $departmentService->enrollment("All");
-                   }
-               }
-           }
-       }
-       return $total;
-    }
-
-    function budgetNotFromGovernemnt(){
-        $total = 0;
-        foreach($this->institution->bands as $band){
-            foreach($band->colleges as $college){
-                foreach($college->internalRevenues as $budget){
-                    $total += $budget->income;
-                }
-            }
-        }
-    }
-
-
-    function diasporaCourses($sex, $type, $educationLevel)
+    function diasporaCourses()
     {
         $total = 0;
         $departments = $this->allDepartments();
@@ -194,7 +146,7 @@ class InstitutionService
         return $total;
     }
 
-    function foreignStudents($sex, $type, $educationLevel)
+    function foreignStudents($educationLevel)
     {
         $total = 0;
         $departments = $this->departmentsByEducationLevel($educationLevel);
@@ -205,7 +157,7 @@ class InstitutionService
         return $total;
     }
 
-    function patents($sex, $type, $educationLevel)
+    function patents()
     {
         $total = 0;
         $departments = $this->allDepartments();
@@ -216,7 +168,7 @@ class InstitutionService
         return $total;
     }
 
-    function publicationByPostgrads($sex, $type, $educationLevel)
+    function publicationByPostgrads()
     {
         $total = 0;
         $departments = $this->allDepartments();
@@ -227,7 +179,7 @@ class InstitutionService
         return $total;
     }
 
-    function jointEnrollment($sex, $type, $educationLevel)
+    function jointEnrollment($educationLevel)
     {
         $total = 0;
         $departments = $this->departmentsByEducationLevel($educationLevel);
@@ -238,7 +190,7 @@ class InstitutionService
         return $total;
     }
 
-    function costSharings($sex, $type, $educationLevel)
+    function costSharings()
     {
         $total = 0;
         $departments = $this->allDepartments();
@@ -249,37 +201,56 @@ class InstitutionService
         return $total;
     }
 
-    function expatriateStaff()
+    function qualifiedStaff()
     {
         $total = 0;
         $departments = $this->departments();
+
+        $staffRankValues = [
+            'Graduate Assistant I' => 1,
+            'Graduate Assistant II' => 2,
+            'Assistant Lecturer' => 3,
+            'Lecturer' => 4,
+            'Assistant Professor' => 5,
+            'Associate Professor' => 6,
+            'Professor' => 7,
+            'Others' => 0
+        ];
+
         foreach ($departments as $department) {
-            $departmentService = new DepartmentService($department);
-            $total += $departmentService->academicExpatriateStaff();
+            foreach ($department->academicStaffs as $staff) {
+                $total += $staffRankValues[$staff->staffRank];
+            }
+        }
+
+        return $total;
+    }
+
+    function enrollmentInScienceAndTechnology()
+    {
+        $total = 0;
+        foreach ($this->institution->bands as $band) {
+            if ($band->bandName->band_name == "Engineering and Technology" || $band->bandName->band_name == "Natural and Computational Sciences") {
+                foreach ($band->colleges as $college) {
+                    foreach ($college->departments as $department) {
+                        $departmentService = new DepartmentService($department);
+                        $total += $departmentService->enrollment("All");
+                    }
+                }
+            }
         }
         return $total;
     }
 
-    function academicStaffPublication()
+    function budgetNotFromGovernemnt()
     {
         $total = 0;
-        $departments = $this->departments();
-        foreach ($departments as $department) {
-            $departmentService = new DepartmentService($department);
-            $total += $departmentService->academicStaffPublication();
+        foreach ($this->institution->bands as $band) {
+            foreach ($band->colleges as $college) {
+                foreach ($college->internalRevenues as $budget) {
+                    $total += $budget->income;
+                }
+            }
         }
-        return $total;
     }
-
-    function academicStaffRate($sex, $otherRegion)
-    {
-        $total = 0;
-        $departments = $this->departments();
-        foreach ($departments as $department) {
-            $departmentService = new DepartmentService($department);
-            $total += $departmentService->academicStaffRate($sex, $otherRegion);
-        }
-        return $total;
-    }
-
 }

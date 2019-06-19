@@ -11,11 +11,10 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\Enrollment;
 use App\Services\GeneralReportService;
-use App\Services\DepartmentService;
-use App\Services\InstitutionService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class EnrollmentsController extends Controller
 {
@@ -132,6 +131,7 @@ class EnrollmentsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
