@@ -390,5 +390,13 @@ class InstitutionService
         return $total;
     }
 
-    
+    function academicStaffRate($sex,$otherRegion){
+        $total = 0;
+        $departments = $this ->department();
+        foreach ($departments as $department){
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->academicStaffRate($sex,$otherRegion);
+        }
+        return $total;
+    }
 }
