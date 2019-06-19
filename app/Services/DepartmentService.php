@@ -15,4 +15,8 @@ class DepartmentService
 
     // functions go here dependent on the department
     // can make functions to take in strings 'postgraduate', or 'undergraduate' then return accordingly
+
+    public function foreignStudents(){
+        return $this->department->foreignStudents->count();
+    }
 }
