@@ -48,5 +48,9 @@ class Staff extends Model
         'CONTRACTOR' => 'Contractor',
     ];
 
+    public function staffAttrition()
+    {
+        return $this->hasOne('App\Models\Staff\StaffAttrition');
+    }
 
 }

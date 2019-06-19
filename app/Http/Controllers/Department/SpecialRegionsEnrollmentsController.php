@@ -59,7 +59,7 @@ class SpecialRegionsEnrollmentsController extends Controller
                             foreach ($college->departments as $department) {
                                 if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                     if ($requestedType == "Emerging Regions") {
-                                        foreach ($department->emergionRegions as $enrollment) {
+                                        foreach ($department->emergingRegions as $enrollment) {
                                             $enrollments[] = $enrollment;
                                         }
                                     } else {
@@ -191,10 +191,10 @@ class SpecialRegionsEnrollmentsController extends Controller
         }
 
         if ($request->input('region_type') == 'emerging_regions') {
-            $department->emergingRegion()->save($enrollment);
+            $department->emergingRegions()->save($enrollment);
             $regionName->emergingRegion()->save($enrollment);
         } else {
-            $department->pastoralRegion()->save($enrollment);
+            $department->pastoralRegions()->save($enrollment);
             $regionName->pastoralRegion()->save($enrollment);
         }
 
