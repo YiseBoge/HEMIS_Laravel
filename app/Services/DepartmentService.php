@@ -48,6 +48,7 @@ class DepartmentService
         return $total;
     }
 
+    //???
     function ruralAreasEnrollment(){
         $total = 0;
         foreach ($this->department->ruralStudentEnrollments->where('region', 'Rural')->all() as $enrollment){
@@ -95,8 +96,8 @@ class DepartmentService
             $total += $enrollment->male_students_number + $enrollment->female_students_number;
         }
         return $total;
-    }  
-    
+    }
+
     function graduationRate($sex){
         $total = 0;
         foreach ($this->department->enrollments->where('student_type', 'Graduates') as $enrollment){
@@ -104,9 +105,65 @@ class DepartmentService
                 $total += $enrollment->female_students_number;
             }else{
                 $total += $enrollment->male_students_number + $enrollment->female_students_number;
-            }            
+            }
         }
 
         return $total;
     }
+
+    public function foreignStudents()
+    {
+        return $this->department->foreignStudents()->count();
+    }
+
+    public function patents()
+    {
+        $total = 0;
+        foreach ($this->department->publicationsAndPatents as $pubAndPatent) {
+            $total += $pubAndPatent->patents;
+        }
+        return $total;
+    }
+
+    public function publicationByPostgrads()
+    {
+        $total = 0;
+        foreach ($this->department->publicationsAndPatents as $pubAndPatent) {
+            $total += $pubAndPatent->student_publications;
+        }
+        return $total;
+    }
+
+    public function jointEnrollment()
+    {
+        $total = 0;
+        foreach ($this->department->jointProgramEnrollments as $jointEnrollment) {
+            $total += $jointEnrollment->male_students_number + $jointEnrollment->female_students_number;
+        }
+        return $total;
+    }
+
+    public function diasporaCourses()
+    {
+        $total = 0;
+        foreach ($this->department->diasporaCourses as $diasporaCourse) {
+            // die('Course I');
+            $total += $diasporaCourse->number_of_courses + $diasporaCourse->number_of_researches;
+        }
+        return $total;
+    }
+
+    public function costSharings()
+    {
+        $total = 0;
+        foreach ($this->department->costSharings as $costSharing) {
+            // die('Course I');
+            $total += $costSharing->pre_payment_amount;
+        }
+        return $total;
+    }
+
+
+
+
 }

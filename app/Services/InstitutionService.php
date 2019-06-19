@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Institution\Institution;
-use App\Models\Staff\AcademicStaff;
 
 class InstitutionService
 {
@@ -29,6 +28,15 @@ class InstitutionService
     function departments(){
         foreach($this->institution->bands as $band){
             foreach($band->colleges as $college){
+                return $college->departments;
+            }
+        }
+    }
+
+    function allDepartments()
+    {
+        foreach ($this->institution->bands as $band) {
+            foreach ($band->colleges as $college) {
                 return $college->departments;
             }
         }
@@ -99,7 +107,7 @@ class InstitutionService
         $departments = $this->departments();
         foreach($departments as $department){
            $departmentService = new DepartmentService($department);
-           $total += $departmentService->exitExamination();       
+            $total += $departmentService->exitExamination();
         }
         return $total;
     }
@@ -119,7 +127,7 @@ class InstitutionService
         $departments = $this->departmentsByEducationLevel($educationLevel);
         foreach($departments as $department){
            $departmentService = new DepartmentService($department);
-           $total += $departmentService->graduationRate($sex);       
+            $total += $departmentService->graduationRate($sex);
         }
         return $total;
     }
@@ -149,7 +157,7 @@ class InstitutionService
     }
 
     function enrollmentInScienceAndTechnology(){
-        $total = 0; 
+        $total = 0;
        foreach($this->institution->bands as $band){
            if($band->bandName->band_name == "Engineering and Technology" || $band->bandName->band_name == "Natural and Computational Sciences"){
                foreach($band->colleges as $college){
@@ -174,4 +182,70 @@ class InstitutionService
         }
     }
 
+
+    function diasporaCourses($sex, $type, $educationLevel)
+    {
+        $total = 0;
+        $departments = $this->allDepartments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->diasporaCourses();
+        }
+        return $total;
+    }
+
+    function foreignStudents($sex, $type, $educationLevel)
+    {
+        $total = 0;
+        $departments = $this->departmentsByEducationLevel($educationLevel);
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->foreignStudents();
+        }
+        return $total;
+    }
+
+    function patents($sex, $type, $educationLevel)
+    {
+        $total = 0;
+        $departments = $this->allDepartments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->patents();
+        }
+        return $total;
+    }
+
+    function publicationByPostgrads($sex, $type, $educationLevel)
+    {
+        $total = 0;
+        $departments = $this->allDepartments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->publicationByPostgrads();
+        }
+        return $total;
+    }
+
+    function jointEnrollment($sex, $type, $educationLevel)
+    {
+        $total = 0;
+        $departments = $this->departmentsByEducationLevel($educationLevel);
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->jointEnrollment();
+        }
+        return $total;
+    }
+
+    function costSharings($sex, $type, $educationLevel)
+    {
+        $total = 0;
+        $departments = $this->allDepartments($educationLevel);
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->costSharings();
+        }
+        return $total;
+    }
 }
