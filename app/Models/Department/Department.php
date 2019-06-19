@@ -48,12 +48,12 @@ class Department extends Model
         return $this->hasMany('App\Models\Department\DisadvantagedStudentEnrollment');
     }
 
-    public function emergingRegion()
+    public function emergingRegions()
     {
         return $this->hasMany('App\Models\Institution\EmergingRegion');
     }
 
-    public function pastoralRegion()
+    public function pastoralRegions()
     {
         return $this->hasMany('App\Models\Institution\PastoralRegion');
     }

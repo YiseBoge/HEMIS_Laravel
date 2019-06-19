@@ -10,21 +10,107 @@ class GeneralReportService
 
     function __construct($year)
     {
-        $this->instances = Instance::where('year', $year);
+        $this->instances = Instance::where('year', $year)->get();
+    }
+
+    function institutionsByPrivacy($isPrivate){
+        $institutions = array();
+        foreach ($this->instances as $instance) {            
+            foreach ($instance->institutions as $institution) {
+                if ($institution->institutionName->is_private == $isPrivate) {
+                    $institutions[] = $institution;
+                }
+            }
+        }
+        return $institutions;
     }
 
     function privateEnrollments()
     {
-        $result = 0;
+        $total = 0;
 
-        foreach ($this->instances as $instance) {
-            foreach ($instance->institutions()->where(/* do filtering here*/) as $institution) {
-                $institutionService = new InstitutionService($institution);
-
-                //can now call all institution service methods and add them to the result
-            }
+        foreach ($this->institutionsByPrivacy(true) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            
         }
     }
 
     // and so go other functions
+
+    function enrollment($sex, $educationLevel){
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->enrollment($sex, $educationLevel);
+        }
+
+        return $total;
+    }
+
+    function specialNeedEnrollment($educationLevel){
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->specialNeedEnrollment($educationLevel);
+        }
+
+        return $total;
+    }
+
+    function disadvantagedStudentEnrollment($educationLevel){
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->disadvantagedStudentEnrollment($educationLevel);
+        }
+
+        return $total;
+    }
+
+    function emergingRegionsEnrollment($educationLevel){
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->emergingRegionsEnrollment($educationLevel);
+        }
+
+        return $total;
+    }
+
+    function ruralAreasEnrollment($educationLevel){
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->ruralAreasEnrollment($educationLevel);
+        }
+
+        return $total;
+    }
+
+    function dropout($sex, $type, $educationLevel){
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->dropout($sex, $type, $educationLevel);
+        }
+
+        return $total;
+    }
+
+    function academicDismissal($sex, $type, $educationLevel){
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->academicDismissal($sex, $type, $educationLevel);
+        }
+
+        return $total;
+    }
 }
