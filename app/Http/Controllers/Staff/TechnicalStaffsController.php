@@ -33,14 +33,15 @@ class TechnicalStaffsController extends Controller
             foreach ($institution->bands as $band) {
                 foreach ($band->colleges as $college) {
                     if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->technicalStaff as $staff) {
+                        foreach ($college->technicalStaffs as $staff) {
                             $technicalStaffs[] = $staff;
                         }
                     }
                 }
+                //return $technicalStaffs;
             }
         } else {
-            $technicalStaffs = IctStaff::all();
+            $technicalStaffs = TechnicalStaff::all();
         }
         $data = array(
             'staffs' => $technicalStaffs,
@@ -106,13 +107,13 @@ class TechnicalStaffsController extends Controller
         $staff->employment_type = $request->input('employment_type');
         $staff->dedication = $request->input('dedication');
         $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $expatriate;
+        $staff->is_expatriate = $request->has('expatriate');
         $staff->is_from_other_region = $request->has('other_region');
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
         $technicalStaff = new TechnicalStaff;
-        $technicalStaff->staff_rank = $request->input('technical_staff_rank');
+        $technicalStaff->staffRank = $request->input('technical_staff_rank');
 
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
@@ -139,7 +140,7 @@ class TechnicalStaffsController extends Controller
             $collegeName->college()->save($college);
         }
 
-        $college->technicalStaff()->save($technicalStaff);
+        $college->technicalStaffs()->save($technicalStaff);
         $technicalStaff = TechnicalStaff::find($technicalStaff->id);
         $technicalStaff->general()->save($staff);
 

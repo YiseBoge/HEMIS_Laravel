@@ -174,4 +174,16 @@ class DepartmentService
 
         return $total;
     }
+
+    function academicAttrition(){
+        $total = 0;
+        foreach ($this->department->academicStaffs as $staff){
+            if($staff->general->staffAttrition != null){
+                $total += 1;
+            }            
+        }
+
+        return $total;
+    }
+
 }
