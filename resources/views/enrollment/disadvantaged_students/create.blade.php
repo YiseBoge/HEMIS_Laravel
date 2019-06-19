@@ -10,7 +10,7 @@
                 </div>
             @endforeach
         @endif
-        <form class="pb-5" action="/enrollment/economically-disadvantaged-students" method="POST">
+        <form class="pb-5" action="/enrollment/economically-disadvantaged" method="POST">
             @csrf
             <div class="row my-5">
                 <div class="col">

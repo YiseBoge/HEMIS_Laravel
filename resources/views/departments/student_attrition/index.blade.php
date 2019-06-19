@@ -52,7 +52,7 @@
                                     <select class="form-control" name="student_type" id="student_type"
                                             onchange="this.form.submit()">
                                         @foreach ($student_types as $key => $value)
-                                            @if ($value == $selected_type)
+                                            @if ($value == $selected_student_type)
                                                 <option value="{{$value}}" selected>{{$value}}</option>
                                             @else
                                                 <option value="{{$value}}">{{$value}}</option>
