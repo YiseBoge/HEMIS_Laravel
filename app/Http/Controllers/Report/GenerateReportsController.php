@@ -15,9 +15,13 @@ use Illuminate\Support\Facades\Auth;
 class GenerateReportsController extends Controller
 {
 
+    /**
+     * Generate all institutions KPI Report.
+     *
+     * @return Response
+     */
     public function generateFullReport()
     {
-        return 'sth cool';
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
         $year = $user->currentInstance->year;
@@ -29,8 +33,14 @@ class GenerateReportsController extends Controller
         $reportService = new GeneralReportService($year);
 
         $kpi = ReportCard::getEnum('kpi')['1.1.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->enrollment('All', College::getEnum('education_level')['UNDERGRADUATE']);
@@ -38,8 +48,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['1.1.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->enrollment('All', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
@@ -49,8 +65,14 @@ class GenerateReportsController extends Controller
 
 
         $kpi = ReportCard::getEnum('kpi')['1.2.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->enrollment('Female', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
@@ -59,8 +81,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['1.2.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $yearValue->value = $reportService->enrollment('Female', College::getEnum('education_level')['UNDERGRADUATE']);
@@ -68,8 +96,14 @@ class GenerateReportsController extends Controller
 
 
         $kpi = ReportCard::getEnum('kpi')['1.3.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->specialNeedEnrollment(College::getEnum('education_level')['UNDERGRADUATE']);
@@ -77,8 +111,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['1.3.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->specialNeedEnrollment(College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
@@ -88,8 +128,14 @@ class GenerateReportsController extends Controller
 
 
         $kpi = ReportCard::getEnum('kpi')['1.4.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->disadvantagedStudentEnrollment(College::getEnum('education_level')['UNDERGRADUATE']) +
@@ -99,8 +145,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['1.5.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->emergingRegionsEnrollment(College::getEnum('education_level')['UNDERGRADUATE']) +
@@ -110,8 +162,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['1.6.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->ruralAreasEnrollment(College::getEnum('education_level')['UNDERGRADUATE']) +
@@ -121,8 +179,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['1.7.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->privateEnrollments(College::getEnum('education_level')['UNDERGRADUATE']) +
@@ -135,8 +199,14 @@ class GenerateReportsController extends Controller
         // break
 
         $kpi = ReportCard::getEnum('kpi')['2.1.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->dropout('All', 'All', College::getEnum('education_level')['UNDERGRADUATE']);
@@ -144,8 +214,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['2.1.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->dropout('All', StudentAttrition::getEnum('student_type')['ALL'], College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
@@ -155,8 +231,14 @@ class GenerateReportsController extends Controller
 
 
         $kpi = ReportCard::getEnum('kpi')['2.2.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->dropout('Female', StudentAttrition::getEnum('student_type')['ALL'], College::getEnum('education_level')['UNDERGRADUATE']);
@@ -164,8 +246,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['2.2.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->dropout('Female', StudentAttrition::getEnum('student_type')['ALL'], College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
@@ -175,8 +263,14 @@ class GenerateReportsController extends Controller
 
 
         $kpi = ReportCard::getEnum('kpi')['2.3.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->academicDismissal('All', StudentAttrition::getEnum('student_type')['ALL'], College::getEnum('education_level')['UNDERGRADUATE']);
@@ -184,8 +278,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['2.3.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->academicDismissal('All', StudentAttrition::getEnum('student_type')['ALL'], College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
@@ -195,8 +295,14 @@ class GenerateReportsController extends Controller
 
 
         $kpi = ReportCard::getEnum('kpi')['2.4.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->academicDismissal('Female', StudentAttrition::getEnum('student_type')['ALL'], College::getEnum('education_level')['UNDERGRADUATE']);
@@ -204,8 +310,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['2.4.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->academicDismissal('Female', StudentAttrition::getEnum('student_type')['ALL'], College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
@@ -215,8 +327,14 @@ class GenerateReportsController extends Controller
 
 
         $kpi = ReportCard::getEnum('kpi')['2.5.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->graduationRate('All', College::getEnum('education_level')['UNDERGRADUATE']);
@@ -224,8 +342,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['2.5.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->graduationRate('All', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
@@ -235,8 +359,14 @@ class GenerateReportsController extends Controller
 
 
         $kpi = ReportCard::getEnum('kpi')['2.6.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->graduationRate('Female', College::getEnum('education_level')['UNDERGRADUATE']);
@@ -244,8 +374,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['2.6.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->graduationRate('Female', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
@@ -255,8 +391,14 @@ class GenerateReportsController extends Controller
 
 
         $kpi = ReportCard::getEnum('kpi')['2.7.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->dropout('All', StudentAttrition::getEnum('student_type')['SPECIAL_NEED_STUDENTS'], College::getEnum('education_level')['UNDERGRADUATE']) +
@@ -266,8 +408,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['2.8.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->dropout('All', StudentAttrition::getEnum('student_type')['ECONOMICALLY_DISADVANTAGED_STUDENTS'], College::getEnum('education_level')['UNDERGRADUATE']) +
@@ -277,8 +425,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['2.9.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->dropout('All', StudentAttrition::getEnum('student_type')['EMERGING_REGION_STUDENTS'], College::getEnum('education_level')['UNDERGRADUATE']) +
@@ -289,29 +443,47 @@ class GenerateReportsController extends Controller
 
 
         $kpi = ReportCard::getEnum('kpi')['2.10.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->academicAttrition();
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['2.10.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->nonAcademicAttrition();
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
 
         // break
 
         $kpi = ReportCard::getEnum('kpi')['3.1.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->qualifiedStaff();
@@ -319,8 +491,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['3.1.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $yearValue->value = 0 /* calculated value here */
@@ -329,8 +507,14 @@ class GenerateReportsController extends Controller
 
 
         $kpi = ReportCard::getEnum('kpi')['3.2.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->exitExamination();
@@ -338,8 +522,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['3.3.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->degreeEmployment();
@@ -347,8 +537,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['3.4.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->enrollmentInScienceAndTechnology();
@@ -359,8 +555,14 @@ class GenerateReportsController extends Controller
         // break
 
         $kpi = ReportCard::getEnum('kpi')['4.1.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->academicStaffPublication();
@@ -368,8 +570,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['4.1.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->publicationByPostgrads();
@@ -377,8 +585,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['4.1.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->patents();
@@ -389,8 +603,14 @@ class GenerateReportsController extends Controller
         // break
 
         $kpi = ReportCard::getEnum('kpi')['5.1.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->academicStaffRate('Female', false);
@@ -398,8 +618,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['5.2.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $yearValue->value = 0 /* calculated value here */
@@ -407,8 +633,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['5.3.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $yearValue->value = 0 /* calculated value here */
@@ -416,17 +648,28 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['5.4.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $reportService->academicStaffRate('All', true);
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['5.5.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $yearValue->value = 0 /* calculated value here */
@@ -434,8 +677,14 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['5.6.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $yearValue->value = 0 /* calculated value here */
@@ -446,8 +695,14 @@ class GenerateReportsController extends Controller
         // break
 
         $kpi = ReportCard::getEnum('kpi')['6.1.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->diasporaCourses();
@@ -456,8 +711,14 @@ class GenerateReportsController extends Controller
 
 
         $kpi = ReportCard::getEnum('kpi')['6.2.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->foreignStudents(College::getEnum('education_level')['UNDERGRADUATE']) +
@@ -467,18 +728,32 @@ class GenerateReportsController extends Controller
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['6.2.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->jointEnrollment(College::getEnum('education_level')['UNDERGRADUATE']) +
+            $reportService->jointEnrollment(College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
+            $reportService->jointEnrollment(College::getEnum('education_level')['POST_GRADUATE_PHD']);
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
 
         $kpi = ReportCard::getEnum('kpi')['6.3.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->expatriateStaff();
@@ -489,26 +764,44 @@ class GenerateReportsController extends Controller
         // break
 
         $kpi = ReportCard::getEnum('kpi')['7.1.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->budgetNotFromGovernment();
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['7.2.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->nonUtilizedFunds();
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['7.3.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get();
-        $value = $rep->reportYearValues()->where('year', $year)->get();
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) {
+            if ($val->year == $year) {
+                $value = $val;
+            }
+        }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
         $total = $reportService->costSharings();
@@ -519,7 +812,7 @@ class GenerateReportsController extends Controller
     }
 
     /**
-     * Generate all institutions KPI Report.
+     * Generate specific institution KPI Report.
      *
      * @return Response
      */

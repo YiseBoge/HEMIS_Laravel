@@ -101,7 +101,7 @@ class GeneralReportService
         }
 
         $totalEnrollments = $this->enrollment("All", $educationLevel);
-
+        if ($totalEnrollments == 0) return 0;
         return $total / $totalEnrollments;
     }
 
@@ -123,7 +123,7 @@ class GeneralReportService
 
         foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
-            $total += $institutionService->academicDismissal($sex, $type, $educationLevel);
+            $total = $institutionService->academicDismissal($sex, $type, $educationLevel);
         }
 
         return $total;
@@ -199,6 +199,7 @@ class GeneralReportService
         }
 
         $totalEnrollments = $this->enrollment("All", $educationLevel);
+        if ($totalEnrollments == 0) return 0;
 
         return $total / $totalEnrollments;
     }
@@ -236,6 +237,7 @@ class GeneralReportService
             $totalBudget += $institutionService->totalBudget();
         }
 
+        if ($totalBudget == 0) return 0;
         return $total / $totalBudget;
     }
 

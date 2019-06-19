@@ -17,13 +17,18 @@ class InstitutionService
 
     function departmentsByEducationLevel($educationLevel)
     {
+        $departments = array();
         foreach ($this->institution->bands as $band) {
             foreach ($band->colleges as $college) {
                 if ($college->education_level == $educationLevel) {
-                    return $college->departments;
+                    foreach ($college->departments as $department) {
+                        array_push($departments, $department);
+                    }
+
                 }
             }
         }
+        return $departments;
     }
 
     function institutionsByPrivacy($isPrivate)
@@ -42,20 +47,28 @@ class InstitutionService
 
     function allDepartments()
     {
+        $departments = array();
         foreach ($this->institution->bands as $band) {
             foreach ($band->colleges as $college) {
-                return $college->departments;
+                foreach ($college->departments as $department) {
+                    array_push($departments, $department);
+                }
             }
         }
+        return $departments;
     }
 
     function departments()
     {
+        $departments = array();
         foreach ($this->institution->bands as $band) {
             foreach ($band->colleges as $college) {
-                return $college->departments;
+                foreach ($college->departments as $department) {
+                    array_push($departments, $department);
+                }
             }
         }
+        return $departments;
     }
 
     function enrollment($sex, $educationLevel)
@@ -326,28 +339,28 @@ class InstitutionService
     function nonAcademicAttrition(){
         $total = 0;
         foreach($this->institution->bands as $band){
-            foreach($band->colleges as $college){                
-                foreach($college->technicalStaffs as $budget){
+            foreach($band->colleges as $college){
+                foreach ($college->technicalStaffs as $staff) {
                     if($staff->general->staffAttrition != null){
                         $total += 1;
                     }
                 }
-                foreach($college->managementStaffs as $budget){
+                foreach ($college->managementStaffs as $staff) {
                     if($staff->general->staffAttrition != null){
                         $total += 1;
                     }
                 }
-                foreach($college->administrativeStaffs as $budget){
+                foreach ($college->administrativeStaffs as $staff) {
                     if($staff->general->staffAttrition != null){
                         $total += 1;
                     }
                 }
-                foreach($college->ictStaffs as $budget){
+                foreach ($college->ictStaffs as $staff) {
                     if($staff->general->staffAttrition != null){
                         $total += 1;
                     }
                 }
-                foreach($college->supportiveStaffs as $budget){
+                foreach ($college->supportiveStaffs as $staff) {
                     if($staff->general->staffAttrition != null){
                         $total += 1;
                     }

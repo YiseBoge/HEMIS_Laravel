@@ -80,9 +80,9 @@ Route::resource('department/teachers', 'Department\TeachersController');
 Route::resource('department/expatriate-staff', 'Department\ExpatriateStaffsController');
 Route::resource('department/diaspora-courses', 'Department\DiasporaCoursesController');
 
-Route::resource('report', 'Report\ReportsController');
 Route::get('/report/generate-full-report', 'Report\GenerateReportsController@generateFullReport');
 Route::get('/report/generate-institution-report', 'Report\GenerateReportsController@generateInstitutionReport');
+Route::resource('report', 'Report\ReportsController');
 
 Route::get('/admin', function () {
     return view('admin.index');
