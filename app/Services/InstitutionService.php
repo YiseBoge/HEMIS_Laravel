@@ -25,6 +25,13 @@ class InstitutionService
         }
     }
 
+    function department(){
+        foreach ($this->institution->bands as $band){
+            foreach ($band->colleges as $college){
+                return $college->departments;
+            }
+        }
+    }
     function enrollment($sex, $educationLevel){
         $total = 0;
         $departments = $this->departmentsByEducationLevel($educationLevel);
@@ -94,4 +101,35 @@ class InstitutionService
         }
         return $total;
     }
+
+    function expatriateStaff(){
+        $total = 0;
+        $departments = $this ->department();
+        foreach ($departments as $department){
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->academicExpatriateStaff();
+        }
+        return $total;
+    }
+
+    function academicStaffPublication(){
+        $total = 0;
+        $departments = $this ->department();
+        foreach ($departments as $department){
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->academicStaffPublication();
+        }
+        return $total;
+    }
+
+    function academicStaffRate($sex,$otherRegion){
+        $total = 0;
+        $departments = $this ->department();
+        foreach ($departments as $department){
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->academicStaffRate($sex,$otherRegion);
+        }
+        return $total;
+    }
+
 }

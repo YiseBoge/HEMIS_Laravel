@@ -56,7 +56,7 @@ class EnrollmentsController extends Controller
                                         if ($enrollment->student_type == $requestedType) {
                                             if($department->year_level == 1){
                                                 $service = new GeneralReportService("2018/19");
-                                                return $service->enrollment("All", "Undergraduate");
+                                                return $service->expatriateStaff();
                                             } 
                                             $enrollments[] = $enrollment;
                                         }

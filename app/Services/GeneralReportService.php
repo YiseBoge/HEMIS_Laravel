@@ -113,4 +113,37 @@ class GeneralReportService
 
         return $total;
     }
+
+    function expatriateStaff(){
+        $total=0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution){
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->expatriateStaff();
+        }
+
+        return $total;
+    }
+
+    function academicStaffPublication(){
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution){
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->academicStaffPublication();
+        }
+
+        return $total;
+    }
+
+    function academicStaffRate($sex,$otherRegion){
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution){
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->academicStaffRate($sex,$otherRegion);
+        }
+
+        return $total;
+    }
 }
