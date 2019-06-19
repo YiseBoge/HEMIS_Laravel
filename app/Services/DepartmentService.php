@@ -93,6 +93,14 @@ class DepartmentService
         return $total;
     }
 
+    public function publicationByPostgrads(){
+        $total = 0;
+        foreach($this->department->publicationsAndPatents as $pubAndPatent){
+            $total += $pubAndPatent->student_publications;
+        }
+        return $total;
+    }
+
     public function jointEnrollment(){
         $total = 0 ;
         foreach($this->department->jointProgramEnrollments as $jointEnrollment){

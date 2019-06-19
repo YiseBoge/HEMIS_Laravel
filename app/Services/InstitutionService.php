@@ -125,10 +125,20 @@ class InstitutionService
 
     function patents($sex, $type, $educationLevel){
         $total = 0;
-        $departments = $this->allDepartments();
+        $departments =  $this->allDepartments();
         foreach($departments as $department){
            $departmentService = new DepartmentService($department);
            $total += $departmentService->patents();       
+        }
+        return $total;
+    }
+
+    function publicationByPostgrads($sex, $type, $educationLevel){
+        $total = 0;
+        $departments =  $this->allDepartments();
+        foreach($departments as $department){
+           $departmentService = new DepartmentService($department);
+           $total += $departmentService->publicationByPostgrads();       
         }
         return $total;
     }
