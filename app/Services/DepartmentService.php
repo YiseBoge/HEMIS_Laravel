@@ -16,11 +16,9 @@ class DepartmentService
     // functions go here dependent on the department
     // can make functions to take in strings 'postgraduate', or 'undergraduate' then return accordingly
 
-<<<<<<< HEAD
     public function foreignStudents(){
         return $this->department->foreignStudents->count();
     }
-=======
     function enrollment($sex){
         $total = 0;
         foreach ($this->department->enrollments as $enrollment){
@@ -87,5 +85,4 @@ class DepartmentService
     }
 
     
->>>>>>> f4a9039ac9efb967ae767dcc9f1c43d2c3641e37
 }
