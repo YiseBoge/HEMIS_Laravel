@@ -19,10 +19,7 @@ class ReportsController extends Controller
     public function index()
     {
 //        foreach (ReportCard::all() as $rep){
-//            $yearValue = new ReportYearValue();
-//            $yearValue->year = '2018';
-//            $yearValue->value = 40;
-//            $rep->reportYearValues()->save($yearValue);
+//
 //        }
         $reports = ReportCard::groupedReports();
         $card = ReportCard::all()->sortBy('year')->first();
