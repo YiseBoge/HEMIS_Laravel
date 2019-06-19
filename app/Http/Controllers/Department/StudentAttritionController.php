@@ -179,7 +179,7 @@ class StudentAttritionController extends Controller
 
         $department->studentAttritions()->save($attrition);
 
-        return redirect("/institution/student-attrition");
+        return redirect("/student/student-attrition");
     }
 
     /**
