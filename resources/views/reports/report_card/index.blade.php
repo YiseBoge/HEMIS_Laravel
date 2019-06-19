@@ -4,11 +4,14 @@
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
             <div class="text-primary card-header">Reports</div>
-            <div class="card-body px-4">
+            <div class="card-body">
                 <div class="row my-3">
                     <div class="col-sm text-right">
-                        <a class="btn btn-outline-primary btn-sm mb-0" href="">Print to PDF<i
-                                    class="fas fa-arrow-right ml-2"></i></a>
+                        <button type="button" class="btn btn-outline-primary btn-sm mb-0" id="exporter">
+                            Export to Excel<i class="far fa-file-excel d-inline-block m-1"></i></button>
+                        <button type="button" class="btn btn-outline-primary btn-sm mb-0 mx-1"
+                                onclick="printJS({ printable: 'printable', type: 'html', css: '/css/app.css', documentTitle: 'KPI Indicators - MoSHE', ignoreElements: ['unprint'] }) ">
+                            Print to PDF<i class="far fa-file-pdf d-inline-block m-1"></i></button>
                     </div>
                 </div>
                 <div class="row">
@@ -16,26 +19,20 @@
                         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered"
-                                           id="dataTable"
+                                    <table id="printable"
+                                           class="table table-bordered responsive"
                                            width="100%"
-                                           cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                           style="width: 100%;">
+                                           cellspacing="0" role="grid" aria-describedby="dataTable_info">
 
                                         <thead>
                                         <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                                rowspan="1" colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending">Policy
+                                            <th style="min-width: 100px;">Policy
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="KPI: activate to sort column ascending">Key
+                                            <th style="min-width: 100px;">Key
                                                 Performance Indicators (KPI)
                                             </th>
                                             @foreach($years as $year)
-                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="Year: activate to sort column ascending">{{ $year->year }}
+                                                <th style="min-width: 100px;">{{ $year->year }}
                                                 </th>
                                             @endforeach
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
@@ -45,8 +42,10 @@
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Year: activate to sort column ascending">Change
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Year: activate to sort column ascending">
+                                            <th class="sorting hide-print" tabindex="0" aria-controls="dataTable"
+                                                rowspan="1"
+                                                colspan="1" aria-label="Year: activate to sort column ascending"
+                                                id="unprint">
                                             </th>
                                         </tr>
                                         </thead>
@@ -92,7 +91,7 @@
                                                                 <p class="text-warning">{{$kpi->change()}}%</p>
                                                             @endif
                                                         </td>
-                                                        <td>
+                                                        <td class="hide-print" id="unprint">
                                                             <a href="/report/{{ $kpi->id }}/edit"
                                                                class="mr-3 text-muted" data-toggle="tooltip"
                                                                title="Edit Target">
@@ -157,7 +156,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md alert alert-secondary pl-4">
-                                {{\App\Models\Report\ReportCard::getValueKey(\App\Models\Report\ReportCard::getEnum('kpi'), $report->kpi)}}
+                                {{ \App\Models\Report\ReportCard::getValueKey(\App\Models\Report\ReportCard::getEnum('kpi'), $report->kpi) }}
                                 {{ $report->kpi }}
                             </div>
                         </div>
@@ -209,5 +208,4 @@
             </div>
         </div>
     </div>
-
 @endSection

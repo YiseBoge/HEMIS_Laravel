@@ -55,6 +55,8 @@ class ExpatriateStaffsController extends Controller
                             foreach ($college->departments as $department) {
                                 foreach ($department->academicStaffs as $staff) {
                                     if (strtoupper($staff->staff_rank) == $requestedLevel) {
+                                        $service = new GeneralReportService("2018/19");
+                                        return $service->expatriateStaff();
                                         $filteredExpatriates[] = $staff;
                                     }
                                 }
