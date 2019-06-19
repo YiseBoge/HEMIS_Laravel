@@ -81,7 +81,7 @@ class DepartmentService
         return $total;
     }
 
-<<<<<<< HEAD
+
     public function foreignStudents(){
         return $this->department->foreignStudents()->count();
     }
@@ -90,17 +90,19 @@ class DepartmentService
         $total = 0;
         foreach($this->department->publicationsAndPatents as $pubAndPatent){
             $total += $pubAndPatent->patents;
-=======
-    function exitExamination(){
-        $total = 0;
-        foreach ($this->department->exitExaminations as $enrollment){
-            $total += $enrollment->male_students_number + $enrollment->female_students_number;
->>>>>>> eda7beca72d766b65be945fa972d5a737e1e88b4
         }
         return $total;
     }
 
-<<<<<<< HEAD
+    function exitExamination(){
+        $total = 0;
+        foreach ($this->department->exitExaminations as $enrollment){
+            $total += $enrollment->male_students_number + $enrollment->female_students_number;
+        }
+        return $total;
+    }
+
+
     public function publicationByPostgrads(){
         $total = 0;
         foreach($this->department->publicationsAndPatents as $pubAndPatent){
@@ -137,15 +139,13 @@ class DepartmentService
 
     
 
-=======
     function degreeEmployment(){
         $total = 0;
         foreach ($this->department->degreeEmployments as $enrollment){
             $total += $enrollment->male_students_number + $enrollment->female_students_number;
         }
         return $total;
-    }  
->>>>>>> eda7beca72d766b65be945fa972d5a737e1e88b4
+    }
     
     function graduationRate($sex){
         $total = 0;

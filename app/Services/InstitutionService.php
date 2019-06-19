@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Institution\Institution;
-use App\Models\Staff\AcademicStaff;
 
 class InstitutionService
 {
@@ -26,17 +25,19 @@ class InstitutionService
         }
     }
 
-<<<<<<< HEAD
+
     function allDepartments(){
         foreach($this->institution->bands as $band){
             foreach($band->colleges as $college){
                    return $college->departments;
-=======
+            }
+        }
+    }
+
     function departments(){
         foreach($this->institution->bands as $band){
             foreach($band->colleges as $college){
                 return $college->departments;
->>>>>>> eda7beca72d766b65be945fa972d5a737e1e88b4
             }
         }
     }
@@ -131,7 +132,7 @@ class InstitutionService
         return $total;
     }
 
-<<<<<<< HEAD
+
     function diasporaCourses($sex, $type, $educationLevel){
         $total = 0;
         $departments = $this->allDepartments();
@@ -191,7 +192,7 @@ class InstitutionService
         }
         return $total;
     }
-=======
+
     function qualifiedStaff(){
         $total = 0;
         $departments = $this->departments();
@@ -241,6 +242,4 @@ class InstitutionService
             }
         }
     }
-
->>>>>>> eda7beca72d766b65be945fa972d5a737e1e88b4
 }
