@@ -31,19 +31,6 @@ class InstitutionService
         return $departments;
     }
 
-    function institutionsByPrivacy($isPrivate)
-    {
-        $institutions = array();
-        foreach ($this->instances as $instance) {
-            foreach ($instance->institutions as $institution) {
-                if ($institution->institutionName->is_private == $isPrivate) {
-                    $institutions[] = $institution;
-                }
-            }
-        }
-        return $institutions;
-    }
-
 
     function allDepartments()
     {
@@ -373,48 +360,35 @@ class InstitutionService
     function academicDismissal($sex, $type, $educationLevel)
     {
         $total = 0;
-
-        foreach ($this->institutionsByPrivacy(false) as $institution) {
-            $institutionService = new InstitutionService($institution);
-            $total = $institutionService->academicDismissal($sex, $type, $educationLevel);
+        $departments = $this->departmentsByEducationLevel($educationLevel);
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->academicDismissal($sex, $type);
         }
-
         return $total;
     }
 
     function expatriateStaff()
     {
         $total = 0;
-
-        foreach ($this->institutionsByPrivacy(false) as $institution) {
-            $institutionService = new InstitutionService($institution);
-            $total = $institutionService->expatriateStaff();
+        $departments = $this->departments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->academicExpatriateStaff();
         }
-
         return $total;
     }
 
     function academicStaffPublication()
     {
         $total = 0;
-
-        foreach ($this->institutionsByPrivacy(false) as $institution) {
-            $institutionService = new InstitutionService($institution);
-            $total = $institutionService->academicStaffPublication();
+        $departments = $this->departments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->academicStaffPublication();
         }
-
         return $total;
     }
 
-    function academicStaffRate($sex, $otherRegion)
-    {
-        $total = 0;
-
-        foreach ($this->institutionsByPrivacy(false) as $institution) {
-            $institutionService = new InstitutionService($institution);
-            $total = $institutionService->academicStaffRate($sex, $otherRegion);
-        }
-
-        return $total;
-    }
+    
 }
