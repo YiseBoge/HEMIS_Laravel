@@ -241,11 +241,45 @@ class InstitutionService
     function costSharings($sex, $type, $educationLevel)
     {
         $total = 0;
-        $departments = $this->allDepartments($educationLevel);
+        $departments = $this->allDepartments();
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
             $total += $departmentService->costSharings();
         }
         return $total;
     }
+
+    function expatriateStaff()
+    {
+        $total = 0;
+        $departments = $this->departments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->academicExpatriateStaff();
+        }
+        return $total;
+    }
+
+    function academicStaffPublication()
+    {
+        $total = 0;
+        $departments = $this->departments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->academicStaffPublication();
+        }
+        return $total;
+    }
+
+    function academicStaffRate($sex, $otherRegion)
+    {
+        $total = 0;
+        $departments = $this->departments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->academicStaffRate($sex, $otherRegion);
+        }
+        return $total;
+    }
+
 }

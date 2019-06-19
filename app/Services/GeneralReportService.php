@@ -40,6 +40,7 @@ class GeneralReportService
         return $total;
     }
 
+    // and so go other functions
 
     function enrollment($sex, $educationLevel){
         $total = 0;
@@ -120,10 +121,46 @@ class GeneralReportService
         return $total;
     }
 
+    function expatriateStaff()
+    {
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->expatriateStaff();
+        }
+
+        return $total;
+    }
+
+    function academicStaffPublication()
+    {
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->academicStaffPublication();
+        }
+
+        return $total;
+    }
+
+    function academicStaffRate($sex, $otherRegion)
+    {
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->academicStaffRate($sex, $otherRegion);
+        }
+
+        return $total;
+    }
+
     function exitExamination(){
         $total = 0;
 
-        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
             $total = $institutionService->exitExamination();
         }
@@ -134,7 +171,7 @@ class GeneralReportService
     function degreeEmployment(){
         $total = 0;
 
-        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
             $total = $institutionService->degreeEmployment();
         }
@@ -145,7 +182,7 @@ class GeneralReportService
     function graduationRate($sex, $educationLevel){
         $total = 0;
 
-        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
             $total = $institutionService->graduationRate($sex, $educationLevel);
         }
@@ -158,7 +195,7 @@ class GeneralReportService
     function qualifiedStaff(){
         $total = 0;
 
-        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
             $total = $institutionService->qualifiedStaff();
         }
@@ -169,7 +206,7 @@ class GeneralReportService
     function enrollmentInScienceAndTechnology(){
         $total = 0;
 
-        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
             $total = $institutionService->enrollmentInScienceAndTechnology();
         }
@@ -178,6 +215,6 @@ class GeneralReportService
     }
 
     function budgetNotFromGovernment(){
-        
+
     }
 }
