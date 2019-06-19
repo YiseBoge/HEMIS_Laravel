@@ -10,7 +10,7 @@ use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\Enrollment;
-use App\Services\InstitutionService;
+use App\Services\GeneralReportService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -55,8 +55,8 @@ class EnrollmentsController extends Controller
                                     foreach ($department->enrollments as $enrollment) {
                                         if ($enrollment->student_type == $requestedType) {
                                             if($department->year_level == 1){
-                                                $service = new InstitutionService($institution);
-                                                return $service->academicDismissal("All", "All", "Undergraduate");
+                                                $service = new GeneralReportService("2018/19");
+                                                return $service->enrollment("All", "Undergraduate");
                                             } 
                                             $enrollments[] = $enrollment;
                                         }
