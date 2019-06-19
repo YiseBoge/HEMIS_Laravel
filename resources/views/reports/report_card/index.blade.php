@@ -11,15 +11,13 @@
                                     class="fas fa-arrow-right ml-2"></i></a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="table-responsive col-12 py-3">
+                <div class="row px-3">
+                    <div class="table-responsive">
                         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered"
-                                           width="100%"
-                                           cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                           style="width: 100%;">
+                                    <table class="table table-bordered dataTable" id="dataTable"
+                                           cellspacing="0" role="grid" aria-describedby="dataTable_info">
 
                                         <thead>
                                         <tr role="row">
@@ -203,5 +201,4 @@
             </div>
         </div>
     </div>
-
 @endSection

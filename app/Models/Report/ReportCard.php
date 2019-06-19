@@ -137,7 +137,7 @@ class ReportCard extends Model
         '4.1.3' => '% increase in the number of patent earned',
 
         '5.1.1' => 'Increase in the % share of females from the total number of academic staff',
-        '5.2.1' => 'Increase in the % of females from total number of management staff',
+        '5.2.1' => 'Increase in the % share of females from total number of management staff',
         '5.3.1' => 'Increase in the % share of females from total student enrollment',
         '5.4.1' => '% increase in the share of academic staff who come from regions other than the region that host the institution from the total',
         '5.5.1' => '% increase in the share of management staff who come from regions other than the region that host the institution from the total staff',
