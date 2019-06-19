@@ -25,14 +25,16 @@ class GeneralReportService
         return $institutions;
     }
 
-    function privateEnrollments()
+    function privateEnrollments($educationLevel)
     {
         $total = 0;
 
         foreach ($this->institutionsByPrivacy(true) as $institution) {
             $institutionService = new InstitutionService($institution);
-            
+            $total = $institutionService->enrollment('All', $educationLevel);
         }
+
+        return $total;
     }
 
     // and so go other functions
