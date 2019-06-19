@@ -112,6 +112,45 @@ class DepartmentService
         return $total;
     }
 
+    function academicExpatriateStaff()
+    {
+        $total = 0;
+        foreach ($this->department->academicStaffs as $academicStaff) {
+            if ($academicStaff->general->is_expatriate == true) {
+                $total = $total + 1;
+            }
+        }
+        return $total;
+
+    }
+
+    function academicStaffPublication()
+    {
+        $total = 0;
+        foreach ($this->department->academicStaffs as $academicStaff) {
+            foreach ($academicStaff->publications as $publication) {
+                $total = $total + 1;
+            }
+        }
+        return $total;
+    }
+
+    function academicStaffRate($sex, $otherRegion)
+    {
+        $total = 0;
+        foreach ($this->department->academicStaffs as $academicStaff) {
+            if ($otherRegion == true) {
+                if ($academicStaff->general->sex == $sex && $academicStaff->general->is_from_other_region == 1) {
+                    $total = $total + 1;
+                }
+            } else {
+                if ($academicStaff->general->sex == $sex && $academicStaff->general->is_from_other_region == 0) {
+                    $total = $total + 1;
+                }
+            }
+        }
+        return $total;
+    }
 
     public function publicationByPostgrads()
     {

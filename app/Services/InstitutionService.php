@@ -392,7 +392,7 @@ class InstitutionService
 
     function academicStaffRate($sex,$otherRegion){
         $total = 0;
-        $departments = $this ->department();
+        $departments = $this->departments();
         foreach ($departments as $department){
             $departmentService = new DepartmentService($department);
             $total += $departmentService->academicStaffRate($sex,$otherRegion);
