@@ -16,9 +16,6 @@ class DepartmentService
     // functions go here dependent on the department
     // can make functions to take in strings 'postgraduate', or 'undergraduate' then return accordingly
 
-    public function foreignStudents(){
-        return $this->department->foreignStudents->count();
-    }
     function enrollment($sex){
         $total = 0;
         foreach ($this->department->enrollments as $enrollment){
@@ -83,6 +80,46 @@ class DepartmentService
         }
         return $total;
     }
+
+    public function foreignStudents(){
+        return $this->department->foreignStudents()->count();
+    }
+
+    public function patents(){
+        $total = 0;
+        foreach($this->department->publicationsAndPatents as $pubAndPatent){
+            $total += $pubAndPatent->patents;
+        }
+        return $total;
+    }
+
+    public function jointEnrollment(){
+        $total = 0 ;
+        foreach($this->department->jointProgramEnrollments as $jointEnrollment){
+            $total += $jointEnrollment->male_students_number + $jointEnrollment->female_students_number;
+        }
+        return $total;
+    }
+
+    public function diasporaCourses(){
+        $total = 0;
+        foreach($this->department->diasporaCourses as $diasporaCourse){
+            // die('Course I');
+            $total += $diasporaCourse->number_of_courses + $diasporaCourse->number_of_researches;
+        }
+        return $total;
+    }
+
+    public function costSharings(){
+        $total = 0;
+        foreach($this->department->costSharings as $costSharing){
+            // die('Course I');
+            $total += $costSharing->pre_payment_amount;
+        }
+        return $total;
+    }
+
+    
 
     
 }

@@ -25,6 +25,14 @@ class InstitutionService
         }
     }
 
+    function allDepartments(){
+        foreach($this->institution->bands as $band){
+            foreach($band->colleges as $college){
+                   return $college->departments;
+            }
+        }
+    }
+
     function enrollment($sex, $educationLevel){
         $total = 0;
         $departments = $this->departmentsByEducationLevel($educationLevel);
@@ -91,6 +99,56 @@ class InstitutionService
         foreach($departments as $department){
            $departmentService = new DepartmentService($department);
            $total += $departmentService->academicDismissal($sex, $type);       
+        }
+        return $total;
+    }
+
+    function diasporaCourses($sex, $type, $educationLevel){
+        $total = 0;
+        $departments = $this->allDepartments();
+        foreach($departments as $department){
+           $departmentService = new DepartmentService($department);
+           $total += $departmentService->diasporaCourses();       
+        }
+        return $total;
+    }
+
+    function foreignStudents($sex, $type, $educationLevel){
+        $total = 0;
+        $departments = $this->departmentsByEducationLevel($educationLevel);
+        foreach($departments as $department){
+           $departmentService = new DepartmentService($department);
+           $total += $departmentService->foreignStudents();       
+        }
+        return $total;
+    }
+
+    function patents($sex, $type, $educationLevel){
+        $total = 0;
+        $departments = $this->allDepartments();
+        foreach($departments as $department){
+           $departmentService = new DepartmentService($department);
+           $total += $departmentService->patents();       
+        }
+        return $total;
+    }
+
+    function jointEnrollment($sex, $type, $educationLevel){
+        $total = 0;
+        $departments = $this->departmentsByEducationLevel($educationLevel);
+        foreach($departments as $department){
+           $departmentService = new DepartmentService($department);
+           $total += $departmentService->jointEnrollment();       
+        }
+        return $total;
+    }
+
+    function costSharings($sex, $type, $educationLevel){
+        $total = 0;
+        $departments = $this->allDepartments($educationLevel);
+        foreach($departments as $department){
+           $departmentService = new DepartmentService($department);
+           $total += $departmentService->costSharings();       
         }
         return $total;
     }
