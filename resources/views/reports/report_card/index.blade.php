@@ -17,7 +17,7 @@
                             <i class="far fa-file-excel d-inline-block m-1 mr-2"></i>Export to Excel
                         </button>
                         <button type="button" class="btn btn-outline-primary btn-sm mb-0 mx-1" style="font-size: 1em"
-                                onclick="printJS({ printable: 'printable', type: 'html', css: '/css/app.css', documentTitle: 'KPI Indicators - MoSHE', ignoreElements: ['unprint'] }) ">
+                                onclick="printJS({ printable: 'printable', type: 'html', css: '/css/app.css', documentTitle: 'KPI (Key Performance Indicators) - MoSHE', ignoreElements: ['unprint'] }) ">
                             <i class="far fa-file-pdf d-inline-block m-1 mr-2"></i>Print to PDF
                         </button>
                     </div>
@@ -81,7 +81,7 @@
                                                         </td>
                                                         @foreach($kpi->reportYearValues as $yearValue)
                                                             <td>
-                                                                {{ $yearValue->value }}
+                                                                {{ round($yearValue->value, 3) }}
                                                             </td>
                                                         @endforeach
                                                         <td>
@@ -148,7 +148,7 @@
                                     <p class="h3 text-danger">{{$report->change()}}%<i
                                                 class="fa fa-caret-down d-inline-block ml-2"></i></p>
                                 @else
-                                    <p class="h3 text-warning">{{$report->change()}}%(stagnant)</p>
+                                    <p class="h3 text-warning">{{$report->change()}}%</p>
                                 @endif
                             </div>
                         </div>

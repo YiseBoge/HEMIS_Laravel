@@ -389,12 +389,7 @@ class GeneralReportService
             $this->enrollmentsRate("All", College::getEnum('education_level')['POST_GRADUATE_PHD']);
 
         $selected = $this->qualifiedStaff();
-        foreach ($this->institutionsByPrivacy(false) as $institution) {
-            $institutionService = new InstitutionService($institution);
-            $total += $institutionService->allEnrollment();
 
-            $selected += $institutionService->enrollmentsRate($sex, $otherRegion);
-        }
         $returnable = $total == 0 ? 0 : $selected / $total;
 
         return $returnable;
