@@ -337,7 +337,7 @@ class InstitutionService
                         $total += 1;
                     }
                 }
-                foreach ($college->administrativeStaffs as $staff) {
+                foreach ($this->institution->adminAndNonAcademicStaff as $staff) {
                     if($staff->general->staffAttrition != null){
                         $total += 1;
                     }
