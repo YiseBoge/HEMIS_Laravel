@@ -128,20 +128,15 @@
         </div>
     </div>
 
-    <script
-    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-    crossorigin="anonymous"></script>
-
     <script>
             var url = "{{url('enrollment/student-enrollment-chart?student_type=' . $selected_student_type . '&college=' . $selected_college . '&band=' . $selected_band . '&program=' . $selected_program . '&education_level=' . $selected_education_level . '&department=' . $selected_department )}}";
-            var Enrollments = new Array();
-            var Years = new Array();
+            var Enrollments = [];
+            var Years = [];
             $(document).ready(function(){
                 $.get(url, function(response){
-                    Enrollments = response.enrollments
-                    Years = response.year_levels
-                    alert(Enrollments)
+                    Enrollments = response.enrollments;
+                    Years = response.year_levels;
+                    alert(Enrollments);
                     var ctx = document.getElementById('enrollment').getContext('2d');
                     var chart = new Chart(ctx, {
                         // The type of chart we want to create

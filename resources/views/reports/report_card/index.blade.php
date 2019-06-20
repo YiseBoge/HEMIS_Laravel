@@ -4,38 +4,30 @@
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
             <div class="text-primary card-header">Reports</div>
-            <div class="card-body px-4">
+            <div class="card-body">
                 <div class="row my-3">
                     <div class="col-sm text-right">
-                        <a class="btn btn-outline-primary btn-sm mb-0" href="">Print to PDF<i
+                        <a class="btn btn-outline-primary btn-sm mb-0" href="">Print<i
                                     class="fas fa-arrow-right ml-2"></i></a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="table-responsive col-12 py-3">
+                <div class="row px-3">
+                    <div class="table-responsive">
                         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered"
-                                           id="dataTable"
-                                           width="100%"
-                                           cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                           style="width: 100%;">
+                                    <table class="table table-bordered dataTable" id="dataTable"
+                                           cellspacing="0" role="grid" aria-describedby="dataTable_info">
 
                                         <thead>
                                         <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                                rowspan="1" colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending">Policy
+                                            <th style="min-width: 100px;">Policy
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="KPI: activate to sort column ascending">Key
+                                            <th style="min-width: 100px;">Key
                                                 Performance Indicators (KPI)
                                             </th>
                                             @foreach($years as $year)
-                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="Year: activate to sort column ascending">{{ $year->year }}
+                                                <th style="min-width: 100px;">{{ $year->year }}
                                                 </th>
                                             @endforeach
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
@@ -157,7 +149,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md alert alert-secondary pl-4">
-                                {{\App\Models\Report\ReportCard::getValueKey(\App\Models\Report\ReportCard::getEnum('kpi'), $report->kpi)}}
+                                {{ \App\Models\Report\ReportCard::getValueKey(\App\Models\Report\ReportCard::getEnum('kpi'), $report->kpi) }}
                                 {{ $report->kpi }}
                             </div>
                         </div>
@@ -209,5 +201,4 @@
             </div>
         </div>
     </div>
-
 @endSection

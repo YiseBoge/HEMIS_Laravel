@@ -50,10 +50,10 @@ class ReportCardsTableSeeder extends Seeder
             '4.1' => '4.1	Improve quality, relevance and accessibility of higher education research and research outputs',
 
             '5.1' => '5.1   Improve gender diversity of academic staff ',
-            '5.2' => '5.2	Improve gender diversity of university management staff at all levels (lower, middle, senior levels)',
+            '5.2' => '5.2	Improve gender diversity of university management staff at all levels',
             '5.3' => '5.3	Improve gender diversity of students',
             '5.4' => '5.4	Improve regional diversity of academic staff',
-            '5.5' => '5.5	Improve regional diversity of management staff at all levels (lower, middle, senior levels)',
+            '5.5' => '5.5	Improve regional diversity of management staff at all levels',
             '5.6' => '5.6	Improve regional diversity of students',
 
             '6.1' => '6.1	Increase the contribution of Ethiopia diaspora in teaching and research advising',
