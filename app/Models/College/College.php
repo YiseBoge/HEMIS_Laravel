@@ -31,11 +31,6 @@ class College extends Model
         'NONE' => 'None'
     ];
 
-    public function technicalStaffs()
-    {
-        return $this->hasMany('App\Models\College\TechnicalStaff');
-    }
-
     public function collegeName(){
         return $this->belongsTo('App\Models\College\CollegeName');
     }
@@ -64,7 +59,7 @@ class College extends Model
         return $this->hasMany('App\Models\Staff\IctStaff');
     }
 
-    public function technicalStaff()
+    public function technicalStaffs()
     {
         return $this->hasMany('App\Models\Staff\TechnicalStaff');
     }
@@ -72,6 +67,16 @@ class College extends Model
     public function managementStaffs()
     {
         return $this->hasMany('App\Models\Staff\ManagementStaff');
+    }
+
+    public function administrativeStaffs()
+    {
+        return $this->hasMany('App\Models\Staff\AdministrativeStaff');
+    }
+
+    public function supportiveStaffs()
+    {
+        return $this->hasMany('App\Models\Staff\SupportiveStaff');
     }
 
     public function band()

@@ -86,8 +86,8 @@
                                                        data-target="#deleteModal"><i class="far fa-trash-alt"></i>
                                                     </a>
                                                 </td>
-                                                <td>{{ $budget->allocated_budget }}</td>
-                                                <td>{{ $budget->allocated_budget }}</td>
+                                                <td>{{ $budget->budgetDescription->budget_code }}</td>
+                                                <td>{{ $budget->budgetDescription->description }}</td>
                                                 <td>{{ $budget->allocated_budget }}</td>
                                                 <td>{{ $budget->additional_budget }}</td>
                                                 <td>234532</td>

@@ -316,8 +316,8 @@ class GenerateReportsController extends Controller
         $value = $rep->reportYearValues()->where('year', $year)->get();
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->qualifiedStaff();
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['3.1.2'];
@@ -353,8 +353,8 @@ class GenerateReportsController extends Controller
         $value = $rep->reportYearValues()->where('year', $year)->get();
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->enrollmentInScienceAndTechnology();
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
 

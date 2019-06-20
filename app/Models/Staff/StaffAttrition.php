@@ -15,14 +15,14 @@ class StaffAttrition extends Model
 
     // Enums //
     protected $enumCases = [
-        'GOVERNMENT_APPOINTMENT' => 'Diploma',
-        'TRANSFER_TO_HIGHER_EDUCATION_INSTITUTIONS' => 'Bachelors',
-        'TRANSFER_TO_OTHER_GOVERNMENT_AGENCIES' => 'M.D/D.V',
-        'RESIGNATION' => 'Masters',
-        'RETIREMENT' => 'PhD',
-        'DEATH' => '< = Grade 10',
-        'DISCIPLINE' => 'Grade 11',
-        'OTHERS' => 'Grade 12'
+        'GOVERNMENT_APPOINTMENT' => 'Government Appointment',
+        'TRANSFER_TO_HIGHER_EDUCATION_INSTITUTIONS' => 'Transfer to Higher Education Institutions',
+        'TRANSFER_TO_OTHER_GOVERNMENT_AGENCIES' => 'Transfer to Other Government Agencies',
+        'RESIGNATION' => 'Resignation',
+        'RETIREMENT' => 'Retirement',
+        'DEATH' => 'Death',
+        'DISCIPLINE' => 'Discipline',
+        'OTHERS' => 'Others'
     ];
 
     public function staff()

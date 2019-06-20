@@ -25,4 +25,9 @@ class AdministrativeStaff extends Model
     {
         return $this->morphOne('App\Models\Staff\Staff', 'staffable');
     }
+
+    public function college()
+    {
+        return $this->belongsTo('App\Models\College\College');
+    }
 }

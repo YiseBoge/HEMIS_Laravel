@@ -33,7 +33,11 @@
     "file-saverjs": "^1.3.6",
     "jquery-flagstrap": "^1.0.3",
     "jquery.easing": "^1.4.1",
+    "jspdf": "^1.5.3",
+    "jspdf-autotable": "^3.1.1",
+    "print-js": "^1.0.61",
     "sqlite3": "^4.0.9",
-    "tableexport": "^5.2.0"
+    "tableexport.jquery.plugin": "^1.10.4",
+    "xlsx": "^0.14.3"
   }
 }

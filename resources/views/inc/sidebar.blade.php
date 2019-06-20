@@ -96,6 +96,7 @@
                         Diploma Training</a>
                     <a class="collapse-item text-wrap" href="/department/diaspora-courses">Courses and Researches
                         By Ethiopian Diaspora</a>
+                    <a class="collapse-item text-wrap" href="/staff/attrition">Staff Attrition</a>
                 </div>
             </div>
         </li>
@@ -160,11 +161,13 @@
                     <a class="collapse-item" href="/staff/technical">Technical Staff</a>
                     <a class="collapse-item" href="/staff/ict">ICT Staff</a>
                     <a class="collapse-item text-wrap" href="/staff/administrative">Administrative Staff</a>
+                    <a class="collapse-item text-wrap" href="/staff/management">Management Staff</a>
+                    <a class="collapse-item text-wrap" href="/staff/attrition">Staff Attrition</a>
 
                     <h6 class="collapse-header">Aggregates:</h6>
-                    <a class="collapse-item text-wrap" href="/staff/management">Management Staff</a>
                     <a class="collapse-item text-wrap" href="/institution/non-admin">Administrative and Non-Academic
                         Staff</a>
+                    
                 </div>
             </div>
         </li>

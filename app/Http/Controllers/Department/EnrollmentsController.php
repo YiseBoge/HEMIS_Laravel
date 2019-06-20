@@ -11,11 +11,10 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\Enrollment;
 use App\Services\GeneralReportService;
-use App\Services\DepartmentService;
-use App\Services\InstitutionService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class EnrollmentsController extends Controller
 {
@@ -56,9 +55,9 @@ class EnrollmentsController extends Controller
                                 if ($department->departmentName->department_name == $user->departmentName->department_name) {                                                                      
                                     foreach ($department->enrollments as $enrollment) {
                                         if ($enrollment->student_type == $requestedType) {
-                                            if($department->year_level == 1){
+                                            if ($department->year_level == 1) {
                                                 $service = new GeneralReportService("2018/19");
-                                                return $service->qualifiedStaff();
+                                                return $service->academicAttrition();
                                             } 
                                             $enrollments[] = $enrollment;
                                         }
@@ -132,6 +131,7 @@ class EnrollmentsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
