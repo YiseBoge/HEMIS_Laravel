@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
+                        <div class="row my-3">
                             <div class="col text-right">
                                 <a class="btn btn-outline-primary btn-sm mb-0" href="technical/create">Add Staff<i
                                     class="fas fa-arrow-right ml-2"></i></a>
@@ -61,25 +61,33 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                      @if (count($staffs) > 0)
+                                    @if (count($staffs) > 0)
                                         @foreach ($staffs as $staff)
-                                            <tr role="row" class="odd" onclick="window.location='technical/{{$staff->id}}'">
+                                            <tr role="row" class="odd"
+                                                onclick="window.location='administrative/{{$staff->id}}'">
                                                 <td class="pl-4">
                                                     <div class="row">
                                                         <div class="col pt-1">
-                                                            <a href="technical/{{$staff->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> </a>
+                                                            <a href="administrative/{{$staff->id}}/edit"
+                                                               class="text-primary mr-3"><i class="far fa-edit"></i>
+                                                            </a>
                                                         </div>
                                                         <div class="col">
-                                                            <form class="p-0" action="/staff/technical/{{$staff->id}}" method="POST">
+                                                            <form class="p-0"
+                                                                  action="/staff/administrative/{{$staff->id}}"
+                                                                  method="POST">
                                                                 @csrf
                                                                 <input type="hidden" name="_method" value="DELETE">
-                                                                <button type="submit" class="form-control form-control-plaintext text-danger p-0">
-                                                                        <i class="far fa-trash-alt"></i>
+                                                                <button type="submit"
+                                                                        class="form-control form-control-plaintext text-danger p-0">
+                                                                    <i class="far fa-trash-alt"></i>
                                                                 </button>
                                                             </form>
                                                         </div>
                                                     </div>
-                                                </td>  
+
+
+                                                </td>
                                                 <td class="sorting_1">{{$staff->general->name}}</td>
                                                 <td>{{$staff->general->job_title}}</td>
                                                 <td>{{$staff->general->dedication}}</td>
@@ -89,14 +97,14 @@
                                                 @else
                                                     <td>Yes</td>
                                                 @endif
-                                                <td>{{$staff->general->salary}}</td> 
-                                                <td>{{$staff->general->academic_level}}</td>                                            
-                                                <td>{{$staff->staffRank}}</td>                                                                                          
+                                                <td>{{$staff->general->salary}}</td>
+                                                <td>{{$staff->general->academic_level}}</td>
+                                                <td>{{$staff->staffRank}}</td>
                                             </tr>
                                         @endforeach
-                                      @else
-                                          
-                                      @endif 
+                                    @else
+
+                                    @endif
 
                                     </tbody>
                                 </table>

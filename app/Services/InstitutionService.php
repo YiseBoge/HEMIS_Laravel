@@ -164,6 +164,7 @@ class InstitutionService
         return $total;
     }
 
+
     function diasporaCourses()
     {
         $total = 0;
@@ -299,7 +300,7 @@ class InstitutionService
                 }
             }
         }
-
+        return $total;
     }
 
     function expatriateStaff()

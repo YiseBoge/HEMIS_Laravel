@@ -116,7 +116,7 @@
 
                                 <div class="col-md form-group">
 
-                                    <select class="form-control selectpicker" id="academic-level" name="academic_level"
+                                    <select class="form-control" id="academic-level" name="academic_level"
                                             data-live-search="true">
                                         @foreach ($academic_levels as $key => $value)
                                             <option value="{{$key}}">{{$value}}</option>

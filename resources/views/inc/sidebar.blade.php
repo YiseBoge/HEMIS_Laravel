@@ -163,6 +163,7 @@
                     <a class="collapse-item" href="/staff/ict">ICT Staff</a>
                     <a class="collapse-item text-wrap" href="/staff/administrative">Administrative Staff</a>
                     <a class="collapse-item text-wrap" href="/staff/management">Management Staff</a>
+                    <a class="collapse-item text-wrap" href="/staff/supportive">Supportive Staff</a>
                     <a class="collapse-item text-wrap" href="/staff/attrition">Staff Attrition</a>
 
                     <h6 class="collapse-header">Aggregates:</h6>

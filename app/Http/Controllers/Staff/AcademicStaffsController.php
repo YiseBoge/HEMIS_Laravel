@@ -25,9 +25,30 @@ class AcademicStaffsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
+        $institution = $user->institution();
+
+        $academicStaffs = array();
+
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                foreach ($band->colleges as $college) {
+                    if ($college->collegeName->id == $user->collegeName->id) {
+                        foreach ($college->departments as $department) {
+                            if ($department->departmentName->id == $user->departmentName->id) {
+                                foreach ($department->academicStaffs as $academicStaff) {
+                                    $academicStaffs[] = $academicStaff;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            $academicStaffs = AcademicStaff::all();
+        }
 
         $data = array(
-            'staffs' => AcademicStaff::with('general')->get(),
+            'staffs' => $academicStaffs,
             'page_name' => 'staff.academic.list'
         );
         //return AcademicStaff::with('general')->get();

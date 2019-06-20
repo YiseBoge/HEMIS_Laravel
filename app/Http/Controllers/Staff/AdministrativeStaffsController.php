@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Models\Band\Band;
+use App\Models\College\College;
 use App\Models\Staff\AdministrativeStaff;
 use App\Models\Staff\Staff;
 use Illuminate\Http\Request;
@@ -21,10 +23,28 @@ class AdministrativeStaffsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
+        $institution = $user->institution();
+        $collegeName = $user->collegeName;
+
+        $adminStaffs = array();
+
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                foreach ($band->colleges as $college) {
+                    if ($college->collegeName->id == $collegeName->id) {
+                        foreach ($college->administrativeStaffs as $adminStaff) {
+                            $adminStaffs[] = $adminStaff;
+                        }
+                    }
+                }
+            }
+        } else {
+            $adminStaffs = AdministrativeStaff::all();
+        }
 
         $data = array(
-            'staffs' => AdministrativeStaff::with('general')->get(),
-            'page_name' => 'administrative.list'
+            'staffs' => $adminStaffs,
+            'page_name' => 'staff.administrative.list'
         );
 
         // return $data['staffs'][0];
@@ -46,7 +66,7 @@ class AdministrativeStaffsController extends Controller
             'dedications' => Staff::getEnum("Dedications"),
             'academic_levels' => Staff::getEnum("AcademicLevels"),
             'staff_ranks' => AdministrativeStaff::getEnum("StaffRanks"),
-            'page_name' => 'administrative.create'
+            'page_name' => 'staff.administrative.create'
         );
         return view('staff.administrative.create')->with($data);
     }
@@ -72,18 +92,8 @@ class AdministrativeStaffsController extends Controller
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
-            'expatriate' => 'nullable',
             'administrative_staff_rank' => 'required',
         ]);
-
-        if ($request->get('expatriate') == null) {
-            $expatriate = 0;
-        } else {
-            $expatriate = 1;
-        }
-
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
 
         $staff = new Staff;
         $staff->name = $request->input('name');
@@ -97,18 +107,41 @@ class AdministrativeStaffsController extends Controller
         $staff->employment_type = $request->input('employment_type');
         $staff->dedication = $request->input('dedication');
         $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $expatriate;
+        $staff->is_expatriate = $request->has('expatriate');
+        $staff->is_from_other_region = $request->has('other_region');
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
         $administrativeStaff = new AdministrativeStaff;
         $administrativeStaff->staffRank = $request->input('administrative_staff_rank');
-        $administrativeStaff->institution_id = 0;
 
-        $administrativeStaff->save();
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+        $institution = $user->institution();
 
+        $bandName = $user->bandName;
+        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
+        if ($band == null) {
+            $band = new Band;
+            $band->band_name_id = 0;
+            $institution->bands()->save($band);
+            $bandName->band()->save($band);
+        }
+
+        $collegeName = $user->collegeName;
+        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
+            'education_level' => 'None', 'education_program' => 'None'])->first();
+        if ($college == null) {
+            $college = new College;
+            $college->education_level = 'None';
+            $college->education_program = "None";
+            $college->college_name_id = 0;
+            $band->colleges()->save($college);
+            $collegeName->college()->save($college);
+        }
+
+        $college->administrativeStaffs()->save($administrativeStaff);
         $administrativeStaff = AdministrativeStaff::find($administrativeStaff->id);
-
         $administrativeStaff->general()->save($staff);
 
         return redirect('/staff/administrative');
@@ -127,7 +160,7 @@ class AdministrativeStaffsController extends Controller
 
         $data = array(
             'staff' => AdministrativeStaff::with('general')->find($id),
-            'page_name' => 'administrative.details'
+            'page_name' => 'staff.administrative.details'
         );
         return view('staff.administrative.details')->with($data);
     }
@@ -140,9 +173,12 @@ class AdministrativeStaffsController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
         $data = array(
             'staff' => AdministrativeStaff::with('general')->find($id),
-            'page_name' => 'administrative.edit'
+            'page_name' => 'staff.administrative.edit'
         );
         return view('staff.administrative.edit')->with($data);
     }
@@ -168,17 +204,14 @@ class AdministrativeStaffsController extends Controller
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
-            'expatriate' => 'required',
             'administrative_staff_rank' => 'required'
 
         ]);
 
         $administrativeStaff = AdministrativeStaff::find($id);
-
         $administrativeStaff->staffRank = $request->input('administrative_staff_rank');
-        $administrativeStaff->institution_id = 0;
 
-        $staff = $administrativeStaff->general;
+        $staff = new $administrativeStaff->general;
         $staff->name = $request->input('name');
         $staff->birth_date = $request->input('birth_date');
         $staff->sex = $request->input('sex');
@@ -190,12 +223,38 @@ class AdministrativeStaffsController extends Controller
         $staff->employment_type = $request->input('employment_type');
         $staff->dedication = $request->input('dedication');
         $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $request->input('expatriate');
+        $staff->is_expatriate = $request->has('expatriate');
+        $staff->is_from_other_region = $request->has('other_region');
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
-        $administrativeStaff->save();
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+        $institution = $user->institution();
 
+        $bandName = $user->bandName;
+        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
+        if ($band == null) {
+            $band = new Band;
+            $band->band_name_id = 0;
+            $institution->bands()->save($band);
+            $bandName->band()->save($band);
+        }
+
+        $collegeName = $user->collegeName;
+        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
+            'education_level' => 'None', 'education_program' => 'None'])->first();
+        if ($college == null) {
+            $college = new College;
+            $college->education_level = 'None';
+            $college->education_program = "None";
+            $college->college_name_id = 0;
+            $band->colleges()->save($college);
+            $collegeName->college()->save($college);
+        }
+
+        $college->administrativeStaffs()->save($administrativeStaff);
+        $administrativeStaff = AdministrativeStaff::find($administrativeStaff->id);
         $administrativeStaff->general()->save($staff);
 
         return redirect('/staff/administrative');

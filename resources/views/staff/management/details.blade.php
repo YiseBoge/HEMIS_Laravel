@@ -4,7 +4,7 @@
     <div class="container mb-5">
         <div class="row">
             <div class="col-md-10">
-                <h1 class="font-weight-bold text-primary">Technical Staff</h1>
+                <h1 class="font-weight-bold text-primary">Management Staff</h1>
             </div>
             <div class="col-md-2 pt-4">
                 <a href="{{$staff->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> Edit</a>
@@ -90,13 +90,13 @@
         </div>
         <div class="card shadow mt-3">
             <div class="card-header text-primary">
-                Technical Staff Information
+                Management Staff Information
             </div>
             <div class="card-body">
                 <div class="row mt-4">
                     <div class="col-md-3">
-                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Rank</div>
-                        <p>{{$staff->staffRank}}</p>
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Management Level</div>
+                        <p>{{$staff->management_level}}</p>
                     </div>
                 </div>
             </div>
@@ -126,7 +126,7 @@
                 <div class="modal-body">Are you sure you wish to delete?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="/staff/technical/{{$staff->id}}" method="POST">
+                    <form action="/staff/management/{{$staff->id}}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="form-control btn btn-danger">

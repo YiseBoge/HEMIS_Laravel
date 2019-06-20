@@ -120,9 +120,18 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="form-group form-check form-check-inline">
-                            <input class="form-check-input" id="expatriate" name="expatriate" type="checkbox" value="expatriate">
-                            <label class="form-check-label" for="expatriate">Expatriate</label>
+                            <div class="row">
+                                <div class="col-md-4 form-group form-check">
+                                    <input class="form-check-input" id="expatriate" name="expatriate" type="checkbox"
+                                           value="expatriate">
+                                    <label class="form-check-label" for="expatriate">Expatriate</label>
+                                </div>
+                                <div class="col-md-8 form-group form-check">
+                                    <input class="form-check-input" id="other_region" name="other_region"
+                                           type="checkbox" value="expatriate">
+                                    <label class="form-check-label" for="other_region">From Region Other than the Host
+                                        Region</label>
+                                </div>
                         </div>
                     </fieldset>
                 </div>
