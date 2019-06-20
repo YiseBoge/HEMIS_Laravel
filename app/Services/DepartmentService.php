@@ -16,6 +16,46 @@ class DepartmentService
     // functions go here dependent on the department
     // can make functions to take in strings 'postgraduate', or 'undergraduate' then return accordingly
 
+    function academicExpatriateStaff()
+    {
+        $total = 0;
+        foreach ($this->department->academicStaffs as $academicStaff) {
+            if ($academicStaff->general->is_expatriate == true) {
+                $total = $total + 1;
+            }
+        }
+        return $total;
+
+    }
+
+    function academicStaffPublication()
+    {
+        $total = 0;
+        foreach ($this->department->academicStaffs as $academicStaff) {
+            foreach ($academicStaff->publications as $publication) {
+                $total = $total + 1;
+            }
+        }
+        return $total;
+    }
+
+    function academicStaffRate($sex, $otherRegion)
+    {
+        $total = 0;
+        foreach ($this->department->academicStaffs as $academicStaff) {
+            if ($otherRegion == true) {
+                if ($academicStaff->general->sex == $sex && $academicStaff->general->is_from_other_region == 1) {
+                    $total = $total + 1;
+                }
+            } else {
+                if ($academicStaff->general->sex == $sex && $academicStaff->general->is_from_other_region == 0) {
+                    $total = $total + 1;
+                }
+            }
+        }
+        return $total;
+    }
+
     function enrollment($sex)
     {
         $total = 0;
@@ -24,7 +64,7 @@ class DepartmentService
                 $total += $enrollment->female_students_number;
             } else {
                 $total += $enrollment->male_students_number + $enrollment->female_students_number;
-            }
+            }            
         }
         return $total;
     }
@@ -70,7 +110,7 @@ class DepartmentService
                 $total += $attrition->female_students_number;
             } else {
                 $total += $attrition->male_students_number + $attrition->female_students_number;
-            }
+            }            
         }
         return $total;
     }
@@ -83,7 +123,7 @@ class DepartmentService
                 $total += $attrition->female_students_number;
             } else {
                 $total += $attrition->male_students_number + $attrition->female_students_number;
-            }
+            }            
         }
         return $total;
     }
@@ -108,46 +148,6 @@ class DepartmentService
         $total = 0;
         foreach ($this->department->exitExaminations as $enrollment) {
             $total += $enrollment->male_students_number + $enrollment->female_students_number;
-        }
-        return $total;
-    }
-
-    function academicExpatriateStaff()
-    {
-        $total = 0;
-        foreach ($this->department->academicStaffs as $academicStaff) {
-            if ($academicStaff->general->is_expatriate == true) {
-                $total = $total + 1;
-            }
-        }
-        return $total;
-
-    }
-
-    function academicStaffPublication()
-    {
-        $total = 0;
-        foreach ($this->department->academicStaffs as $academicStaff) {
-            foreach ($academicStaff->publications as $publication) {
-                $total = $total + 1;
-            }
-        }
-        return $total;
-    }
-
-    function academicStaffRate($sex, $otherRegion)
-    {
-        $total = 0;
-        foreach ($this->department->academicStaffs as $academicStaff) {
-            if ($otherRegion == true) {
-                if ($academicStaff->general->sex == $sex && $academicStaff->general->is_from_other_region == 1) {
-                    $total = $total + 1;
-                }
-            } else {
-                if ($academicStaff->general->sex == $sex && $academicStaff->general->is_from_other_region == 0) {
-                    $total = $total + 1;
-                }
-            }
         }
         return $total;
     }
@@ -208,7 +208,7 @@ class DepartmentService
                 $total += $enrollment->female_students_number;
             } else {
                 $total += $enrollment->male_students_number + $enrollment->female_students_number;
-            }
+            }            
         }
 
         return $total;
@@ -219,7 +219,7 @@ class DepartmentService
         foreach ($this->department->academicStaffs as $staff){
             if($staff->general->staffAttrition != null){
                 $total += 1;
-            }            
+            }
         }
 
         return $total;

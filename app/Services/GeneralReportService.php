@@ -16,7 +16,7 @@ class GeneralReportService
     function institutionsByPrivacy($isPrivate)
     {
         $institutions = array();
-        foreach ($this->instances as $instance) {
+        foreach ($this->instances as $instance) {            
             foreach ($instance->institutions as $institution) {
                 if ($isPrivate) {
                     if ($institution->institutionName->is_private) {
@@ -169,7 +169,7 @@ class GeneralReportService
     {
         $total = 0;
 
-        foreach ($this->institutionsByPrivacy(false) as $institution) {
+        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
             $institutionService = new InstitutionService($institution);
             $total += $institutionService->exitExamination();
         }
@@ -231,7 +231,7 @@ class GeneralReportService
     function budgetNotFromGovernment(){
         $total = 0;
         $totalBudget = 0;
-        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
             $total += $institutionService->budgetNotFromGovernemnt();
             $totalBudget += $institutionService->totalBudget();
@@ -244,7 +244,7 @@ class GeneralReportService
     function nonUtilizedFunds(){
         $total = 0;
 
-        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
             $total += $institutionService->nonUtilizedFunds();
         }
@@ -256,7 +256,7 @@ class GeneralReportService
     {
         $total = 0;
 
-        foreach ($this->institutionsByPrivacy(false) as $institution) {
+        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
             $institutionService = new InstitutionService($institution);
             $total = $institutionService->diasporaCourses();
         }
@@ -304,14 +304,14 @@ class GeneralReportService
     function academicAttrition(){
         $total = 0;
 
-        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
             $total += $institutionService->academicAttrition();
         }
 
         return $total;
     }
-    
+
     function costSharings()
     {
         $total = 0;
@@ -327,7 +327,7 @@ class GeneralReportService
     function nonAcademicAttrition(){
         $total = 0;
 
-        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
             $total += $institutionService->nonAcademicAttrition();
         }
@@ -346,4 +346,17 @@ class GeneralReportService
 
         return $total;
     }
+
+    function managementStaffRate($sex, $otherRegion)
+    {
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->managementStaffRate($sex, $otherRegion);
+        }
+
+        return $total;
+    }
+
 }
