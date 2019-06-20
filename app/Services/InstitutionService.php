@@ -46,6 +46,12 @@ class InstitutionService
         }
     }
 
+    function colleges(){
+        foreach ($this->institution->bands as $band){
+            return $band->colleges;
+        }
+    }
+
     function enrollment($sex, $educationLevel)
     {
         $total = 0;
@@ -334,6 +340,29 @@ class InstitutionService
         }
         return $total;
 
+    }
+
+    function  managementStaffRate($sex,$otherRegion){
+        $total = 0;
+        $colleges = $this->colleges();
+        foreach ($colleges as $college){
+            foreach ($college->managementStaffs as $managementStaff){
+                if ($otherRegion == true){
+                    if($managementStaff->general->sex == $sex && $managementStaff->general->is_from_other_region == 1){
+                        $total = $total +1;
+                    }
+                }
+                else{
+                    if($managementStaff->general->sex==$sex && $managementStaff->general->is_from_other_region == 0 ){
+                        $total = $total+1;
+                    }
+                }
+
+            }
+
+        }
+
+        return $total;
     }
 
 }

@@ -343,4 +343,17 @@ class GeneralReportService
 
         return $total;
     }
+
+    function managementStaffRate($sex, $otherRegion)
+    {
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->managementStaffRate($sex, $otherRegion);
+        }
+
+        return $total;
+    }
+
 }
