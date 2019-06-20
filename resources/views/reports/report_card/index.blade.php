@@ -9,7 +9,7 @@
                     <div class="col-sm-4 text-left">
                         <a href="/report/generate-full-report" class="btn btn-outline-primary btn-sm mb-0"
                            style="font-size: 1em">
-                            Generate Current Report<i class="fas fa-plus d-inline-block m-1 ml-2"></i></a>
+                            Update Current Year<i class="fas fa-sync-alt d-inline-block m-1 ml-2"></i></a>
                     </div>
                     <div class="col-sm-8 text-right">
                         <button type="button" class="btn btn-outline-primary btn-sm mb-0" id="exporter"
@@ -49,6 +49,7 @@
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Year: activate to sort column ascending">Change
+                                                %
                                             </th>
                                             <th class="sorting hide-print" tabindex="0" aria-controls="dataTable"
                                                 rowspan="1"
@@ -68,14 +69,14 @@
                                             </tr>
                                             @foreach($descriptions as $description => $kpis)
                                                 <tr>
-                                                    <td rowspan="{{ count($kpis) + 1 }}">
+                                                    <td style="min-width:225px;" rowspan="{{ count($kpis) + 1 }}">
                                                         {{ $description }}
                                                     </td>
 
                                                 </tr>
                                                 @foreach($kpis as $kpi)
-                                                    <tr>
-                                                        <td>
+                                                    <tr style="height: 150px;">
+                                                        <td style="min-width:275px;">
                                                             {{ $kpi->kpi }}
                                                         </td>
                                                         @foreach($kpi->reportYearValues as $yearValue)
@@ -86,7 +87,7 @@
                                                         <td>
                                                             {{ $kpi->target }}
                                                         </td>
-                                                        <td>
+                                                        <td class="text-center" style="min-width:115px;">
                                                             @if($kpi->change() > 0)
                                                                 <p class="text-success">{{$kpi->change()}}% <i
                                                                             class="fa fa-caret-up d-inline-block ml-2"></i>
@@ -140,14 +141,14 @@
                     <div class="modal-body px-5">
                         <div class="row my-2">
                             <div class="col-md text-center">
-                                @if($change > 0)
-                                    <p class="h3 text-success">{{$change}}% <i
+                                @if($report->change() > 0)
+                                    <p class="h3 text-success">{{$report->change()}}% <i
                                                 class="fa fa-caret-up d-inline-block ml-2"></i></p>
-                                @elseif($change < 0)
-                                    <p class="h3 text-danger">{{$change}}%<i
+                                @elseif($report->change() < 0)
+                                    <p class="h3 text-danger">{{$report->change()}}%<i
                                                 class="fa fa-caret-down d-inline-block ml-2"></i></p>
                                 @else
-                                    <p class="h3 text-warning">{{$change}}%(stagnant)</p>
+                                    <p class="h3 text-warning">{{$report->change()}}%(stagnant)</p>
                                 @endif
                             </div>
                         </div>

@@ -10,6 +10,10 @@
         <button id="sidebarToggleTop" class="btn d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
         </button>
+        Current :
+        <span class="mx-2 text-left text-primary">
+            {{ Auth::user()->currentInstance }}
+        </span>
 @endguest
 
 

@@ -658,7 +658,8 @@ class GenerateReportsController extends Controller
         }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $reportService->academicStaffRate('All', true);
+        $total = $reportService->academicStaffRate('All', true);;
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['5.5.1'];
