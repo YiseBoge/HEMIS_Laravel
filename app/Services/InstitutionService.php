@@ -314,27 +314,27 @@ class InstitutionService
         $total = 0;
         foreach($this->institution->bands as $band){
             foreach($band->colleges as $college){                
-                foreach($college->technicalStaffs as $budget){
+                foreach($college->technicalStaffs as $staff){
                     if($staff->general->staffAttrition != null){
                         $total += 1;
                     }
                 }
-                foreach($college->managementStaffs as $budget){
+                foreach($college->managementStaffs as $staff){
                     if($staff->general->staffAttrition != null){
                         $total += 1;
                     }
                 }
-                foreach($college->administrativeStaffs as $budget){
+                foreach($college->administrativeStaffs as $staff){
                     if($staff->general->staffAttrition != null){
                         $total += 1;
                     }
                 }
-                foreach($college->ictStaffs as $budget){
+                foreach($college->ictStaffs as $staff){
                     if($staff->general->staffAttrition != null){
                         $total += 1;
                     }
                 }
-                foreach($college->supportiveStaffs as $budget){
+                foreach($college->supportiveStaffs as $staff){
                     if($staff->general->staffAttrition != null){
                         $total += 1;
                     }

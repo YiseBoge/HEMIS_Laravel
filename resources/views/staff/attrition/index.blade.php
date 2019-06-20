@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
+                        <div class="row my-3">
                             <div class="col text-right">
                                 <a class="btn btn-outline-primary btn-sm mb-0" href="attrition/create">New Entry<i
                                             class="fas fa-arrow-right ml-2"></i></a>
@@ -20,11 +20,11 @@
                                 @if(Auth::user()->hasRole('College Admin'))
                                     <div class="col-md-6 form-group">
                                         <select class="form-control" name="type" id="type" onchange="this.form.submit()">
-                                            @foreach ($staff_types as $key => $value)
-                                                @if ($value == $selected_type)
-                                                    <option value="{{$value}}" selected>{{$value}}</option>
+                                            @foreach ($staff_types as $type)
+                                                @if ($type == $selected_type)
+                                                    <option value="{{$type}}" selected>{{$type}}</option>
                                                 @else
-                                                    <option value="{{$value}}">{{$value}}</option>
+                                                    <option value="{{$type}}">{{$type}}</option>
                                                 @endif                                            
                                             @endforeach
                                         </select>
@@ -107,8 +107,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    <form class="pb-5" action="/staff/attrition" method="POST">
-                    @csrf
+                    
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Add</h5>
                         <a href="/staff/attrition" class="close" aria-label="Close">
@@ -116,42 +115,62 @@
                         </a>
                     </div>
 
+                    <div class="modal-body pt-4">  
+                        <form action="" method="GET">
+                            <div class="form-group row pt-3">                            
+                                <div class="col form-group">
+                                    <select class="form-control" name="type" id="type" onchange="this.form.submit()">
+                                        @foreach ($staff_types as $type)
+                                            @if ($type == $selected_type)
+                                                <option value="{{$type}}" selected>{{$type}}</option>
+                                            @else
+                                                <option value="{{$type}}">{{$type}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    <label for="case" class="form-control-placeholder">
+                                            Staff Type
+                                    </label>
+                                </div>
+                            </div>
+                        </form>                
+                        <form action="/staff/attrition" method="POST">
+                            @csrf
+                            <div class="form-group row pt-3">                                
+                                <div class="col form-group">
+                                    <select class="form-control" name="case" id="case">
+                                        @foreach ($cases as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="case" class="form-control-placeholder">
+                                            Case
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row pt-3">
+                                <div class="col form-group">
+                                    <select class="form-control" name="staff" id="staff">
+                                        @foreach ($staffs as $staff)
+                                            <option value="{{$staff->general->id}}">{{$staff->general->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="staff" class="form-control-placeholder">
+                                            Staff Member
+                                    </label>
+                                </div>
+                            </div>
 
-                    <div class="modal-body pt-4">
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-primary" value="Submit">
+                            </div>
+            
+                        </form>
+                    </div>
+
+
                    
-                        <div class="form-group row pt-3">
-                            
-                            <div class="col form-group">
-                                <select class="form-control" name="case" id="case">
-                                    @foreach ($cases as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="case" class="form-control-placeholder">
-                                        Case
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <select class="form-control" name="staff" id="staff">
-                                    @foreach ($staffs as $staff)
-                                        <option value="{{$staff->general->id}}">{{$staff->general->name}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="staff" class="form-control-placeholder">
-                                        Staff Member
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="modal-footer">
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                    </div>
-
-                    </form>
+                    
                 </div>
 
             </div>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
-use App\Models\College\TechnicalStaff;
+use App\Models\Staff\TechnicalStaff;
 use App\Models\Staff\IctStaff;
 use App\Models\Staff\Staff;
 use Illuminate\Http\Request;
@@ -22,6 +22,7 @@ class TechnicalStaffsController extends Controller
      */
     public function index()
     {
+        
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
@@ -33,12 +34,11 @@ class TechnicalStaffsController extends Controller
             foreach ($institution->bands as $band) {
                 foreach ($band->colleges as $college) {
                     if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->technicalStaffs as $staff) {
-                            $technicalStaffs[] = $staff;
+                        foreach ($college->technicalStaffs as $technicalStaff) {
+                            $technicalStaffs[] = $technicalStaff;
                         }
                     }
                 }
-                //return $technicalStaffs;
             }
         } else {
             $technicalStaffs = TechnicalStaff::all();
@@ -79,7 +79,6 @@ class TechnicalStaffsController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'name' => 'required',
             'birth_date' => 'required',

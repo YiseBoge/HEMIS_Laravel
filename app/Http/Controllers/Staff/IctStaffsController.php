@@ -90,7 +90,6 @@ class IctStaffsController extends Controller
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
-            'expatriate' => 'required',
             'ict_staff_rank' => 'required'
 
         ]);
@@ -112,7 +111,8 @@ class IctStaffsController extends Controller
         $staff->employment_type = $request->input('employment_type');
         $staff->dedication = $request->input('dedication');
         $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $request->input('expatriate');
+        $staff->is_expatriate = $request->has('expatriate');
+        $staff->is_from_other_region = $request->has('other_region');
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 

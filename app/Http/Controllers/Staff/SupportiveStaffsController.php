@@ -5,19 +5,19 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
-use App\Models\Staff\ManagementStaff;
+use App\Models\Staff\SupportiveStaff;
 use App\Models\Staff\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class ManagementStaffsController extends Controller
+class SupportiveStaffsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -26,32 +26,35 @@ class ManagementStaffsController extends Controller
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
-        $managementStaffs = array();
+        $supportiveStaffs = array();
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
                 foreach ($band->colleges as $college) {
                     if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->managementStaffs as $managementStaff) {
-                            $managementStaffs[] = $managementStaff;
+                        foreach ($college->supportiveStaffs as $supportiveStaff) {
+                            $supportiveStaffs[] = $supportiveStaff;
                         }
                     }
                 }
             }
         } else {
-            $managementStaffs = ManagementStaff::all();
+            $supportiveStaffs = SupportiveStaff::all();
         }
+
         $data = array(
-            'staffs' => $managementStaffs,
-            'page_name' => 'staff.management.list'
+            'staffs' => $supportiveStaffs,
+            'page_name' => 'staff.supportive.list'
         );
-        return view('staff.management.list')->with($data);
+
+        // return $data['staffs'][0];
+        return view('staff.supportive.list')->with($data);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -59,21 +62,20 @@ class ManagementStaffsController extends Controller
         $user->authorizeRoles('College Admin');
 
         $data = array(
-            'employment_types' => Staff::getEnum("employment_type"),
-            'dedications' => Staff::getEnum("dedication"),
-            'academic_levels' => Staff::getEnum("academic_levels"),
-            'levels' => ManagementStaff::getEnum("management_levels"),
-            'page_name' => 'staff.management.create'
+            'employment_types' => Staff::getEnum("EmploymentTypes"),
+            'dedications' => Staff::getEnum("Dedications"),
+            'academic_levels' => Staff::getEnum("AcademicLevels"),
+            'staff_ranks' => SupportiveStaff::getEnum("StaffRanks"),
+            'page_name' => 'staff.supportive.create'
         );
-        return view('staff.management.create')->with($data);
+        return view('staff.supportive.create')->with($data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Response
-     * @throws ValidationException
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -88,7 +90,8 @@ class ManagementStaffsController extends Controller
             'service_year' => 'required',
             'employment_type' => 'required',
             'dedication' => 'required',
-            'academic_level' => 'required'
+            'academic_level' => 'required',
+            'supportive_staff_rank' => 'required',
         ]);
 
         $staff = new Staff;
@@ -108,8 +111,8 @@ class ManagementStaffsController extends Controller
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
-        $managementStaff = new ManagementStaff;
-        $managementStaff->management_level = $request->input('management_level');
+        $supportiveStaff = new SupportiveStaff;
+        $supportiveStaff->staffRank = $request->input('supportive_staff_rank');
 
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
@@ -136,18 +139,18 @@ class ManagementStaffsController extends Controller
             $collegeName->college()->save($college);
         }
 
-        $college->managementStaffs()->save($managementStaff);
-        $managementStaff = ManagementStaff::find($managementStaff->id);
-        $managementStaff->general()->save($staff);
+        $college->supportiveStaffs()->save($supportiveStaff);
+        $supportiveStaff = SupportiveStaff::find($supportiveStaff->id);
+        $supportiveStaff->general()->save($staff);
 
-        return redirect('/staff/management');
+        return redirect('/staff/supportive');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -155,17 +158,17 @@ class ManagementStaffsController extends Controller
         $user->authorizeRoles('College Admin');
 
         $data = array(
-            'staff' => ManagementStaff::with('general')->find($id),
-            'page_name' => 'staff.management.details'
+            'staff' => SupportiveStaff::with('general')->find($id),
+            'page_name' => 'staff.supportive.details'
         );
-        return view('staff.management.details')->with($data);
+        return view('staff.supportive.details')->with($data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -173,18 +176,18 @@ class ManagementStaffsController extends Controller
         $user->authorizeRoles('College Admin');
 
         $data = array(
-            'staff' => ManagementStaff::with('general')->find($id),
-            'page_name' => 'staff.management.edit'
+            'staff' => SupportiveStaff::with('general')->find($id),
+            'page_name' => 'staff.supportive.edit'
         );
-        return view('staff.management.edit')->with($data);
+        return view('staff.supportive.edit')->with($data);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param int $id
-     * @return Response
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -200,14 +203,14 @@ class ManagementStaffsController extends Controller
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
-            'management_level' => 'required'
+            'supportive_staff_rank' => 'required'
 
         ]);
 
-        $managementStaff = ManagementStaff::find($id);
-        $managementStaff->management_level = $request->input('management_level');
+        $supportiveStaff = SupportiveStaff::find($id);
+        $supportiveStaff->staffRank = $request->input('supportive_staff_rank');
 
-        $staff = new $managementStaff->general;
+        $staff = new $supportiveStaff->general;
         $staff->name = $request->input('name');
         $staff->birth_date = $request->input('birth_date');
         $staff->sex = $request->input('sex');
@@ -249,21 +252,25 @@ class ManagementStaffsController extends Controller
             $collegeName->college()->save($college);
         }
 
-        $college->managementStaffs()->save($managementStaff);
-        $managementStaff = ManagementStaff::find($managementStaff->id);
-        $managementStaff->general()->save($staff);
+        $college->supportiveStaffs()->save($supportiveStaff);
+        $supportiveStaff = SupportiveStaff::find($supportiveStaff->id);
+        $supportiveStaff->general()->save($staff);
 
-        return redirect('/staff/management');
+        return redirect('/staff/supportive');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return Response
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $administrativeStaff = AdministrativeStaff::find($id);
+        $staff = $administrativeStaff->general;
+        $administrativeStaff->delete();
+        $staff->delete();
+        return redirect('/staff/administrative');
     }
 }

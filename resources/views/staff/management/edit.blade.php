@@ -9,12 +9,12 @@
                 </div>
             @endforeach
         @endif
-        <form action="/staff/technical/{{$staff->id}}" method="POST">
+        <form action="/staff/management/{{$staff->id}}" method="POST">
             @csrf
             <input type="hidden" name="_method" value="PUT">
             <div class="row">
                 <div class="col-md-9">
-                    <h1 class="font-weight-bold text-primary">Administrative Staff</h1>
+                    <h1 class="font-weight-bold text-primary">Management Staff</h1>
                 </div>
                 <div class="col-md-3 pt-3">
                     <button type="submit" class="form-control form-control-plaintext text-primary">
@@ -221,20 +221,20 @@
             </div>
             <div class="card shadow mt-3">
                 <div class="card-header text-primary">
-                    Administrative Staff Information
+                    Management Staff Information
                 </div>
                 <div class="card-body">
                     <div class="row mt-4">
                         <div class="col-md-3">
-                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Rank</div>
+                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Management Level</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
                                     <span class="input-group-text bg-white border-0"><i
                                                 class="text-gray-400 float-right far fa-edit "></i></span>
                                 </div>
-                                <select class="form-control form-control-plaintext" name="technical_staff_rank">
-                                    @foreach ($staff->getEnum("StaffRanks") as $key => $value)
-                                        @if ($value == $staff->staffRank)
+                                <select class="form-control form-control-plaintext" name="management_level">
+                                    @foreach ($staff->getEnum("ManagementLevels") as $key => $value)
+                                        @if ($value == $staff->management_level)
                                             <option selected value="{{$key}}">{{$value}}</option>
                                         @else
                                             <option value="{{$key}}">{{$value}}</option>
