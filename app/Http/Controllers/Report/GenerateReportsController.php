@@ -501,8 +501,8 @@ class GenerateReportsController extends Controller
         }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->qualifiedTeacherToStudent();
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
 
@@ -628,8 +628,8 @@ class GenerateReportsController extends Controller
         }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->managementStaffRate('Female', false);
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['5.3.1'];
@@ -643,8 +643,8 @@ class GenerateReportsController extends Controller
         }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->enrollmentsRate('Female', false);
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['5.4.1'];
@@ -673,8 +673,8 @@ class GenerateReportsController extends Controller
         }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->managementStaffRate('All', true);
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
         $kpi = ReportCard::getEnum('kpi')['5.6.1'];
@@ -688,8 +688,8 @@ class GenerateReportsController extends Controller
         }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = 0 /* calculated value here */
-        ;
+        $total = $reportService->enrollmentsRate('All', true);
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
 

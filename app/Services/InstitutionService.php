@@ -429,4 +429,60 @@ class InstitutionService
 
         return $total;
     }
+
+    function enrollmentsRate($sex, $otherRegion)
+    {
+        $total = 0;
+
+        $departments = $this->departments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            if ($sex == "Female" && !$otherRegion) {
+                $total += $departmentService->enrollment("Female");
+            } elseif ($otherRegion) {
+                $total += $departmentService->otherRegionStudents();
+            }
+        }
+        return $total;
+
+    }
+
+
+    function allAcademicStaff()
+    {
+        $total = 0;
+        $departments = $this->departments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->allAcademicStaff();
+        }
+        return $total;
+
+    }
+
+    function allManagementStaff()
+    {
+        $total = 0;
+        $colleges = $this->colleges();
+        foreach ($colleges as $college) {
+            foreach ($college->managementStaffs as $managementStaff) {
+                $total++;
+            }
+        }
+
+        return $total;
+    }
+
+    function allEnrollment()
+    {
+        $total = 0;
+
+        $departments = $this->departments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->enrollment("All");
+        }
+
+        return $total;
+    }
 }

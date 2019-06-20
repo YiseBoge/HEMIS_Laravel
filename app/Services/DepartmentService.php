@@ -225,4 +225,22 @@ class DepartmentService
         return $total;
     }
 
+    function otherRegionStudents()
+    {
+        $total = 0;
+        foreach ($this->department->otherRegionStudents() as $enrollment) {
+            $total += $enrollment->male_students_number + $enrollment->female_students_number;
+        }
+        return $total;
+    }
+
+    public function allAcademicStaff()
+    {
+        $total = 0;
+        foreach ($this->department->academicStaffs as $academicStaff) {
+            $total += 1;
+        }
+        return $total;
+    }
+
 }

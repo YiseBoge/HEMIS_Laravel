@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\College\College;
 use App\Models\Institution\Instance;
 
 class GeneralReportService
@@ -16,7 +17,7 @@ class GeneralReportService
     function institutionsByPrivacy($isPrivate)
     {
         $institutions = array();
-        foreach ($this->instances as $instance) {            
+        foreach ($this->instances as $instance) {
             foreach ($instance->institutions as $institution) {
                 if ($isPrivate) {
                     if ($institution->institutionName->is_private) {
@@ -157,19 +158,22 @@ class GeneralReportService
     {
         $total = 0;
 
+        $selected = 0;
         foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
-            $total = $institutionService->academicStaffRate($sex, $otherRegion);
+            $total += $institutionService->allAcademicStaff();
+            $selected += $institutionService->academicStaffRate($sex, $otherRegion);
         }
+        $returnable = $total == 0 ? 0 : $selected / $total;
 
-        return $total;
+        return $returnable;
     }
 
     function exitExamination()
     {
         $total = 0;
 
-        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
             $total += $institutionService->exitExamination();
         }
@@ -256,7 +260,7 @@ class GeneralReportService
     {
         $total = 0;
 
-        foreach ($this->institutionsByPrivacy(false) as $institution) {                      
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
             $total = $institutionService->diasporaCourses();
         }
@@ -351,12 +355,49 @@ class GeneralReportService
     {
         $total = 0;
 
+        $selected = 0;
         foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
-            $total = $institutionService->managementStaffRate($sex, $otherRegion);
+            $total += $institutionService->allManagementStaff();
+            $selected = $institutionService->managementStaffRate($sex, $otherRegion);
         }
+        $returnable = $total == 0 ? 0 : $selected / $total;
 
-        return $total;
+        return $returnable;
+    }
+
+    function enrollmentsRate($sex, $otherRegion)
+    {
+        $total = 0;
+
+        $selected = 0;
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->allEnrollment();
+
+            $selected += $institutionService->enrollmentsRate($sex, $otherRegion);
+        }
+        $returnable = $total == 0 ? 0 : $selected / $total;
+
+        return $returnable;
+    }
+
+    function qualifiedTeacherToStudent()
+    {
+        $total = $this->enrollmentsRate("All", College::getEnum('education_level')['UNDERGRADUATE']) +
+            $this->enrollmentsRate("All", College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
+            $this->enrollmentsRate("All", College::getEnum('education_level')['POST_GRADUATE_PHD']);
+
+        $selected = $this->qualifiedStaff();
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->allEnrollment();
+
+            $selected += $institutionService->enrollmentsRate($sex, $otherRegion);
+        }
+        $returnable = $total == 0 ? 0 : $selected / $total;
+
+        return $returnable;
     }
 
 }
