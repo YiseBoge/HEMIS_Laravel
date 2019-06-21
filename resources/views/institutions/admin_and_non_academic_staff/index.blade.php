@@ -79,8 +79,7 @@
         </div>
 
 
-
-    @if ($data['page_name'] == 'institution.admin_and_non_academic_staff.create')
+        @if ($data['page_name'] == 'staff.admin_and_non_academic_staff.create')
     <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -135,7 +134,7 @@
     </div>
     @endif
 
-    @if ($data['page_name'] == 'institution.admin_and_non_academic_staff.edit')
+        @if ($data['page_name'] == 'staff.admin_and_non_academic_staff.edit')
     <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

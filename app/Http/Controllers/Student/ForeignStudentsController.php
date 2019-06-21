@@ -30,6 +30,7 @@ class ForeignStudentsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -47,6 +48,7 @@ class ForeignStudentsController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -97,6 +99,7 @@ class ForeignStudentsController extends Controller
         $foreignerStudent->years_in_ethiopia = $request->input("years_in_ethiopia");
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -153,6 +156,7 @@ class ForeignStudentsController extends Controller
     public function show($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -171,6 +175,7 @@ class ForeignStudentsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -221,6 +226,7 @@ class ForeignStudentsController extends Controller
         $foreignerStudent->years_in_ethiopia = $request->input("years_in_ethiopia");
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -277,6 +283,7 @@ class ForeignStudentsController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $foreignerStudent = ForeignStudent::find($id);

@@ -38,7 +38,6 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="/enrollment/normal">Students</a>
                     <a class="collapse-item" href="/enrollment/special-region-students">Special Region Students</a>
-                    <a class="collapse-item" href="/student/special-need">Special Need Students</a>
                     <a class="collapse-item" href="/enrollment/specializing-students">Specializing Students</a>
                     <a class="collapse-item" href="/enrollment/rural-area-students">Rural Area Students</a>
                     <a class="collapse-item text-wrap" href="/enrollment/economically-disadvantaged">Economically

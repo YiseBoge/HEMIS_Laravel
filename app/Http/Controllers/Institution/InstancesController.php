@@ -19,6 +19,7 @@ class InstancesController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Super Admin');
 
         $instances = Instance::all();
@@ -26,7 +27,7 @@ class InstancesController extends Controller
 
         $data = ['instances' => $instances,
             'current_instance' => $currentInstance,
-            'page_name' => 'institution.instance.index'
+            'page_name' => 'administer.instance.index'
         ];
         return view('institutions.instance.index')->with('data', $data);
 
@@ -40,6 +41,7 @@ class InstancesController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Super Admin');
 
         $instances = Instance::all();
@@ -48,7 +50,7 @@ class InstancesController extends Controller
         $data = [
             'instances' => $instances,
             'current_instance' => $currentInstance,
-            'page_name' => 'institution.instance.create'
+            'page_name' => 'administer.instance.create'
         ];
         return view('institutions.instance.index')->with('data', $data);
     }
@@ -63,6 +65,7 @@ class InstancesController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Super Admin');
 
         $this->validate($request, [
@@ -94,6 +97,7 @@ class InstancesController extends Controller
         ]);
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Super Admin');
         $currentInstances = Instance::all();
         $currentInstance = $currentInstances[$request->input('current_instance')];

@@ -19,10 +19,15 @@ class BudgetDescriptionsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
         $budgetDescriptions = BudgetDescription::all();
-        return view('colleges.budget_description.index')->with('budgetDescriptions', $budgetDescriptions);
+        $data = array(
+            'budgetDescriptions' => $budgetDescriptions,
+            'page_name' => 'administer.budget-description.index',
+        );
+        return view('colleges.budget_description.index')->with($data);
     }
 
     /**
@@ -33,6 +38,7 @@ class BudgetDescriptionsController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
     }
@@ -47,6 +53,7 @@ class BudgetDescriptionsController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
         $this->validate($request, [

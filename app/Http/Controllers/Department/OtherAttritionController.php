@@ -11,12 +11,14 @@ use App\Models\Department\OtherAttrition;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class OtherAttritionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -77,7 +79,7 @@ class OtherAttritionController extends Controller
             'education_levels' => College::getEnum('EducationLevels'),
             'types' => OtherAttrition::getEnum('Types'),
             'cases' => OtherAttrition::getEnum('Cases'),
-            'page_name' => 'departments.other_attritions.index',
+            'page_name' => 'students.other_attrition.index',
 
             "selected_program" => $requestedProgram,
             "selected_level" => $requestedLevel,
@@ -95,6 +97,7 @@ class OtherAttritionController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -114,6 +117,7 @@ class OtherAttritionController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {

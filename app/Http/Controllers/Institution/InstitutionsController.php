@@ -20,12 +20,13 @@ class InstitutionsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
         $institution = $user->institution();
 
         $data = array(
             'institution' => $institution,
-            'page_name' => 'institutions.general_info.index'
+            'page_name' => 'general.general_info.index'
         );
         return view("institutions.general_info.index")->with($data);
     }
@@ -71,6 +72,7 @@ class InstitutionsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
         $currentInstitution = Institution::find($id);
@@ -83,7 +85,7 @@ class InstitutionsController extends Controller
             'status_of_libraries' => $status_of_libraries,
             'status_of_laboratories' => $status_of_laboratories,
             'status_of_workshops' => $status_of_workshops,
-            'page_name' => 'institutions.general_info.edit'
+            'page_name' => 'general.general_info.edit'
         );
         return view("institutions.general_info.edit")->with($data);
     }

@@ -9,10 +9,12 @@ use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
+use App\Models\Department\Enrollment;
 use App\Models\Department\RuralStudentEnrollment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class RuralStudentEnrollmentsController extends Controller
 {
@@ -25,6 +27,7 @@ class RuralStudentEnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -96,6 +99,7 @@ class RuralStudentEnrollmentsController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -121,6 +125,7 @@ class RuralStudentEnrollmentsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -135,6 +140,7 @@ class RuralStudentEnrollmentsController extends Controller
         $enrollment->region = $request->input('region');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();

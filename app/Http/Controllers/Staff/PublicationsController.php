@@ -24,6 +24,7 @@ class PublicationsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -92,7 +93,7 @@ class PublicationsController extends Controller
         $data = array(
             'publications' => $publications,
             'publications_and_patents' => $publicationsAndPatents,
-            'page_name' => 'staff.publication.index'
+            'page_name' => 'publication.publication.index'
         );
         return view("staff.publication.index")->with($data);
     }
@@ -105,6 +106,7 @@ class PublicationsController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -136,7 +138,7 @@ class PublicationsController extends Controller
 
         $data = array(
             'staffs' => $staffs,
-            'page_name' => 'staff.publication.create'
+            'page_name' => 'publication.publication.create'
         );
         return view("staff.publication.create")->with($data);
     }
@@ -160,6 +162,7 @@ class PublicationsController extends Controller
         $publication->date_of_publication = $request->input('date');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -245,6 +248,7 @@ class PublicationsController extends Controller
         $publicationsAndPatents->patents = $request->input('patents');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 

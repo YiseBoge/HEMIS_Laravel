@@ -24,6 +24,7 @@ class PostGraduateDiplomaTrainingController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -71,7 +72,7 @@ class PostGraduateDiplomaTrainingController extends Controller
             'trainings' => $trainings,
             'programs' => PostGraduateDiplomaTraining::getEnum("Programs"),
             'types' => PostGraduateDiplomaTraining::getEnum('Types'),
-            'page_name' => 'departments.postgraduate_diploma_training.index',
+            'page_name' => 'staff.postgraduate_diploma_training.index',
 
             'selected_type' => $requestedType,
             'selected_program' => $requestedProgram
@@ -88,6 +89,7 @@ class PostGraduateDiplomaTrainingController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -96,7 +98,7 @@ class PostGraduateDiplomaTrainingController extends Controller
             'departments' => DepartmentName::all(),
             'programs' => PostGraduateDiplomaTraining::getEnum("Programs"),
             'types' => PostGraduateDiplomaTraining::getEnum('Types'),
-            'page_name' => 'departments.postgraduate_diploma_training.create'
+            'page_name' => 'staff.postgraduate_diploma_training.create'
         );
 
         return view("departments.postgraduate_diploma_training.create")->with($data);
@@ -126,6 +128,7 @@ class PostGraduateDiplomaTrainingController extends Controller
         }
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();

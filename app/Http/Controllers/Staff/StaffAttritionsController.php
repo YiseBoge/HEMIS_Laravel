@@ -3,14 +3,8 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
-use App\Models\Band\BandName;
-use App\Models\College\College;
-use App\Models\College\CollegeName;
-use App\Models\Department\Department;
-use App\Models\Department\DepartmentName;
-use App\Models\Staff\StaffAttrition;
 use App\Models\Staff\Staff;
+use App\Models\Staff\StaffAttrition;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -20,11 +14,15 @@ class StaffAttritionsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
+        $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
+        $user->authorizeRoles('College Admin');
         $user->authorizeRoles(['College Admin', 'Department Admin']);
         $institution = $user->institution();
 
@@ -120,11 +118,13 @@ class StaffAttritionsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function create(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles(['College Admin', 'Department Admin']);
         $institution = $user->institution();
 
@@ -231,6 +231,10 @@ class StaffAttritionsController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
+        $user->authorizeRoles(['College Admin', 'Department Admin']);
+
         $attrition = new StaffAttrition;
         $attrition->case = $request->input('case');
 

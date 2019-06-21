@@ -164,7 +164,6 @@ class InstitutionService
         return $total;
     }
 
-
     function diasporaCourses()
     {
         $total = 0;
@@ -198,13 +197,13 @@ class InstitutionService
         return $total;
     }
 
-    function publicationByPostgrads()
+    function publicationByPostgraduates()
     {
         $total = 0;
         $departments = $this->allDepartments();
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
-            $total += $departmentService->publicationByPostgrads();
+            $total += $departmentService->publicationByPostgraduates();
         }
         return $total;
     }
@@ -220,13 +219,13 @@ class InstitutionService
         return $total;
     }
 
-    function costSharings()
+    function costSharing()
     {
         $total = 0;
         $departments = $this->allDepartments();
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
-            $total += $departmentService->costSharings();
+            $total += $departmentService->costSharing();
         }
         return $total;
     }
@@ -291,7 +290,8 @@ class InstitutionService
         return $total;
     }
 
-    function budgetNotFromGovernemnt(){
+    function budgetNotFromGovernment()
+    {
         $total = 0;
         foreach ($this->institution->bands as $band) {
             foreach ($band->colleges as $college) {
@@ -330,7 +330,6 @@ class InstitutionService
 
         return $total;
     }
-
 
     function academicStaffPublication()
     {
@@ -449,7 +448,6 @@ class InstitutionService
         return $total;
 
     }
-
 
     function allAcademicStaff()
     {

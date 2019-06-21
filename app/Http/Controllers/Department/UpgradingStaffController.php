@@ -26,6 +26,7 @@ class UpgradingStaffController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -69,7 +70,7 @@ class UpgradingStaffController extends Controller
             'upgrading_staff' => $filteredTeachers,
 
             'selected_place' => $requestedPlace,
-            'page_name' => 'departments.upgrading-staff.index'
+            'page_name' => 'staff.upgrading-staff.index'
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
@@ -85,6 +86,7 @@ class UpgradingStaffController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $data = [
@@ -93,7 +95,7 @@ class UpgradingStaffController extends Controller
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
-            'page_name' => 'departments.upgrading-staff.create'
+            'page_name' => 'staff.upgrading-staff.create'
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
@@ -123,6 +125,7 @@ class UpgradingStaffController extends Controller
 
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 

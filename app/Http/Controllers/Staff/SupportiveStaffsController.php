@@ -10,6 +10,7 @@ use App\Models\Staff\SupportiveStaff;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class SupportiveStaffsController extends Controller
 {
@@ -21,6 +22,7 @@ class SupportiveStaffsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -58,6 +60,7 @@ class SupportiveStaffsController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -75,6 +78,7 @@ class SupportiveStaffsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -114,6 +118,7 @@ class SupportiveStaffsController extends Controller
         $supportiveStaff->staffRank = $request->input('supportive_staff_rank');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -154,6 +159,7 @@ class SupportiveStaffsController extends Controller
     public function show($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -187,6 +193,7 @@ class SupportiveStaffsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
@@ -227,6 +234,7 @@ class SupportiveStaffsController extends Controller
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -266,7 +274,11 @@ class SupportiveStaffsController extends Controller
      */
     public function destroy($id)
     {
-        $administrativeStaff = AdministrativeStaff::find($id);
+        $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
+        $user->authorizeRoles('College Admin');
+
+        $administrativeStaff = SupportiveStaff::find($id);
         $staff = $administrativeStaff->general;
         $administrativeStaff->delete();
         $staff->delete();

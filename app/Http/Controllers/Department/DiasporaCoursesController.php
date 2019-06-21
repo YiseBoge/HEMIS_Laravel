@@ -10,17 +10,19 @@ use App\Models\Department\DiasporaCourses;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class DiasporaCoursesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -52,7 +54,7 @@ class DiasporaCoursesController extends Controller
 
         $data = array(
             'courses' => $courses,
-            'page_name' => 'departments.diaspora_course.index'
+            'page_name' => 'staff.diaspora_course.index'
         );
         //return $filteredEnrollments;
         return view("departments.diaspora_course.index")->with($data);
@@ -61,15 +63,16 @@ class DiasporaCoursesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'page_name' => 'departments.diaspora_course.create'
+            'page_name' => 'staff.diaspora_course.create'
         );
         //return $filteredEnrollments;
         return view("departments.diaspora_course.create")->with($data);
@@ -78,8 +81,9 @@ class DiasporaCoursesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -93,6 +97,7 @@ class DiasporaCoursesController extends Controller
         $course->number_of_researches = $request->input('research_number');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -139,7 +144,7 @@ class DiasporaCoursesController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -150,7 +155,7 @@ class DiasporaCoursesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -160,9 +165,9 @@ class DiasporaCoursesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -173,7 +178,7 @@ class DiasporaCoursesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

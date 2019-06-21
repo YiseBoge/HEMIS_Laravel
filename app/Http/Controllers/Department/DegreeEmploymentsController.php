@@ -22,6 +22,7 @@ class DegreeEmploymentsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -53,7 +54,7 @@ class DegreeEmploymentsController extends Controller
 
         $data = array(
             'employments' => $employments,
-            'page_name' => 'departments.degree_employment.index'
+            'page_name' => 'students.degree_employment.index'
         );
         //return $filteredEnrollments;
         return view("departments.degree_employment.index")->with($data);
@@ -67,10 +68,11 @@ class DegreeEmploymentsController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'page_name' => 'departments.degree_employment.create'
+            'page_name' => 'students.degree_employment.create'
         );
         //return $filteredEnrollments;
         return view("departments.degree_employment.create")->with($data);
@@ -95,6 +97,7 @@ class DegreeEmploymentsController extends Controller
         $employment->female_students_number = $request->input('female_number');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();

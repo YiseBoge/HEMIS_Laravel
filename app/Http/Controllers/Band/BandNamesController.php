@@ -22,10 +22,14 @@ class BandNamesController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Super Admin');
 
         $bands= BandName::all();
-        $data=['bands'=>$bands,'page_name'=>'band.band-name.list'];
+        $data = [
+            'bands' => $bands,
+            'page_name' => 'administer.band-name.list'
+        ];
         return view('bands.band_name.list')->with('data',$data);
     }
 
@@ -37,12 +41,13 @@ class BandNamesController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Super Admin');
 
         $bands= BandName::all();
         $data = [
             'bands' => $bands,
-            'page_name' => 'band.band-name.create'
+            'page_name' => 'administer.band-name.create'
         ];
         return view('bands.band_name.list')->with('data',$data);
     }
@@ -57,6 +62,7 @@ class BandNamesController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Super Admin');
 
         $this->validate($request, [
@@ -83,6 +89,7 @@ class BandNamesController extends Controller
     public function show($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Super Admin');
 
         return view('bands.details');
@@ -97,6 +104,7 @@ class BandNamesController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Super Admin');
 
         return view('bands.edit');

@@ -21,6 +21,7 @@ class InvestmentsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -59,6 +60,7 @@ class InvestmentsController extends Controller
         $investmentTitles = Investment::getEnum('investment_title');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -109,6 +111,7 @@ class InvestmentsController extends Controller
         $investment->remarks = $request->input('remarks');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -164,6 +167,7 @@ class InvestmentsController extends Controller
         $investmentTitle = Investment::getValueKey($investmentTitles, $investment->investment_title);
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -206,6 +210,7 @@ class InvestmentsController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $this->validate($request, [

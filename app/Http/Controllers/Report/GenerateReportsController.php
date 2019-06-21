@@ -23,6 +23,7 @@ class GenerateReportsController extends Controller
     public function generateFullReport()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Super Admin');
         $year = $user->currentInstance->year;
 
@@ -580,7 +581,7 @@ class GenerateReportsController extends Controller
         }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $total = $reportService->publicationByPostgrads();
+        $total = $reportService->publicationByPostgraduates();
         $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
@@ -805,7 +806,7 @@ class GenerateReportsController extends Controller
         }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $total = $reportService->costSharings();
+        $total = $reportService->costSharing();
         $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
@@ -820,6 +821,7 @@ class GenerateReportsController extends Controller
     public function generateInstitutionReport($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Super Admin');
         $year = $user->currentInstance->year;
 

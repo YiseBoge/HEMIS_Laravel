@@ -13,6 +13,7 @@ use App\Models\Department\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class TeachersController extends Controller
 {
@@ -24,6 +25,7 @@ class TeachersController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -78,7 +80,7 @@ class TeachersController extends Controller
             'selected_college' => $requestedCollege,
             'selected_level' => $requestedLevel,
             'selected_band' => $requestedBand,
-            'page_name' => 'departments.teachers.index'
+            'page_name' => 'staff.teachers.index'
         );
         //return $filteredEnrollments;
         return view("departments.teachers.index")->with($data);
@@ -99,7 +101,7 @@ class TeachersController extends Controller
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
             'education_levels' => Teacher::getEnum("EducationLevels"),
-            'page_name' => 'departments.teachers.create'
+            'page_name' => 'staff.teachers.create'
         );
         return view('departments.teachers.create')->with($data);
     }
@@ -109,6 +111,7 @@ class TeachersController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -126,6 +129,7 @@ class TeachersController extends Controller
 
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();

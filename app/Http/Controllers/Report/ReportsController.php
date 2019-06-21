@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Report\ReportCard;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class ReportsController extends Controller
@@ -73,6 +74,10 @@ class ReportsController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
+        $user->authorizeRoles('Super Admin');
+
         $reports = ReportCard::groupedReports();
         $card = ReportCard::all()->sortBy('year')->first();
         $years = $card != null ? $card->reportYearValues : array();
@@ -87,7 +92,7 @@ class ReportsController extends Controller
             'years' => $years,
             'baseline' => $baseline,
             'change' => $change,
-            'page_name' => 'reports.report_card.edit'
+            'page_name' => 'report.report_card.edit'
         ];
 
         return view('reports.report_card.index')->with($data);
@@ -102,6 +107,10 @@ class ReportsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
+        $user->authorizeRoles('Super Admin');
+
         $report = ReportCard::find($id);
         $report->target = $request->input('target');
 
@@ -134,6 +143,10 @@ class ReportsController extends Controller
      */
     public function newYearValue(Request $request, $id)
     {
+        $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
+        $user->authorizeRoles('Super Admin');
+
         $this->validate($request, [
             'year' => 'required',
             'value' => 'required',

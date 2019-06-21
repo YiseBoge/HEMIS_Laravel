@@ -22,6 +22,7 @@ class DepartmentAdminController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $editors = [];
@@ -33,7 +34,7 @@ class DepartmentAdminController extends Controller
 
         $data = array(
             'editors' => $editors,
-            'page_name' => 'users.department_admin.index',
+            'page_name' => 'administer.department_admin.index',
         );
         return view('users.department_admin.index')->with($data);
     }
@@ -46,13 +47,14 @@ class DepartmentAdminController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $departmentNames = DepartmentName::all();
 
         $data = array(
             'department_names' => $departmentNames,
-            'page_name' => 'users.department_admin.create',
+            'page_name' => 'administer.department_admin.create',
         );
         return view('users.department_admin.create')->with('data', $data);
     }
@@ -74,6 +76,7 @@ class DepartmentAdminController extends Controller
         ]);
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $currentInstanceId = $user->currentInstance;

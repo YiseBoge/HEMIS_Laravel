@@ -17,12 +17,12 @@ class UniversityIndustryLinkageController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -50,7 +50,7 @@ class UniversityIndustryLinkageController extends Controller
             'linkages' => $linkages,
             'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
-            'page_name' => 'bands.university_industry_linkage.index'
+            'page_name' => 'students.university_industry_linkage.index'
         );
         return view("bands.university_industry_linkage.index")->with($data);
     }
@@ -60,9 +60,10 @@ class UniversityIndustryLinkageController extends Controller
      *
      * @return Response
      */
-    public function create(Request $request)
+    public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -91,7 +92,7 @@ class UniversityIndustryLinkageController extends Controller
             'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
 
-            'page_name' => 'bands.university_industry_linkage.create'
+            'page_name' => 'students.university_industry_linkage.create'
         );
         return view("bands.university_industry_linkage.index")->with($data);
     }
@@ -118,6 +119,7 @@ class UniversityIndustryLinkageController extends Controller
         $linkage->training_area = $request->input('training_area');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();

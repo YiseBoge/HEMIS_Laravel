@@ -76,8 +76,8 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                      @if (count($enrollemnt_info) > 0)
-                                        @foreach ($enrollemnt_info as $info)
+                                    @if (count($enrollment_info) > 0)
+                                        @foreach ($enrollment_info as $info)
                                             <tr role="row" class="odd" onclick="window.location='age-enrollment/{{$info->id}}'">
                                                 <td class="pl-4">
                                                     <div class="row">

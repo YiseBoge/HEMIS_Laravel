@@ -5,14 +5,13 @@ namespace App\Http\Controllers\Department;
 use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\Band\BandName;
-use App\Models\College\College;
-use App\Models\College\CollegeName;
-use App\Models\Department\Department;
-use App\Models\Department\DepartmentName;
 use App\Models\Band\Research;
+use App\Models\College\College;
+use App\Models\Department\Department;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class ResearchsController extends Controller
 {
@@ -24,11 +23,9 @@ class ResearchsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
-        $institution = $user->institution();
-
-        $user = Auth::user();
         $institution = $user->institution();
 
         $requestedType = $request->input('type');
@@ -70,7 +67,7 @@ class ResearchsController extends Controller
             'bands' => BandName::all(),
             'completions' => Research::getEnum('Completions'),
             'types' => Research::getEnum('Types'),
-            'page_name' => 'bands.research.index',
+            'page_name' => 'research.research.index',
 
             "selected_type" => $requestedType,
             "selected_status" => $requestedStatus
@@ -86,12 +83,13 @@ class ResearchsController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
             'completions' => Research::getEnum('Completions'),
             'types' => Research::getEnum('Types'),
-            'page_name' => 'bands.research.create'
+            'page_name' => 'research.research.create'
         );
         return view("bands.research.create")->with($data);
     }
@@ -101,6 +99,7 @@ class ResearchsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -128,6 +127,7 @@ class ResearchsController extends Controller
         $research->type = $request->input('type');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -188,6 +188,7 @@ class ResearchsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
     }
 
@@ -201,6 +202,7 @@ class ResearchsController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
     }
 
@@ -213,6 +215,7 @@ class ResearchsController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
     }
 }

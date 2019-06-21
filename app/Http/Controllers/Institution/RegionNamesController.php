@@ -19,10 +19,14 @@ class RegionNamesController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Super Admin');
 
         $regionNames= RegionName::all();
-        $data=['region_names'=>$regionNames,'page_name'=>'institution.region-name.index'];
+        $data = [
+            'region_names' => $regionNames,
+            'page_name' => 'administer.region-name.index'
+        ];
         return view('institutions.region_name.index')->with('data',$data);
     }
 
@@ -34,10 +38,14 @@ class RegionNamesController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Super Admin');
 
         $regionNames= RegionName::all();
-        $data=['region_names'=>$regionNames,'page_name'=>'institution.region-name.create'];
+        $data = [
+            'region_names' => $regionNames,
+            'page_name' => 'administer.region-name.create'
+        ];
         return view('institutions.region_name.index')->with('data',$data);
     }
 
@@ -51,6 +59,7 @@ class RegionNamesController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Super Admin');
 
         $this->validate($request, [

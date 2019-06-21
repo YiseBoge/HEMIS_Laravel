@@ -22,10 +22,14 @@ class DepartmentNamesController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
         $departments= DepartmentName::all();
-        $data=['departments'=>$departments,'page_name'=>'department.department-name.list'];
+        $data = [
+            'departments' => $departments,
+            'page_name' => 'administer.department-name.list'
+        ];
         return view('departments.department_name.list')->with('data',$data);
     }
 
@@ -37,10 +41,14 @@ class DepartmentNamesController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
         $departments= DepartmentName::all();
-        $data=['departments'=>$departments,'page_name'=>'department.department-name.create'];
+        $data = [
+            'departments' => $departments,
+            'page_name' => 'administer.department-name.create'
+        ];
         return view('departments.department_name.list')->with('data',$data);
     }
 
@@ -54,6 +62,7 @@ class DepartmentNamesController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
         $this->validate($request, [
@@ -78,6 +87,7 @@ class DepartmentNamesController extends Controller
     public function show($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
         return view('departments.details');
@@ -92,6 +102,7 @@ class DepartmentNamesController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
         $department = DepartmentName::find($id);

@@ -23,6 +23,7 @@ class CollegeAdminController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
         $editors = [];
@@ -34,7 +35,7 @@ class CollegeAdminController extends Controller
 
         $data = array(
             'editors' => $editors,
-            'page_name' => 'users.college_admin.index',
+            'page_name' => 'administer.college_admin.index',
         );
         return view('users.college_admin.index')->with($data);
     }
@@ -47,6 +48,7 @@ class CollegeAdminController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
         $collegeNames = CollegeName::all();
@@ -55,7 +57,7 @@ class CollegeAdminController extends Controller
         $data = array(
             'college_names' => $collegeNames,
             'band_names' => $bandNames,
-            'page_name' => 'users.college_admin.create',
+            'page_name' => 'administer.college_admin.create',
         );
         return view('users.college_admin.create')->with('data', $data);
 
@@ -79,6 +81,7 @@ class CollegeAdminController extends Controller
         ]);
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
         $currentInstanceId = $user->currentInstance;

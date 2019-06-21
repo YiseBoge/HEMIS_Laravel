@@ -22,6 +22,7 @@ class CostSharingController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -49,7 +50,7 @@ class CostSharingController extends Controller
 
         $data = array(
             'costSharings' => $costSharings,
-            'page_name' => 'departments.cost_sharing.index'
+            'page_name' => 'students.cost_sharing.index'
         );
         return view("departments.cost_sharing.index")->with($data);
 
@@ -63,10 +64,11 @@ class CostSharingController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'page_name' => 'departments.cost_sharing.create'
+            'page_name' => 'students.cost_sharing.create'
         );
 
         return view("departments.cost_sharing.create")->with($data);
@@ -113,6 +115,7 @@ class CostSharingController extends Controller
         $costSharing->unpaid_amount = $request->input('unpaid_amount');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 

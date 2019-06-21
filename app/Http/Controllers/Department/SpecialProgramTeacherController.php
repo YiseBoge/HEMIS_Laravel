@@ -26,6 +26,7 @@ class SpecialProgramTeacherController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -71,7 +72,7 @@ class SpecialProgramTeacherController extends Controller
 
             'selected_status' => $requestedStatus,
 
-            'page_name'=>'departments.special-program-teacher.index'
+            'page_name' => 'staff.special-program-teacher.index'
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
@@ -87,6 +88,7 @@ class SpecialProgramTeacherController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $data=[
@@ -95,7 +97,7 @@ class SpecialProgramTeacherController extends Controller
             'colleges'=>CollegeName::all(),
             'bands'=>BandName::all(),
             'departments'=>DepartmentName::all(),
-            'page_name'=>'departments.special-program-teacher.create'
+            'page_name' => 'staff.special-program-teacher.create'
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
@@ -127,6 +129,7 @@ class SpecialProgramTeacherController extends Controller
 
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 

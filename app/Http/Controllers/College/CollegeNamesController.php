@@ -21,11 +21,12 @@ class CollegeNamesController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
         $colleges=CollegeName::all();
         $data=['colleges'=>$colleges,'page_name'=>'colleges.colleges-name.index'];
-        return view('colleges.college_name.index')->with('data',$data);
+        return view('administer.college_name.index')->with('data', $data);
     }
 
     /**
@@ -36,11 +37,12 @@ class CollegeNamesController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
         $colleges=CollegeName::all();
         $data=['colleges'=>$colleges,'page_name'=>'colleges.colleges-name.create'];
-        return view('colleges.college_name.index')->with('data',$data);
+        return view('administer.college_name.index')->with('data', $data);
     }
 
     /**
@@ -53,6 +55,7 @@ class CollegeNamesController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('University Admin');
 
         $this->validate($request, [

@@ -10,6 +10,7 @@ use App\Models\Department\ExitExamination;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class ExitExaminationsController extends Controller
 {
@@ -21,6 +22,7 @@ class ExitExaminationsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -53,7 +55,7 @@ class ExitExaminationsController extends Controller
 
         $data = array(
             'examinations' => $examinations,
-            'page_name' => 'departments.exit_examination.index'
+            'page_name' => 'students.exit_examination.index'
         );
         //return $filteredEnrollments;
         return view("departments.exit_examination.index")->with($data);
@@ -67,10 +69,11 @@ class ExitExaminationsController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'page_name' => 'departments.exit_examination.create'
+            'page_name' => 'students.exit_examination.create'
         );
         //return $filteredEnrollments;
         return view("departments.exit_examination.create")->with($data);
@@ -81,6 +84,7 @@ class ExitExaminationsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -94,6 +98,7 @@ class ExitExaminationsController extends Controller
         $examination->female_students_number = $request->input('female_number');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();

@@ -128,7 +128,6 @@ class DepartmentService
         return $total;
     }
 
-
     public function foreignStudents()
     {
         return $this->department->foreignStudents()->count();
@@ -152,7 +151,7 @@ class DepartmentService
         return $total;
     }
 
-    public function publicationByPostgrads()
+    public function publicationByPostgraduates()
     {
         $total = 0;
         foreach ($this->department->publicationsAndPatents as $pubAndPatent) {
@@ -180,7 +179,7 @@ class DepartmentService
         return $total;
     }
 
-    public function costSharings()
+    public function costSharing()
     {
         $total = 0;
         foreach ($this->department->costSharings as $costSharing) {
@@ -189,7 +188,6 @@ class DepartmentService
         }
         return $total;
     }
-
 
     function degreeEmployment()
     {

@@ -24,6 +24,7 @@ class StudentAttritionController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -85,7 +86,7 @@ class StudentAttritionController extends Controller
             'student_types' => StudentAttrition::getEnum('StudentTypes'),
             'types' => StudentAttrition::getEnum('Types'),
             'cases' => StudentAttrition::getEnum('Cases'),
-            'page_name' => 'departments.student_attritions.index',
+            'page_name' => 'students.student_attrition.index',
 
             "selected_program" => $requestedProgram,
             "selected_level" => $requestedLevel,
@@ -104,6 +105,7 @@ class StudentAttritionController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -114,7 +116,7 @@ class StudentAttritionController extends Controller
             'student_types' => StudentAttrition::getEnum('StudentTypes'),
             'types' => StudentAttrition::getEnum('Types'),
             'cases' => StudentAttrition::getEnum('Cases'),
-            'page_name' => 'departments.student_attritions.create'
+            'page_name' => 'students.student_attrition.create'
         );
         return view("departments.student_attrition.create")->with($data);
     }
@@ -141,6 +143,7 @@ class StudentAttritionController extends Controller
         $attrition->female_students_number = $request->input('female_number');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();

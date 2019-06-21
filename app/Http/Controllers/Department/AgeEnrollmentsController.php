@@ -4,15 +4,13 @@ namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
-use App\Models\Band\BandName;
 use App\Models\College\College;
-use App\Models\College\CollegeName;
 use App\Models\Department\Department;
-use App\Models\Department\DepartmentName;
 use App\Models\Institution\AgeEnrollment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class AgeEnrollmentsController extends Controller
 {
@@ -24,6 +22,7 @@ class AgeEnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -65,7 +64,7 @@ class AgeEnrollmentsController extends Controller
         array_pop($educationPrograms);
         array_pop($educationLevels);
 
-        $data = ['enrollemnt_info' => $ageEnrollments,
+        $data = ['enrollment_info' => $ageEnrollments,
             'age_range' => AgeEnrollment::getEnum('Ages'),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
@@ -86,6 +85,7 @@ class AgeEnrollmentsController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -95,7 +95,7 @@ class AgeEnrollmentsController extends Controller
         array_pop($educationLevels);
         array_pop($year_levels);
 
-        $data = ['enrollemnt_info' => AgeEnrollment::all(),
+        $data = ['enrollment_info' => AgeEnrollment::all(),
             'age_range' => AgeEnrollment::getEnum('Ages'),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
@@ -109,6 +109,7 @@ class AgeEnrollmentsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -118,6 +119,7 @@ class AgeEnrollmentsController extends Controller
         ]);
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();

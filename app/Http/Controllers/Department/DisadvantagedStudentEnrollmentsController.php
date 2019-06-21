@@ -13,6 +13,7 @@ use App\Models\Department\DisadvantagedStudentEnrollment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class DisadvantagedStudentEnrollmentsController extends Controller
 {
@@ -24,6 +25,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -95,6 +97,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -120,6 +123,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -134,6 +138,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $enrollment->quintile = $request->input('quintile');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();

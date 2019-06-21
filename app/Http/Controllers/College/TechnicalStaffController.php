@@ -24,6 +24,7 @@ class TechnicalStaffController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -67,7 +68,7 @@ class TechnicalStaffController extends Controller
             'bands' => BandName::all(),
             'colleges' => CollegeName::all(),
             'levels' => TechnicalStaff::getEnum('EducationLevels'),
-            'page_name' => 'college.technical_staff.index',
+            'page_name' => 'staff.technical_staff.index',
 
             "selected_band" => $requestedBand,
             "selected_college" => $requestedCollege,
@@ -85,6 +86,7 @@ class TechnicalStaffController extends Controller
     public function create(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -130,7 +132,7 @@ class TechnicalStaffController extends Controller
             'levels' => TechnicalStaff::getEnum('EducationLevels'),
             'page_name' => 'college.technical_staff.create'
         );
-        return view("colleges.technical_staff.index")->with($data);
+        return view("staff.technical_staff.index")->with($data);
     }
 
     /**
@@ -153,6 +155,7 @@ class TechnicalStaffController extends Controller
         $staff->female_staff_number = $request->input('female_number');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();

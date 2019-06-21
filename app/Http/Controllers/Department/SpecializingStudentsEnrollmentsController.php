@@ -13,6 +13,7 @@ use App\Models\Department\SpecializingStudentsEnrollment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class SpecializingStudentsEnrollmentsController extends Controller
 {
@@ -25,6 +26,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -101,6 +103,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -124,6 +127,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -140,6 +144,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
         $enrollment->field_of_specialization = $request->input('field_of_specialization');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();

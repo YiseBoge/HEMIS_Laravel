@@ -73,6 +73,7 @@ class BudgetsController extends Controller
         $budget_type = Budget::getEnum('budget_type')['CAPITAL'];
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -133,6 +134,7 @@ class BudgetsController extends Controller
         $budget->utilized_budget = $request->input('utilized');
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -188,6 +190,7 @@ class BudgetsController extends Controller
         $budget_type = Budget::getValueKey(Budget::getEnum("budget_type"), $budget->budget_type);
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -240,6 +243,7 @@ class BudgetsController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $this->validate($request, [

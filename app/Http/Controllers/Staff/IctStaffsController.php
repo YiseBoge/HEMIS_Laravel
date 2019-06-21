@@ -22,6 +22,7 @@ class IctStaffsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();
@@ -57,6 +58,7 @@ class IctStaffsController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -116,15 +118,16 @@ class IctStaffsController extends Controller
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
-        $ictStaff->save();
-
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();
-
         $bandName = $user->bandName;
+
+        $ictStaff->save();
+
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if ($band == null) {
             $band = new Band;
@@ -161,6 +164,7 @@ class IctStaffsController extends Controller
     public function show($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -179,6 +183,7 @@ class IctStaffsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -237,14 +242,17 @@ class IctStaffsController extends Controller
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
-        $ictStaff->save();
 
         $ictStaff->general()->save($staff);
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
+
+
+        $ictStaff->save();
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
@@ -269,6 +277,7 @@ class IctStaffsController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $ictStaff = IctStaff::find($id);

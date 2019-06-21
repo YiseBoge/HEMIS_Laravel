@@ -20,6 +20,7 @@ class AdminAndNonAcademicStaffsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -33,7 +34,7 @@ class AdminAndNonAcademicStaffsController extends Controller
             $adminAndNonAcademics = AdminAndNonAcademicStaff::all();
         }
         $data = ['staffs' => $adminAndNonAcademics,
-                 'page_name' => 'institution.admin_and_non_academic_staff.index'];
+            'page_name' => 'staff.admin_and_non_academic_staff.index'];
         return view('institutions.admin_and_non_academic_staff.index')->with('data', $data);
     }
 
@@ -45,12 +46,13 @@ class AdminAndNonAcademicStaffsController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $data = array(
             'staffs' => AdminAndNonAcademicStaff::all(),
             'education_levels' => AdminAndNonAcademicStaff::getEnum("EducationLevels"),
-            'page_name' => 'institution.admin_and_non_academic_staff.create'
+            'page_name' => 'staff.admin_and_non_academic_staff.create'
         );
 
         return view('institutions.admin_and_non_academic_staff.index')->with('data' , $data);
@@ -71,6 +73,7 @@ class AdminAndNonAcademicStaffsController extends Controller
         ]);
 
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();
@@ -109,11 +112,12 @@ class AdminAndNonAcademicStaffsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
+        if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         
         $data = ['staffs' => AdminAndNonAcademicStaff::all(),
         'education_levels' => AdminAndNonAcademicStaff::getEnum("EducationLevels"),
-            'page_name' => 'institution.admin_and_non_academic_staff.edit'];
+            'page_name' => 'staff.admin_and_non_academic_staff.edit'];
         return view('institutions.admin_and_non_academic_staff.index')->with('data', $data);
     }
 
