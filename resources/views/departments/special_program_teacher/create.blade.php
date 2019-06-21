@@ -22,11 +22,11 @@
 
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    {!! Form::select('program_type', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramTypes') , $data['program_type'] , ['class' => 'form-control', 'id' => 'add_program_type']) !!}
+                                    {!! Form::select('program_type', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramTypes') , $program_type , ['class' => 'form-control', 'id' => 'add_program_type']) !!}
                                     {!! Form::label('program_type', 'Program Type', ['class' => 'form-control-placeholder', 'for' => 'add_program_type']) !!}
                                 </div>
                                 <div class="col form-group">
-                                    {!! Form::select('program_status', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramStats') , $data['program_status'] , ['class' => 'form-control', 'id' => 'add_program_status']) !!}
+                                    {!! Form::select('program_status', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramStats') , $program_status , ['class' => 'form-control', 'id' => 'add_program_status']) !!}
                                     {!! Form::label('program_status', 'Program Status', ['class' => 'form-control-placeholder', 'for' => 'add_program_status']) !!}
                                 </div>
                             </div>

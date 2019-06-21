@@ -58,7 +58,7 @@ class ForeignStudentsController extends Controller
             'education_levels' => College::getEnum("EducationLevels"),
             'food_service_types' => StudentService::getEnum("FoodServiceTypes"),
             'dormitory_service_types' => DormitoryService::getEnum("DormitoryServiceTypes"),
-            'page_name' => 'foreign.create'
+            'page_name' => 'students.foreign.create'
         );
         return view("students.foreign.create")->with($data);
     }

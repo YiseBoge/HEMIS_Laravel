@@ -7,18 +7,19 @@
             <div class="card-body">
                 <div class="row my-3">
                     <div class="col-sm-4 text-left">
-                        <a href="/report/generate-full-report" class="btn btn-outline-primary btn-sm mb-0"
+                        <a href="/report/generate-full-report" class="btn btn-primary shadow-sm btn-sm mb-0"
                            style="font-size: 1em">
-                            Update Current Year<i class="fas fa-sync-alt d-inline-block m-1 ml-2"></i></a>
+                            Update Current Year<i
+                                    class="fas fa-sync-alt d-inline-block m-1 ml-2 text-white-50 fa-sm"></i></a>
                     </div>
                     <div class="col-sm-8 text-right">
                         <button type="button" class="btn btn-outline-primary btn-sm mb-0" id="exporter"
                                 style="font-size: 1em">
-                            <i class="far fa-file-excel d-inline-block m-1 mr-2"></i>Export to Excel
+                            <i class="far fa-file-excel d-inline-block m-1 mr-2 fa-sm"></i>Export to Excel
                         </button>
                         <button type="button" class="btn btn-outline-primary btn-sm mb-0 mx-1" style="font-size: 1em"
                                 onclick="printJS({ printable: 'printable', type: 'html', css: '/css/app.css', documentTitle: 'KPI (Key Performance Indicators) - MoSHE', ignoreElements: ['unprint'] }) ">
-                            <i class="far fa-file-pdf d-inline-block m-1 mr-2"></i>Print to PDF
+                            <i class="far fa-file-pdf d-inline-block m-1 mr-2 fa-sm"></i>Print to PDF
                         </button>
                     </div>
                 </div>

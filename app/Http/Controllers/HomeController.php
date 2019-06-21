@@ -42,7 +42,8 @@ class HomeController extends Controller
                 "institutions_number" => $institutions->count(),
                 "bands_number" => $bands->count(),
                 "colleges_number" => $colleges->count(),
-                "departments_number" => $departments->count()
+                "departments_number" => $departments->count(),
+                "page_name" => 'dashboard.dashboard.index',
             );
             return view('home')->with($data);
         }else{

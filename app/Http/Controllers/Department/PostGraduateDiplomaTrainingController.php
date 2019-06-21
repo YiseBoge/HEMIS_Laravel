@@ -64,7 +64,7 @@ class PostGraduateDiplomaTrainingController extends Controller
                 }
             }
         } else {
-            $training = PostGraduateDiplomaTraining::with('department')->get();
+            $trainings = PostGraduateDiplomaTraining::with('department')->get();
         }
 
         //$enrollments=Enrollment::where('department_id',$department->id)->get();

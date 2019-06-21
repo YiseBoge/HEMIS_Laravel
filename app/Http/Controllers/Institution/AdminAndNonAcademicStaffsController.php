@@ -35,7 +35,7 @@ class AdminAndNonAcademicStaffsController extends Controller
         }
         $data = ['staffs' => $adminAndNonAcademics,
             'page_name' => 'staff.admin_and_non_academic_staff.index'];
-        return view('institutions.admin_and_non_academic_staff.index')->with('data', $data);
+        return view('institutions.admin_and_non_academic_staff.index')->with($data);
     }
 
     /**
@@ -55,7 +55,7 @@ class AdminAndNonAcademicStaffsController extends Controller
             'page_name' => 'staff.admin_and_non_academic_staff.create'
         );
 
-        return view('institutions.admin_and_non_academic_staff.index')->with('data' , $data);
+        return view('institutions.admin_and_non_academic_staff.index')->with($data);
     }
 
     /**
@@ -118,7 +118,7 @@ class AdminAndNonAcademicStaffsController extends Controller
         $data = ['staffs' => AdminAndNonAcademicStaff::all(),
         'education_levels' => AdminAndNonAcademicStaff::getEnum("EducationLevels"),
             'page_name' => 'staff.admin_and_non_academic_staff.edit'];
-        return view('institutions.admin_and_non_academic_staff.index')->with('data', $data);
+        return view('institutions.admin_and_non_academic_staff.index')->with($data);
     }
 
     /**

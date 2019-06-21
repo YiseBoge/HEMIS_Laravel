@@ -76,7 +76,7 @@ class SpecialProgramTeacherController extends Controller
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
-        return view('departments.special_program_teacher.index')->with('data',$data);
+        return view('departments.special_program_teacher.index')->with($data);
 
     }
 
@@ -101,7 +101,7 @@ class SpecialProgramTeacherController extends Controller
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
-        return view('departments.special_program_teacher.create')->with('data',$data);
+        return view('departments.special_program_teacher.create')->with($data);
     }
 
     /**

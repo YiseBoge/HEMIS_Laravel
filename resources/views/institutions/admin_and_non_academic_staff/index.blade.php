@@ -39,8 +39,8 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                      @if (count($data['staffs']) > 0)
-                                        @foreach ($data['staffs'] as $staff)
+                                    @if (count($staffs) > 0)
+                                        @foreach ($staffs as $staff)
                                             <tr role="row" class="odd" onclick="window.location='academic/{{$staff->id}}'">
                                                 <td class="pl-4">
                                                     <div class="row">
@@ -79,7 +79,7 @@
         </div>
 
 
-        @if ($data['page_name'] == 'staff.admin_and_non_academic_staff.create')
+        @if ($page_name == 'staff.admin_and_non_academic_staff.create')
     <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -100,7 +100,7 @@
                                             <div class="col-md form-group">
                                                 
                                                 <select class="form-control" id="eduLevel" name="education_level">
-                                                    @foreach ($data['education_levels'] as $key => $value)
+                                                    @foreach ($education_levels as $key => $value)
                                                         <option value="{{$key}}">{{$value}}</option>
                                                     @endforeach
                                                 </select>
@@ -134,7 +134,7 @@
     </div>
     @endif
 
-        @if ($data['page_name'] == 'staff.admin_and_non_academic_staff.edit')
+        @if ($page_name == 'staff.admin_and_non_academic_staff.edit')
     <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -157,7 +157,7 @@
                                             <div class="col-md form-group">
                                                 
                                                 <select class="form-control" id="empType" name="employment_type">
-                                                    @foreach ($data['education_levels'] as $key => $value)
+                                                    @foreach ($education_levels as $key => $value)
                                                         <option value="{{$key}}">{{$value}}</option>
                                                     @endforeach
                                                 </select>

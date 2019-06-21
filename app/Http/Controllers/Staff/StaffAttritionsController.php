@@ -20,7 +20,6 @@ class StaffAttritionsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $user = Auth::user();
         if ($user == null) abort(401, 'Login required.');
         $user->authorizeRoles('College Admin');
         $user->authorizeRoles(['College Admin', 'Department Admin']);
@@ -110,7 +109,7 @@ class StaffAttritionsController extends Controller
 
             'selected_type' => $requestedType,
             'selected_case' => $requestedCase,
-            'page_name' => 'staff.attrition.index'
+            'page_name' => 'staff.attrition.index',
         );
         return view('staff.attrition.index')->with($data);
     }
