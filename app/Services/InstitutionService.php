@@ -298,6 +298,9 @@ class InstitutionService
                 foreach ($college->internalRevenues as $budget) {
                     $total += $budget->income;
                 }
+                foreach ($college->investments as $budget) {
+                    $total += $budget->cost_incurred;
+                }
             }
         }
         return $total;

@@ -79,12 +79,12 @@
                                                         <td style="min-width:275px;">
                                                             {{ $kpi->kpi }}
                                                         </td>
-                                                        @foreach($kpi->reportYearValues as $yearValue)
+                                                        @foreach($kpi->reportYearValues->sortBy('year') as $yearValue)
                                                             <td>
-                                                                {{ round($yearValue->value, 3) }}
+                                                                {{ round($yearValue->value, 2) }}
                                                             </td>
                                                         @endforeach
-                                                        <td>
+                                                        <td class="text-primary">
                                                             {{ $kpi->target }}
                                                         </td>
                                                         <td class="text-center" style="min-width:115px;">
@@ -180,7 +180,7 @@
                                 @endif
                             </div>
                             <div class="col-md form-group">
-                                {!! Form::number('target', $report->target, ['class' => 'form-control', 'id' => 'edit_target', 'required' => 'true']) !!}
+                                {!! Form::number('target', $report->target, ['class' => 'form-control', 'id' => 'edit_target', 'required' => 'true',  'step' => 'any']) !!}
                                 {!! Form::label('target', 'Target', ['class' => 'form-control-placeholder', 'for' => 'edit_target']) !!}
                             </div>
                         </div>

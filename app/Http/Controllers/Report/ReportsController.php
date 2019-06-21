@@ -23,7 +23,7 @@ class ReportsController extends Controller
 //        }
         $reports = ReportCard::groupedReports();
         $card = ReportCard::all()->sortBy('year')->first();
-        $years = $card != null ? $card->reportYearValues : array();
+        $years = $card != null ? $card->reportYearValues->sortBy('year') : array();
 
         $data = [
             'reports' => $reports,

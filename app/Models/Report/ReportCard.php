@@ -20,7 +20,7 @@ class ReportCard extends Model
 
     public function change()
     {
-        $years = $this->reportYearValues()->get()->sortBy('year');
+        $years = $this->reportYearValues()->orderBy('year')->get();
         if (count($years) <= 1) {
             return 0;
         }
