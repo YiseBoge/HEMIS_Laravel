@@ -116,24 +116,26 @@
                     </div>
 
                     <div class="modal-body pt-4">
-                        <form action="" method="GET">
-                            <div class="form-group row pt-3">
-                                <div class="col form-group">
-                                    <select class="form-control" name="type" id="type" onchange="this.form.submit()">
-                                        @foreach ($staff_types as $type)
-                                            @if ($type == $selected_type)
-                                                <option value="{{$type}}" selected>{{$type}}</option>
-                                            @else
-                                                <option value="{{$type}}">{{$type}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <label for="case" class="form-control-placeholder">
-                                        Staff Type
-                                    </label>
+                        @if(Auth::user()->hasRole('College Admin'))
+                            <form action="" method="GET">
+                                <div class="form-group row pt-3">
+                                    <div class="col form-group">
+                                        <select class="form-control" name="type" id="type" onchange="this.form.submit()">
+                                            @foreach ($staff_types as $type)
+                                                @if ($type == $selected_type)
+                                                    <option value="{{$type}}" selected>{{$type}}</option>
+                                                @else
+                                                    <option value="{{$type}}">{{$type}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        <label for="case" class="form-control-placeholder">
+                                            Staff Type
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        @endif
                         <form action="/staff/attrition" method="POST">
                             @csrf
                             <div class="form-group row pt-3">

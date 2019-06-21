@@ -61,7 +61,7 @@ class RegionNamesController extends Controller
         $regionNames->name = $request->input('name');
         $regionNames->save();
 
-        return redirect('/institution/region-name');
+        return redirect('/region-name');
     }
 
     /**

@@ -84,6 +84,13 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <div class="form-check m-auto">
+                                {!! Form::checkbox('is_super_admin', null, null, ['id' => "is_super_admin", 'class' => 'form-check-input']) !!}
+                                {!! Form::label('College Super Admin', null, ['class' => 'form-check-label', 'for' => "is_super_admin"]) !!}
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-12 offset-md-5">
                                 {!! Form::submit('Add Admin', ['class' => 'btn btn-primary']) !!}

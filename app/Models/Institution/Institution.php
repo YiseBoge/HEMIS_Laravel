@@ -2,14 +2,22 @@
 
 namespace App\Models\Institution;
 
+use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Institution extends Model
 {
     use Uuids;
+    use Enums;
 
     public $incrementing = false;
+
+    protected $enumApprovalTypes = [
+        'APPROVED' => 'Approved',
+        'PENDING' => 'Pending',
+        'DISAPPROVED' => 'Disapproved'
+    ];
 
     public function institutionName()
     {

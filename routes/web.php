@@ -58,6 +58,7 @@ Route::resource('department/special-program-teacher','Department\SpecialProgramT
 Route::resource('region-name', 'Institution\RegionNamesController');
 //Route::resource('institution/budget-description', 'Institution\BudgetDescriptionsController');
 
+Route::post('enrollment/normal/{id}/approve', 'Department\EnrollmentsController@approve');
 Route::resource('enrollment/normal','Department\EnrollmentsController');
 Route::get('enrollment/normal-chart','Department\EnrollmentsController@viewChart');
 Route::get('enrollment/student-enrollment-chart','Department\EnrollmentsController@chart');
