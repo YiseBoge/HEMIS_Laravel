@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Models\Institution\Institution;
+
 
 class CreateEnrollmentsTable extends Migration
 {
@@ -20,6 +22,7 @@ class CreateEnrollmentsTable extends Migration
             $table->timestamps();
 
             $table->string('student_type');
+            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
 

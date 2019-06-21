@@ -27,7 +27,7 @@ class CollegeAdminController extends Controller
 
         $editors = [];
         foreach (User::all() as $user) {
-            if ($user->hasRole('College Admin')) {
+            if ($user->hasAnyRole(['College Admin', 'College Super Admin'])) {
                 array_push($editors, $user);
             }
         }
@@ -100,9 +100,16 @@ class CollegeAdminController extends Controller
         $collegeName->users()->save($user);
         $currentInstanceId->users()->save($user);
 
-        $user
-            ->roles()
-            ->attach(Role::where('role_name', 'College Admin')->first());
+        if($request->has('is_super_admin')){
+            $user
+                ->roles()
+                ->attach(Role::where('role_name', 'College Super Admin')->first());
+        }else{
+            $user
+                ->roles()
+                ->attach(Role::where('role_name', 'College Admin')->first());
+        }
+        
 
         return redirect('/college-admin');
     }

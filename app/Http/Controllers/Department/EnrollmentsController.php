@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
+use App\Models\Institution\Institution;
 use App\Models\Band\Band;
 use App\Models\Band\BandName;
 use App\Models\College\College;
@@ -26,7 +27,7 @@ class EnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
         $requestedType=$request->input('student_type');
@@ -44,6 +45,11 @@ class EnrollmentsController extends Controller
             $requestedLevel='Undergraduate';
         }
 
+        $requestedDepartment=$request->input('department');
+        if($requestedDepartment==null){
+            $requestedDepartment=DepartmentName::all()->first()->id;
+        }
+
         $enrollments = array();
 
         if ($institution != null) {
@@ -52,17 +58,28 @@ class EnrollmentsController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
-                                if ($department->departmentName->department_name == $user->departmentName->department_name) {                                                                      
-                                    foreach ($department->enrollments as $enrollment) {
-                                        if ($enrollment->student_type == $requestedType) {
-                                            if ($department->year_level == 1) {
+                                if($user->hasRole('College Super Admin')){
+                                    if ($department->departmentName->id == $requestedDepartment) {                                                                      
+                                        foreach ($department->enrollments as $enrollment) {
+                                            if ($enrollment->student_type == $requestedType) {
                                                 $service = new GeneralReportService("2018/19");
-                                                return $service->nonAcademicAttrition();
-                                            } 
-                                            $enrollments[] = $enrollment;
+                                                //return $service->nonAcademicAttrition();
+                                                $enrollments[] = $enrollment;
+                                            }
                                         }
-                                    }
-                                }                                
+                                    }  
+                                }else{
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {                                                                      
+                                        foreach ($department->enrollments as $enrollment) {
+                                            if ($enrollment->student_type == $requestedType) {
+                                                $service = new GeneralReportService("2018/19");
+                                                //return $service->nonAcademicAttrition();
+                                                $enrollments[] = $enrollment;
+                                            }
+                                        }
+                                    } 
+                                }
+                                                             
                             }
                         }
                     }
@@ -79,8 +96,7 @@ class EnrollmentsController extends Controller
 
         $data = array(
             'enrollments' => $enrollments,
-            'colleges' => CollegeName::all(),
-            'bands' => BandName::all(),
+            'departments' => DepartmentName::all(),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
             'student_types' => Enrollment::getEnum('StudentTypes'),
@@ -88,6 +104,7 @@ class EnrollmentsController extends Controller
 
             'selected_student_type' => $requestedType,
             'selected_program' => $requestedProgram,
+            'selected_department' => $requestedDepartment,
             'selected_education_level' => $requestedLevel,
 
             'page_name' => 'enrollment.normal.index'
@@ -114,9 +131,6 @@ class EnrollmentsController extends Controller
         array_pop($year_levels);
 
         $data = array(
-            'colleges' => CollegeName::all(),
-            'bands' => BandName::all(),
-            'departments' => DepartmentName::all(),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
             'student_types' => Enrollment::getEnum('StudentTypes'),
@@ -231,6 +245,53 @@ class EnrollmentsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function approve(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $action = $request->input('action');
+        $enrollment = Enrollment::find($id);
+        if($action == "approve"){
+            $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+            $enrollment->save();
+        }elseif($action == "disapprove"){
+            $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $enrollment->save();
+        }else{
+            $department = $request->input('department');
+            $studentType = $request->input('student_type');
+            $program = $request->input('program');
+            $educationLevel = $request->input('education_level');
+
+            $institution = $user->institution();
+
+            if ($institution != null) {
+                foreach ($institution->bands as $band) {
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
+                        foreach ($band->colleges as $college) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $educationLevel && $college->education_program == $program) {
+                                foreach ($college->departments as $department) {
+                                    if($user->hasRole('College Super Admin')){                                                                     
+                                        foreach ($department->enrollments as $enrollment) {
+                                            if ($enrollment->student_type == $studentType) {
+                                                $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                                $enrollment->save();
+                                            }
+                                        }                                          
+                                    }                          
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+
+            }
+        }
+        return redirect("/enrollment/normal");
     }
 
     public function viewChart(Request $request){
