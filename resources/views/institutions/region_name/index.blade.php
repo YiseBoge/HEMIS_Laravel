@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
-            <div class="text-primary card-header">Institutions</div>
+            <div class="text-primary card-header">Regions</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col p-1 m-3 text-center">

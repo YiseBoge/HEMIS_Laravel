@@ -39,6 +39,10 @@
                                                 colspan="1" aria-label="Acronym: activate to sort column ascending"
                                             >Email
                                             </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Acronym: activate to sort column ascending"
+                                            >Remark
+                                            </th>
 
                                         </tr>
                                         </thead>
@@ -56,6 +60,7 @@
                                                 <td>{{ $editor->name }}</td>
                                                 <td>{{ $editor->collegeName->college_name }}</td>
                                                 <td>{{ $editor->email }}</td>
+                                                <td>{{ $editor->roles->first()->role_name }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
