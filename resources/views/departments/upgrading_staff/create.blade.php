@@ -22,11 +22,11 @@
 
                         <div class="form-group row pt-3">
                             <div class="col form-group">
-                                {!! Form::select('education_level', \App\Models\Department\UpgradingStaff::getEnum('EducationLevels') , $data['education_level'] , ['class' => 'form-control', 'id' => 'add_education_level', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::select('education_level', \App\Models\Department\UpgradingStaff::getEnum('EducationLevels') , $education_level , ['class' => 'form-control', 'id' => 'add_education_level', 'onchange' => 'this.form.submit()']) !!}
                                 {!! Form::label('education_level', 'Education Level', ['class' => 'form-control-placeholder', 'for' => 'education_level']) !!}
                             </div>
                             <div class="col form-group">
-                                {!! Form::select('study_place', \App\Models\Department\UpgradingStaff::getEnum('StudyPlaces') , $data['study_place'] , ['class' => 'form-control', 'id' => 'add_study_place', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::select('study_place', \App\Models\Department\UpgradingStaff::getEnum('StudyPlaces') , $study_place , ['class' => 'form-control', 'id' => 'add_study_place', 'onchange' => 'this.form.submit()']) !!}
                                 {!! Form::label('study_place', 'Study Place', ['class' => 'form-control-placeholder', 'for' => 'add_study_place']) !!}
                             </div>
                         </div>

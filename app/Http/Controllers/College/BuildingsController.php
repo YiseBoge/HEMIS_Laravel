@@ -65,7 +65,7 @@ class BuildingsController extends Controller
             'page_name' => 'buildings.buildings.index'
         );
 
-        return view('institutions.buildings.index')->with('data', $data);
+        return view('institutions.buildings.index')->with($data);
     }
 
     /**
@@ -86,7 +86,7 @@ class BuildingsController extends Controller
             'page_name' => 'institution.buildings.create'
         );
 
-        return view('institutions.buildings.create')->with('data', $data);
+        return view('institutions.buildings.create')->with($data);
     }
 
     /**

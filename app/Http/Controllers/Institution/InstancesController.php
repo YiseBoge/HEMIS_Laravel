@@ -29,7 +29,7 @@ class InstancesController extends Controller
             'current_instance' => $currentInstance,
             'page_name' => 'administer.instance.index'
         ];
-        return view('institutions.instance.index')->with('data', $data);
+        return view('institutions.instance.index')->with($data);
 
     }
 
@@ -52,7 +52,7 @@ class InstancesController extends Controller
             'current_instance' => $currentInstance,
             'page_name' => 'administer.instance.create'
         ];
-        return view('institutions.instance.index')->with('data', $data);
+        return view('institutions.instance.index')->with($data);
     }
 
     /**

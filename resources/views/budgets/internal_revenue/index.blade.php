@@ -46,7 +46,7 @@
                                         </thead>
 
                                         <tbody>
-                                        @foreach($data['internal_revenues'] as $internalRevenue)
+                                        @foreach($internal_revenues as $internalRevenue)
                                             <tr>
                                                 <td class="text-center">
                                                     <a href="/budgets/internal-revenue/{{ $internalRevenue->id }}/edit"
@@ -88,7 +88,7 @@
     </div>
 
 
-    @if ($data['page_name'] == 'budgets.internal-revenue.create')
+    @if ($page_name == 'budgets.internal-revenue.create')
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -103,7 +103,7 @@
                     </div>
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
-                            {!! Form::select('revenue_description', $data['revenue_descriptions'] , null , ['class' => 'form-control', 'id' => 'add_revenue_description']) !!}
+                            {!! Form::select('revenue_description', $revenue_descriptions , null , ['class' => 'form-control', 'id' => 'add_revenue_description']) !!}
                             {!! Form::label('revenue_description', 'Revenue Description', ['class' => 'form-control-placeholder', 'for' => 'add_revenue_description']) !!}
                         </div>
 
@@ -132,13 +132,13 @@
         </div>
     @endif
 
-    @if ($data['page_name'] == 'budgets.internal-revenue.edit')
+    @if ($page_name == 'budgets.internal-revenue.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    {!! Form::open(['action' => ['College\InternalRevenuesController@update', $data['internal_revenue']->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['action' => ['College\InternalRevenuesController@update', $internal_revenue->id], 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Edit</h5>
                         <a href="/budgets/internal-revenue" class="close" aria-label="Close">
@@ -147,17 +147,17 @@
                     </div>
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
-                            {!! Form::select('revenue_description', $data['revenue_descriptions'] , $data['revenue_description'] , ['class' => 'form-control', 'id' => 'edit_revenue_description']) !!}
+                            {!! Form::select('revenue_description', $revenue_descriptions , $revenue_description , ['class' => 'form-control', 'id' => 'edit_revenue_description']) !!}
                             {!! Form::label('revenue_description', 'Revenue Description', ['class' => 'form-control-placeholder', 'for' => 'edit_revenue_description']) !!}
                         </div>
 
                         <div class="col-md-6 form-group">
-                            {!! Form::number('income', $data['internal_revenue']->income, ['class' => 'form-control', 'id' => 'edit_income', 'required' => 'true']) !!}
+                            {!! Form::number('income', $internal_revenue->income, ['class' => 'form-control', 'id' => 'edit_income', 'required' => 'true']) !!}
                             {!! Form::label('income', 'Income', ['class' => 'form-control-placeholder', 'for' => 'edit_income']) !!}
                         </div>
 
                         <div class="col-md-6 form-group">
-                            {!! Form::number('expense', $data['internal_revenue']->expense, ['class' => 'form-control', 'id' => 'edit_expense', 'required' => 'true']) !!}
+                            {!! Form::number('expense', $internal_revenue->expense, ['class' => 'form-control', 'id' => 'edit_expense', 'required' => 'true']) !!}
                             {!! Form::label('expense', 'Expense', ['class' => 'form-control-placeholder', 'for' => 'edit_expense']) !!}
                         </div>
 

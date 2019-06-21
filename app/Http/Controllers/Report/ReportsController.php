@@ -7,7 +7,6 @@ use App\Models\Report\ReportCard;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 
 class ReportsController extends Controller
 {
@@ -19,9 +18,6 @@ class ReportsController extends Controller
      */
     public function index()
     {
-//        foreach (ReportCard::all() as $rep){
-//
-//        }
         $reports = ReportCard::groupedReports();
         $card = ReportCard::all()->sortBy('year')->first();
         $years = $card != null ? $card->reportYearValues->sortBy('year') : array();
@@ -133,28 +129,5 @@ class ReportsController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Add new Year Value to report
-     *
-     * @param Request $request
-     * @throws ValidationException
-     */
-    public function newYearValue(Request $request, $id)
-    {
-        $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
-        $user->authorizeRoles('Super Admin');
-
-        $this->validate($request, [
-            'year' => 'required',
-            'value' => 'required',
-        ]);
-
-        $user = Auth::user();
-        $user->authorizeRoles('Super Admin');
-
-        $report = ReportCard::find($id);
     }
 }

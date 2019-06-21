@@ -30,7 +30,7 @@ class DepartmentNamesController extends Controller
             'departments' => $departments,
             'page_name' => 'administer.department-name.list'
         ];
-        return view('departments.department_name.list')->with('data',$data);
+        return view('departments.department_name.list')->with($data);
     }
 
     /**
@@ -49,7 +49,7 @@ class DepartmentNamesController extends Controller
             'departments' => $departments,
             'page_name' => 'administer.department-name.create'
         ];
-        return view('departments.department_name.list')->with('data',$data);
+        return view('departments.department_name.list')->with($data);
     }
 
     /**

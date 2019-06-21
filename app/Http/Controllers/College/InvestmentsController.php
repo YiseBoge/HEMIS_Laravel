@@ -47,7 +47,7 @@ class InvestmentsController extends Controller
             'page_name' => 'budgets.investment.index'
         );
 
-        return view('budgets.private_investment.index')->with('data', $data);
+        return view('budgets.private_investment.index')->with($data);
     }
 
     /**
@@ -87,7 +87,7 @@ class InvestmentsController extends Controller
             'page_name' => 'budgets.investment.create'
         );
 
-        return view('budgets.private_investment.index')->with('data', $data);
+        return view('budgets.private_investment.index')->with($data);
     }
 
     /**
@@ -196,7 +196,7 @@ class InvestmentsController extends Controller
             'page_name' => 'budgets.private_investment.edit'
         );
 
-        return view('budgets.private_investment.index')->with('data', $data);
+        return view('budgets.private_investment.index')->with($data);
     }
 
     /**

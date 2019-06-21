@@ -39,7 +39,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($data['departments'] as $department)
+                                        @foreach($departments as $department)
                                             <tr>
                                                 <td class="text-center">
                                                     <a href=""
@@ -65,7 +65,7 @@
 
     </div>
 
-    @if ($data['page_name'] == 'department.department-name.create')
+    @if ($page_name == 'administer.department-name.create')
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -102,13 +102,13 @@
     @endif
 
 
-    @if ($data['page_name'] == 'institution.budget.edit')
+    @if ($page_name == 'institution.budget.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    {!! Form::open(['action' => ['Institution\BudgetsController@update', $data['budget']->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['action' => ['Institution\BudgetsController@update', $budget->id], 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Edit</h5>
                         <a href="/institution/budget" class="close" aria-label="Close">
@@ -118,28 +118,28 @@
 
                     <div class="modal-body row pt-6">
                         <div class="col-12 form-group pb-2">
-                            {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , $data['budget_type'], ['class' => 'form-control', 'id' => 'edit_budget_type']) !!}
+                            {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , $budget_type, ['class' => 'form-control', 'id' => 'edit_budget_type']) !!}
                             {!! Form::label('budget_type', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_type']) !!}
                         </div>
 
                         <div class="col-12 form-group pb-2">
                             {{--TODO get from budget descriptions--}}
-                            {!! Form::select('budget_description', \App\Models\Institution\BudgetDescription::all() , $data['budget_description'], ['class' => 'form-control', 'id' => 'edit_budget_description']) !!}
+                            {!! Form::select('budget_description', \App\Models\Institution\BudgetDescription::all() , $budget_description, ['class' => 'form-control', 'id' => 'edit_budget_description']) !!}
                             {!! Form::label('budget_description', 'Budget Description', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_description']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('allocated', $data['budget']->allocated_budget, ['class' => 'form-control', 'id' => 'edit_allocated', 'required' => 'true']) !!}
+                            {!! Form::number('allocated', $budget->allocated_budget, ['class' => 'form-control', 'id' => 'edit_allocated', 'required' => 'true']) !!}
                             {!! Form::label('allocated', 'Allocated', ['class' => 'form-control-placeholder', 'for' => 'edit_allocated']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('additional', $data['budget']->additional_budget, ['class' => 'form-control', 'id' => 'edit_additional', 'required' => 'true']) !!}
+                            {!! Form::number('additional', $budget->additional_budget, ['class' => 'form-control', 'id' => 'edit_additional', 'required' => 'true']) !!}
                             {!! Form::label('additional', 'Additional', ['class' => 'form-control-placeholder', 'for' => 'edit_additional']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('utilized', $data['budget']->utilized_budget, ['class' => 'form-control', 'id' => 'edit_utilized', 'required' => 'true']) !!}
+                            {!! Form::number('utilized', $budget->utilized_budget, ['class' => 'form-control', 'id' => 'edit_utilized', 'required' => 'true']) !!}
                             {!! Form::label('utilized', 'Utilized', ['class' => 'form-control-placeholder', 'for' => 'edit_utilized']) !!}
                         </div>
                     </div>

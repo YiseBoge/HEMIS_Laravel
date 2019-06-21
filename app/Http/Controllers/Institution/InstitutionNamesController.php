@@ -35,7 +35,7 @@ class InstitutionNamesController extends Controller
             'institutions' => $institutions,
             'page_name' => 'administer.institution-name.index'
         ];
-        return view('institutions.institution_name.index')->with('data', $data);
+        return view('institutions.institution_name.index')->with($data);
     }
 
     /**
@@ -54,7 +54,7 @@ class InstitutionNamesController extends Controller
             'institutions' => $institutions,
             'page_name' => 'administer.institution-name.create'
         ];
-        return view('institutions.institution_name.index')->with('data', $data);
+        return view('institutions.institution_name.index')->with($data);
     }
 
     /**

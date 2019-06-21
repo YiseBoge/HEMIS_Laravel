@@ -56,7 +56,7 @@ class DepartmentAdminController extends Controller
             'department_names' => $departmentNames,
             'page_name' => 'administer.department_admin.create',
         );
-        return view('users.department_admin.create')->with('data', $data);
+        return view('users.department_admin.create')->with($data);
     }
 
     /**

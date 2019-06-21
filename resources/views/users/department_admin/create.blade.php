@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card shadow">
-                    <h3 class="card-header text-primary">Add Department Admin</h3>
+                    <div class="card-header text-primary">Add Department Admin</div>
                     <div class="card-body pt-4">
                         {!! Form::open(['action' => 'User\DepartmentAdminController@store', 'method' => 'POST']) !!}
 
@@ -13,7 +13,7 @@
                             <label for="name"
                                    class="col-md-4 col-form-label text-md-right">{{ __('Department') }}</label>
                             <div class="col-md-6">
-                                {!! Form::select('department_name_id', $data['department_names'] ,null  , ['class' => 'form-control']) !!}
+                                {!! Form::select('department_name_id', $department_names ,null  , ['class' => 'form-control']) !!}
                             </div>
 
                         </div>

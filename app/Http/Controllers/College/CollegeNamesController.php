@@ -25,8 +25,11 @@ class CollegeNamesController extends Controller
         $user->authorizeRoles('University Admin');
 
         $colleges=CollegeName::all();
-        $data=['colleges'=>$colleges,'page_name'=>'colleges.colleges-name.index'];
-        return view('administer.college_name.index')->with('data', $data);
+        $data = [
+            'colleges' => $colleges,
+            'page_name' => 'administer.colleges-name.index'
+        ];
+        return view('colleges.college_name.index')->with($data);
     }
 
     /**
@@ -41,8 +44,11 @@ class CollegeNamesController extends Controller
         $user->authorizeRoles('University Admin');
 
         $colleges=CollegeName::all();
-        $data=['colleges'=>$colleges,'page_name'=>'colleges.colleges-name.create'];
-        return view('administer.college_name.index')->with('data', $data);
+        $data = [
+            'colleges' => $colleges,
+            'page_name' => 'administer.colleges-name.create'
+        ];
+        return view('colleges.college_name.index')->with($data);
     }
 
     /**

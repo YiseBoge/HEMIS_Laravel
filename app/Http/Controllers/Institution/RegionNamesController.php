@@ -27,7 +27,7 @@ class RegionNamesController extends Controller
             'region_names' => $regionNames,
             'page_name' => 'administer.region-name.index'
         ];
-        return view('institutions.region_name.index')->with('data',$data);
+        return view('institutions.region_name.index')->with($data);
     }
 
     /**
@@ -46,7 +46,7 @@ class RegionNamesController extends Controller
             'region_names' => $regionNames,
             'page_name' => 'administer.region-name.create'
         ];
-        return view('institutions.region_name.index')->with('data',$data);
+        return view('institutions.region_name.index')->with($data);
     }
 
     /**

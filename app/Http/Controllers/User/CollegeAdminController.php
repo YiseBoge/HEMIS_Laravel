@@ -59,7 +59,7 @@ class CollegeAdminController extends Controller
             'band_names' => $bandNames,
             'page_name' => 'administer.college_admin.create',
         );
-        return view('users.college_admin.create')->with('data', $data);
+        return view('users.college_admin.create')->with($data);
 
     }
 

@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card shadow">
-                    <h3 class="card-header text-primary">Add College Admin</h3>
+                    <div class="card-header text-primary">Add College Admin</div>
                     <div class="card-body pt-4">
                         {!! Form::open(['action' => 'User\CollegeAdminController@store', 'method' => 'POST']) !!}
 
@@ -13,7 +13,7 @@
                             <label for="name"
                                    class="col-md-4 col-form-label text-md-right">{{ __('College') }}</label>
                             <div class="col-md-6">
-                                {!! Form::select('college_name_id', $data['college_names'] ,null  , ['class' => 'form-control']) !!}
+                                {!! Form::select('college_name_id', $college_names ,null  , ['class' => 'form-control']) !!}
                             </div>
 
                         </div>
@@ -21,7 +21,7 @@
                             <label for="name"
                                    class="col-md-4 col-form-label text-md-right">{{ __('Band') }}</label>
                             <div class="col-md-6">
-                                {!! Form::select('band_name_id', $data['band_names'] ,null  , ['class' => 'form-control']) !!}
+                                {!! Form::select('band_name_id', $band_names ,null  , ['class' => 'form-control']) !!}
                             </div>
 
                         </div>

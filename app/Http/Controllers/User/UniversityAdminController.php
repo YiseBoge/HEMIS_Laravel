@@ -65,7 +65,7 @@ class UniversityAdminController extends Controller
             'department_names' => $departmentNames,
             'page_name' => 'users.university_admin.create',
         );
-        return view('users.university_admin.create')->with('data', $data);
+        return view('users.university_admin.create')->with($data);
     }
 
     /**

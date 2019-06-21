@@ -30,7 +30,7 @@ class BandNamesController extends Controller
             'bands' => $bands,
             'page_name' => 'administer.band-name.list'
         ];
-        return view('bands.band_name.list')->with('data',$data);
+        return view('bands.band_name.list')->with($data);
     }
 
     /**
@@ -49,7 +49,7 @@ class BandNamesController extends Controller
             'bands' => $bands,
             'page_name' => 'administer.band-name.create'
         ];
-        return view('bands.band_name.list')->with('data',$data);
+        return view('bands.band_name.list')->with($data);
     }
 
     /**

@@ -5,14 +5,14 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card shadow">
-                    <h3 class="card-header text-primary">Add University Admin</h3>
+                    <div class="card-header text-primary">Add University Admin</div>
                     <div class="card-body pt-4">
                         {!! Form::open(['action' => 'User\UniversityAdminController@store', 'method' => 'POST']) !!}
                         <div class="form-group row">
                             <label for="name"
                                    class="col-md-4 col-form-label text-md-right">{{ __('Institution') }}</label>
                             <div class="col-md-6">
-                                {!! Form::select('institution_name_id', $data['institution_names'] ,null  , ['class' => 'form-control']) !!}
+                                {!! Form::select('institution_name_id', $institution_names ,null  , ['class' => 'form-control']) !!}
                             </div>
 
                         </div>

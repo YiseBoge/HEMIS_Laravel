@@ -8,7 +8,7 @@
                 <div class="row py-2">
                     <div class="col-md-5 form-group pb-1">
                         {!! Form::open(['action' => 'Institution\InstancesController@updateCurrentInstance', 'method' => 'POST']) !!}
-                        {!! Form::select('current_instance', $data['instances'] , null, ['class' => 'form-control', 'id' => 'edit_current_instance']) !!}
+                        {!! Form::select('current_instance', $instances , null, ['class' => 'form-control', 'id' => 'edit_current_instance']) !!}
                         {!! Form::label('current_instance', 'Current Semester', ['class' => 'form-control-placeholder', 'for' => 'edit_current_instance']) !!}
                         {!! Form::submit('Apply', ['class' => 'my-2 btn-sm btn btn-outline-secondary']) !!}
                         {!! Form::close() !!}
@@ -47,7 +47,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($data['instances'] as $instance)
+                                        @foreach($instances as $instance)
                                             <tr>
                                                 <td class="text-center">
                                                     <a href=""
@@ -73,7 +73,7 @@
 
     </div>
 
-    @if ($data['page_name'] == 'institution.instance.create')
+    @if ($page_name == 'administer.instance.create')
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -112,13 +112,13 @@
     @endif
 
 
-    @if ($data['page_name'] == 'institution.instance.edit')
+    @if ($page_name == 'administer.instance.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    {!! Form::open(['action' => ['Institution\InstancesController@update', $data['budget']->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['action' => ['Institution\InstancesController@update', $budget->id], 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Edit</h5>
                         <a href="/institution/budget" class="close" aria-label="Close">
@@ -128,7 +128,7 @@
 
                     <div class="modal-body row pt-6">
                         <div class="col-12 form-group pb-2">
-                            {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , $data['budget_type'], ['class' => 'form-control', 'id' => 'edit_budget_type']) !!}
+                            {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , $budget_type, ['class' => 'form-control', 'id' => 'edit_budget_type']) !!}
                             {!! Form::label('budget_type', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_type']) !!}
                         </div>
 

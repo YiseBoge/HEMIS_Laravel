@@ -44,7 +44,7 @@
                                         </thead>
 
                                         <tbody>
-                                        @foreach($data['investments'] as $investment)
+                                        @foreach($investments as $investment)
                                             <tr>
                                                 <td class="text-center">
                                                     <a href="/budgets/private-investment/{{ $investment->id }}/edit"
@@ -84,7 +84,7 @@
 
     </div>
 
-    @if ($data['page_name'] == 'budgets.investment.create')
+    @if ($page_name == 'budgets.investment.create')
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -99,12 +99,12 @@
                     </div>
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
-                            {!! Form::select('investment_title', $data['investment_titles'] , null , ['class' => 'form-control', 'id' => 'add_investment_title']) !!}
+                            {!! Form::select('investment_title', $investment_titles , null , ['class' => 'form-control', 'id' => 'add_investment_title']) !!}
                             {!! Form::label('investment_title', 'Investment Title', ['class' => 'form-control-placeholder', 'for' => 'add_investment_title']) !!}
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            {!! Form::number('cost_incurred', null, ['class' => 'form-control', 'id' => 'add_cost_incurred', 'required' => 'true']) !!}
+                            {!! Form::number('cost_incurred', 0, ['class' => 'form-control', 'id' => 'add_cost_incurred', 'required' => 'true']) !!}
                             {!! Form::label('cost_incurred', 'Cost Incured', ['class' => 'form-control-placeholder', 'for' => 'add_cost_incurred']) !!}
                         </div>
 
@@ -123,13 +123,13 @@
         </div>
     @endif
 
-    @if ($data['page_name'] == 'budgets.investment.edit')
+    @if ($page_name == 'budgets.investment.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    {!! Form::open(['action' => ['College\InvestmentsController@update', $data['investment']->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['action' => ['College\InvestmentsController@update', $investment->id], 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Edit</h5>
                         <a href="/budgets/private-investment" class="close" aria-label="Close">
@@ -138,18 +138,18 @@
                     </div>
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
-                            {!! Form::select('investment_title', $data['investment_titles'] , $data['investment_title'] , ['class' => 'form-control', 'id' => 'edit_investment_title']) !!}
+                            {!! Form::select('investment_title', $investment_titles , $investment_title , ['class' => 'form-control', 'id' => 'edit_investment_title']) !!}
                             {!! Form::label('investment_title', 'Investment Title', ['class' => 'form-control-placeholder', 'for' => 'edit_investment_title']) !!}
 
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            {!! Form::number('cost_incurred', $data['investment']->cost_incurred, ['class' => 'form-control', 'id' => 'edit_cost_incurred', 'required' => 'true']) !!}
+                            {!! Form::number('cost_incurred', $investment->cost_incurred, ['class' => 'form-control', 'id' => 'edit_cost_incurred', 'required' => 'true']) !!}
                             {!! Form::label('cost_incurred', 'Cost Incured', ['class' => 'form-control-placeholder', 'for' => 'edit_cost_incurred']) !!}
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            {!! Form::textarea('remarks', $data['investment']->remarks, ['class' => 'form-control', 'id' => 'edit_remarks']) !!}
+                            {!! Form::textarea('remarks', $investment->remarks, ['class' => 'form-control', 'id' => 'edit_remarks']) !!}
                             {!! Form::label('remarks', 'Remarks', ['class' => 'form-control-placeholder', 'for' => 'edit_remarks']) !!}
                         </div>
                     </div>

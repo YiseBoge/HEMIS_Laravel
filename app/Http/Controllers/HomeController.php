@@ -59,7 +59,8 @@ class HomeController extends Controller
                 "campuses_number" => $generalInformation->campuses,
                 "colleges_number" => $colleges,
                 "institutes_number" => $generalInformation->institutes,
-                "schools_number" => $generalInformation->schools
+                "schools_number" => $generalInformation->schools,
+                "page_name" => 'dashboard.dashboard.index',
             );
 
             return view('home')->with($data);

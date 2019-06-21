@@ -46,7 +46,7 @@ class InternalRevenuesController extends Controller
             'internal_revenues' => $revenues,
             'page_name' => 'budgets.internal-revenue.index'
         );
-        return view('budgets.internal_revenue.index')->with('data', $data);
+        return view('budgets.internal_revenue.index')->with($data);
     }
 
     /**
@@ -86,7 +86,7 @@ class InternalRevenuesController extends Controller
             'page_name' => 'budgets.internal-revenue.create'
         );
 
-        return view('budgets.internal_revenue.index')->with('data', $data);
+        return view('budgets.internal_revenue.index')->with($data);
     }
 
     /**
@@ -196,7 +196,7 @@ class InternalRevenuesController extends Controller
         );
 
 
-        return view('budgets.internal_revenue.index')->with('data', $data);
+        return view('budgets.internal_revenue.index')->with($data);
     }
 
     /**

@@ -12,7 +12,7 @@
                         <div class="row my-3">
                             <div class="col-sm">
                                 {!! Form::open(['action' => 'College\BuildingsController@index', 'method' => 'get']) !!}
-                                    {!! Form::select('building_purpose', $data['building_purposes'], $data['current_purpose'], ['class' => 'form-control', 'onchange' => 'this.form.submit()', 'id' => 'select_building_purpose'])!!}
+                                {!! Form::select('building_purpose', $building_purposes, $current_purpose, ['class' => 'form-control', 'onchange' => 'this.form.submit()', 'id' => 'select_building_purpose'])!!}
                                     {!! Form::label('building_purpose', 'Building Purpose', ['class' => 'form-control-placeholder', 'for' => 'select_building_purpose']) !!}
                                 {!! Form::close() !!}
                             </div>
@@ -64,7 +64,7 @@
                                     </thead>
                                     <tbody>
 
-                                        @foreach ($data['buildings'] as $building)
+                                    @foreach ($buildings as $building)
                                             <tr role="row" class="odd">
                                                 <td class="pl-4">
                                                     <div class="row">

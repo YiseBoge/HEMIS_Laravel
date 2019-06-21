@@ -92,6 +92,33 @@
     });
 </script>
 
+
+<script>
+
+
+    $(document).ready(function () {
+
+        @isset($page_name)
+        @if(preg_split ("/\./", $page_name)[0] == 'enrollment')
+        $("#collapseEnrollment").collapse("show");
+        @elseif(preg_split ("/\./", $page_name)[0] == 'budgets')
+        $("#collapseBudget").collapse("show");
+        @elseif(preg_split ("/\./", $page_name)[0] == 'students')
+        $("#collapseStudents").collapse("show");
+        @elseif(preg_split ("/\./", $page_name)[0] == 'staff')
+        $("#collapseStaff").collapse("show");
+        @elseif(preg_split ("/\./", $page_name)[0] == 'report')
+        $("#collapseReport").collapse("show");
+        @elseif(preg_split ("/\./", $page_name)[0] == 'administer')
+        $("#collapseAdmin").collapse("show");
+        @endif
+        @endisset
+
+    });
+
+</script>
+
+
 </body>
 
 </html>

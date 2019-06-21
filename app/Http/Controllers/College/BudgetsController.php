@@ -60,7 +60,7 @@ class BudgetsController extends Controller
             'budgets' => $budgets,
             'page_name' => 'budgets.budget.index'
         ];
-        return view('budgets.budget.index')->with('data', $data);
+        return view('budgets.budget.index')->with($data);
     }
 
     /**
@@ -104,7 +104,7 @@ class BudgetsController extends Controller
             'page_name' => 'budgets.budget.create'
         ];
 
-        return view('budgets.budget.index')->with('data', $data);
+        return view('budgets.budget.index')->with($data);
     }
 
     /**
@@ -229,7 +229,7 @@ class BudgetsController extends Controller
             'page_name' => 'budgets.budget.edit'
         );
 
-        return view('budgets.budget.index')->with('data', $data);
+        return view('budgets.budget.index')->with($data);
     }
 
     /**

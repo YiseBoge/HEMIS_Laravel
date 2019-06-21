@@ -67,14 +67,14 @@ class UpgradingStaffController extends Controller
         //$specialProgramTeachers= SpecialProgramTeacher::where(['program_type'=>$requestedType,'program_status'=>$requestedStatus])->get();
         $data = [
             'study_place' => $requestedPlace,
-            'upgrading_staff' => $filteredTeachers,
+            'upgrading_staffs' => $filteredTeachers,
 
             'selected_place' => $requestedPlace,
             'page_name' => 'staff.upgrading-staff.index'
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
-        return view('departments.upgrading_staff.index')->with('data', $data);
+        return view('departments.upgrading_staff.index')->with($data);
 
     }
 
@@ -99,7 +99,7 @@ class UpgradingStaffController extends Controller
         ];
         //return $data['special_program_teachers'];
         //return $filteredTeachers;
-        return view('departments.upgrading_staff.create')->with('data', $data);
+        return view('departments.upgrading_staff.create')->with($data);
     }
 
     /**

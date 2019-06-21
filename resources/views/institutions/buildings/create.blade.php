@@ -66,7 +66,7 @@
                                 <div class="col-md-4">
                                     <h5>Building Purposes</h5>
                                     <hr>
-                                    @foreach($data['building_purposes'] as $purpose)
+                                    @foreach($building_purposes as $purpose)
                                     <div class="form-check m-2 mt-0">
                                             {!! Form::checkbox('building_purposes[]', $purpose,  null, ['id' => "select_$purpose", 'class' => 'form-check-input']) !!}
                                             {!! Form::label('building_purposes', $purpose, ['class' => 'form-check-label', 'for' => "select_$purpose"]) !!}

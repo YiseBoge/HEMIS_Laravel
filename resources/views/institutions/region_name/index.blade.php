@@ -35,7 +35,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($data['region_names'] as $region)
+                                        @foreach($region_names as $region)
                                             <tr>
                                                 <td class="text-center">
                                                     <a href=""
@@ -60,7 +60,7 @@
 
     </div>
 
-    @if ($data['page_name'] == 'institution.region-name.create')
+    @if ($page_name == 'administer.region-name.create')
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -94,7 +94,7 @@
     @endif
 
 
-    @if ($data['page_name'] == 'institution.budget.edit')
+    @if ($page_name == 'administer.budget.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">

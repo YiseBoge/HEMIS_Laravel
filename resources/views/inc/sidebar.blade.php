@@ -28,13 +28,13 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents"
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEnrollment"
                aria-expanded="false"
                aria-controls="collapseStudents">
                 <i class="fas fa-user-graduate"></i>
                 <span>Enrollment</span>
             </a>
-            <div id="collapseStudents" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="collapseEnrollment" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="/enrollment/normal">Students</a>
                     <a class="collapse-item" href="/enrollment/special-region-students">Special Region Students</a>
@@ -50,13 +50,13 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudent"
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents"
                aria-expanded="false"
                aria-controls="collapseInstitution">
                 <i class="fas fa-user-graduate"></i>
                 <span>Students</span>
             </a>
-            <div id="collapseStudent" class="collapse" aria-labelledby="headingTwo"
+            <div id="collapseStudents" class="collapse" aria-labelledby="headingTwo"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Details:</h6>
@@ -135,13 +135,13 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudent"
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents"
                aria-expanded="false"
                aria-controls="collapseInstitution">
                 <i class="fas fa-user-graduate"></i>
                 <span>Students</span>
             </a>
-            <div id="collapseStudent" class="collapse" aria-labelledby="headingTwo"
+            <div id="collapseStudents" class="collapse" aria-labelledby="headingTwo"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item text-wrap" href="/student/university-industry-linkage">University Industry
