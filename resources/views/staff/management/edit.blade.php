@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mb-5">
+    <div class="container-fluid p-0 px-md-3">
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)
                 <div class="alert alert-danger">
@@ -25,7 +25,7 @@
 
             <div class="row my-3">
                 <div class="col-md-12">
-                    <div class="card border-left-primary shadow-sm h-100 py-2">
+                    <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">

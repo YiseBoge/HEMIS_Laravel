@@ -16,12 +16,12 @@
                         <div class="col form-group">
                             <select class="form-control" name="band" id="band" onchange="this.form.submit()">
                                 @foreach ($bands as $band)
-                                @if ($band->band_name == $selected_band)
-                                <option value="{{$band->band_name}}" selected>{{$band->band_name}}</option>
-                                @else
-                                <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                @endif
-                                    
+                                    @if ($band->band_name == $selected_band)
+                                        <option value="{{$band->band_name}}" selected>{{$band->band_name}}</option>
+                                    @else
+                                        <option value="{{$band->band_name}}">{{$band->band_name}}</option>
+                                    @endif
+
                                 @endforeach
                             </select>
                             <label for="band" class="form-control-placeholder">
@@ -31,12 +31,13 @@
                         <div class="col form-group">
                             <select class="form-control" name="college" id="college" onchange="this.form.submit()">
                                 @foreach ($colleges as $college)
-                                @if ($college->college_name == $selected_college)
-                                <option value="{{$college->college_name}}" selected>{{$college->college_name}}</option>
-                                @else
-                                <option value="{{$college->college_name}}">{{$college->college_name}}</option>
-                                @endif
-                                    
+                                    @if ($college->college_name == $selected_college)
+                                        <option value="{{$college->college_name}}"
+                                                selected>{{$college->college_name}}</option>
+                                    @else
+                                        <option value="{{$college->college_name}}">{{$college->college_name}}</option>
+                                    @endif
+
                                 @endforeach
                             </select>
                             <label for="college" class="form-control-placeholder">
@@ -46,19 +47,19 @@
                         <div class="col form-group">
                             <select class="form-control" name="level" id="level" onchange="this.form.submit()">
                                 @foreach ($levels as $key => $value)
-                                @if ($value == $selected_level)
-                                <option value="{{$key}}" selected>{{$value}}</option>
-                                @else
-                                <option value="{{$key}}">{{$value}}</option>
-                                @endif
-                                    
+                                    @if ($value == $selected_level)
+                                        <option value="{{$key}}" selected>{{$value}}</option>
+                                    @else
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endif
+
                                 @endforeach
                             </select>
                             <label for="level" class="form-control-placeholder">
                                 Education Level
                             </label>
                         </div>
-                </div>
+                    </div>
                 </form>
 
                 <div class="row">
@@ -125,46 +126,50 @@
 
                 <div class="modal-content">
                     <form class="pb-5" action="/staff/technical-staff" method="POST">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editTitle">Add</h5>
-                        <a href="/staff/technical-staff" class="close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </a>
-                    </div>
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editTitle">Add</h5>
+                            <a href="/staff/technical-staff" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+                        </div>
 
 
-                    <div class="modal-body pt-4">
-                   
-                        <div class="form-group row pt-3">
-                            
-                            <div class="col form-group">
-                                <select class="form-control" name="level" id="level">
-                                    @foreach ($levels as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="level" class="form-control-placeholder">
+                        <div class="modal-body pt-4">
+
+                            <div class="form-group row pt-3">
+
+                                <div class="col form-group">
+                                    <select class="form-control" name="level" id="level">
+                                        @foreach ($levels as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="level" class="form-control-placeholder">
                                         Education Level
-                                </label>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row pt-3">
+                                <div class="col form-group">
+                                    <input type="text" id="male_number" name="male_number" class="form-control"
+                                           required>
+                                    <label class="form-control-placeholder" for="male_number">Number of Male
+                                        Staff</label>
+                                </div>
+                                <div class="col form-group">
+                                    <input type="text" id="female_number" name="female_number" class="form-control"
+                                           required>
+                                    <label class="form-control-placeholder" for="female_number">Number of Female
+                                        Staff</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <input type="text" id="male_number" name="male_number" class="form-control" required>
-                                <label class="form-control-placeholder" for="male_number">Number of Male Staff</label>
-                            </div>
-                            <div class="col form-group">
-                                <input type="text" id="female_number" name="female_number" class="form-control" required>
-                                <label class="form-control-placeholder" for="female_number">Number of Female Staff</label>
-                            </div>
+
+
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="Submit">
                         </div>
-                    </div>
-
-
-                    <div class="modal-footer">
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                    </div>
 
                     </form>
                 </div>

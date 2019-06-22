@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid p-0 px-md-3">
         <div class="row">
             <div class="col-md-10">
                 <h1 class="text-primary">{{$institution->institutionName}}</h1>

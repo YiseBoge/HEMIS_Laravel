@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="card shadow-sm mb-4">
+    <div class="container-fluid p-0 px-md-3">
+        <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Students From Rural Areas Enrollment</h6>
             </div>
@@ -116,8 +116,8 @@
                                             </tr>
                                         @endforeach
                                     @endif
-                                    
-                                   
+
+
                                     </tbody>
                                 </table>
                             </div>

@@ -27,12 +27,13 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-5 px-3 py-md-1 col">
-                            <select name="band_names" class="form-control" id="band_names" onchange = "this.form.submit()">
+                            <select name="band_names" class="form-control" id="band_names"
+                                    onchange="this.form.submit()">
                                 @foreach ($data['bands'] as $band)
                                     @if($band->id == $data['selected_band'])
-                                    <option value="{{ $band->id }}" selected>{{ $band->band_name }}</option>
-                                    @else 
-                                    <option value="{{ $band->id }}">{{ $band->band_name }}</option>
+                                        <option value="{{ $band->id }}" selected>{{ $band->band_name }}</option>
+                                    @else
+                                        <option value="{{ $band->id }}">{{ $band->band_name }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -45,14 +46,16 @@
                         </div>
                         <div class="col-md-5 px-3 py-md-1 col">
                             <div class="form-group">
-                                <select name="college_names" class="form-control" id="college_names" onchange = "this.form.submit()">
+                                <select name="college_names" class="form-control" id="college_names"
+                                        onchange="this.form.submit()">
                                     @foreach ($data['colleges'] as $college)
                                         @if ($college->id == $data['selected_college'])
-                                        <option value="{{ $college->id }}" selected>{{ $college->college_name }}</option>
+                                            <option value="{{ $college->id }}"
+                                                    selected>{{ $college->college_name }}</option>
                                         @else
-                                        <option value="{{ $college->id }}">{{ $college->college_name }}</option>
+                                            <option value="{{ $college->id }}">{{ $college->college_name }}</option>
                                         @endif
-                                        
+
                                     @endforeach
                                 </select>
                                 <label for="dormitory_service_type" class="form-control-placeholder">

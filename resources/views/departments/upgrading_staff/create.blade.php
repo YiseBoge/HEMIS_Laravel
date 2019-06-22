@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid p-0 px-md-3">
         <!--  Disabled Students Form  -->
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)
@@ -30,7 +30,7 @@
                                 {!! Form::label('study_place', 'Study Place', ['class' => 'form-control-placeholder', 'for' => 'add_study_place']) !!}
                             </div>
                         </div>
-              
+
                         <div class="form-group row pt-3">
                             <div class="col form-group">
                                 <input type="text" id="male_number" name="male_number" class="form-control" required>

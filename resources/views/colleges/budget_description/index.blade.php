@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container w-75">
+    <div class="container-fluid p-0 px-md-3">
         <h1 class="font-weight-bold text-primary">Budget Descriptions</h1>
-        <div class="card shadow-sm pt-3 mt-3">
+        <div class="card shadow pt-3 mt-3">
             <div class="card-body">
 
                 <table class="table border dataTable" width="100%"

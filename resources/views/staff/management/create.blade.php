@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid p-0 px-md-3">
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)
                 <div class="alert alert-danger">
@@ -139,7 +139,7 @@
                                         Region</label>
                                 </div>
                             </div>
-
+                        </div>
                     </fieldset>
                 </div>
             </div>

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="card shadow-sm mb-4">
+    <div class="container-fluid p-0 px-md-3">
+        <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Students Coming From Regions Other than the Region that
                     Hosts the Institution </h6>
@@ -18,10 +18,11 @@
 
                             </div>
                         </div>
-                        <form action="" method="get">                          
+                        <form action="" method="get">
                             <div class="form-group row pt-3">
                                 <div class="col-md-6 form-group">
-                                    <select class="form-control" name="program" id="program" onchange="this.form.submit()">
+                                    <select class="form-control" name="program" id="program"
+                                            onchange="this.form.submit()">
                                         @foreach ($programs as $key => $value)
                                             @if ($value == $selected_program)
                                                 <option value="{{$value}}" selected>{{$value}}</option>
@@ -102,8 +103,8 @@
                                             </tr>
                                         @endforeach
                                     @endif
-                                    
-                                   
+
+
                                     </tbody>
                                 </table>
                             </div>

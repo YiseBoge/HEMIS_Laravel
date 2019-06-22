@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid p-0 px-md-3">
         <!--  Disabled Students Form  -->
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)
@@ -19,7 +19,7 @@
                             Student Attrition
                         </div>
                         <div class="card-body px-4">
-                          
+
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <select class="form-control" name="program" id="program">
@@ -102,11 +102,10 @@
 
                             </div>
                         </div>
+                    </fieldset>
                 </div>
-                </fieldset>
-            </div>
 
-            <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit">
+                <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit">
         </form>
     </div>
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid p-0 px-md-3">
         <div class="card shadow">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Staff Attrition</h6>
@@ -17,7 +17,7 @@
                                     <option>Advanced Diploma</option>
                                 </select>
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group row">
@@ -26,37 +26,37 @@
                                 <select class="form-control">
                                     <option>Government Appointment</option>
                                     <option>Transfer to other Higher Education Institutions</option>
-                                    <option>Transfer to other gov't Agencies </option>
+                                    <option>Transfer to other gov't Agencies</option>
                                     <option>Resignation</option>
                                     <option>Retirement</option>
                                     <option>Death</option>
                                     <option>Discipline</option>
-                                    <option>Other</option>                                
+                                    <option>Other</option>
                                 </select>
                             </div>
-                        </div> 
-                       
+                        </div>
+
                     </div>
                 </div>
 
                 <table class="table border dataTable table-hover" width="100%"
-                cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                style="width: 100%;">
+                       cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                       style="width: 100%;">
                     <thead class="thead-light">
-                        <tr>
-                                <th class="text-primary">Staff Member</th>
-                                <th></th>
-                        </tr>                       
+                    <tr>
+                        <th class="text-primary">Staff Member</th>
+                        <th></th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr onclick="window.location='staff/academic/details'">
-                            <td>Airi Satou Airi</td>
-                            <td><a href="#" class="text-primary"><i class="far fa-trash-alt mr-2"></i> Remove</a></td>
-                        </tr>
-                        <tr onclick="window.location='staff/academic/details'">
-                            <td>Airi Satou Airi</td>
-                            <td><a href="#" class="text-primary"><i class="far fa-trash-alt mr-2"></i> Remove</a></td>
-                        </tr>                        
+                    <tr onclick="window.location='staff/academic/details'">
+                        <td>Airi Satou Airi</td>
+                        <td><a href="#" class="text-primary"><i class="far fa-trash-alt mr-2"></i> Remove</a></td>
+                    </tr>
+                    <tr onclick="window.location='staff/academic/details'">
+                        <td>Airi Satou Airi</td>
+                        <td><a href="#" class="text-primary"><i class="far fa-trash-alt mr-2"></i> Remove</a></td>
+                    </tr>
                     </tbody>
                 </table>
                 <div class="form-group row mt-3">
@@ -65,16 +65,16 @@
                         <select class="form-control">
                             <option>Name</option>
                             <option>Name</option>
-                                                  
+
                         </select>
                     </div>
                     <div class="col-md-1">
                         <input type="submit" class="btn btn-outline-secondary" value="Add">
                     </div>
-                </div> 
+                </div>
 
             </div>
         </div>
-        
+
     </div>
 @endSection

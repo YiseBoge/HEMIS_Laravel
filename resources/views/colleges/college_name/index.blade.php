@@ -82,10 +82,10 @@
 
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
-                                {{Form::text('college_name','',['class'=>'form-control','placeholder'=>'Add New College'])}}
+                            {{Form::text('college_name','',['class'=>'form-control','placeholder'=>'Add New College'])}}
                         </div>
                         <div class="col-12 form-group pb-2">
-                                {{Form::text('college_acronym','',['class'=>'form-control','placeholder'=>'Acronym'])}}
+                            {{Form::text('college_acronym','',['class'=>'form-control','placeholder'=>'Acronym'])}}
                         </div>
                     </div>
 

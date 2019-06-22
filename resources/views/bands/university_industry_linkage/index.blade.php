@@ -82,51 +82,56 @@
 
                 <div class="modal-content">
                     <form class="pb-5" action="/student/university-industry-linkage" method="POST">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editTitle">Add</h5>
-                        <a href="/student/university-industry-linkage" class="close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </a>
-                    </div>
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editTitle">Add</h5>
+                            <a href="/student/university-industry-linkage" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+                        </div>
 
 
-                    <div class="modal-body pt-4">
-                        <div class="form-group row pt-3">
+                        <div class="modal-body pt-4">
+                            <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                        <select class="form-control" name="year" id="year">
-                                            @foreach ($years as $key => $value)
-                                                <option value="{{$key}}">{{$value}}</option>
-                                            @endforeach
-                                        </select>
-                                        <label for="year" class="form-control-placeholder">
-                                                Year Level
-                                        </label>
-                                    </div>
-                        </div>
-                        <div class="form-group row pt-3">
-                            
-                            <div class="col form-group">
-                                <input type="text" id="industry_number" name="industry_number" class="form-control" required>
-                                <label class="form-control-placeholder" for="industry_number">Number of Industries Linked</label>
+                                    <select class="form-control" name="year" id="year">
+                                        @foreach ($years as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="year" class="form-control-placeholder">
+                                        Year Level
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row pt-3">
+
+                                <div class="col form-group">
+                                    <input type="text" id="industry_number" name="industry_number" class="form-control"
+                                           required>
+                                    <label class="form-control-placeholder" for="industry_number">Number of Industries
+                                        Linked</label>
+                                </div>
+                            </div>
+                            <div class="form-group row pt-3">
+                                <div class="col form-group">
+                                    <input type="text" id="training_area" name="training_area" class="form-control"
+                                           required>
+                                    <label class="form-control-placeholder" for="training_area">Training Area</label>
+                                </div>
+                                <div class="col form-group">
+                                    <input type="text" id="number_of_students" name="number_of_students"
+                                           class="form-control" required>
+                                    <label class="form-control-placeholder" for="number_of_students">Number of
+                                        Students</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <input type="text" id="training_area" name="training_area" class="form-control" required>
-                                <label class="form-control-placeholder" for="training_area">Training Area</label>
-                            </div>
-                            <div class="col form-group">
-                                <input type="text" id="number_of_students" name="number_of_students" class="form-control" required>
-                                <label class="form-control-placeholder" for="number_of_students">Number of Students</label>
-                            </div>
-                        </div>
-                    </div>
 
 
-                    <div class="modal-footer">
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                    </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="Submit">
+                        </div>
 
                     </form>
                 </div>

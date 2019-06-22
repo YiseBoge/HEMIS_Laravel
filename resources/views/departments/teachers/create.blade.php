@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid p-0 px-md-3">
         <!--  Disabled Students Form  -->
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)
@@ -19,9 +19,9 @@
                             Teachers
                         </div>
                         <div class="card-body px-4">
-                          
+
                             <div class="form-group row pt-3">
-                               
+
 
                                 <div class="col-md-6 form-group">
                                     <select class="form-control" name="education_level" id="education_level">

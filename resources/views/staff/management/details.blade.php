@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mb-5">
+    <div class="container-fluid p-0 px-md-3">
         <div class="row">
             <div class="col-md-10">
                 <h1 class="font-weight-bold text-primary">Management Staff</h1>

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="card shadow-sm mb-4">
+    <div class="container-fluid p-0 px-md-3">
+        <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Post Graduate Diploma Training</h6>
             </div>
@@ -22,11 +22,11 @@
                                     <select class="form-control" name="type" id="type" onchange="this.form.submit()">
                                         @foreach ($types as $key => $value)
                                             @if ($value == $selected_type)
-                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                                <option value="{{$value}}" selected>{{$value}}</option>
                                             @else
-                                            <option value="{{$value}}">{{$value}}</option>
+                                                <option value="{{$value}}">{{$value}}</option>
                                             @endif
-                                            
+
                                         @endforeach
                                     </select>
                                     <label for="type" class="form-control-placeholder">
@@ -38,21 +38,21 @@
                                     <select class="form-control" name="program" id="program"
                                             onchange="this.form.submit()">
                                         @foreach ($programs as $key => $value)
-                                        @if ($value == $selected_program)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                        @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                        @endif
-                                            
+                                            @if ($value == $selected_program)
+                                                <option value="{{$value}}" selected>{{$value}}</option>
+                                            @else
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endif
+
                                         @endforeach
                                     </select>
                                     <label for="service_type" class="form-control-placeholder">
                                         Program
                                     </label>
                                 </div>
-                               
+
                             </div>
-                           
+
                         </form>
                         <div class="row mt-3">
                             <div class="col-sm-12">

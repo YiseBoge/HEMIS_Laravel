@@ -20,7 +20,7 @@
                         </div>
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
-                                
+
                                 <div class="col-md-6 form-group">
                                     <select class="form-control" name="staff_rank" id="staff_rank">
                                         @foreach ($data['staff_rank'] as $key => $value)

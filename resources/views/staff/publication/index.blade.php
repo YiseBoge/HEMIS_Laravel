@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Publications and Patents</h6>
@@ -12,7 +12,8 @@
                     <input type="hidden" name="_method" value="PUT">
                     <div class="container row mt-3 px-5">
                         <div class="col-md-8">
-                            <div class="text-sm font-weight-bold text-uppercase text-primary mb-1">Number of Publications By
+                            <div class="text-sm font-weight-bold text-uppercase text-primary mb-1">Number of
+                                Publications By
                                 Postgraduate Students
                             </div>
                             <div class="input-group mb-3">
@@ -21,20 +22,22 @@
                                                 class="text-gray-400 float-right far fa-edit "></i></span>
                                 </div>
                                 <input type="text" class="form-control form-control-plaintext"
-                                        name="student_publications"
-                                        value="{{$publications_and_patents->student_publications}}">
+                                       name="student_publications"
+                                       value="{{$publications_and_patents->student_publications}}">
 
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="text-sm font-weight-bold text-uppercase text-primary mb-1">Number of Patents Earned</div>
+                            <div class="text-sm font-weight-bold text-uppercase text-primary mb-1">Number of Patents
+                                Earned
+                            </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-white border-0"><i
                                                 class="text-gray-400 float-right far fa-edit "></i></span>
                                 </div>
                                 <input type="text" class="form-control form-control-plaintext" name="patents"
-                                        value="{{$publications_and_patents->patents}}">
+                                       value="{{$publications_and_patents->patents}}">
 
                             </div>
                         </div>
@@ -46,7 +49,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Publications By Academic Staff with
-                        Rank of Associate and Full Professor</h6>
+                    Rank of Associate and Full Professor</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

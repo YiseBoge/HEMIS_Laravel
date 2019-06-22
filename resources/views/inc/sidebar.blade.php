@@ -24,7 +24,7 @@
 
     @if(Auth::user()->hasRole('Department Admin'))
 
-    <hr class="sidebar-divider">
+        <hr class="sidebar-divider">
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item {{ preg_split ("/\./", $page_name)[0] == 'enrollment' ? 'active': '' }}">
@@ -201,7 +201,7 @@
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'admin_and_non_academic_staff' ? 'active': '' }}"
                        href="/institution/non-admin">Administrative and Non-Academic
                         Staff</a>
-                    
+
                 </div>
             </div>
         </li>
@@ -413,7 +413,7 @@
         <hr class="sidebar-divider d-none d-md-block">
 @endif
 
-    <!-- Sidebar Toggler (Sidebar) -->
+<!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>

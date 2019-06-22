@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-    <!--  Disabled Students Form  -->
+    <div class="container-fluid p-0 px-md-3">
+        <!--  Disabled Students Form  -->
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)
                 <div class="alert alert-danger">
@@ -18,7 +18,7 @@
                 <div class="col-md-5">
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
-                                Academic Information
+                            Academic Information
                         </div>
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
@@ -42,21 +42,21 @@
                                         @endforeach
                                     </select>
                                     <label for="service_type" class="form-control-placeholder">
-                                            Program
-                                        </label>
+                                        Program
+                                    </label>
                                 </div>
 
                                 <div class="col-md-6 form-group">
                                     <select class="form-control" name="year_level" id="year_level">
                                         @for ($i = 1; $i < 7; $i++)
-                                        <option value="{{$i}}">{{$i}}</option>
+                                            <option value="{{$i}}">{{$i}}</option>
                                         @endfor
                                     </select>
                                     <label for="dormitory_service_type" class="form-control-placeholder">
-                                            Year Level
-                                        </label>
+                                        Year Level
+                                    </label>
                                 </div>
-            
+
                             </div>
                         </div>
                     </fieldset>
@@ -64,7 +64,7 @@
                 <div class="col-md-7">
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
-                                Personal Information
+                            Personal Information
                         </div>
                         <div class="card-body px-4">
                             <div class="form-row">
@@ -77,37 +77,42 @@
                             <div class="form-row pt-3">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        
-                                        <input class="form-control" id="bdate" name="birth_date" type="date" placeholder="2011-08-19">
+
+                                        <input class="form-control" id="bdate" name="birth_date" type="date"
+                                               placeholder="2011-08-19">
                                         <label for="bdate" class="form-control-placeholder">
                                             Date of Birth
                                         </label>
-                                    </div>                       
+                                    </div>
                                     <hr>
                                     <div class="form-group">
-                                        <input type="text" id="student_id" name="student_id" class="form-control" required>
+                                        <input type="text" id="student_id" name="student_id" class="form-control"
+                                               required>
                                         <label class="form-control-placeholder" for="student_id">Student ID</label>
-                                       
+
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6 pl-md-5">
                                     <div class="form-group">
                                         <div>
-                                            <label class="radio-inline"><input class="d-inline-block m-2 form-check-inline"
-                                                                                type="radio"
-                                                                                name="sex" value="Male">Male</label>
-                                            <label class="radio-inline"><input class="d-inline-block m-2 form-check-inline"
-                                                                                type="radio"
-                                                                                name="sex" value="Female">Female</label>
+                                            <label class="radio-inline"><input
+                                                        class="d-inline-block m-2 form-check-inline"
+                                                        type="radio"
+                                                        name="sex" value="Male">Male</label>
+                                            <label class="radio-inline"><input
+                                                        class="d-inline-block m-2 form-check-inline"
+                                                        type="radio"
+                                                        name="sex" value="Female">Female</label>
                                         </div>
-                                    </div>                        
+                                    </div>
                                     <hr>
                                     <div class="form-group">
-                                        <input type="text" id="phoneno" name="phone_number" class="form-control" required>
+                                        <input type="text" id="phoneno" name="phone_number" class="form-control"
+                                               required>
                                         <label class="form-control-placeholder" for="phoneno">Phone Number</label>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -117,12 +122,12 @@
 
             <fieldset class="card shadow my-5">
                 <div class="card-header text-primary">
-                        Student Information
+                    Student Information
                 </div>
                 <div class="card-body px-4">
                     <div class="form-group row pt-3" id="student_service">
                         <div class="col-md-6 form-group">
-                            
+
                             <select class="form-control" name="food_service_type" id="food_service_type">
                                 @foreach ($food_service_types as $key => $value)
                                     <option value="{{$key}}">{{$value}}</option>
@@ -134,15 +139,15 @@
                         </div>
 
                         <div class="col-md-6 form-group">
-                            
+
                             <select class="form-control" name="dormitory_service_type" id="dormitory_service_type">
                                 @foreach ($dormitory_service_types as $key => $value)
                                     <option value="{{$key}}">{{$value}}</option>
                                 @endforeach
                             </select>
                             <label for="dormitory_service_type" class="form-control-placeholder">
-                                    Dormitory Service Type
-                                </label>
+                                Dormitory Service Type
+                            </label>
                         </div>
                     </div>
                     <hr>
@@ -164,27 +169,28 @@
 
             <fieldset class="card shadow h-100 my-5">
                 <div class="card-header text-primary">
-                        Disability Information
+                    Disability Information
                 </div>
                 <div class="card-body px-4">
                     <div class="form-group row pt-3">
                         <div class="col-md-6 form-group">
-                            
+
                             <select class="form-control" name="disability_type" id="disability_type">
                                 @foreach ($disabilitys as $key => $value)
                                     <option value="{{$key}}">{{$value}}</option>
                                 @endforeach
                             </select>
                             <label for="service_type" class="form-control-placeholder">
-                                    Disability Type
-                                </label>
+                                Disability Type
+                            </label>
                         </div>
                     </div>
                     <hr>
                     <div class="form-group row pt-3">
                         <div class="col form-group">
-                            
-                            <textarea class="form-control" name="additional_remarks" id="additional_remarks" rows="3"></textarea>
+
+                            <textarea class="form-control" name="additional_remarks" id="additional_remarks"
+                                      rows="3"></textarea>
                             <label for="additional_remarks" class="form-control-placeholder">
                                 Additional Remarks
                             </label>
