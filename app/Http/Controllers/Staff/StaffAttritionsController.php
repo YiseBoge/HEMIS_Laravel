@@ -21,7 +21,6 @@ class StaffAttritionsController extends Controller
     {
         $user = Auth::user();
         if ($user == null) abort(401, 'Login required.');
-        $user->authorizeRoles('College Admin');
         $user->authorizeRoles(['College Admin', 'Department Admin']);
         $institution = $user->institution();
 

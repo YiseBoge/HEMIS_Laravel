@@ -117,7 +117,7 @@
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'diaspora_course' ? 'active': '' }}"
                        href="/department/diaspora-courses">Courses and Researches
                         By Ethiopian Diaspora</a>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'staff_attrition' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'attrition' ? 'active': '' }}"
                        href="/staff/attrition">Staff Attrition</a>
                 </div>
             </div>

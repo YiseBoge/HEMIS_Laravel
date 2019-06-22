@@ -32,6 +32,12 @@
 <div id="app"></div>
 <!-- Page Wrapper -->
 <div id="wrapper">
+    @isset($page_name)
+
+    @else
+        <div class="d-none">{{ $page_name = '1.2.3' }}</div>
+@endisset
+
 
 @guest
 @else
@@ -97,20 +103,27 @@
 
 
     $(document).ready(function () {
+        $(".uncollapse").css("transition", "height 0s !important");
 
         @isset($page_name)
         @if(preg_split ("/\./", $page_name)[0] == 'enrollment')
         $("#collapseEnrollment").collapse("show");
+        $("#collapseEnrollment").addClass("uncollapse");
         @elseif(preg_split ("/\./", $page_name)[0] == 'budgets')
         $("#collapseBudget").collapse("show");
+        $("#collapseBudget").addClass("uncollapse");
         @elseif(preg_split ("/\./", $page_name)[0] == 'students')
         $("#collapseStudents").collapse("show");
+        $("#collapseStudents").addClass("uncollapse");
         @elseif(preg_split ("/\./", $page_name)[0] == 'staff')
         $("#collapseStaff").collapse("show");
+        $("#collapseStaff").addClass("uncollapse");
         @elseif(preg_split ("/\./", $page_name)[0] == 'report')
         $("#collapseReport").collapse("show");
+        $("#collapseReport").addClass("uncollapse");
         @elseif(preg_split ("/\./", $page_name)[0] == 'administer')
         $("#collapseAdmin").collapse("show");
+        $("#collapseAdmin").addClass("uncollapse");
         @endif
         @endisset
 
