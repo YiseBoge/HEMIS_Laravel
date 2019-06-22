@@ -28,7 +28,7 @@ class EnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -123,7 +123,7 @@ class EnrollmentsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -163,7 +163,7 @@ class EnrollmentsController extends Controller
         $enrollment->student_type = $request->input('student_type');
 
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();

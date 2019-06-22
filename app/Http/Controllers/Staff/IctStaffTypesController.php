@@ -20,7 +20,7 @@ class IctStaffTypesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
         return view('staff.ict_staff_type.index');
@@ -34,7 +34,7 @@ class IctStaffTypesController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
     }

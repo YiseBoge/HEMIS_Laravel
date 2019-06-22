@@ -22,7 +22,7 @@ class DiasporaCoursesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -68,7 +68,7 @@ class DiasporaCoursesController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -97,7 +97,7 @@ class DiasporaCoursesController extends Controller
         $course->number_of_researches = $request->input('research_number');
 
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();

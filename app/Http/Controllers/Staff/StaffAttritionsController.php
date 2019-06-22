@@ -20,7 +20,7 @@ class StaffAttritionsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['College Admin', 'Department Admin']);
         $institution = $user->institution();
 
@@ -122,7 +122,7 @@ class StaffAttritionsController extends Controller
     public function create(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['College Admin', 'Department Admin']);
         $institution = $user->institution();
 
@@ -230,7 +230,7 @@ class StaffAttritionsController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['College Admin', 'Department Admin']);
 
         $attrition = new StaffAttrition;

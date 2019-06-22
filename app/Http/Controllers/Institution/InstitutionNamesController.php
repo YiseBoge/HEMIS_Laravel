@@ -27,7 +27,7 @@ class InstitutionNamesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $institutions = InstitutionName::all();
@@ -46,7 +46,7 @@ class InstitutionNamesController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $institutions = InstitutionName::all();
@@ -72,7 +72,7 @@ class InstitutionNamesController extends Controller
         ]);
 
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
         $instance = $user->currentInstance;
 
@@ -114,7 +114,7 @@ class InstitutionNamesController extends Controller
     function show($id)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
         return view('institutions.details');
     }
@@ -129,7 +129,7 @@ class InstitutionNamesController extends Controller
     function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
         return view('institutions.edit');
     }

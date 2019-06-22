@@ -26,6 +26,7 @@ class StaffLeaveController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -105,6 +106,7 @@ class StaffLeaveController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = [
@@ -144,6 +146,7 @@ class StaffLeaveController extends Controller
 
 
         $user = Auth::user();
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 

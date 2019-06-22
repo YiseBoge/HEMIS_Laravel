@@ -28,7 +28,7 @@ class SpecialNeedStudentsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -47,7 +47,7 @@ class SpecialNeedStudentsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -153,7 +153,7 @@ class SpecialNeedStudentsController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -172,7 +172,7 @@ class SpecialNeedStudentsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -220,7 +220,7 @@ class SpecialNeedStudentsController extends Controller
         $specialNeedStudent->disability = $request->input("disability_type");
 
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -277,7 +277,7 @@ class SpecialNeedStudentsController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $specialNeedStudent = SpecialNeedStudent::find($id);

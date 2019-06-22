@@ -31,7 +31,7 @@ class BuildingsController extends Controller
         $buildingPurpose = $buildingPurposes[$requestedPurpose];
 
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -76,7 +76,7 @@ class BuildingsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $buildingPurposes = BuildingPurpose::all();
@@ -118,7 +118,7 @@ class BuildingsController extends Controller
         $building->completion_status = $request->input('completion_status');
 
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 

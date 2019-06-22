@@ -25,7 +25,7 @@ class UniversityAdminController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $editors = [];
@@ -50,7 +50,7 @@ class UniversityAdminController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $institutionNames = InstitutionName::all();
@@ -85,7 +85,7 @@ class UniversityAdminController extends Controller
         ]);
 
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
         $currentInstanceId = $user->currentInstance;
 

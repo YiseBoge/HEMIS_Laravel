@@ -32,7 +32,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->hasRole('Super Admin')){  
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+
+        if ($user->hasRole('Super Admin')) {
             $institutions = InstitutionName::get();
             $bands = BandName::get();
             $colleges = CollegeName::get();
@@ -47,7 +50,6 @@ class HomeController extends Controller
             );
             return view('home')->with($data);
         }else{
-            $user = Auth::user();
             $institution = $user->institution();
             $generalInformation = $institution->generalInformation;
             $colleges = 0;

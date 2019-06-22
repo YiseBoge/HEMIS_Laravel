@@ -18,6 +18,7 @@ class ManagementDatasController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -46,6 +47,7 @@ class ManagementDatasController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = ['management_data' => [], 'page_name' => 'institutions.management_data.create',
@@ -70,6 +72,7 @@ class ManagementDatasController extends Controller
         ]);
 
         $user = Auth::user();
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 

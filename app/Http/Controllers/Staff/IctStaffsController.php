@@ -22,7 +22,7 @@ class IctStaffsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();
@@ -58,7 +58,7 @@ class IctStaffsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -120,7 +120,7 @@ class IctStaffsController extends Controller
 
 
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();
@@ -164,7 +164,7 @@ class IctStaffsController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -246,7 +246,7 @@ class IctStaffsController extends Controller
         $ictStaff->general()->save($staff);
 
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -277,7 +277,7 @@ class IctStaffsController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $ictStaff = IctStaff::find($id);

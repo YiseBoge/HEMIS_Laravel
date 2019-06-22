@@ -20,7 +20,7 @@ class InstitutionsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
         $institution = $user->institution();
 
@@ -72,7 +72,7 @@ class InstitutionsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
         $currentInstitution = Institution::find($id);
@@ -101,6 +101,7 @@ class InstitutionsController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
         $this->validate($request, [

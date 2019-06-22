@@ -22,7 +22,7 @@ class DepartmentAdminController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $editors = [];
@@ -47,7 +47,7 @@ class DepartmentAdminController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $departmentNames = DepartmentName::all();
@@ -76,7 +76,7 @@ class DepartmentAdminController extends Controller
         ]);
 
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $currentInstanceId = $user->currentInstance;

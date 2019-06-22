@@ -24,7 +24,7 @@ class TechnicalStaffController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -86,7 +86,7 @@ class TechnicalStaffController extends Controller
     public function create(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -155,7 +155,7 @@ class TechnicalStaffController extends Controller
         $staff->female_staff_number = $request->input('female_number');
 
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();

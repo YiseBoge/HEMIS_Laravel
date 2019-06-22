@@ -18,6 +18,10 @@ class ReportsController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Super Admin');
+
         $reports = ReportCard::groupedReports();
         $card = ReportCard::all()->sortBy('year')->first();
         $years = $card != null ? $card->reportYearValues->sortBy('year') : array();
@@ -71,7 +75,7 @@ class ReportsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $reports = ReportCard::groupedReports();
@@ -104,7 +108,7 @@ class ReportsController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $report = ReportCard::find($id);

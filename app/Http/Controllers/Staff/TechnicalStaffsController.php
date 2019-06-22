@@ -23,7 +23,7 @@ class TechnicalStaffsController extends Controller
     {
 
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -58,7 +58,7 @@ class TechnicalStaffsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -116,7 +116,7 @@ class TechnicalStaffsController extends Controller
         $technicalStaff->staffRank = $request->input('technical_staff_rank');
 
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -157,7 +157,7 @@ class TechnicalStaffsController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -176,6 +176,7 @@ class TechnicalStaffsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -196,7 +197,7 @@ class TechnicalStaffsController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $this->validate($request, [
@@ -253,7 +254,7 @@ class TechnicalStaffsController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        if ($user == null) abort(401, 'Login required.');
+        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $technicalStaff = TechnicalStaff::find($id);

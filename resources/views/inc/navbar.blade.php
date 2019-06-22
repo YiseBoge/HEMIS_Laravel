@@ -64,8 +64,13 @@
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-user-circle fa-fw mr-2 text-primary"></i>
+                        Profile
+                    </a>
+                    <hr class="dropdown-divider"/>
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-primary"></i>
+                        <i class="fas fa-sign-out-alt fa-fw mr-2 text-primary"></i>
                         {{ __('Logout') }}
                     </a>
                 </div>
