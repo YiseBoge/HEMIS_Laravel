@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
 
             BudgetPurposesTableSeeder::class,
             ReportCardsTableSeeder::class,
+
+            RegionNamesTableSeeder::class,
+            BandNamesTableSeeder::class,
         ]);
     }
 }

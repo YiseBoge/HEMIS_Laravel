@@ -19,6 +19,7 @@ require('xlsx');
 require('tableexport.jquery.plugin');
 require('bootstrap-select');
 require('print-js');
+require('print-this');
 require('jquery.cookie');
 
 window.Vue = require('vue');
