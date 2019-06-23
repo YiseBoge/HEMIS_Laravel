@@ -46,10 +46,7 @@
                     </div>
                     <div class="col-md-3 pl-md-5">
                         <div class="form-group">
-
                             {{Form::text('budget_code','',['class'=>'form-control','placeholder'=>'Code'])}}
-
-
                         </div>
 
                     </div>
@@ -70,25 +67,27 @@
 
     </div>
 
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editTitle">Edit</h5>
-                    <a href="/budgets/budget-description" class="close" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </a>
-                </div>
-                <div class="modal-body">
+    @if ($page_name == 'administer.budget-description.edit')
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editTitle">Edit</h5>
+                        <a href="/budgets/budget-description" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    </div>
+                    <div class="modal-body">
 
 
-                    <input class="form-control " id="department_name_edit" type="text" value="Computer Science">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                        <input class="form-control " id="department_name_edit" type="text" value="Computer Science">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 @endSection
