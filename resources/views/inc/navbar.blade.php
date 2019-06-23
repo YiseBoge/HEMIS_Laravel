@@ -13,7 +13,16 @@
         <span class="small">
             Current :
             <span class="mx-2 text-left text-primary">
-                {{ Auth::user()->currentInstance }}
+                @if (Auth::user()->currentInstance != null)
+                    <span class="mx-2 text-left text-primary">
+                        {{ Auth::user()->currentInstance }}
+                    </span>
+                @else
+                    <span class="mx-2 text-left text-muted">
+                        No Semester Selected
+                    </span>
+                @endif
+
             </span>
         </span>
 @endguest
@@ -25,8 +34,8 @@
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
         @guest
             <li class="nav-item btn btn-primary btn-circle shadow-sm">
-                <a class="nav-link text-white" href="{{ route('login') }}" data-toggle="tooltip" title="Login"><i
-                            class="fas fa-sign-in-alt mx-3"></i>
+                <a class="nav-link text-white" href="{{ route('login') }}" data-toggle="tooltip" title="Login">
+                    <i class="fas fa-sign-in-alt mx-3"></i>
                     {{--                    {{ __('Login') }}--}}
                 </a>
             </li>
@@ -44,7 +53,7 @@
                                     class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->collegeName }}
                             <i class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->departmentName }}
                             <i class="fas fa-angle-double-right mx-2 text-gray-400"></i>
-                        @elseif (Auth::user()->hasRole('College Admin'))
+                        @elseif (Auth::user()->hasAnyRole(['College Admin', 'College Super Admin']))
                             {{ Auth::user()->institution()->institutionName }} <i
                                     class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->collegeName }}
                             <i class="fas fa-angle-double-right mx-2 text-gray-400"></i>

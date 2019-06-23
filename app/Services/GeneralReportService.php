@@ -23,8 +23,9 @@ class GeneralReportService
                     if ($institution->institutionName->is_private) {
                         $institutions[] = $institution;
                     }
+                } else {
+                    $institutions[] = $institution;
                 }
-                $institutions[] = $institution;
             }
         }
         return $institutions;

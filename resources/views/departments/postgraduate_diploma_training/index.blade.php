@@ -16,13 +16,6 @@
                 </div>
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
-                            <div class="col text-right">
-                                <a class="btn btn-outline-primary btn-sm mb-0"
-                                   href="">New Entry<i
-                                            class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </div>
                         <form action="" method="get">
                             <div class="form-group row pt-3">
                                 <div class="col-md-6 form-group">

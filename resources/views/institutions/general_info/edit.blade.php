@@ -199,9 +199,9 @@
                                     Pupil : Teacher =
                                 </span>
                             </div>
-                            {{ Form::number('pupil_per_teacher', $institution->generalInformation->resource->pupil_per_teacher, ['class'=>'rounded ml-2 form-control text-right', 'id'=>'edit_pupil_per_teacher']) }}
+                            {{ Form::number('pupil_per_teacher', $institution->generalInformation->resource->pupil_per_teacher, ['class'=>'rounded-left ml-2 form-control text-right', 'id'=>'edit_pupil_per_teacher']) }}
                             <div class="input-group-append">
-                                <span class="input-group-text bg-white rounded">
+                                <span class="input-group-text rounded-right">
                                      : 1
                                 </span>
                             </div>
@@ -217,11 +217,11 @@
                                 </span>
                             </div>
                             <div class="input-group-prepend">
-                                <span class="input-group-text bg-white rounded">
+                                <span class="input-group-text rounded-left">
                                      1 :
                                 </span>
                             </div>
-                            {{ Form::number('text_per_student', $institution->generalInformation->resource->text_per_student, ['class'=>'rounded mr-2 form-control', 'id'=>'edit_text_per_student']) }}
+                            {{ Form::number('text_per_student', $institution->generalInformation->resource->text_per_student, ['class'=>'rounded-right mr-2 form-control', 'id'=>'edit_text_per_student']) }}
                         </div>
 
                     </div>

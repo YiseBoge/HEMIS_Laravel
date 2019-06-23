@@ -8,7 +8,7 @@
                  src="{{ asset('img/logo.png') }}">
         </div>
         <div class="sidebar-brand-text mx-3">
-            <img class="d-inline-block" height="50" src="{{ asset('img/brand.png') }}">
+            <img class="d-inline-block" height="45" src="{{ asset('img/brand.png') }}">
         </div>
     </a>
 

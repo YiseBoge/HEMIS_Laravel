@@ -370,7 +370,7 @@ class InstitutionService
                         $total += 1;
                     }
                 }
-                foreach ($this->institution->adminAndNonAcademicStaff as $staff) {
+                foreach ($college->administrativeStaffs as $staff) {
                     if($staff->general->staffAttrition != null){
                         $total += 1;
                     }
@@ -419,20 +419,27 @@ class InstitutionService
         $colleges = $this->colleges();
         foreach ($colleges as $college) {
             foreach ($college->managementStaffs as $managementStaff) {
-                if ($otherRegion == true) {
-                    if ($managementStaff->general->sex == $sex && $managementStaff->general->is_from_other_region == 1) {
-                        $total = $total + 1;
+                if ($otherRegion) {
+                    if ($sex == 'Female') {
+                        if ($managementStaff->general->sex == 'Female' && $managementStaff->general->is_from_other_region == 1) {
+                            $total++;
+                        }
+                    } else {
+                        if ($managementStaff->general->is_from_other_region == 1) {
+                            $total++;
+                        }
                     }
                 } else {
-                    if ($managementStaff->general->sex == $sex && $managementStaff->general->is_from_other_region == 0) {
-                        $total = $total + 1;
+                    if ($sex == 'Female') {
+                        if ($managementStaff->general->sex == 'Female') {
+                            $total++;
+                        }
+                    } else {
+                        $total++;
                     }
                 }
-
             }
-
         }
-
         return $total;
     }
 

@@ -33,7 +33,7 @@ class DepartmentService
         $total = 0;
         foreach ($this->department->academicStaffs as $academicStaff) {
             foreach ($academicStaff->publications as $publication) {
-                $total = $total + 1;
+                $total++;
             }
         }
         return $total;
@@ -43,13 +43,23 @@ class DepartmentService
     {
         $total = 0;
         foreach ($this->department->academicStaffs as $academicStaff) {
-            if ($otherRegion == true) {
-                if ($academicStaff->general->sex == $sex && $academicStaff->general->is_from_other_region == 1) {
-                    $total = $total + 1;
+            if ($otherRegion) {
+                if ($sex == 'Female') {
+                    if ($academicStaff->general->sex == 'Female' && $academicStaff->general->is_from_other_region == 1) {
+                        $total++;
+                    }
+                } else {
+                    if ($academicStaff->general->is_from_other_region == 1) {
+                        $total++;
+                    }
                 }
             } else {
-                if ($academicStaff->general->sex == $sex && $academicStaff->general->is_from_other_region == 0) {
-                    $total = $total + 1;
+                if ($sex == 'Female') {
+                    if ($academicStaff->general->sex == 'Female') {
+                        $total++;
+                    }
+                } else {
+                    $total++;
                 }
             }
         }

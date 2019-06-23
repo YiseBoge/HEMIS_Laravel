@@ -133,7 +133,7 @@
 
     </div>
 
-    @if ($page_name == 'reports.report_card.edit')
+    @if ($page_name == 'report.report_card.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">

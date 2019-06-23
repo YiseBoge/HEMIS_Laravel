@@ -22,11 +22,11 @@ class InstancesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
-        $instances = Instance::all();
+        $instances = Instance::orderByDesc('year')->get();
         $currentInstance = Auth::user()->currentInstance;
         $currentInstanceIndex = 0;
 
-        for ($i = 0; $i < (count($instances) - 1); $i++) {
+        for ($i = 0; $i < (count($instances)); $i++) {
             $inst = $instances[$i];
             if ($inst->id == $currentInstance->id) $currentInstanceIndex = $i;
         }
@@ -51,11 +51,11 @@ class InstancesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
-        $instances = Instance::all();
+        $instances = Instance::orderByDesc('year')->get();
         $currentInstance = $user->currentInstance;
         $currentInstanceIndex = 0;
 
-        for ($i = 0; $i < (count($instances) - 1); $i++) {
+        for ($i = 0; $i < (count($instances)); $i++) {
             $inst = $instances[$i];
             if ($inst->id == $currentInstance->id) $currentInstanceIndex = $i;
         }
@@ -113,7 +113,7 @@ class InstancesController extends Controller
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
-        $currentInstances = Instance::all();
+        $currentInstances = Instance::orderByDesc('year')->get();
         $currentInstance = $currentInstances[$request->input('current_instance')];
 
         $currentInstance->users()->save($user);

@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\BandName;
 use App\Models\College\CollegeName;
 use App\Models\Department\DepartmentName;
+use App\Models\Institution\CommunityService;
+use App\Models\Institution\GeneralInformation;
+use App\Models\Institution\Institution;
 use App\Models\Institution\InstitutionName;
+use App\Models\Institution\Resource;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
@@ -63,7 +67,7 @@ class UniversityAdminController extends Controller
             'college_names' => $collegeNames,
             'band_names' => $bandNames,
             'department_names' => $departmentNames,
-            'page_name' => 'users.university_admin.create',
+            'page_name' => 'administer.university_admin.create',
         );
         return view('users.university_admin.create')->with($data);
     }
@@ -104,6 +108,24 @@ class UniversityAdminController extends Controller
             ->roles()
             ->attach(Role::where('role_name', 'University Admin')->first());
 
+        if ($user->institution() == null) {
+            $generalInformation = new GeneralInformation();
+            $communityService = new CommunityService();
+            $resource = new Resource();
+
+            $generalInformation->save();
+            $communityService->save();
+            $resource->save();
+
+            $generalInformation->communityService()->associate($communityService)->save();
+            $generalInformation->resource()->associate($resource)->save();
+
+            $institution = new Institution();
+            $institution->institution_name_id = $institutionName->id;
+            $institution->instance_id = $currentInstanceId->id;
+
+            $generalInformation->institution()->save($institution);
+        }
         return redirect('/university-admin');
     }
 

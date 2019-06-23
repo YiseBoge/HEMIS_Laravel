@@ -9,7 +9,8 @@
             <div class="card-body">
                 <div class="row my-3">
                     <div class="col text-right">
-                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/department/teachers/create">New Entry<i
+                        <a class="btn btn-primary btn-sm mb-0 shadow-sm"
+                           href="/department/teachers/create">New Entry<i
                                     class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                     </div>
                 </div>
