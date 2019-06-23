@@ -7,21 +7,20 @@
                 <h6 class="m-0 font-weight-bold text-primary">Student Enrollment</h6>
             </div>
             <div class="card-body">
-
+                @if(!Auth::user()->hasRole('College Super Admin'))
+                    <div class="row my-3">
+                        <div class="col text-right">
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/enrollment/normal-chart">Generate
+                                Report<i
+                                        class="fas fa-download text-white-50 fa-sm ml-2"></i></a>
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/enrollment/normal/create">New
+                                Entry<i
+                                        class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
+                        </div>
+                    </div>
+                @endif
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        @if(!Auth::user()->hasRole('College Super Admin'))
-                            <div class="row my-3">
-                                <div class="col text-right">
-                                    <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/enrollment/normal-chart">Generate
-                                        Report<i
-                                                class="fas fa-download text-white-50 fa-sm ml-2"></i></a>
-                                    <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/enrollment/normal/create">New
-                                        Entry<i
-                                                class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
-                                </div>
-                            </div>
-                        @endif
                         <form class="mt-4" action="" method="get">
                             @if(Auth::user()->hasRole('College Super Admin'))
                                 <div class="form-group row pt-3">

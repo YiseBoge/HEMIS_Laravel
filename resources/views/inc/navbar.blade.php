@@ -12,18 +12,15 @@
         </button>
         <span class="small">
             Current :
-            <span class="mx-2 text-left text-primary">
                 @if (Auth::user()->currentInstance != null)
-                    <span class="mx-2 text-left text-primary">
+                <span class="mx-1 text-left text-primary">
                         {{ Auth::user()->currentInstance }}
                     </span>
                 @else
-                    <span class="mx-2 text-left text-muted">
+                <span class="mx-1 text-left text-muted">
                         No Semester Selected
                     </span>
                 @endif
-
-            </span>
         </span>
 @endguest
 

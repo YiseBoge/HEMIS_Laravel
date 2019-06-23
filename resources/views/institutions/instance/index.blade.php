@@ -3,9 +3,11 @@
 @section('content')
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
-            <div class="text-primary card-header">Semesters</div>
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Semesters</h6>
+            </div>
             <div class="card-body">
-                <div class="row py-2">
+                <div class="row my-3">
                     <div class="col-md-5 form-group pb-1">
                         {!! Form::open(['action' => 'Institution\InstancesController@updateCurrentInstance', 'method' => 'POST']) !!}
                         {!! Form::select('current_instance', $instances , $current, ['class' => 'form-control', 'id' => 'edit_current_instance']) !!}

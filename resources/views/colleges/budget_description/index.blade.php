@@ -2,10 +2,11 @@
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
-        <h1 class="font-weight-bold text-primary">Budget Descriptions</h1>
-        <div class="card shadow pt-3 mt-3">
+        <div class="card shadow mt-3">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Budget Descriptions</h6>
+            </div>
             <div class="card-body">
-
                 <table class="table border dataTable" width="100%"
                        cellspacing="0" role="grid" aria-describedby="dataTable_info"
                        style="width: 100%;">

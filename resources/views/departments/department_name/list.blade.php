@@ -3,7 +3,9 @@
 @section('content')
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
-            <div class="text-primary card-header">Departments</div>
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Departments</h6>
+            </div>
             <div class="card-body">
                 <div class="row my-3">
                     <div class="col text-right">
