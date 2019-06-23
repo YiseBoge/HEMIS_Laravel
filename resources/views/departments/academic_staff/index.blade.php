@@ -156,7 +156,6 @@
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            {{--TODO get from budget descriptions--}}
                             {!! Form::select('budget_description', \App\Models\Institution\BudgetDescription::all() , null , ['class' => 'form-control', 'id' => 'add_budget_description']) !!}
                             {!! Form::label('budget_description', 'Budget Description', ['class' => 'form-control-placeholder', 'for' => 'add_budget_description']) !!}
                         </div>
@@ -208,7 +207,6 @@
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            {{--TODO get from budget descriptions--}}
                             {!! Form::select('budget_description', \App\Models\Institution\BudgetDescription::all() , $data['budget_description'], ['class' => 'form-control', 'id' => 'edit_budget_description']) !!}
                             {!! Form::label('budget_description', 'Budget Description', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_description']) !!}
                         </div>

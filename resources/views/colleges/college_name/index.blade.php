@@ -122,7 +122,6 @@
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            {{--TODO get from budget descriptions--}}
                             {!! Form::select('budget_description', \App\Models\Institution\BudgetDescription::all() , $budget_description, ['class' => 'form-control', 'id' => 'edit_budget_description']) !!}
                             {!! Form::label('budget_description', 'Budget Description', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_description']) !!}
                         </div>
