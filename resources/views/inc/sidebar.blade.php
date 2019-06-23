@@ -357,7 +357,7 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'report_card' ? 'active': '' }}"
-                       href="/report">MoSHE Reports</a>
+                       href="/report">MoSHE Report Card</a>
                 </div>
             </div>
         </li>

@@ -60,9 +60,13 @@ class InstitutionService
 
     function colleges()
     {
+        $colleges = array();
         foreach ($this->institution->bands as $band) {
-            return $band->colleges;
+            foreach ($band->colleges as $college) {
+                $colleges[] = $college;
+            }
         }
+        return $colleges;
     }
 
     function enrollment($sex, $educationLevel)
