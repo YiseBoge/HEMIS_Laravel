@@ -5,13 +5,12 @@
         <div class="card shadow mt-3">
             <div class="text-primary card-header">College Admin</div>
             <div class="card-body">
-                <div class="row py-2">
-                    <div class="col-md-6 text-right">
-                        <a href="/college-admin/create" class="btn btn-outline-primary btn-sm mb-0">
-                            New Entry<i class="fas fa-plus ml-2"></i></a>
+                <div class="row my-3">
+                    <div class="col text-right">
+                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/college-admin/create">New Entry<i
+                                    class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
                         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">

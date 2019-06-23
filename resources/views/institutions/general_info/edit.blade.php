@@ -192,29 +192,42 @@
                 </div>
 
                 <div class="row mb-2">
-                    <div class="col-md-4 row">
-                        <div class="col-md-6 text-right">
-                            Pupil : Teacher
-                        </div>
-                        <div class="form-inline col-md-6">
-                            {{ Form::number('pupil_per_teacher', $institution->generalInformation->resource->pupil_per_teacher, ['class'=>'form-control form-control-sm w-50', 'id'=>'edit_pupil_per_teacher']) }}
-                            {{ Form::label('pupil_per_teacher', ' : 1', ['class' => 'mx-2', 'for' => 'edit_pupil_per_teacher']) }}
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-4 row">
-                        <div class="col-md-6 text-right">
-                            Student : Text
-                        </div>
-                        <div class="form-inline col-md-6">
-                            {{ Form::label('text_per_student', '1 : ', ['class' => 'mx-2', 'for' => 'edit_text_per_student']) }}
-                            {{ Form::number('text_per_student', $institution->generalInformation->resource->text_per_student, ['class'=>'form-control form-control-sm w-50', 'id'=>'edit_text_per_student']) }}
+                    <div class="col-md-4">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white border-0">
+                                    Pupil : Teacher =
+                                </span>
+                            </div>
+                            {{ Form::number('pupil_per_teacher', $institution->generalInformation->resource->pupil_per_teacher, ['class'=>'rounded ml-2 form-control text-right', 'id'=>'edit_pupil_per_teacher']) }}
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white rounded">
+                                     : 1
+                                </span>
+                            </div>
                         </div>
                     </div>
 
 
-                    <div class="form-group col-md">
+                    <div class="col-md-4">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white border-0">
+                                    Student : Text =
+                                </span>
+                            </div>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white rounded">
+                                     1 :
+                                </span>
+                            </div>
+                            {{ Form::number('text_per_student', $institution->generalInformation->resource->text_per_student, ['class'=>'rounded mr-2 form-control', 'id'=>'edit_text_per_student']) }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group col-md-4">
                         {{ Form::number('rate_of_smart_classrooms', $institution->generalInformation->resource->rate_of_smart_classrooms, ['class'=>'form-control', 'id'=>'edit_rate_of_smart_classrooms', 'required' => 'true']) }}
                         {{ Form::label('rate_of_smart_classrooms', 'Smart Classrooms (%)', ['class' => 'form-control-placeholder', 'for' => 'edit_rate_of_smart_classrooms']) }}
                     </div>

@@ -7,14 +7,14 @@
                 <h6 class="m-0 font-weight-bold text-primary">Cost Sharing</h6>
             </div>
             <div class="card-body">
+                <div class="row my-3">
+                    <div class="col text-right">
+                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/student/cost-sharing/create">New Entry<i
+                                    class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
-                            <div class="col text-right">
-                                <a class="btn btn-outline-primary btn-sm mb-0" href="cost-sharing/create">New Entry<i
-                                            class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"

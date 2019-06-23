@@ -4,7 +4,7 @@
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Academic Staff</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Buildings</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -16,10 +16,10 @@
                                 {!! Form::label('building_purpose', 'Building Purpose', ['class' => 'form-control-placeholder', 'for' => 'select_building_purpose']) !!}
                                 {!! Form::close() !!}
                             </div>
-                            <div class="col-sm text-right">
-                                <a class="btn btn-outline-primary btn-sm mb-0"
-                                   href="/institution/buildings/create">Add<i
-                                            class="fas fa-arrow-right ml-2"></i></a>
+                            <div class="col text-right">
+                                <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/institution/buildings/create">New
+                                    Entry<i
+                                            class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                             </div>
                         </div>
                         <div class="row">

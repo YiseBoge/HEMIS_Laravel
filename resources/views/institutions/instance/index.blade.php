@@ -8,15 +8,14 @@
                 <div class="row py-2">
                     <div class="col-md-5 form-group pb-1">
                         {!! Form::open(['action' => 'Institution\InstancesController@updateCurrentInstance', 'method' => 'POST']) !!}
-                        {!! Form::select('current_instance', $instances , null, ['class' => 'form-control', 'id' => 'edit_current_instance']) !!}
+                        {!! Form::select('current_instance', $instances , $current, ['class' => 'form-control', 'id' => 'edit_current_instance']) !!}
                         {!! Form::label('current_instance', 'Current Semester', ['class' => 'form-control-placeholder', 'for' => 'edit_current_instance']) !!}
                         {!! Form::submit('Apply', ['class' => 'my-2 btn-sm btn btn-outline-secondary']) !!}
                         {!! Form::close() !!}
                     </div>
-
-                    <div class="col-md-6 text-right">
-                        <a href="/institution/instance/create" class="btn btn-outline-primary btn-sm mb-0">
-                            New Entry<i class="fas fa-plus ml-2"></i></a>
+                    <div class="col text-right">
+                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/institution/instance/create">New Entry<i
+                                    class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                     </div>
                 </div>
 

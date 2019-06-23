@@ -56,10 +56,7 @@
 
                     <div class="col-md-1">
                         <div class="form-group">
-
-                            {{Form::submit('Add',['class'=>'btn btn-outline-primary'])}}
-
-
+                            {{Form::submit('Add',['class'=>'btn btn btn-primary btn-sm mb-0 shadow-sm'])}}
                         </div>
 
                     </div>

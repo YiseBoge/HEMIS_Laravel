@@ -24,9 +24,16 @@ class InstancesController extends Controller
 
         $instances = Instance::all();
         $currentInstance = Auth::user()->currentInstance;
+        $currentInstanceIndex = 0;
+
+        for ($i = 0; $i < (count($instances) - 1); $i++) {
+            $inst = $instances[$i];
+            if ($inst->id == $currentInstance->id) $currentInstanceIndex = $i;
+        }
 
         $data = ['instances' => $instances,
             'current_instance' => $currentInstance,
+            'current' => $currentInstanceIndex,
             'page_name' => 'administer.instance.index'
         ];
         return view('institutions.instance.index')->with($data);
@@ -46,10 +53,17 @@ class InstancesController extends Controller
 
         $instances = Instance::all();
         $currentInstance = $user->currentInstance;
+        $currentInstanceIndex = 0;
+
+        for ($i = 0; $i < (count($instances) - 1); $i++) {
+            $inst = $instances[$i];
+            if ($inst->id == $currentInstance->id) $currentInstanceIndex = $i;
+        }
 
         $data = [
             'instances' => $instances,
             'current_instance' => $currentInstance,
+            'current' => $currentInstanceIndex,
             'page_name' => 'administer.instance.create'
         ];
         return view('institutions.instance.index')->with($data);

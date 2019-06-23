@@ -7,10 +7,10 @@
                 <h6 class="m-0 font-weight-bold text-primary">Research</h6>
             </div>
             <div class="card-body">
-                <div class="row">
+                <div class="row my-3">
                     <div class="col text-right">
-                        <a class="btn btn-outline-primary btn-sm mb-0" href="researches/create">New Entry<i
-                                    class="fas fa-arrow-right ml-2"></i></a>
+                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="researches/create">New Entry<i
+                                    class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                     </div>
                 </div>
                 <form action="" method="get">
@@ -51,7 +51,6 @@
                     <div class="col-sm-12">
                         <div class="table-responsive">
                             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-
 
                                 <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
                                        width="100%"

@@ -5,15 +5,14 @@
         <div class="card shadow mt-3">
             <div class="text-primary card-header">Expatriate Staff</div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col p-3 m-3 text-center">
-                        <a href="/department/expatriate-staff/create"
-                           class="btn btn-outline-primary btn-sm mb-0">
-                            Add<i class="fas fa-plus ml-2"></i></a>
+                <div class="row my-3">
+                    <div class="col text-right">
+                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/department/expatriate-staff/create">New
+                            Entry<i
+                                    class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                     </div>
                 </div>
                 <div class="row">
-
                     {!! Form::open(['action' => 'Department\ExpatriateStaffsController@index', 'method' => 'GET', 'class' => 'w-100']) !!}
                     <div class="form-row">
                         <div class="col-md-5 px-3 py-md-1 col">

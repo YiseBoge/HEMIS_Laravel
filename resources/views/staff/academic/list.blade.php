@@ -7,14 +7,14 @@
                 <h6 class="m-0 font-weight-bold text-primary">Academic Staff</h6>
             </div>
             <div class="card-body">
+                <div class="row my-3">
+                    <div class="col text-right">
+                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/staff/academic/create">New Entry<i
+                                    class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row my-3">
-                            <div class="col text-right">
-                                <a class="btn btn-outline-primary btn-sm mb-0" href="academic/create">Add Staff<i
-                                            class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table border dataTable table-striped table-hover" id="dataTable"

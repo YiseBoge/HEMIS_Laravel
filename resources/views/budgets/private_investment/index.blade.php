@@ -5,10 +5,11 @@
         <div class="card shadow mt-3">
             <div class="text-primary card-header">Private Investments</div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col p-3 m-3 text-center">
-                        <a class="btn btn-outline-primary btn-sm mb-0" href="/budgets/private-investment/create">
-                            Add<i class="fas fa-plus ml-2"></i></a>
+                <div class="row my-3">
+                    <div class="col text-right">
+                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/budgets/private-investment/create">New
+                            Entry<i
+                                    class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                     </div>
                 </div>
                 <div class="row">

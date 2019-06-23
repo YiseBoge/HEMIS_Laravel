@@ -51,7 +51,7 @@
                                placeholder="Add New Type">
                     </div>
                     <div class="col-md-1">
-                        <input type="submit" class="btn btn-outline-primary" value="Add">
+                        <input type="submit" class="btn btn-primary btn-sm mb-0 shadow-sm" value="Add">
                     </div>
                 </div>
 

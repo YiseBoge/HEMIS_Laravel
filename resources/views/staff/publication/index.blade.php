@@ -42,7 +42,9 @@
                             </div>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-sm btn-outline-primary float-right my-1 mr-5" value="Save">
+                    <button type="submit" class="btn btn-primary btn-sm mb-0 shadow-sm float-right m-3">
+                        Save<i class="fas fa-sync-alt text-white-50 fa-sm ml-2"></i>
+                    </button>
                 </form>
             </div>
         </div>
@@ -52,14 +54,14 @@
                     Rank of Associate and Full Professor</h6>
             </div>
             <div class="card-body">
+                <div class="row my-3">
+                    <div class="col text-right">
+                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/department/publication/create">New Entry<i
+                                    class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
-                            <div class="col text-right">
-                                <a class="btn btn-outline-primary btn-sm mb-0" href="publication/create">New Entry<i
-                                            class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table border dataTable table-striped table-hover" id="dataTable"
