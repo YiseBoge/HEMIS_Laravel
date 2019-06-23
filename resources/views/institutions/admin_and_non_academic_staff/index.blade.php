@@ -96,8 +96,11 @@
                         <div class="modal-header">
                             <form class="" action="/institution/non-admin" method="POST">
                                 @csrf
-                                <h3 class="font-weight-bold text-primary">Add Admin(Non Academic) Staff Member</h3>
-                                <div class="row">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editTitle">Add</h5>
+                                    <a href="/institution/non-admin" class="close" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </a>
                                 </div>
                                 <div class="modal-body row p-2">
                                     <div class="col-12">
@@ -154,9 +157,11 @@
                         <div class="modal-header">
                             <form class="" action="/staff/academic" method="POST">
                                 @csrf
-                                <h3 class="font-weight-bold text-primary">Edit Admin(Non Academic) Staff Member
-                                    Info</h3>
-                                <div class="row">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editTitle">Add</h5>
+                                    <a href="/student/university-industry-linkage" class="close" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </a>
                                 </div>
                                 <div class="modal-body row p-2">
                                     <div class="col-12">

@@ -79,7 +79,6 @@
                         </a>
                     </div>
 
-
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
                             {{Form::text('institution_name','',['class'=>'form-control','placeholder'=>'Add New Institution'])}}

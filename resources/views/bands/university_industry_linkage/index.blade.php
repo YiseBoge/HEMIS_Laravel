@@ -8,7 +8,7 @@
                 <div class="row my-3">
                     <div class="col text-right">
                         <a class="btn btn-primary btn-sm mb-0 shadow-sm"
-                           href="//student/university-industry-linkage/create">New Entry<i
+                           href="/student/university-industry-linkage/create">New Entry<i
                                     class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                     </div>
                 </div>
@@ -78,7 +78,6 @@
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-
                 <div class="modal-content">
                     <form class="pb-5" action="/student/university-industry-linkage" method="POST">
                         @csrf
@@ -88,7 +87,6 @@
                                 <span aria-hidden="true">&times;</span>
                             </a>
                         </div>
-
 
                         <div class="modal-body pt-4">
                             <div class="form-group row pt-3">
@@ -104,7 +102,6 @@
                                 </div>
                             </div>
                             <div class="form-group row pt-3">
-
                                 <div class="col form-group">
                                     <input type="text" id="industry_number" name="industry_number" class="form-control"
                                            required>

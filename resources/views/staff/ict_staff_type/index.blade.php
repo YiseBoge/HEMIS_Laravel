@@ -65,10 +65,10 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-primary" id="editTitle">Edit</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title" id="editTitle">Edit</h5>
+                    <a href="/staff/ict-staff-types" class="close" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </a>
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">

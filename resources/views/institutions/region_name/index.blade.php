@@ -63,7 +63,6 @@
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-
                 <div class="modal-content">
                     {!! Form::open(['action' => 'Institution\RegionNamesController@store', 'method' => 'POST']) !!}
                     <div class="modal-header">
@@ -73,13 +72,11 @@
                         </a>
                     </div>
 
-
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
                             {{Form::text('name','',['class'=>'form-control','placeholder'=>'Add New Region'])}}
                         </div>
                     </div>
-
 
                     <div class="modal-footer">
                         {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
