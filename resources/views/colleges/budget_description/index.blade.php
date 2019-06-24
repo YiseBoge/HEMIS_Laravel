@@ -7,67 +7,90 @@
                 <h6 class="m-0 font-weight-bold text-primary">Budget Descriptions</h6>
             </div>
             <div class="card-body">
-                <table class="table border dataTable" width="100%"
-                       cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                       style="width: 100%;">
-                    <thead class="thead-light">
-                    <tr>
-                        <th class="text-primary">Description</th>
-                        <th class="text-primary">Code</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @if(count($budgetDescriptions)>0)
-                        @foreach($budgetDescriptions as $budgetDescription)
-                            <tr>
-                                <td>{{$budgetDescription->description}}</td>
-                                <td>{{$budgetDescription->budget_code}}</td>
-                                <td><a href="#" class="btn btn-sm text-primary" data-toggle="modal"
-                                       data-target="#editModal">Edit</a></td>
-                                <td><a href="#" class="btn btn-sm text-primary">Delete</a></td>
-                            </tr>
-                        @endforeach
-
-                    @endif
-                    </tbody>
-                </table>
-                {!! Form::open(['action'=>'College\BudgetDescriptionsController@store','method'=>'POST'])!!}
-
-                <div class="form-row">
-                    <div class="col-md-5">
-                        <div class="form-group">
-
-                            {{Form::text('description','',['class'=>'form-control','placeholder'=>'Add New Budget Description'])}}
-
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3 pl-md-5">
-                        <div class="form-group">
-                            {{Form::text('budget_code','',['class'=>'form-control','placeholder'=>'Code'])}}
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-1">
-                        <div class="form-group">
-                            {{Form::submit('Add',['class'=>'btn btn btn-primary btn-sm mb-0 shadow-sm'])}}
-                        </div>
-
+                <div class="row my-3">
+                    <div class="col text-right">
+                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/budgets/budget-description/create">New
+                            Entry<i
+                                    class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="table-responsive col-12 py-3">
+                        <table class="table table-bordered dataTable table-striped table-hover"
+                               id="dataTable"
+                               width="100%"
+                               cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                               style="width: 100%;">
 
-                {!! Form::close()!!}
+                            <thead>
+                            <tr role="row">
+                                <th style="min-width: 50px; width: 50px"></th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                >Budget Code
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Acronym: activate to sort column ascending"
+                                >Description
+                                </th>
 
-
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($budgetDescriptions as $budgetDescription)
+                                <tr>
+                                    <td class="text-center">
+                                        <a href=""
+                                           class="mr-2 d-inline text-primary"><i
+                                                    class="far fa-edit"></i> </a>
+                                        <a href="" class="d-inline text-danger" data-toggle="modal"
+                                           data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                    <td>{{$budgetDescription->budget_code}}</td>
+                                    <td>{{$budgetDescription->description}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
 
+    @if ($page_name == 'administer.budget-description.create')
+        <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    {!! Form::open(['action'=>'College\BudgetDescriptionsController@store','method'=>'POST'])!!}
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editTitle">Add</h5>
+                        <a href="/budgets/budget-description" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    </div>
+
+                    <div class="modal-body row pt-4">
+                        <div class="col-12 form-group pb-2">
+                            {{Form::text('budget_code','',['class'=>'form-control','placeholder'=>'Budget Code'])}}
+                        </div>
+                        <div class="col-12 form-group pb-2">
+                            {{Form::text('description','',['class'=>'form-control','placeholder'=>'New Budget Description'])}}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                    </div>
+                    {!! Form::close()!!}
+                </div>
+
+            </div>
+        </div>
+    @endif
     @if ($page_name == 'administer.budget-description.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
              aria-hidden="true">

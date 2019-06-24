@@ -16,11 +16,11 @@
                 <span class="mx-1 text-left text-primary">
                         {{ Auth::user()->currentInstance }}
                     </span>
-                @else
+            @else
                 <span class="mx-1 text-left text-muted">
                         No Semester Selected
                     </span>
-                @endif
+            @endif
         </span>
 @endguest
 

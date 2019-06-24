@@ -3,128 +3,121 @@
 @section('content')
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
-            <div class="text-primary card-header">Policy Performance report Card</div>
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Policy Performance report Card</h6>
+            </div>
             <div class="card-body">
                 <div class="row my-3">
+                    <div class="col-sm-4 text-left">
+                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/report/generate-full-report">Update
+                            Current Year<i
+                                    class="fas fa-sync-alt text-white-50 fa-sm ml-2"></i></a>
+                    </div>
+                    <div class="col-sm-8 text-right">
+                        <button type="button" class="btn btn-primary btn-sm mb-0 shadow-sm" id="exporter">
+                            <i class="fas fa-download text-white-50 fa-sm mr-2"></i>Export to Excel
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm mb-0 shadow-sm ml-1"
+                                onclick="printJS({ printable: 'printable', type: 'html', css: '/css/app.css', documentTitle: 'KPI (Key Performance Indicators) - MoSHE', ignoreElements: ['unprint'] }) ">
+                            <i class="fas fa-download text-white-50 fa-sm mr-2"></i>Print to PDF
+                        </button>
+                    </div>
+                </div>
+                <div class="row mt-3">
                     <div class="col-sm text-left">
                         <p><span class="font-weight-bold">Policy Owner/Responsible Implementer:</span> Ministry of
                             Science and Higher Education</p>
                         <p><span class="font-weight-bold">Responsible:</span> Core management team of MoSHE</p>
                     </div>
                 </div>
-                <div class="row my-3">
-                    <div class="col-sm-4 text-left">
-                        <a href="/report/generate-full-report" class="btn btn-primary shadow-sm btn-sm mb-0"
-                           style="font-size: 1em">
-                            Update Current Year<i
-                                    class="fas fa-sync-alt d-inline-block m-1 ml-2 text-white-50 fa-sm"></i></a>
-                    </div>
-                    <div class="col-sm-8 text-right">
-                        <button type="button" class="btn btn-primary shadow-sm btn-sm mb-0" id="exporter"
-                                style="font-size: 1em">
-                            <i class="fas fa-download d-inline-block m-1 mr-2 text-white-50 fa-sm"></i>Export to Excel
-                        </button>
-                        <button type="button" class="btn btn-primary shadow-sm btn-sm mb-0 mx-1" style="font-size: 1em"
-                                onclick="printJS({ printable: 'printable', type: 'html', css: '/css/app.css', documentTitle: 'KPI (Key Performance Indicators) - MoSHE', ignoreElements: ['unprint'] }) ">
-                            <i class="fas fa-download d-inline-block m-1 mr-2 text-white-50 fa-sm"></i>Print to PDF
-                        </button>
-                    </div>
-                </div>
-
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
-                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table id="printable"
-                                           class="table table-bordered responsive"
-                                           width="100%"
-                                           cellspacing="0" role="grid" aria-describedby="dataTable_info">
+                        <table id="printable"
+                               class="table table-bordered responsive"
+                               width="100%"
+                               cellspacing="0" role="grid" aria-describedby="dataTable_info">
 
-                                        <thead>
-                                        <tr role="row">
-                                            <th style="min-width: 100px;">Policy
-                                            </th>
-                                            <th style="min-width: 100px;">Key
-                                                Performance Indicators (KPI)
-                                            </th>
-                                            @foreach($years as $year)
-                                                <th style="min-width: 100px;">{{ $year->year }}
-                                                </th>
-                                            @endforeach
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Year: activate to sort column ascending">Target
-                                                (2025)
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Year: activate to sort column ascending">Change
-                                                %
-                                            </th>
-                                            <th class="sorting hide-print" tabindex="0" aria-controls="dataTable"
-                                                rowspan="1"
-                                                colspan="1" aria-label="Year: activate to sort column ascending"
-                                                id="unprint">
-                                            </th>
-                                        </tr>
-                                        </thead>
+                            <thead>
+                            <tr role="row">
+                                <th style="min-width: 100px;">Policy
+                                </th>
+                                <th style="min-width: 100px;">Key
+                                    Performance Indicators (KPI)
+                                </th>
+                                @foreach($years as $year)
+                                    <th style="min-width: 100px;">{{ $year->year }}
+                                    </th>
+                                @endforeach
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Year: activate to sort column ascending">Target
+                                    (2025)
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Year: activate to sort column ascending">Change
+                                    %
+                                </th>
+                                <th class="sorting hide-print" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1"
+                                    colspan="1" aria-label="Year: activate to sort column ascending"
+                                    id="unprint">
+                                </th>
+                            </tr>
+                            </thead>
 
-                                        <tbody>
-                                        @foreach($reports as $policy => $descriptions)
-                                            <tr>
-                                                <td class="bg-gray-200 font-weight-bold h5"
-                                                    colspan="{{ count($years) + 5 }}">
-                                                    {{ $policy }}
+                            <tbody>
+                            @foreach($reports as $policy => $descriptions)
+                                <tr>
+                                    <td class="bg-gray-200 font-weight-bold h5"
+                                        colspan="{{ count($years) + 5 }}">
+                                        {{ $policy }}
+                                    </td>
+                                </tr>
+                                @foreach($descriptions as $description => $kpis)
+                                    <tr>
+                                        <td style="min-width:225px;" rowspan="{{ count($kpis) + 1 }}">
+                                            {{ $description }}
+                                        </td>
+
+                                    </tr>
+                                    @foreach($kpis as $kpi)
+                                        <tr style="height: 150px;">
+                                            <td style="min-width:275px;">
+                                                {{ $kpi->kpi }}
+                                            </td>
+                                            @foreach($kpi->reportYearValues->sortBy('year') as $yearValue)
+                                                <td>
+                                                    {{ round($yearValue->value, 2) }}
                                                 </td>
-                                            </tr>
-                                            @foreach($descriptions as $description => $kpis)
-                                                <tr>
-                                                    <td style="min-width:225px;" rowspan="{{ count($kpis) + 1 }}">
-                                                        {{ $description }}
-                                                    </td>
-
-                                                </tr>
-                                                @foreach($kpis as $kpi)
-                                                    <tr style="height: 150px;">
-                                                        <td style="min-width:275px;">
-                                                            {{ $kpi->kpi }}
-                                                        </td>
-                                                        @foreach($kpi->reportYearValues->sortBy('year') as $yearValue)
-                                                            <td>
-                                                                {{ round($yearValue->value, 2) }}
-                                                            </td>
-                                                        @endforeach
-                                                        <td class="text-primary">
-                                                            {{ $kpi->target }}
-                                                        </td>
-                                                        <td class="text-center" style="min-width:115px;">
-                                                            @if($kpi->change() > 0)
-                                                                <p class="text-success">{{$kpi->change()}}% <i
-                                                                            class="fa fa-caret-up d-inline-block ml-2"></i>
-                                                                </p>
-                                                            @elseif($kpi->change())
-                                                                <p class="text-danger">{{$kpi->change()}}%<i
-                                                                            class="fa fa-caret-down d-inline-block ml-2"></i>
-                                                                </p>
-                                                            @else
-                                                                <p class="text-warning">{{$kpi->change()}}%</p>
-                                                            @endif
-                                                        </td>
-                                                        <td class="hide-print" id="unprint">
-                                                            <a href="/report/{{ $kpi->id }}/edit"
-                                                               class="mr-3 text-muted" data-toggle="tooltip"
-                                                               title="Edit Target">
-                                                                <i class="far fa-edit"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
                                             @endforeach
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                                            <td class="text-primary">
+                                                {{ $kpi->target }}
+                                            </td>
+                                            <td class="text-center" style="min-width:115px;">
+                                                @if($kpi->change() > 0)
+                                                    <p class="text-success">{{$kpi->change()}}% <i
+                                                                class="fa fa-caret-up d-inline-block ml-2"></i>
+                                                    </p>
+                                                @elseif($kpi->change())
+                                                    <p class="text-danger">{{$kpi->change()}}%<i
+                                                                class="fa fa-caret-down d-inline-block ml-2"></i>
+                                                    </p>
+                                                @else
+                                                    <p class="text-warning">{{$kpi->change()}}%</p>
+                                                @endif
+                                            </td>
+                                            <td class="hide-print" id="unprint">
+                                                <a href="/report/{{ $kpi->id }}/edit"
+                                                   class="mr-3 text-muted" data-toggle="tooltip"
+                                                   title="Edit Target">
+                                                    <i class="far fa-edit"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 

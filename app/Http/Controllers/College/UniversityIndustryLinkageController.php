@@ -40,7 +40,7 @@ class UniversityIndustryLinkageController extends Controller
 
                     }
 
-                }                
+                }
             }
         } else {
             $linkages = UniversityIndustryLinkage::with('band')->get();
@@ -81,7 +81,7 @@ class UniversityIndustryLinkageController extends Controller
 
                     }
 
-                }                
+                }
             }
         } else {
             $linkages = UniversityIndustryLinkage::with('band')->get();
@@ -109,7 +109,7 @@ class UniversityIndustryLinkageController extends Controller
         $this->validate($request, [
             'training_area' => 'required',
             'number_of_students' => 'required',
-            'industry_number' => 'required'            
+            'industry_number' => 'required'
         ]);
 
         $linkage = new UniversityIndustryLinkage;
@@ -126,10 +126,10 @@ class UniversityIndustryLinkageController extends Controller
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
-            $institution->bands()->save($band);            
+            $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
 
@@ -153,7 +153,7 @@ class UniversityIndustryLinkageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -164,7 +164,7 @@ class UniversityIndustryLinkageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -176,7 +176,7 @@ class UniversityIndustryLinkageController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -187,7 +187,7 @@ class UniversityIndustryLinkageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)

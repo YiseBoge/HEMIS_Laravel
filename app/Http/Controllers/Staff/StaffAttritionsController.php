@@ -25,72 +25,72 @@ class StaffAttritionsController extends Controller
         $institution = $user->institution();
 
         $requestedCase = $request->input('case');
-        if($requestedCase==null){
-            $requestedCase='Government Appointment';
+        if ($requestedCase == null) {
+            $requestedCase = 'Government Appointment';
         }
 
         $requestedType = $request->input('type');
-        if($requestedType==null){
-            $requestedType='Management Staff';
+        if ($requestedType == null) {
+            $requestedType = 'Management Staff';
         }
 
         $attritions = array();
 
-        if($user->hasRole('Department Admin')){
+        if ($user->hasRole('Department Admin')) {
             if ($institution != null) {
                 foreach ($institution->bands as $band) {
-                    if($band->bandName->band_name == $user->bandName->band_name){
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
                         foreach ($band->colleges as $college) {
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->departments as $department) {
-                                    if($department->departmentName->department_name == $user->departmentName->department_name){
-                                        foreach($department->academicStaffs as $staff){
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->academicStaffs as $staff) {
                                             $attrition = $staff->general->staffAttrition;
-                                            if($attrition != null){
+                                            if ($attrition != null) {
                                                 //return "sgsdfa";
                                                 $attritions[] = $attrition;
-                                            } 
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    
+
                 }
             } else {
                 $attritions = StaffAttrition::all();
             }
-        }else{
+        } else {
             if ($institution != null) {
                 foreach ($institution->bands as $band) {
-                    if($band->bandName->band_name == $user->bandName->band_name){
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
                         foreach ($band->colleges as $college) {
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 $staffs = array();
 
-                                if($requestedType == 'Management Staff'){
+                                if ($requestedType == 'Management Staff') {
                                     $staffs = $college->managementStaffs;
-                                }else if($requestedType == 'Technical Staff'){
+                                } else if ($requestedType == 'Technical Staff') {
                                     $staffs = $college->technicalStaffs;
-                                }else if($requestedType == 'Administrative Staff'){
+                                } else if ($requestedType == 'Administrative Staff') {
                                     $staffs = $college->administrativeStaffs;
-                                }else if($requestedType == 'ICT Staff'){
+                                } else if ($requestedType == 'ICT Staff') {
                                     $staffs = $college->ictStaffs;
-                                }else if($requestedType == 'Supportive Staff'){
+                                } else if ($requestedType == 'Supportive Staff') {
                                     $staffs = $college->supportiveStaffs;
-                                }    
+                                }
 
                                 foreach ($staffs as $staff) {
                                     $attrition = $staff->general->staffAttrition;
-                                    if($attrition != null){
+                                    if ($attrition != null) {
                                         $attritions[] = $attrition;
-                                    } 
+                                    }
                                 }
                             }
                         }
                     }
-                    
+
                 }
             } else {
                 $attritions = StaffAttrition::all();
@@ -127,31 +127,31 @@ class StaffAttritionsController extends Controller
         $institution = $user->institution();
 
         $requestedCase = $request->input('case');
-        if($requestedCase==null){
-            $requestedCase='Government Appointment';
+        if ($requestedCase == null) {
+            $requestedCase = 'Government Appointment';
         }
 
         $requestedType = $request->input('type');
-        if($requestedType==null){
-            $requestedType='Management Staff';
+        if ($requestedType == null) {
+            $requestedType = 'Management Staff';
         }
 
         $attritions = array();
         $staffs = array();
 
-        if($user->hasRole('Department Admin')){
+        if ($user->hasRole('Department Admin')) {
             if ($institution != null) {
                 foreach ($institution->bands as $band) {
-                    if($band->bandName->band_name == $user->bandName->band_name){
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
                         foreach ($band->colleges as $college) {
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->departments as $department) {
-                                    if($department->departmentName->department_name == $user->departmentName->department_name){
-                                        foreach($department->academicStaffs as $staff){
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->academicStaffs as $staff) {
                                             $attrition = $staff->general->staffAttrition;
-                                            if($attrition != null){
+                                            if ($attrition != null) {
                                                 $attritions[] = $attrition;
-                                            }else{
+                                            } else {
                                                 $staffs[] = $staff;
                                             }
                                         }
@@ -160,36 +160,36 @@ class StaffAttritionsController extends Controller
                             }
                         }
                     }
-                    
+
                 }
             } else {
                 $attritions = StaffAttrition::all();
             }
-        }else{
-            if ($institution != null) {                
+        } else {
+            if ($institution != null) {
                 foreach ($institution->bands as $band) {
-                    if($band->bandName->band_name == $user->bandName->band_name){
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
                         foreach ($band->colleges as $college) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {                               
-                                if($requestedType == 'Management Staff'){
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                if ($requestedType == 'Management Staff') {
                                     $currentStaffs = $college->managementStaffs;
-                                }else if($requestedType == 'Technical Staff'){
+                                } else if ($requestedType == 'Technical Staff') {
                                     $currentStaffs = $college->technicalStaffs;
-                                }else if($requestedType == 'Administrative Staff'){
+                                } else if ($requestedType == 'Administrative Staff') {
                                     $currentStaffs = $college->administrativeStaffs;
-                                }else if($requestedType == 'ICT Staff'){
+                                } else if ($requestedType == 'ICT Staff') {
                                     $currentStaffs = $college->ictStaffs;
-                                }else if($requestedType == 'Supportive Staff'){
+                                } else if ($requestedType == 'Supportive Staff') {
                                     $currentStaffs = $college->supportiveStaffs;
-                                }    
+                                }
 
                                 foreach ($currentStaffs as $staff) {
-                                    
+
                                     $attrition = $staff->general->staffAttrition;
-                                    if($attrition != null){
-                                        
+                                    if ($attrition != null) {
+
                                         $attritions[] = $attrition;
-                                    }else{
+                                    } else {
                                         //return $staff;
                                         $staffs[] = $staff;
                                     }
@@ -197,7 +197,7 @@ class StaffAttritionsController extends Controller
                             }
                         }
                     }
-                    
+
                 }
             } else {
                 $attritions = StaffAttrition::all();

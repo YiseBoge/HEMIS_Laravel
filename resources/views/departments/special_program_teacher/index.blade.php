@@ -31,85 +31,78 @@
 
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
-                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table table-bordered dataTable table-striped table-hover"
-                                           id="dataTable"
-                                           width="100%"
-                                           cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                           style="width: 100%;">
+                        <table class="table table-bordered dataTable table-striped table-hover"
+                               id="dataTable"
+                               width="100%"
+                               cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                               style="width: 100%;">
 
-                                        <thead>
-                                        <tr role="row">
-                                            <th style="min-width: 50px; width: 50px"></th>
+                            <thead>
+                            <tr role="row">
+                                <th style="min-width: 50px; width: 50px"></th>
 
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending"
-                                            >Program
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending"
-                                            >Male
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending"
-                                            >Female
-                                            </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Age: activate to sort column ascending"
+                                >Program
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Age: activate to sort column ascending"
+                                >Male
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Age: activate to sort column ascending"
+                                >Female
+                                </th>
 
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($special_program_teachers as $specialProgramTeacher)
-                                            <tr>
-                                                <td class="text-center">
-                                                    <a href=""
-                                                       class="mr-2 d-inline text-primary"><i
-                                                                class="far fa-edit"></i> </a>
-                                                    <a href="" class="d-inline text-danger" data-toggle="modal"
-                                                       data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                                    </a>
-                                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($special_program_teachers as $specialProgramTeacher)
+                                <tr>
+                                    <td class="text-center">
+                                        <a href=""
+                                           class="mr-2 d-inline text-primary"><i
+                                                    class="far fa-edit"></i> </a>
+                                        <a href="" class="d-inline text-danger" data-toggle="modal"
+                                           data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                        </a>
+                                    </td>
 
-                                                <td>{{ $specialProgramTeacher->program_type}}</td>
-                                                <td>{{ $specialProgramTeacher->male_number }}</td>
-                                                <td>{{ $specialProgramTeacher->female_number }}</td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
+                                    <td>{{ $specialProgramTeacher->program_type}}</td>
+                                    <td>{{ $specialProgramTeacher->male_number }}</td>
+                                    <td>{{ $specialProgramTeacher->female_number }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
 
 
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Are you sure you wish to delete?</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-danger" href="/institution/budget/delete">
+                            Delete
+                        </a>
+
                     </div>
                 </div>
             </div>
         </div>
-
-    </div>
-
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Are you sure you wish to delete?</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-danger" href="/institution/budget/delete">
-                        Delete
-                    </a>
-
-                </div>
-            </div>
-        </div>
-    </div>
 
 @endSection

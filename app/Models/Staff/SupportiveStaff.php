@@ -4,7 +4,6 @@ namespace App\Models\Staff;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
-
 use Illuminate\Database\Eloquent\Model;
 
 class SupportiveStaff extends Model

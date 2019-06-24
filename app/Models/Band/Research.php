@@ -13,14 +13,14 @@ class Research extends Model
 
     public $incrementing = false;
 
-    protected $enumCompletions=[
-        'ONGOING'=>'On Going',
-        'COMPLETED'=>'Completed'
+    protected $enumCompletions = [
+        'ONGOING' => 'On Going',
+        'COMPLETED' => 'Completed'
     ];
 
-    protected $enumTypes=[
-        'NORMAL'=>'Normal',
-        'THEMATIC'=>'Thematic'
+    protected $enumTypes = [
+        'NORMAL' => 'Normal',
+        'THEMATIC' => 'Thematic'
     ];
 
     public function department()

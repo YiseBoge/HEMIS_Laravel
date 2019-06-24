@@ -13,14 +13,14 @@ class Department extends Model
 
     public $incrementing = false;
 
-    protected $enumYearLevels=[
-        'ONE'=>'1',
-        'TWO'=>'2',
-        'THREE'=>'3',
-        'FOUR'=>'4',
-        'FIVE'=>'5',
-        'SIX'=>'6',
-        'SEVEN'=>'7',
+    protected $enumYearLevels = [
+        'ONE' => '1',
+        'TWO' => '2',
+        'THREE' => '3',
+        'FOUR' => '4',
+        'FIVE' => '5',
+        'SIX' => '6',
+        'SEVEN' => '7',
         'NONE' => 'None'
     ];
 
@@ -34,7 +34,8 @@ class Department extends Model
         return $this->belongsTo('App\Models\College\College');
     }
 
-    public function enrollments(){
+    public function enrollments()
+    {
         return $this->hasMany('App\Models\Department\Enrollment');
     }
 
@@ -63,7 +64,8 @@ class Department extends Model
         return $this->hasMany('App\Models\Institution\AgeEnrollment');
     }
 
-    public function jointProgramEnrollments(){
+    public function jointProgramEnrollments()
+    {
         return $this->hasMany('App\Models\Department\JointProgramEnrollment');
     }
 
@@ -87,7 +89,8 @@ class Department extends Model
         return $this->hasMany('App\Models\Department\OtherRegionStudent');
     }
 
-    public function specialProgramTeachers(){
+    public function specialProgramTeachers()
+    {
         return $this->hasMany('App\Models\Department\SpecialProgramTeacher');
     }
 
@@ -156,6 +159,5 @@ class Department extends Model
         return $this->hasMany('App\Models\Department\DiasporaCourses');
     }
 
-    
 
 }

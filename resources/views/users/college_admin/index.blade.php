@@ -15,60 +15,54 @@
                 </div>
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
-                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table table-bordered dataTable table-striped table-hover"
-                                           id="dataTable"
-                                           width="100%"
-                                           cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                           style="width: 100%;">
+                        <table class="table table-bordered dataTable table-striped table-hover"
+                               id="dataTable"
+                               width="100%"
+                               cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                               style="width: 100%;">
 
-                                        <thead>
-                                        <tr role="row">
-                                            <th style="min-width: 50px; width: 50px"></th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                                rowspan="1" colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending"
-                                            >Name
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                            >College
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                            >Email
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                            >Remark
-                                            </th>
+                            <thead>
+                            <tr role="row">
+                                <th style="min-width: 50px; width: 50px"></th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                >Name
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Acronym: activate to sort column ascending"
+                                >College
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Acronym: activate to sort column ascending"
+                                >Email
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Acronym: activate to sort column ascending"
+                                >Remark
+                                </th>
 
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($editors as $editor)
-                                            <tr>
-                                                <td class="text-center">
-                                                    <a href=""
-                                                       class="mr-2 d-inline text-primary"><i
-                                                                class="far fa-edit"></i> </a>
-                                                    <a href="" class="d-inline text-danger" data-toggle="modal"
-                                                       data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                                    </a>
-                                                </td>
-                                                <td>{{ $editor->name }}</td>
-                                                <td>{{ $editor->collegeName->college_name }}</td>
-                                                <td>{{ $editor->email }}</td>
-                                                <td>{{ $editor->roles->first()->role_name }}</td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($editors as $editor)
+                                <tr>
+                                    <td class="text-center">
+                                        <a href=""
+                                           class="mr-2 d-inline text-primary"><i
+                                                    class="far fa-edit"></i> </a>
+                                        <a href="" class="d-inline text-danger" data-toggle="modal"
+                                           data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                    <td>{{ $editor->name }}</td>
+                                    <td>{{ $editor->collegeName->college_name }}</td>
+                                    <td>{{ $editor->email }}</td>
+                                    <td>{{ $editor->roles->first()->role_name }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

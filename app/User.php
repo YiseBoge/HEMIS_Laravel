@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email','institution_id', 'password',
+        'name', 'email', 'institution_id', 'password',
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -71,21 +71,6 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Institution\Instance', 'instance_id');
     }
 
-    public function roles()
-    {
-        return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
-    }
-
-    public function hasRole($role)
-    {
-        return null !== $this->roles()->where('role_name', $role)->first();
-    }
-
-    public function hasAnyRole($roles)
-    {
-        return null !== $this->roles()->whereIn('role_name', $roles)->first();
-    }
-
     public function authorizeRoles($roles)
     {
         if (is_array($roles)) {
@@ -94,6 +79,21 @@ class User extends Authenticatable
         }
         return $this->hasRole($roles) ||
             abort(401, 'This action is unauthorized.');
+    }
+
+    public function hasAnyRole($roles)
+    {
+        return null !== $this->roles()->whereIn('role_name', $roles)->first();
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
+    }
+
+    public function hasRole($role)
+    {
+        return null !== $this->roles()->where('role_name', $role)->first();
     }
 
     public function __toString()

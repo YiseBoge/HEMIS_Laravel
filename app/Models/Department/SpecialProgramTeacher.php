@@ -11,7 +11,7 @@ class SpecialProgramTeacher extends Model
     use Uuids;
     use Enums;
 
-    public $incrementing = false;    
+    public $incrementing = false;
 
     protected $enumProgramTypes = [
         'English LANGUAGE IMPROVEMENT PROGRAM' => 'English Language Improvement Program',
@@ -30,7 +30,8 @@ class SpecialProgramTeacher extends Model
         return $this->belongsTo('App\Models\Department\Department');
     }
 
-    public function scopeInfo($query){
-        return $query->with('department.College.band','department.departmentName');
+    public function scopeInfo($query)
+    {
+        return $query->with('department.College.band', 'department.departmentName');
     }
 }

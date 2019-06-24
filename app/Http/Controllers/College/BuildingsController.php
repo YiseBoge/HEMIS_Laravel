@@ -25,7 +25,7 @@ class BuildingsController extends Controller
         $buildingPurposes = BuildingPurpose::all();
 
         $requestedPurpose = $request->input('building_purpose');
-        if ($requestedPurpose == null){
+        if ($requestedPurpose == null) {
             $requestedPurpose = 0;
         }
         $buildingPurpose = $buildingPurposes[$requestedPurpose];
@@ -51,7 +51,7 @@ class BuildingsController extends Controller
                             }
                         }
                     }
-                }                
+                }
             }
         } else {
             $buildings = $buildingPurpose->buildings;
@@ -124,10 +124,10 @@ class BuildingsController extends Controller
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
-            $institution->bands()->save($band);            
+            $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
 
@@ -147,8 +147,8 @@ class BuildingsController extends Controller
         $building->save();
 
         $purposes = $request->input('building_purposes');
-        if ($purposes != null){
-            foreach ($purposes as $purposeString){
+        if ($purposes != null) {
+            foreach ($purposes as $purposeString) {
                 $purpose = BuildingPurpose::where('purpose', $purposeString)->first();
                 $purpose->buildings()->attach([$building->id]);
             }
@@ -162,7 +162,7 @@ class BuildingsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -173,7 +173,7 @@ class BuildingsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -185,7 +185,7 @@ class BuildingsController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -196,7 +196,7 @@ class BuildingsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)

@@ -22,11 +22,13 @@ class InstitutionBSC extends Model
         'CAT-VII' => 'Improve resources mobilization',
     ];
 
-    public function Institution(){
+    public function Institution()
+    {
         return $this->belongsTo('App\Models\Institution\Institution');
     }
 
-    public function InstitutionBSCInfo(){
+    public function InstitutionBSCInfo()
+    {
         return $this->hasMany('App\Models\Institution\InstitutionBSCInfo');
     }
 }

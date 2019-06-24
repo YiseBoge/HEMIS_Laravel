@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Institution;
+
 use App\Http\Controllers\Controller;
 use App\Models\Institution\AdminAndNonAcademicStaff;
 use Illuminate\Http\Request;
@@ -95,18 +96,18 @@ class AdminAndNonAcademicStaffsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
     {
-       
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -114,9 +115,9 @@ class AdminAndNonAcademicStaffsController extends Controller
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
-        
+
         $data = ['staffs' => AdminAndNonAcademicStaff::all(),
-        'education_levels' => AdminAndNonAcademicStaff::getEnum("EducationLevels"),
+            'education_levels' => AdminAndNonAcademicStaff::getEnum("EducationLevels"),
             'page_name' => 'staff.admin_and_non_academic_staff.edit'];
         return view('institutions.admin_and_non_academic_staff.index')->with($data);
     }
@@ -125,7 +126,7 @@ class AdminAndNonAcademicStaffsController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -136,7 +137,7 @@ class AdminAndNonAcademicStaffsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)

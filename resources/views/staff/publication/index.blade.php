@@ -61,72 +61,66 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table class="table border dataTable table-striped table-hover" id="dataTable"
-                                       width="100%"
-                                       cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                       style="width: 100%;">
-                                    <thead>
-                                    <tr role="row">
-                                        <th style="min-width: 50px; width: 80px"></th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                            rowspan="1" colspan="1" aria-sort="ascending"
-                                            aria-label="Name: activate to sort column descending" width="15"
-                                            style="width: 30%;">Author
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                            style="width: 30%;">Title
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                        >Date of Publication
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @if (count($publications) > 0)
-                                        @foreach ($publications as $publication)
-                                            <tr role="row" class="odd"
-                                                onclick="window.location='publication/{{$publication->id}}'">
-                                                <td class="pl-4">
-                                                    <div class="row">
-                                                        <div class="col pt-1">
-                                                            <a href="publication/{{$publication->id}}/edit"
-                                                               class="text-primary mr-3"><i class="far fa-edit"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col">
-                                                            <form class="p-0" action="/publication/{{$publication->id}}"
-                                                                  method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="_method" value="DELETE">
-                                                                <button type="submit"
-                                                                        class="form-control form-control-plaintext text-danger p-0">
-                                                                    <i class="far fa-trash-alt"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
+                    <table class="table border dataTable table-striped table-hover" id="dataTable"
+                           width="100%"
+                           cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                           style="width: 100%;">
+                        <thead>
+                        <tr role="row">
+                            <th style="min-width: 50px; width: 80px"></th>
+                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                rowspan="1" colspan="1" aria-sort="ascending"
+                                aria-label="Name: activate to sort column descending" width="15"
+                                style="width: 30%;">Author
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                style="width: 30%;">Title
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                colspan="1" aria-label="Salary: activate to sort column ascending"
+                            >Date of Publication
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @if (count($publications) > 0)
+                            @foreach ($publications as $publication)
+                                <tr role="row" class="odd"
+                                    onclick="window.location='publication/{{$publication->id}}'">
+                                    <td class="pl-4">
+                                        <div class="row">
+                                            <div class="col pt-1">
+                                                <a href="publication/{{$publication->id}}/edit"
+                                                   class="text-primary mr-3"><i class="far fa-edit"></i>
+                                                </a>
+                                            </div>
+                                            <div class="col">
+                                                <form class="p-0" action="/publication/{{$publication->id}}"
+                                                      method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button type="submit"
+                                                            class="form-control form-control-plaintext text-danger p-0">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
 
 
-                                                </td>
-                                                <td class="sorting_1">{{$publication->academicStaff->general->name}}</td>
-                                                <td>{{$publication->title}}</td>
-                                                <td>{{$publication->date_of_publication}}</td>
-                                            </tr>
-                                        @endforeach
-                                    @else
+                                    </td>
+                                    <td class="sorting_1">{{$publication->academicStaff->general->name}}</td>
+                                    <td>{{$publication->title}}</td>
+                                    <td>{{$publication->date_of_publication}}</td>
+                                </tr>
+                            @endforeach
+                        @else
 
-                                    @endif
+                        @endif
 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

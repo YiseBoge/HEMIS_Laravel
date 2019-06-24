@@ -12,79 +12,6 @@ class ReportCard extends Model
     use Uuids;
     use Enums;
     public $incrementing = false;
-
-    public function reportYearValues()
-    {
-        return $this->hasMany('App\Models\Report\ReportYearValue');
-    }
-
-    public function change()
-    {
-        $years = $this->reportYearValues()->orderBy('year')->get();
-        if (count($years) <= 1) {
-            return 0;
-        }
-        $current = $years[count($years) - 1];
-        $baseline = $years[0];
-
-        if (($this->target - $baseline->value) == 0) {
-            return 0;
-        }
-
-        return round((($current->value - $baseline->value) / ($this->target - $baseline->value)) * 100, 2);
-    }
-
-    private static function policies()
-    {
-        return ReportCard::groupBy('policy')->pluck('policy', 'policy');
-    }
-
-    private static function descriptions($policy)
-    {
-        return ReportCard::where('policy', $policy)->groupBy('policy_description')->pluck('policy_description', 'policy_description');
-    }
-
-    private static function kpis($policy, $description)
-    {
-        $kpis = array();
-        $values = DB::table('report_cards')->where(array(
-            'policy' => $policy,
-            'policy_description' => $description))
-            ->get();
-        foreach ($values as $value) {
-            $kpi = new ReportCard();
-            $kpi->id = $value->id;
-            $kpi->policy = $value->policy;
-            $kpi->policy_description = $value->policy_description;
-            $kpi->kpi = $value->kpi;
-            $kpi->target = $value->target;
-            $kpi->created_at = $value->created_at;
-            $kpi->updated_at = $value->updated_at;
-
-            $kpis[] = $kpi;
-        }
-
-        return $kpis;
-    }
-
-    public static function groupedReports()
-    {
-        $policyArray = array();
-        foreach (ReportCard::policies() as $policy) {
-            $descriptionArray = array();
-            foreach (ReportCard::descriptions($policy) as $description) {
-                $kpiArray = array();
-                foreach (ReportCard::kpis($policy, $description) as $kpi) {
-                    $kpiArray[] = $kpi;
-                }
-                $descriptionArray[$description] = $kpiArray;
-            }
-            $policyArray[$policy] = $descriptionArray;
-        }
-        return $policyArray;
-    }
-
-
     protected $enumKpis = [
         '1.1.1' => '% increase in undergraduate students enrollment',
         '1.1.2' => '% increase in postgraduate students enrollment',
@@ -154,4 +81,75 @@ class ReportCard extends Model
         '7.2.1' => '% Reduction in the amount of non-utilized funds',
         '7.3.1' => '% Increase in the amount of loan recovered from student cost sharing',
     ];
+
+    public static function groupedReports()
+    {
+        $policyArray = array();
+        foreach (ReportCard::policies() as $policy) {
+            $descriptionArray = array();
+            foreach (ReportCard::descriptions($policy) as $description) {
+                $kpiArray = array();
+                foreach (ReportCard::kpis($policy, $description) as $kpi) {
+                    $kpiArray[] = $kpi;
+                }
+                $descriptionArray[$description] = $kpiArray;
+            }
+            $policyArray[$policy] = $descriptionArray;
+        }
+        return $policyArray;
+    }
+
+    private static function policies()
+    {
+        return ReportCard::groupBy('policy')->pluck('policy', 'policy');
+    }
+
+    private static function descriptions($policy)
+    {
+        return ReportCard::where('policy', $policy)->groupBy('policy_description')->pluck('policy_description', 'policy_description');
+    }
+
+    private static function kpis($policy, $description)
+    {
+        $kpis = array();
+        $values = DB::table('report_cards')->where(array(
+            'policy' => $policy,
+            'policy_description' => $description))
+            ->get();
+        foreach ($values as $value) {
+            $kpi = new ReportCard();
+            $kpi->id = $value->id;
+            $kpi->policy = $value->policy;
+            $kpi->policy_description = $value->policy_description;
+            $kpi->kpi = $value->kpi;
+            $kpi->target = $value->target;
+            $kpi->created_at = $value->created_at;
+            $kpi->updated_at = $value->updated_at;
+
+            $kpis[] = $kpi;
+        }
+
+        return $kpis;
+    }
+
+    public function change()
+    {
+        $years = $this->reportYearValues()->orderBy('year')->get();
+        if (count($years) <= 1) {
+            return 0;
+        }
+        $current = $years[count($years) - 1];
+        $baseline = $years[0];
+
+        if (($this->target - $baseline->value) == 0) {
+            return 0;
+        }
+
+        return round((($current->value - $baseline->value) / ($this->target - $baseline->value)) * 100, 2);
+    }
+
+    public function reportYearValues()
+    {
+        return $this->hasMany('App\Models\Report\ReportYearValue');
+    }
 }

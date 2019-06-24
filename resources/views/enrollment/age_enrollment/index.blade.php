@@ -14,113 +14,106 @@
                                     class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <form class="mt-4" action="" method="get">
-                            <div class="form-group row pt-3">
-                                <div class="col-md-6 form-group">
-                                    <select class="form-control" name="program" id="program"
-                                            onchange="this.form.submit()">
-                                        @foreach ($programs as $key => $value)
-                                            @if ($value == $selected_program)
-                                                <option value="{{$value}}" selected>{{$value}}</option>
-                                            @else
-                                                <option value="{{$value}}">{{$value}}</option>
-                                            @endif
-
-                                        @endforeach
-                                    </select>
-                                    <label for="service_type" class="form-control-placeholder">
-                                        Program
-                                    </label>
-                                </div>
-
-                                <div class="col-md-6 form-group">
-                                    <select class="form-control" name="education_level" id="level"
-                                            onchange="this.form.submit()">
-                                        @foreach ($education_levels as $key => $value)
-                                            @if ($key == 'SPECIALIZATION')
-                                                <option disabled value="{{$value}}">{{$value}}</option>
-                                            @elseif($value == $selected_education_level)
-                                                <option value="{{$value}}" selected>{{$value}}</option>
-                                            @else
-                                                <option value="{{$value}}">{{$value}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
-                                        Education Level
-                                    </label>
-                                </div>
-                            </div>
-
-                        </form>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table class="table border dataTable table-striped table-hover" id="dataTable"
-                                       width="100%"
-                                       cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                       style="width: 100%;">
-                                    <thead>
-                                    <tr role="row">
-                                        <th style="min-width: 50px; width: 50px"></th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                            rowspan="1" colspan="1" aria-sort="ascending"
-                                            aria-label="Name: activate to sort column descending" width="15"
-                                            style="width: 15%;">Age Range
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                        >Male(Aggregate number)
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                        >Female(Aggregate number)
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @if (count($enrollment_info) > 0)
-                                        @foreach ($enrollment_info as $info)
-                                            <tr role="row" class="odd"
-                                                onclick="window.location='age-enrollment/{{$info->id}}'">
-                                                <td class="pl-4">
-                                                    <div class="row">
-                                                        <div class="col pt-1">
-                                                            <a href="non-admin/{{$info->id}}/edit"
-                                                               class="text-primary mr-3"><i class="far fa-edit"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col">
-                                                            <form class="p-0"
-                                                                  action="/enrollment/age-enrollment/{{$info->id}}"
-                                                                  method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="_method" value="DELETE">
-                                                                <button type="submit"
-                                                                        class="form-control form-control-plaintext text-danger p-0">
-                                                                    <i class="far fa-trash-alt"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-
-
-                                                </td>
-                                                <td class="sorting_1">{{$info->age}}</td>
-                                                <td>{{$info->male_students_number}}</td>
-                                                <td>{{$info->female_students_number}}</td>
-                                            </tr>
-                                        @endforeach
+                <form class="mt-4" action="" method="get">
+                    <div class="form-group row pt-3">
+                        <div class="col-md-6 form-group">
+                            <select class="form-control" name="program" id="program"
+                                    onchange="this.form.submit()">
+                                @foreach ($programs as $key => $value)
+                                    @if ($value == $selected_program)
+                                        <option value="{{$value}}" selected>{{$value}}</option>
                                     @else
-
+                                        <option value="{{$value}}">{{$value}}</option>
                                     @endif
 
-                                    </tbody>
-                                </table>
-                            </div>
+                                @endforeach
+                            </select>
+                            <label for="service_type" class="form-control-placeholder">
+                                Program
+                            </label>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <select class="form-control" name="education_level" id="level"
+                                    onchange="this.form.submit()">
+                                @foreach ($education_levels as $key => $value)
+                                    @if ($key == 'SPECIALIZATION')
+                                        <option disabled value="{{$value}}">{{$value}}</option>
+                                    @elseif($value == $selected_education_level)
+                                        <option value="{{$value}}" selected>{{$value}}</option>
+                                    @else
+                                        <option value="{{$value}}">{{$value}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            <label for="dormitory_service_type" class="form-control-placeholder">
+                                Education Level
+                            </label>
                         </div>
                     </div>
+                </form>
+                <div class="table-responsive">
+                    <table class="table border dataTable table-striped table-hover" id="dataTable"
+                           width="100%"
+                           cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                           style="width: 100%;">
+                        <thead>
+                        <tr role="row">
+                            <th style="min-width: 50px; width: 50px"></th>
+                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                rowspan="1" colspan="1" aria-sort="ascending"
+                                aria-label="Name: activate to sort column descending" width="15"
+                                style="width: 15%;">Age Range
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                colspan="1" aria-label="Age: activate to sort column ascending"
+                            >Male(Aggregate number)
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                colspan="1" aria-label="Salary: activate to sort column ascending"
+                            >Female(Aggregate number)
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @if (count($enrollment_info) > 0)
+                            @foreach ($enrollment_info as $info)
+                                <tr role="row" class="odd"
+                                    onclick="window.location='age-enrollment/{{$info->id}}'">
+                                    <td class="pl-4">
+                                        <div class="row">
+                                            <div class="col pt-1">
+                                                <a href="non-admin/{{$info->id}}/edit"
+                                                   class="text-primary mr-3"><i class="far fa-edit"></i>
+                                                </a>
+                                            </div>
+                                            <div class="col">
+                                                <form class="p-0"
+                                                      action="/enrollment/age-enrollment/{{$info->id}}"
+                                                      method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button type="submit"
+                                                            class="form-control form-control-plaintext text-danger p-0">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+
+
+                                    </td>
+                                    <td class="sorting_1">{{$info->age}}</td>
+                                    <td>{{$info->male_students_number}}</td>
+                                    <td>{{$info->female_students_number}}</td>
+                                </tr>
+                            @endforeach
+                        @else
+
+                        @endif
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

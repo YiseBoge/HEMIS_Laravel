@@ -14,6 +14,18 @@ class GeneralReportService
         $this->instances = Instance::where('year', $year)->get();
     }
 
+    function privateEnrollments($educationLevel)
+    {
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(true) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->enrollment('All', $educationLevel);
+        }
+
+        return $total;
+    }
+
     function institutionsByPrivacy($isPrivate)
     {
         $institutions = array();
@@ -29,31 +41,6 @@ class GeneralReportService
             }
         }
         return $institutions;
-    }
-
-    function privateEnrollments($educationLevel)
-    {
-        $total = 0;
-
-        foreach ($this->institutionsByPrivacy(true) as $institution) {
-            $institutionService = new InstitutionService($institution);
-            $total = $institutionService->enrollment('All', $educationLevel);
-        }
-
-        return $total;
-    }
-
-
-    function enrollment($sex, $educationLevel)
-    {
-        $total = 0;
-
-        foreach ($this->institutionsByPrivacy(false) as $institution) {
-            $institutionService = new InstitutionService($institution);
-            $total += $institutionService->enrollment($sex, $educationLevel);
-        }
-
-        return $total;
     }
 
     function specialNeedEnrollment($educationLevel)
@@ -104,6 +91,18 @@ class GeneralReportService
         $totalEnrollments = $this->enrollment("All", $educationLevel);
         if ($totalEnrollments == 0) return 0;
         return $total / $totalEnrollments;
+    }
+
+    function enrollment($sex, $educationLevel)
+    {
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->enrollment($sex, $educationLevel);
+        }
+
+        return $total;
     }
 
     function dropout($sex, $type, $educationLevel)
@@ -208,18 +207,6 @@ class GeneralReportService
         return $total / $totalEnrollments;
     }
 
-    function qualifiedStaff()
-    {
-        $total = 0;
-
-        foreach ($this->institutionsByPrivacy(false) as $institution) {
-            $institutionService = new InstitutionService($institution);
-            $total += $institutionService->qualifiedStaff();
-        }
-
-        return $total;
-    }
-
     function enrollmentInScienceAndTechnology()
     {
         $total = 0;
@@ -232,7 +219,8 @@ class GeneralReportService
         return $total;
     }
 
-    function budgetNotFromGovernment(){
+    function budgetNotFromGovernment()
+    {
         $total = 0;
         $totalBudget = 0;
         foreach ($this->institutionsByPrivacy(false) as $institution) {
@@ -245,7 +233,8 @@ class GeneralReportService
         return $total / $totalBudget;
     }
 
-    function nonUtilizedFunds(){
+    function nonUtilizedFunds()
+    {
         $total = 0;
 
         foreach ($this->institutionsByPrivacy(false) as $institution) {
@@ -304,7 +293,8 @@ class GeneralReportService
         return $total;
     }
 
-    function academicAttrition(){
+    function academicAttrition()
+    {
         $total = 0;
 
         foreach ($this->institutionsByPrivacy(false) as $institution) {
@@ -327,7 +317,8 @@ class GeneralReportService
         return $total;
     }
 
-    function nonAcademicAttrition(){
+    function nonAcademicAttrition()
+    {
         $total = 0;
 
         foreach ($this->institutionsByPrivacy(false) as $institution) {
@@ -365,6 +356,19 @@ class GeneralReportService
         return $returnable;
     }
 
+    function qualifiedTeacherToStudent()
+    {
+        $total = $this->enrollmentsRate("All", College::getEnum('education_level')['UNDERGRADUATE']) +
+            $this->enrollmentsRate("All", College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
+            $this->enrollmentsRate("All", College::getEnum('education_level')['POST_GRADUATE_PHD']);
+
+        $selected = $this->qualifiedStaff();
+
+        $returnable = $total == 0 ? 0 : $selected / $total;
+
+        return $returnable;
+    }
+
     function enrollmentsRate($sex, $otherRegion)
     {
         $total = 0;
@@ -381,17 +385,16 @@ class GeneralReportService
         return $returnable;
     }
 
-    function qualifiedTeacherToStudent()
+    function qualifiedStaff()
     {
-        $total = $this->enrollmentsRate("All", College::getEnum('education_level')['UNDERGRADUATE']) +
-            $this->enrollmentsRate("All", College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
-            $this->enrollmentsRate("All", College::getEnum('education_level')['POST_GRADUATE_PHD']);
+        $total = 0;
 
-        $selected = $this->qualifiedStaff();
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->qualifiedStaff();
+        }
 
-        $returnable = $total == 0 ? 0 : $selected / $total;
-
-        return $returnable;
+        return $total;
     }
 
 }

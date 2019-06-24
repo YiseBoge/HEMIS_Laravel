@@ -22,14 +22,14 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
         $user->authorizeRoles('University Admin');
         $institution = $user->institution();
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
         }
 
-        $requestedYearLevel=$request->input('year_level');
-        if($requestedYearLevel==null){
-            $requestedYearLevel='1';
+        $requestedYearLevel = $request->input('year_level');
+        if ($requestedYearLevel == null) {
+            $requestedYearLevel = '1';
         }
 
         $enrollments = array();
@@ -97,7 +97,7 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
         $enrollment->type = $request->input('need_type');
         $enrollment->year = $request->input('year_level');
         $enrollment->program = $request->input('program');
-        
+
         $institution->specialNeeds()->save($enrollment);
 
 
@@ -107,7 +107,7 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -118,7 +118,7 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -130,7 +130,7 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -141,7 +141,7 @@ class SpecialNeedStudentsEnrollmentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)

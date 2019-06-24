@@ -18,7 +18,8 @@ class InistitutionBSCInfo extends Model
         'TARGET' => 'Target',
     ];
 
-    public function InstitutionBSC(){
+    public function InstitutionBSC()
+    {
         return $this->hasOne('App\Models\Insttution\InstitutionBSC');
     }
 }

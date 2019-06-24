@@ -41,6 +41,12 @@ class BudgetDescriptionsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
+        $budgetDescriptions = BudgetDescription::all();
+        $data = array(
+            'budgetDescriptions' => $budgetDescriptions,
+            'page_name' => 'administer.budget-description.create',
+        );
+        return view('colleges.budget_description.index')->with($data);
     }
 
     /**

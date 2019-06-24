@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class College extends Model
 {
-    
+
     use Uuids;
     use Enums;
 
@@ -31,11 +31,13 @@ class College extends Model
         'NONE' => 'None'
     ];
 
-    public function collegeName(){
+    public function collegeName()
+    {
         return $this->belongsTo('App\Models\College\CollegeName');
     }
 
-    public function departments(){
+    public function departments()
+    {
         return $this->hasMany('App\Models\Department\Department');
     }
 

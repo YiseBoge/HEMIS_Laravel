@@ -13,10 +13,10 @@ class Enrollment extends Model
 
     public $incrementing = false;
     protected $enumStudentTypes = [
-        'NORMAL'=>'Normal',
+        'NORMAL' => 'Normal',
         'PROSPECTIVE' => 'Prospective Graduates',
         'GRADUATES' => 'Graduates'
-        
+
     ];
 
     public function department()

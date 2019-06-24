@@ -49,14 +49,14 @@ class HomeController extends Controller
                 "page_name" => 'dashboard.dashboard.index',
             );
             return view('home')->with($data);
-        }else{
+        } else {
             $institution = $user->institution();
             $generalInformation = $institution->generalInformation;
             $colleges = 0;
-            foreach($institution->bands as $band){
+            foreach ($institution->bands as $band) {
                 $colleges += $band->colleges->count();
-            } 
-    
+            }
+
             $data = array(
                 "name" => $institution->institutionName->institution_name,
                 "campuses_number" => $generalInformation->campuses,
@@ -68,41 +68,41 @@ class HomeController extends Controller
 
             return view('home')->with($data);
         }
-       
+
     }
 
     public function enrollmentChart()
     {
         $year_levels = array();
-        foreach(Department::getEnum('YearLevels') as $key => $value){
+        foreach (Department::getEnum('YearLevels') as $key => $value) {
             $year_levels[] = $value;
         }
         array_pop($year_levels);
         $enrollments = array();
 
-        if (Auth::user()->hasRole('Super Admin')){
-            foreach($year_levels as $year){
+        if (Auth::user()->hasRole('Super Admin')) {
+            foreach ($year_levels as $year) {
                 $yearEnrollment = 0;
-                foreach(Enrollment::get() as $enrollment){
-                    if($enrollment->department->year_level == $year){
+                foreach (Enrollment::get() as $enrollment) {
+                    if ($enrollment->department->year_level == $year) {
                         $yearEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
-                    }                    
+                    }
                 }
                 $enrollments[] = $yearEnrollment;
-                
+
             }
-           
-        }else{
+
+        } else {
             $user = Auth::user();
             $institution = $user->institution();
 
-            foreach($year_levels as $year){
+            foreach ($year_levels as $year) {
                 $yearEnrollment = 0;
-                foreach($institution->bands as $band){
-                    foreach($band->colleges as $college){
-                        foreach($college->departments as $department){
-                            if($department->year_level == $year){
-                                foreach($department->enrollments as $enrollment){
+                foreach ($institution->bands as $band) {
+                    foreach ($band->colleges as $college) {
+                        foreach ($college->departments as $department) {
+                            if ($department->year_level == $year) {
+                                foreach ($department->enrollments as $enrollment) {
                                     $yearEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
                                 }
                             }
@@ -120,38 +120,39 @@ class HomeController extends Controller
         return response()->json($result);
     }
 
-    public function ageEnrollmentChart(){
+    public function ageEnrollmentChart()
+    {
 
         $ages = array();
-        foreach(AgeEnrollment::getEnum('Ages') as $key => $value){
+        foreach (AgeEnrollment::getEnum('Ages') as $key => $value) {
             $ages[] = $value;
         }
         $enrollments = array();
 
-        if (Auth::user()->hasRole('Super Admin')){
-            foreach(AgeEnrollment::all() as $enrollment){
+        if (Auth::user()->hasRole('Super Admin')) {
+            foreach (AgeEnrollment::all() as $enrollment) {
                 $enrollments[] = $enrollment->male_students_number + $enrollment->female_students_number;
             }
-        }else{
+        } else {
             $user = Auth::user();
             $institution = $user->institution();
 
-            foreach($ages as $age){
+            foreach ($ages as $age) {
                 $ageEnrollment = 0;
-                foreach($institution->bands as $band){
-                    foreach($band->colleges as $college){
-                        foreach($college->departments as $department){
-                            foreach($department->ageEnrollments as $enrollment){
-                                if($enrollment->age == $age){
+                foreach ($institution->bands as $band) {
+                    foreach ($band->colleges as $college) {
+                        foreach ($college->departments as $department) {
+                            foreach ($department->ageEnrollments as $enrollment) {
+                                if ($enrollment->age == $age) {
                                     $ageEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
-                                }                                
-                            }                        
+                                }
+                            }
                         }
                     }
                 }
                 $enrollments[] = $ageEnrollment;
             }
-        }       
+        }
 
         $result = array(
             "ages" => $ages,

@@ -11,7 +11,8 @@ class BuildingPurpose extends Model
 
     public $incrementing = false;
 
-    public function buildings() {
+    public function buildings()
+    {
         return $this->belongsToMany('App\Models\Institution\Building', 'building_building_purpose', 'building_purpose_id', 'building_id');
     }
 

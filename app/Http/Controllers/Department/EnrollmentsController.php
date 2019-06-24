@@ -32,19 +32,19 @@ class EnrollmentsController extends Controller
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
-        $requestedType=$request->input('student_type');
-        if($requestedType==null){
-            $requestedType='Normal';
+        $requestedType = $request->input('student_type');
+        if ($requestedType == null) {
+            $requestedType = 'Normal';
         }
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
         }
 
-        $requestedLevel=$request->input('education_level');
-        if($requestedLevel==null){
-            $requestedLevel='Undergraduate';
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Undergraduate';
         }
 
         $requestedDepartment = $request->input('department');
@@ -170,7 +170,7 @@ class EnrollmentsController extends Controller
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -180,7 +180,7 @@ class EnrollmentsController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
@@ -192,7 +192,7 @@ class EnrollmentsController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = $request->input("year_level");
             $department->department_name_id = 0;
@@ -209,7 +209,7 @@ class EnrollmentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -220,7 +220,7 @@ class EnrollmentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -232,7 +232,7 @@ class EnrollmentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -243,7 +243,7 @@ class EnrollmentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)
@@ -298,41 +298,42 @@ class EnrollmentsController extends Controller
         return redirect("/enrollment/normal");
     }
 
-    public function viewChart(Request $request){
+    public function viewChart(Request $request)
+    {
 
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
-        $requestedType=$request->input('student_type');
-        if($requestedType==null){
-            $requestedType='Normal';
+        $requestedType = $request->input('student_type');
+        if ($requestedType == null) {
+            $requestedType = 'Normal';
         }
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
         }
 
-        $requestedCollege=$request->input('college');
-        if($requestedCollege==null){
+        $requestedCollege = $request->input('college');
+        if ($requestedCollege == null) {
             $requestedCollege = CollegeName::get()->first()->college_name;
         }
 
-        $requestedLevel=$request->input('education_level');
-        if($requestedLevel==null){
-            $requestedLevel='Undergraduate';
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Undergraduate';
         }
 
 
-        $requestedBand=$request->input('band');
-        if($requestedBand==null){
+        $requestedBand = $request->input('band');
+        if ($requestedBand == null) {
             $requestedBand = BandName::get()->first()->band_name;
         }
 
-        $requestedDepartment=$request->input('department');
-        if($requestedDepartment==null){
-            $requestedDepartment=DepartmentName::get()->first()->department_name;
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::get()->first()->department_name;
         }
 
         $enrollments = array();
@@ -384,51 +385,52 @@ class EnrollmentsController extends Controller
         return view("enrollment.normal.chart")->with($data);
     }
 
-    public function chart(Request $request){
+    public function chart(Request $request)
+    {
 
         $user = Auth::user();
         $institution = $user->institution();
 
-        $requestedType=$request->input('student_type');
-        if($requestedType==null){
-            $requestedType='Normal';
+        $requestedType = $request->input('student_type');
+        if ($requestedType == null) {
+            $requestedType = 'Normal';
         }
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
         }
 
-        $requestedCollege=$request->input('college');
-        if($requestedCollege==null){
+        $requestedCollege = $request->input('college');
+        if ($requestedCollege == null) {
             $requestedCollege = CollegeName::get()->first()->college_name;
         }
 
-        $requestedLevel=$request->input('education_level');
-        if($requestedLevel==null){
-            $requestedLevel='Undergraduate';
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Undergraduate';
         }
 
 
-        $requestedBand=$request->input('band');
-        if($requestedBand==null){
+        $requestedBand = $request->input('band');
+        if ($requestedBand == null) {
             $requestedBand = BandName::get()->first()->band_name;
         }
 
-        $requestedDepartment=$request->input('department');
-        if($requestedDepartment==null){
-            $requestedDepartment=DepartmentName::get()->first()->department_name;
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::get()->first()->department_name;
         }
 
         $year_levels = array();
-        foreach(Department::getEnum('YearLevels') as $key => $value){
+        foreach (Department::getEnum('YearLevels') as $key => $value) {
             $year_levels[] = $value;
         }
         array_pop($year_levels);
 
         $enrollments = array();
 
-        foreach($year_levels as $year){
+        foreach ($year_levels as $year) {
             $yearEnrollment = 0;
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $requestedBand) {
@@ -439,25 +441,24 @@ class EnrollmentsController extends Controller
                                     foreach ($department->enrollments as $enrollment) {
                                         if ($enrollment->student_type == $requestedType) {
                                             $yearEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
-                                            
+
                                         }
                                     }
-                                }                                
+                                }
                             }
-                           
+
                         }
                     }
                 }
-                
+
             }
-           
+
             $enrollments[] = $yearEnrollment;
             //return $enrollments;
-            
+
         }
 
-        
-        
+
         $result = array(
             "year_levels" => $year_levels,
             "enrollments" => $enrollments

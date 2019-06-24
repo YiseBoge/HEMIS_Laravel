@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Institution;
+
 use App\Http\Controllers\Controller;
 use App\Models\Department\DepartmentName;
 use App\Models\Institution\ForeignStaff;
@@ -53,7 +54,7 @@ class ForeignStaffsController extends Controller
         $data = ['staffs' => ForeignStaff::all(),
             'education_levels' => ForeignStaff::getEnum("EducationLevels"),
             'department' => $department_names,
-        'page_name' => 'institution.foreign_staff.create'];
+            'page_name' => 'institution.foreign_staff.create'];
         return view('institutions.foreign_staff.create')->with('data', $data);
     }
 
@@ -93,7 +94,7 @@ class ForeignStaffsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -104,7 +105,7 @@ class ForeignStaffsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -116,7 +117,7 @@ class ForeignStaffsController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -127,7 +128,7 @@ class ForeignStaffsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)

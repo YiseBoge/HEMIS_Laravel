@@ -27,7 +27,8 @@ class StaffLeave extends Model
         'ABROAD' => 'Abroad'
     ];
 
-    public function department(){
+    public function department()
+    {
         return $this->belongsTo('App\Models\Department\Department');
     }
 }

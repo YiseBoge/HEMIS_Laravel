@@ -46,13 +46,13 @@ class UpgradingStaffController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name) {
                             foreach ($college->departments as $department) {
-                                if($department->departmentName->department_name == $user->departmentName->department_name){
+                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                     foreach ($department->UpgradingStaffs as $staff) {
                                         if (strtoupper($staff->study_place) == $requestedPlace) {
                                             $filteredTeachers[] = $staff;
                                         }
                                     }
-                                }                               
+                                }
                             }
                         }
                     }

@@ -16,7 +16,8 @@ class Building extends Model
         return $this->belongsTo('App\Models\College\College');
     }
 
-    public function buildingPurposes() {
+    public function buildingPurposes()
+    {
         return $this->belongsToMany('App\Models\Institution\BuildingPurpose', 'building_building_purpose', 'building_id', 'building_purpose_id');
     }
 

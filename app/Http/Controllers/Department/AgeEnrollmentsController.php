@@ -27,14 +27,14 @@ class AgeEnrollmentsController extends Controller
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
         }
 
-        $requestedLevel=$request->input('education_level');
-        if($requestedLevel==null){
-            $requestedLevel='Undergraduate';
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Undergraduate';
         }
 
         $ageEnrollments = array();
@@ -46,16 +46,16 @@ class AgeEnrollmentsController extends Controller
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
                                 if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                    foreach ($department->ageEnrollments as $ageEnrollment) {                                            
+                                    foreach ($department->ageEnrollments as $ageEnrollment) {
                                         $ageEnrollments[] = $ageEnrollment;
                                     }
-                                }                                
+                                }
                             }
                         }
                     }
                 }
             }
-            
+
         } else {
             $ageEnrollments = AgeEnrollment::all();
         }
@@ -74,7 +74,7 @@ class AgeEnrollmentsController extends Controller
             'selected_program' => $requestedProgram,
             'selected_education_level' => $requestedLevel,
             'page_name' => 'enrollment.age_enrollment.index'];
-            
+
         return view('enrollment.age_enrollment.index')->with($data);
     }
 
@@ -137,7 +137,7 @@ class AgeEnrollmentsController extends Controller
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -147,7 +147,7 @@ class AgeEnrollmentsController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
@@ -159,7 +159,7 @@ class AgeEnrollmentsController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = $request->input("year_level");
             $department->department_name_id = 0;

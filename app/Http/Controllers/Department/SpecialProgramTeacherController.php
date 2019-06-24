@@ -30,9 +30,9 @@ class SpecialProgramTeacherController extends Controller
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
-        $requestedStatus=$request->input('program_status');
-        if($requestedStatus==null){
-            $requestedStatus='Completed';
+        $requestedStatus = $request->input('program_status');
+        if ($requestedStatus == null) {
+            $requestedStatus = 'Completed';
         }
 
 //        $band=Band::where('band_name_id',$requestedBand)->first();
@@ -46,13 +46,13 @@ class SpecialProgramTeacherController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->id == $user->collegeName->id) {
                             foreach ($college->departments as $department) {
-                                if($department->departmentName->id == $user->departmentName->id){
+                                if ($department->departmentName->id == $user->departmentName->id) {
                                     foreach ($department->SpecialProgramTeachers as $teacher) {
                                         if ($teacher->program_stat == $requestedStatus) {
                                             $filteredTeachers[] = $teacher;
                                         }
                                     }
-                                }                                
+                                }
                             }
                         }
                     }
@@ -63,12 +63,11 @@ class SpecialProgramTeacherController extends Controller
         }
 
 
-
         //$specialProgramTeachers=SpecialProgramTeacher::all();
         //$specialProgramTeachers= SpecialProgramTeacher::where(['program_type'=>$requestedType,'program_status'=>$requestedStatus])->get();
-        $data=[
-            'program_status'=>$requestedStatus,
-            'special_program_teachers'=>$filteredTeachers,
+        $data = [
+            'program_status' => $requestedStatus,
+            'special_program_teachers' => $filteredTeachers,
 
             'selected_status' => $requestedStatus,
 
@@ -91,12 +90,12 @@ class SpecialProgramTeacherController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $data=[
-            'program_type'=>SpecialProgramTeacher::getEnum("ProgramTypes"),
-            'program_status'=>SpecialProgramTeacher::getEnum("ProgramStats"),
-            'colleges'=>CollegeName::all(),
-            'bands'=>BandName::all(),
-            'departments'=>DepartmentName::all(),
+        $data = [
+            'program_type' => SpecialProgramTeacher::getEnum("ProgramTypes"),
+            'program_status' => SpecialProgramTeacher::getEnum("ProgramStats"),
+            'colleges' => CollegeName::all(),
+            'bands' => BandName::all(),
+            'departments' => DepartmentName::all(),
             'page_name' => 'staff.special-program-teacher.create'
         ];
         //return $data['special_program_teachers'];
@@ -119,13 +118,11 @@ class SpecialProgramTeacherController extends Controller
         ]);
 
 
-
-        $specialProgramTeacher=new SpecialProgramTeacher;
-        $specialProgramTeacher->male_number= $request->input('male_number');
-        $specialProgramTeacher->female_number= $request->input('female_number');
+        $specialProgramTeacher = new SpecialProgramTeacher;
+        $specialProgramTeacher->male_number = $request->input('male_number');
+        $specialProgramTeacher->female_number = $request->input('female_number');
         $specialProgramTeacher->program_stat = $request->input('program_status');
-        $specialProgramTeacher->program_type=$request->input('program_type');
-
+        $specialProgramTeacher->program_type = $request->input('program_type');
 
 
         $user = Auth::user();
@@ -135,7 +132,7 @@ class SpecialProgramTeacherController extends Controller
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -144,7 +141,7 @@ class SpecialProgramTeacherController extends Controller
 
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = 'NONE';
             $college->education_program = 'NONE';
@@ -154,10 +151,10 @@ class SpecialProgramTeacherController extends Controller
         }
 
         $departmentName = $user->departmentName;
-        $department = Department::where(['department_name_id' => $departmentName->id,'college_id' => $college->id])->first();
-        if($department == null){
+        $department = Department::where(['department_name_id' => $departmentName->id, 'college_id' => $college->id])->first();
+        if ($department == null) {
             $department = new Department;
-            $department->year_level ='NONE';
+            $department->year_level = 'NONE';
             $department->department_name_id = 0;
             $college->departments()->save($department);
             $departmentName->department()->save($department);
@@ -173,7 +170,7 @@ class SpecialProgramTeacherController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -184,7 +181,7 @@ class SpecialProgramTeacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -196,7 +193,7 @@ class SpecialProgramTeacherController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -207,7 +204,7 @@ class SpecialProgramTeacherController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)

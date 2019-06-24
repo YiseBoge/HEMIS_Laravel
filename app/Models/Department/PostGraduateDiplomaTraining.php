@@ -17,14 +17,15 @@ class PostGraduateDiplomaTraining extends Model
         'NORMAL' => 'Normal',
         'LEADER' => 'School Leaders',
     ];
-    
+
     protected $enumPrograms = [
         'REGULAR' => 'Regular',
         'NON_REGULAR' => 'Non Regular',
     ];
 
-    public function department(){
+    public function department()
+    {
         return $this->belongsTo('App\Models\Department\Department');
     }
-    
+
 }

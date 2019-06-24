@@ -13,18 +13,18 @@ class AgeEnrollment extends Model
 
     public $incrementing = false;
 
-    protected $enumAges=[
-        'UNDER18'=>'<18',
-        'EIGHTEEN'=>'18',
-        'NINETEEN'=>'19',
-        'TWENTY'=>'20',
-        'TWENTY_ONE'=>'21',
-        'TWENTY_TWO'=>'22',
-        'TWENTY_THREE'=>'23',
-        'TWENTY_FOUR'=>'24',
-        'TWENTY_FIVE'=>'25',
-        'TWENTY_SIX'=>'26',
-        'ABOVE26'=>'>26'
+    protected $enumAges = [
+        'UNDER18' => '<18',
+        'EIGHTEEN' => '18',
+        'NINETEEN' => '19',
+        'TWENTY' => '20',
+        'TWENTY_ONE' => '21',
+        'TWENTY_TWO' => '22',
+        'TWENTY_THREE' => '23',
+        'TWENTY_FOUR' => '24',
+        'TWENTY_FIVE' => '25',
+        'TWENTY_SIX' => '26',
+        'ABOVE26' => '>26'
     ];
 
     public function department()

@@ -28,7 +28,7 @@ class ForeignStaff extends Model
         'BACHELORS' => 'Bachelors',
         'MD_DV' => 'M.D/D.V',
         'MASTERS' => 'Masters',
-        'PHD' => 'PhD'       
+        'PHD' => 'PhD'
     ];
 
     protected $enumSexs = [

@@ -50,12 +50,12 @@
 
                             <div class="form-group row">
                                 <div class="col-md-6">
-                                    <div class="form-check text-left">
-                                        <input class="form-check-input form-control-user" type="checkbox"
+                                    <div class="custom-control custom-checkbox">
+                                        <input class="custom-control-input" type="checkbox"
                                                name="remember"
                                                id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                        <label class="form-check-label" for="remember">
+                                        <label class="custom-control-label" for="remember">
                                             {{ __('Remember Me') }}
                                         </label>
                                     </div>

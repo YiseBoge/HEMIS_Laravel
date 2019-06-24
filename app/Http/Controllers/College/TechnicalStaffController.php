@@ -146,7 +146,7 @@ class TechnicalStaffController extends Controller
     {
         $this->validate($request, [
             'male_number' => 'required',
-            'female_number' => 'required'            
+            'female_number' => 'required'
         ]);
 
         $staff = new TechnicalStaff;
@@ -159,25 +159,25 @@ class TechnicalStaffController extends Controller
         $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();
-        
+
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
-            $institution->bands()->save($band);            
+            $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
 
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = 'None';
             $college->education_program = 'None';
             $college->college_name_id = 0;
-            $band->colleges()->save($college);           
+            $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
 
@@ -189,7 +189,7 @@ class TechnicalStaffController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -200,7 +200,7 @@ class TechnicalStaffController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -212,7 +212,7 @@ class TechnicalStaffController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -223,7 +223,7 @@ class TechnicalStaffController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)

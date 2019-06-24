@@ -22,7 +22,7 @@ class RegionNamesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
-        $regionNames= RegionName::all();
+        $regionNames = RegionName::all();
         $data = [
             'region_names' => $regionNames,
             'page_name' => 'administer.region-name.index'
@@ -41,7 +41,7 @@ class RegionNamesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
-        $regionNames= RegionName::all();
+        $regionNames = RegionName::all();
         $data = [
             'region_names' => $regionNames,
             'page_name' => 'administer.region-name.create'
@@ -76,7 +76,7 @@ class RegionNamesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -87,7 +87,7 @@ class RegionNamesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -99,7 +99,7 @@ class RegionNamesController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -110,7 +110,7 @@ class RegionNamesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)

@@ -16,72 +16,66 @@
                 </div>
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
-                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table table-bordered dataTable table-striped table-hover"
-                                           id="dataTable"
-                                           width="100%"
-                                           cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                           style="width: 100%;">
+                        <table class="table table-bordered dataTable table-striped table-hover"
+                               id="dataTable"
+                               width="100%"
+                               cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                               style="width: 100%;">
 
-                                        <thead>
-                                        <tr role="row">
-                                            <th tabindex="0" aria-controls="dataTable"
-                                                rowspan="1" colspan="1"
-                                                style="min-width: 50px; width: 50px"
-                                            >
-                                            </th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                                rowspan="1" colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending">Description
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending">Income
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending">Expense
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending">Balance
-                                            </th>
-                                        </tr>
-                                        </thead>
+                            <thead>
+                            <tr role="row">
+                                <th tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1"
+                                    style="min-width: 50px; width: 50px"
+                                >
+                                </th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending">Description
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Age: activate to sort column ascending">Income
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Age: activate to sort column ascending">Expense
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Age: activate to sort column ascending">Balance
+                                </th>
+                            </tr>
+                            </thead>
 
-                                        <tbody>
-                                        @foreach($internal_revenues as $internalRevenue)
-                                            <tr>
-                                                <td class="text-center">
-                                                    <a href="/budgets/internal-revenue/{{ $internalRevenue->id }}/edit"
-                                                       class="mr-2 d-inline text-primary"><i
-                                                                class="far fa-edit"></i> </a>
-                                                    <a href="" class="d-inline text-danger" data-toggle="modal"
-                                                       data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                                    </a>
-                                                </td>
-                                                <td>{{ $internalRevenue->revenue_description }}</td>
-                                                <td>{{ $internalRevenue->income }}</td>
-                                                <td>{{ $internalRevenue->expense }}</td>
-                                                <td>{{ $internalRevenue->income - $internalRevenue->expense }}</td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
+                            <tbody>
+                            @foreach($internal_revenues as $internalRevenue)
+                                <tr>
+                                    <td class="text-center">
+                                        <a href="/budgets/internal-revenue/{{ $internalRevenue->id }}/edit"
+                                           class="mr-2 d-inline text-primary"><i
+                                                    class="far fa-edit"></i> </a>
+                                        <a href="" class="d-inline text-danger" data-toggle="modal"
+                                           data-target="#deleteModal"><i class="far fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                    <td>{{ $internalRevenue->revenue_description }}</td>
+                                    <td>{{ $internalRevenue->income }}</td>
+                                    <td>{{ $internalRevenue->expense }}</td>
+                                    <td>{{ $internalRevenue->income - $internalRevenue->expense }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
 
-                                        {{--                                        <tfoot>--}}
-                                        {{--                                        <tr class="font-weight-bolder font-italic text-lg">--}}
-                                        {{--                                            <td class="text-center">--}}
+                            {{--                                        <tfoot>--}}
+                            {{--                                        <tr class="font-weight-bolder font-italic text-lg">--}}
+                            {{--                                            <td class="text-center">--}}
 
-                                        {{--                                            </td>--}}
-                                        {{--                                            <td>Total</td>--}}
-                                        {{--                                            <td>sum of incomes</td>--}}
-                                        {{--                                            <td>sum of expenses</td>--}}
-                                        {{--                                            <td>sum of balances</td>--}}
-                                        {{--                                        </tr>--}}
-                                        {{--                                        </tfoot>--}}
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                            {{--                                            </td>--}}
+                            {{--                                            <td>Total</td>--}}
+                            {{--                                            <td>sum of incomes</td>--}}
+                            {{--                                            <td>sum of expenses</td>--}}
+                            {{--                                            <td>sum of balances</td>--}}
+                            {{--                                        </tr>--}}
+                            {{--                                        </tfoot>--}}
+                        </table>
                     </div>
                 </div>
 

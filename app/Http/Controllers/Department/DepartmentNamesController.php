@@ -25,7 +25,7 @@ class DepartmentNamesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
-        $departments= DepartmentName::all();
+        $departments = DepartmentName::all();
         $data = [
             'departments' => $departments,
             'page_name' => 'administer.department-name.list'
@@ -44,7 +44,7 @@ class DepartmentNamesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
-        $departments= DepartmentName::all();
+        $departments = DepartmentName::all();
         $data = [
             'departments' => $departments,
             'page_name' => 'administer.department-name.create'

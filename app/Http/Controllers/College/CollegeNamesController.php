@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\College;
 
 
-
 use App\Http\Controllers\Controller;
 use App\Models\College\CollegeName;
 use Illuminate\Http\Request;
@@ -24,7 +23,7 @@ class CollegeNamesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
-        $colleges=CollegeName::all();
+        $colleges = CollegeName::all();
         $data = [
             'colleges' => $colleges,
             'page_name' => 'administer.colleges-name.index'
@@ -43,7 +42,7 @@ class CollegeNamesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
-        $colleges=CollegeName::all();
+        $colleges = CollegeName::all();
         $data = [
             'colleges' => $colleges,
             'page_name' => 'administer.colleges-name.create'
@@ -80,7 +79,7 @@ class CollegeNamesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -91,7 +90,7 @@ class CollegeNamesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -103,7 +102,7 @@ class CollegeNamesController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -114,7 +113,7 @@ class CollegeNamesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)

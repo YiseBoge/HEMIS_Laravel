@@ -7,6 +7,18 @@ use Illuminate\Support\Str;
 
 trait Enums
 {
+    public static function getValueKey(array $array, $string)
+    {
+        $result = null;
+
+        foreach ($array as $key => $value) {
+            if ($string == $value) {
+                $result = $key;
+            }
+        }
+        return $result;
+    }
+
     /**
      * Check for the presence of a property that starts
      *     with enum for the provided attribute
@@ -115,17 +127,5 @@ trait Enums
     protected function getKeyedEnum(string $field, $key)
     {
         return static::getEnum($field)[$key];
-    }
-
-    public static function getValueKey(array $array, $string)
-    {
-        $result = null;
-
-        foreach ($array as $key => $value) {
-            if ($string == $value) {
-                $result = $key;
-            }
-        }
-        return $result;
     }
 }

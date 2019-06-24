@@ -25,7 +25,7 @@ class BandNamesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
-        $bands= BandName::all();
+        $bands = BandName::all();
         $data = [
             'bands' => $bands,
             'page_name' => 'administer.band-name.list'
@@ -44,7 +44,7 @@ class BandNamesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
-        $bands= BandName::all();
+        $bands = BandName::all();
         $data = [
             'bands' => $bands,
             'page_name' => 'administer.band-name.create'

@@ -13,8 +13,8 @@ class JointProgramEnrollment extends Model
 
     public $incrementing = false;
     protected $enumSponsors = [
-        'ETHIOPIAN_GOVERNMENT'=>'Ethiopian Government',
-        'OTHER' => 'Other'        
+        'ETHIOPIAN_GOVERNMENT' => 'Ethiopian Government',
+        'OTHER' => 'Other'
     ];
 
     public function department()

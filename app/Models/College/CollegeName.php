@@ -11,7 +11,8 @@ class CollegeName extends Model
 
     public $incrementing = false;
 
-    public function college(){
+    public function college()
+    {
         return $this->hasOne('App\Models\College\College');
     }
 

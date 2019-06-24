@@ -38,5 +38,5 @@ class EmergingRegion extends Model
     {
         return $this->belongsTo('App\Models\Department\Department');
     }
-    
+
 }

@@ -45,6 +45,14 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function getRegistrationForm()
+    {
+        $institutions = InstitutionName::pluck('institution_name', 'id');
+
+        return view('auth.register', compact('id', 'institutions'));
+
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -56,7 +64,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'institution_name_id'=>['required'],
+            'institution_name_id' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -82,13 +90,6 @@ class RegisterController extends Controller
             ->attach(Role::where('role_name', 'Viewer')->first());
 
         return $user;
-    }
-
-    public function getRegistrationForm(){
-        $institutions= InstitutionName::pluck('institution_name','id');
-
-        return view('auth.register',compact('id','institutions'));
-
     }
 
 

@@ -112,7 +112,7 @@ class CollegeAdminController extends Controller
                 ->roles()
                 ->attach(Role::where('role_name', 'College Admin')->first());
         }
-        
+
 
         return redirect('/college-admin');
     }

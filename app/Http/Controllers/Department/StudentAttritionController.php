@@ -61,7 +61,7 @@ class StudentAttritionController extends Controller
                 foreach ($band->colleges as $college) {
                     if ($college->education_program == $requestedProgram && $college->education_level == $requestedLevel) {
                         foreach ($college->departments as $department) {
-                            if ($department->departmentName->department_name == $user->departmentName->department_name) {                                
+                            if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                 foreach ($department->studentAttritions as $attrition) {
                                     if ($attrition->type == $requestedType && $attrition->case == $requestedCase && $attrition->student_type == $requestedStudentType) {
                                         $attritions[] = $attrition;
@@ -72,7 +72,7 @@ class StudentAttritionController extends Controller
                     }
 
                 }
-                
+
             }
         } else {
             $attritions = StudentAttrition::with('band')->get();

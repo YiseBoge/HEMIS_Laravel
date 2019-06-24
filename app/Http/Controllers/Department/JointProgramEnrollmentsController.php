@@ -30,19 +30,19 @@ class JointProgramEnrollmentsController extends Controller
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
-        $requestedSponsor=$request->input('sponsor');
-        if($requestedSponsor==null){
-            $requestedSponsor='Ethiopian Government';
+        $requestedSponsor = $request->input('sponsor');
+        if ($requestedSponsor == null) {
+            $requestedSponsor = 'Ethiopian Government';
         }
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
         }
 
-        $requestedLevel=$request->input('education_level');
-        if($requestedLevel==null){
-            $requestedLevel='Undergraduate';
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Undergraduate';
         }
 
         $enrollments = array();
@@ -54,12 +54,12 @@ class JointProgramEnrollmentsController extends Controller
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
                                 if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                    foreach ($department->jointProgramEnrollments as $enrollment) {                                        
+                                    foreach ($department->jointProgramEnrollments as $enrollment) {
                                         if ($enrollment->sponsor == $requestedSponsor) {
                                             $enrollments[] = $enrollment;
                                         }
                                     }
-                                }                                
+                                }
                             }
                         }
                     }
@@ -151,7 +151,7 @@ class JointProgramEnrollmentsController extends Controller
 
         $bandName = $user->bandName;
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if($band == null){
+        if ($band == null) {
             $band = new Band;
             $band->band_name_id = 0;
             $institution->bands()->save($band);
@@ -161,7 +161,7 @@ class JointProgramEnrollmentsController extends Controller
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
             'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
-        if($college == null){
+        if ($college == null) {
             $college = new College;
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
@@ -173,7 +173,7 @@ class JointProgramEnrollmentsController extends Controller
         $departmentName = $user->departmentName;
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
             'college_id' => $college->id])->first();
-        if($department == null){
+        if ($department == null) {
             $department = new Department;
             $department->year_level = $request->input("year_level");
             $department->department_name_id = 0;
@@ -190,7 +190,7 @@ class JointProgramEnrollmentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -201,7 +201,7 @@ class JointProgramEnrollmentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -213,7 +213,7 @@ class JointProgramEnrollmentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -224,7 +224,7 @@ class JointProgramEnrollmentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)

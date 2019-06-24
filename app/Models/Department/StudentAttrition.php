@@ -23,7 +23,7 @@ class StudentAttrition extends Model
         'ECONOMICALLY_DISADVANTAGED_STUDENTS' => 'Economically Disadvantaged Students',
         'FOREIGN_STUDENTS' => 'Foreign Students',
     ];
-    
+
     protected $enumTypes = [
         'CET' => 'CET',
         'CNCS' => 'CNCS',

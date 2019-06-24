@@ -52,9 +52,9 @@ class DisadvantagedStudentEnrollmentsController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
-                                if ($department->departmentName->department_name == $user->departmentName->department_name) {                                   
+                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                     foreach ($department->disadvantagedStudentEnrollments as $enrollment) {
-                                        if ($enrollment->quintile == $requestedQuintile) {                                            
+                                        if ($enrollment->quintile == $requestedQuintile) {
                                             $enrollments[] = $enrollment;
                                         }
                                     }

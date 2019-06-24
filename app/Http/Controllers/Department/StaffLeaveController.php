@@ -85,7 +85,7 @@ class StaffLeaveController extends Controller
             'upgrading_staff' => $filteredTeachers,
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
-            
+
             'selected_college' => $requestedCollege,
             'selected_level' => $requestedLevel,
             'selected_place' => $requestedPlace,

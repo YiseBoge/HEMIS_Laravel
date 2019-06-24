@@ -19,32 +19,34 @@
                         </div>
                     </div>
                 </div>
-
-                <table class="table border dataTable" width="100%"
-                       cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                       style="width: 100%;">
-                    <thead class="thead-light">
-                    <tr>
-                        <th class="text-primary">ICT Staff Type</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Junior Network Administrator</td>
-                        <td><a href="#" class="text-primary" data-toggle="modal" data-target="#editModal">
-                                <i class="far fa-edit mr-1"></i> Edit</a></td>
-                        <td><a href="#" class="text-primary"><i class="far fa-trash-alt mr-1"></i> Delete</a></td>
-                    </tr>
-                    <tr>
-                        <td>Network Administrator</td>
-                        <td><a href="#" class="text-primary" data-toggle="modal" data-target="#editModal">
-                                <i class="far fa-edit mr-1"></i> Edit</a></td>
-                        <td><a href="#" class="text-primary"><i class="far fa-trash-alt mr-1"></i> Delete</a></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table border dataTable table-striped table-hover" id="dataTable"
+                           width="100%"
+                           cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                           style="width: 100%;">
+                        <thead class="thead-light">
+                        <tr>
+                            <th class="text-primary">ICT Staff Type</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Junior Network Administrator</td>
+                            <td><a href="#" class="text-primary" data-toggle="modal" data-target="#editModal">
+                                    <i class="far fa-edit mr-1"></i> Edit</a></td>
+                            <td><a href="#" class="text-primary"><i class="far fa-trash-alt mr-1"></i> Delete</a></td>
+                        </tr>
+                        <tr>
+                            <td>Network Administrator</td>
+                            <td><a href="#" class="text-primary" data-toggle="modal" data-target="#editModal">
+                                    <i class="far fa-edit mr-1"></i> Edit</a></td>
+                            <td><a href="#" class="text-primary"><i class="far fa-trash-alt mr-1"></i> Delete</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="form-group row mt-4">
                     <div class="col-md-8">
                         <input type="text" id="ict_staff_type" name="ict_staff_type" class="form-control"

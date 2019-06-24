@@ -74,7 +74,7 @@ class DepartmentService
                 $total += $enrollment->female_students_number;
             } else {
                 $total += $enrollment->male_students_number + $enrollment->female_students_number;
-            }            
+            }
         }
         return $total;
     }
@@ -120,7 +120,7 @@ class DepartmentService
                 $total += $attrition->female_students_number;
             } else {
                 $total += $attrition->male_students_number + $attrition->female_students_number;
-            }            
+            }
         }
         return $total;
     }
@@ -133,7 +133,7 @@ class DepartmentService
                 $total += $attrition->female_students_number;
             } else {
                 $total += $attrition->male_students_number + $attrition->female_students_number;
-            }            
+            }
         }
         return $total;
     }
@@ -216,16 +216,17 @@ class DepartmentService
                 $total += $enrollment->female_students_number;
             } else {
                 $total += $enrollment->male_students_number + $enrollment->female_students_number;
-            }            
+            }
         }
 
         return $total;
     }
 
-    function academicAttrition(){
+    function academicAttrition()
+    {
         $total = 0;
-        foreach ($this->department->academicStaffs as $staff){
-            if($staff->general->staffAttrition != null){
+        foreach ($this->department->academicStaffs as $staff) {
+            if ($staff->general->staffAttrition != null) {
                 $total += 1;
             }
         }

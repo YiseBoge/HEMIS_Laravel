@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Institution;
+
 use App\Http\Controllers\Controller;
 use App\Models\Institution\Management;
 use Illuminate\Http\Request;
@@ -122,7 +123,7 @@ class ManagementDatasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
     }
 
     /**
