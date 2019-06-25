@@ -108,7 +108,7 @@ class OtherAttritionController extends Controller
             'years' => Department::getEnum('YearLevels'),
             'types' => OtherAttrition::getEnum('Types'),
             'cases' => OtherAttrition::getEnum('Cases'),
-            'page_name' => 'departments.other_attritions.create'
+            'page_name' => 'students.other_attrition.create'
         );
         return view("departments.other_attrition.create")->with($data);
     }

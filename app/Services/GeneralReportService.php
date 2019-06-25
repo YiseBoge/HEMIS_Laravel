@@ -201,7 +201,7 @@ class GeneralReportService
             $total += $institutionService->graduationRate($sex, $educationLevel);
         }
 
-        $totalEnrollments = $this->enrollment("All", $educationLevel);
+        $totalEnrollments = $this->enrollment($sex, $educationLevel);
         if ($totalEnrollments == 0) return 0;
 
         return $total / $totalEnrollments;
@@ -358,9 +358,9 @@ class GeneralReportService
 
     function qualifiedTeacherToStudent()
     {
-        $total = $this->enrollmentsRate("All", College::getEnum('education_level')['UNDERGRADUATE']) +
-            $this->enrollmentsRate("All", College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
-            $this->enrollmentsRate("All", College::getEnum('education_level')['POST_GRADUATE_PHD']);
+        $total = $this->enrollment('All', College::getEnum('education_level')['UNDERGRADUATE']) +
+            $this->enrollment("All", College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
+            $this->enrollment("All", College::getEnum('education_level')['POST_GRADUATE_PHD']);
 
         $selected = $this->qualifiedStaff();
 

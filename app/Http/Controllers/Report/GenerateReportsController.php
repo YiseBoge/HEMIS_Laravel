@@ -76,8 +76,7 @@ class GenerateReportsController extends Controller
         }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $total = $reportService->enrollment('Female', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
-            $reportService->enrollment('Female', College::getEnum('education_level')['POST_GRADUATE_PHD']);
+        $total = $reportService->enrollment('Female', College::getEnum('education_level')['UNDERGRADUATE']);
         $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
@@ -92,7 +91,9 @@ class GenerateReportsController extends Controller
         }
         $yearValue = $value == null ? new ReportYearValue() : $value;
         $yearValue->year = $year;
-        $yearValue->value = $reportService->enrollment('Female', College::getEnum('education_level')['UNDERGRADUATE']);
+        $total = $reportService->enrollment('Female', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
+            $reportService->enrollment('Female', College::getEnum('education_level')['POST_GRADUATE_PHD']);
+        $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
 

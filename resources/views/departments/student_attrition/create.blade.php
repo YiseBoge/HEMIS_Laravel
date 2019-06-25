@@ -104,8 +104,8 @@
                         </div>
                     </fieldset>
                 </div>
-
-                <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit">
+            </div>
+            <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit">
         </form>
     </div>
 @endsection

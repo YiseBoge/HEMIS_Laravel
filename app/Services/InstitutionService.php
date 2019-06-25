@@ -440,7 +440,7 @@ class InstitutionService
         $colleges = array();
         foreach ($this->institution->bands as $band) {
             foreach ($band->colleges as $college) {
-                $colleges[] = $college;
+                array_push($colleges, $college);
             }
         }
         return $colleges;
