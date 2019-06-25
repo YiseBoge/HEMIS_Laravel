@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             BudgetPurposesTableSeeder::class,
             ReportCardsTableSeeder::class,
 
+            IctStaffTypesTableSeeder::class,
             RegionNamesTableSeeder::class,
             BandNamesTableSeeder::class,
         ]);

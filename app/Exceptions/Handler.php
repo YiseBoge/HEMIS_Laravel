@@ -61,6 +61,9 @@ class Handler extends ExceptionHandler
             if ($exception->getCode() == 500) {
                 return response()->view('errors.' . '500', [], 500);
             }
+
+        } else {
+//            return response()->view('errors.' . 'error', [], 500);
         }
         return parent::render($request, $exception);
     }
