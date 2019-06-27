@@ -10,14 +10,14 @@
                         <form method="POST" class="user" action="{{ route('login') }}">
                             @csrf
 
-                            <div class="form-group row">
+                            <div class="form-group row mb-5">
 
                                 <div class="col-md">
                                     <input id="email" type="email"
                                            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} form-control-user"
                                            name="email" value="{{ old('email') }}" required autofocus>
 
-                                    <label for="email" class="form-control-placeholder">
+                                    <label for="email" class="form-control-placeholder" style="font-size: 1.4em">
                                         {{ __('Email Address') }}
                                     </label>
 
@@ -29,14 +29,14 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <div class="form-group row my-5">
                                 <div class="col-md">
                                     <input id="password" type="password"
                                            class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} form-control-user"
                                            name="password" required>
 
 
-                                    <label for="password" class="form-control-placeholder">
+                                    <label for="password" class="form-control-placeholder" style="font-size: 1.4em">
                                         {{ __('Password') }}
                                     </label>
 

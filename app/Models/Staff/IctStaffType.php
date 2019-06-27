@@ -13,6 +13,10 @@ class IctStaffType extends Model
 
     public $incrementing = false;
 
+    public function ictStaffs()
+    {
+        return $this->hasMany('App\Models\Staff\IctStaff');
+    }
     protected $enumCategories = [
         'INFRASTRUCTURE_SERVICES' => 'Infrastructure & Services',
         'BUSINESS_APPLICATION_DEVELOPMENT' => 'Business Application Administration & Development',

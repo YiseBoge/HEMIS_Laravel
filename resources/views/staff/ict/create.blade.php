@@ -9,7 +9,7 @@
                 </div>
             @endforeach
         @endif
-        <form class="pb-5" action="/staff/academic" method="POST">
+        <form class="pb-5" action="/staff/ict" method="POST">
             @csrf
             <h3 class="font-weight-bold text-primary">Add ICT Staff Member</h3>
             <div class="row my-5">
@@ -150,7 +150,7 @@
                 <div class="card-body px-5">
                     <div class="form-row pt-3">
                         <div class="col-sm-6 form-group">
-                            <select class="form-control" id="ict-category">
+                            <select class="form-control" name="ict_staff_rank" id="ict_staff_rank">
                                 @foreach ($staff_ranks as $key => $value)
                                     <option value="{{$key}}">{{$value}}</option>
                                 @endforeach
@@ -160,12 +160,12 @@
                                 {{--                                <option value="ictCategory4">Support and Maintenance</option>--}}
                                 {{--                                <option value="ictCategory5">Training and Consultancy</option>--}}
                             </select>
-                            <label class="form-control-placeholder" for="ict-category">ICT Staff Rank</label>
+                            <label class="form-control-placeholder" for="ict_staff_rank">ICT Staff Rank</label>
                         </div>
                         <div class="col-sm-6 form-group">
-                            <select class="form-control" id="ict-type">
-                                @foreach ($ict_types as $key => $value)
-                                    <option value="{{$key}}">{{$value}}</option>
+                            <select class="form-control" name="ict_type" id="ict-type">
+                                @foreach ($ict_types as $type)
+                                    <option value="{{$type->id}}">{{$type}}</option>
                                 @endforeach
                             </select>
                             <label class="form-control-placeholder" for="ict-type">ICT Staff Type</label>

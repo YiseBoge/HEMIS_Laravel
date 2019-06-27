@@ -25,7 +25,7 @@ class IctStaff extends Model
 
     public function ictType()
     {
-        return $this->hasOne('App\Models\Staff\IctStaffType');
+        return $this->belongsTo('App\Models\Staff\IctStaffType', 'ict_staff_type_id');
     }
 
     public function college()

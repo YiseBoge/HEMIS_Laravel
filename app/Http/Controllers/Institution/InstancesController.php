@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
 use App\Models\Institution\Instance;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -31,8 +30,7 @@ class InstancesController extends Controller
             if (count($instances) == 1) {
                 $ins = $instances[0];
                 $ins->users()->save($user);
-                $user = User::find($user->id);
-                $currentInstance = $user->currentInstance;
+                return redirect('/institution/instance');
             }
         }
         if ($currentInstance != null) {

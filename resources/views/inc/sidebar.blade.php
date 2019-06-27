@@ -1,5 +1,5 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion sticky-top"
-    style="height: 100vh; overflow-y: scroll"
+    style="height: 100vh;"
     id="accordionSidebar">
 
     <!-- Sidebar - Brand -->

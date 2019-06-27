@@ -94,16 +94,17 @@ class IctStaffsController extends Controller
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
-            'ict_staff_rank' => 'required'
+            'ict_staff_rank' => 'required',
+            'ict_type' => 'required'
 
         ]);
 
         $ictStaff = new IctStaff();
 
         $ictStaff->staffRank = $request->input('ict_staff_rank');
-        $ictStaff->institution_id = 0;
+        $ictStaff->ict_staff_type_id = $request->input('ict_type');
 
-        $staff = $ictStaff->general;
+        $staff = new Staff;
         $staff->name = $request->input('name');
         $staff->birth_date = $request->input('birth_date');
         $staff->sex = $request->input('sex');
@@ -127,8 +128,6 @@ class IctStaffsController extends Controller
 
         $institution = $user->institution();
         $bandName = $user->bandName;
-
-        $ictStaff->save();
 
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if ($band == null) {
