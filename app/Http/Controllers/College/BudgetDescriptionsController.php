@@ -22,7 +22,9 @@ class BudgetDescriptionsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
-        $budgetDescriptions = BudgetDescription::all();
+        $institutionName = $user->institution()->institutionName;
+        $budgetDescriptions = $institutionName->budgetDescriptions;
+
         $data = array(
             'budgetDescriptions' => $budgetDescriptions,
             'page_name' => 'administer.budget-description.index',
@@ -41,7 +43,9 @@ class BudgetDescriptionsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
-        $budgetDescriptions = BudgetDescription::all();
+        $institutionName = $user->institution()->institutionName;
+        $budgetDescriptions = $institutionName->budgetDescriptions;
+
         $data = array(
             'budgetDescriptions' => $budgetDescriptions,
             'page_name' => 'administer.budget-description.create',
@@ -67,11 +71,13 @@ class BudgetDescriptionsController extends Controller
             'description' => 'required',
         ]);
 
+        $institutionName = $user->institution()->institutionName;
+
         $budgetDescription = new BudgetDescription();
         $budgetDescription->budget_code = $request->input('budget_code');
         $budgetDescription->description = $request->input('description');
 
-        $budgetDescription->save();
+        $institutionName->budgetDescriptions()->save($budgetDescription);
 
         return redirect('/budgets/budget-description');
     }

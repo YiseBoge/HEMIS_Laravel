@@ -12,7 +12,7 @@
                         {!! Form::open(['action' => 'Institution\InstancesController@updateCurrentInstance', 'method' => 'POST']) !!}
                         {!! Form::select('current_instance', $instances , $current, ['class' => 'form-control', 'id' => 'edit_current_instance']) !!}
                         {!! Form::label('edit_current_instance', 'Current Semester', ['class' => 'form-control-placeholder']) !!}
-                        {!! Form::submit('Apply', ['class' => 'my-2 btn-sm btn btn-outline-secondary']) !!}
+                        {!! Form::submit('Apply Change', ['class' => 'my-2 btn-sm btn btn-outline-secondary']) !!}
                         {!! Form::close() !!}
                     </div>
                     <div class="col text-right">
@@ -81,7 +81,6 @@
                             <span aria-hidden="true">&times;</span>
                         </a>
                     </div>
-
 
                     <div class="modal-body row p-4">
                         <div class="col-md-12 form-group pb-1">

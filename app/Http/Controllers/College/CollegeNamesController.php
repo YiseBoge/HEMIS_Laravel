@@ -23,7 +23,9 @@ class CollegeNamesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
-        $colleges = CollegeName::all();
+        $institutionName = $user->institution()->institutionName;
+        $colleges = $institutionName->collegeNames;
+
         $data = [
             'colleges' => $colleges,
             'page_name' => 'administer.colleges-name.index'
@@ -42,7 +44,9 @@ class CollegeNamesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
-        $colleges = CollegeName::all();
+        $institutionName = $user->institution()->institutionName;
+        $colleges = $institutionName->collegeNames;
+
         $data = [
             'colleges' => $colleges,
             'page_name' => 'administer.colleges-name.create'
@@ -68,10 +72,13 @@ class CollegeNamesController extends Controller
             'college_acronym' => 'required'
         ]);
 
+        $institutionName = $user->institution()->institutionName;
+
         $collegeName = new CollegeName;
         $collegeName->college_name = $request->input('college_name');
         $collegeName->acronym = $request->input('college_acronym');
-        $collegeName->save();
+
+        $institutionName->collegeNames()->save($collegeName);
 
         return redirect('/college/college-name');
     }

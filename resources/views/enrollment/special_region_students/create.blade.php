@@ -99,7 +99,7 @@
                                 </div>
                             </div>
                         </div>
-                </fieldset>
+                    </fieldset>
                 </div>
             </div>
             <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit">

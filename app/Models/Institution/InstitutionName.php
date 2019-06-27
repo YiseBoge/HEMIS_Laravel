@@ -16,6 +16,21 @@ class InstitutionName extends Model
         return $this->hasMany('App\Models\Institution\Institution');
     }
 
+    public function collegeNames()
+    {
+        return $this->hasMany('App\Models\College\CollegeName');
+    }
+
+    public function departmentNames()
+    {
+        return $this->hasMany('App\Models\Department\DepartmentName');
+    }
+
+    public function budgetDescriptions()
+    {
+        return $this->hasMany('App\Models\College\BudgetDescription');
+    }
+
     public function users()
     {
         return $this->hasMany('App\User');

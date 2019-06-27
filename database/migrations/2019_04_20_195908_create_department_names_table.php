@@ -20,6 +20,8 @@ class CreateDepartmentNamesTable extends Migration
             $table->timestamps();
 
             $table->primary('id');
+
+            $table->uuid('institution_name_id');
         });
     }
 

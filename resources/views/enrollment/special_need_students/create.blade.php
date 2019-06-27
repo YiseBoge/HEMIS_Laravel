@@ -77,8 +77,8 @@
                                 </div>
                             </div>
                         </div>
-                </fieldset>
-            </div>
+                    </fieldset>
+                </div>
             </div>
 
             <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit">

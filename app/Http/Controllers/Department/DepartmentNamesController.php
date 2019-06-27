@@ -25,7 +25,9 @@ class DepartmentNamesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
-        $departments = DepartmentName::all();
+        $institutionName = $user->institution()->institutionName;
+        $departments = $institutionName->departmentNames;
+
         $data = [
             'departments' => $departments,
             'page_name' => 'administer.department-name.list'
@@ -44,7 +46,9 @@ class DepartmentNamesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
-        $departments = DepartmentName::all();
+        $institutionName = $user->institution()->institutionName;
+        $departments = $institutionName->departmentNames;
+
         $data = [
             'departments' => $departments,
             'page_name' => 'administer.department-name.create'
@@ -70,10 +74,14 @@ class DepartmentNamesController extends Controller
             'department_acronym' => 'required'
         ]);
 
+        $institutionName = $user->institution()->institutionName;
+
         $departmentName = new DepartmentName;
         $departmentName->department_name = $request->input('department_name');
         $departmentName->acronym = $request->input('department_acronym');
         $departmentName->save();
+
+        $institutionName->departmentNames()->save($departmentName);
 
         return redirect('/department/department-name');
     }

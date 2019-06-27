@@ -24,7 +24,7 @@ class CreateStaffTable extends Migration
             $table->boolean('is_from_other_region');
             $table->bigInteger('salary');
             $table->bigInteger('service_year');
-            $table->text('remarks');
+            $table->text('remarks')->nullable();
 
             $table->string('academic_level');
             $table->string('dedication');

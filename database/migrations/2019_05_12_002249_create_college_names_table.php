@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateCollegeNamesTable extends Migration
 {
@@ -20,6 +20,8 @@ class CreateCollegeNamesTable extends Migration
             $table->timestamps();
 
             $table->primary('id');
+
+            $table->uuid('institution_name_id');
 
         });
     }
