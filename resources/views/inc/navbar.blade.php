@@ -7,10 +7,10 @@
         {{--        </a>--}}
         <a class="sidebar-brand d-flex align-items-center justify-content-center m-4" href="/">
             <div class="sidebar-brand-icon">
-                <img class="rounded-circle d-inline-block shadow-sm" width="50" height="50"
-                     src="{{ asset('img/logo.png') }}">
+                <img class="rounded-circle d-inline-block" width="55" height="55"
+                     src="{{ asset('img/logo-transparent.png') }}">
             </div>
-            <div class="sidebar-brand-text mx-3">
+            <div class="sidebar-brand-text mx-2">
                 <img class="d-inline-block" height="40" src="{{ asset('img/brand-blue.png') }}">
             </div>
         </a>
