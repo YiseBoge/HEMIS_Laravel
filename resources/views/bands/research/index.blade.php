@@ -64,31 +64,31 @@
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1" aria-label="Age: activate to sort column ascending"
-                                        style="width: 46px;">Number of Researches
+                                        style="width: 46px;">Researches
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1" aria-label="Age: activate to sort column ascending"
-                                        style="width: 46px;">Number of Male Teachers Participating
+                                        style="width: 46px;">Male Teachers Participating
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1"
                                         aria-label="Start date: activate to sort column ascending"
-                                        style="width: 99px;">Number of Female Teachers Participating
+                                        style="width: 99px;">Female Teachers Participating
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1"
                                         aria-label="Start date: activate to sort column ascending"
-                                        style="width: 99px;">Number of Female Lead Researchers
+                                        style="width: 99px;">Female Lead Researchers
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1"
                                         aria-label="Start date: activate to sort column ascending"
-                                        style="width: 99px;">Number of Male Researchers From Other Institution
+                                        style="width: 99px;">Male Researchers From Other Institution
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1"
                                         aria-label="Start date: activate to sort column ascending"
-                                        style="width: 99px;">Number of Female Researchers From Other Institution
+                                        style="width: 99px;">Female Researchers From Other Institution
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1"
@@ -98,7 +98,7 @@
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1"
                                         aria-label="Start date: activate to sort column ascending"
-                                        style="width: 99px;">Bedget From External Fund
+                                        style="width: 99px;">Budget From External Fund
                                     </th>
 
                                 </tr>
