@@ -5,13 +5,13 @@
         {{--        <a class="btn btn-primary btn-circle text-white shadow-sm" href="/" data-toggle="tooltip" title="Home">--}}
         {{--            <i class="fa fa-home"></i>--}}
         {{--        </a>--}}
-        <a class="sidebar-brand d-flex align-items-center justify-content-center m-3" href="/">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center m-4" href="/">
             <div class="sidebar-brand-icon">
                 <img class="rounded-circle d-inline-block shadow-sm" width="50" height="50"
                      src="{{ asset('img/logo.png') }}">
             </div>
             <div class="sidebar-brand-text mx-3">
-                <img class="d-inline-block" height="45" src="{{ asset('img/brand.png') }}">
+                <img class="d-inline-block" height="40" src="{{ asset('img/brand-blue.png') }}">
             </div>
         </a>
 @else
