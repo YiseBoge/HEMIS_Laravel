@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             IctStaffTypesTableSeeder::class,
             RegionNamesTableSeeder::class,
             BandNamesTableSeeder::class,
+            InstitutionNamesTableSeeder::class,
         ]);
     }
 }

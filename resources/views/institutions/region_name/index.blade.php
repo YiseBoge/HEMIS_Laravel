@@ -68,9 +68,10 @@
                         </a>
                     </div>
 
-                    <div class="modal-body row pt-4">
-                        <div class="col-12 form-group pb-2">
-                            {{Form::text('name','',['class'=>'form-control','placeholder'=>'Add New Region'])}}
+                    <div class="modal-body row p-4">
+                        <div class="col-md form-group pb-1">
+                            {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'add_name', 'required' => 'true']) !!}
+                            {!! Form::label('add_name', 'Region Name', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>
 

@@ -97,17 +97,17 @@
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
                             {!! Form::select('investment_title', $investment_titles , null , ['class' => 'form-control', 'id' => 'add_investment_title']) !!}
-                            {!! Form::label('investment_title', 'Investment Title', ['class' => 'form-control-placeholder', 'for' => 'add_investment_title']) !!}
+                            {!! Form::label('add_investment_title', 'Investment Title', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-12 form-group pb-2">
                             {!! Form::number('cost_incurred', 0, ['class' => 'form-control', 'id' => 'add_cost_incurred', 'required' => 'true']) !!}
-                            {!! Form::label('cost_incurred', 'Cost Incured', ['class' => 'form-control-placeholder', 'for' => 'add_cost_incurred']) !!}
+                            {!! Form::label('add_cost_incurred', 'Cost Incured', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-12 form-group pb-2">
                             {!! Form::textarea('remarks', '', ['class' => 'form-control', 'id' => 'add_remarks']) !!}
-                            {!! Form::label('remarks', 'Remarks', ['class' => 'form-control-placeholder', 'for' => 'add_remarks']) !!}
+                            {!! Form::label('add_remarks', 'Remarks', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>
                     <div class="modal-footer">

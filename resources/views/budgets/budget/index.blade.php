@@ -17,8 +17,8 @@
                     {!! Form::open(['action' => 'College\BudgetsController@index', 'method' => 'GET', 'class' => 'w-100']) !!}
                     <div class="col-md-6 px-3 py-md-1">
                         <div class="form-group">
-                            {!! Form::select('budget_type', $budget_types , $budget_type , ['class' => 'form-control', 'id' => 'add_budget_type', 'onchange' => 'this.form.submit()']) !!}
-                            {!! Form::label('budget_type', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'add_budget_type']) !!}
+                            {!! Form::select('budget_type', $budget_types , $budget_type , ['class' => 'form-control', 'id' => 'set_budget_type', 'onchange' => 'this.form.submit()']) !!}
+                            {!! Form::label('set_budget_type', 'Budget Type', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>
                     {!! Form::close() !!}
@@ -138,27 +138,27 @@
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
                             {!! Form::select('budget_type', $budget_types, null , ['class' => 'form-control', 'id' => 'add_budget_type']) !!}
-                            {!! Form::label('budget_type', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'add_budget_type']) !!}
+                            {!! Form::label('add_budget_type', 'Budget Type', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-12 form-group pb-2">
                             {!! Form::select('budget_description', $budget_descriptions , null , ['class' => 'form-control', 'id' => 'add_budget_description']) !!}
-                            {!! Form::label('budget_description', 'Budget Description', ['class' => 'form-control-placeholder', 'for' => 'add_budget_description']) !!}
+                            {!! Form::label('add_budget_description', 'Budget Description', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('allocated', 0, ['class' => 'form-control', 'id' => 'add_allocated', 'required' => 'true']) !!}
-                            {!! Form::label('allocated', 'Allocated', ['class' => 'form-control-placeholder', 'for' => 'add_allocated']) !!}
+                            {!! Form::number('allocated', null, ['class' => 'form-control', 'id' => 'add_allocated', 'required' => 'true']) !!}
+                            {!! Form::label('add_allocated', 'Allocated', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('additional', 0, ['class' => 'form-control', 'id' => 'add_additional', 'required' => 'true']) !!}
-                            {!! Form::label('additional', 'Additional', ['class' => 'form-control-placeholder', 'for' => 'add_additional']) !!}
+                            {!! Form::number('additional', null, ['class' => 'form-control', 'id' => 'add_additional', 'required' => 'true']) !!}
+                            {!! Form::label('add_additional', 'Additional', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('utilized', 0, ['class' => 'form-control', 'id' => 'add_utilized', 'required' => 'true']) !!}
-                            {!! Form::label('utilized', 'Utilized', ['class' => 'form-control-placeholder', 'for' => 'add_utilized']) !!}
+                            {!! Form::number('utilized', null, ['class' => 'form-control', 'id' => 'add_utilized', 'required' => 'true']) !!}
+                            {!! Form::label('add_utilized', 'Utilized', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>
                     <div class="modal-footer">

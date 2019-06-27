@@ -77,11 +77,13 @@
 
 
                     <div class="modal-body row pt-4">
-                        <div class="col-12 form-group pb-2">
-                            {{Form::text('college_name','',['class'=>'form-control','placeholder'=>'Add New College'])}}
+                        <div class="col-md-6 form-group pb-1">
+                            {!! Form::text('college_name', null, ['class' => 'form-control', 'id' => 'add_college_name', 'required' => 'true']) !!}
+                            {!! Form::label('add_college_name', 'College Name', ['class' => 'form-control-placeholder']) !!}
                         </div>
-                        <div class="col-12 form-group pb-2">
-                            {{Form::text('college_acronym','',['class'=>'form-control','placeholder'=>'Acronym'])}}
+                        <div class="col-md-6 form-group pb-1">
+                            {!! Form::text('college_acronym', null, ['class' => 'form-control', 'id' => 'add_college_acronym', 'required' => 'true']) !!}
+                            {!! Form::label('add_college_acronym', 'Acronym', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>
 

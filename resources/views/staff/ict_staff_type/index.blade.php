@@ -74,13 +74,14 @@
                         </a>
                     </div>
 
-                    <div class="modal-body row pt-4">
-                        <div class="col-12 form-group pb-2">
+                    <div class="modal-body row p-4">
+                        <div class="col-md-12 form-group pb-1">
                             {!! Form::select('category', $categories, null , ['class' => 'form-control', 'id' => 'add_category']) !!}
-                            {!! Form::label('category', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'add_category']) !!}
+                            {!! Form::label('add_category', 'Category', ['class' => 'form-control-placeholder']) !!}
                         </div>
-                        <div class="col-12 form-group pb-2">
-                            {{Form::text('ict_staff_type','',['class'=>'form-control','placeholder'=>'Ict Staff Type'])}}
+                        <div class="col-md-12 form-group pb-1">
+                            {!! Form::text('ict_staff_type', null, ['class' => 'form-control', 'id' => 'add_ict_staff_type', 'required' => 'true']) !!}
+                            {!! Form::label('add_ict_staff_type', 'Ict Staff Type', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>
                     <div class="modal-footer">

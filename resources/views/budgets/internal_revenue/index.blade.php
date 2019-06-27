@@ -101,23 +101,19 @@
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
                             {!! Form::select('revenue_description', $revenue_descriptions , null , ['class' => 'form-control', 'id' => 'add_revenue_description']) !!}
-                            {!! Form::label('revenue_description', 'Revenue Description', ['class' => 'form-control-placeholder', 'for' => 'add_revenue_description']) !!}
+                            {!! Form::label('add_revenue_description', 'Revenue Description', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-md-6 form-group">
-                            {!! Form::number('income', null, ['class' => 'form-control', 'id' => 'add_income', 'required' => 'true']) !!}
-                            {!! Form::label('income', 'Income', ['class' => 'form-control-placeholder', 'for' => 'add_income']) !!}
+                            {{ Form::number('income', 0, ['class' => 'form-control', 'id' => 'add_income', 'required' => 'true']) }}
+                            {{ Form::label('add_income', 'Income', ['class' => 'form-control-placeholder']) }}
                         </div>
 
                         <div class="col-md-6 form-group">
-                            {!! Form::number('expense', null, ['class' => 'form-control', 'id' => 'add_expense', 'required' => 'true']) !!}
-                            {!! Form::label('expense', 'Expense', ['class' => 'form-control-placeholder', 'for' => 'add_expense']) !!}
+                            {!! Form::number('expense', 0, ['class' => 'form-control', 'id' => 'add_expense', 'required' => 'true']) !!}
+                            {!! Form::label('add_expense', 'Expense', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
-                        {{--                        <div class="col-md-4 form-group">--}}
-                        {{--                            {!! Form::number('balance', null, ['class' => 'form-control', 'id' => 'edit_balance', 'required' => 'true']) !!}--}}
-                        {{--                            {!! Form::label('balance', 'Balance', ['class' => 'form-control-placeholder', 'for' => 'edit_balance']) !!}--}}
-                        {{--                        </div>--}}
                     </div>
                     <div class="modal-footer">
                         {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}

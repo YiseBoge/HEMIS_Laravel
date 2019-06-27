@@ -28,7 +28,7 @@
                                     @endif
                                 @endforeach
                             </select>
-                            <label for="service_type" class="form-control-placeholder">
+                            <label for="student_type" class="form-control-placeholder">
                                 Sponsor
                             </label>
                         </div>
@@ -44,7 +44,7 @@
 
                                 @endforeach
                             </select>
-                            <label for="service_type" class="form-control-placeholder">
+                            <label for="program" class="form-control-placeholder">
                                 Program
                             </label>
                         </div>
@@ -62,7 +62,7 @@
                                     @endif
                                 @endforeach
                             </select>
-                            <label for="dormitory_service_type" class="form-control-placeholder">
+                            <label for="level" class="form-control-placeholder">
                                 Education Level
                             </label>
                         </div>

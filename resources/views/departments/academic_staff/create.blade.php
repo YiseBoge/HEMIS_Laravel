@@ -21,8 +21,8 @@
                     <div class="card-body px-4">
                         <div class="form-group row pt-3">
                             <div class="form-group col-md-6">
-                                {!! Form::select('rank_level', \App\Models\Department\AcademicStaff::getEnum('StaffRanks') , $data['rank_level'] , ['class' => 'form-control', 'id' => 'add_education_level', 'onchange' => 'this.form.submit()']) !!}
-                                {!! Form::label('rank_level', 'Rank Level', ['class' => 'form-control-placeholder', 'for' => 'education_level']) !!}
+                                {!! Form::select('rank_level', \App\Models\Department\AcademicStaff::getEnum('StaffRanks') , $data['rank_level'] , ['class' => 'form-control', 'id' => 'add_rank_level', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('add_rank_level', 'Rank Level', ['class' => 'form-control-placeholder']) !!}
                             </div>
                         </div>
 

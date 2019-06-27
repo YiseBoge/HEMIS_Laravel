@@ -195,7 +195,7 @@
                        href="/staff/management">Management Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'supportive' ? 'active': '' }}"
                        href="/staff/supportive">Supportive Staff</a>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'dashboard' ? 'attrition': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'attrition' ? 'active': '' }}"
                        href="/staff/attrition">Staff Attrition</a>
 
                     <h6 class="collapse-header">Aggregates:</h6>

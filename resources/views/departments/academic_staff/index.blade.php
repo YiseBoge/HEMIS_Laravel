@@ -17,8 +17,8 @@
                     <div class="form-row">
                         <div class="col-md-5 px-3 py-md-1 col">
                             <div class="form-group">
-                                {!! Form::select('rank_level', \App\Models\Department\AcademicStaff::getEnum('StaffRanks') , $data['selected_level'] , ['class' => 'form-control', 'id' => 'add_education_level', 'onchange' => 'this.form.submit()']) !!}
-                                {!! Form::label('rank_level', 'Rank Level', ['class' => 'form-control-placeholder', 'for' => 'education_level']) !!}
+                                {!! Form::select('rank_level', \App\Models\Department\AcademicStaff::getEnum('StaffRanks') , $data['selected_level'] , ['class' => 'form-control', 'id' => 'add_rank_level', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('add_rank_level', 'Rank Level', ['class' => 'form-control-placeholder', 'for' => 'education_level']) !!}
                             </div>
                         </div>
 
@@ -37,7 +37,7 @@
 
                                 @endforeach
                             </select>
-                            <label for="dormitory_service_type" class="form-control-placeholder">
+                            <label for="band_names" class="form-control-placeholder">
                                 Band Name
                             </label>
                             {{--{!! Form::select('band_names',$data['bands'],null, ['class' => 'form-control', 'id' => 'add_band_ name', 'onchange' => 'this.form.submit()']) !!}--}}
@@ -58,7 +58,7 @@
 
                                     @endforeach
                                 </select>
-                                <label for="dormitory_service_type" class="form-control-placeholder">
+                                <label for="college_names" class="form-control-placeholder">
                                     College Name
                                 </label>
                                 {{--{!! Form::select('college_names',$data['colleges'],null, ['class' => 'form-control', 'id' => 'add_college_name', 'onchange' => 'this.form.submit()']) !!}--}}

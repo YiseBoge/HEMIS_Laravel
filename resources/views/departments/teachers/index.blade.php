@@ -28,7 +28,7 @@
                                     @endif
                                 @endforeach
                             </select>
-                            <label for="dormitory_service_type" class="form-control-placeholder">
+                            <label for="college" class="form-control-placeholder">
                                 College
                             </label>
                         </div>
@@ -45,7 +45,7 @@
 
                                 @endforeach
                             </select>
-                            <label for="service_type" class="form-control-placeholder">
+                            <label for="band" class="form-control-placeholder">
                                 Band
                             </label>
                         </div>

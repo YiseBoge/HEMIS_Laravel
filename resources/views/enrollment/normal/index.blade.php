@@ -86,7 +86,7 @@
                                     @endif
                                 @endforeach
                             </select>
-                            <label for="dormitory_service_type" class="form-control-placeholder">
+                            <label for="level" class="form-control-placeholder">
                                 Education Level
                             </label>
                         </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Staff\IctStaff;
+use App\Models\Staff\IctStaffType;
 use App\Models\Staff\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -66,6 +67,7 @@ class IctStaffsController extends Controller
             'dedications' => Staff::getEnum("Dedications"),
             'academic_levels' => Staff::getEnum("AcademicLevels"),
             'staff_ranks' => IctStaff::getEnum("StaffRanks"),
+            'ict_types' => IctStaffType::all(),
             'page_name' => 'staff.ict.create'
         );
         return view('staff.ict.create')->with($data);

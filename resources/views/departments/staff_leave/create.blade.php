@@ -23,24 +23,24 @@
                         <div class="form-group row pt-3">
                             <div class="col form-group">
                                 {!! Form::select('education_level', \App\Models\Department\StaffLeave::getEnum('LevelOfStudies') , $data['education_level'] , ['class' => 'form-control', 'id' => 'add_education_level', 'onchange' => 'this.form.submit()']) !!}
-                                {!! Form::label('education_level', 'Level Of Studies', ['class' => 'form-control-placeholder', 'for' => 'education_level']) !!}
+                                {!! Form::label('add_education_level', 'Level Of Studies', ['class' => 'form-control-placeholder']) !!}
                             </div>
                             <div class="col form-group">
                                 {!! Form::select('study_place', \App\Models\Department\StaffLeave::getEnum('PlaceOfStudies') , $data['study_place'] , ['class' => 'form-control', 'id' => 'add_study_place', 'onchange' => 'this.form.submit()']) !!}
-                                {!! Form::label('study_place', 'Place Of Study', ['class' => 'form-control-placeholder', 'for' => 'add_study_place']) !!}
+                                {!! Form::label('add_study_place', 'Place Of Study', ['class' => 'form-control-placeholder']) !!}
                             </div>
                         </div>
                         <div class="form-group row pt-3">
                             <div class="col form-group">
-                                <input type="text" id="male_number" name="male_number" class="form-control" required>
-                                <label class="form-control-placeholder" for="male_number">Number of Male
-                                    Teacchers</label>
+                                <input type="number" id="male_number" name="male_number" class="form-control" required>
+                                <label class="form-control-placeholder" for="male_number">Male
+                                    Teachers</label>
                             </div>
 
                             <div class="col form-group">
-                                <input type="text" id="female_number" name="female_number" class="form-control"
+                                <input type="number" id="female_number" name="female_number" class="form-control"
                                        required>
-                                <label class="form-control-placeholder" for="female_number">Number of Female
+                                <label class="form-control-placeholder" for="female_number">Female
                                     Teachers</label>
                             </div>
                         </div>

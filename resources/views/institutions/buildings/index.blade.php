@@ -11,7 +11,7 @@
                     <div class="col-sm">
                         {!! Form::open(['action' => 'College\BuildingsController@index', 'method' => 'get']) !!}
                         {!! Form::select('building_purpose', $building_purposes, $current_purpose, ['class' => 'form-control', 'onchange' => 'this.form.submit()', 'id' => 'select_building_purpose'])!!}
-                        {!! Form::label('building_purpose', 'Building Purpose', ['class' => 'form-control-placeholder', 'for' => 'select_building_purpose']) !!}
+                        {!! Form::label('select_building_purpose', 'Building Purpose', ['class' => 'form-control-placeholder']) !!}
                         {!! Form::close() !!}
                     </div>
                     <div class="col text-right">

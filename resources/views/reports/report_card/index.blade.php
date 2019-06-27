@@ -185,7 +185,7 @@
                             </div>
                             <div class="col-md form-group">
                                 {!! Form::number('target', $report->target, ['class' => 'form-control', 'id' => 'edit_target', 'required' => 'true',  'step' => 'any']) !!}
-                                {!! Form::label('target', 'Target', ['class' => 'form-control-placeholder', 'for' => 'edit_target']) !!}
+                                {!! Form::label('edit_target', 'Target', ['class' => 'form-control-placeholder', 'for' => 'edit_target']) !!}
                             </div>
                         </div>
                     </div>

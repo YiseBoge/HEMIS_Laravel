@@ -23,37 +23,37 @@
                 <div class="row mb-2">
                     <div class="form-group col-md">
                         {{ Form::number('campuses', $institution->generalInformation->campuses, ['class'=>'form-control', 'id'=>'edit_campuses', 'required' => 'true']) }}
-                        {{ Form::label('campuses', 'Campuses', ['class' => 'form-control-placeholder', 'for' => 'edit_campuses']) }}
+                        {{ Form::label('edit_campuses', 'Campuses', ['class' => 'form-control-placeholder']) }}
                     </div>
 
                     <div class="form-group col-md">
                         {!! Form::number('colleges', $institution->generalInformation->colleges, ['class'=>'form-control', 'id'=>'edit_colleges', 'required' => 'true']) !!}
-                        {!! Form::label('colleges', 'Colleges', ['class' => 'form-control-placeholder', 'for' => 'edit_colleges']) !!}
+                        {!! Form::label('edit_colleges', 'Colleges', ['class' => 'form-control-placeholder']) !!}
                     </div>
 
                     <div class="form-group col-md">
                         {!! Form::number('schools', $institution->generalInformation->schools, ['class'=>'form-control', 'id'=>'edit_schools', 'required' => 'true']) !!}
-                        {!! Form::label('schools', 'Institutes', ['class' => 'form-control-placeholder', 'for' => 'edit_schools']) !!}
+                        {!! Form::label('edit_schools', 'Institutes', ['class' => 'form-control-placeholder']) !!}
                     </div>
 
                     <div class="form-group col-md">
                         {!! Form::number('institutes', $institution->generalInformation->institutes, ['class'=>'form-control', 'id'=>'edit_institutes', 'required' => 'true']) !!}
-                        {!! Form::label('institutes', 'Institutes', ['class' => 'form-control-placeholder', 'for' => 'edit_institutes']) !!}
+                        {!! Form::label('edit_institutes', 'Institutes', ['class' => 'form-control-placeholder']) !!}
                     </div>
                 </div>
 
                 <div class="row mb-2">
                     <div class="form-group col-md">
                         {{ Form::number('board_members', $institution->generalInformation->board_members, ['class'=>'form-control', 'id'=>'edit_board_members', 'required' => 'true']) }}
-                        {{ Form::label('board_members', 'Board Members', ['class' => 'form-control-placeholder', 'for' => 'edit_board_members']) }}
+                        {{ Form::label('edit_board_members', 'Board Members', ['class' => 'form-control-placeholder']) }}
                     </div>
                     <div class="form-group col-md">
                         {{ Form::number('vice_presidents', $institution->generalInformation->vice_presidents, ['class'=>'form-control', 'id'=>'edit_vice_presidents', 'required' => 'true']) }}
-                        {{ Form::label('vice_presidents', 'Vice Presidents', ['class' => 'form-control-placeholder', 'for' => 'edit_vice_presidents']) }}
+                        {{ Form::label('edit_vice_presidents', 'Vice Presidents', ['class' => 'form-control-placeholder']) }}
                     </div>
                     <div class="form-group col-md">
                         {{ Form::number('middle_level_leaders', $institution->generalInformation->middle_level_leaders, ['class'=>'form-control', 'id'=>'edit_middle_level_leaders', 'required' => 'true']) }}
-                        {{ Form::label('middle_level_leaders', 'Middle Level Leaders', ['class' => 'form-control-placeholder', 'for' => 'edit_middle_level_leaders']) }}
+                        {{ Form::label('edit_middle_level_leaders', 'Middle Level Leaders', ['class' => 'form-control-placeholder']) }}
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 {{ Form::number('community_services', $institution->generalInformation->communityService->community_services, ['class'=>'form-control', 'id'=>'edit_community_services', 'required' => 'true']) }}
-                                {{ Form::label('community_services', 'Middle Level Leaders', ['class' => 'form-control-placeholder', 'for' => 'edit_community_services']) }}
+                                {{ Form::label('edit_community_services', 'Middle Level Leaders', ['class' => 'form-control-placeholder']) }}
                             </div>
 
                             <div class="col-md-6 p-3">
@@ -81,11 +81,11 @@
                             </div>
                             <div class="form-group col-md-3 col-sm-6">
                                 {{ Form::number('male_teachers_participated', $institution->generalInformation->communityService->male_teachers_participated, ['class'=>'form-control', 'id'=>'edit_male_teachers_participated', 'required' => 'true']) }}
-                                {{ Form::label('male_teachers_participated', 'Males', ['class' => 'form-control-placeholder', 'for' => 'edit_male_teachers_participated']) }}
+                                {{ Form::label('edit_male_teachers_participated', 'Males', ['class' => 'form-control-placeholder']) }}
                             </div>
                             <div class="form-group col-md-3 col-sm-6">
                                 {{ Form::number('female_teachers_participated', $institution->generalInformation->communityService->female_teachers_participated, ['class'=>'form-control', 'id'=>'edit_female_teachers_participated', 'required' => 'true']) }}
-                                {{ Form::label('female_teachers_participated', 'Females', ['class' => 'form-control-placeholder', 'for' => 'edit_female_teachers_participated']) }}
+                                {{ Form::label('edit_female_teachers_participated', 'Females', ['class' => 'form-control-placeholder']) }}
                             </div>
 
                             <div class="col-md-6 p-3">
@@ -93,11 +93,11 @@
                             </div>
                             <div class="form-group col-md-3 col-sm-6">
                                 {{ Form::number('male_benefited', $institution->generalInformation->communityService->male_benefited, ['class'=>'form-control', 'id'=>'edit_male_benefited', 'required' => 'true']) }}
-                                {{ Form::label('male_benefited', 'Males', ['class' => 'form-control-placeholder', 'for' => 'edit_male_benefited']) }}
+                                {{ Form::label('edit_male_benefited', 'Males', ['class' => 'form-control-placeholder']) }}
                             </div>
                             <div class="form-group col-md-3 col-sm-6">
                                 {{ Form::number('female_benefited', $institution->generalInformation->communityService->female_benefited, ['class'=>'form-control', 'id'=>'edit_female_benefited', 'required' => 'true']) }}
-                                {{ Form::label('female_benefited', 'Females', ['class' => 'form-control-placeholder', 'for' => 'edit_female_benefited']) }}
+                                {{ Form::label('edit_female_benefited', 'Females', ['class' => 'form-control-placeholder']) }}
                             </div>
 
                             <div class="col-md-6 p-3">
@@ -105,7 +105,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 {{ Form::number('linked_tvets', $institution->generalInformation->communityService->linked_tvets, ['class'=>'form-control', 'id'=>'edit_linked_tvets', 'required' => 'true']) }}
-                                {{ Form::label('linked_tvets', 'Middle Level Leaders', ['class' => 'form-control-placeholder', 'for' => 'edit_linked_tvets']) }}
+                                {{ Form::label('edit_linked_tvets', 'Middle Level Leaders', ['class' => 'form-control-placeholder']) }}
                             </div>
                         </div>
                     </div>
@@ -158,11 +158,11 @@
                     </div>
                     <div class="form-group col-md-4 col-sm-6 mb-2">
                         {{ Form::number('number_of_libraries', $institution->generalInformation->resource->number_of_libraries, ['class'=>'form-control', 'id'=>'edit_number_of_libraries', 'required' => 'true']) }}
-                        {{ Form::label('number_of_libraries', 'Quantity', ['class' => 'form-control-placeholder', 'for' => 'edit_number_of_libraries']) }}
+                        {{ Form::label('edit_number_of_libraries', 'Quantity', ['class' => 'form-control-placeholder']) }}
                     </div>
                     <div class="form-group col-md-4 col-sm-6 mb-2">
                         {!! Form::select('status_of_libraries', $status_of_libraries , $institution->generalInformation->resource->status_of_libraries , ['class' => 'form-control', 'id' => 'edit_status_of_libraries']) !!}
-                        {!! Form::label('status_of_libraries', 'Status', ['class' => 'form-control-placeholder', 'for' => 'edit_status_of_libraries']) !!}
+                        {!! Form::label('edit_status_of_libraries', 'Status', ['class' => 'form-control-placeholder']) !!}
                     </div>
 
                     <div class="col-md-4 p-3 mb-2">
@@ -170,11 +170,11 @@
                     </div>
                     <div class="form-group col-md-4 col-sm-6 mb-2">
                         {{ Form::number('number_of_laboratories', $institution->generalInformation->resource->number_of_laboratories, ['class'=>'form-control', 'id'=>'edit_number_of_laboratories', 'required' => 'true']) }}
-                        {{ Form::label('number_of_laboratories', 'Quantity', ['class' => 'form-control-placeholder', 'for' => 'edit_number_of_laboratories']) }}
+                        {{ Form::label('edit_number_of_laboratories', 'Quantity', ['class' => 'form-control-placeholder']) }}
                     </div>
                     <div class="form-group col-md-4 col-sm-6 mb-2">
                         {!! Form::select('status_of_laboratories', $status_of_laboratories , $institution->generalInformation->resource->status_of_laboratories , ['class' => 'form-control', 'id' => 'edit_status_of_laboratories']) !!}
-                        {!! Form::label('status_of_laboratories', 'Status', ['class' => 'form-control-placeholder', 'for' => 'edit_status_of_laboratories']) !!}
+                        {!! Form::label('edit_status_of_laboratories', 'Status', ['class' => 'form-control-placeholder']) !!}
                     </div>
 
                     <div class="col-md-4 p-3 mb-2">
@@ -182,11 +182,11 @@
                     </div>
                     <div class="form-group col-md-4 col-sm-6 mb-2">
                         {{ Form::number('number_of_workshops', $institution->generalInformation->resource->number_of_workshops, ['class'=>'form-control', 'id'=>'edit_number_of_workshops', 'required' => 'true']) }}
-                        {{ Form::label('number_of_workshops', 'Quantity', ['class' => 'form-control-placeholder', 'for' => 'edit_number_of_workshops']) }}
+                        {{ Form::label('edit_number_of_workshops', 'Quantity', ['class' => 'form-control-placeholder']) }}
                     </div>
                     <div class="form-group col-md-4 col-sm-6 mb-2">
                         {!! Form::select('status_of_workshops', $status_of_workshops , $institution->generalInformation->resource->status_of_workshops , ['class' => 'form-control', 'id' => 'edit_status_of_workshops']) !!}
-                        {!! Form::label('status_of_workshops', 'Status', ['class' => 'form-control-placeholder', 'for' => 'edit_status_of_workshops']) !!}
+                        {!! Form::label('edit_status_of_workshops', 'Status', ['class' => 'form-control-placeholder']) !!}
                     </div>
 
                 </div>
@@ -229,7 +229,7 @@
 
                     <div class="form-group col-md-4">
                         {{ Form::number('rate_of_smart_classrooms', $institution->generalInformation->resource->rate_of_smart_classrooms, ['class'=>'form-control', 'id'=>'edit_rate_of_smart_classrooms', 'required' => 'true']) }}
-                        {{ Form::label('rate_of_smart_classrooms', 'Smart Classrooms (%)', ['class' => 'form-control-placeholder', 'for' => 'edit_rate_of_smart_classrooms']) }}
+                        {{ Form::label('edit_rate_of_smart_classrooms', 'Smart Classrooms (%)', ['class' => 'form-control-placeholder']) }}
                     </div>
 
                 </div>

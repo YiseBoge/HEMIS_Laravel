@@ -22,7 +22,7 @@
                             <div class="form-row pt-3">
                                 <div class="col form-group">
                                     <input type="text" id="name" name="name" class="form-control" required>
-                                    <label class="form-control-placeholder" for="grand_father_name">Full Name</label>
+                                    <label class="form-control-placeholder" for="name">Full Name</label>
                                 </div>
                             </div>
                             <hr>
@@ -51,7 +51,7 @@
                             <div class="form-row pt-3">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" id="phoneno" name="phone_number" class="form-control"
+                                        <input type="tel" id="phoneno" name="phone_number" class="form-control"
                                                required>
                                         <label class="form-control-placeholder" for="phoneno">Phone Number</label>
                                     </div>
@@ -80,11 +80,11 @@
                                     <label class="form-control-placeholder" for="job_title">Job Title</label>
                                 </div>
                                 <div class="col-md form-group">
-                                    <input type="text" id="salary" name="salary" class="form-control" required>
+                                    <input type="number" id="salary" name="salary" class="form-control" required>
                                     <label class="form-control-placeholder" for="salary">Salary</label>
                                 </div>
                                 <div class="col-md form-group">
-                                    <input type="text" id="service_year" name="service_year" class="form-control"
+                                    <input type="number" id="service_year" name="service_year" class="form-control"
                                            required>
                                     <label class="form-control-placeholder" for="service_year">Service Year</label>
                                 </div>
@@ -149,29 +149,24 @@
                 </div>
                 <div class="card-body px-5">
                     <div class="form-row pt-3">
-                        <div class="col form-group">
-                            <select class="form-control" id="aca-staff-rank" name="ict_staff_rank">
+                        <div class="col-sm-6 form-group">
+                            <select class="form-control" id="ict-category">
                                 @foreach ($staff_ranks as $key => $value)
                                     <option value="{{$key}}">{{$value}}</option>
                                 @endforeach
+                                {{--                                <option selected value="ictCategory1">Infrastructure & Services</option>--}}
+                                {{--                                <option value="ictCategory2">Business Application Administration & Development</option>--}}
+                                {{--                                <option value="ictCategory3">Teaching and Learning Technologies</option>--}}
+                                {{--                                <option value="ictCategory4">Support and Maintenance</option>--}}
+                                {{--                                <option value="ictCategory5">Training and Consultancy</option>--}}
                             </select>
-                            <label for="aca-staff-rank" class="form-control-placeholder">ICT Staff Rank</label>
-                        </div>
-                    </div>
-                    <div class="form-row pt-3">
-                        <div class="col-sm-6 form-group">
-                            <select class="form-control" id="ict-category">
-                                <option selected value="ictCategory1">Infrastructure & Services</option>
-                                <option value="ictCategory2">Business Application Administration & Development</option>
-                                <option value="ictCategory3">Teaching and Learning Technologies</option>
-                                <option value="ictCategory4">Support and Maintenance</option>
-                                <option value="ictCategory5">Training and Consultancy</option>
-                            </select>
-                            <label class="form-control-placeholder" for="ict-category">ICT Staff Category</label>
+                            <label class="form-control-placeholder" for="ict-category">ICT Staff Rank</label>
                         </div>
                         <div class="col-sm-6 form-group">
                             <select class="form-control" id="ict-type">
-
+                                @foreach ($ict_types as $key => $value)
+                                    <option value="{{$key}}">{{$value}}</option>
+                                @endforeach
                             </select>
                             <label class="form-control-placeholder" for="ict-type">ICT Staff Type</label>
                         </div>

@@ -20,4 +20,9 @@ class IctStaffType extends Model
         'SUPPORT_MAINTENANCE' => 'Support and Maintenance',
         'TRAINING_CONSULTANCY' => 'Training and Consultancy'
     ];
+
+    function __toString()
+    {
+        return "$this->type ($this->category)";
+    }
 }

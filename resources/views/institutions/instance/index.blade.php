@@ -11,7 +11,7 @@
                     <div class="col-md-5 form-group pb-1">
                         {!! Form::open(['action' => 'Institution\InstancesController@updateCurrentInstance', 'method' => 'POST']) !!}
                         {!! Form::select('current_instance', $instances , $current, ['class' => 'form-control', 'id' => 'edit_current_instance']) !!}
-                        {!! Form::label('current_instance', 'Current Semester', ['class' => 'form-control-placeholder', 'for' => 'edit_current_instance']) !!}
+                        {!! Form::label('edit_current_instance', 'Current Semester', ['class' => 'form-control-placeholder']) !!}
                         {!! Form::submit('Apply', ['class' => 'my-2 btn-sm btn btn-outline-secondary']) !!}
                         {!! Form::close() !!}
                     </div>
@@ -83,14 +83,14 @@
                     </div>
 
 
-                    <div class="modal-body row pt-4">
-                        <div class="col-md-6 form-group pb-1">
+                    <div class="modal-body row p-4">
+                        <div class="col-md-12 form-group pb-1">
                             {!! Form::text('year', null, ['class' => 'form-control', 'id' => 'add_year', 'required' => 'true']) !!}
-                            {!! Form::label('year', 'Year', ['class' => 'form-control-placeholder', 'for' => 'add_year']) !!}
+                            {!! Form::label('add_year', 'Year', ['class' => 'form-control-placeholder']) !!}
                         </div>
-                        <div class="col-md-6 form-group pb-1">
+                        <div class="col-md-12 form-group pb-1">
                             {!! Form::text('semester', null, ['class' => 'form-control', 'id' => 'add_semester', 'required' => 'true']) !!}
-                            {!! Form::label('semester', 'Semester', ['class' => 'form-control-placeholder', 'for' => 'add_semester']) !!}
+                            {!! Form::label('add_semester', 'Semester', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>
 

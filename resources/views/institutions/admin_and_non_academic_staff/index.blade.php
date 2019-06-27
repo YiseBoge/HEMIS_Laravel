@@ -108,21 +108,21 @@
                                                             <option value="{{$key}}">{{$value}}</option>
                                                         @endforeach
                                                     </select>
-                                                    <label for="empType" class="form-control-placeholder pt-3">Employment
-                                                        Type</label>
+                                                    <label for="eduLevel" class="form-control-placeholder pt-3">
+                                                        Education Level</label>
                                                 </div>
                                             </div>
 
                                             <div class="">
                                                 <div class="form-row ptt-1">
                                                     <div class="col form-group">
-                                                        <input type="text" id="no_of_females" name="number_of_females"
+                                                        <input type="number" id="no_of_females" name="number_of_females"
                                                                class="form-control" required>
                                                         <label class="form-control-placeholder" for="no_of_females">Females(Aggregate)</label>
                                                     </div>
 
                                                     <div class="col form-group">
-                                                        <input type="text" id="no_of_males" name="number_of_males"
+                                                        <input type="number" id="no_of_males" name="number_of_males"
                                                                class="form-control" required>
                                                         <label class="form-control-placeholder" for="no_of_males">Males(Aggregate)</label>
                                                     </div>

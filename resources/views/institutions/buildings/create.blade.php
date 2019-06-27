@@ -13,53 +13,53 @@
         <div class="row my-5">
             <div class="col-md">
                 <fieldset class="card shadow h-100">
-                    <div class="card-header text-primary">
-                        Add a Building
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Add a Building</h6>
                     </div>
                     <div class="card-body p-4">
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
                                     {!! Form::text('building_name', null, ['class'=>'form-control', 'id'=>'create_building_name', 'required' => 'true']) !!}
-                                    {!! Form::label('building_name', 'Building Name', ['class' => 'form-control-placeholder', 'for' => 'create_building_name']) !!}
+                                    {!! Form::label('create_building_name', 'Building Name', ['class' => 'form-control-placeholder']) !!}
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-md">
                                         {!! Form::text('contractor_name', null, ['class'=>'form-control', 'id'=>'create_contractor_name', 'required' => 'true']) !!}
-                                        {!! Form::label('contractor_name', 'Contractor\'s Name', ['class' => 'form-control-placeholder', 'for' => 'create_contractor_name']) !!}
+                                        {!! Form::label('create_contractor_name', 'Contractor\'s Name', ['class' => 'form-control-placeholder']) !!}
                                     </div>
                                     <div class="form-group col-md">
                                         {!! Form::text('consultant_name', null, ['class'=>'form-control', 'id'=>'create_consultant_name', 'required' => 'true']) !!}
-                                        {!! Form::label('consultant_name', 'Consultant\'s Name', ['class' => 'form-control-placeholder', 'for' => 'create_consultant_name']) !!}
+                                        {!! Form::label('create_consultant_name', 'Consultant\'s Name', ['class' => 'form-control-placeholder']) !!}
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-md">
-                                        {!! Form::date('date_started', null, ['class'=>'form-control', 'id'=>'create_date_started']) !!}
-                                        {!! Form::label('date_started', 'Date Started', ['class' => 'form-control-placeholder', 'for' => 'create_date_started']) !!}
+                                        {!! Form::date('date_started', new DateTime(), ['class'=>'form-control', 'id'=>'create_date_started', 'required']) !!}
+                                        {!! Form::label('create_date_started', 'Date Started', ['class' => 'form-control-placeholder']) !!}
                                     </div>
                                     <div class="form-group col-md">
-                                        {!! Form::date('date_completed', null, ['class'=>'form-control', 'id'=>'create_date_completed']) !!}
-                                        {!! Form::label('date_completed', 'Date Completed', ['class' => 'form-control-placeholder', 'for' => 'create_date_completed']) !!}
+                                        {!! Form::date('date_completed', new DateTime(), ['class'=>'form-control', 'id'=>'create_date_completed', 'required']) !!}
+                                        {!! Form::label('create_date_completed', 'Date Completed', ['class' => 'form-control-placeholder']) !!}
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-md">
-                                        {!! Form::number('budget_allocated', null, ['class'=>'form-control', 'id'=>'create_budget_allocated']) !!}
-                                        {!! Form::label('budget_allocated', 'Budget Allocated', ['class' => 'form-control-placeholder', 'for' => 'create_budget_allocated']) !!}
+                                        {!! Form::number('budget_allocated', null, ['class'=>'form-control', 'id'=>'create_budget_allocated', 'required']) !!}
+                                        {!! Form::label('create_budget_allocated', 'Budget Allocated', ['class' => 'form-control-placeholder']) !!}
                                     </div>
                                     <div class="form-group col-md">
-                                        {!! Form::number('financial_status', null, ['class'=>'form-control', 'id'=>'create_financial_status']) !!}
-                                        {!! Form::label('financial_status', 'Financial Status', ['class' => 'form-control-placeholder', 'for' => 'create_financial_status']) !!}
+                                        {!! Form::number('financial_status', null, ['class'=>'form-control', 'id'=>'create_financial_status', 'required']) !!}
+                                        {!! Form::label('create_financial_status', 'Financial Status', ['class' => 'form-control-placeholder']) !!}
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    {!! Form::number('completion_status', null, ['class'=>'form-control', 'id'=>'create_completion_status']) !!}
-                                    {!! Form::label('completion_status', 'Completion Status', ['class' => 'form-control-placeholder', 'for' => 'create_completion_status']) !!}
+                                    {!! Form::number('completion_status', null, ['class'=>'form-control', 'id'=>'create_completion_status', 'required']) !!}
+                                    {!! Form::label('create_completion_status', 'Completion Status', ['class' => 'form-control-placeholder']) !!}
                                 </div>
                             </div>
 

@@ -20,7 +20,7 @@
                         <div class="col-md-6 px-3 py-md-1 col">
                             <div class="form-group">
                                 {!! Form::select('study_place', \App\Models\Department\UpgradingStaff::getEnum('StudyPlaces') , $selected_place , ['class' => 'form-control', 'id' => 'add_study_place', 'onchange' => 'this.form.submit()']) !!}
-                                {!! Form::label('study_place', 'Study Place', ['class' => 'form-control-placeholder', 'for' => 'add_study_place']) !!}
+                                {!! Form::label('add_study_place', 'Study Place', ['class' => 'form-control-placeholder']) !!}
                             </div>
                         </div>
 

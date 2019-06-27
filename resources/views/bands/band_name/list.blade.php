@@ -28,12 +28,10 @@
                                 <th style="min-width: 50px; width: 50px"></th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
-                                    aria-label="Name: activate to sort column descending"
-                                >Band Name
+                                    aria-label="Name: activate to sort column descending">Band Name
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                >Acronym
+                                    colspan="1" aria-label="Acronym: activate to sort column ascending">Acronym
                                 </th>
 
                             </tr>
@@ -77,12 +75,14 @@
                     </div>
 
 
-                    <div class="modal-body row pt-4">
-                        <div class="col-12 form-group pb-2">
-                            {{Form::text('band_name','',['class'=>'form-control','placeholder'=>'Add New Band'])}}
+                    <div class="modal-body row p-4">
+                        <div class="col-md-12 form-group pb-1">
+                            {!! Form::text('band_name', null, ['class' => 'form-control', 'id' => 'add_band_name', 'required' => 'true']) !!}
+                            {!! Form::label('add_band_name', 'Band Name', ['class' => 'form-control-placeholder']) !!}
                         </div>
-                        <div class="col-12 form-group pb-2">
-                            {{Form::text('band_acronym','',['class'=>'form-control','placeholder'=>'Acronym'])}}
+                        <div class="col-md-12 form-group pb-1">
+                            {!! Form::text('band_acronym', null, ['class' => 'form-control', 'id' => 'add_band_acronym', 'required' => 'true']) !!}
+                            {!! Form::label('add_band_acronym', 'Acronym', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>
 

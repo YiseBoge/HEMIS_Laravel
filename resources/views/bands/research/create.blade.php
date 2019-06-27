@@ -45,26 +45,27 @@
                             <hr>
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <input type="text" id="number" name="number" class="form-control" required>
+                                    <input type="number" id="number" name="number" class="form-control" required>
                                     <label class="form-control-placeholder" for="number">Number of Researches</label>
                                 </div>
 
                                 <div class="col form-group">
-                                    <input type="text" id="female_number" name="female_number" class="form-control"
+                                    <input type="number" id="female_number" name="female_number" class="form-control"
                                            required>
-                                    <label class="form-control-placeholder" for="female_number">Number of Female
+                                    <label class="form-control-placeholder" for="female_number">Female
                                         Researchers</label>
                                 </div>
 
                             </div>
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <input type="text" id="budget" name="budget" class="form-control" required>
+                                    <input type="number" id="budget" name="budget" class="form-control" required>
                                     <label class="form-control-placeholder" for="budget">Budget Allocated</label>
                                 </div>
 
                                 <div class="col form-group">
-                                    <input type="text" id="external_budget" name="external_budget" class="form-control"
+                                    <input type="number" id="external_budget" name="external_budget"
+                                           class="form-control"
                                            required>
                                     <label class="form-control-placeholder" for="external_budget">Budget From External
                                         Fund</label>
@@ -73,39 +74,38 @@
                             </div>
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <input type="text" id="male_participating_number" name="male_participating_number"
+                                    <input type="number" id="male_participating_number" name="male_participating_number"
                                            class="form-control" required>
-                                    <label class="form-control-placeholder" for="male_participationg_number">Number of
+                                    <label class="form-control-placeholder" for="male_participating_number">
                                         Male Teachers Participating</label>
                                 </div>
 
                                 <div class="col form-group">
-                                    <input type="text" id="female_participating_number"
+                                    <input type="number" id="female_participating_number"
                                            name="female_participating_number" class="form-control" required>
-                                    <label class="form-control-placeholder" for="female_participationg_number">Number of
+                                    <label class="form-control-placeholder" for="female_participating_number">
                                         Female Teachers Participating</label>
                                 </div>
                             </div>
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <input type="text" id="other_male_number" name="other_male_number"
+                                    <input type="number" id="other_male_number" name="other_male_number"
                                            class="form-control" required>
-                                    <label class="form-control-placeholder" for="other_male_number">Number of Male
+                                    <label class="form-control-placeholder" for="other_male_number">Male
                                         Researchers From Other Institution</label>
                                 </div>
 
                                 <div class="col form-group">
-                                    <input type="text" id="other_female_number" name="other_female_number"
+                                    <input type="number" id="other_female_number" name="other_female_number"
                                            class="form-control" required>
-                                    <label class="form-control-placeholder" for="other_female_number">Number of Female
+                                    <label class="form-control-placeholder" for="other_female_number">Female
                                         Researchers From Other Institution</label>
                                 </div>
                             </div>
                         </div>
-                </div>
                 </fieldset>
             </div>
-
+            </div>
             <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit">
         </form>
     </div>

@@ -76,12 +76,14 @@
                     </div>
 
 
-                    <div class="modal-body row pt-4">
-                        <div class="col-12 form-group pb-2">
-                            {{Form::text('department_name','',['class'=>'form-control','placeholder'=>'Add New Department'])}}
+                    <div class="modal-body row p-4">
+                        <div class="col-md-12 form-group pb-1">
+                            {!! Form::text('department_name', null, ['class' => 'form-control', 'id' => 'add_department_name', 'required' => 'true']) !!}
+                            {!! Form::label('add_department_name', 'Department Name', ['class' => 'form-control-placeholder']) !!}
                         </div>
-                        <div class="col-12 form-group pb-2">
-                            {{Form::text('department_acronym','',['class'=>'form-control','placeholder'=>'Acronym'])}}
+                        <div class="col-md-12 form-group pb-1">
+                            {!! Form::text('department_acronym', null, ['class' => 'form-control', 'id' => 'add_department_acronym', 'required' => 'true']) !!}
+                            {!! Form::label('add_department_acronym', 'Acronym', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>
 

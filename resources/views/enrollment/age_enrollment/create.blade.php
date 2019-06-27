@@ -26,7 +26,7 @@
                                             <option value="{{$key}}">{{$value}}</option>
                                         @endforeach
                                     </select>
-                                    <label for="empType" class="form-control-placeholder pt-3">Age Range</label>
+                                    <label for="age_range" class="form-control-placeholder pt-3">Age Range</label>
                                 </div>
                             </div>
 
@@ -38,7 +38,7 @@
                                             <option value="{{$key}}">{{$value}}</option>
                                         @endforeach
                                     </select>
-                                    <label for="service_type" class="form-control-placeholder">
+                                    <label for="program" class="form-control-placeholder">
                                         Program
                                     </label>
                                 </div>
@@ -54,7 +54,7 @@
                                             @endif
                                         @endforeach
                                     </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
+                                    <label for="level" class="form-control-placeholder">
                                         Education Level
                                     </label>
                                 </div>
@@ -65,7 +65,7 @@
                                             <option value="{{$key}}">{{$value}}</option>
                                         @endforeach
                                     </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
+                                    <label for="year_level" class="form-control-placeholder">
                                         Year Level
                                     </label>
                                 </div>
@@ -75,16 +75,17 @@
 
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <input type="text" id="number_of_males" name="number_of_males" class="form-control"
+                                    <input type="number" id="number_of_males" name="number_of_males"
+                                           class="form-control"
                                            required>
-                                    <label class="form-control-placeholder" for="number_of_males">Number of Male
+                                    <label class="form-control-placeholder" for="number_of_males">Male
                                         Students</label>
                                 </div>
 
                                 <div class="col form-group">
-                                    <input type="text" id="number_of_females" name="number_of_females"
+                                    <input type="number" id="number_of_females" name="number_of_females"
                                            class="form-control" required>
-                                    <label class="form-control-placeholder" for="number_of_females">Number of Female
+                                    <label class="form-control-placeholder" for="number_of_females">Female
                                         Students</label>
                                 </div>
                             </div>

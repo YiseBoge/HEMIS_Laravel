@@ -120,7 +120,7 @@
                                                             <option value="{{$key}}">{{$value}}</option>
                                                         @endforeach
                                                     </select>
-                                                    <label for="empType" class="form-control-placeholder pt-3">Managment
+                                                    <label for="management_level" class="form-control-placeholder pt-3">Management
                                                         Level</label>
                                                 </div>
                                             </div>
@@ -128,14 +128,14 @@
                                             <div class="">
                                                 <div class="form-row ptt-1">
                                                     <div class="col form-group">
-                                                        <input type="text" id="positions_required"
+                                                        <input type="number" id="positions_required"
                                                                name="required_positions" class="form-control" required>
                                                         <label class="form-control-placeholder"
                                                                for="positions_required">Positions Required</label>
                                                     </div>
 
                                                     <div class="col form-group">
-                                                        <input type="text" id="positions_assigned"
+                                                        <input type="number" id="positions_assigned"
                                                                name="assigned_positions" class="form-control" required>
                                                         <label class="form-control-placeholder"
                                                                for="positions_assigned">Positions Assigned</label>
@@ -143,7 +143,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" id="no_of_females" name="number_of_females"
+                                                <input type="number" id="no_of_females" name="number_of_females"
                                                        class="form-control" required>
                                                 <label class="form-control-placeholder" for="no_of_females">Females(Aggregate)</label>
                                             </div>

@@ -74,12 +74,14 @@
                         </a>
                     </div>
 
-                    <div class="modal-body row pt-4">
-                        <div class="col-12 form-group pb-2">
-                            {{Form::text('budget_code','',['class'=>'form-control','placeholder'=>'Budget Code'])}}
+                    <div class="modal-body row p-4">
+                        <div class="col-md-12 form-group pb-1">
+                            {!! Form::text('budget_code', null, ['class' => 'form-control', 'id' => 'add_budget_code', 'required' => 'true']) !!}
+                            {!! Form::label('add_budget_code', 'Budget Code', ['class' => 'form-control-placeholder']) !!}
                         </div>
-                        <div class="col-12 form-group pb-2">
-                            {{Form::text('description','',['class'=>'form-control','placeholder'=>'New Budget Description'])}}
+                        <div class="col-md-12 form-group pb-1">
+                            {!! Form::text('description', null, ['class' => 'form-control', 'id' => 'add_description', 'required' => 'true']) !!}
+                            {!! Form::label('add_description', 'Budget Description', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>
                     <div class="modal-footer">

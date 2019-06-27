@@ -43,7 +43,7 @@
 
                                 @endforeach
                             </select>
-                            <label for="dormitory_service_type" class="form-control-placeholder">
+                            <label for="college" class="form-control-placeholder">
                                 College
                             </label>
                         </div>
@@ -59,7 +59,7 @@
 
                                 @endforeach
                             </select>
-                            <label for="service_type" class="form-control-placeholder">
+                            <label for="band" class="form-control-placeholder">
                                 Band
                             </label>
                         </div>
@@ -79,7 +79,7 @@
 
                                 @endforeach
                             </select>
-                            <label for="service_type" class="form-control-placeholder">
+                            <label for="program" class="form-control-placeholder">
                                 Program
                             </label>
                         </div>
@@ -98,7 +98,7 @@
                                     @endif
                                 @endforeach
                             </select>
-                            <label for="dormitory_service_type" class="form-control-placeholder">
+                            <label for="level" class="form-control-placeholder">
                                 Education Level
                             </label>
                         </div>
@@ -115,7 +115,7 @@
 
                                 @endforeach
                             </select>
-                            <label for="dormitory_service_type" class="form-control-placeholder">
+                            <label for="year_level" class="form-control-placeholder">
                                 Year Level
                             </label>
                         </div>

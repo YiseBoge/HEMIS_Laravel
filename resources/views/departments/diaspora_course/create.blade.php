@@ -22,14 +22,15 @@
 
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <input type="text" id="course_number" name="course_number" class="form-control"
+                                    <input type="number" id="course_number" name="course_number" class="form-control"
                                            required>
                                     <label class="form-control-placeholder" for="course_number">Number of
                                         Courses/Modules</label>
                                 </div>
 
                                 <div class="col form-group">
-                                    <input type="text" id="research_number" name="research_number" class="form-control"
+                                    <input type="number" id="research_number" name="research_number"
+                                           class="form-control"
                                            required>
                                     <label class="form-control-placeholder" for="research_number">Number of
                                         Researches</label>

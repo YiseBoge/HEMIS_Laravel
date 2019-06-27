@@ -99,10 +99,11 @@
                             </div>
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <input type="text" id="industry_number" name="industry_number" class="form-control"
+                                    <input type="number" id="industry_number" name="industry_number"
+                                           class="form-control"
                                            required>
-                                    <label class="form-control-placeholder" for="industry_number">Number of Industries
-                                        Linked</label>
+                                    <label class="form-control-placeholder" for="industry_number">Linked
+                                        Industries</label>
                                 </div>
                             </div>
                             <div class="form-group row pt-3">
@@ -112,7 +113,7 @@
                                     <label class="form-control-placeholder" for="training_area">Training Area</label>
                                 </div>
                                 <div class="col form-group">
-                                    <input type="text" id="number_of_students" name="number_of_students"
+                                    <input type="number" id="number_of_students" name="number_of_students"
                                            class="form-control" required>
                                     <label class="form-control-placeholder" for="number_of_students">Number of
                                         Students</label>

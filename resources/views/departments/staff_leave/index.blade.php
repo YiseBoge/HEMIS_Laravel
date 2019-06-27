@@ -17,13 +17,13 @@
                         <div class="col-md-5 px-3 py-md-1 col">
                             <div class="form-group">
                                 {!! Form::select('education_level', \App\Models\Department\StaffLeave::getEnum('LevelOfStudies') , $data['selected_level'] , ['class' => 'form-control', 'id' => 'add_education_level', 'onchange' => 'this.form.submit()']) !!}
-                                {!! Form::label('education_level', 'Level Of Studies', ['class' => 'form-control-placeholder', 'for' => 'education_level']) !!}
+                                {!! Form::label('add_education_level', 'Level Of Studies', ['class' => 'form-control-placeholder']) !!}
                             </div>
                         </div>
                         <div class="col-md-5 px-3 py-md-1 col">
                             <div class="form-group">
                                 {!! Form::select('study_place', \App\Models\Department\StaffLeave::getEnum('PlaceOfStudies') , $data['selected_place'] , ['class' => 'form-control', 'id' => 'add_study_place', 'onchange' => 'this.form.submit()']) !!}
-                                {!! Form::label('study_place', 'Place Of Study', ['class' => 'form-control-placeholder', 'for' => 'add_study_place']) !!}
+                                {!! Form::label('add_study_place', 'Place Of Study', ['class' => 'form-control-placeholder']) !!}
                             </div>
                         </div>
 
@@ -41,7 +41,7 @@
 
                                 @endforeach
                             </select>
-                            <label for="dormitory_service_type" class="form-control-placeholder">
+                            <label for="band_names" class="form-control-placeholder">
                                 Band Name
                             </label>
                             {{--{!! Form::select('band_names',$data['bands'],null, ['class' => 'form-control', 'id' => 'add_band_ name', 'onchange' => 'this.form.submit()']) !!}--}}
@@ -62,7 +62,7 @@
 
                                     @endforeach
                                 </select>
-                                <label for="dormitory_service_type" class="form-control-placeholder">
+                                <label for="college_names" class="form-control-placeholder">
                                     College Name
                                 </label>
                                 {{--{!! Form::select('college_names',$data['colleges'],null, ['class' => 'form-control', 'id' => 'add_college_name', 'onchange' => 'this.form.submit()']) !!}--}}

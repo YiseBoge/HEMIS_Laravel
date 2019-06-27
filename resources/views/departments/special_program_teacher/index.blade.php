@@ -20,7 +20,7 @@
                         <div class="col-md-6 px-3 py-md-1 col">
                             <div class="form-group">
                                 {!! Form::select('program_status', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramStats') , $selected_status , ['class' => 'form-control', 'id' => 'add_program_status', 'onchange' => 'this.form.submit()']) !!}
-                                {!! Form::label('program_status', 'Program Status', ['class' => 'form-control-placeholder', 'for' => 'add_program_status']) !!}
+                                {!! Form::label('add_program_status', 'Program Status', ['class' => 'form-control-placeholder']) !!}
                             </div>
                         </div>
 

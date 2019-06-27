@@ -22,7 +22,7 @@
                             <div class="form-row pt-3">
                                 <div class="col form-group">
                                     <input type="text" id="name" name="name" class="form-control" required>
-                                    <label class="form-control-placeholder" for="grand_father_name">Full Name</label>
+                                    <label class="form-control-placeholder" for="name">Full Name</label>
                                 </div>
                             </div>
                             <hr>
@@ -51,7 +51,7 @@
                             <div class="form-row pt-3">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" id="phoneno" name="phone_number" class="form-control"
+                                        <input type="tel" id="phoneno" name="phone_number" class="form-control"
                                                required>
                                         <label class="form-control-placeholder" for="phoneno">Phone Number</label>
                                     </div>
@@ -80,11 +80,11 @@
                                     <label class="form-control-placeholder" for="job_title">Job Title</label>
                                 </div>
                                 <div class="col-md form-group">
-                                    <input type="text" id="salary" name="salary" class="form-control" required>
+                                    <input type="number" id="salary" name="salary" class="form-control" required>
                                     <label class="form-control-placeholder" for="salary">Salary</label>
                                 </div>
                                 <div class="col-md form-group">
-                                    <input type="text" id="service_year" name="service_year" class="form-control"
+                                    <input type="number" id="service_year" name="service_year" class="form-control"
                                            required>
                                     <label class="form-control-placeholder" for="service_year">Service Year</label>
                                 </div>
@@ -158,7 +158,7 @@
 
                         <div class="col-md-6 form-group pl-md-5">
                             <div class="form-group">
-                                <input type="text" id="teaching_load" name="teaching_load" class="form-control"
+                                <input type="number" id="teaching_load" name="teaching_load" class="form-control"
                                        required>
                                 <label class="form-control-placeholder" for="teaching_load">Teaching Load</label>
                             </div>

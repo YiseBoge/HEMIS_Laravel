@@ -28,7 +28,7 @@
                                             <option value="{{$key}}">{{$value}}</option>
                                         @endforeach
                                     </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
+                                    <label for="level" class="form-control-placeholder">
                                         Education Level
                                     </label>
                                 </div>
@@ -52,7 +52,7 @@
                                             <option value="{{$i}}">{{$i}}</option>
                                         @endfor
                                     </select>
-                                    <label for="dormitory_service_type" class="form-control-placeholder">
+                                    <label for="year_level" class="form-control-placeholder">
                                         Year Level
                                     </label>
                                 </div>
@@ -108,7 +108,7 @@
                                     </div>
                                     <hr>
                                     <div class="form-group">
-                                        <input type="text" id="phoneno" name="phone_number" class="form-control"
+                                        <input type="tel" id="phoneno" name="phone_number" class="form-control"
                                                required>
                                         <label class="form-control-placeholder" for="phoneno">Phone Number</label>
                                     </div>

@@ -44,7 +44,7 @@
 
                                 @endforeach
                             </select>
-                            <label for="service_type" class="form-control-placeholder">
+                            <label for="program" class="form-control-placeholder">
                                 Program
                             </label>
                         </div>
