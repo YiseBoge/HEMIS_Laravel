@@ -21,6 +21,7 @@ class RegionNamesTableSeeder extends Seeder
             'Gambela Region',
             'Harari Region',
             'Oromia Region',
+            'Somali Region',
             'Southern Nations, Nationalities, and Peoples\' Region',
             'Tigray Region',
         ];

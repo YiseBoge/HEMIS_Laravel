@@ -151,27 +151,27 @@
             </div>
 
 
-            <div class="col-md-5 m-4">
-                <div class="card shadow h-100">
-                    <div class="card-header text-primary font-weight-bold">Special Needs Enrollment</div>
+            {{--            <div class="col-md-5 m-4">--}}
+            {{--                <div class="card shadow h-100">--}}
+            {{--                    <div class="card-header text-primary font-weight-bold">Special Needs Enrollment</div>--}}
 
-                <!--<div class="card-body">
-                            @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-{{ session('status') }}
-                            </div>
-@endif
+            {{--                <!--<div class="card-body">--}}
+            {{--                            @if (session('status'))--}}
+            {{--                    <div class="alert alert-success" role="alert">--}}
+            {{--{{ session('status') }}--}}
+            {{--                            </div>--}}
+            {{--@endif--}}
 
-                        You are logged in!
-                    </div>-->
-                    <div class="card-body">
-                        <canvas id="specialNeeds-enrollment" class="chartjs-render-monitor" height="400"
-                                width="600"></canvas>
-                    </div>
+            {{--                        You are logged in!--}}
+            {{--                    </div>-->--}}
+            {{--                    <div class="card-body">--}}
+            {{--                        <canvas id="specialNeeds-enrollment" class="chartjs-render-monitor" height="400"--}}
+            {{--                                width="600"></canvas>--}}
+            {{--                    </div>--}}
 
 
-                </div>
-            </div>
+            {{--                </div>--}}
+            {{--            </div>--}}
         </div>
     </div>
 

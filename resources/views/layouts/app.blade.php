@@ -31,7 +31,7 @@
 <body id="page-top">
 <div id="app"></div>
 <!-- Page Wrapper -->
-<div id="wrapper">
+<div id="wrapper" style="min-height:100vh">
     @isset($page_name)
 
     @else

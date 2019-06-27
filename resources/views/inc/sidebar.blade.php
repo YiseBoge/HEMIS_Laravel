@@ -1,4 +1,5 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion sticky-top" style="height: 100vh"
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion sticky-top"
+    style="height: 100vh; overflow-y: scroll"
     id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -383,28 +384,36 @@
                     @if (Auth::user()->hasRole('Super Admin'))
                         <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'instance' ? 'active': '' }}"
                            href="/institution/instance">Instances</a>
-                        <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'institution-name' ? 'active': '' }}"
-                           href="/institution/institution-name">University Names</a>
-                        <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'university_admin' ? 'active': '' }}"
-                           href="/university-admin">University Admin</a>
-                        <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'region-name' ? 'active': '' }}"
-                           href="/region-name">Region Names</a>
-                        <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'band-name' ? 'active': '' }}"
-                           href="/band/band-name">Band/ICED Names</a>
+                        @if (Auth::user()->currentInstance != null)
+                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'institution-name' ? 'active': '' }}"
+                               href="/institution/institution-name">University Names</a>
+                            @if(!\App\Models\Institution\InstitutionName::all()->isEmpty())
+                                <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'university_admin' ? 'active': '' }}"
+                                   href="/university-admin">University Admin</a>
+                            @endif
+                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'region-name' ? 'active': '' }}"
+                               href="/region-name">Region Names</a>
+                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'band-name' ? 'active': '' }}"
+                               href="/band/band-name">Band/ICED Names</a>
+                        @endif
                     @elseif(Auth::user()->hasRole('University Admin'))
                         <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'colleges-name' ? 'active': '' }}"
                            href="/college/college-name">College/Institute Names</a>
                         <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'department-name' ? 'active': '' }}"
                            href="/department/department-name">School/Department Names</a>
-                        <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
-                           href="/college-admin">College/Institute Admin</a>
+                        @if(!\App\Models\College\CollegeName::all()->isEmpty())
+                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
+                               href="/college-admin">College/Institute Admin</a>
+                        @endif
                         <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'ict_staff_type' ? 'active': '' }}"
                            href="/staff/ict-staff-types">ICT Staff Types</a>
                         <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'budget-description' ? 'active': '' }}"
                            href="/budgets/budget-description">Budget Descriptions</a>
                     @elseif(Auth::user()->hasRole('College Admin'))
-                        <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'department_admin' ? 'active': '' }}"
-                           href="/department-admin">School/Department Admins</a>
+                        @if(!\App\Models\Department\DepartmentName::all()->isEmpty())
+                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'department_admin' ? 'active': '' }}"
+                               href="/department-admin">School/Department Admins</a>
+                        @endif
                     @endif
 
                 </div>

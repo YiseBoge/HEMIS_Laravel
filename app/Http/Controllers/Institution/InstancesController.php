@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
 use App\Models\Institution\Instance;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -23,15 +24,26 @@ class InstancesController extends Controller
         $user->authorizeRoles('Super Admin');
 
         $instances = Instance::orderByDesc('year')->get();
-        $currentInstance = Auth::user()->currentInstance;
+        $currentInstance = $user->currentInstance;
         $currentInstanceIndex = 0;
 
-        for ($i = 0; $i < (count($instances)); $i++) {
-            $inst = $instances[$i];
-            if ($inst->id == $currentInstance->id) $currentInstanceIndex = $i;
+        if ($currentInstance == null) {
+            if (count($instances) == 1) {
+                $ins = $instances[0];
+                $ins->users()->save($user);
+                $user = User::find($user->id);
+                $currentInstance = $user->currentInstance;
+            }
+        }
+        if ($currentInstance != null) {
+            for ($i = 0; $i < (count($instances)); $i++) {
+                $inst = $instances[$i];
+                if ($inst->id == $currentInstance->id) $currentInstanceIndex = $i;
+            }
         }
 
-        $data = ['instances' => $instances,
+        $data = [
+            'instances' => $instances,
             'current_instance' => $currentInstance,
             'current' => $currentInstanceIndex,
             'page_name' => 'administer.instance.index'

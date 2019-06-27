@@ -2,8 +2,17 @@
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-5 static-top shadow">
 
     @guest
-        <a class="btn btn-primary btn-circle text-white shadow-sm" href="/" data-toggle="tooltip" title="Home">
-            <i class="fa fa-home"></i>
+        {{--        <a class="btn btn-primary btn-circle text-white shadow-sm" href="/" data-toggle="tooltip" title="Home">--}}
+        {{--            <i class="fa fa-home"></i>--}}
+        {{--        </a>--}}
+        <a class="sidebar-brand d-flex align-items-center justify-content-center m-3" href="/">
+            <div class="sidebar-brand-icon">
+                <img class="rounded-circle d-inline-block shadow-sm" width="50" height="50"
+                     src="{{ asset('img/logo.png') }}">
+            </div>
+            <div class="sidebar-brand-text mx-3">
+                <img class="d-inline-block" height="45" src="{{ asset('img/brand.png') }}">
+            </div>
         </a>
 @else
     <!-- Sidebar Toggle (Topbar) -->
@@ -30,10 +39,10 @@
 
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
         @guest
-            <li class="nav-item btn btn-primary btn-circle shadow-sm">
-                <a class="nav-link text-white" href="{{ route('login') }}" data-toggle="tooltip" title="Login">
-                    <i class="fas fa-sign-in-alt mx-3"></i>
-                    {{--                    {{ __('Login') }}--}}
+            <li class="nav-item btn btn-link">
+                <a class="nav-link text-primary" href="{{ route('login') }}" data-toggle="tooltip" title="Login">
+                    <i class="fas fa-sign-in-alt mx-2"></i>
+                    {{ __('Login') }}
                 </a>
             </li>
             {{--            @if (Route::has('register'))--}}
@@ -46,12 +55,12 @@
                 <a class="nav-link">
                     <span class="mr-2 d-none d-lg-inline text-primary small">
                         @if (Auth::user()->hasRole('Department Admin'))
-                            {{ Auth::user()->institution()->institutionName }} <i
-                                    class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->collegeName }}
+                            {{ Auth::user()->institution()->institutionName->acronym }} <i
+                                    class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->collegeName->acronym }}
                             <i class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->departmentName }}
                             <i class="fas fa-angle-double-right mx-2 text-gray-400"></i>
                         @elseif (Auth::user()->hasAnyRole(['College Admin', 'College Super Admin']))
-                            {{ Auth::user()->institution()->institutionName }} <i
+                            {{ Auth::user()->institution()->institutionName->acronym }} <i
                                     class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->collegeName }}
                             <i class="fas fa-angle-double-right mx-2 text-gray-400"></i>
                         @elseif (Auth::user()->hasRole('University Admin'))
@@ -70,11 +79,11 @@
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">
-                        <i class="fas fa-user-circle fa-fw mr-2 text-primary"></i>
-                        Profile
-                    </a>
-                    <hr class="dropdown-divider"/>
+                    {{--                    <a class="dropdown-item" href="#">--}}
+                    {{--                        <i class="fas fa-user-circle fa-fw mr-2 text-primary"></i>--}}
+                    {{--                        Profile--}}
+                    {{--                    </a>--}}
+                    {{--                    <hr class="dropdown-divider"/>--}}
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                         <i class="fas fa-sign-out-alt fa-fw mr-2 text-primary"></i>
                         {{ __('Logout') }}
