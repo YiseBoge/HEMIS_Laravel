@@ -20,6 +20,7 @@ class CreateAcademicStaffTable extends Migration
             $table->text('overload_remark');
             $table->text('staffRank');
             $table->timestamps();
+
             $table->primary('id');
             $table->uuid('staff_leave_id');
             $table->uuid('department_id');

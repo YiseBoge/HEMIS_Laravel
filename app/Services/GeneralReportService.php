@@ -349,7 +349,7 @@ class GeneralReportService
         foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
             $total += $institutionService->allManagementStaff();
-            $selected = $institutionService->managementStaffRate($sex, $otherRegion);
+            $selected += $institutionService->managementStaffRate($sex, $otherRegion);
         }
         $returnable = $total == 0 ? 0 : $selected / $total;
 
