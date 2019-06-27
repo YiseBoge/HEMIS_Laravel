@@ -9,9 +9,11 @@
             <div class="card-body">
                 <div class="row my-3">
                     <div class="col-sm-4 text-left">
-                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/report/generate-full-report">Update
-                            Current Year<i
-                                    class="fas fa-sync-alt text-white-50 fa-sm ml-2"></i></a>
+                        @if (Auth::user()->currentInstance != null)
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/report/generate-full-report">Update
+                                Current Year<i
+                                        class="fas fa-sync-alt text-white-50 fa-sm ml-2"></i></a>
+                        @endif
                     </div>
                     <div class="col-sm-8 text-right">
                         <button type="button" class="btn btn-primary btn-sm mb-0 shadow-sm" id="exporter">
