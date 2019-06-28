@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Institution\Institution;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -15,9 +16,10 @@ class CreateTechnicalStaffTable extends Migration
     {
         Schema::create('technical_staff', function (Blueprint $table) {
             $table->uuid('id');
-
-            $table->text('staffRank');
             $table->timestamps();
+
+            $table->string('staffRank');
+            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
 

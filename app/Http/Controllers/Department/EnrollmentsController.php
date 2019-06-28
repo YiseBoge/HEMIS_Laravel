@@ -81,7 +81,6 @@ class EnrollmentsController extends Controller
                                         }
                                     }
                                 }
-
                             }
                         }
                     }
@@ -104,9 +103,9 @@ class EnrollmentsController extends Controller
             'student_types' => Enrollment::getEnum('StudentTypes'),
             'year_levels' => Department::getEnum('YearLevels'),
 
+            'selected_department' => $requestedDepartment,
             'selected_student_type' => $requestedType,
             'selected_program' => $requestedProgram,
-            'selected_department' => $requestedDepartment,
             'selected_education_level' => $requestedLevel,
 
             'page_name' => 'enrollment.normal.index'
@@ -265,7 +264,7 @@ class EnrollmentsController extends Controller
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $enrollment->save();
         } else {
-            $department = $request->input('department');
+            $selectedDepartment = $request->input('department');
             $studentType = $request->input('student_type');
             $program = $request->input('program');
             $educationLevel = $request->input('education_level');
@@ -276,14 +275,14 @@ class EnrollmentsController extends Controller
                 foreach ($institution->bands as $band) {
                     if ($band->bandName->band_name == $user->bandName->band_name) {
                         foreach ($band->colleges as $college) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $educationLevel && $college->education_program == $program) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->departments as $department) {
-                                    if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $selectedDepartment) {
                                         foreach ($department->enrollments as $enrollment) {
-                                            if ($enrollment->student_type == $studentType) {
+                                            if($enrollment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
                                                 $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                                                 $enrollment->save();
-                                            }
+                                            } 
                                         }
                                     }
                                 }
@@ -295,7 +294,7 @@ class EnrollmentsController extends Controller
 
             }
         }
-        return redirect("/enrollment/normal");
+        return redirect("/enrollment/normal?department=" . $selectedDepartment);
     }
 
     public function viewChart(Request $request)

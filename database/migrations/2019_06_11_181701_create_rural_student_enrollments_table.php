@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Institution\Institution;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +21,8 @@ class CreateRuralStudentEnrollmentsTable extends Migration
             $table->timestamps();
 
             $table->string('region');
+            $table->string('disability');
+            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
 

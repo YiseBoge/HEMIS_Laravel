@@ -103,6 +103,8 @@
                     <h6 class="collapse-header">Details:</h6>
                     <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'academic' ? 'active': '' }}"
                        href="/staff/academic">Academic Staff</a>
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'attrition' ? 'active': '' }}"
+                    href="/staff/attrition">Staff Attrition</a>
 
                     <h6 class="collapse-header">Aggregates:</h6>
                     <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'teachers' ? 'active': '' }}"
@@ -118,8 +120,7 @@
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'diaspora_course' ? 'active': '' }}"
                        href="/department/diaspora-courses">Courses and Researches
                         By Ethiopian Diaspora</a>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'attrition' ? 'active': '' }}"
-                       href="/staff/attrition">Staff Attrition</a>
+                   
                 </div>
             </div>
         </li>
@@ -216,22 +217,6 @@
         <hr class="sidebar-divider">
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBudget"
-               aria-expanded="false"
-               aria-controls="collapseInstitution">
-                <i class="fas fa-university"></i>
-                <span>Budgets</span>
-            </a>
-            <div id="collapseBudget" class="collapse" aria-labelledby="headingTwo"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/budgets/budget">Budget</a>
-                    <a class="collapse-item" href="/budgets/internal-revenue">Internal Revenue</a>
-                    <a class="collapse-item" href="/budgets/private-investment">Private Investment</a>
-                </div>
-            </div>
-        </li>
-        <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents"
                aria-expanded="false"
                aria-controls="collapseStudents">
@@ -242,7 +227,6 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="/enrollment/normal">Students</a>
                     <a class="collapse-item" href="/enrollment/special-region-students">Special Region Students</a>
-                    <a class="collapse-item" href="/student/special-need">Special Need Students</a>
                     <a class="collapse-item" href="/enrollment/specializing-students">Specializing Students</a>
                     <a class="collapse-item" href="/enrollment/rural-area-students">Rural Area Students</a>
                     <a class="collapse-item text-wrap" href="/enrollment/economically-disadvantaged">Economically
@@ -309,13 +293,28 @@
                         Diploma Training</a>
                     <a class="collapse-item text-wrap" href="/department/diaspora-courses">Courses and Researches
                         By Ethiopian Diaspora</a>
-                    <a class="collapse-item text-wrap" href="/staff/attrition">Staff Attrition</a>
                     <a class="collapse-item text-wrap" href="/institution/non-admin">Administrative and Non-Academic
                         Staff</a>
                 </div>
             </div>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBudget"
+               aria-expanded="false"
+               aria-controls="collapseInstitution">
+                <i class="fas fa-university"></i>
+                <span>Budgets</span>
+            </a>
+            <div id="collapseBudget" class="collapse" aria-labelledby="headingTwo"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/budgets/budget">Budget</a>
+                    <a class="collapse-item" href="/budgets/internal-revenue">Internal Revenue</a>
+                    <a class="collapse-item" href="/budgets/private-investment">Private Investment</a>
+                </div>
+            </div>
+        </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/institution/researches">

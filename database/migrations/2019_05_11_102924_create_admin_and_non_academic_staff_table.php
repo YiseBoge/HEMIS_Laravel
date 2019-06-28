@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Institution\Institution;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -20,6 +21,7 @@ class CreateAdminAndNonAcademicStaffTable extends Migration
             $table->timestamps();
 
             $table->string('education_level');
+            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
 

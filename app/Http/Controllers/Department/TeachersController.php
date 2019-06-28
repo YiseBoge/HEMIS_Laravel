@@ -26,36 +26,41 @@ class TeachersController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
-
-        $requestedCollege = $request->input('college');
-        if ($requestedCollege == null) {
-            $requestedCollege = null;
-        }
 
         $requestedLevel = $request->input('education_level');
         if ($requestedLevel == null) {
             $requestedLevel = 'Undergraduate';
         }
 
-        $requestedBand = $request->input('band');
-        if ($requestedBand == null) {
-            $requestedBand = null;
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
         }
 
         $teachers = array();
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $requestedBand) {
+                if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $requestedCollege && $college->education_level == "None" && $college->education_program == "None") {
+                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
                             foreach ($college->departments as $department) {
-                                if ($department->year_level == "None") {
-                                    foreach ($department->teachers as $teacher) {
-                                        if ($teacher->level_of_education == $requestedLevel) {
-                                            $teachers[] = $teacher;
+                                if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $requestedDepartment) {
+                                        foreach ($department->teachers as $teacher) {
+                                            if ($teacher->level_of_education == $requestedLevel) {
+                                                $teachers[] = $teacher;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->teachers as $teacher) {
+                                            if ($teacher->level_of_education == $requestedLevel) {
+                                                $teachers[] = $teacher;
+                                            }
                                         }
                                     }
                                 }
@@ -73,10 +78,10 @@ class TeachersController extends Controller
 
         $data = array(
             'teachers' => $teachers,
-            'colleges' => CollegeName::all(),
-            'bands' => BandName::all(),
+            'departments' => DepartmentName::all(),
             'education_levels' => Teacher::getEnum("EducationLevels"),
 
+            'selected_department' => $requestedDepartment,
             'selected_college' => $requestedCollege,
             'selected_level' => $requestedLevel,
             'selected_band' => $requestedBand,

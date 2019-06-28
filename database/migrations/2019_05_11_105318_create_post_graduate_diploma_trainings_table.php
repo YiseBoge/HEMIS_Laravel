@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Institution\Institution;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,6 +20,8 @@ class CreatePostGraduateDiplomaTrainingsTable extends Migration
             $table->bigInteger('number_of_female_students');
             $table->boolean('is_lead');
             $table->timestamps();
+
+            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
 

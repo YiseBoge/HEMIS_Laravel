@@ -27,12 +27,17 @@ class UpgradingStaffController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
         $requestedPlace = $request->input('study_place');
         if ($requestedPlace == null) {
             $requestedPlace = 'ETHIOPIA';
+        }
+
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
         }
 
 //        $band=Band::where('band_name_id',$requestedBand)->first();
@@ -46,10 +51,20 @@ class UpgradingStaffController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name) {
                             foreach ($college->departments as $department) {
-                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                    foreach ($department->UpgradingStaffs as $staff) {
-                                        if (strtoupper($staff->study_place) == $requestedPlace) {
-                                            $filteredTeachers[] = $staff;
+                                if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $requestedDepartment) {
+                                        foreach ($department->UpgradingStaffs as $staff) {
+                                            if (strtoupper($staff->study_place) == $requestedPlace) {
+                                                $filteredTeachers[] = $staff;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->UpgradingStaffs as $staff) {
+                                            if (strtoupper($staff->study_place) == $requestedPlace) {
+                                                $filteredTeachers[] = $staff;
+                                            }
                                         }
                                     }
                                 }
@@ -68,7 +83,9 @@ class UpgradingStaffController extends Controller
         $data = [
             'study_place' => $requestedPlace,
             'upgrading_staffs' => $filteredTeachers,
+            'departments' => DepartmentName::all(),
 
+            'selected_department' => $requestedDepartment,
             'selected_place' => $requestedPlace,
             'page_name' => 'staff.upgrading-staff.index'
         ];

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Institution\Institution;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,9 +19,11 @@ class CreateBudgetsTable extends Migration
             $table->bigInteger('allocated_budget');
             $table->bigInteger('additional_budget');
             $table->bigInteger('utilized_budget');
-            $table->string('budget_type');
             $table->timestamps();
 
+            $table->string('budget_type');
+            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
+            
             $table->primary('id');
             $table->uuid('budget_description_id')->default(0);
 

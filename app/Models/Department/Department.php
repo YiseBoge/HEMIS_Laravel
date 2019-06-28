@@ -59,6 +59,11 @@ class Department extends Model
         return $this->hasMany('App\Models\Institution\PastoralRegion');
     }
 
+    public function specializingStudentEnrollments()
+    {
+        return $this->hasMany('App\Models\Department\SpecializingStudentsEnrollment');
+    }
+
     public function ageEnrollments()
     {
         return $this->hasMany('App\Models\Institution\AgeEnrollment');

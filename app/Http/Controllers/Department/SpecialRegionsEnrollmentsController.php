@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
 use App\Models\Institution\EmergingRegion;
 use App\Models\Institution\PastoralRegion;
 use App\Models\Institution\RegionName;
@@ -26,9 +27,8 @@ class SpecialRegionsEnrollmentsController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
-
 
         $requestedProgram = $request->input('program');
         if ($requestedProgram == null) {
@@ -50,6 +50,11 @@ class SpecialRegionsEnrollmentsController extends Controller
             $requestedType = 'Emerging Regions';
         }
 
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
+        }
+
         $enrollments = array();
 
         if ($institution != null) {
@@ -58,17 +63,31 @@ class SpecialRegionsEnrollmentsController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
-                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                    if ($requestedType == "Emerging Regions") {
-                                        foreach ($department->emergingRegions as $enrollment) {
-                                            $enrollments[] = $enrollment;
-                                        }
-                                    } else {
-                                        foreach ($department->pastoralRegions as $enrollment) {
-                                            $enrollments[] = $enrollment;
+                                if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $requestedDepartment) {
+                                        if ($requestedType == "Emerging Regions") {
+                                            foreach ($department->emergingRegions as $enrollment) {
+                                                $enrollments[] = $enrollment;
+                                            }
+                                        } else {
+                                            foreach ($department->pastoralRegions as $enrollment) {
+                                                $enrollments[] = $enrollment;
+                                            }
                                         }
                                     }
-                                }
+                                } else {
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        if ($requestedType == "Emerging Regions") {
+                                            foreach ($department->emergingRegions as $enrollment) {
+                                                $enrollments[] = $enrollment;
+                                            }
+                                        } else {
+                                            foreach ($department->pastoralRegions as $enrollment) {
+                                                $enrollments[] = $enrollment;
+                                            }
+                                        }
+                                    }
+                                }                                
                             }
                         }
                     }
@@ -88,11 +107,13 @@ class SpecialRegionsEnrollmentsController extends Controller
 
         $data = array(
             'enrollments' => $enrollments,
+            'departments' => DepartmentName::all(),
             'regions' => RegionName::all(),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
             'year_levels' => $year_levels,
 
+            'selected_department' => $requestedDepartment,
             'selected_program' => $requestedProgram,
             'selected_year' => $requestedYearLevel,
             'selected_education_level' => $requestedLevel,
