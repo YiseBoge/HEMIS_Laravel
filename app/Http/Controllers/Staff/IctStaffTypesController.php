@@ -23,7 +23,7 @@ class IctStaffTypesController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('University Admin');
+        $user->authorizeRoles('Super Admin');
 
         $ictStaffTypes = IctStaffType::all();
         $data = array(
@@ -43,7 +43,7 @@ class IctStaffTypesController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('University Admin');
+        $user->authorizeRoles('Super Admin');
 
         $categories = IctStaffType::getEnum('category');
         $ictStaffTypes = IctStaffType::all();
@@ -68,7 +68,7 @@ class IctStaffTypesController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('University Admin');
+        $user->authorizeRoles('Super Admin');
 
         $this->validate($request, [
             'category' => 'required',

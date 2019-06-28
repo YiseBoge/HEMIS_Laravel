@@ -395,6 +395,10 @@
                                href="/region-name">Region Names</a>
                             <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'band-name' ? 'active': '' }}"
                                href="/band/band-name">Band/ICED Names</a>
+                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'ict_staff_type' ? 'active': '' }}"
+                               href="/staff/ict-staff-types">ICT Staff Types</a>
+                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'budget-description' ? 'active': '' }}"
+                               href="/budgets/budget-description">Budget Descriptions</a>
                         @endif
                     @elseif(Auth::user()->hasRole('University Admin'))
                         <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'colleges-name' ? 'active': '' }}"
@@ -405,10 +409,6 @@
                             <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
                                href="/college-admin">College/Institute Admin</a>
                         @endif
-                        <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'ict_staff_type' ? 'active': '' }}"
-                           href="/staff/ict-staff-types">ICT Staff Types</a>
-                        <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'budget-description' ? 'active': '' }}"
-                           href="/budgets/budget-description">Budget Descriptions</a>
                     @elseif(Auth::user()->hasRole('College Admin'))
                         @if(!\App\Models\Department\DepartmentName::all()->isEmpty())
                             <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'department_admin' ? 'active': '' }}"

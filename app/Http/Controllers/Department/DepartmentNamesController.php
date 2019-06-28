@@ -79,7 +79,6 @@ class DepartmentNamesController extends Controller
         $departmentName = new DepartmentName;
         $departmentName->department_name = $request->input('department_name');
         $departmentName->acronym = $request->input('department_acronym');
-        $departmentName->save();
 
         $institutionName->departmentNames()->save($departmentName);
 
