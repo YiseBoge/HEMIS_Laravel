@@ -44,7 +44,7 @@
                                     class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->collegeName }}
                             <i class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->departmentName }}
                             <i class="fas fa-angle-double-right mx-2 text-gray-400"></i>
-                        @elseif (Auth::user()->hasRole('College Admin'))
+                        @elseif (Auth::user()->hasAnyRole(['College Admin', 'College Super Admin']))
                             {{ Auth::user()->institution()->institutionName }} <i
                                     class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->collegeName }}
                             <i class="fas fa-angle-double-right mx-2 text-gray-400"></i>

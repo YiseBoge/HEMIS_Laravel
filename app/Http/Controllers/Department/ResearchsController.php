@@ -8,6 +8,7 @@ use App\Models\Band\BandName;
 use App\Models\Band\Research;
 use App\Models\College\College;
 use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ class ResearchsController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
         $institution = $user->institution();
 
@@ -38,6 +39,11 @@ class ResearchsController extends Controller
             $requestedStatus = 'On Going';
         }
 
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
+        }
+
         $researches = array();
 
         if ($institution != null) {
@@ -46,13 +52,23 @@ class ResearchsController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
                             foreach ($college->departments as $department) {
-                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                    foreach ($department->researches as $research) {
-                                        if ($research->type == $requestedType && $research->status == $requestedStatus) {
-                                            $researches[] = $research;
+                                if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $requestedDepartment) {
+                                        foreach ($department->researches as $research) {
+                                            if ($research->type == $requestedType && $research->status == $requestedStatus) {
+                                                $researches[] = $research;
+                                            }
                                         }
                                     }
-                                }                                
+                                } else {
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->researches as $research) {
+                                            if ($research->type == $requestedType && $research->status == $requestedStatus) {
+                                                $researches[] = $research;
+                                            }
+                                        }
+                                    }
+                                }                               
                             }
                         }
                     }
@@ -64,11 +80,12 @@ class ResearchsController extends Controller
 
         $data = array(
             'researchs' => $researches,
-            'bands' => BandName::all(),
+            'departments' => DepartmentName::all(),
             'completions' => Research::getEnum('Completions'),
             'types' => Research::getEnum('Types'),
             'page_name' => 'research.research.index',
 
+            'selected_department' => $requestedDepartment,
             "selected_type" => $requestedType,
             "selected_status" => $requestedStatus
         );

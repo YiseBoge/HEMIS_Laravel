@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Institution\Institution;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +16,10 @@ class CreateStaffAttritionsTable extends Migration
     {
         Schema::create('staff_attritions', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('case');
             $table->timestamps();
+
+            $table->string('case');
+            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
 

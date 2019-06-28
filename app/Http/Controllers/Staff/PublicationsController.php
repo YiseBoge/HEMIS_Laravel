@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
 use App\Models\Department\PublicationsAndPatents;
 use App\Models\Staff\AcademicStaff;
 use App\Models\Staff\StaffPublication;
@@ -25,7 +26,7 @@ class PublicationsController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
         $publications = array();

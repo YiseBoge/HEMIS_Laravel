@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Institution\Institution;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +21,6 @@ class CreateCostSharingsTable extends Migration
             $table->string('tin_number');
             $table->date('registration_date');
             $table->string('field_of_study');
-            $table->string('sex');
             $table->date('clearance_date');
             $table->bigInteger('tuition_fee');
             $table->bigInteger('food_expense');
@@ -28,8 +28,10 @@ class CreateCostSharingsTable extends Migration
             $table->bigInteger('pre_payment_amount');
             $table->string('receipt_number');
             $table->bigInteger('unpaid_amount');
-
             $table->timestamps();
+
+            $table->string('sex');
+            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
 

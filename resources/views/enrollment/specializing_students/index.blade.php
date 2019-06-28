@@ -16,6 +16,26 @@
                                 </div>
                             </div>
                             <form action="" method="get">
+                                    @if(Auth::user()->hasRole('College Super Admin'))
+                                        <div class="form-group row pt-3">
+                                            <div class="col-md form-group">
+                                                <select class="form-control" name="department" id="department"
+                                                        onchange="this.form.submit()">
+                                                    @foreach ($departments as $department)
+                                                        @if ($department->id == $selected_department)
+                                                            <option value="{{$department->id}}"
+                                                                    selected>{{$department->department_name}}</option>
+                                                        @else
+                                                            <option value="{{$department->id}}">{{$department->department_name}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                                <label for="department" class="form-control-placeholder">
+                                                    Department
+                                                </label>
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div class="form-group row pt-3">
                                         <div class="col-md-4 form-group">
                                             <select class="form-control" name="student_type" id="student_type" onchange="this.form.submit()">

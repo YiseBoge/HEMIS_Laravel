@@ -7,6 +7,7 @@ use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\CostSharing;
 use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -19,12 +20,17 @@ class CostSharingController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
+        }
 
         $costSharings = array();
 
@@ -34,9 +40,17 @@ class CostSharingController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
                             foreach ($college->departments as $department) {
-                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                    foreach ($department->costSharings as $costSharing) {
-                                        $costSharings[] = $costSharing;
+                                if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $requestedDepartment) {
+                                        foreach ($department->costSharings as $costSharing) {
+                                            $costSharings[] = $costSharing;
+                                        }
+                                    }
+                                } else {
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->costSharings as $costSharing) {
+                                            $costSharings[] = $costSharing;
+                                        }
                                     }
                                 }
                             }
@@ -50,6 +64,10 @@ class CostSharingController extends Controller
 
         $data = array(
             'costSharings' => $costSharings,
+            'departments' => DepartmentName::all(),
+
+            'selected_department' => $requestedDepartment,
+            
             'page_name' => 'students.cost_sharing.index'
         );
         return view("departments.cost_sharing.index")->with($data);

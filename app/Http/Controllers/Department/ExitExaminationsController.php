@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
 use App\Models\Department\ExitExamination;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -19,13 +20,18 @@ class ExitExaminationsController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
         $institution = $user->institution();
+
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
+        }
 
         $examinations = array();
 
@@ -34,11 +40,18 @@ class ExitExaminationsController extends Controller
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == 'None' && $college->education_program == 'None') {
-
                             foreach ($college->departments as $department) {
-                                if ($department->year_level == 'None') {
-                                    foreach ($department->exitExaminations as $examination) {
-                                        $examinations[] = $examination;
+                                if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $requestedDepartment) {
+                                        foreach ($department->exitExaminations as $examination) {
+                                            $examinations[] = $examination;
+                                        }                                        
+                                    }
+                                } else {
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->exitExaminations as $examination) {
+                                            $examinations[] = $examination;
+                                        }                                        
                                     }
                                 }
                             }
@@ -55,6 +68,10 @@ class ExitExaminationsController extends Controller
 
         $data = array(
             'examinations' => $examinations,
+            'departments' => DepartmentName::all(),
+
+            'selected_department' => $requestedDepartment,
+
             'page_name' => 'students.exit_examination.index'
         );
         //return $filteredEnrollments;

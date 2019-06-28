@@ -15,6 +15,63 @@
                                     class="fas fa-arrow-right ml-2"></i></a>
                             </div>
                         </div>
+                        <form class="mt-4" action="" method="get">
+                            @if(Auth::user()->hasRole('College Super Admin'))
+                                <div class="form-group row pt-3">
+                                    <div class="col-md form-group">
+                                        <select class="form-control" name="department" id="department"
+                                                onchange="this.form.submit()">
+                                            @foreach ($departments as $department)
+                                                @if ($department->id == $selected_department)
+                                                    <option value="{{$department->id}}"
+                                                            selected>{{$department->department_name}}</option>
+                                                @else
+                                                    <option value="{{$department->id}}">{{$department->department_name}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        <label for="department" class="form-control-placeholder">
+                                            Department
+                                        </label>
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="form-group row pt-3">
+                                <div class="col-md-6 form-group">
+                                    <select class="form-control" name="program" id="program" onchange="this.form.submit()">
+                                        @foreach ($programs as $key => $value)
+                                        @if ($value == $selected_program)
+                                        <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                        <option value="{{$value}}">{{$value}}</option> 
+                                        @endif
+                                            
+                                        @endforeach
+                                    </select>
+                                    <label for="program" class="form-control-placeholder">
+                                        Program
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <select class="form-control" name="education_level" id="level" onchange="this.form.submit()">
+                                        @foreach ($education_levels as $key => $value)
+                                        @if ($key == 'SPECIALIZATION')
+                                                <option disabled value="{{$value}}">{{$value}}</option>
+                                        @elseif($value == $selected_education_level)
+                                                <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                                <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                        @endforeach
+                                    </select>
+                                    <label for="level" class="form-control-placeholder">
+                                        Education Level
+                                    </label>
+                                </div>
+                            </div>
+
+                        </form>
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-bordered dataTable table-striped table-hover" id="dataTable" width="100%"
@@ -43,19 +100,11 @@
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Band
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Department
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 91px;">Education Level
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
                                             style="width: 91px;">Nationality
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                            colspan="1" aria-label="Salary: activate to sort column ascending"
+                                            style="width: 91px;">Year
                                         </th>
                                     </tr>
                                     </thead>
@@ -88,10 +137,8 @@
                                                     <td>{{$student->general->student_id}}</td>
                                                     <td>{{$student->general->sex}}</td>
                                                     <td>{{$student->general->birth_date}}</td>
-                                                    <td>{{$student->department->college->band->bandName->band_name}}</td>
-                                                    <td>{{$student->department->departmentName->department_name}}</td>
-                                                    <td>{{$student->department->college->education_level}}</td>
                                                     <td>{{$student->nationality}}</td>
+                                                    <td>{{$student->department->year_level}}</td>
                                                 </tr>
                                             @endforeach
                                         @endif

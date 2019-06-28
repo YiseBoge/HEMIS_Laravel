@@ -172,7 +172,7 @@
                             
                             <select class="form-control" name="disability_type" id="disability_type">
                                 @foreach ($disabilitys as $key => $value)
-                                    <option value="{{$key}}">{{$value}}</option>
+                                    <option value="{{$value}}">{{$value}}</option>
                                 @endforeach
                             </select>
                             <label for="service_type" class="form-control-placeholder">

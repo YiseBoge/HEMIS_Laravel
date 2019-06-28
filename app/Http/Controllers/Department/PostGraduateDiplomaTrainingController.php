@@ -27,7 +27,7 @@ class PostGraduateDiplomaTrainingController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
         if ($request->input('type') == null) {
@@ -43,6 +43,11 @@ class PostGraduateDiplomaTrainingController extends Controller
             $requestedProgram = 'Regular';
         }
 
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
+        }
+
         $trainings = array();
 
         if ($institution != null) {
@@ -51,10 +56,20 @@ class PostGraduateDiplomaTrainingController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->id == $user->collegeName->id && $college->education_level == "None" && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
-                                if ($department->departmentName->id == $user->departmentName->id && $department->year_level == "None") {
-                                    foreach ($department->postgraduateDiplomaTrainings as $training) {
-                                        if ($training->is_lead == $requestedType) {
-                                            $trainings[] = $training;
+                                if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $requestedDepartment) {
+                                        foreach ($department->postgraduateDiplomaTrainings as $training) {
+                                            if ($training->is_lead == $requestedType) {
+                                                $trainings[] = $training;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->postgraduateDiplomaTrainings as $training) {
+                                            if ($training->is_lead == $requestedType) {
+                                                $trainings[] = $training;
+                                            }
                                         }
                                     }
                                 }
@@ -72,10 +87,12 @@ class PostGraduateDiplomaTrainingController extends Controller
 
         $data = array(
             'trainings' => $trainings,
+            'departments' => DepartmentName::all(),
             'programs' => PostGraduateDiplomaTraining::getEnum("Programs"),
             'types' => PostGraduateDiplomaTraining::getEnum('Types'),
             'page_name' => 'staff.postgraduate_diploma_training.index',
 
+            'selected_department' => $requestedDepartment,
             'selected_type' => $requestedType,
             'selected_program' => $requestedProgram
 
