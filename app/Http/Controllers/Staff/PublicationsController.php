@@ -88,6 +88,7 @@ class PublicationsController extends Controller
         if ($publicationsAndPatents == null) {
             $publicationsAndPatents = new PublicationsAndPatents;
             $department->publicationsAndPatents()->save($publicationsAndPatents);
+            return redirect('/department/publication');
         }
 
         $data = array(

@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table border dataTable table-striped table-hover" id="dataTable"
+                    <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
                            width="100%"
                            cellspacing="0" role="grid" aria-describedby="dataTable_info"
                            style="width: 100%;">

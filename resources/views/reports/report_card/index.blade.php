@@ -69,10 +69,10 @@
                             <tbody>
                             @foreach($reports as $policy => $descriptions)
                                 <tr>
-                                    <td class="bg-gray-200 font-weight-bold h5"
+                                    <th class="bg-gray-200 font-weight-bold h5"
                                         colspan="{{ count($years) + 5 }}">
                                         {{ $policy }}
-                                    </td>
+                                    </th>
                                 </tr>
                                 @foreach($descriptions as $description => $kpis)
                                     <tr>
