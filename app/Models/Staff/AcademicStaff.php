@@ -6,16 +6,19 @@ namespace App\Models\Staff;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Collection;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property array|string|null field_of_study
- * @property array|string|null teaching_load
- * @property array|string|null overload_remark
- * @property array|string|null staffRank
- * @property int staff_leave_id
+ * @property string|null field_of_study
+ * @property int teaching_load
+ * @property string|null overload_remark
+ * @property string|null staffRank
+ * @property Uuid staff_leave_id
  * @property Staff general
  * @method static AcademicStaff find($id)
  * @method static Collection where(array $array)
@@ -37,26 +40,43 @@ class AcademicStaff extends Model
     ];
 
     // Enums //
+
+    /**
+     * @return MorphOne
+     */
     public function general()
     {
         return $this->morphOne('App\Models\Staff\Staff', 'staffable');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function staffLeave()
     {
         return $this->belongsTo('App\Models\Staff\StaffLeave');
     }
 
+    /**
+     * @return HasMany
+     */
     public function publications()
     {
         return $this->hasMany('App\Models\Staff\StaffPublication');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function department()
     {
         return $this->belongsTo('App\Models\Department\Department');
     }
 
+    /**
+     * @param $query
+     * @return mixed
+     */
     public function scopeInfo($query)
     {
         if ($this->staff_leave_id == 0) {

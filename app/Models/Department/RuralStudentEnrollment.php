@@ -5,13 +5,14 @@ namespace App\Models\Department;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property array|string|null male_students_number
- * @property array|string|null female_students_number
- * @property array|string|null region
+ * @property int male_students_number
+ * @property int female_students_number
+ * @property string|null region
  */
 class RuralStudentEnrollment extends Model
 {
@@ -25,6 +26,9 @@ class RuralStudentEnrollment extends Model
 
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function department()
     {
         return $this->belongsTo('App\Models\Department\Department');

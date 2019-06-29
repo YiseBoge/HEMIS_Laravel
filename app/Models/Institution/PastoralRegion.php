@@ -5,13 +5,14 @@ namespace App\Models\Institution;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
  * @property int male_number
- * @property array|string|null female_number
- * @property int region_name_id
+ * @property int female_number
+ * @property Uuid region_name_id
  */
 class PastoralRegion extends Model
 {
@@ -36,11 +37,17 @@ class PastoralRegion extends Model
         'SEVEN' => '7'
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function regionName()
     {
         return $this->belongsTo('App\Models\Institution\RegionName');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function department()
     {
         return $this->belongsTo('App\Models\Department\Department');

@@ -94,6 +94,7 @@ class UniversityAdminController extends Controller
         $currentInstanceId = $user->currentInstance;
 
         $institutionNames = InstitutionName::all();
+        /** @var InstitutionName $institutionName */
         $institutionName = $institutionNames[$request->input('institution_name_id')];
 
         $user = new User();

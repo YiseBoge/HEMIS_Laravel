@@ -5,11 +5,12 @@ namespace App\Models\Staff;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property array|string|null case
+ * @property string|null case
  */
 class StaffAttrition extends Model
 {
@@ -30,6 +31,9 @@ class StaffAttrition extends Model
         'OTHERS' => 'Others'
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function staff()
     {
         return $this->belongsTo('App\Models\Staff\Staff');

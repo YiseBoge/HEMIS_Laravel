@@ -33,7 +33,7 @@ class SpecialNeedStudentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'students' => SpecialNeedStudent::info()->get(),
+            'students' => SpecialNeedStudent::all(),
             'page_name' => 'students.special_need.index'
         );
         // return SpecialNeedStudent::info()->get();

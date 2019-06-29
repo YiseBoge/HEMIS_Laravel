@@ -4,18 +4,20 @@ namespace App\Models\Student;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property array|string|null name
- * @property array|string|null student_id
- * @property array|string|null phone_number
- * @property array|string|null birth_date
- * @property array|string|null sex
- * @property array|string|null remarks
- * @property int student_service_id
+ * @property string|null name
+ * @property Uuid student_id
+ * @property string|null phone_number
+ * @property DateTime birth_date
+ * @property string|null sex
+ * @property string|null remarks
+ * @property Uuid student_service_id
  * @property StudentService studentService
  */
 class Student extends Model
@@ -29,6 +31,9 @@ class Student extends Model
         'FEMALE' => 'female',
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function studentService()
     {
         return $this->belongsTo('App\Models\Student\StudentService');

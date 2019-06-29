@@ -3,20 +3,23 @@
 namespace App\Models\Institution;
 
 use App\Traits\Uuids;
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property array|string|null building_name
- * @property array|string|null contractor_name
- * @property array|string|null consultant_name
- * @property array|string|null date_started
- * @property array|string|null date_completed
- * @property array|string|null budget_allocated
- * @property array|string|null financial_status
- * @property array|string|null completion_status
- * @property mixed college_id
+ * @property string|null building_name
+ * @property string|null contractor_name
+ * @property string|null consultant_name
+ * @property DateTime date_started
+ * @property DateTime date_completed
+ * @property int budget_allocated
+ * @property int financial_status
+ * @property int completion_status
+ * @property Uuid college_id
  */
 class Building extends Model
 {
@@ -24,16 +27,25 @@ class Building extends Model
 
     public $incrementing = false;
 
+    /**
+     * @return BelongsTo
+     */
     public function college()
     {
         return $this->belongsTo('App\Models\College\College');
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function buildingPurposes()
     {
         return $this->belongsToMany('App\Models\Institution\BuildingPurpose', 'building_building_purpose', 'building_id', 'building_purpose_id');
     }
 
+    /**
+     * @return string|null
+     */
     public function __toString()
     {
         return $this->building_name;

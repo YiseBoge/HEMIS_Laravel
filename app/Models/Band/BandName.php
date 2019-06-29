@@ -5,12 +5,13 @@ namespace App\Models\Band;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property array|string|null band_name
- * @property array|string|null acronym
+ * @property string|null band_name
+ * @property string|null acronym
  */
 class BandName extends Model
 {
@@ -18,11 +19,17 @@ class BandName extends Model
 
     public $incrementing = false;
 
+    /**
+     * @return HasOne
+     */
     public function band()
     {
         return $this->hasOne('App\Models\Band\Band');
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return "$this->acronym - $this->band_name";

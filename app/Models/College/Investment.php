@@ -5,13 +5,14 @@ namespace App\Models\College;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property array|string|null investment_title
- * @property array|string|null cost_incurred
- * @property array|string|null remarks
+ * @property string|null investment_title
+ * @property string|null cost_incurred
+ * @property string|null remarks
  * @method static Investment find(int $id)
  */
 class Investment extends Model
@@ -32,6 +33,9 @@ class Investment extends Model
 
     // Enums //
 
+    /**
+     * @return BelongsTo
+     */
     public function college()
     {
         return $this->belongsTo('App\Models\College\College');

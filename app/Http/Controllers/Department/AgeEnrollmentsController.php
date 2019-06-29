@@ -125,10 +125,6 @@ class AgeEnrollmentsController extends Controller
 
         $institution = $user->institution();
 
-        if ($institution == null) {
-            return "No Institution";
-        }
-
         $age_enrollment = new AgeEnrollment();
         $age_enrollment->male_students_number = $request->input('number_of_males');
         $age_enrollment->female_students_number = $request->input('number_of_females');

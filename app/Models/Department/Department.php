@@ -6,11 +6,13 @@ use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property array|string|null year_level
+ * @property string|null year_level
  * @property int department_name_id
  * @method static Collection where(array $array)
  */
@@ -32,136 +34,217 @@ class Department extends Model
         'NONE' => 'None'
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function departmentName()
     {
         return $this->belongsTo('App\Models\Department\DepartmentName');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function college()
     {
         return $this->belongsTo('App\Models\College\College');
     }
 
+    /**
+     * @return HasMany
+     */
     public function enrollments()
     {
         return $this->hasMany('App\Models\Department\Enrollment');
     }
 
+    /**
+     * @return HasMany
+     */
     public function ruralStudentEnrollments()
     {
         return $this->hasMany('App\Models\Department\RuralStudentEnrollment');
     }
 
+    /**
+     * @return HasMany
+     */
     public function disadvantagedStudentEnrollments()
     {
         return $this->hasMany('App\Models\Department\DisadvantagedStudentEnrollment');
     }
 
+    /**
+     * @return HasMany
+     */
     public function emergingRegions()
     {
         return $this->hasMany('App\Models\Institution\EmergingRegion');
     }
 
+    /**
+     * @return HasMany
+     */
     public function pastoralRegions()
     {
         return $this->hasMany('App\Models\Institution\PastoralRegion');
     }
 
+    /**
+     * @return HasMany
+     */
     public function ageEnrollments()
     {
         return $this->hasMany('App\Models\Institution\AgeEnrollment');
     }
 
+    /**
+     * @return HasMany
+     */
     public function jointProgramEnrollments()
     {
         return $this->hasMany('App\Models\Department\JointProgramEnrollment');
     }
 
+    /**
+     * @return HasMany
+     */
     public function exitExaminations()
     {
         return $this->hasMany('App\Models\Department\ExitExamination');
     }
 
+    /**
+     * @return HasMany
+     */
     public function degreeEmployments()
     {
         return $this->hasMany('App\Models\Department\DegreeEmployment');
     }
 
+    /**
+     * @return HasMany
+     */
     public function costSharings()
     {
         return $this->hasMany('App\Models\Department\CostSharing');
     }
 
+    /**
+     * @return HasMany
+     */
     public function otherRegionStudents()
     {
         return $this->hasMany('App\Models\Department\OtherRegionStudent');
     }
 
+    /**
+     * @return HasMany
+     */
     public function specialProgramTeachers()
     {
         return $this->hasMany('App\Models\Department\SpecialProgramTeacher');
     }
 
+    /**
+     * @return HasMany
+     */
     public function upgradingStaffs()
     {
         return $this->hasMany('App\Models\Department\UpgradingStaff');
     }
 
+    /**
+     * @return HasMany
+     */
     public function staffLeaves()
     {
         return $this->hasMany('App\Models\Department\StaffLeave');
     }
 
+    /**
+     * @return HasMany
+     */
     public function academicStaffs()
     {
         return $this->hasMany('App\Models\Staff\AcademicStaff');
     }
 
+    /**
+     * @return HasMany
+     */
     public function postgraduateDiplomaTrainings()
     {
         return $this->hasMany('App\Models\Department\PostGraduateDiplomaTraining');
     }
 
+    /**
+     * @return HasMany
+     */
     public function teachers()
     {
         return $this->hasMany('App\Models\Department\Teacher');
     }
 
+    /**
+     * @return HasMany
+     */
     public function expatriates()
     {
         return $this->hasMany('App\Models\Department\ExpatriateStaff');
     }
 
+    /**
+     * @return HasMany
+     */
     public function specialNeedStudents()
     {
         return $this->hasMany('App\Models\Student\SpecialNeedStudent');
     }
 
+    /**
+     * @return HasMany
+     */
     public function foreignStudents()
     {
         return $this->hasMany('App\Models\Student\ForeignStudent');
     }
 
+    /**
+     * @return HasMany
+     */
     public function studentAttritions()
     {
         return $this->hasMany('App\Models\Department\StudentAttrition');
     }
 
+    /**
+     * @return HasMany
+     */
     public function otherAttritions()
     {
         return $this->hasMany('App\Models\Department\OtherAttrition');
     }
 
+    /**
+     * @return HasMany
+     */
     public function publicationsAndPatents()
     {
         return $this->hasMany('App\Models\Department\PublicationsAndPatents');
     }
 
+    /**
+     * @return HasMany
+     */
     public function researches()
     {
         return $this->hasMany('App\Models\Band\Research');
     }
 
+    /**
+     * @return HasMany
+     */
     public function diasporaCourses()
     {
         return $this->hasMany('App\Models\Department\DiasporaCourses');

@@ -5,13 +5,16 @@ namespace App\Models\Institution;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property mixed bands
- * @property mixed institution_name_id
- * @property mixed instance_id
+ * @property Collection bands
+ * @property Uuid institution_name_id
+ * @property Uuid instance_id
  * @property GeneralInformation generalInformation
  * @property InstitutionName institutionName
  * @method static Institution find(int $id)
@@ -29,51 +32,41 @@ class Institution extends Model
         'DISAPPROVED' => 'Disapproved'
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function institutionName()
     {
         return $this->belongsTo('App\Models\Institution\InstitutionName');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function generalInformation()
     {
         return $this->belongsTo('App\Models\Institution\GeneralInformation');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function instance()
     {
         return $this->belongsTo('App\Models\Institution\Instance');
     }
 
+    /**
+     * @return HasMany
+     */
     public function bands()
     {
         return $this->hasMany('App\Models\Band\Band');
     }
 
-    public function adminAndNonAcademicStaff()
-    {
-        return $this->hasMany('App\Models\Institution\AdminAndNonAcademicStaff');
-    }
-
-    public function foreignStaff()
-    {
-        return $this->hasMany('App\Models\Institution\ForeignStaff');
-    }
-
-    public function managements()
-    {
-        return $this->hasMany('App\Models\Institution\Management');
-    }
-
-    public function specialNeeds()
-    {
-        return $this->hasMany('App\Models\Institution\SpecialNeeds');
-    }
-
-    public function InstitutionBSC()
-    {
-        return $this->hasMany('App\Models\Institution\InstitutionBSC');
-    }
-
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->institutionName->__toString() . ' (' . $this->instance->__toString() . ')';

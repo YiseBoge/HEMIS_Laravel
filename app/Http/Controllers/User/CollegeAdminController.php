@@ -90,9 +90,11 @@ class CollegeAdminController extends Controller
         $institutionName = $user->institution()->institutionName;
 
         $bandNames = BandName::all();
+        /** @var BandName $bandName */
         $bandName = $bandNames[$request->input('band_name_id')];
 
         $collegeNames = CollegeName::all();
+        /** @var CollegeName $collegeName */
         $collegeName = $collegeNames[$request->input('college_name_id')];
 
         $user = new User();

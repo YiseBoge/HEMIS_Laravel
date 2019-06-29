@@ -35,7 +35,7 @@ class ForeignStudentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'students' => ForeignStudent::info()->get(),
+            'students' => ForeignStudent::all(),
             'page_name' => 'students.foreign.list'
         );
         return view("students.foreign.index")->with($data);
@@ -161,7 +161,7 @@ class ForeignStudentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'student' => ForeignStudent::info()->find($id),
+            'student' => ForeignStudent::find($id),
             'page_name' => 'students.foreign.details'
         );
         return view("students.foreign.details")->with($data);

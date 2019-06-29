@@ -4,25 +4,27 @@ namespace App\Models\Staff;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property array|string|null name
- * @property array|string|null birth_date
- * @property array|string|null sex
- * @property array|string|null phone_number
- * @property array|string|null nationality
- * @property array|string|null job_title
- * @property array|string|null salary
- * @property array|string|null service_year
- * @property array|string|null employment_type
- * @property array|string|null dedication
- * @property array|string|null academic_level
+ * @property string|null name
+ * @property DateTime birth_date
+ * @property string|null sex
+ * @property string|null phone_number
+ * @property string|null nationality
+ * @property string|null job_title
+ * @property int salary
+ * @property int service_year
+ * @property string|null employment_type
+ * @property string|null dedication
+ * @property string|null academic_level
  * @property bool is_expatriate
  * @property bool is_from_other_region
- * @property array|string|null remarks
+ * @property string|null remarks
  * @method static Staff find(array|string|null $input)
  */
 class Staff extends Model
@@ -67,6 +69,9 @@ class Staff extends Model
         'CONTRACTOR' => 'Contractor',
     ];
 
+    /**
+     * @return HasOne
+     */
     public function staffAttrition()
     {
         return $this->hasOne('App\Models\Staff\StaffAttrition');

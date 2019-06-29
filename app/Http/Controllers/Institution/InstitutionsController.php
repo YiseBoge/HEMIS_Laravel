@@ -136,8 +136,8 @@ class InstitutionsController extends Controller
 
         $institution = Institution::find($id);
         $generalInformation = $institution->generalInformation;
-        $communityService = $institution->generalInformation->communityService;
-        $resource = $institution->generalInformation->resource;
+        $communityService = $generalInformation->communityService;
+        $resource = $generalInformation->resource;
 
         $generalInformation->campuses = $request->input('campuses');
         $generalInformation->colleges = $request->input('colleges');
@@ -163,6 +163,7 @@ class InstitutionsController extends Controller
         $communityService->has_elip_students = $request->has('has_elip_students');
         $communityService->has_career_center = $request->has('has_career_center');
 
+        /** @var Resource $resource */
         $resource->number_of_libraries = $request->input('number_of_libraries');
         $resource->number_of_laboratories = $request->input('number_of_laboratories');
         $resource->number_of_workshops = $request->input('number_of_workshops');

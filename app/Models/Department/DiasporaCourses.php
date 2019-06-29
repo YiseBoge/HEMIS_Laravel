@@ -9,8 +9,8 @@ use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property array|string|null number_of_courses
- * @property array|string|null number_of_researches
+ * @property int number_of_courses
+ * @property int number_of_researches
  */
 class DiasporaCourses extends Model
 {

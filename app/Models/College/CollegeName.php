@@ -5,12 +5,13 @@ namespace App\Models\College;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property array|string|null college_name
- * @property array|string|null acronym
+ * @property string|null college_name
+ * @property string|null acronym
  */
 class CollegeName extends Model
 {
@@ -18,11 +19,17 @@ class CollegeName extends Model
 
     public $incrementing = false;
 
+    /**
+     * @return HasOne
+     */
     public function college()
     {
         return $this->hasOne('App\Models\College\College');
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return "$this->acronym - $this->college_name";

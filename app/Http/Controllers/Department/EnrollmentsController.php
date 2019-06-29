@@ -265,7 +265,6 @@ class EnrollmentsController extends Controller
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $enrollment->save();
         } else {
-            $department = $request->input('department');
             $studentType = $request->input('student_type');
             $program = $request->input('program');
             $educationLevel = $request->input('education_level');
@@ -291,8 +290,6 @@ class EnrollmentsController extends Controller
                         }
                     }
                 }
-            } else {
-
             }
         }
         return redirect("/enrollment/normal");
@@ -303,7 +300,6 @@ class EnrollmentsController extends Controller
 
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
-        $institution = $user->institution();
 
         $requestedType = $request->input('student_type');
         if ($requestedType == null) {
@@ -335,8 +331,6 @@ class EnrollmentsController extends Controller
         if ($requestedDepartment == null) {
             $requestedDepartment = DepartmentName::all()->first()->department_name;
         }
-
-        $enrollments = array();
 
         /*if ($institution != null) {
             foreach ($institution->bands as $band) {

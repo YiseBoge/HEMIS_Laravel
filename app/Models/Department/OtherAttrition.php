@@ -5,14 +5,15 @@ namespace App\Models\Department;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property array|string|null type
- * @property array|string|null case
- * @property array|string|null male_students_number
- * @property array|string|null female_students_number
+ * @property string|null type
+ * @property string|null case
+ * @property int male_students_number
+ * @property int female_students_number
  */
 class OtherAttrition extends Model
 {
@@ -38,6 +39,9 @@ class OtherAttrition extends Model
         'TRANSFERS_TO_OTHER_INSTITUTES' => 'Transfer to Other Inistitutes',
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function department()
     {
         return $this->belongsTo('App\Models\Department\Department');

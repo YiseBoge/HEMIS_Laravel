@@ -6,14 +6,15 @@ use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
  * @method static Instance orderByDesc(string $string)
  * @method Collection get()
- * @property array|string|null year
- * @property array|string|null semester
+ * @property string|null year
+ * @property string|null semester
  */
 class Instance extends Model
 {
@@ -22,23 +23,26 @@ class Instance extends Model
 
     public $incrementing = false;
 
-//    protected $enumSemesters = [
-//        'ONE' => 'one',
-//        'TWO' => 'two',
-//        'SUMMER' => 'summer',
-//    ];
 
-
+    /**
+     * @return HasMany
+     */
     public function users()
     {
         return $this->hasMany('App\User');
     }
 
+    /**
+     * @return HasMany
+     */
     public function institutions()
     {
         return $this->hasMany('App\Models\Institution\Institution');
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return "Year $this->year, Semester $this->semester";
