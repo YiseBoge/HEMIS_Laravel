@@ -4,7 +4,13 @@ namespace App\Models\Institution;
 
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @method static Collection where(string $string, $purposeString)
+ */
 class BuildingPurpose extends Model
 {
     use Uuids;

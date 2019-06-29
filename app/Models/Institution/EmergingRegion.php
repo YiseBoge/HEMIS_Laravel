@@ -5,7 +5,14 @@ namespace App\Models\Institution;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property int male_number
+ * @property int female_number
+ * @property int region_name_id
+ */
 class EmergingRegion extends Model
 {
     use Uuids;

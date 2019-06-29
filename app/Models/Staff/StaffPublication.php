@@ -5,7 +5,13 @@ namespace App\Models\Staff;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null title
+ * @property array|string|null date_of_publication
+ */
 class StaffPublication extends Model
 {
     use Uuids;

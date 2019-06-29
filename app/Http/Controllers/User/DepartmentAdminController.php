@@ -25,9 +25,11 @@ class DepartmentAdminController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
+        $collegeNameId = $user->college_name_id;
+
         $editors = [];
         foreach (User::all() as $user) {
-            if ($user->hasRole('Department Admin')) {
+            if ($user->hasRole('Department Admin') && $user->college_name_id == $collegeNameId) {
                 array_push($editors, $user);
             }
         }
@@ -50,7 +52,7 @@ class DepartmentAdminController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
-        $departmentNames = DepartmentName::all();
+        $departmentNames = $user->institution()->institutionName->departmentNames;
 
         $data = array(
             'department_names' => $departmentNames,

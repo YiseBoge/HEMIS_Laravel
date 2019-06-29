@@ -317,7 +317,7 @@ class EnrollmentsController extends Controller
 
         $requestedCollege = $request->input('college');
         if ($requestedCollege == null) {
-            $requestedCollege = CollegeName::get()->first()->college_name;
+            $requestedCollege = CollegeName::all()->first()->college_name;
         }
 
         $requestedLevel = $request->input('education_level');
@@ -328,12 +328,12 @@ class EnrollmentsController extends Controller
 
         $requestedBand = $request->input('band');
         if ($requestedBand == null) {
-            $requestedBand = BandName::get()->first()->band_name;
+            $requestedBand = BandName::all()->first()->band_name;
         }
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::get()->first()->department_name;
+            $requestedDepartment = DepartmentName::all()->first()->department_name;
         }
 
         $enrollments = array();
@@ -403,7 +403,7 @@ class EnrollmentsController extends Controller
 
         $requestedCollege = $request->input('college');
         if ($requestedCollege == null) {
-            $requestedCollege = CollegeName::get()->first()->college_name;
+            $requestedCollege = CollegeName::all()->first()->college_name;
         }
 
         $requestedLevel = $request->input('education_level');
@@ -414,12 +414,12 @@ class EnrollmentsController extends Controller
 
         $requestedBand = $request->input('band');
         if ($requestedBand == null) {
-            $requestedBand = BandName::get()->first()->band_name;
+            $requestedBand = BandName::all()->first()->band_name;
         }
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::get()->first()->department_name;
+            $requestedDepartment = DepartmentName::all()->first()->department_name;
         }
 
         $year_levels = array();

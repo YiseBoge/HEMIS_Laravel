@@ -5,7 +5,13 @@ namespace App\Models\Student;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null food_service_type
+ * @property DormitoryService dormitoryService
+ */
 class StudentService extends Model
 {
     use Uuids;

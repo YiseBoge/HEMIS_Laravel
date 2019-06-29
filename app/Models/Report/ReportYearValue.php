@@ -4,7 +4,11 @@ namespace App\Models\Report;
 
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ */
 class ReportYearValue extends Model
 {
     use Uuids;

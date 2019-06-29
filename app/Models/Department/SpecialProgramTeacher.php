@@ -5,7 +5,15 @@ namespace App\Models\Department;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null male_number
+ * @property array|string|null female_number
+ * @property array|string|null program_stat
+ * @property array|string|null program_type
+ */
 class SpecialProgramTeacher extends Model
 {
     use Uuids;

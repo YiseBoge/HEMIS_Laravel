@@ -5,7 +5,16 @@ namespace App\Models\College;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @method static College where(array $array)
+ * @method College first()
+ * @property string education_level
+ * @property string education_program
+ * @property int college_name_id
+ */
 class College extends Model
 {
 

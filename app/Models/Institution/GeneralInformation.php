@@ -4,7 +4,20 @@ namespace App\Models\Institution;
 
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property CommunityService communityService
+ * @property Resource resource
+ * @property array|string|null campuses
+ * @property array|string|null colleges
+ * @property array|string|null schools
+ * @property array|string|null institutes
+ * @property array|string|null board_members
+ * @property array|string|null vice_presidents
+ * @property array|string|null middle_level_leaders
+ */
 class GeneralInformation extends Model
 {
     use Uuids;

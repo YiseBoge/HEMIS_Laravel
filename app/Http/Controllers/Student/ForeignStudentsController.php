@@ -13,6 +13,7 @@ use App\Models\Student\DormitoryService;
 use App\Models\Student\ForeignStudent;
 use App\Models\Student\Student;
 use App\Models\Student\StudentService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -179,7 +180,7 @@ class ForeignStudentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'student' => ForeignStudent::info()->find($id),
+            'student' => ForeignStudent::find($id),
             'bands' => BandName::all(),
             'colleges' => CollegeName::all(),
             'departments' => DepartmentName::all(),
@@ -279,6 +280,7 @@ class ForeignStudentsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {

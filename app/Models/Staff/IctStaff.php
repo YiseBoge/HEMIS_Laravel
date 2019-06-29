@@ -5,7 +5,16 @@ namespace App\Models\Staff;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null staffRank
+ * @property array|string|null ict_staff_type_id
+ * @property int institution_id
+ * @property Staff general
+ * @method static IctStaff find($id)
+ */
 class IctStaff extends Model
 {
     use Uuids;

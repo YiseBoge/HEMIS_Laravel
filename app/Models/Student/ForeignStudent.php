@@ -4,7 +4,15 @@ namespace App\Models\Student;
 
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null nationality
+ * @property array|string|null years_in_ethiopia
+ * @property Student general
+ * @method static ForeignStudent find($id)
+ */
 class ForeignStudent extends Model
 {
     use Uuids;

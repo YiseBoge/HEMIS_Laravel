@@ -4,8 +4,15 @@ namespace App\Models\Band;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @method static Collection where(array $array)
+ * @property int band_name_id
+ */
 class Band extends Model
 {
     use Uuids;

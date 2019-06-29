@@ -4,8 +4,16 @@ namespace App\Models\Department;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null year_level
+ * @property int department_name_id
+ * @method static Collection where(array $array)
+ */
 class Department extends Model
 {
     use Uuids;

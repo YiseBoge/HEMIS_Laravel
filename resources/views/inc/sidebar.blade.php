@@ -185,23 +185,18 @@
             <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Details:</h6>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'technical' ? 'active': '' }}"
-                       href="/staff/technical">Technical Staff</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'ict' ? 'active': '' }}"
-                       href="/staff/ict">ICT Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'administrative' ? 'active': '' }}"
                        href="/staff/administrative">Administrative Staff</a>
+                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'ict' ? 'active': '' }}"
+                       href="/staff/ict">ICT Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'management' ? 'active': '' }}"
                        href="/staff/management">Management Staff</a>
+                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'technical' ? 'active': '' }}"
+                       href="/staff/technical">Technical Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'supportive' ? 'active': '' }}"
                        href="/staff/supportive">Supportive Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'attrition' ? 'active': '' }}"
                        href="/staff/attrition">Staff Attrition</a>
-
-                    <h6 class="collapse-header">Aggregates:</h6>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'admin_and_non_academic_staff' ? 'active': '' }}"
-                       href="/institution/non-admin">Administrative and Non-Academic
-                        Staff</a>
 
                 </div>
             </div>
@@ -368,7 +363,7 @@
 
     <hr class="sidebar-divider">
 
-    @if(!Auth::user()->hasRole('Department Admin'))
+    @if(Auth::user()->hasAnyRole(['Super Admin', 'University Admin']) || (Auth::user()->hasRole('College Admin') && !Auth::user()->institution()->institutionName->departmentNames->isEmpty()))
         <div class="sidebar-heading">
             Management Components
         </div>
@@ -405,12 +400,12 @@
                            href="/college/college-name">College/Institute Names</a>
                         <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'department-name' ? 'active': '' }}"
                            href="/department/department-name">School/Department Names</a>
-                        @if(!\App\Models\College\CollegeName::all()->isEmpty())
+                        @if(!Auth::user()->institution()->institutionName->collegeNames->isEmpty())
                             <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
                                href="/college-admin">College/Institute Admin</a>
                         @endif
                     @elseif(Auth::user()->hasRole('College Admin'))
-                        @if(!\App\Models\Department\DepartmentName::all()->isEmpty())
+                        @if(!Auth::user()->institution()->institutionName->departmentNames->isEmpty())
                             <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'department_admin' ? 'active': '' }}"
                                href="/department-admin">School/Department Admins</a>
                         @endif

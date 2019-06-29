@@ -18,7 +18,7 @@ class GenerateReportsController extends Controller
     /**
      * Generate all institutions KPI Report.
      *
-     * @return Response
+     * @return Response|string
      */
     public function generateFullReport()
     {
@@ -817,6 +817,7 @@ class GenerateReportsController extends Controller
     /**
      * Generate specific institution KPI Report.
      *
+     * @param $id
      * @return Response
      */
     public function generateInstitutionReport($id)

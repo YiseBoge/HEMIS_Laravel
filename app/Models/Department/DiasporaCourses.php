@@ -5,7 +5,13 @@ namespace App\Models\Department;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null number_of_courses
+ * @property array|string|null number_of_researches
+ */
 class DiasporaCourses extends Model
 {
     use Uuids;

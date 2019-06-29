@@ -2,9 +2,21 @@
 
 namespace App\Models\Institution;
 
+use App\Models\College\CollegeName;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null institution_name
+ * @property array|string|null acronym
+ * @property bool is_private
+ * @property CollegeName collegeNames
+ * @property Collection departmentNames
+ * @method static InstitutionName find($id)
+ */
 class InstitutionName extends Model
 {
     use Uuids;

@@ -5,7 +5,26 @@ namespace App\Models\Staff;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null name
+ * @property array|string|null birth_date
+ * @property array|string|null sex
+ * @property array|string|null phone_number
+ * @property array|string|null nationality
+ * @property array|string|null job_title
+ * @property array|string|null salary
+ * @property array|string|null service_year
+ * @property array|string|null employment_type
+ * @property array|string|null dedication
+ * @property array|string|null academic_level
+ * @property bool is_expatriate
+ * @property bool is_from_other_region
+ * @property array|string|null remarks
+ * @method static Staff find(array|string|null $input)
+ */
 class Staff extends Model
 {
     use Uuids;

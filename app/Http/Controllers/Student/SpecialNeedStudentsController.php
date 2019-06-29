@@ -13,6 +13,7 @@ use App\Models\Student\DormitoryService;
 use App\Models\Student\SpecialNeedStudent;
 use App\Models\Student\Student;
 use App\Models\Student\StudentService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -157,7 +158,7 @@ class SpecialNeedStudentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'student' => SpecialNeedStudent::info()->find($id),
+            'student' => SpecialNeedStudent::find($id),
             'page_name' => 'students.special_need.details'
         );
         return view("students.special_need.details")->with($data);
@@ -176,7 +177,7 @@ class SpecialNeedStudentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'student' => SpecialNeedStudent::info()->find($id),
+            'student' => SpecialNeedStudent::find($id),
             'bands' => BandName::all(),
             'colleges' => CollegeName::all(),
             'departments' => DepartmentName::all(),
@@ -273,6 +274,7 @@ class SpecialNeedStudentsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {

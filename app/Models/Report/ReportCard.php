@@ -4,9 +4,19 @@ namespace App\Models\Report;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @method static ReportCard where(string $string, $kpi)
+ * @method Collection get()
+ * @method static ReportCard find(int $id)
+ * @property Collection reportYearValues
+ * @property array|string|null target
+ */
 class ReportCard extends Model
 {
     use Uuids;

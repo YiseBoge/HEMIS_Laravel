@@ -4,7 +4,14 @@ namespace App\Models\College;
 
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null college_name
+ * @property array|string|null acronym
+ */
 class CollegeName extends Model
 {
     use Uuids;
@@ -21,6 +28,9 @@ class CollegeName extends Model
         return "$this->acronym - $this->college_name";
     }
 
+    /**
+     * @return HasMany
+     */
     public function users()
     {
         return $this->hasMany('App\User');

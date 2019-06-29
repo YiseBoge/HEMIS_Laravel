@@ -9,6 +9,7 @@ use App\Models\Department\Department;
 use App\Models\Staff\AcademicStaff;
 use App\Models\Staff\Staff;
 use App\Models\Staff\StaffLeave;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -187,7 +188,7 @@ class AcademicStaffsController extends Controller
 
         $data = array(
             //'staff' => AcademicStaff::with('general')->find($id)
-            'staff' => AcademicStaff::info()->find($id),
+            'staff' => AcademicStaff::find($id),
             'page_name' => 'staff.academic.details'
         );
         return view('staff.academic.details')->with($data);
@@ -207,7 +208,7 @@ class AcademicStaffsController extends Controller
 
         $data = array(
             //'staff' => AcademicStaff::with('general')->find($id)
-            'staff' => AcademicStaff::info()->find($id),
+            'staff' => AcademicStaff::find($id),
             'staff_leave_types' => StaffLeave::getEnum('LeaveTypes'),
             'staff_scholarship_types' => StaffLeave::getEnum('ScholarshipTypes'),
             'page_name' => 'staff.academic.edit'
@@ -255,7 +256,7 @@ class AcademicStaffsController extends Controller
             if ($academicStaff->staff_leave_id == 0) {
                 $staffLeave = new StaffLeave;
             } else {
-                $staffLeave = StaffLeave::Find($academicStaff->staff_leave_id);
+                $staffLeave = StaffLeave::find($academicStaff->staff_leave_id);
             }
 
             $staffLeave->leave_type = $request->input('leave_type');
@@ -344,6 +345,7 @@ class AcademicStaffsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {

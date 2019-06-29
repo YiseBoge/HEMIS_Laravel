@@ -4,7 +4,14 @@ namespace App\Models\Department;
 
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null department_name
+ * @property array|string|null acronym
+ * @method static DepartmentName find(int $id)
+ */
 class DepartmentName extends Model
 {
     use Uuids;

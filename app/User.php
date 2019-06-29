@@ -2,10 +2,26 @@
 
 namespace App;
 
+use App\Models\Institution\Institution;
+use App\Models\Institution\InstitutionName;
 use App\Traits\Uuids;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null name
+ * @property array|string|null email
+ * @property string password
+ * @property mixed bandName
+ * @property mixed departmentName
+ * @property mixed currentInstance
+ * @property mixed collegeName
+ * @property mixed institution_name_id
+ * @property mixed college_name_id
+ * @property InstitutionName institutionName
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -37,6 +53,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return Institution
+     */
     public function institution()
     {
         $currentInstanceId = $this->currentInstance->id;

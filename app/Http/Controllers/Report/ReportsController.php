@@ -115,12 +115,7 @@ class ReportsController extends Controller
         $report->target = $request->input('target');
 
         $report->save();
-//        // die('WokkaFlokka');
-//        $target_info = PprcInfo::find($id);
-//        // die($target_info->type);
-//        $target_info->value = $request->input('target');
-//        $target_info->save();
-//
+
         return redirect('/report');
     }
 

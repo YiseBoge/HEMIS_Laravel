@@ -5,7 +5,14 @@ namespace App\Models\Student;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null disability
+ * @property Student general
+ * @method static SpecialNeedStudent find($id)
+ */
 class SpecialNeedStudent extends Model
 {
     use Uuids;

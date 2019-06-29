@@ -68,9 +68,7 @@ class SpecialProgramTeacherController extends Controller
         $data = [
             'program_status' => $requestedStatus,
             'special_program_teachers' => $filteredTeachers,
-
             'selected_status' => $requestedStatus,
-
             'page_name' => 'staff.special-program-teacher.index'
         ];
         //return $data['special_program_teachers'];
@@ -117,13 +115,11 @@ class SpecialProgramTeacherController extends Controller
             'female_number' => 'required'
         ]);
 
-
         $specialProgramTeacher = new SpecialProgramTeacher;
         $specialProgramTeacher->male_number = $request->input('male_number');
         $specialProgramTeacher->female_number = $request->input('female_number');
         $specialProgramTeacher->program_stat = $request->input('program_status');
         $specialProgramTeacher->program_type = $request->input('program_type');
-
 
         $user = Auth::user();
         if ($user == null) return redirect('/login');

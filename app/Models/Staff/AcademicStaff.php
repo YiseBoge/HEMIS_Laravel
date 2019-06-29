@@ -6,7 +6,20 @@ namespace App\Models\Staff;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null field_of_study
+ * @property array|string|null teaching_load
+ * @property array|string|null overload_remark
+ * @property array|string|null staffRank
+ * @property int staff_leave_id
+ * @property Staff general
+ * @method static AcademicStaff find($id)
+ * @method static Collection where(array $array)
+ */
 class AcademicStaff extends Model
 {
     use Uuids;

@@ -16,31 +16,28 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
-//  Band Routes
+//  Band Routes...
 Route::resource('band/band-name', 'Band\BandNamesController');
 
-// Budget Routes
+// Budget Routes...
 Route::resource('budgets/budget', 'College\BudgetsController');
 Route::resource('budgets/budget-description', 'College\BudgetDescriptionsController');
 Route::resource('budgets/internal-revenue', 'College\InternalRevenuesController');
 Route::resource('budgets/private-investment', 'College\InvestmentsController');
 
-//  College Routes
+//  College Routes...
 Route::resource('college/college-name', 'College\CollegeNamesController');
 
-//  Department Routes
+//  Department Routes...
 Route::resource('department/department-name', 'Department\DepartmentNamesController');
 Route::resource('department/special-program-teacher', 'Department\SpecialProgramTeacherController');
 Route::resource('department/publication', 'Staff\PublicationsController');
 Route::resource('department/upgrading-staff', 'Department\UpgradingStaffController');
-Route::resource('department/staff-leave', 'Department\StaffLeaveController');
-Route::resource('department/expatriate-staff', 'Department\ExaptriateStaffsController');
 Route::resource('department/postgraduate-diploma-training', 'Department\PostGraduateDiplomaTrainingController');
 Route::resource('department/teachers', 'Department\TeachersController');
-Route::resource('department/expatriate-staff', 'Department\ExpatriateStaffsController');
 Route::resource('department/diaspora-courses', 'Department\DiasporaCoursesController');
 
-//  Enrollment Routes
+//  Enrollment Routes...
 Route::post('enrollment/normal/{id}/approve', 'Department\EnrollmentsController@approve');
 Route::get('enrollment/normal-chart', 'Department\EnrollmentsController@viewChart');
 Route::get('enrollment/student-enrollment-chart', 'Department\EnrollmentsController@chart');
@@ -54,18 +51,15 @@ Route::resource('enrollment/economically-disadvantaged', 'Department\Disadvantag
 Route::resource('enrollment/age-enrollment', 'Department\AgeEnrollmentsController');
 Route::resource('enrollment/joint-program', 'Department\JointProgramEnrollmentsController');
 
-//  Institution Routes
+//  Institution Routes...
 Route::resource('institution/institution-name', 'Institution\InstitutionNamesController');
 Route::resource('institution/instance', 'Institution\InstancesController');
 Route::post('/institution/instance/update-current', 'Institution\InstancesController@updateCurrentInstance')->name('updateCurrentInstance');
 Route::resource('institution/general', 'Institution\InstitutionsController');
 Route::resource('institution/buildings', 'College\BuildingsController');
-Route::resource('institution/non-admin', 'Institution\AdminAndNonAcademicStaffsController');
-Route::resource('institution/management-data', 'Institution\ManagementDatasController');
-Route::resource('institution/foreign-staff', 'Institution\ForeignStaffsController');
 Route::resource('institution/researches', 'Department\ResearchsController');
 
-//  Staff Routes
+//  Staff Routes...
 Route::resource('staff/academic', 'Staff\AcademicStaffsController');
 Route::resource('staff/technical', 'Staff\TechnicalStaffsController');
 Route::resource('staff/administrative', 'Staff\AdministrativeStaffsController');

@@ -7,6 +7,7 @@ use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Staff\AdministrativeStaff;
 use App\Models\Staff\Staff;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -273,6 +274,7 @@ class AdministrativeStaffsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {

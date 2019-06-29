@@ -4,7 +4,20 @@ namespace App\Models\Institution;
 
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property array|string|null building_name
+ * @property array|string|null contractor_name
+ * @property array|string|null consultant_name
+ * @property array|string|null date_started
+ * @property array|string|null date_completed
+ * @property array|string|null budget_allocated
+ * @property array|string|null financial_status
+ * @property array|string|null completion_status
+ * @property mixed college_id
+ */
 class Building extends Model
 {
     use Uuids;

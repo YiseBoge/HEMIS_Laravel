@@ -4,8 +4,17 @@ namespace App\Models\Institution;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @method static Instance orderByDesc(string $string)
+ * @method Collection get()
+ * @property array|string|null year
+ * @property array|string|null semester
+ */
 class Instance extends Model
 {
     use Uuids;

@@ -5,7 +5,17 @@ namespace App\Models\Institution;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property mixed bands
+ * @property mixed institution_name_id
+ * @property mixed instance_id
+ * @property GeneralInformation generalInformation
+ * @property InstitutionName institutionName
+ * @method static Institution find(int $id)
+ */
 class Institution extends Model
 {
     use Uuids;

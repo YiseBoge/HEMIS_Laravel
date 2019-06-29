@@ -5,7 +5,14 @@ namespace App\Models\Institution;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property int male_number
+ * @property array|string|null female_number
+ * @property int region_name_id
+ */
 class PastoralRegion extends Model
 {
     use Uuids;
