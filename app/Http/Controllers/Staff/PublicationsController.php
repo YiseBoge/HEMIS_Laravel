@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
-use App\Models\Department\DepartmentName;
 use App\Models\Department\PublicationsAndPatents;
 use App\Models\Staff\AcademicStaff;
 use App\Models\Staff\StaffPublication;
@@ -89,6 +88,7 @@ class PublicationsController extends Controller
         if ($publicationsAndPatents == null) {
             $publicationsAndPatents = new PublicationsAndPatents;
             $department->publicationsAndPatents()->save($publicationsAndPatents);
+            return redirect('/department/publication');
         }
 
         $data = array(

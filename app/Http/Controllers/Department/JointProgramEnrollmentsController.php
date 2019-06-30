@@ -61,7 +61,7 @@ class JointProgramEnrollmentsController extends Controller
                             foreach ($college->departments as $department) {
                                 if ($user->hasRole('College Super Admin')) {
                                     if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->jointProgramEnrollments as $enrollment) {                                        
+                                        foreach ($department->jointProgramEnrollments as $enrollment) {
                                             if ($enrollment->sponsor == $requestedSponsor) {
                                                 $enrollments[] = $enrollment;
                                             }
@@ -69,13 +69,13 @@ class JointProgramEnrollmentsController extends Controller
                                     }
                                 } else {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->jointProgramEnrollments as $enrollment) {                                        
+                                        foreach ($department->jointProgramEnrollments as $enrollment) {
                                             if ($enrollment->sponsor == $requestedSponsor) {
                                                 $enrollments[] = $enrollment;
                                             }
                                         }
                                     }
-                                }                               
+                                }
                             }
                         }
                     }

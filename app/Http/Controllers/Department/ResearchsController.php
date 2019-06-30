@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
-use App\Models\Band\BandName;
 use App\Models\Band\Research;
 use App\Models\College\College;
 use App\Models\Department\Department;
@@ -19,6 +18,7 @@ class ResearchsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -68,7 +68,7 @@ class ResearchsController extends Controller
                                             }
                                         }
                                     }
-                                }                               
+                                }
                             }
                         }
                     }

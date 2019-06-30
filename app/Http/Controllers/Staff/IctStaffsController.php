@@ -8,6 +8,7 @@ use App\Models\College\College;
 use App\Models\Staff\IctStaff;
 use App\Models\Staff\IctStaffType;
 use App\Models\Staff\Staff;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -263,7 +264,6 @@ class IctStaffsController extends Controller
                     }
                 }
             }
-        } else {
         }
 
         return redirect('/staff/ict');
@@ -274,6 +274,7 @@ class IctStaffsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {

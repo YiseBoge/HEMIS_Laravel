@@ -26,9 +26,11 @@ class CollegeAdminController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
+        $institutionNameId = $user->institution_name_id;
+
         $editors = [];
         foreach (User::all() as $user) {
-            if ($user->hasAnyRole(['College Admin', 'College Super Admin'])) {
+            if ($user->hasAnyRole(['College Admin', 'College Super Admin']) && $user->institution_name_id == $institutionNameId) {
                 array_push($editors, $user);
             }
         }
@@ -51,7 +53,7 @@ class CollegeAdminController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
-        $collegeNames = CollegeName::all();
+        $collegeNames = $user->institution()->institutionName->collegeNames;
         $bandNames = BandName::all();
 
         $data = array(
@@ -88,9 +90,11 @@ class CollegeAdminController extends Controller
         $institutionName = $user->institution()->institutionName;
 
         $bandNames = BandName::all();
+        /** @var BandName $bandName */
         $bandName = $bandNames[$request->input('band_name_id')];
 
         $collegeNames = CollegeName::all();
+        /** @var CollegeName $collegeName */
         $collegeName = $collegeNames[$request->input('college_name_id')];
 
         $user = new User();

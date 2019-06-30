@@ -20,10 +20,9 @@ class BudgetDescriptionsController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('University Admin');
+        $user->authorizeRoles('Super Admin');
 
-        $institutionName = $user->institution()->institutionName;
-        $budgetDescriptions = $institutionName->budgetDescriptions;
+        $budgetDescriptions = BudgetDescription::all();
 
         $data = array(
             'budgetDescriptions' => $budgetDescriptions,
@@ -41,10 +40,9 @@ class BudgetDescriptionsController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('University Admin');
+        $user->authorizeRoles('Super Admin');
 
-        $institutionName = $user->institution()->institutionName;
-        $budgetDescriptions = $institutionName->budgetDescriptions;
+        $budgetDescriptions = BudgetDescription::all();
 
         $data = array(
             'budgetDescriptions' => $budgetDescriptions,
@@ -64,20 +62,18 @@ class BudgetDescriptionsController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('University Admin');
+        $user->authorizeRoles('Super Admin');
 
         $this->validate($request, [
             'budget_code' => 'required',
             'description' => 'required',
         ]);
 
-        $institutionName = $user->institution()->institutionName;
-
         $budgetDescription = new BudgetDescription();
         $budgetDescription->budget_code = $request->input('budget_code');
         $budgetDescription->description = $request->input('description');
 
-        $institutionName->budgetDescriptions()->save($budgetDescription);
+        $budgetDescription->save();
 
         return redirect('/budgets/budget-description');
     }

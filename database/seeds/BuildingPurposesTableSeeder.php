@@ -3,7 +3,7 @@
 use App\Models\Institution\BuildingPurpose;
 use Illuminate\Database\Seeder;
 
-class BudgetPurposesTableSeeder extends Seeder
+class BuildingPurposesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -15,10 +15,11 @@ class DatabaseSeeder extends Seeder
             RolesTableSeeder::class,
             UsersTableSeeder::class,
 
-            BudgetPurposesTableSeeder::class,
+            BuildingPurposesTableSeeder::class,
             ReportCardsTableSeeder::class,
 
             IctStaffTypesTableSeeder::class,
+            BudgetDescriptionsTableSeeder::class,
             RegionNamesTableSeeder::class,
             BandNamesTableSeeder::class,
             InstitutionNamesTableSeeder::class,

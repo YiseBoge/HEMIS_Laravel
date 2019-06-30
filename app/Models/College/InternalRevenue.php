@@ -5,7 +5,16 @@ namespace App\Models\College;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property string|null revenue_description
+ * @property string|null income
+ * @property string|null expense
+ * @method static InternalRevenue find(int $id)
+ */
 class InternalRevenue extends Model
 {
     use Uuids;
@@ -24,6 +33,9 @@ class InternalRevenue extends Model
         'HOSPITAL_SERVICES' => 'Hospital Services',
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function college()
     {
         return $this->belongsTo('App\Models\College\College');

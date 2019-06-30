@@ -57,13 +57,13 @@ class OtherRegionStudentsController extends Controller
                                 if ($user->hasRole('College Super Admin')) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->otherRegionStudents as $enrollment) {
-                                            $enrollments[] = $enrollment;    
+                                            $enrollments[] = $enrollment;
                                         }
                                     }
                                 } else {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->otherRegionStudents as $enrollment) {
-                                            $enrollments[] = $enrollment;    
+                                            $enrollments[] = $enrollment;
                                         }
                                     }
                                 }

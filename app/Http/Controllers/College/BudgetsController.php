@@ -159,6 +159,7 @@ class BudgetsController extends Controller
             $collegeName->college()->save($college);
         }
 
+        /** @var BudgetDescription $exampleDescription */
         $college->budgets()->save($budget);
         $budget = Budget::find($budget->id);
         $exampleDescription->budget()->save($budget);

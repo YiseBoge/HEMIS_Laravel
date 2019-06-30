@@ -4,9 +4,19 @@ namespace App\Models\Report;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @method static ReportCard where(string $string, $kpi)
+ * @method Collection get()
+ * @method static ReportCard find(int $id)
+ * @property Collection reportYearValues
+ * @property double target
+ */
 class ReportCard extends Model
 {
     use Uuids;
@@ -82,6 +92,9 @@ class ReportCard extends Model
         '7.3.1' => '% Increase in the amount of loan recovered from student cost sharing',
     ];
 
+    /**
+     * @return array
+     */
     public static function groupedReports()
     {
         $policyArray = array();
@@ -99,16 +112,28 @@ class ReportCard extends Model
         return $policyArray;
     }
 
+    /**
+     * @return array
+     */
     private static function policies()
     {
         return ReportCard::groupBy('policy')->pluck('policy', 'policy');
     }
 
+    /**
+     * @param $policy
+     * @return array
+     */
     private static function descriptions($policy)
     {
         return ReportCard::where('policy', $policy)->groupBy('policy_description')->pluck('policy_description', 'policy_description');
     }
 
+    /**
+     * @param $policy
+     * @param $description
+     * @return array
+     */
     private static function kpis($policy, $description)
     {
         $kpis = array();
@@ -132,6 +157,9 @@ class ReportCard extends Model
         return $kpis;
     }
 
+    /**
+     * @return float|int
+     */
     public function change()
     {
         $years = $this->reportYearValues()->orderBy('year')->get();

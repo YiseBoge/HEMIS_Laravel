@@ -171,6 +171,7 @@ class StaffAttritionsController extends Controller
                     if ($band->bandName->band_name == $user->bandName->band_name) {
                         foreach ($band->colleges as $college) {
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                $currentStaffs = array();
                                 if ($requestedType == 'Management Staff') {
                                     $currentStaffs = $college->managementStaffs;
                                 } else if ($requestedType == 'Technical Staff') {
@@ -237,7 +238,7 @@ class StaffAttritionsController extends Controller
         $attrition->case = $request->input('case');
 
         //return $request->input('staff');
-        $staff = Staff::get()->find($request->input('staff'));
+        $staff = Staff::find($request->input('staff'));
         $staff->staffAttrition()->save($attrition);
 
         return redirect('/staff/attrition');

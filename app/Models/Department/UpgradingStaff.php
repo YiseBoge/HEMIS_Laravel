@@ -5,7 +5,16 @@ namespace App\Models\Department;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property int male_number
+ * @property int female_number
+ * @property string|null education_level
+ * @property string|null study_place
+ */
 class UpgradingStaff extends Model
 {
     use Uuids;
@@ -24,6 +33,9 @@ class UpgradingStaff extends Model
         'ABROAD' => 'Abroad'
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function department()
     {
         return $this->belongsTo('App\Models\Department\Department');

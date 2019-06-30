@@ -54,13 +54,13 @@ class AgeEnrollmentsController extends Controller
                             foreach ($college->departments as $department) {
                                 if ($user->hasRole('College Super Admin')) {
                                     if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->ageEnrollments as $ageEnrollment) {                                            
+                                        foreach ($department->ageEnrollments as $ageEnrollment) {
                                             $ageEnrollments[] = $ageEnrollment;
                                         }
                                     }
                                 } else {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->ageEnrollments as $ageEnrollment) {                                            
+                                        foreach ($department->ageEnrollments as $ageEnrollment) {
                                             $ageEnrollments[] = $ageEnrollment;
                                         }
                                     }
@@ -141,10 +141,6 @@ class AgeEnrollmentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
-
-        if ($institution == null) {
-            return "No Institution";
-        }
 
         $age_enrollment = new AgeEnrollment();
         $age_enrollment->male_students_number = $request->input('number_of_males');

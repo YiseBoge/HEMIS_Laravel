@@ -1,9 +1,9 @@
 <?php
 
 use App\Models\Institution\Institution;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateInvestmentsTable extends Migration
 {

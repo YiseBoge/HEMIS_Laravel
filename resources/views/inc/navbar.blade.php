@@ -39,17 +39,12 @@
 
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
         @guest
-            <li class="nav-item btn btn-link">
+            <li class="nav-item btn">
                 <a class="nav-link text-primary" href="{{ route('login') }}" data-toggle="tooltip" title="Login">
-                    <i class="fas fa-sign-in-alt mx-2"></i>
+                    <i class="fas fa-sign-in-alt fa-sm mx-1"></i>
                     {{ __('Login') }}
                 </a>
             </li>
-            {{--            @if (Route::has('register'))--}}
-            {{--                <li class="nav-item">--}}
-            {{--                    <a class="nav-link text-primary" href="{{ route('register') }}">{{ __('Register') }}</a>--}}
-            {{--                </li>--}}
-            {{--            @endif--}}
         @else
             <li class="nav-item">
                 <a class="nav-link">
@@ -75,7 +70,6 @@
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v"></i>
-                    {{--                    <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">--}}
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

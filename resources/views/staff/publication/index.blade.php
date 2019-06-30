@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table border dataTable table-striped table-hover" id="dataTable"
+                    <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
                            width="100%"
                            cellspacing="0" role="grid" aria-describedby="dataTable_info"
                            style="width: 100%;">
@@ -86,34 +86,34 @@
                 <form action="/department/publication/{{$publications_and_patents->id}}" method="POST">
                     @csrf
                     <input type="hidden" name="_method" value="PUT">
-                    <div class="container row mt-3 px-5">
-                        <div class="col-md-8">
-                            <div class="text-sm font-weight-bold text-uppercase text-primary mb-1">Number of
+                    <div class="container row mt-3 px-3">
+                        <div class="col-md-7 px-3">
+                            <div class="text-sm font-weight-bold mb-1">Number of
                                 Publications By
                                 Postgraduate Students
                             </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white border-0"><i
-                                                class="text-gray-400 float-right far fa-edit "></i></span>
-                                </div>
+                            <div class="input-group mb-3 border rounded">
                                 <input type="text" class="form-control form-control-plaintext"
                                        name="student_publications"
                                        value="{{$publications_and_patents->student_publications}}">
-
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-sm font-weight-bold text-uppercase text-primary mb-1">Number of Patents
-                                Earned
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
+                                <div class="input-group-append">
                                     <span class="input-group-text bg-white border-0"><i
                                                 class="text-gray-400 float-right far fa-edit "></i></span>
                                 </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-5 px-3">
+                            <div class="text-sm font-weight-bold mb-1">Number of Patents
+                                Earned
+                            </div>
+                            <div class="input-group mb-3 border rounded">
                                 <input type="text" class="form-control form-control-plaintext" name="patents"
                                        value="{{$publications_and_patents->patents}}">
+                                <div class="input-group-append">
+                                    <span class="input-group-text bg-white border-0"><i
+                                                class="text-gray-400 float-right far fa-edit "></i></span>
+                                </div>
 
                             </div>
                         </div>

@@ -4,10 +4,21 @@ namespace App\Services;
 
 use App\Models\Department\Department;
 
+/**
+ * Class DepartmentService
+ * @package App\Services
+ */
 class DepartmentService
 {
+    /**
+     * @var Department|null
+     */
     private $department = null;
 
+    /**
+     * DepartmentService constructor.
+     * @param Department $department
+     */
     function __construct(Department $department)
     {
         $this->department = $department;
@@ -16,6 +27,9 @@ class DepartmentService
     // functions go here dependent on the department
     // can make functions to take in strings 'postgraduate', or 'undergraduate' then return accordingly
 
+    /**
+     * @return int
+     */
     function academicExpatriateStaff()
     {
         $total = 0;
@@ -28,6 +42,9 @@ class DepartmentService
 
     }
 
+    /**
+     * @return int
+     */
     function academicStaffPublication()
     {
         $total = 0;
@@ -39,6 +56,11 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @param $sex
+     * @param $otherRegion
+     * @return int
+     */
     function academicStaffRate($sex, $otherRegion)
     {
         $total = 0;
@@ -66,6 +88,10 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @param $sex
+     * @return int
+     */
     function enrollment($sex)
     {
         $total = 0;
@@ -79,11 +105,17 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @return mixed
+     */
     function specialNeedEnrollment()
     {
         return $this->department->specialNeedStudents->count();
     }
 
+    /**
+     * @return int
+     */
     function disadvantagedStudentEnrollment()
     {
         $total = 0;
@@ -93,6 +125,9 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function emergingRegionsEnrollment()
     {
         $total = 0;
@@ -102,6 +137,9 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function ruralAreasEnrollment()
     {
         $total = 0;
@@ -112,6 +150,11 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @param $sex
+     * @param $type
+     * @return int
+     */
     function dropout($sex, $type)
     {
         $total = 0;
@@ -125,6 +168,11 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @param $sex
+     * @param $type
+     * @return int
+     */
     function academicDismissal($sex, $type)
     {
         $total = 0;
@@ -138,11 +186,17 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     public function foreignStudents()
     {
         return $this->department->foreignStudents()->count();
     }
 
+    /**
+     * @return int
+     */
     public function patents()
     {
         $total = 0;
@@ -152,6 +206,9 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function exitExamination()
     {
         $total = 0;
@@ -161,6 +218,9 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     public function publicationByPostgraduates()
     {
         $total = 0;
@@ -170,6 +230,9 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     public function jointEnrollment()
     {
         $total = 0;
@@ -179,6 +242,9 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     public function diasporaCourses()
     {
         $total = 0;
@@ -189,6 +255,9 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     public function costSharing()
     {
         $total = 0;
@@ -199,6 +268,9 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function degreeEmployment()
     {
         $total = 0;
@@ -208,6 +280,10 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @param $sex
+     * @return int
+     */
     function graduationRate($sex)
     {
         $total = 0;
@@ -222,6 +298,9 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function academicAttrition()
     {
         $total = 0;
@@ -234,6 +313,9 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function otherRegionStudents()
     {
         $total = 0;
@@ -243,6 +325,9 @@ class DepartmentService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     public function allAcademicStaff()
     {
         $total = 0;

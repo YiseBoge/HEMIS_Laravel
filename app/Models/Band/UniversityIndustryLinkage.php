@@ -5,7 +5,16 @@ namespace App\Models\Band;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property string|null year
+ * @property int number_of_industry_links
+ * @property int number_of_students
+ * @property int training_area
+ */
 class UniversityIndustryLinkage extends Model
 {
     use Uuids;
@@ -23,6 +32,9 @@ class UniversityIndustryLinkage extends Model
         'SEVEN' => '7'
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function college()
     {
         return $this->belongsTo('App\Models\College\College');

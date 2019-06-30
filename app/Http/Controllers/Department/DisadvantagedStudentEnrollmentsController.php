@@ -21,6 +21,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -61,7 +62,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
                                 if ($user->hasRole('College Super Admin')) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->disadvantagedStudentEnrollments as $enrollment) {
-                                            if ($enrollment->quintile == $requestedQuintile) {                                            
+                                            if ($enrollment->quintile == $requestedQuintile) {
                                                 $enrollments[] = $enrollment;
                                             }
                                         }
@@ -69,7 +70,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
                                 } else {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->disadvantagedStudentEnrollments as $enrollment) {
-                                            if ($enrollment->quintile == $requestedQuintile) {                                            
+                                            if ($enrollment->quintile == $requestedQuintile) {
                                                 $enrollments[] = $enrollment;
                                             }
                                         }

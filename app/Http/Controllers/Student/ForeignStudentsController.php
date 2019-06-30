@@ -13,6 +13,7 @@ use App\Models\Student\DormitoryService;
 use App\Models\Student\ForeignStudent;
 use App\Models\Student\Student;
 use App\Models\Student\StudentService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,7 @@ class ForeignStudentsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -34,14 +36,14 @@ class ForeignStudentsController extends Controller
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
         }
 
-        $requestedLevel=$request->input('education_level');
-        if($requestedLevel==null){
-            $requestedLevel='Undergraduate';
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Undergraduate';
         }
 
         $requestedDepartment = $request->input('department');
@@ -219,7 +221,7 @@ class ForeignStudentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'student' => ForeignStudent::info()->find($id),
+            'student' => ForeignStudent::find($id),
             'page_name' => 'students.foreign.details'
         );
         return view("students.foreign.details")->with($data);
@@ -238,7 +240,7 @@ class ForeignStudentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'student' => ForeignStudent::info()->find($id),
+            'student' => ForeignStudent::find($id),
             'bands' => BandName::all(),
             'colleges' => CollegeName::all(),
             'departments' => DepartmentName::all(),
@@ -338,6 +340,7 @@ class ForeignStudentsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {

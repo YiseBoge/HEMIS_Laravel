@@ -79,7 +79,7 @@ class SpecialRegionsEnrollmentsController extends Controller
                                             }
                                         }
                                     }
-                                }                                
+                                }
                             }
                         }
                     }

@@ -16,7 +16,7 @@ class CreateSpecialRegionEnrollmentsTable extends Migration
     {
         Schema::create('special_region_enrollments', function (Blueprint $table) {
             $table->uuid('id'); 
-            $table->bigInteger('male_number'); 
+            $table->bigInteger('male_number');
             $table->bigInteger('female_number');             
             $table->timestamps();
 

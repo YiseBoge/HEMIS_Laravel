@@ -67,7 +67,7 @@ class SpecialProgramTeacherController extends Controller
                                             }
                                         }
                                     }
-                                }                               
+                                }
                             }
                         }
                     }
@@ -80,14 +80,13 @@ class SpecialProgramTeacherController extends Controller
 
         //$specialProgramTeachers=SpecialProgramTeacher::all();
         //$specialProgramTeachers= SpecialProgramTeacher::where(['program_type'=>$requestedType,'program_status'=>$requestedStatus])->get();
-        $data=[
-            'program_status'=>$requestedStatus,
-            'special_program_teachers'=>$filteredTeachers,
+        $data = [
+            'program_status' => $requestedStatus,
+            'special_program_teachers' => $filteredTeachers,
             'departments' => DepartmentName::all(),
 
             'selected_department' => $requestedDepartment,
             'selected_status' => $requestedStatus,
-
             'page_name' => 'staff.special-program-teacher.index'
         ];
         //return $data['special_program_teachers'];
@@ -134,13 +133,11 @@ class SpecialProgramTeacherController extends Controller
             'female_number' => 'required'
         ]);
 
-
         $specialProgramTeacher = new SpecialProgramTeacher;
         $specialProgramTeacher->male_number = $request->input('male_number');
         $specialProgramTeacher->female_number = $request->input('female_number');
         $specialProgramTeacher->program_stat = $request->input('program_status');
         $specialProgramTeacher->program_type = $request->input('program_type');
-
 
         $user = Auth::user();
         if ($user == null) return redirect('/login');

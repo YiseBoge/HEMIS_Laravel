@@ -33,7 +33,6 @@
 <!-- Page Wrapper -->
 <div id="wrapper" style="min-height:100vh">
     @isset($page_name)
-
     @else
         <div class="d-none">{{ $page_name = '1.2.3' }}</div>
 @endisset

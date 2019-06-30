@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
-use App\Models\Institution\Budget;
 use App\Models\Institution\CommunityService;
 use App\Models\Institution\GeneralInformation;
 use App\Models\Institution\Institution;

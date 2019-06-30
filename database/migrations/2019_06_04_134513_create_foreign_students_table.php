@@ -19,7 +19,7 @@ class CreateForeignStudentsTable extends Migration
             $table->string('nationality');
             $table->bigInteger('years_in_ethiopia');
             $table->timestamps();
-            
+
             $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
             
             $table->primary('id');

@@ -19,6 +19,7 @@ class ExitExaminationsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -46,13 +47,13 @@ class ExitExaminationsController extends Controller
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->exitExaminations as $examination) {
                                             $examinations[] = $examination;
-                                        }                                        
+                                        }
                                     }
                                 } else {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->exitExaminations as $examination) {
                                             $examinations[] = $examination;
-                                        }                                        
+                                        }
                                     }
                                 }
                             }

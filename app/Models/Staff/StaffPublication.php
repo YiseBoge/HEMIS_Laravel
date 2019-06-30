@@ -4,8 +4,16 @@ namespace App\Models\Staff;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property string|null title
+ * @property DateTime date_of_publication
+ */
 class StaffPublication extends Model
 {
     use Uuids;
@@ -13,6 +21,9 @@ class StaffPublication extends Model
 
     public $incrementing = false;
 
+    /**
+     * @return BelongsTo
+     */
     public function academicStaff()
     {
         return $this->belongsto('App\Models\Staff\AcademicStaff');

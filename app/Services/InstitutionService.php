@@ -4,17 +4,32 @@ namespace App\Services;
 
 use App\Models\Institution\Institution;
 
+/**
+ * Class InstitutionService
+ * @package App\Services
+ */
 class InstitutionService
 {
+    /**
+     * @var Institution|null
+     */
     private $institution = null;
 
+    /**
+     * InstitutionService constructor.
+     * @param Institution $institution
+     */
     function __construct(Institution $institution)
     {
         $this->institution = $institution;
     }
 
-    // call all needed department service methods similar to what happened at the GeneralReportService
 
+    /**
+     * @param $sex
+     * @param $educationLevel
+     * @return int
+     */
     function enrollment($sex, $educationLevel)
     {
         $total = 0;
@@ -26,6 +41,10 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @param $educationLevel
+     * @return array
+     */
     function departmentsByEducationLevel($educationLevel)
     {
         $departments = array();
@@ -42,6 +61,10 @@ class InstitutionService
         return $departments;
     }
 
+    /**
+     * @param $educationLevel
+     * @return int|mixed
+     */
     function specialNeedEnrollment($educationLevel)
     {
         $total = 0;
@@ -53,6 +76,10 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @param $educationLevel
+     * @return int
+     */
     function disadvantagedStudentEnrollment($educationLevel)
     {
         $total = 0;
@@ -64,6 +91,10 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @param $educationLevel
+     * @return int
+     */
     function emergingRegionsEnrollment($educationLevel)
     {
         $total = 0;
@@ -75,6 +106,10 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @param $educationLevel
+     * @return int
+     */
     function ruralAreasEnrollment($educationLevel)
     {
         $total = 0;
@@ -86,6 +121,12 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @param $sex
+     * @param $type
+     * @param $educationLevel
+     * @return int
+     */
     function dropout($sex, $type, $educationLevel)
     {
         $total = 0;
@@ -97,6 +138,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function exitExamination()
     {
         $total = 0;
@@ -108,6 +152,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return array
+     */
     function departments()
     {
         $departments = array();
@@ -121,6 +168,9 @@ class InstitutionService
         return $departments;
     }
 
+    /**
+     * @return int
+     */
     function degreeEmployment()
     {
         $total = 0;
@@ -132,6 +182,11 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @param $sex
+     * @param $educationLevel
+     * @return int
+     */
     function graduationRate($sex, $educationLevel)
     {
         $total = 0;
@@ -143,6 +198,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function diasporaCourses()
     {
         $total = 0;
@@ -154,6 +212,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return array
+     */
     function allDepartments()
     {
         $departments = array();
@@ -167,6 +228,10 @@ class InstitutionService
         return $departments;
     }
 
+    /**
+     * @param $educationLevel
+     * @return int
+     */
     function foreignStudents($educationLevel)
     {
         $total = 0;
@@ -178,6 +243,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function patents()
     {
         $total = 0;
@@ -189,6 +257,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function publicationByPostgraduates()
     {
         $total = 0;
@@ -200,6 +271,10 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @param $educationLevel
+     * @return int
+     */
     function jointEnrollment($educationLevel)
     {
         $total = 0;
@@ -211,6 +286,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function costSharing()
     {
         $total = 0;
@@ -222,6 +300,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int|mixed
+     */
     function qualifiedStaff()
     {
         $total = 0;
@@ -247,6 +328,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function enrollmentInScienceAndTechnology()
     {
         $total = 0;
@@ -263,6 +347,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function totalBudget()
     {
         $total = 0;
@@ -283,6 +370,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function budgetNotFromGovernment()
     {
         $total = 0;
@@ -299,6 +389,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function expatriateStaff()
     {
         $total = 0;
@@ -311,6 +404,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function nonUtilizedFunds()
     {
         $total = 0;
@@ -325,6 +421,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function academicStaffPublication()
     {
         $total = 0;
@@ -336,6 +435,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function academicAttrition()
     {
         $total = 0;
@@ -347,6 +449,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function nonAcademicAttrition()
     {
         $total = 0;
@@ -382,6 +487,12 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @param $sex
+     * @param $type
+     * @param $educationLevel
+     * @return int
+     */
     function academicDismissal($sex, $type, $educationLevel)
     {
         $total = 0;
@@ -393,6 +504,11 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @param $sex
+     * @param $otherRegion
+     * @return int
+     */
     function academicStaffRate($sex, $otherRegion)
     {
         $total = 0;
@@ -405,6 +521,11 @@ class InstitutionService
 
     }
 
+    /**
+     * @param $sex
+     * @param $otherRegion
+     * @return int
+     */
     function managementStaffRate($sex, $otherRegion)
     {
         $total = 0;
@@ -435,6 +556,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return array
+     */
     function colleges()
     {
         $colleges = array();
@@ -446,6 +570,11 @@ class InstitutionService
         return $colleges;
     }
 
+    /**
+     * @param $sex
+     * @param $otherRegion
+     * @return int
+     */
     function enrollmentsRate($sex, $otherRegion)
     {
         $total = 0;
@@ -463,6 +592,9 @@ class InstitutionService
 
     }
 
+    /**
+     * @return int
+     */
     function allAcademicStaff()
     {
         $total = 0;
@@ -475,6 +607,9 @@ class InstitutionService
 
     }
 
+    /**
+     * @return int
+     */
     function allManagementStaff()
     {
         $total = 0;
@@ -488,6 +623,9 @@ class InstitutionService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function allEnrollment()
     {
         $total = 0;

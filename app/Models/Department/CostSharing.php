@@ -4,8 +4,27 @@ namespace App\Models\Department;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property string|null name
+ * @property Uuid student_id
+ * @property string|null sex
+ * @property string|null field_of_study
+ * @property string|null tin_number
+ * @property string|null receipt_number
+ * @property DateTime registration_date
+ * @property DateTime clearance_date
+ * @property int tuition_fee
+ * @property int food_expense
+ * @property int dormitory_expense
+ * @property int pre_payment_amount
+ * @property int unpaid_amount
+ */
 class CostSharing extends Model
 {
     use Uuids;
@@ -17,11 +36,18 @@ class CostSharing extends Model
         'FEMALE' => 'female',
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function department()
     {
         return $this->belongsTo('App\Models\Department\Department');
     }
 
+    /**
+     * @param $query
+     * @return mixed
+     */
     public function scopeInfo($query)
     {
         return $query->with('department.college.band', 'department.departmentName');

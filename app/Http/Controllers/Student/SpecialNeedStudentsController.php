@@ -13,6 +13,7 @@ use App\Models\Student\DormitoryService;
 use App\Models\Student\SpecialNeedStudent;
 use App\Models\Student\Student;
 use App\Models\Student\StudentService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,7 @@ class SpecialNeedStudentsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -32,14 +34,14 @@ class SpecialNeedStudentsController extends Controller
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
-        $requestedProgram=$request->input('program');
-        if($requestedProgram==null){
-            $requestedProgram='Regular';
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
         }
 
-        $requestedLevel=$request->input('education_level');
-        if($requestedLevel==null){
-            $requestedLevel='Undergraduate';
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Undergraduate';
         }
 
         $requestedDepartment = $request->input('department');
@@ -92,7 +94,7 @@ class SpecialNeedStudentsController extends Controller
             'selected_program' => $requestedProgram,
             'selected_education_level' => $requestedLevel,
 
-            'page_name' => 'students.special_need.list'
+            'page_name' => 'students.special_need.index'
         );
         // return SpecialNeedStudent::info()->get();
         return view("students.special_need.index")->with($data);
@@ -216,7 +218,7 @@ class SpecialNeedStudentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'student' => SpecialNeedStudent::info()->find($id),
+            'student' => SpecialNeedStudent::find($id),
             'page_name' => 'students.special_need.details'
         );
         return view("students.special_need.details")->with($data);
@@ -235,7 +237,7 @@ class SpecialNeedStudentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'student' => SpecialNeedStudent::info()->find($id),
+            'student' => SpecialNeedStudent::find($id),
             'bands' => BandName::all(),
             'colleges' => CollegeName::all(),
             'departments' => DepartmentName::all(),
@@ -332,6 +334,7 @@ class SpecialNeedStudentsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {

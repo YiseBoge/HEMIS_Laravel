@@ -71,7 +71,7 @@ class DegreeEmploymentsController extends Controller
             'departments' => DepartmentName::all(),
 
             'selected_department' => $requestedDepartment,
-            
+
             'page_name' => 'students.degree_employment.index'
         );
         //return $filteredEnrollments;

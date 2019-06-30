@@ -16,135 +16,102 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
-//  Band Routes
+//  Band Routes...
 Route::resource('band/band-name', 'Band\BandNamesController');
 
-// Budget Routes
+// Budget Routes...
 Route::post('budgets/budget/{id}/approve', 'College\BudgetsController@approve');
 Route::resource('budgets/budget', 'College\BudgetsController');
-
 Route::resource('budgets/budget-description', 'College\BudgetDescriptionsController');
-
 Route::post('budgets/internal-revenue/{id}/approve', 'College\InternalRevenuesController@approve');
 Route::resource('budgets/internal-revenue', 'College\InternalRevenuesController');
-
 Route::post('budgets/private-investment/{id}/approve', 'College\InvestmentsController@approve');
 Route::resource('budgets/private-investment', 'College\InvestmentsController');
 
-//  College Routes 
-Route::resource('college/college-name','College\CollegeNamesController');
+//  College Routes...
+Route::resource('college/college-name', 'College\CollegeNamesController');
 
-//  Department Routes
-Route::resource('department/department-name','Department\DepartmentNamesController');
-
-Route::post('department/special-program-teacher/{id}/approve','Department\SpecialProgramTeacherController@approve');
-Route::resource('department/special-program-teacher','Department\SpecialProgramTeacherController');
-
+//  Department Routes...
+Route::resource('department/department-name', 'Department\DepartmentNamesController');
+Route::post('department/special-program-teacher/{id}/approve', 'Department\SpecialProgramTeacherController@approve');
+Route::resource('department/special-program-teacher', 'Department\SpecialProgramTeacherController');
 Route::post('department/publication/{id}/approve', 'Staff\PublicationsController@approve');
 Route::resource('department/publication', 'Staff\PublicationsController');
-
 Route::post('department/upgrading-staff/{id}/approve', 'Department\UpgradingStaffController@approve');
 Route::resource('department/upgrading-staff', 'Department\UpgradingStaffController');
-
 Route::post('department/postgraduate-diploma-training/{id}/approve', 'Department\PostGraduateDiplomaTrainingController@approve');
 Route::resource('department/postgraduate-diploma-training', 'Department\PostGraduateDiplomaTrainingController');
-
 Route::post('department/teachers/{id}/approve', 'Department\TeachersController@approve');
 Route::resource('department/teachers', 'Department\TeachersController');
-
 Route::post('department/diaspora-courses/{id}/approve', 'Department\DiasporaCoursesController@approve');
 Route::resource('department/diaspora-courses', 'Department\DiasporaCoursesController');
 
-//  Enrollment Routes
+//  Enrollment Routes...
 Route::post('enrollment/normal/{id}/approve', 'Department\EnrollmentsController@approve');
-Route::resource('enrollment/normal','Department\EnrollmentsController');
-Route::get('enrollment/normal-chart','Department\EnrollmentsController@viewChart');
-Route::get('enrollment/student-enrollment-chart','Department\EnrollmentsController@chart');
+Route::resource('enrollment/normal', 'Department\EnrollmentsController');
+Route::get('enrollment/normal-chart', 'Department\EnrollmentsController@viewChart');
+Route::get('enrollment/student-enrollment-chart', 'Department\EnrollmentsController@chart');
 
 Route::post('enrollment/special-region-students/{id}/approve', 'Department\SpecialRegionsEnrollmentsController@approve');
 Route::resource('enrollment/special-region-students', 'Department\SpecialRegionsEnrollmentsController');
-
-Route::post('enrollment/specializing-students/{id}/approve','Department\SpecializingStudentsEnrollmentsController@approve');
-Route::resource('enrollment/specializing-students','Department\SpecializingStudentsEnrollmentsController');
-
+Route::post('enrollment/specializing-students/{id}/approve', 'Department\SpecializingStudentsEnrollmentsController@approve');
+Route::resource('enrollment/specializing-students', 'Department\SpecializingStudentsEnrollmentsController');
 Route::post('enrollment/rural-area-students/{id}/approve', 'Department\RuralStudentEnrollmentsController@approve');
 Route::resource('enrollment/rural-area-students', 'Department\RuralStudentEnrollmentsController');
-
 Route::post('enrollment/other-region-students/{id}/approve', 'Department\OtherRegionStudentsController@approve');
 Route::resource('enrollment/other-region-students', 'Department\OtherRegionStudentsController');
-
 Route::post('enrollment/economically-disadvantaged/{id}/approve', 'Department\DisadvantagedStudentEnrollmentsController@approve');
 Route::resource('enrollment/economically-disadvantaged', 'Department\DisadvantagedStudentEnrollmentsController');
-
 Route::post('enrollment/age-enrollment/{id}/approve', 'Department\AgeEnrollmentsController@approve');
 Route::resource('enrollment/age-enrollment', 'Department\AgeEnrollmentsController');
-
 Route::post('enrollment/joint-program/{id}/approve', 'Department\JointProgramEnrollmentsController@approve');
 Route::resource('enrollment/joint-program', 'Department\JointProgramEnrollmentsController');
 
-
-//  Institution Routes
-Route::resource('institution/institution-name','Institution\InstitutionNamesController');
+//  Institution Routes...
+Route::resource('institution/institution-name', 'Institution\InstitutionNamesController');
+Route::resource('institution/institution-name', 'Institution\InstitutionNamesController');
 Route::resource('institution/instance', 'Institution\InstancesController');
 Route::post('/institution/instance/update-current', 'Institution\InstancesController@updateCurrentInstance')->name('updateCurrentInstance');
 Route::resource('institution/general', 'Institution\InstitutionsController');
-
 Route::post('institution/buildings/{id}/approve', 'College\BuildingsController@approve');
 Route::resource('institution/buildings', 'College\BuildingsController');
+Route::post('institution/researches/{id}/approve', 'Department\ResearchsController@approve');
+Route::resource('institution/researches', 'Department\ResearchsController');
 
-Route::post('institution/researches/{id}/approve','Department\ResearchsController@approve');
-Route::resource('institution/researches','Department\ResearchsController');
-
-
-//  Staff Routes
+//  Staff Routes...
 Route::post('staff/academic/{id}/approve', 'Staff\AcademicStaffsController@approve');
 Route::resource('staff/academic', 'Staff\AcademicStaffsController');
-
 Route::post('staff/technical/{id}/approve', 'Staff\TechnicalStaffsController@approve');
 Route::resource('staff/technical', 'Staff\TechnicalStaffsController');
-
 Route::post('staff/administrative/{id}/approve', 'Staff\AdministrativeStaffsController@approve');
 Route::resource('staff/administrative', 'Staff\AdministrativeStaffsController');
-
 Route::post('staff/ict/{id}/approve', 'Staff\IctStaffsController@approve');
 Route::resource('staff/ict', 'Staff\IctStaffsController');
-
 Route::post('staff/supportive/{id}/approve', 'Staff\SupportiveStaffsController@approve');
 Route::resource('staff/supportive', 'Staff\SupportiveStaffsController');
-
 Route::post('staff/management/{id}/approve', 'Staff\ManagementStaffsController@approve');
 Route::resource('staff/management', 'Staff\ManagementStaffsController');
-
 Route::post('staff/attrition/{id}/approve', 'Staff\StaffAttritionsController@approve');
 Route::resource('staff/attrition', 'Staff\StaffAttritionsController');
-
 Route::resource('staff/ict-staff-types', 'Staff\IctStaffTypesController');
-
 
 //  Student Routes
 Route::post('student/special-need/{id}/approve', 'Student\SpecialNeedStudentsController@approve');
 Route::resource('student/special-need', 'Student\SpecialNeedStudentsController');
-
 Route::post('student/foreign/{id}/approve', 'Student\ForeignStudentsController@approve');
 Route::resource('student/foreign', 'Student\ForeignStudentsController');
-
 Route::post('student/student-attrition/{id}/approve', 'Department\StudentAttritionController@approve');
 Route::resource('student/student-attrition', 'Department\StudentAttritionController');
-
 Route::post('student/other-attrition/{id}/approve', 'Department\OtherAttritionController@approve');
 Route::resource('student/other-attrition', 'Department\OtherAttritionController');
-
 Route::post('student/degree-relevant-employment/{id}/approve', 'Department\DegreeEmploymentsController@approve');
 Route::resource('student/degree-relevant-employment', 'Department\DegreeEmploymentsController');
-
 Route::post('student/exit-examination/{id}/approve', 'Department\ExitExaminationsController@approve');
 Route::resource('student/exit-examination', 'Department\ExitExaminationsController');
-
 Route::post('student/cost-sharing/{id}/approve', 'Department\CostSharingController@approve');
 Route::resource('student/cost-sharing', 'Department\CostSharingController');
-
-Route::post('student/university-industry-linkage/{id}/approve','College\UniversityIndustryLinkageController@approve');
-Route::resource('student/university-industry-linkage','College\UniversityIndustryLinkageController');
+Route::post('student/university-industry-linkage/{id}/approve', 'College\UniversityIndustryLinkageController@approve');
+Route::resource('student/university-industry-linkage', 'College\UniversityIndustryLinkageController');
 
 
 //  The rest

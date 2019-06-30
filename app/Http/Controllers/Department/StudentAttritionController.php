@@ -56,7 +56,7 @@ class StudentAttritionController extends Controller
             $requestedLevel = 'Undergraduate';
         }
 
-        
+
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
             $requestedDepartment = DepartmentName::all()->first()->id;

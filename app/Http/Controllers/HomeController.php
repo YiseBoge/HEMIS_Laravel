@@ -36,10 +36,10 @@ class HomeController extends Controller
         if ($user == null) return redirect('/login');
 
         if ($user->hasRole('Super Admin')) {
-            $institutions = InstitutionName::get();
-            $bands = BandName::get();
-            $colleges = CollegeName::get();
-            $departments = DepartmentName::get();
+            $institutions = InstitutionName::all();
+            $bands = BandName::all();
+            $colleges = CollegeName::all();
+            $departments = DepartmentName::all();
 
             $data = array(
                 "institutions_number" => $institutions->count(),
@@ -83,7 +83,7 @@ class HomeController extends Controller
         if (Auth::user()->hasRole('Super Admin')) {
             foreach ($year_levels as $year) {
                 $yearEnrollment = 0;
-                foreach (Enrollment::get() as $enrollment) {
+                foreach (Enrollment::all() as $enrollment) {
                     if ($enrollment->department->year_level == $year) {
                         $yearEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
                     }
