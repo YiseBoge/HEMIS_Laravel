@@ -85,7 +85,7 @@
                                             onchange="this.form.submit()">
                                         @foreach ($programs as $key => $value)
                                             @if ($value == $selected_program)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
+                                                <option value="{{$value}}" selected>{{$value}}</option>
                                             @else
                                                 <option value="{{$value}}">{{$value}}</option>
                                             @endif

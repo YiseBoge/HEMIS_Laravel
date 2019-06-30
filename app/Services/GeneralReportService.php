@@ -4,16 +4,32 @@ namespace App\Services;
 
 use App\Models\College\College;
 use App\Models\Institution\Instance;
+use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * Class GeneralReportService
+ * @package App\Services
+ */
 class GeneralReportService
 {
+    /**
+     * @var array|Collection
+     */
     private $instances = array();
 
+    /**
+     * GeneralReportService constructor.
+     * @param $year
+     */
     function __construct($year)
     {
         $this->instances = Instance::where('year', $year)->get();
     }
 
+    /**
+     * @param $educationLevel
+     * @return int
+     */
     function privateEnrollments($educationLevel)
     {
         $total = 0;
@@ -26,6 +42,10 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @param $isPrivate
+     * @return array
+     */
     function institutionsByPrivacy($isPrivate)
     {
         $institutions = array();
@@ -43,6 +63,10 @@ class GeneralReportService
         return $institutions;
     }
 
+    /**
+     * @param $educationLevel
+     * @return int|mixed
+     */
     function specialNeedEnrollment($educationLevel)
     {
         $total = 0;
@@ -55,6 +79,10 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @param $educationLevel
+     * @return int
+     */
     function disadvantagedStudentEnrollment($educationLevel)
     {
         $total = 0;
@@ -67,6 +95,10 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @param $educationLevel
+     * @return int
+     */
     function emergingRegionsEnrollment($educationLevel)
     {
         $total = 0;
@@ -79,6 +111,10 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @param $educationLevel
+     * @return float|int
+     */
     function ruralAreasEnrollment($educationLevel)
     {
         $total = 0;
@@ -93,6 +129,11 @@ class GeneralReportService
         return $total / $totalEnrollments;
     }
 
+    /**
+     * @param $sex
+     * @param $educationLevel
+     * @return int
+     */
     function enrollment($sex, $educationLevel)
     {
         $total = 0;
@@ -105,6 +146,12 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @param $sex
+     * @param $type
+     * @param $educationLevel
+     * @return int
+     */
     function dropout($sex, $type, $educationLevel)
     {
         $total = 0;
@@ -117,6 +164,12 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @param $sex
+     * @param $type
+     * @param $educationLevel
+     * @return int
+     */
     function academicDismissal($sex, $type, $educationLevel)
     {
         $total = 0;
@@ -129,6 +182,9 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function expatriateStaff()
     {
         $total = 0;
@@ -141,6 +197,9 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function academicStaffPublication()
     {
         $total = 0;
@@ -153,6 +212,11 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @param $sex
+     * @param $otherRegion
+     * @return float|int
+     */
     function academicStaffRate($sex, $otherRegion)
     {
         $total = 0;
@@ -168,6 +232,9 @@ class GeneralReportService
         return $returnable;
     }
 
+    /**
+     * @return int
+     */
     function exitExamination()
     {
         $total = 0;
@@ -180,6 +247,9 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function degreeEmployment()
     {
         $total = 0;
@@ -192,6 +262,11 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @param $sex
+     * @param $educationLevel
+     * @return float|int
+     */
     function graduationRate($sex, $educationLevel)
     {
         $total = 0;
@@ -207,6 +282,9 @@ class GeneralReportService
         return $total / $totalEnrollments;
     }
 
+    /**
+     * @return int
+     */
     function enrollmentInScienceAndTechnology()
     {
         $total = 0;
@@ -219,6 +297,9 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @return float|int
+     */
     function budgetNotFromGovernment()
     {
         $total = 0;
@@ -233,6 +314,9 @@ class GeneralReportService
         return $total / $totalBudget;
     }
 
+    /**
+     * @return int
+     */
     function nonUtilizedFunds()
     {
         $total = 0;
@@ -245,6 +329,9 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function diasporaCourses()
     {
         $total = 0;
@@ -257,6 +344,10 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @param $educationLevel
+     * @return int
+     */
     function foreignStudents($educationLevel)
     {
         $total = 0;
@@ -269,6 +360,9 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function patents()
     {
         $total = 0;
@@ -281,6 +375,9 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function publicationByPostgraduates()
     {
         $total = 0;
@@ -293,6 +390,9 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function academicAttrition()
     {
         $total = 0;
@@ -305,6 +405,9 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function costSharing()
     {
         $total = 0;
@@ -317,6 +420,9 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @return int
+     */
     function nonAcademicAttrition()
     {
         $total = 0;
@@ -329,6 +435,10 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @param $educationLevel
+     * @return int
+     */
     function jointEnrollment($educationLevel)
     {
         $total = 0;
@@ -341,6 +451,11 @@ class GeneralReportService
         return $total;
     }
 
+    /**
+     * @param $sex
+     * @param $otherRegion
+     * @return float|int
+     */
     function managementStaffRate($sex, $otherRegion)
     {
         $total = 0;
@@ -356,6 +471,9 @@ class GeneralReportService
         return $returnable;
     }
 
+    /**
+     * @return float|int
+     */
     function qualifiedTeacherToStudent()
     {
         $total = $this->enrollment('All', College::getEnum('education_level')['UNDERGRADUATE']) +
@@ -369,6 +487,26 @@ class GeneralReportService
         return $returnable;
     }
 
+    /**
+     * @return int|mixed
+     */
+    function qualifiedStaff()
+    {
+        $total = 0;
+
+        foreach ($this->institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->qualifiedStaff();
+        }
+
+        return $total;
+    }
+
+    /**
+     * @param $sex
+     * @param $otherRegion
+     * @return float|int
+     */
     function enrollmentsRate($sex, $otherRegion)
     {
         $total = 0;
@@ -383,18 +521,6 @@ class GeneralReportService
         $returnable = $total == 0 ? 0 : $selected / $total;
 
         return $returnable;
-    }
-
-    function qualifiedStaff()
-    {
-        $total = 0;
-
-        foreach ($this->institutionsByPrivacy(false) as $institution) {
-            $institutionService = new InstitutionService($institution);
-            $total += $institutionService->qualifiedStaff();
-        }
-
-        return $total;
     }
 
 }

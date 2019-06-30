@@ -79,7 +79,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
                                             }
                                         }
                                     }
-                                }                               
+                                }
                             }
                         }
                     }

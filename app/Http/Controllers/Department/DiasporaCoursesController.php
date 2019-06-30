@@ -71,7 +71,7 @@ class DiasporaCoursesController extends Controller
             'departments' => DepartmentName::all(),
 
             'selected_department' => $requestedDepartment,
-            
+
             'page_name' => 'staff.diaspora_course.index'
         );
         //return $filteredEnrollments;

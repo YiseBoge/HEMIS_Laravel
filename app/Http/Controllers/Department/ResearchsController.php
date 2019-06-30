@@ -68,7 +68,7 @@ class ResearchsController extends Controller
                                             }
                                         }
                                     }
-                                }                               
+                                }
                             }
                         }
                     }

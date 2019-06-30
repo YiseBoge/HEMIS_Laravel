@@ -69,7 +69,7 @@ class AcademicStaffsController extends Controller
             'departments' => DepartmentName::all(),
 
             'selected_department' => $requestedDepartment,
-            
+
             'page_name' => 'staff.academic.list'
         );
         //return AcademicStaff::with('general')->get();

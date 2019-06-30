@@ -13,6 +13,7 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid id
  * @method static Instance orderByDesc(string $string)
  * @method Collection get()
+ * @method static Instance where(string $string, $year)
  * @property string|null year
  * @property string|null semester
  */

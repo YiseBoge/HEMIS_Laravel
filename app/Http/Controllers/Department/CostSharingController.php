@@ -67,7 +67,7 @@ class CostSharingController extends Controller
             'departments' => DepartmentName::all(),
 
             'selected_department' => $requestedDepartment,
-            
+
             'page_name' => 'students.cost_sharing.index'
         );
         return view("departments.cost_sharing.index")->with($data);

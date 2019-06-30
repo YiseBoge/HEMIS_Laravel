@@ -52,7 +52,7 @@ class ExitExaminationsController extends Controller
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->exitExaminations as $examination) {
                                             $examinations[] = $examination;
-                                        }                                        
+                                        }
                                     }
                                 }
                             }

@@ -74,7 +74,7 @@ class JointProgramEnrollmentsController extends Controller
                                             }
                                         }
                                     }
-                                }                               
+                                }
                             }
                         }
                     }
