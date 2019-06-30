@@ -7,6 +7,7 @@ use App\Models\Band\Band;
 use App\Models\Band\BandName;
 use App\Models\Band\UniversityIndustryLinkage;
 use App\Models\College\College;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -194,4 +195,44 @@ class UniversityIndustryLinkageController extends Controller
     {
         //
     }
+
+    public function approve(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $action = $request->input('action');
+
+        $linkage = UniversityIndustryLinkage::find($id);
+        if ($action == "approve") {
+            $linkage->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+            $linkage->save();
+        } elseif ($action == "disapprove") {
+            $linkage->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $linkage->save();
+        } else {
+            $institution = $user->institution();
+
+            if ($institution != null) {
+                foreach ($institution->bands as $band) {
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
+                        foreach ($band->colleges as $college) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->universityIndustryLinkages as $linkage) {
+                                    if($linkage->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                        $linkage->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                        $linkage->save();
+                                    } 
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+
+            }
+        }
+        return redirect("/student/university-industry-linkage");
+    }
+
 }

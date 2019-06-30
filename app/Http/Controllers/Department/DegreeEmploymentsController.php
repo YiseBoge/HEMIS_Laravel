@@ -8,6 +8,7 @@ use App\Models\College\College;
 use App\Models\Department\DegreeEmployment;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -151,7 +152,7 @@ class DegreeEmploymentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->enrollments()->save($employment);
+        $department->degreeEmployments()->save($employment);
 
         return redirect("/student/degree-relevant-employment");
     }
@@ -200,4 +201,49 @@ class DegreeEmploymentsController extends Controller
     {
         //
     }
+
+    public function approve(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $action = $request->input('action');
+        $selectedDepartment = $request->input('department');
+
+        $employment = DegreeEmployment::find($id);
+        if ($action == "approve") {
+            $employment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+            $employment->save();
+        } elseif ($action == "disapprove") {
+            $employment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $employment->save();
+        } else {
+            $institution = $user->institution();
+
+            if ($institution != null) {
+                foreach ($institution->bands as $band) {
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
+                        foreach ($band->colleges as $college) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
+                                    if ($department->departmentName->id == $selectedDepartment) {
+                                        foreach ($department->degreeEmployments as $employment) {
+                                            if($employment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                                $employment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                                $employment->save();
+                                            } 
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+
+            }
+        }
+        return redirect("/student/degree-relevant-employment?department=" . $selectedDepartment);
+    }
+
 }

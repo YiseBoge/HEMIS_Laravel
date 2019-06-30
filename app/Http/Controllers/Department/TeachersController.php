@@ -82,9 +82,7 @@ class TeachersController extends Controller
             'education_levels' => Teacher::getEnum("EducationLevels"),
 
             'selected_department' => $requestedDepartment,
-            'selected_college' => $requestedCollege,
             'selected_level' => $requestedLevel,
-            'selected_band' => $requestedBand,
             'page_name' => 'staff.teachers.index'
         );
         //return $filteredEnrollments;

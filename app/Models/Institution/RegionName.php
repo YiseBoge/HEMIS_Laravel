@@ -11,14 +11,9 @@ class RegionName extends Model
 
     public $incrementing = false;
 
-    public function emergingRegion()
+    public function specialRegionEnrollment()
     {
-        return $this->hasOne('App\Models\Institution\EmergingRegion');
-    }
-
-    public function pastoralRegion()
-    {
-        return $this->hasOne('App\Models\Institution\PastoralRegion');
+        return $this->hasMany('App\Models\Department\SpecialRegionEnrollment');
     }
 }
 

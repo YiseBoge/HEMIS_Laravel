@@ -256,6 +256,8 @@ class EnrollmentsController extends Controller
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
         $action = $request->input('action');
+        $selectedDepartment = $request->input('department');
+
         $enrollment = Enrollment::find($id);
         if ($action == "approve") {
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
@@ -264,11 +266,6 @@ class EnrollmentsController extends Controller
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $enrollment->save();
         } else {
-            $selectedDepartment = $request->input('department');
-            $studentType = $request->input('student_type');
-            $program = $request->input('program');
-            $educationLevel = $request->input('education_level');
-
             $institution = $user->institution();
 
             if ($institution != null) {

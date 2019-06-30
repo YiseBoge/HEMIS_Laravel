@@ -7,9 +7,9 @@ use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
-use App\Models\Institution\EmergingRegion;
-use App\Models\Institution\PastoralRegion;
+use App\Models\Department\SpecialRegionEnrollment;
 use App\Models\Institution\RegionName;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -65,24 +65,16 @@ class SpecialRegionsEnrollmentsController extends Controller
                             foreach ($college->departments as $department) {
                                 if ($user->hasRole('College Super Admin')) {
                                     if ($department->departmentName->id == $requestedDepartment) {
-                                        if ($requestedType == "Emerging Regions") {
-                                            foreach ($department->emergingRegions as $enrollment) {
-                                                $enrollments[] = $enrollment;
-                                            }
-                                        } else {
-                                            foreach ($department->pastoralRegions as $enrollment) {
+                                        foreach ($department->specialRegionEnrollments as $enrollment) {
+                                            if($enrollment->region_type == $requestedType){
                                                 $enrollments[] = $enrollment;
                                             }
                                         }
                                     }
                                 } else {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        if ($requestedType == "Emerging Regions") {
-                                            foreach ($department->emergingRegions as $enrollment) {
-                                                $enrollments[] = $enrollment;
-                                            }
-                                        } else {
-                                            foreach ($department->pastoralRegions as $enrollment) {
+                                        foreach ($department->specialRegionEnrollments as $enrollment) {
+                                            if($enrollment->region_type == $requestedType){
                                                 $enrollments[] = $enrollment;
                                             }
                                         }
@@ -94,7 +86,7 @@ class SpecialRegionsEnrollmentsController extends Controller
                 }
             }
         } else {
-            $enrollments = EmergingRegion::all();
+            $enrollments = SpecialRegionEnrollment::all();
         }
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -107,6 +99,7 @@ class SpecialRegionsEnrollmentsController extends Controller
 
         $data = array(
             'enrollments' => $enrollments,
+            'types' => SpecialRegionEnrollment::getEnum("RegionTypes"),
             'departments' => DepartmentName::all(),
             'regions' => RegionName::all(),
             'programs' => $educationPrograms,
@@ -142,6 +135,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         array_pop($year_levels);
 
         $data = array(
+            'types' => SpecialRegionEnrollment::getEnum("RegionTypes"),
             'regions' => RegionName::all(),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
@@ -170,16 +164,13 @@ class SpecialRegionsEnrollmentsController extends Controller
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
-
-        if ($request->input('region_type') == 'emerging_regions') {
-            $enrollment = new EmergingRegion;
-        } else {
-            $enrollment = new PastoralRegion;
-        }
+        $enrollment = new SpecialRegionEnrollment;       
 
         $enrollment->male_number = $request->input('male_number');
         $enrollment->female_number = $request->input('female_number');
+        $enrollment->region_type = $request->input('region_type');
         $enrollment->region_name_id = 0;
+
         $regionName = RegionName::where('name', $request->input("region"))->first();
 
         $bandName = $user->bandName;
@@ -214,13 +205,8 @@ class SpecialRegionsEnrollmentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        if ($request->input('region_type') == 'emerging_regions') {
-            $department->emergingRegions()->save($enrollment);
-            $regionName->emergingRegion()->save($enrollment);
-        } else {
-            $department->pastoralRegions()->save($enrollment);
-            $regionName->pastoralRegion()->save($enrollment);
-        }
+        $department->specialRegionEnrollments()->save($enrollment);
+        $regionName->specialRegionEnrollment()->save($enrollment);
 
         return redirect("/enrollment/special-region-students");
     }
@@ -268,5 +254,50 @@ class SpecialRegionsEnrollmentsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function approve(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $action = $request->input('action');
+        $selectedDepartment = $request->input('department');
+        
+        $enrollment = SpecialRegionEnrollment::find($id);
+        if ($action == "approve") {
+            $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+            $enrollment->save();
+        } elseif ($action == "disapprove") {
+            $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $enrollment->save();
+        } else {
+
+            $institution = $user->institution();
+
+            if ($institution != null) {
+                foreach ($institution->bands as $band) {
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
+                        foreach ($band->colleges as $college) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
+                                    if ($department->departmentName->id == $selectedDepartment) {
+                                        foreach ($department->specialRegionEnrollments as $enrollment) {
+                                            if($enrollment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                                $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                                $enrollment->save();
+                                            } 
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+
+            }
+        }
+        return redirect("/enrollment/special-region-students?department=" . $selectedDepartment);
     }
 }

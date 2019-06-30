@@ -9,6 +9,7 @@ use App\Models\College\College;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\StudentAttrition;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -246,5 +247,49 @@ class StudentAttritionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function approve(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $action = $request->input('action');
+        $selectedDepartment = $request->input('department');
+
+        $attrition = StudentAttrition::find($id);
+        if ($action == "approve") {
+            $attrition->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+            $attrition->save();
+        } elseif ($action == "disapprove") {
+            $attrition->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $attrition->save();
+        } else {
+            $institution = $user->institution();
+
+            if ($institution != null) {
+                foreach ($institution->bands as $band) {
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
+                        foreach ($band->colleges as $college) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
+                                    if ($department->departmentName->id == $selectedDepartment) {
+                                        foreach ($department->studentAttritions as $attrition) {
+                                            if($attrition->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                                $attrition->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                                $attrition->save();
+                                            } 
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+
+            }
+        }
+        return redirect("/student/student-attrition?department=" . $selectedDepartment);
     }
 }

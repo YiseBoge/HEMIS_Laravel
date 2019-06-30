@@ -21,7 +21,6 @@ class CreateRuralStudentEnrollmentsTable extends Migration
             $table->timestamps();
 
             $table->string('region');
-            $table->string('disability');
             $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');

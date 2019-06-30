@@ -8,6 +8,7 @@ use App\Models\College\College;
 use App\Models\Department\CostSharing;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -218,4 +219,49 @@ class CostSharingController extends Controller
     {
         //
     }
+
+    public function approve(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $action = $request->input('action');
+        $selectedDepartment = $request->input('department');
+
+        $costSharing = CostSharing::find($id);
+        if ($action == "approve") {
+            $costSharing->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+            $costSharing->save();
+        } elseif ($action == "disapprove") {
+            $costSharing->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $costSharing->save();
+        } else {
+            $institution = $user->institution();
+
+            if ($institution != null) {
+                foreach ($institution->bands as $band) {
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
+                        foreach ($band->colleges as $college) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
+                                    if ($department->departmentName->id == $selectedDepartment) {
+                                        foreach ($department->costSharings as $costSharing) {
+                                            if($costSharing->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                                $costSharing->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                                $costSharing->save();
+                                            } 
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+
+            }
+        }
+        return redirect("/student/cost-sharing?department=" . $selectedDepartment);
+    }
+
 }

@@ -22,8 +22,9 @@
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <select class="form-control" name="region_type" id="region_type">
-                                        <option value="emerging_regions">Emerging Regions</option>
-                                        <option value="pastoral_regions">Pastoral Regions</option>
+                                        @foreach ($types as $key => $value)   
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endforeach
                                     </select>
                                     <label for="region_type" class="form-control-placeholder">
                                         Region Type

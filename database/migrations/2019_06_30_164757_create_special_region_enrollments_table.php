@@ -1,11 +1,11 @@
 <?php
 
 use App\Models\Institution\Institution;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateEmergingRegionsTable extends Migration
+class CreateSpecialRegionEnrollmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,13 @@ class CreateEmergingRegionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('emerging_regions', function (Blueprint $table) {
+        Schema::create('special_region_enrollments', function (Blueprint $table) {
             $table->uuid('id'); 
             $table->bigInteger('male_number'); 
             $table->bigInteger('female_number');             
             $table->timestamps();
 
+            $table->string('region_type');
             $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
@@ -36,6 +37,6 @@ class CreateEmergingRegionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('emerging_regions');
+        Schema::dropIfExists('special_region_enrollments');
     }
 }

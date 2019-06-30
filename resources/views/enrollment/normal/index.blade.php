@@ -17,11 +17,6 @@
                                             <input type="hidden" name="action" value="approveAll">
                                             <input type="hidden" name="department"
                                                     value="{{$selected_department}}">
-                                            <input type="hidden" name="student_type"
-                                                    value="{{$selected_student_type}}">
-                                            <input type="hidden" name="program" value="{{$selected_program}}">
-                                            <input type="hidden" name="education_level"
-                                                    value="{{$selected_education_level}}">
                                             <button type="submit"
                                                     class="btn btn-sm btn-primary shadow-sm">
                                                 Approve All Pending in Selected Department<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>

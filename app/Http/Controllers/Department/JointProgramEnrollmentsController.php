@@ -10,6 +10,7 @@ use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\JointProgramEnrollment;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -196,7 +197,7 @@ class JointProgramEnrollmentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->enrollments()->save($enrollment);
+        $department->jointProgramEnrollments()->save($enrollment);
 
         return redirect("/enrollment/joint-program");
 
@@ -245,5 +246,49 @@ class JointProgramEnrollmentsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function approve(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $action = $request->input('action');
+        $selectedDepartment = $request->input('department');
+
+        $enrollment = JointProgramEnrollment::find($id);
+        if ($action == "approve") {
+            $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+            $enrollment->save();
+        } elseif ($action == "disapprove") {
+            $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $enrollment->save();
+        } else {
+            $institution = $user->institution();
+
+            if ($institution != null) {
+                foreach ($institution->bands as $band) {
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
+                        foreach ($band->colleges as $college) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
+                                    if ($department->departmentName->id == $selectedDepartment) {
+                                        foreach ($department->jointProgramEnrollments as $enrollment) {
+                                            if($enrollment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                                $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                                $enrollment->save();
+                                            } 
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+
+            }
+        }
+        return redirect("/enrollment/joint-program?department=" . $selectedDepartment);
     }
 }
