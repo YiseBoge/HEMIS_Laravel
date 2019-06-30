@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
 use App\Models\Staff\AcademicStaff;
 use App\Models\Staff\Staff;
 use App\Models\Staff\StaffLeave;
@@ -20,14 +21,20 @@ class AcademicStaffsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
+        }
 
         $academicStaffs = array();
 
@@ -36,9 +43,17 @@ class AcademicStaffsController extends Controller
                 foreach ($band->colleges as $college) {
                     if ($college->collegeName->id == $user->collegeName->id) {
                         foreach ($college->departments as $department) {
-                            if ($department->departmentName->id == $user->departmentName->id) {
-                                foreach ($department->academicStaffs as $academicStaff) {
-                                    $academicStaffs[] = $academicStaff;
+                            if ($user->hasRole('College Super Admin')) {
+                                if ($department->departmentName->id == $requestedDepartment) {
+                                    foreach ($department->academicStaffs as $academicStaff) {
+                                        $academicStaffs[] = $academicStaff;
+                                    }
+                                }
+                            } else {
+                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                    foreach ($department->academicStaffs as $academicStaff) {
+                                        $academicStaffs[] = $academicStaff;
+                                    }
                                 }
                             }
                         }
@@ -51,6 +66,10 @@ class AcademicStaffsController extends Controller
 
         $data = array(
             'staffs' => $academicStaffs,
+            'departments' => DepartmentName::all(),
+
+            'selected_department' => $requestedDepartment,
+            
             'page_name' => 'staff.academic.list'
         );
         //return AcademicStaff::with('general')->get();

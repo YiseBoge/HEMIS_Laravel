@@ -7,6 +7,7 @@ use App\Models\Band\Band;
 use App\Models\Band\BandName;
 use App\Models\College\College;
 use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
 use App\Models\Department\StudentAttrition;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -25,7 +26,7 @@ class StudentAttritionController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
         $institution = $user->institution();
 
@@ -54,6 +55,12 @@ class StudentAttritionController extends Controller
             $requestedLevel = 'Undergraduate';
         }
 
+
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
+        }
+
         $attritions = array();
 
         if ($institution != null) {
@@ -61,10 +68,20 @@ class StudentAttritionController extends Controller
                 foreach ($band->colleges as $college) {
                     if ($college->education_program == $requestedProgram && $college->education_level == $requestedLevel) {
                         foreach ($college->departments as $department) {
-                            if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                foreach ($department->studentAttritions as $attrition) {
-                                    if ($attrition->type == $requestedType && $attrition->case == $requestedCase && $attrition->student_type == $requestedStudentType) {
-                                        $attritions[] = $attrition;
+                            if ($user->hasRole('College Super Admin')) {
+                                if ($department->departmentName->id == $requestedDepartment) {
+                                    foreach ($department->studentAttritions as $attrition) {
+                                        if ($attrition->type == $requestedType && $attrition->case == $requestedCase && $attrition->student_type == $requestedStudentType) {
+                                            $attritions[] = $attrition;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                    foreach ($department->studentAttritions as $attrition) {
+                                        if ($attrition->type == $requestedType && $attrition->case == $requestedCase && $attrition->student_type == $requestedStudentType) {
+                                            $attritions[] = $attrition;
+                                        }
                                     }
                                 }
                             }
@@ -80,7 +97,7 @@ class StudentAttritionController extends Controller
 
         $data = array(
             'attritions' => $attritions,
-            'bands' => BandName::all(),
+            'departments' => DepartmentName::all(),
             'programs' => College::getEnum('EducationPrograms'),
             'education_levels' => College::getEnum('EducationLevels'),
             'student_types' => StudentAttrition::getEnum('StudentTypes'),
@@ -88,6 +105,7 @@ class StudentAttritionController extends Controller
             'cases' => StudentAttrition::getEnum('Cases'),
             'page_name' => 'students.student_attrition.index',
 
+            'selected_department' => $requestedDepartment,
             "selected_program" => $requestedProgram,
             "selected_level" => $requestedLevel,
             "selected_student_type" => $requestedStudentType,

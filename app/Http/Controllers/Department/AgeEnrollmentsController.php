@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
 use App\Models\Institution\AgeEnrollment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -24,7 +25,7 @@ class AgeEnrollmentsController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
         $requestedProgram = $request->input('program');
@@ -37,6 +38,11 @@ class AgeEnrollmentsController extends Controller
             $requestedLevel = 'Undergraduate';
         }
 
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
+        }
+
         $ageEnrollments = array();
 
         if ($institution != null) {
@@ -45,9 +51,17 @@ class AgeEnrollmentsController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
-                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                    foreach ($department->ageEnrollments as $ageEnrollment) {
-                                        $ageEnrollments[] = $ageEnrollment;
+                                if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $requestedDepartment) {
+                                        foreach ($department->ageEnrollments as $ageEnrollment) {
+                                            $ageEnrollments[] = $ageEnrollment;
+                                        }
+                                    }
+                                } else {
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->ageEnrollments as $ageEnrollment) {
+                                            $ageEnrollments[] = $ageEnrollment;
+                                        }
                                     }
                                 }
                             }
@@ -66,11 +80,13 @@ class AgeEnrollmentsController extends Controller
         array_pop($educationLevels);
 
         $data = ['enrollment_info' => $ageEnrollments,
+            'departments' => DepartmentName::all(),
             'age_range' => AgeEnrollment::getEnum('Ages'),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
             'year_levels' => Department::getEnum('YearLevels'),
 
+            'selected_department' => $requestedDepartment,
             'selected_program' => $requestedProgram,
             'selected_education_level' => $requestedLevel,
             'page_name' => 'enrollment.age_enrollment.index'];

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Institution\Institution;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,15 +16,15 @@ class CreateStudentAttritionsTable extends Migration
     {
         Schema::create('student_attritions', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('type');
-            $table->string('case');
-
             $table->bigInteger('male_students_number');
             $table->bigInteger('female_students_number');
-
-            $table->string('student_type');
-
             $table->timestamps();
+
+            $table->string('type');
+            $table->string('case');
+            $table->string('student_type');
+            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
+           
             $table->primary('id');
             $table->uuid('department_id');
         });

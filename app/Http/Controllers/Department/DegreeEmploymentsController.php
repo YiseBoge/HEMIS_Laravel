@@ -7,6 +7,7 @@ use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\DegreeEmployment;
 use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -19,12 +20,17 @@ class DegreeEmploymentsController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
+        }
 
         $employments = array();
 
@@ -33,11 +39,18 @@ class DegreeEmploymentsController extends Controller
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == 'None' && $college->education_program == 'None') {
-
                             foreach ($college->departments as $department) {
-                                if ($department->year_level == 'None') {
-                                    foreach ($department->degreeEmployments as $employment) {
-                                        $employments[] = $employment;
+                                if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $requestedDepartment) {
+                                        foreach ($department->degreeEmployments as $employment) {
+                                            $employments[] = $employment;
+                                        }
+                                    }
+                                } else {
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->degreeEmployments as $employment) {
+                                            $employments[] = $employment;
+                                        }
                                     }
                                 }
                             }
@@ -54,6 +67,10 @@ class DegreeEmploymentsController extends Controller
 
         $data = array(
             'employments' => $employments,
+            'departments' => DepartmentName::all(),
+
+            'selected_department' => $requestedDepartment,
+            
             'page_name' => 'students.degree_employment.index'
         );
         //return $filteredEnrollments;

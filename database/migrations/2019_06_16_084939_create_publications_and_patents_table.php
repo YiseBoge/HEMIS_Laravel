@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Institution\Institution;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,8 @@ class CreatePublicationsAndPatentsTable extends Migration
             $table->bigInteger('student_publications')->default(0);
             $table->bigInteger('patents')->default(0);
             $table->timestamps();
+
+            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
             $table->uuid('department_id');

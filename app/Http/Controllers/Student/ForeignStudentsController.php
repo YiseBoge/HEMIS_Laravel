@@ -26,16 +26,76 @@ class ForeignStudentsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        $institution = $user->institution();
+
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 'Regular';
+        }
+
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 'Undergraduate';
+        }
+
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
+        }
+
+        $students = array();
+
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                if ($band->bandName->band_name == $user->bandName->band_name) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
+                            foreach ($college->departments as $department) {
+                                if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $requestedDepartment) {
+                                        foreach ($department->foreignStudents as $student) {
+                                            $students[] = $student;
+                                        }
+                                    }
+                                } else {
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->foreignStudents as $student) {
+                                            $students[] = $student;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            $students = ForeignStudent::with('department')->get();
+        }
+
+        $educationPrograms = College::getEnum("EducationPrograms");
+        $educationLevels = College::getEnum("EducationLevels");
+        array_pop($educationPrograms);
+        array_pop($educationLevels);
 
         $data = array(
-            'students' => ForeignStudent::all(),
+            'students' => $students,
+            'departments' => DepartmentName::all(),
+            'programs' => $educationPrograms,
+            'education_levels' => $educationLevels,
+
+            'selected_department' => $requestedDepartment,
+            'selected_program' => $requestedProgram,
+            'selected_education_level' => $requestedLevel,
+
             'page_name' => 'students.foreign.list'
         );
         return view("students.foreign.index")->with($data);

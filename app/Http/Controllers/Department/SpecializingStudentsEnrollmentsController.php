@@ -27,12 +27,12 @@ class SpecializingStudentsEnrollmentsController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
         $requestedType = $request->input('student_type');
         if ($requestedType == null) {
-            $requestedType = 'Normal';
+            $requestedType = 'Current';
         }
 
         $requestedProgram = $request->input('program');
@@ -50,6 +50,11 @@ class SpecializingStudentsEnrollmentsController extends Controller
             $requestedYearLevel = '1';
         }
 
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
+        }
+
         $enrollments = array();
 
         if ($institution != null) {
@@ -58,13 +63,23 @@ class SpecializingStudentsEnrollmentsController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "Specialization" && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
-                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                    foreach ($department->specializingStudentEnrollments as $enrollment) {
-                                        if ($enrollment->student_type == $requestedType && $enrollment->specialization_type == $requestedSpecializationType) {
-                                            $enrollments[] = $enrollment;
+                                if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $requestedDepartment) {
+                                        foreach ($department->specializingStudentEnrollments as $enrollment) {
+                                            if ($enrollment->student_type == $requestedType && $enrollment->specialization_type == $requestedSpecializationType) {
+                                                $enrollments[] = $enrollment;
+                                            }
                                         }
                                     }
-                                }
+                                } else {
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->specializingStudentEnrollments as $enrollment) {
+                                            if ($enrollment->student_type == $requestedType && $enrollment->specialization_type == $requestedSpecializationType) {
+                                                $enrollments[] = $enrollment;
+                                            }
+                                        }
+                                    }
+                                }                               
                             }
                         }
                     }
@@ -80,11 +95,12 @@ class SpecializingStudentsEnrollmentsController extends Controller
 
         $data = array(
             'enrollments' => $enrollments,
-            'colleges' => CollegeName::all(),
+            'departments' => DepartmentName::all(),
             'programs' => $educationPrograms,
             'specialization_types' => SpecializingStudentsEnrollment::getEnum("SpecializationTypes"),
             'student_types' => SpecializingStudentsEnrollment::getEnum('StudentTypes'),
 
+            'selected_department' => $requestedDepartment,
             'selected_student_type' => $requestedType,
             'selected_program' => $requestedProgram,
             'selected_specialization' => $requestedSpecializationType,

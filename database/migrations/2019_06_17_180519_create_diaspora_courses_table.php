@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Institution\Institution;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateDiasporaCoursesTable extends Migration
 {
@@ -18,6 +19,8 @@ class CreateDiasporaCoursesTable extends Migration
             $table->bigInteger('number_of_courses');
             $table->bigInteger('number_of_researches');
             $table->timestamps();
+
+            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
 

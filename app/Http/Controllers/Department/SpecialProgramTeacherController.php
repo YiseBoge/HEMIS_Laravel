@@ -27,12 +27,17 @@ class SpecialProgramTeacherController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
         $requestedStatus = $request->input('program_status');
         if ($requestedStatus == null) {
             $requestedStatus = 'Completed';
+        }
+
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
         }
 
 //        $band=Band::where('band_name_id',$requestedBand)->first();
@@ -46,10 +51,20 @@ class SpecialProgramTeacherController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->id == $user->collegeName->id) {
                             foreach ($college->departments as $department) {
-                                if ($department->departmentName->id == $user->departmentName->id) {
-                                    foreach ($department->SpecialProgramTeachers as $teacher) {
-                                        if ($teacher->program_stat == $requestedStatus) {
-                                            $filteredTeachers[] = $teacher;
+                                if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $requestedDepartment) {
+                                        foreach ($department->SpecialProgramTeachers as $teacher) {
+                                            if ($teacher->program_stat == $requestedStatus) {
+                                                $filteredTeachers[] = $teacher;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->SpecialProgramTeachers as $teacher) {
+                                            if ($teacher->program_stat == $requestedStatus) {
+                                                $filteredTeachers[] = $teacher;
+                                            }
                                         }
                                     }
                                 }
@@ -68,6 +83,9 @@ class SpecialProgramTeacherController extends Controller
         $data = [
             'program_status' => $requestedStatus,
             'special_program_teachers' => $filteredTeachers,
+            'departments' => DepartmentName::all(),
+
+            'selected_department' => $requestedDepartment,
             'selected_status' => $requestedStatus,
             'page_name' => 'staff.special-program-teacher.index'
         ];

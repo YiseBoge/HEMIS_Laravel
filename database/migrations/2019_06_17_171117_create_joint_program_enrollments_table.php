@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Institution\Institution;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateJointProgramEnrollmentsTable extends Migration
 {
@@ -20,6 +21,7 @@ class CreateJointProgramEnrollmentsTable extends Migration
             $table->timestamps();
 
             $table->string('sponsor');
+            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
 

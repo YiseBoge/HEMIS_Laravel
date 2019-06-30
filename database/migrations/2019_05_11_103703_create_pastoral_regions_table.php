@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Institution\Institution;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,10 +16,11 @@ class CreatePastoralRegionsTable extends Migration
     {
         Schema::create('pastoral_regions', function (Blueprint $table) {
             $table->uuid('id'); 
-            $table->bigInteger('male_number'); 
-            $table->bigInteger('female_number'); 
-            
+            $table->bigInteger('male_number');
+            $table->bigInteger('female_number');             
             $table->timestamps();
+
+            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
             

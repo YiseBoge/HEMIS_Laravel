@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Institution\Institution;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateSpecializingStudentsEnrollmentsTable extends Migration
 {
@@ -22,6 +23,7 @@ class CreateSpecializingStudentsEnrollmentsTable extends Migration
 
             $table->string('student_type');
             $table->string('specialization_type');
+            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
 

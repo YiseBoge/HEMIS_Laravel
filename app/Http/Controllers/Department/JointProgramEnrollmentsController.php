@@ -27,7 +27,7 @@ class JointProgramEnrollmentsController extends Controller
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
         $requestedSponsor = $request->input('sponsor');
@@ -45,6 +45,11 @@ class JointProgramEnrollmentsController extends Controller
             $requestedLevel = 'Undergraduate';
         }
 
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
+        }
+
         $enrollments = array();
 
         if ($institution != null) {
@@ -53,13 +58,23 @@ class JointProgramEnrollmentsController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                             foreach ($college->departments as $department) {
-                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                    foreach ($department->jointProgramEnrollments as $enrollment) {
-                                        if ($enrollment->sponsor == $requestedSponsor) {
-                                            $enrollments[] = $enrollment;
+                                if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $requestedDepartment) {
+                                        foreach ($department->jointProgramEnrollments as $enrollment) {
+                                            if ($enrollment->sponsor == $requestedSponsor) {
+                                                $enrollments[] = $enrollment;
+                                            }
                                         }
                                     }
-                                }
+                                } else {
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->jointProgramEnrollments as $enrollment) {
+                                            if ($enrollment->sponsor == $requestedSponsor) {
+                                                $enrollments[] = $enrollment;
+                                            }
+                                        }
+                                    }
+                                }                               
                             }
                         }
                     }
@@ -76,13 +91,13 @@ class JointProgramEnrollmentsController extends Controller
 
         $data = array(
             'enrollments' => $enrollments,
-            'colleges' => CollegeName::all(),
-            'bands' => BandName::all(),
+            'departments' => DepartmentName::all(),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
             'sponsors' => JointProgramEnrollment::getEnum('Sponsors'),
             'year_levels' => Department::getEnum('YearLevels'),
 
+            'selected_department' => $requestedDepartment,
             'selected_sponsor' => $requestedSponsor,
             'selected_program' => $requestedProgram,
             'selected_education_level' => $requestedLevel,
