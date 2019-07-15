@@ -8,6 +8,7 @@ use App\Models\College\College;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\DiasporaCourses;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -201,5 +202,47 @@ class DiasporaCoursesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function approve(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $action = $request->input('action');
+        $selectedDepartment = $request->input('department');
+
+        $course = DiasporaCourses::find($id);
+        if ($action == "approve") {
+            $course->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+            $course->save();
+        } elseif ($action == "disapprove") {
+            $course->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $course->save();
+        } else {
+            $institution = $user->institution();
+
+            if ($institution != null) {
+                foreach ($institution->bands as $band) {
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
+                        foreach ($band->colleges as $college) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
+                                    if ($department->departmentName->id == $selectedDepartment) {
+                                        foreach ($department->diasporaCourses as $course) {
+                                            if ($enrollment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
+                                                $course->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                                $course->save();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return redirect("/department/diaspora-courses");
     }
 }

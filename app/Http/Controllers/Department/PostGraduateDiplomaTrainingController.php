@@ -10,6 +10,7 @@ use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\PostGraduateDiplomaTraining;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -233,5 +234,47 @@ class PostGraduateDiplomaTrainingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function approve(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $action = $request->input('action');
+        $selectedDepartment = $request->input('department');
+
+        $training = PostGraduateDiplomaTraining::find($id);
+        if ($action == "approve") {
+            $training->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+            $training->save();
+        } elseif ($action == "disapprove") {
+            $training->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $training->save();
+        } else {
+            $institution = $user->institution();
+
+            if ($institution != null) {
+                foreach ($institution->bands as $band) {
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
+                        foreach ($band->colleges as $college) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
+                                    if ($department->departmentName->id == $selectedDepartment) {
+                                        foreach ($department->postgraduateDiplomaTrainings as $training) {
+                                            if ($training->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
+                                                $training->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                                $training->save();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return redirect("/department/postgraduate-diploma-training");
     }
 }

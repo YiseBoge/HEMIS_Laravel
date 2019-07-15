@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\College\Investment;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -239,4 +240,44 @@ class InvestmentsController extends Controller
     {
         //
     }
+
+    public function approve(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $action = $request->input('action');
+
+        $investment = Investment::find($id);
+        if ($action == "approve") {
+            $investment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+            $investment->save();
+        } elseif ($action == "disapprove") {
+            $investment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $investment->save();
+        } else {
+            $institution = $user->institution();
+
+            if ($institution != null) {
+                foreach ($institution->bands as $band) {
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
+                        foreach ($band->colleges as $college) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->investments as $investment) {
+                                    if($investment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                        $investment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                        $investment->save();
+                                    } 
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+
+            }
+        }
+        return redirect("/budgets/private-investment");
+    }
+
 }

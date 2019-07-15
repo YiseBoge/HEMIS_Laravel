@@ -7,15 +7,40 @@
                 <h6 class="m-0 font-weight-bold text-primary">Teachers on Special Program</h6>
             </div>
             <div class="card-body">
-                <div class="row my-3">
-                    <div class="col text-right">
-                        <a class="btn btn-primary btn-sm mb-0 shadow-sm"
-                           href="/department/special-program-teacher/create">New Entry<i
-                                    class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
+                @if(Auth::user()->hasRole('College Super Admin'))
+                    <div class="row my-3">
+                        <div class="col text-right">
+                                <form action="special-program-teacher/0/approve" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="action" value="approveAll">
+                                    <input type="hidden" name="department"
+                                            value="{{$selected_department}}">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-primary shadow-sm">
+                                        Approve All Pending in Selected Department<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                    </button>
+                                </form>
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div class="row my-3">
+                        <div class="col text-right">
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="special-program-teacher/create">New
+                                Entry<i
+                                        class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
+                        </div>
+                    </div>
+                @endif
                 <div class="row">
                     {!! Form::open(['action' => 'Department\SpecialProgramTeacherController@index', 'method' => 'GET', 'class' => 'w-100']) !!}
+                    @if(Auth::user()->hasRole('College Super Admin'))
+                        <div class="form-row">
+                            <div class="col-md form-group px-3">
+                                {!! Form::select('department', $departments , $selected_department , ['class' => 'form-control', 'id' => 'department', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('department', 'Department', ['class' => 'form-control-placeholder']) !!}
+                            </div>
+                        </div>
+                    @endif
                     <div class="form-row">
                         <div class="col-md-6 px-3 py-md-1 col">
                             <div class="form-group">
@@ -53,6 +78,11 @@
                                     colspan="1" aria-label="Age: activate to sort column ascending"
                                 >Female
                                 </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1"
+                                    aria-label="Start date: activate to sort column ascending"
+                                    style="min-width: 99px;">Approval Status
+                                </th>
 
                             </tr>
                             </thead>
@@ -60,17 +90,72 @@
                             @foreach($special_program_teachers as $specialProgramTeacher)
                                 <tr>
                                     <td class="text-center">
-                                        <a href=""
-                                           class="mr-2 d-inline text-primary"><i
-                                                    class="far fa-edit"></i> </a>
-                                        <a href="" class="d-inline text-danger" data-toggle="modal"
-                                           data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                        </a>
+                                        @if(Auth::user()->hasRole('College Super Admin'))
+                                            @if($specialProgramTeacher->approval_status == "Pending")
+                                                <form action="special-program-teacher/{{$specialProgramTeacher->id}}/approve"
+                                                        method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="action" value="disapprove">
+                                                    <button type="submit" style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Disapprove"
+                                                            class="btn btn-danger btn-circle text-white btn-sm">
+                                                        <i class="fas fa-times" style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @else
+                                            @if($specialProgramTeacher->approval_status != "Approved")
+                                                <div class="row px-1">
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                                action="special-program-teacher/{{$specialProgramTeacher->id}}/edit"
+                                                                method="GET">
+                                                            <button type="submit"
+                                                                    class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Edit">
+                                                                <i class="fas fa-pencil-alt fa-sm"
+                                                                    style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                                action="special-program-teacher/{{$specialProgramTeacher->id}}"
+                                                                method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="_method"
+                                                                    value="DELETE">
+                                                            <button type="submit"
+                                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Delete">
+                                                                <i class="fas fa-trash fa-sm"
+                                                                    style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endif
                                     </td>
 
                                     <td>{{ $specialProgramTeacher->program_type}}</td>
                                     <td>{{ $specialProgramTeacher->male_number }}</td>
                                     <td>{{ $specialProgramTeacher->female_number }}</td>
+                                    @if($specialProgramTeacher->approval_status == "Approved")
+                                        <td class="text-success"><i
+                                                    class="fas fa-check"></i> {{$specialProgramTeacher->approval_status}}
+                                        </td>
+                                    @elseif($specialProgramTeacher->approval_status == "Pending")
+                                        <td class="text-warning"><i
+                                                    class="far fa-clock"></i></i> {{$specialProgramTeacher->approval_status}}
+                                        </td>
+                                    @else
+                                        <td class="text-danger"><i
+                                                    class="fas fa-times"></i> {{$specialProgramTeacher->approval_status}}
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>

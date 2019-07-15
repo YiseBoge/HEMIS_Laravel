@@ -10,7 +10,7 @@
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         @if(Auth::user()->hasRole('College Super Admin'))
-                            <div class="row">
+                            <div class="row my-3">
                                 <div class="col text-right">
                                         <form action="normal/0/approve" method="POST">
                                             @csrf
@@ -166,7 +166,7 @@
                                                             <div class="row px-1">
                                                                 <div class="col px-0">
                                                                     <form class="p-0"
-                                                                          action="/enrollment/normal/{{$enrollment->id}}/edit"
+                                                                          action="normal/{{$enrollment->id}}/edit"
                                                                           method="GET">
                                                                         <button type="submit"
                                                                                 class="btn btn-primary btn-circle text-white btn-sm mx-0"
@@ -179,7 +179,7 @@
                                                                 </div>
                                                                 <div class="col px-0">
                                                                     <form class="p-0"
-                                                                          action="/enrollment/normal/{{$enrollment->id}}"
+                                                                          action="normal/{{$enrollment->id}}"
                                                                           method="POST">
                                                                         @csrf
                                                                         <input type="hidden" name="_method"

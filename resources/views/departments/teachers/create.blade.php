@@ -26,7 +26,7 @@
                                 <div class="col-md-6 form-group">
                                     <select class="form-control" name="education_level" id="education_level">
                                         @foreach ($education_levels as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                            <option value="{{$value}}">{{$value}}</option>
                                         @endforeach
                                     </select>
                                     <label for="education_level" class="form-control-placeholder">

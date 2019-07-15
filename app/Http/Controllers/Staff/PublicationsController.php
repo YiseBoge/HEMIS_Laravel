@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
+use App\Models\Department\DepartmentName;
 use App\Models\Department\PublicationsAndPatents;
 use App\Models\Staff\AcademicStaff;
 use App\Models\Staff\StaffPublication;
@@ -21,12 +22,17 @@ class PublicationsController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = DepartmentName::all()->first()->id;
+        }
 
         $publications = array();
 
@@ -36,10 +42,20 @@ class PublicationsController extends Controller
                     foreach ($band->colleges as $college) {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
                             foreach ($college->departments as $department) {
-                                if ($department->departmentName->department_name == $user->departmentName->department_name && $department->year_level == "None") {
-                                    foreach ($department->academicStaffs as $staff) {
-                                        foreach ($staff->publications as $publication) {
-                                            $publications[] = $publication;
+                                if ($user->hasRole('College Super Admin')) {
+                                    if ($department->departmentName->id == $requestedDepartment) {
+                                        foreach ($department->academicStaffs as $staff) {
+                                            foreach ($staff->publications as $publication) {
+                                                $publications[] = $publication;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
+                                        foreach ($department->academicStaffs as $staff) {
+                                            foreach ($staff->publications as $publication) {
+                                                $publications[] = $publication;
+                                            }
                                         }
                                     }
                                 }
@@ -73,7 +89,11 @@ class PublicationsController extends Controller
             $collegeName->college()->save($college);
         }
 
-        $departmentName = $user->departmentName;
+        if ($user->hasRole('College Super Admin')) {
+            $departmentName = DepartmentName::find($requestedDepartment);
+        }else{
+            $departmentName = $user->departmentName;
+        }       
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => "None",
             'college_id' => $college->id])->first();
         if ($department == null) {
@@ -93,7 +113,11 @@ class PublicationsController extends Controller
 
         $data = array(
             'publications' => $publications,
+            'departments' => DepartmentName::all(),
             'publications_and_patents' => $publicationsAndPatents,
+
+            'selected_department' => $requestedDepartment,
+            
             'page_name' => 'publication.publication.index'
         );
         return view("staff.publication.index")->with($data);

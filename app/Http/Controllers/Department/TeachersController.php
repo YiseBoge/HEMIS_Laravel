@@ -10,6 +10,7 @@ use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\Teacher;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,7 @@ class TeachersController extends Controller
 
         $requestedLevel = $request->input('education_level');
         if ($requestedLevel == null) {
-            $requestedLevel = 'Undergraduate';
+            $requestedLevel = 'First Degree(Bachelors)';
         }
 
         $requestedDepartment = $request->input('department');
@@ -220,5 +221,47 @@ class TeachersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function approve(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $action = $request->input('action');
+        $selectedDepartment = $request->input('department');
+
+        $teacher = Teacher::find($id);
+        if ($action == "approve") {
+            $teacher->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+            $teacher->save();
+        } elseif ($action == "disapprove") {
+            $teacher->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $teacher->save();
+        } else {
+            $institution = $user->institution();
+
+            if ($institution != null) {
+                foreach ($institution->bands as $band) {
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
+                        foreach ($band->colleges as $college) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
+                                    if ($department->departmentName->id == $selectedDepartment) {
+                                        foreach ($department->teachers as $teacher) {
+                                            if ($teacher->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
+                                                $teacher->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                                $teacher->save();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return redirect("/department/teachers");
     }
 }

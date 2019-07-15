@@ -8,6 +8,7 @@ use App\Models\Band\Research;
 use App\Models\College\College;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -235,4 +236,47 @@ class ResearchsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
     }
+
+    public function approve(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $action = $request->input('action');
+        $selectedDepartment = $request->input('department');
+
+        $research = Research::find($id);
+        if ($action == "approve") {
+            $research->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+            $research->save();
+        } elseif ($action == "disapprove") {
+            $research->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $research->save();
+        } else {
+            $institution = $user->institution();
+
+            if ($institution != null) {
+                foreach ($institution->bands as $band) {
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
+                        foreach ($band->colleges as $college) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
+                                    if ($department->departmentName->id == $selectedDepartment) {
+                                        foreach ($department->researches as $research) {
+                                            if ($research->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
+                                                $research->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                                $research->save();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return redirect("/institution/researches");
+    }
+
 }

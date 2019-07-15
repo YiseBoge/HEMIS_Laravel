@@ -7,13 +7,28 @@
                 <h6 class="m-0 font-weight-bold text-primary">Private Investments</h6>
             </div>
             <div class="card-body">
-                <div class="row my-3">
-                    <div class="col text-right">
-                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/budgets/private-investment/create">New
-                            Entry<i
-                                    class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
+                @if(Auth::user()->hasRole('College Super Admin'))
+                    <div class="row my-3">
+                        <div class="col text-right">
+                                <form action="private-investment/0/approve" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="action" value="approveAll">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-primary shadow-sm">
+                                        Approve All Pending<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                    </button>
+                                </form>
+                        </div>
+                    </div>                           
+                @else
+                    <div class="row my-3">
+                        <div class="col text-right">
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm"
+                            href="private-investment/create">New Entry<i
+                                        class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
+                        </div>
                     </div>
-                </div>
+                @endif
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
                         <table class="table table-bordered dataTable table-striped table-hover"
@@ -40,23 +55,83 @@
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending">Remarks
                                 </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1"
+                                    aria-label="Start date: activate to sort column ascending"
+                                    style="min-width: 99px;">Approval Status
+                                </th>
                             </tr>
                             </thead>
 
                             <tbody>
                             @foreach($investments as $investment)
                                 <tr>
-                                    <td class="text-center">
-                                        <a href="/budgets/private-investment/{{ $investment->id }}/edit"
-                                           class="mr-2 d-inline text-primary"><i
-                                                    class="far fa-edit"></i> </a>
-                                        <a href="" class="d-inline text-danger" data-toggle="modal"
-                                           data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                        </a>
-                                    </td>
+                                        <td class="text-center">
+                                                @if(Auth::user()->hasRole('College Super Admin'))
+                                                    @if($investment->approval_status == "Pending")
+                                                        <form action="private-investment/{{$investment->id}}/approve"
+                                                              method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="action" value="disapprove">
+                                                            <button type="submit" style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Disapprove"
+                                                                    class="btn btn-danger btn-circle text-white btn-sm">
+                                                                <i class="fas fa-times" style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                @else
+                                                    @if($investment->approval_status != "Approved")
+                                                        <div class="row px-1">
+                                                            <div class="col px-0">
+                                                                <form class="p-0"
+                                                                      action="private-investment/{{$investment->id}}/edit"
+                                                                      method="GET">
+                                                                    <button type="submit"
+                                                                            class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                            style="opacity:0.80"
+                                                                            data-toggle="tooltip" title="Edit">
+                                                                        <i class="fas fa-pencil-alt fa-sm"
+                                                                           style="opacity:0.75"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                            <div class="col px-0">
+                                                                <form class="p-0"
+                                                                      action="private-investment/{{$investment->id}}"
+                                                                      method="POST">
+                                                                    @csrf
+                                                                    <input type="hidden" name="_method"
+                                                                           value="DELETE">
+                                                                    <button type="submit"
+                                                                            class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                                            style="opacity:0.80"
+                                                                            data-toggle="tooltip" title="Delete">
+                                                                        <i class="fas fa-trash fa-sm"
+                                                                           style="opacity:0.75"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endif
+                                            </td>
                                     <td>{{ $investment->investment_title }}</td>
                                     <td>{{ $investment->cost_incurred }}</td>
                                     <td>{{ $investment->remarks }}</td>
+                                    @if($investment->approval_status == "Approved")
+                                        <td class="text-success"><i
+                                                    class="fas fa-check"></i> {{$investment->approval_status}}
+                                        </td>
+                                    @elseif($investment->approval_status == "Pending")
+                                        <td class="text-warning"><i
+                                                    class="far fa-clock"></i></i> {{$investment->approval_status}}
+                                        </td>
+                                    @else
+                                        <td class="text-danger"><i
+                                                    class="fas fa-times"></i> {{$investment->approval_status}}
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>

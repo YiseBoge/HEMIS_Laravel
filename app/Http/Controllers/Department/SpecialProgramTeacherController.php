@@ -10,6 +10,7 @@ use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\SpecialProgramTeacher;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -224,5 +225,47 @@ class SpecialProgramTeacherController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function approve(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $action = $request->input('action');
+        $selectedDepartment = $request->input('department');
+
+        $specialProgramTeacher = SpecialProgramTeacher::find($id);
+        if ($action == "approve") {
+            $specialProgramTeacher->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+            $specialProgramTeacher->save();
+        } elseif ($action == "disapprove") {
+            $specialProgramTeacher->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $specialProgramTeacher->save();
+        } else {
+            $institution = $user->institution();
+
+            if ($institution != null) {
+                foreach ($institution->bands as $band) {
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
+                        foreach ($band->colleges as $college) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
+                                    if ($department->departmentName->id == $selectedDepartment) {
+                                        foreach ($department->specialProgramTeachers as $specialProgramTeacher) {
+                                            if ($specialProgramTeacher->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
+                                                $specialProgramTeacher->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                                $specialProgramTeacher->save();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return redirect("/department/special-program-teacher");
     }
 }

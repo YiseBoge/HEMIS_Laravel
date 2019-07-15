@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\College\InternalRevenue;
+use App\Models\Institution\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -239,4 +240,45 @@ class InternalRevenuesController extends Controller
     {
         //
     }
+
+    public function approve(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $action = $request->input('action');
+
+        $internalRevenue = InternalRevenue::find($id);
+        if ($action == "approve") {
+            $internalRevenue->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+            $internalRevenue->save();
+        } elseif ($action == "disapprove") {
+            $internalRevenue->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $internalRevenue->save();
+        } else {
+            $institution = $user->institution();
+
+            if ($institution != null) {
+                foreach ($institution->bands as $band) {
+                    if ($band->bandName->band_name == $user->bandName->band_name) {
+                        foreach ($band->colleges as $college) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->internalRevenues as $internalRevenue) {
+                                    if($internalRevenue->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                        $internalRevenue->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                        $internalRevenue->save();
+                                    } 
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+
+            }
+        }
+        return redirect("/budgets/internal-revenue");
+    }
+
+   
 }

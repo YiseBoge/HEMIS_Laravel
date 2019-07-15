@@ -8,7 +8,7 @@
             </div>
             <div class="card-body">
                 @if(Auth::user()->hasRole('College Super Admin'))
-                    <div class="row">
+                    <div class="row my-3">
                         <div class="col text-right">
                                 <form action="university-industry-linkage/0/approve" method="POST">
                                     @csrf
