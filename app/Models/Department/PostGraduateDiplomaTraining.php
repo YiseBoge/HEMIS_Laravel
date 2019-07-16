@@ -13,6 +13,7 @@ use Webpatser\Uuid\Uuid;
  * @property int number_of_male_students
  * @property int number_of_female_students
  * @property int is_lead
+ * @method static PostGraduateDiplomaTraining find(int $id)
  */
 class PostGraduateDiplomaTraining extends Model
 {

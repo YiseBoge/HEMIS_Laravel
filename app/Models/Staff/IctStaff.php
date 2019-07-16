@@ -23,6 +23,18 @@ class IctStaff extends Model
     use Enums;
 
     public $incrementing = false;
+
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(IctStaff $model) { // before delete() method call this
+            $model->general()->delete();
+        });
+    }
+
     protected $enumStaffRanks = [
         'a' => 'rank1',
         'b' => 'rank2',

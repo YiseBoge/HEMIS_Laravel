@@ -10,6 +10,7 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\StudentAttrition;
 use App\Models\Institution\Institution;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -243,10 +244,13 @@ class StudentAttritionController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = StudentAttrition::find($id);
+        $item->delete();
+        return redirect('/student/student-attrition');
     }
 
     public function approve(Request $request, $id)

@@ -278,14 +278,8 @@ class IctStaffsController extends Controller
      */
     public function destroy($id)
     {
-        $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('College Admin');
-
-        $ictStaff = IctStaff::find($id);
-        $staff = $ictStaff->general;
-        $ictStaff->delete();
-        $staff->delete();
+        $item = IctStaff::find($id);
+        $item->delete();
         return redirect('/staff/ict');
     }
 }

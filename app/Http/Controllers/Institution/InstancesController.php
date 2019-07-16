@@ -175,8 +175,8 @@ class InstancesController extends Controller
      */
     public function destroy($id)
     {
-//        $item = Instance::find($id);
-//        $item->delete();
-//        return redirect('/institution/instance');
+        $item = Instance::find($id);
+        $item->delete();
+        return redirect('/institution/instance');
     }
 }

@@ -11,6 +11,7 @@ use Webpatser\Uuid\Uuid;
 /**
  * @property Uuid id
  * @property string|null case
+ * @method static StaffAttrition find(int $id)
  */
 class StaffAttrition extends Model
 {

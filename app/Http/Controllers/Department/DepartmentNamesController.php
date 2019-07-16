@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department\DepartmentName;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -133,9 +134,12 @@ class DepartmentNamesController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = DepartmentName::find($id);
+        $item->delete();
+        return redirect('/department/department-name');
     }
 }

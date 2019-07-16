@@ -338,18 +338,8 @@ class SpecialNeedStudentsController extends Controller
      */
     public function destroy($id)
     {
-        $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
-
-        $specialNeedStudent = SpecialNeedStudent::find($id);
-        $student = $specialNeedStudent->general;
-        $dormitoryService = $specialNeedStudent->general->studentService->dormitoryService;
-        $studentService = $specialNeedStudent->general->studentService;
-        $specialNeedStudent->delete();
-        $student->delete();
-        $dormitoryService->delete();
-        $studentService->delete();
+        $item = SpecialNeedStudent::find($id);
+        $item->delete();
         return redirect('/student/special-need');
     }
 }

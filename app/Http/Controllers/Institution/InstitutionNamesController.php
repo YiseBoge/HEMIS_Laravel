@@ -154,11 +154,10 @@ class InstitutionNamesController extends Controller
      * @return Response
      * @throws Exception
      */
-    public
-    function destroy($id)
+    public function destroy($id)
     {
-//        $item = InstitutionName::find($id);
-//        $item->delete();
-//        return redirect('/institution/institution-name');
+        $item = InstitutionName::find($id);
+        $item->delete();
+        return redirect('/institution/institution-name');
     }
 }

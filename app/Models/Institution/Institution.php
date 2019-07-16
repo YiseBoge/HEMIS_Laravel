@@ -26,6 +26,18 @@ class Institution extends Model
 
     public $incrementing = false;
 
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(Institution $model) { // before delete() method call this
+            $model->generalInformation()->delete();
+            $model->bands()->delete();
+        });
+    }
+
     protected $enumApprovalTypes = [
         'APPROVED' => 'Approved',
         'PENDING' => 'Pending',

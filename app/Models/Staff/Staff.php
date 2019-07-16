@@ -34,6 +34,17 @@ class Staff extends Model
 
     public $incrementing = false;
 
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(Staff $model) { // before delete() method call this
+            $model->staffAttrition()->delete();
+        });
+    }
+
     // Enums //
     protected $enumAcademicLevels = [
         'DIPLOMA' => 'Diploma',

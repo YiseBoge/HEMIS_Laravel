@@ -14,6 +14,7 @@ use Webpatser\Uuid\Uuid;
  * @property int female_number
  * @property string|null level_of_education
  * @property string|null citizenship
+ * @method static Teacher find(int $id)
  */
 class Teacher extends Model
 {

@@ -26,6 +26,18 @@ class GeneralInformation extends Model
 
     public $incrementing = false;
 
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(GeneralInformation $model) { // before delete() method call this
+            $model->resource()->delete();
+            $model->communityService()->delete();
+        });
+    }
+
     /**
      * @return HasOne
      */

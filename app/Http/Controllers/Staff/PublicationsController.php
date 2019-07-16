@@ -10,6 +10,7 @@ use App\Models\Department\DepartmentName;
 use App\Models\Department\PublicationsAndPatents;
 use App\Models\Staff\AcademicStaff;
 use App\Models\Staff\StaffPublication;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -319,9 +320,12 @@ class PublicationsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = PublicationsAndPatents::find($id);
+        $item->delete();
+        return redirect('/department/publication');
     }
 }

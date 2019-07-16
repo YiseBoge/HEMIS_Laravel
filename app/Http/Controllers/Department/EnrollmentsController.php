@@ -12,6 +12,7 @@ use App\Models\Department\DepartmentName;
 use App\Models\Department\Enrollment;
 use App\Models\Institution\Institution;
 use App\Services\GeneralReportService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -244,10 +245,13 @@ class EnrollmentsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = Enrollment::find($id);
+        $item->delete();
+        return redirect('/enrollment/normal');
     }
 
     public function approve(Request $request, $id)

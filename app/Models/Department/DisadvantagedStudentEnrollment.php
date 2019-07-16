@@ -13,6 +13,7 @@ use Webpatser\Uuid\Uuid;
  * @property int male_students_number
  * @property int female_students_number
  * @property string|null quintile
+ * @method static DisadvantagedStudentEnrollment find(int $id)
  */
 class DisadvantagedStudentEnrollment extends Model
 {

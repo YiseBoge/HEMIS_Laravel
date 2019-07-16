@@ -21,6 +21,9 @@ use Webpatser\Uuid\Uuid;
  * @property mixed institution_name_id
  * @property mixed college_name_id
  * @property InstitutionName institutionName
+ * @property uuid instance_id
+ * @property uuid band_name_id
+ * @property uuid department_name_id
  * @method static User find(int $id)
  */
 class User extends Authenticatable

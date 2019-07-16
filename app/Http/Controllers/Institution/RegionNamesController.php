@@ -117,8 +117,8 @@ class RegionNamesController extends Controller
      */
     public function destroy($id)
     {
-//        $item = RegionName::find($id);
-//        $item->delete();
-//        return redirect('/region-name');
+        $item = RegionName::find($id);
+        $item->delete();
+        return redirect('/region-name');
     }
 }

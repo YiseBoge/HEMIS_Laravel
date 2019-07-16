@@ -11,12 +11,24 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid id
  * @property string|null budget_code
  * @property array|string|null description
+ * @method static BudgetDescription find(int $id)
  */
 class BudgetDescription extends Model
 {
     use Uuids;
 
     public $incrementing = false;
+
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(BudgetDescription $model) { // before delete() method call this
+            $model->budget()->delete();
+        });
+    }
 
     /**
      * @param String $code

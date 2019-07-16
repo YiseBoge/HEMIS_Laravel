@@ -7,6 +7,7 @@ use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\College\Investment;
 use App\Models\Institution\Institution;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -235,10 +236,13 @@ class InvestmentsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = Investment::find($id);
+        $item->delete();
+        return redirect('/budgets/private-investment');
     }
 
     public function approve(Request $request, $id)

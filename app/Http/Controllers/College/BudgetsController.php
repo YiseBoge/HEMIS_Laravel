@@ -8,6 +8,7 @@ use App\Models\College\Budget;
 use App\Models\College\BudgetDescription;
 use App\Models\College\College;
 use App\Models\Institution\Institution;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -275,10 +276,13 @@ class BudgetsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = Budget::find($id);
+        $item->delete();
+        return redirect('/budgets/budget');
     }
 
     public function approve(Request $request, $id)

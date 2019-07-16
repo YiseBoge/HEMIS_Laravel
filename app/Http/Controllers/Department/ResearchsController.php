@@ -9,6 +9,7 @@ use App\Models\College\College;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Institution\Institution;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -229,12 +230,13 @@ class ResearchsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
+        $item = Research::find($id);
+        $item->delete();
+        return redirect('/institution/researches');
     }
 
     public function approve(Request $request, $id)

@@ -368,14 +368,8 @@ class AcademicStaffsController extends Controller
      */
     public function destroy($id)
     {
-        $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
-
-        $academicStaff = AcademicStaff::find($id);
-        $staff = $academicStaff->general;
-        $academicStaff->delete();
-        $staff->delete();
+        $item = AcademicStaff::find($id);
+        $item->delete();
         return redirect('/staff/academic');
     }
 }

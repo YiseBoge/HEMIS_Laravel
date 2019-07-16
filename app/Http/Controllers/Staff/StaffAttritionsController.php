@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Staff\Staff;
 use App\Models\Staff\StaffAttrition;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -284,9 +285,12 @@ class StaffAttritionsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = StaffAttrition::find($id);
+        $item->delete();
+        return redirect('/staff/attrition');
     }
 }

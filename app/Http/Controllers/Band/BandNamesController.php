@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Band;
 
 use App\Http\Controllers\Controller;
 use App\Models\Band\BandName;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -127,9 +128,12 @@ class BandNamesController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = BandName::find($id);
+        $item->delete();
+        return redirect('/band/band-name');
     }
 }

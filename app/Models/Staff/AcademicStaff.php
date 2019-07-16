@@ -28,6 +28,20 @@ class AcademicStaff extends Model
     use Uuids;
     use Enums;
     public $incrementing = false;
+
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(AcademicStaff $model) { // before delete() method call this
+            $model->general()->delete();
+            $model->staffLeave()->delete();
+            $model->publications()->delete();
+        });
+    }
+
     protected $enumStaffRanks = [
         'GRADUATE_ASSISTANT_I' => 'Graduate Assistant I',
         'GRADUATE_ASSISTANT_II' => 'Graduate Assistant II',

@@ -20,12 +20,24 @@ class CollegeName extends Model
 
     public $incrementing = false;
 
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(CollegeName $model) { // before delete() method call this
+            $model->college()->delete();
+            $model->users()->delete();
+        });
+    }
+
     /**
-     * @return HasOne
+     * @return HasMany
      */
     public function college()
     {
-        return $this->hasOne('App\Models\College\College');
+        return $this->hasMany('App\Models\College\College');
     }
 
     /**

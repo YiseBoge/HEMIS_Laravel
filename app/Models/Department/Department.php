@@ -23,6 +23,42 @@ class Department extends Model
 
     public $incrementing = false;
 
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(Department $model) { // before delete() method call this
+            $model->enrollments()->delete();
+            $model->ruralStudentEnrollments()->delete();
+            $model->disadvantagedStudentEnrollments()->delete();
+            $model->specialRegionEnrollments()->delete();
+            $model->specializingStudentEnrollments()->delete();
+            $model->ageEnrollments()->delete();
+            $model->jointProgramEnrollments()->delete();
+            $model->exitExaminations()->delete();
+            $model->degreeEmployments()->delete();
+            $model->costSharings()->delete();
+            $model->otherRegionStudents()->delete();
+
+            $model->specialProgramTeachers()->delete();
+            $model->upgradingStaffs()->delete();
+            $model->staffLeaves()->delete();
+            $model->academicStaffs()->delete();
+            $model->postgraduateDiplomaTrainings()->delete();
+            $model->teachers()->delete();
+
+            $model->specialNeedStudents()->delete();
+            $model->foreignStudents()->delete();
+            $model->studentAttritions()->delete();
+            $model->otherAttritions()->delete();
+            $model->publicationsAndPatents()->delete();
+            $model->researches()->delete();
+            $model->diasporaCourses()->delete();
+        });
+    }
+
     protected $enumYearLevels = [
         'ONE' => '1',
         'TWO' => '2',
@@ -181,14 +217,6 @@ class Department extends Model
     public function teachers()
     {
         return $this->hasMany('App\Models\Department\Teacher');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function expatriates()
-    {
-        return $this->hasMany('App\Models\Department\ExpatriateStaff');
     }
 
     /**

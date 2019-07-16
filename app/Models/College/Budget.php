@@ -14,6 +14,7 @@ use Webpatser\Uuid\Uuid;
  * @property int allocated_budget
  * @property int additional_budget
  * @property int utilized_budget
+ * @property string|null approval_status
  * @method static Budget where(string $string, $budget_type)
  * @method Budget get()
  * @method static Budget find($id)

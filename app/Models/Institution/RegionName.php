@@ -19,6 +19,17 @@ class RegionName extends Model
 
     public $incrementing = false;
 
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(RegionName $model) { // before delete() method call this
+            $model->specialRegionEnrollment()->delete();
+        });
+    }
+
     public function specialRegionEnrollment()
     {
         return $this->hasMany('App\Models\Department\SpecialRegionEnrollment');

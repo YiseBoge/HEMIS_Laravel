@@ -11,6 +11,7 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\PostGraduateDiplomaTraining;
 use App\Models\Institution\Institution;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -230,10 +231,13 @@ class PostGraduateDiplomaTrainingController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = PostGraduateDiplomaTraining::find($id);
+        $item->delete();
+        return redirect('/department/postgraduate-diploma-training');
     }
 
     public function approve(Request $request, $id)

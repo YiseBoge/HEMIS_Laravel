@@ -14,6 +14,7 @@ use Webpatser\Uuid\Uuid;
  * @property int female_number
  * @property string|null program_stat
  * @property string|null program_type
+ * @method static SpecialProgramTeacher find(int $id)
  */
 class SpecialProgramTeacher extends Model
 {

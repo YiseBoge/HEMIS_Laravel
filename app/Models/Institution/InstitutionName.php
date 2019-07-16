@@ -2,7 +2,6 @@
 
 namespace App\Models\Institution;
 
-use App\Models\College\CollegeName;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,7 +13,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null institution_name
  * @property string|null acronym
  * @property bool is_private
- * @property CollegeName collegeNames
+ * @property Collection collegeNames
  * @property Collection departmentNames
  * @method static InstitutionName find($id)
  */
@@ -23,6 +22,20 @@ class InstitutionName extends Model
     use Uuids;
 
     public $incrementing = false;
+
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(InstitutionName $model) { // before delete() method call this
+            $model->institutions()->delete();
+            $model->collegeNames()->delete();
+            $model->departmentNames()->delete();
+            $model->users()->delete();
+        });
+    }
 
     /**
      * @return HasMany

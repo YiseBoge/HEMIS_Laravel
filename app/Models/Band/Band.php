@@ -22,8 +22,16 @@ class Band extends Model
 
     public $incrementing = false;
 
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
 
-    // Enums //
+        static::deleting(function(Band $model) { // before delete() method call this
+            $model->colleges()->delete();
+        });
+    }
 
     /**
      * @return BelongsTo
@@ -39,13 +47,5 @@ class Band extends Model
     public function colleges()
     {
         return $this->hasMany('App\Models\College\College');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function technicalStaffs()
-    {
-        return $this->hasMany('App\Models\College\TechnicalStaff');
     }
 }

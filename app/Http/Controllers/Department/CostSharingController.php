@@ -9,6 +9,7 @@ use App\Models\Department\CostSharing;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Institution\Institution;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,7 @@ class CostSharingController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -214,10 +216,13 @@ class CostSharingController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = CostSharing::find($id);
+        $item->delete();
+        return redirect('/student/cost-sharing');
     }
 
     public function approve(Request $request, $id)

@@ -34,7 +34,7 @@ class CreateStaffTable extends Migration
 
             $table->primary('id');
             $table->uuid('staffable_id');
-            $table->uuid('staffable_type');
+            $table->string('staffable_type');
         });
     }
 

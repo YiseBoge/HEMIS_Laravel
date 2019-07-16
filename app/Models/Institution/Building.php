@@ -20,6 +20,7 @@ use Webpatser\Uuid\Uuid;
  * @property int financial_status
  * @property int completion_status
  * @property Uuid college_id
+ * @method static Building find(int $id)
  */
 class Building extends Model
 {

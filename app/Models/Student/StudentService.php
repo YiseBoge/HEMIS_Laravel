@@ -20,6 +20,18 @@ class StudentService extends Model
     use Enums;
 
     public $incrementing = false;
+
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(StudentService $model) { // before delete() method call this
+            $model->dormitoryService()->delete();
+        });
+    }
+
     protected $enumFoodServiceTypes = [
         'IN_KIND' => 'In Kind',
         'IN_CASH' => 'In Cash',

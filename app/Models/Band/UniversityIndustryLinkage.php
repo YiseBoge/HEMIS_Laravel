@@ -14,6 +14,7 @@ use Webpatser\Uuid\Uuid;
  * @property int number_of_industry_links
  * @property int number_of_students
  * @property int training_area
+ * @method static UniversityIndustryLinkage find(int $id)
  */
 class UniversityIndustryLinkage extends Model
 {

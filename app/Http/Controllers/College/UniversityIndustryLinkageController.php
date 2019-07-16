@@ -8,6 +8,7 @@ use App\Models\Band\BandName;
 use App\Models\Band\UniversityIndustryLinkage;
 use App\Models\College\College;
 use App\Models\Institution\Institution;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -190,10 +191,13 @@ class UniversityIndustryLinkageController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = UniversityIndustryLinkage::find($id);
+        $item->delete();
+        return redirect('/student/university-industry-linkage');
     }
 
     public function approve(Request $request, $id)

@@ -11,6 +11,7 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\DisadvantagedStudentEnrollment;
 use App\Models\Institution\Institution;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -236,10 +237,13 @@ class DisadvantagedStudentEnrollmentsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = DisadvantagedStudentEnrollment::find($id);
+        $item->delete();
+        return redirect('/enrollment/economically-disadvantaged');
     }
 
     public function approve(Request $request, $id)

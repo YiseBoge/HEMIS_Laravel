@@ -25,6 +25,17 @@ class Instance extends Model
 
     public $incrementing = false;
 
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(Instance $model) { // before delete() method call this
+            $model->users()->delete();
+            $model->institutions()->delete();
+        });
+    }
 
     /**
      * @return HasMany

@@ -344,18 +344,8 @@ class ForeignStudentsController extends Controller
      */
     public function destroy($id)
     {
-        $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
-
-        $foreignerStudent = ForeignStudent::find($id);
-        $student = $foreignerStudent->general;
-        $dormitoryService = $foreignerStudent->general->studentService->dormitoryService;
-        $studentService = $foreignerStudent->general->studentService;
-        $dormitoryService->delete();
-        $studentService->delete();
-        $foreignerStudent->delete();
-        $student->delete();
-        return redirect('/student/foreigner');
+        $item = ForeignStudent::find($id);
+        $item->delete();
+        return redirect('/student/foreign');
     }
 }

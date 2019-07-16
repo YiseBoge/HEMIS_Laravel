@@ -20,6 +20,18 @@ class ForeignStudent extends Model
     use Uuids;
     public $incrementing = false;
 
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(ForeignStudent $model) { // before delete() method call this
+            $model->general()->delete();
+        });
+    }
+
+
     /**
      * @return MorphOne
      */

@@ -21,6 +21,18 @@ class ManagementStaff extends Model
     use Enums;
 
     public $incrementing = false;
+
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(ManagementStaff $model) { // before delete() method call this
+            $model->general()->delete();
+        });
+    }
+
     protected $enumManagementLevels = [
         'SENIOR' => 'Senior',
         'MIDDLE' => 'Middle',

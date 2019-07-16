@@ -128,8 +128,8 @@ class IctStaffTypesController extends Controller
      */
     public function destroy($id)
     {
-//        $item = IctStaffType::find($id);
-//        $item->delete();
-//        return redirect('/staff/ict-staff-types');
+        $item = IctStaffType::find($id);
+        $item->delete();
+        return redirect('/staff/ict-staff-types');
     }
 }

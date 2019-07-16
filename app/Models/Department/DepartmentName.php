@@ -20,12 +20,24 @@ class DepartmentName extends Model
 
     public $incrementing = false;
 
+    public static function boot() {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function(DepartmentName $model) { // before delete() method call this
+            $model->department()->delete();
+            $model->users()->delete();
+        });
+    }
+
     /**
-     * @return HasOne
+     * @return HasMany
      */
     public function department()
     {
-        return $this->hasOne('App\Models\Department\Department');
+        return $this->hasMany('App\Models\Department\Department');
     }
 
     /**

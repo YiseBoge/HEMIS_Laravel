@@ -255,14 +255,8 @@ class TechnicalStaffsController extends Controller
      */
     public function destroy($id)
     {
-        $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('College Admin');
-
-        $technicalStaff = TechnicalStaff::find($id);
-        $staff = $technicalStaff->general;
-        $technicalStaff->delete();
-        $staff->delete();
+        $item = TechnicalStaff::find($id);
+        $item->delete();
         return redirect('/staff/technical');
     }
 }

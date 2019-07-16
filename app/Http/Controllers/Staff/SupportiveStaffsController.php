@@ -277,14 +277,8 @@ class SupportiveStaffsController extends Controller
      */
     public function destroy($id)
     {
-        $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('College Admin');
-
-        $administrativeStaff = SupportiveStaff::find($id);
-        $staff = $administrativeStaff->general;
-        $administrativeStaff->delete();
-        $staff->delete();
-        return redirect('/staff/administrative');
+        $item = SupportiveStaff::find($id);
+        $item->delete();
+        return redirect('/staff/supportive');
     }
 }

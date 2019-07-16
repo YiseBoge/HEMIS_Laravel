@@ -10,6 +10,7 @@ use App\Models\Department\DepartmentName;
 use App\Models\Department\SpecialRegionEnrollment;
 use App\Models\Institution\RegionName;
 use App\Models\Institution\Institution;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -250,10 +251,13 @@ class SpecialRegionsEnrollmentsController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = SpecialRegionEnrollment::find($id);
+        $item->delete();
+        return redirect('/enrollment/special-region-students');
     }
 
     public function approve(Request $request, $id)
