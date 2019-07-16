@@ -12,6 +12,7 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid id
  * @property string|null college_name
  * @property string|null acronym
+ * @method static CollegeName find(int $id)
  */
 class CollegeName extends Model
 {

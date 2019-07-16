@@ -12,6 +12,7 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid id
  * @property string|null category
  * @property string|null type
+ * @method static IctStaffType find(int $id)
  */
 class IctStaffType extends Model
 {

@@ -62,26 +62,38 @@
                         @if (count($staffs) > 0)
                             @foreach ($staffs as $staff)
                                 <tr role="row" class="odd" onclick="window.location='ict/{{$staff->id}}'">
-                                    <td class="pl-4">
-                                        <div class="row">
-                                            <div class="col pt-1">
-                                                <a href="ict/{{$staff->id}}/edit" class="text-primary mr-3"><i
-                                                            class="far fa-edit"></i> </a>
+                                    <td class="text-center">
+                                        <div class="row px-1">
+                                            <div class="col px-0">
+                                                <form class="p-0"
+                                                      action="/staff/ict/{{$staff->id}}/edit"
+                                                      method="GET">
+                                                    <button type="submit"
+                                                            class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                            style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Edit">
+                                                        <i class="fas fa-pencil-alt fa-sm"
+                                                           style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
                                             </div>
-                                            <div class="col">
-                                                <form class="p-0" action="/staff/ict/{{$staff->id}}"
+                                            <div class="col px-0">
+                                                <form class="p-0"
+                                                      action="/staff/ict/{{$staff->id}}"
                                                       method="POST">
                                                     @csrf
-                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_method"
+                                                           value="DELETE">
                                                     <button type="submit"
-                                                            class="form-control form-control-plaintext text-danger p-0">
-                                                        <i class="far fa-trash-alt"></i>
+                                                            class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                            style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Delete">
+                                                        <i class="fas fa-trash fa-sm"
+                                                           style="opacity:0.75"></i>
                                                     </button>
                                                 </form>
                                             </div>
                                         </div>
-
-
                                     </td>
                                     <td class="sorting_1">{{$staff->general->name}}</td>
                                     <td>{{$staff->general->job_title}}</td>

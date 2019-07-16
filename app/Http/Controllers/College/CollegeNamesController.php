@@ -5,6 +5,7 @@ namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
 use App\Models\College\CollegeName;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -122,9 +123,12 @@ class CollegeNamesController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = CollegeName::find($id);
+        $item->delete();
+        return redirect('/college/college-name');
     }
 }
