@@ -8,6 +8,7 @@ use App\Models\Institution\GeneralInformation;
 use App\Models\Institution\Institution;
 use App\Models\Institution\InstitutionName;
 use App\Models\Institution\Resource;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -151,10 +152,13 @@ class InstitutionNamesController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public
     function destroy($id)
     {
-        //
+//        $item = InstitutionName::find($id);
+//        $item->delete();
+//        return redirect('/institution/institution-name');
     }
 }

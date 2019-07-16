@@ -7,6 +7,7 @@ use App\Models\Band\BandName;
 use App\Models\College\CollegeName;
 use App\Role;
 use App\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -160,9 +161,12 @@ class CollegeAdminController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $item = User::find($id);
+        $item->delete();
+        return redirect('/college-admin');
     }
 }

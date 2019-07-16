@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
 use App\Models\Institution\Instance;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -170,9 +171,12 @@ class InstancesController extends Controller
      *
      * @param int $id
      * @return Response
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+//        $item = Instance::find($id);
+//        $item->delete();
+//        return redirect('/institution/instance');
     }
 }

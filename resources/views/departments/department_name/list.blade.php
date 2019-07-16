@@ -41,12 +41,37 @@
                             @foreach($departments as $department)
                                 <tr>
                                     <td class="text-center">
-                                        <a href=""
-                                           class="mr-2 d-inline text-primary"><i
-                                                    class="far fa-edit"></i> </a>
-                                        <a href="" class="d-inline text-danger" data-toggle="modal"
-                                           data-target="#deleteModal"><i class="far fa-trash-alt"></i>
-                                        </a>
+                                        <div class="row px-1">
+                                            <div class="col px-0">
+                                                <form class="p-0"
+                                                      action="/department/department-name/{{$department->id}}/edit"
+                                                      method="GET">
+                                                    <button type="submit"
+                                                            class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                            style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Edit">
+                                                        <i class="fas fa-pencil-alt fa-sm"
+                                                           style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="col px-0">
+                                                <form class="p-0"
+                                                      action="/department/department-name/{{$department->id}}"
+                                                      method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="_method"
+                                                           value="DELETE">
+                                                    <button type="submit"
+                                                            class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                            style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Delete">
+                                                        <i class="fas fa-trash fa-sm"
+                                                           style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>{{ $department->department_name }}</td>
                                     <td>{{ $department->acronym }}</td>

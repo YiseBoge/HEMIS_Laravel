@@ -109,9 +109,11 @@
                                             </td>
                                             <td class="hide-print" id="unprint">
                                                 <a href="/report/{{ $kpi->id }}/edit"
-                                                   class="mr-3 text-muted" data-toggle="tooltip"
-                                                   title="Edit Target">
-                                                    <i class="far fa-edit"></i>
+                                                   class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                   style="opacity:0.80"
+                                                   data-toggle="tooltip" title="Edit Target">
+                                                    <i class="fas fa-pencil-alt fa-sm"
+                                                       style="opacity:0.75"></i>
                                                 </a>
                                             </td>
                                         </tr>

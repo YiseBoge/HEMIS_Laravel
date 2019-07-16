@@ -5,12 +5,12 @@ namespace App\Models\Institution;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
  * @method static Collection where(string $string, array|string|null $input)
+ * @method static RegionName find(int $id)
  * @property string|null name
  */
 class RegionName extends Model
