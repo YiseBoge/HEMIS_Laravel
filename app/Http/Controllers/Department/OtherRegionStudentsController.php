@@ -204,7 +204,23 @@ class OtherRegionStudentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        // there is some error please remember to review this part
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $otherRegionStudentsEnrollment = OtherRegionStudent::find($id);
+        $department = $otherRegionStudentsEnrollment->department()->first();
+        $college = $department->department()->first();
+        $data = array(
+            'programs' => $college->education_program,
+            'education_levels' => $college->education_level,
+            'year_levels' => $department->year_level,
+            'male_students_number' => $otherRegionStudentsEnrollment->male_students_number,
+            'female_students_number' => $otherRegionStudentsEnrollment->female_students_number,
+            'page_name' => 'enrollment.other_region_students.create'
+        );
+        return view('enrollment.other_region_students.create')->with($data);
     }
 
     /**
@@ -216,7 +232,18 @@ class OtherRegionStudentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $otherRegionStudentsEnrollment = OtherRegionStudent::find($id);
+
+        $otherRegionStudentsEnrollment->male_students_number = $request->input("male_students_number");
+        $otherRegionStudentsEnrollment->female_students_number = $request->input("female_students_number");
+
+        $otherRegionStudentsEnrollment->save();
+        
+        return redirect("/enrollment/other-region-students");
     }
 
     /**
