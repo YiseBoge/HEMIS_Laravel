@@ -226,7 +226,7 @@ class PostGraduateDiplomaTrainingController extends Controller
             'number_of_female_students' => $postGraduateDiplomaTraining->number_of_female_students,
             'page_name' => 'staff.postgraduate_diploma_training.edit'
         );
-=
+
         return view("departments.postgraduate_diploma_training.edit")->with($data);
     }
 
