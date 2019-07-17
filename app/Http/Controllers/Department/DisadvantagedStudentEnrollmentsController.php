@@ -217,7 +217,26 @@ class DisadvantagedStudentEnrollmentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $disadvantagedStudentEnrollment = DisadvantagedStudentEnrollment::find($id)->first();
+        $department = $disadvantagedStudentEnrollment->department()->first();
+        $college = $department->college()->first();
+
+        $data = array(
+            'programs' => $college->education_program,
+            'education_levels' => $college->education_level,
+            'quintiles' => $disadvantagedStudentEnrollment->quintile,
+            'male_students_number' => $disadvantagedStudentEnrollment->male_students_number,
+            'female_students_number' => $disadvantagedStudentEnrollment->female_students_number,
+            'year_levels' => $department->year_level,
+            'page_name' => 'enrollment.disadvantaged_students.edit'
+        );
+
+        die(print_r($data));
+        return view("enrollment.disadvantaged_students.edit")->with($data);
     }
 
     /**
@@ -229,7 +248,17 @@ class DisadvantagedStudentEnrollmentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $disadvantagedStudentEnrollment = DisadvantagedStudentEnrollment::find($id)->first();
+        $disadvantagedStudentEnrollment->male_students_number = $request->input("male_students_number");
+        $disadvantagedStudentEnrollment->female_students_number = $request->input("female_students_number");
+
+        $disadvantagedStudentEnrollment->save();
+
+        return redirect("/enrollment/economically-disadvantaged");
     }
 
     /**
