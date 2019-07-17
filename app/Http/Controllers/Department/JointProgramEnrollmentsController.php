@@ -223,7 +223,26 @@ class JointProgramEnrollmentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $jointProgramEnrollment = JointProgramEnrollment::find($id)->first();
+        $department = $jointProgramEnrollment->department()->first();
+        $college = $department->college()->first();
+
+        $data = array(
+            'program' => $college->education_program,
+            'education_level' => $college->education_level,
+            'sponsor' => $jointProgramEnrollment->sponsor,
+            'male_students_number' => $jointProgramEnrollment->male_students_number,
+            'female_students_number' => $jointProgramEnrollment->female_students_number,
+            'year_level' => $department->year_level,
+            'page_name' => 'enrollment.joint_program.edit'
+        );
+
+        die(print_r($data));
+        return view('enrollment.joint_program.edit')->with($data);
     }
 
     /**
@@ -235,7 +254,20 @@ class JointProgramEnrollmentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $jointProgramEnrollment = JointProgramEnrollment::find($id)->first();
+
+        $jointProgramEnrollment->male_students_number = $request->input("male_students_number");
+        $jointProgramEnrollment->female_students_number = $request->input("female_students_number");
+
+        $jointProgramEnrollment->save();
+
+        return redirect("/enrollment/joint-program");
+
+
     }
 
     /**
