@@ -180,7 +180,7 @@
                                                     </div>
                                                     <div class="col">
                                                         <form class="p-0"
-                                                                action="/attrition/other-attrition/{{$attrition->id}}"
+                                                                action="/student/other-attrition/{{$attrition->id}}"
                                                                 method="POST">
                                                             @csrf
                                                             <input type="hidden" name="_method"
