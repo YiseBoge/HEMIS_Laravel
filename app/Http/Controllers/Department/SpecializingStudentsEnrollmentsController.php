@@ -223,7 +223,24 @@ class SpecializingStudentsEnrollmentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $specializingStudentsEnrollment = SpecializingStudentsEnrollment::find($id)->first();
+        $department = $specializingStudentsEnrollment->department()->first();
+        $college = $department->college()->first();
+        $data = array(
+            'programs' => $college->education_program,
+            'specialization_types' => $specializingStudentsEnrollment->specialization_type,
+            'student_types' => $specializingStudentsEnrollment->student_type,
+            'male_students_number' => $specializingStudentsEnrollment->male_students_number,
+            'female_students_number' => $specializingStudentsEnrollment->female_students_number,
+            'year_levels' => $department->year_level,
+            'page_name' => 'enrollment.specializing_students.edit'
+        );
+        die(print_r($data));
+        return view('enrollment.specializing_students.edit')->with($data);
     }
 
     /**
@@ -235,7 +252,20 @@ class SpecializingStudentsEnrollmentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $specializingStudentsEnrollment = SpecializingStudentsEnrollment::find($id)->first();
+
+        $specializingStudentsEnrollment->male_students_number = $request->input('male_students_number');
+        $specializingStudentsEnrollment->female_students_number = $request->input('female_students_number');
+
+        $specializingStudentsEnrollment->save();
+
+        return redirect("/enrollment/specializing-students");
+
+
     }
 
     /**
