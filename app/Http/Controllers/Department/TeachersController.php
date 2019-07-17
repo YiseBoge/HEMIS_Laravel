@@ -198,7 +198,20 @@ class TeachersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $teachers = Teacher::find($id)->first();
+        $data = array(
+            'education_levels' => $teachers->level_of_education,
+            'citizenship' => $teachers->citizenship,
+            'male_number' => $teachers->male_number,
+            'female_number' => $teachers->female_number,
+            'page_name' => 'staff.teachers.edit'
+        );
+        die(print_r($data));
+        return view('departments.teachers.create')->with($data);
     }
 
     /**
@@ -210,7 +223,20 @@ class TeachersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $teachers = Teacher::find($id)->first();
+
+        $teachers->male_number = $request->input("male_numbers");
+        $teachers->female_number = $request->input("female_numbers");
+
+        $teachers->save();
+
+        return redirect("/department/teachers");
+
+
     }
 
     /**
