@@ -185,7 +185,7 @@
                                                 <div class="row px-1">
                                                     <div class="col">
                                                         <form class="p-0"
-                                                            action="/attrition/student-attrition/{{$attrition->id}}/edit"
+                                                            action="/student/student-attrition/{{$attrition->id}}/edit"
                                                             method="GET">
                                                             <button type="submit"
                                                                     class="btn btn-primary btn-circle text-white btn-sm" style="opacity:0.80" data-toggle="tooltip" title="Edit">
