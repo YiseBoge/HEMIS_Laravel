@@ -211,7 +211,23 @@ class PostGraduateDiplomaTrainingController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $postGraduateDiplomaTraining = PostGraduateDiplomaTraining::find($id)->first();
+        $department = $postGraduateDiplomaTraining->department()->first();
+        $college = $department->college()->first();
+        
+        $data = array(
+            'programs' => $college->education_program,
+            'types' => $postGraduateDiplomaTraining->is_lead,
+            'number_of_male_students' => $postGraduateDiplomaTraining->number_of_male_students,
+            'number_of_female_students' => $postGraduateDiplomaTraining->number_of_female_students,
+            'page_name' => 'staff.postgraduate_diploma_training.edit'
+        );
+=
+        return view("departments.postgraduate_diploma_training.edit")->with($data);
     }
 
     /**
@@ -223,7 +239,18 @@ class PostGraduateDiplomaTrainingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $postGraduateDiplomaTraining = PostGraduateDiplomaTraining::find($id)->first();
+
+        $postGraduateDiplomaTraining->number_of_male_students = $request->input("number_of_male_students");
+        $postGraduateDiplomaTraining->number_of_female_students = $request->input("number_of_female_students");
+
+        $postGraduateDiplomaTraining->save();
+
+        return redirect("/department/postgraduate-diploma-training");
     }
 
     /**
