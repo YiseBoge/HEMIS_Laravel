@@ -205,7 +205,25 @@ class AgeEnrollmentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $ageEnrollment = AgeEnrollment::find($id)->first();
+        $department = $ageEnrollment->department()->first();
+        $college = $department->college()->first();
+
+        $data = [
+            'age_range' => $ageEnrollment->age,
+            'male_students_number' => $ageEnrollment->male_students_number,
+            'female_students_number' => $ageEnrollment->female_students_number,
+            'programs' => $college->education_program,
+            'education_levels' => $college->education_level,
+            'year_levels' => $department->year_level,
+            'page_name' => 'enrollment.age_enrollment.edit'];
+
+        die(print_r($data));
+        return view('enrollment.age_enrollment.edit')->with($data);
     }
 
     /**
@@ -217,7 +235,18 @@ class AgeEnrollmentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $ageEnrollment = AgeEnrollment::find($id)->first();
+
+        $ageEnrollment->male_students_number = $request->input("male_students_number");
+        $ageEnrollment->female_students_number = $request->input("female_students_number");
+
+        $ageEnrollment->save();
+
+        return redirect('enrollment/age-enrollment');
     }
 
     /**
