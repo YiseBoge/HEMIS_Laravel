@@ -179,7 +179,19 @@ class ExitExaminationsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $exitExamination = ExitExamination::find($id)->first();
+
+        $data = array(
+            'male_students_number' => $exitExamination->male_students_number,
+            'female_students_number' => $exitExamination->female_students_number,
+            'page_name' => 'students.exit_examination.create'
+        );
+        die(print_r($data));
+        return view("departments.exit_examination.create")->with($data);
     }
 
     /**
@@ -191,7 +203,14 @@ class ExitExaminationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $exitExamination = ExitExamination::find($id)->first();
+
+        $exitExamination->male_students_number = $request->input("male_sstudents_number");
+        $exitExamination->female_students_number = $request->input("female_sstudents_number");
     }
 
     /**
