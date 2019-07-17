@@ -231,7 +231,27 @@ class SpecialRegionsEnrollmentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $specialRegionEnorllment = SpecialRegionEnrollment::find($id)->first();
+        $regionName = $specialRegionEnorllment->regionName()->first();
+        $department = $specialRegionEnorllment->department()->first();
+        $college = $department->college()->first();
+
+        $data = array(
+            'id' => $specialRegionEnorllment->id,
+            'type' => $specialRegionEnorllment->region_type,
+            'male_number' => $specialRegionEnorllment->male_number,
+            'female_number' => $specialRegionEnorllment->female_number,
+            'region' => $regionName,
+            'program' => $college->education_program,
+            'education_level' => $college->education_level,
+            'year_level' => $department->year_level,
+            'page_name' => 'enrollment.special_region_students.edit'
+        );
+        return view('enrollment.special_region_students.edit')->with($data);
     }
 
     /**
@@ -243,7 +263,16 @@ class SpecialRegionsEnrollmentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $specialRegionEnorllment = SpecialRegionEnrollment::find($id)->first();
+        $specialRegionEnorllment->male_number = $request->input("male_number");
+        $specialRegionEnorllment->female_number = $request->input("female_number");
+
+        $specialRegionEnorllment->save();
+        return redirect("/enrollment/special-region-students");
     }
 
     /**
