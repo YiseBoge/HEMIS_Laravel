@@ -179,7 +179,18 @@ class DiasporaCoursesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $diasporaCourses = DiasporaCourses::find($id)->first();
+
+        $data = array(
+            'number_of_courses' => $diasporaCourses->number_of_courses,
+            'number_of_researches' => $diasporaCourses->number_of_researches,
+            'page_name' => 'staff.diaspora_course.edit'
+        );
+        return view("departments.diaspora_course.edit")->with($data);
     }
 
     /**
@@ -191,7 +202,18 @@ class DiasporaCoursesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $diasporaCourses = DiasporaCourses::find($id)->first();
+
+        $diasporaCourses->number_of_courses = $request->input('number_of_courses');
+        $diasporaCourses->number_of_researches = $request->input('number_of_researches');
+
+        $diasporaCourses->save();
+
+        return redirect("/department/diaspora-courses");
     }
 
     /**
