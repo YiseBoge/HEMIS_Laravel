@@ -202,7 +202,23 @@ class SpecialProgramTeacherController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $specialProgramTeacher = SpecialProgramTeacher::find($id)->first();
+
+        $data = [
+            'program_type' => $specialProgramTeacher->program_type,
+            'program_status' => $specialProgramTeacher->program_stat,
+            'male_number' => $specialProgramTeacher->male_number,
+            'female_number' => $specialProgramTeacher->female_number,
+            'page_name' => 'staff.special-program-teacher.edit'
+        ];
+
+        die(print_r($data));
+
+        return view('departments.special_program_teacher.edit')->with($data);
     }
 
     /**
@@ -214,7 +230,19 @@ class SpecialProgramTeacherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $specialProgramTeacher = SpecialProgramTeacher::find($id)->first();
+
+        $specialProgramTeacher->male_number = $request->input("male_number");
+        $specialProgramTeacher->female_number = $request->input("female_number");
+
+        $specialProgramTeacher->save();
+
+        return redirect("/department/special-program-teacher");
+
     }
 
     /**
