@@ -211,6 +211,10 @@ class ExitExaminationsController extends Controller
 
         $exitExamination->male_students_number = $request->input("male_sstudents_number");
         $exitExamination->female_students_number = $request->input("female_sstudents_number");
+
+        $examination->save();
+
+        return redirect("/student/exit-examination");
     }
 
     /**
