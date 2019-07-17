@@ -204,7 +204,22 @@ class UpgradingStaffController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $upgradingStaff = UpgradingStaff::find($id)->first();
+
+        $data = [
+            'education_level' => $upgradingStaff->education_level,
+            'study_place' => $upgradingStaff->study_place,
+            'male_number' => $upgradingStaff->male_number,
+            'female_number' => $upgradingStaff->female_number,
+            'page_name' => 'staff.upgrading-staff.edit'
+        ];
+
+        die(print_r($data));
+        return view('departments.upgrading_staff.edit')->with($data);
     }
 
     /**
@@ -216,7 +231,18 @@ class UpgradingStaffController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $upgradingStaff = UpgradingStaff::find($id)->first();
+
+        $upgradingStaff->male_number = $request->input("male_number");
+        $upgradingStaff->female_number = $request->input("female_number");
+
+        $upgradingStaff->save();
+
+        return redirect("/department/upgrading-staff");
     }
 
     /**
