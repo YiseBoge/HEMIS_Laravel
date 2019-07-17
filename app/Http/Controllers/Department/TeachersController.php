@@ -211,7 +211,7 @@ class TeachersController extends Controller
             'page_name' => 'staff.teachers.edit'
         );
         die(print_r($data));
-        return view('departments.teachers.create')->with($data);
+        return view('departments.teachers.edit')->with($data);
     }
 
     /**
