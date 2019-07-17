@@ -214,7 +214,27 @@ class OtherAttritionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $otherAttrition = OtherAttrition::find($id)->first();
+        $department = $otherAttrition->department()->first();
+        $college = $department->college()->first();
+        $data = array(
+            'programs' => $college->education_program,
+            'education_levels' => $college->education_level,
+            'years' => $department->year_level,
+            'student_types' => $otherAttrition->student_type,
+            'types' => $otherAttrition->type,
+            'cases' => $otherAttrition->case,
+            'male_students_number' => $otherAttrition->male_students_number,
+            'female_students_number' => $otherAttrition->female_students_number,
+            'page_name' => 'students.other_attrition.edit'
+        );
+
+        die(print_r($data));
+        return view("departments.other_attrition.create")->with($data);
     }
 
     /**
@@ -226,7 +246,18 @@ class OtherAttritionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+
+        $otherAttrition = OtherAttrition::find($id)->first();
+
+        $otherAttrition->male_students_number = $request->input("male_students_number"); 
+        $otherAttrition->female_students_number = $request->input("female_students_number"); 
+
+        $otherAttrition->save();
+
+        return redirect("/student/student-attrition");
     }
 
     /**
