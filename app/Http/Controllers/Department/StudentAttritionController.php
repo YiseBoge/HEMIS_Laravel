@@ -244,7 +244,7 @@ class StudentAttritionController extends Controller
         );
 
         die(print_r($data));
-        return view("departments.student_attrition.create")->with($data);
+        return view("departments.student_attrition.edit")->with($data);
     }
 
     /**
