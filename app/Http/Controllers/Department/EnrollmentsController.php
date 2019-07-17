@@ -225,7 +225,35 @@ class EnrollmentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $enrollment = Enrollment::find($id)->first();
+        $department = $enrollment->department()->first();
+        $college = $department->college()->first();
+        // die($enrollment);
+        $studentType = $enrollment->student_type;
+        // $educationProgram = $college->education_program;
+        // $educationLevel = $college->education_level;
+        // $yearLevel = $department->year_level;
+
+        $data = array(
+            'enrollment' => $enrollment,
+            'program' => $college->education_program,
+            'education_level' => $college->education_level,
+            'student_type' =>$studentType,
+            'female_students_number' =>$enrollment->female_students_number,
+            'male_students_number' =>$enrollment->male_students_number,
+            'year_level' => $department->year_level,
+            'page_name' => 'enrollment.normal.edit'
+        );
+
+        return view('enrollment.normal.edit')->with($data);
+
+
+
+        // die('This is the shit');
     }
 
     /**
@@ -237,7 +265,18 @@ class EnrollmentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+
+        $enrollment = Enrollment::find($id)->first();
+
+        $enrollment->female_students_number = $request->input('female_number');
+        $enrollment->male_students_number = $request->input('male_number');
+
+        $enrollment->save();
+        return redirect("/enrollment/normal");
+        // die("BIACHHHH");
     }
 
     /**
