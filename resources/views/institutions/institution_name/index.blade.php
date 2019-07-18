@@ -127,13 +127,13 @@
     @endif
 
 
-    @if ($page_name == 'administer.budget.edit')
+    @if ($page_name == 'administer.institution-name.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    {!! Form::open(['action' => ['Institution\BudgetsController@update', $data['budget']->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['action' => ['Institution\InstitutionNamesController@update', $data['budget']->id], 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Edit</h5>
                         <a href="/institution/budget" class="close" aria-label="Close">

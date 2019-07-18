@@ -131,7 +131,16 @@ class InstitutionNamesController extends Controller
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
-        return view('institutions.edit');
+
+        $institutions = InstitutionName::all();
+        $institution = InstitutionName::find($id);
+        $data = [
+            'institutions' => $institutions,
+            'institution' => $institution,
+            'page_name' => 'administer.institution-name.edit'
+        ];
+
+        return view('institutions.institution_name.index')->with($data);
     }
 
     /**

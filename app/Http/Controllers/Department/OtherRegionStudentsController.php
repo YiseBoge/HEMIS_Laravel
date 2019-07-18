@@ -59,12 +59,14 @@ class OtherRegionStudentsController extends Controller
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->otherRegionStudents as $enrollment) {
                                             $enrollments[] = $enrollment;
+                                           
                                         }
                                     }
                                 } else {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->otherRegionStudents as $enrollment) {
                                             $enrollments[] = $enrollment;
+                                            return OtherRegionStudent::all();
                                         }
                                     }
                                 }
@@ -92,7 +94,7 @@ class OtherRegionStudentsController extends Controller
 
             'page_name' => 'enrollment.other_region_students.index'
         );
-        //return $filteredEnrollments;
+        return $filteredEnrollments;
         return view("enrollment.other_region_students.index")->with($data);
     }
 

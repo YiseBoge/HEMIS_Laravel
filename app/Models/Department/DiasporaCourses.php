@@ -18,6 +18,8 @@ class DiasporaCourses extends Model
     use Uuids;
     use Enums;
 
+    public $incrementing = false;
+
     public function department()
     {
         return $this->belongsTo('App\Models\Department\Department');
