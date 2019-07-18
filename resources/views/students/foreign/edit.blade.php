@@ -38,9 +38,7 @@
                                         </div>
                                         <input type="text" class="form-control form-control-plaintext" name="name"
                                                value="{{$student->general->name}}">
-
                                     </div>
-
                                 </div>
                                 <div class="col-md-4">
                                     <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Sex</div>
@@ -49,8 +47,11 @@
                                             <span class="input-group-text bg-white border-0"><i
                                                         class="text-gray-400 float-right far fa-edit "></i></span>
                                         </div>
-                                        <input type="text" class="form-control form-control-plaintext" name="sex"
-                                               value="{{$student->general->sex}}">
+                                        <select class="form-control form-control-plaintext" name="sex">                                            
+                                            <option {{$student->general->sex == 'Male' ? 'selected' : ''}} value="Male">Male</option>
+                                            <option {{$student->general->sex == 'Female' ? 'selected' : ''}} value="Female">Female</option>                                            
+                                        </select>
+                                       
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -62,7 +63,8 @@
                                             <span class="input-group-text bg-white border-0"><i
                                                         class="text-gray-400 float-right far fa-edit "></i></span>
                                         </div>
-                                        <input type="text" class="form-control form-control-plaintext" name="birth_date"
+
+                                        <input type="date" class="form-control form-control-plaintext" name="birth_date"
                                                value="{{$student->general->birth_date}}">
                                     </div>
                                 </div>
@@ -90,9 +92,8 @@
                                             <span class="input-group-text bg-white border-0"><i
                                                         class="text-gray-400 float-right far fa-edit "></i></span>
                                         </div>
-                                        <input type="text" class="form-control form-control-plaintext"
+                                        <input type="tel" class="form-control form-control-plaintext"
                                                name="phone_number" value="{{$student->general->phone_number}}">
-
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +241,7 @@
                                     <span class="input-group-text bg-white border-0"><i
                                                 class="text-gray-400 float-right far fa-edit "></i></span>
                                 </div>
-                                <input type="text" class="form-control form-control-plaintext" name="years_in_ethiopia"
+                                <input type="number" class="form-control form-control-plaintext" name="years_in_ethiopia"
                                        value="{{$student->years_in_ethiopia}}">
                             </div>
                         </div>

@@ -73,6 +73,8 @@
                        href="/student/foreign">Foreigner Students</a>
                     <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'special_need' ? 'active': '' }}"
                        href="/student/special-need">Special Need Students</a>
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'cost_sharing' ? 'active': '' }}"
+                    href="/student/cost-sharing">Cost Sharing</a>
 
                     <h6 class="collapse-header">Aggregates:</h6>
                     <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'student_attrition' ? 'active': '' }}"
@@ -84,8 +86,6 @@
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'degree_employment' ? 'active': '' }}"
                        href="/student/degree-relevant-employment">Degree Relevant
                         Employment</a>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'cost_sharing' ? 'active': '' }}"
-                       href="/student/cost-sharing">Cost Sharing</a>
 
                 </div>
             </div>

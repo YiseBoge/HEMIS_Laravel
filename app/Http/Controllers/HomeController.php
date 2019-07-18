@@ -73,7 +73,6 @@ class HomeController extends Controller
 
     public function enrollmentChart()
     {
-        die('sdf');
         $year_levels = array();
         foreach (Department::getEnum('YearLevels') as $key => $value) {
             $year_levels[] = $value;
@@ -115,8 +114,8 @@ class HomeController extends Controller
         }
 
         $result = array(
-            "year_levels" => [1,2,3],
-            "enrollments" => [4,5,6]
+            "year_levels" => $year_levels,
+            "enrollments" => $enrollments
         );
         return response()->json($result);
     }

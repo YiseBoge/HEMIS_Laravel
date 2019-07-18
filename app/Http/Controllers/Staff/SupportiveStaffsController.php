@@ -218,7 +218,7 @@ class SupportiveStaffsController extends Controller
         $supportiveStaff = SupportiveStaff::find($id);
         $supportiveStaff->staffRank = $request->input('supportive_staff_rank');
 
-        $staff = new $supportiveStaff->general;
+        $staff = $supportiveStaff->general;
         $staff->name = $request->input('name');
         $staff->birth_date = $request->input('birth_date');
         $staff->sex = $request->input('sex');
@@ -230,8 +230,8 @@ class SupportiveStaffsController extends Controller
         $staff->employment_type = $request->input('employment_type');
         $staff->dedication = $request->input('dedication');
         $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $request->has('expatriate');
-        $staff->is_from_other_region = $request->has('other_region');
+        $staff->is_expatriate = $request->input('expatriate');
+        $staff->is_from_other_region = $request->input('other_region');
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
