@@ -104,7 +104,7 @@ class InstancesController extends Controller
 
         $instance->save();
 
-        return redirect('institution/instance');
+        return redirect('institution/instance')->with('success', 'Successfully Added Instance');
     }
 
 
@@ -129,7 +129,7 @@ class InstancesController extends Controller
 
         $currentInstance->users()->save($user);
 
-        return redirect('institution/instance');
+        return redirect('institution/instance')->with('primary', 'Updated Current Instance');
     }
 
     /**

@@ -101,11 +101,11 @@
 
                     <div class="modal-body row p-4">
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::select('category', $categories, null , ['class' => 'form-control', 'id' => 'add_category']) !!}
+                            {!! Form::select('category', $categories, old('category') , ['class' => 'form-control', 'id' => 'add_category']) !!}
                             {!! Form::label('add_category', 'Category', ['class' => 'form-control-placeholder']) !!}
                         </div>
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::text('ict_staff_type', null, ['class' => 'form-control', 'id' => 'add_ict_staff_type', 'required' => 'true']) !!}
+                            {!! Form::text('ict_staff_type', old('ict_staff_type'), ['class' => 'form-control', 'id' => 'add_ict_staff_type', 'required' => 'true']) !!}
                             {!! Form::label('add_ict_staff_type', 'Ict Staff Type', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>

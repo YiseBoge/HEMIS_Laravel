@@ -151,7 +151,7 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="year" id="year">
                                         @foreach ($years as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                            <option value="{{$key}}" {{ (old('year') == $key ? 'selected':'') }}>{{$value}}</option>
                                         @endforeach
                                     </select>
                                     <label for="year" class="form-control-placeholder">
@@ -162,8 +162,8 @@
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <input type="number" id="industry_number" name="industry_number"
-                                           class="form-control"
-                                           required>
+                                           value="{{ old('industry_number') }}"
+                                           class="form-control" required>
                                     <label class="form-control-placeholder" for="industry_number">Linked
                                         Industries</label>
                                 </div>
@@ -171,18 +171,19 @@
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <input type="text" id="training_area" name="training_area" class="form-control"
+                                           value="{{ old('training_area') }}"
                                            required>
                                     <label class="form-control-placeholder" for="training_area">Training Area</label>
                                 </div>
                                 <div class="col form-group">
                                     <input type="number" id="number_of_students" name="number_of_students"
+                                           value="{{ old('number_of_students') }}"
                                            class="form-control" required>
                                     <label class="form-control-placeholder" for="number_of_students">Number of
                                         Students</label>
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="modal-footer">
                             <input type="submit" class="btn btn-primary" value="Submit">

@@ -174,7 +174,7 @@ class CostSharingController extends Controller
 
         $department->costSharings()->save($costSharing);
 
-        return redirect("/student/cost-sharing");
+        return redirect("/student/cost-sharing")->with('success', 'Successfully Added Cost Sharing Info');
     }
 
     /**
@@ -266,7 +266,7 @@ class CostSharingController extends Controller
 
             }
         }
-        return redirect("/student/cost-sharing?department=" . $selectedDepartment);
+        return redirect("/student/cost-sharing?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 
 }

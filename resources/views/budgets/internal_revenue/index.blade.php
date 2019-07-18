@@ -175,17 +175,17 @@
                     </div>
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
-                            {!! Form::select('revenue_description', $revenue_descriptions , null , ['class' => 'form-control', 'id' => 'add_revenue_description']) !!}
+                            {!! Form::select('revenue_description', $revenue_descriptions , old('revenue_description') , ['class' => 'form-control', 'id' => 'add_revenue_description']) !!}
                             {!! Form::label('add_revenue_description', 'Revenue Description', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-md-6 form-group">
-                            {{ Form::number('income', 0, ['class' => 'form-control', 'id' => 'add_income', 'required' => 'true']) }}
+                            {{ Form::number('income', old('income'), ['class' => 'form-control', 'id' => 'add_income', 'required' => 'true']) }}
                             {{ Form::label('add_income', 'Income', ['class' => 'form-control-placeholder']) }}
                         </div>
 
                         <div class="col-md-6 form-group">
-                            {!! Form::number('expense', 0, ['class' => 'form-control', 'id' => 'add_expense', 'required' => 'true']) !!}
+                            {!! Form::number('expense', old('expense'), ['class' => 'form-control', 'id' => 'add_expense', 'required' => 'true']) !!}
                             {!! Form::label('add_expense', 'Expense', ['class' => 'form-control-placeholder']) !!}
                         </div>
 

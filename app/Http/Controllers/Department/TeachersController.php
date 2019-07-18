@@ -175,7 +175,7 @@ class TeachersController extends Controller
 
         $department->teachers()->save($teacher);
 
-        return redirect("/department/teachers");
+        return redirect("/department/teachers")->with('success', 'Successfully Added Teachers');
 
     }
 
@@ -266,6 +266,6 @@ class TeachersController extends Controller
                 }
             }
         }
-        return redirect("/department/teachers");
+        return redirect("/department/teachers")->with('primary', 'Success');
     }
 }

@@ -154,7 +154,7 @@ class IctStaffsController extends Controller
         $ictStaff = IctStaff::find($ictStaff->id);
         $ictStaff->general()->save($staff);
 
-        return redirect('/staff/ict');
+        return redirect('/staff/ict')->with('success', 'Successfully Added ICT Staff');
     }
 
     /**

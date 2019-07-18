@@ -157,7 +157,7 @@ class BuildingsController extends Controller
 
         $college->buildings()->save($building);
 
-        return redirect('institution/buildings');
+        return redirect('institution/buildings')->with('success', 'Successfully Added Building');
     }
 
     /**

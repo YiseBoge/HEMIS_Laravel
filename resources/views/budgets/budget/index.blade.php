@@ -214,27 +214,27 @@
 
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
-                            {!! Form::select('budget_type', $budget_types, null , ['class' => 'form-control', 'id' => 'add_budget_type']) !!}
+                            {!! Form::select('budget_type', $budget_types, old('budget_type') , ['class' => 'form-control', 'id' => 'add_budget_type']) !!}
                             {!! Form::label('add_budget_type', 'Budget Type', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            {!! Form::select('budget_description', $budget_descriptions , null , ['class' => 'form-control', 'id' => 'add_budget_description']) !!}
+                            {!! Form::select('budget_description', $budget_descriptions , old('budget_description') , ['class' => 'form-control', 'id' => 'add_budget_description']) !!}
                             {!! Form::label('add_budget_description', 'Budget Description', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('allocated', null, ['class' => 'form-control', 'id' => 'add_allocated', 'required' => 'true']) !!}
+                            {!! Form::number('allocated', old('allocated'), ['class' => 'form-control', 'id' => 'add_allocated', 'required' => 'true']) !!}
                             {!! Form::label('add_allocated', 'Allocated', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('additional', null, ['class' => 'form-control', 'id' => 'add_additional', 'required' => 'true']) !!}
+                            {!! Form::number('additional', old('additional'), ['class' => 'form-control', 'id' => 'add_additional', 'required' => 'true']) !!}
                             {!! Form::label('add_additional', 'Additional', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('utilized', null, ['class' => 'form-control', 'id' => 'add_utilized', 'required' => 'true']) !!}
+                            {!! Form::number('utilized', old('utilized'), ['class' => 'form-control', 'id' => 'add_utilized', 'required' => 'true']) !!}
                             {!! Form::label('add_utilized', 'Utilized', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>

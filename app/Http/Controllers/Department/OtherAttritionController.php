@@ -192,7 +192,7 @@ class OtherAttritionController extends Controller
 
         $department->otherAttritions()->save($attrition);
 
-        return redirect("/student/other-attrition");
+        return redirect("/student/other-attrition")->with('success', 'Successfully Added Other Information');
     }
 
     /**
@@ -284,7 +284,7 @@ class OtherAttritionController extends Controller
 
             }
         }
-        return redirect("/student/other-attrition?department=" . $selectedDepartment);
+        return redirect("/student/other-attrition?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 
 }

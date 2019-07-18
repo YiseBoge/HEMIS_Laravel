@@ -111,11 +111,11 @@
 
                     <div class="modal-body row p-4">
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::text('year', null, ['class' => 'form-control', 'id' => 'add_year', 'required' => 'true']) !!}
+                            {!! Form::text('year', old('year'), ['class' => 'form-control', 'id' => 'add_year', 'required' => 'true']) !!}
                             {!! Form::label('add_year', 'Year', ['class' => 'form-control-placeholder']) !!}
                         </div>
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::text('semester', null, ['class' => 'form-control', 'id' => 'add_semester', 'required' => 'true']) !!}
+                            {!! Form::text('semester', old('semester'), ['class' => 'form-control', 'id' => 'add_semester', 'required' => 'true']) !!}
                             {!! Form::label('add_semester', 'Semester', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>

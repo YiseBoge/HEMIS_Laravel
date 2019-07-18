@@ -190,7 +190,7 @@ class AcademicStaffsController extends Controller
         $academicStaff = AcademicStaff::find($academicStaff->id);
         $academicStaff->general()->save($staff);
 
-        return redirect('/staff/academic');
+        return redirect('/staff/academic')->with('success', 'Successfully Added Academic Staff');
     }
 
     /**

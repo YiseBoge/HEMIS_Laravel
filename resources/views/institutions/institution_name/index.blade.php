@@ -100,16 +100,16 @@
 
                     <div class="modal-body row p-4">
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::text('institution_name', null, ['class' => 'form-control', 'id' => 'add_institution_name', 'required' => 'true']) !!}
+                            {!! Form::text('institution_name', old('institution_name'), ['class' => 'form-control', 'id' => 'add_institution_name', 'required' => 'true']) !!}
                             {!! Form::label('add_institution_name', 'University Name', ['class' => 'form-control-placeholder']) !!}
                         </div>
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::text('institution_acronym', null, ['class' => 'form-control', 'id' => 'add_institution_acronym', 'required' => 'true']) !!}
+                            {!! Form::text('institution_acronym', old('institution_acronym'), ['class' => 'form-control', 'id' => 'add_institution_acronym', 'required' => 'true']) !!}
                             {!! Form::label('add_institution_acronym', 'Acronym', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-12 form-group form-check pb-2 ml-3">
-                            {!! Form::checkbox('is_private', null, null, ['id' => "is_private", 'class' =>'form-check-input']) !!}
+                            {!! Form::checkbox('is_private', null, !empty(old('is_private')), ['id' => "is_private", 'class' =>'form-check-input']) !!}
                             {!! Form::label('is_private', "This is a Private Institution", ['class' => 'form-check-label']) !!}
                         </div>
                     </div>

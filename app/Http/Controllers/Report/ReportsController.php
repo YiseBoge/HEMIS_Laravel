@@ -117,7 +117,7 @@ class ReportsController extends Controller
 
         $report->save();
 
-        return redirect('/report');
+        return redirect('/report')->with('primary', 'Successfully Updated Target');
     }
 
     /**

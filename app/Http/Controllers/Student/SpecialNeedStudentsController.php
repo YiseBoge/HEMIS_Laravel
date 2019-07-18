@@ -202,7 +202,7 @@ class SpecialNeedStudentsController extends Controller
         $specialNeedStudent->general()->save($student);
         $studentService->student()->save($student);
 
-        return redirect("/student/special-need");
+        return redirect("/student/special-need")->with('success', 'Successfully Added Special Need Student');
     }
 
     /**

@@ -182,7 +182,7 @@ class OtherRegionStudentsController extends Controller
 
         $department->otherRegionStudents()->save($enrollment);
 
-        return redirect("/enrollment/other-region-students");
+        return redirect("/enrollment/other-region-students")->with('success', 'Successfully Added Other Region Enrollment');
     }
 
     /**
@@ -274,7 +274,7 @@ class OtherRegionStudentsController extends Controller
 
             }
         }
-        return redirect("/enrollment/other-region-students?department=" . $selectedDepartment);
+        return redirect("/enrollment/other-region-students?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 
 }

@@ -242,7 +242,7 @@ class StaffAttritionsController extends Controller
         $staff = Staff::find($request->input('staff'));
         $staff->staffAttrition()->save($attrition);
 
-        return redirect('/staff/attrition');
+        return redirect('/staff/attrition')->with('success', 'Successfully Added Staff Attrition');
 
     }
 

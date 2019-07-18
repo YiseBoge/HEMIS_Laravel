@@ -196,7 +196,7 @@ class RuralStudentEnrollmentsController extends Controller
 
         $department->ruralStudentEnrollments()->save($enrollment);
 
-        return redirect("/enrollment/rural-area-students");
+        return redirect("/enrollment/rural-area-students")->with('success', 'Successfully Added Rural Area Enrollment');
     }
 
     /**
@@ -288,6 +288,6 @@ class RuralStudentEnrollmentsController extends Controller
 
             }
         }
-        return redirect("/enrollment/rural-area-students?department=" . $selectedDepartment);
+        return redirect("/enrollment/rural-area-students?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 }

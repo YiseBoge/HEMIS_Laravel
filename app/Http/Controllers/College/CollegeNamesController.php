@@ -81,7 +81,7 @@ class CollegeNamesController extends Controller
 
         $institutionName->collegeNames()->save($collegeName);
 
-        return redirect('/college/college-name');
+        return redirect('/college/college-name')->with('success', 'Successfully Added College Name');
     }
 
     /**

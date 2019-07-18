@@ -135,7 +135,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
             'specialization_types' => SpecializingStudentsEnrollment::getEnum("SpecializationTypes"),
             'student_types' => SpecializingStudentsEnrollment::getEnum('StudentTypes'),
             'year_levels' => Department::getEnum('YearLevels'),
-            'page_name' => 'enrollment.specializing_students.create'
+            'page_name' => 'enrollment.specializing_student_enrollment.create'
         );
         return view('enrollment.specializing_students.create')->with($data);
     }
@@ -201,7 +201,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
 
         $department->specializingStudentEnrollments()->save($enrollment);
 
-        return redirect("/enrollment/specializing-students");
+        return redirect("/enrollment/specializing-students")->with('success', 'Successfully Added Specializing Students Enrollment');
     }
 
     /**
@@ -293,6 +293,6 @@ class SpecializingStudentsEnrollmentsController extends Controller
 
             }
         }
-        return redirect("/enrollment/specializing-students?department=" . $selectedDepartment);
+        return redirect("/enrollment/specializing-students?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 }

@@ -102,11 +102,11 @@
 
                     <div class="modal-body row p-4">
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::text('band_name', null, ['class' => 'form-control', 'id' => 'add_band_name', 'required' => 'true']) !!}
+                            {!! Form::text('band_name', old('band_name'), ['class' => 'form-control', 'id' => 'add_band_name', 'required' => 'true']) !!}
                             {!! Form::label('add_band_name', 'Band Name', ['class' => 'form-control-placeholder']) !!}
                         </div>
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::text('band_acronym', null, ['class' => 'form-control', 'id' => 'add_band_acronym', 'required' => 'true']) !!}
+                            {!! Form::text('band_acronym', old('band_acronym'), ['class' => 'form-control', 'id' => 'add_band_acronym', 'required' => 'true']) !!}
                             {!! Form::label('add_band_acronym', 'Acronym', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>

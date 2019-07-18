@@ -202,7 +202,7 @@ class StudentAttritionController extends Controller
 
         $department->studentAttritions()->save($attrition);
 
-        return redirect("/student/student-attrition");
+        return redirect("/student/student-attrition")->with('success', 'Successfully Added Attrition Information');
     }
 
     /**
@@ -294,6 +294,6 @@ class StudentAttritionController extends Controller
 
             }
         }
-        return redirect("/student/student-attrition?department=" . $selectedDepartment);
+        return redirect("/student/student-attrition?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 }

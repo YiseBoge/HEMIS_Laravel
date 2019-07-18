@@ -156,7 +156,7 @@ class DegreeEmploymentsController extends Controller
 
         $department->degreeEmployments()->save($employment);
 
-        return redirect("/student/degree-relevant-employment");
+        return redirect("/student/degree-relevant-employment")->with('success', 'Successfully Added Degree Relevant Employment');
     }
 
     /**
@@ -248,7 +248,7 @@ class DegreeEmploymentsController extends Controller
 
             }
         }
-        return redirect("/student/degree-relevant-employment?department=" . $selectedDepartment);
+        return redirect("/student/degree-relevant-employment?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 
 }

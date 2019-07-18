@@ -811,7 +811,7 @@ class GenerateReportsController extends Controller
         $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
-        return redirect('/report');
+        return redirect('/report')->with('success', 'Successfully Updated Current Year');
     }
 
     /**

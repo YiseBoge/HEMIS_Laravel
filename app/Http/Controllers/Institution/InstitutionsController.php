@@ -181,7 +181,7 @@ class InstitutionsController extends Controller
         $communityService->save();
         $resource->save();
 
-        return redirect("/institution/general");
+        return redirect("/institution/general")->with('primary', 'Successfully Updated General Information');
     }
 
     /**

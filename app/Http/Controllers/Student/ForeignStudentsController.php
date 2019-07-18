@@ -205,7 +205,7 @@ class ForeignStudentsController extends Controller
         $foreignerStudent->general()->save($student);
         $studentService->student()->save($student);
 
-        return redirect("/student/foreign");
+        return redirect("/student/foreign")->with('success', 'Successfully Added Foreign Student');
     }
 
     /**

@@ -13,7 +13,7 @@
                             <label for="name"
                                    class="col-md-4 col-form-label text-md-right">{{ __('College') }}</label>
                             <div class="col-md-6">
-                                {!! Form::select('college_name_id', $college_names ,null  , ['class' => 'form-control']) !!}
+                                {!! Form::select('college_name_id', $college_names, old('college_name_id')  , ['class' => 'form-control']) !!}
                             </div>
 
                         </div>
@@ -21,7 +21,7 @@
                             <label for="name"
                                    class="col-md-4 col-form-label text-md-right">{{ __('Band') }}</label>
                             <div class="col-md-6">
-                                {!! Form::select('band_name_id', $band_names ,null  , ['class' => 'form-control']) !!}
+                                {!! Form::select('band_name_id', $band_names, old('band_name_id')  , ['class' => 'form-control']) !!}
                             </div>
 
                         </div>
@@ -86,7 +86,7 @@
 
                         <div class="form-group row">
                             <div class="form-check m-auto">
-                                {!! Form::checkbox('is_super_admin', null, null, ['id' => "is_super_admin", 'class' => 'form-check-input']) !!}
+                                {!! Form::checkbox('is_super_admin', null, !empty(old('is_super_admin')), ['id' => "is_super_admin", 'class' => 'form-check-input']) !!}
                                 {!! Form::label('College Super Admin', null, ['class' => 'form-check-label', 'for' => "is_super_admin"]) !!}
                             </div>
                         </div>

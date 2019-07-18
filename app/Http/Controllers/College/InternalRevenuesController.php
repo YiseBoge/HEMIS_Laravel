@@ -140,7 +140,7 @@ class InternalRevenuesController extends Controller
 
         $college->internalRevenues()->save($internalRevenue);
 
-        return redirect('/budgets/internal-revenue');
+        return redirect('/budgets/internal-revenue')->with('success', 'Successfully Added Internal Revenue');
     }
 
     /**
@@ -281,7 +281,7 @@ class InternalRevenuesController extends Controller
 
             }
         }
-        return redirect("/budgets/internal-revenue");
+        return redirect("/budgets/internal-revenue")->with('primary', 'Success');
     }
 
    

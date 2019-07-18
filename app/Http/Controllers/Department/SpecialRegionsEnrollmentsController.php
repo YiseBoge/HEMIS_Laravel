@@ -8,8 +8,8 @@ use App\Models\College\College;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\SpecialRegionEnrollment;
-use App\Models\Institution\RegionName;
 use App\Models\Institution\Institution;
+use App\Models\Institution\RegionName;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -209,7 +209,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         $department->specialRegionEnrollments()->save($enrollment);
         $regionName->specialRegionEnrollment()->save($enrollment);
 
-        return redirect("/enrollment/special-region-students");
+        return redirect("/enrollment/special-region-students")->with('success', 'Successfully Added Special Region Enrollment');
     }
 
     /**
@@ -302,6 +302,6 @@ class SpecialRegionsEnrollmentsController extends Controller
 
             }
         }
-        return redirect("/enrollment/special-region-students?department=" . $selectedDepartment);
+        return redirect("/enrollment/special-region-students?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 }

@@ -2,14 +2,6 @@
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
-        <!--  Disabled Students Form  -->
-        @if(count($errors) > 0)
-            @foreach($errors->all() as $error)
-                <div class="alert alert-danger">
-                    {{$error}}
-                </div>
-            @endforeach
-        @endif
         <form class="pb-5" action="/department/diaspora-courses" method="POST">
             @csrf
             <div class="row my-5">
@@ -23,7 +15,7 @@
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <input type="number" id="course_number" name="course_number" class="form-control"
-                                           required>
+                                           required value=“{{ old('course_number') }}">
                                     <label class="form-control-placeholder" for="course_number">Number of
                                         Courses/Modules</label>
                                 </div>
@@ -31,7 +23,7 @@
                                 <div class="col form-group">
                                     <input type="number" id="research_number" name="research_number"
                                            class="form-control"
-                                           required>
+                                           required value=“{{ old('research_number') }}">
                                     <label class="form-control-placeholder" for="research_number">Number of
                                         Researches</label>
                                 </div>

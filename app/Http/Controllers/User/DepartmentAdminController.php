@@ -107,7 +107,7 @@ class DepartmentAdminController extends Controller
             ->roles()
             ->attach(Role::where('role_name', 'Department Admin')->first());
 
-        return redirect('/department-admin');
+        return redirect('/department-admin')->with('success', 'Successfully Added Department Admin');
     }
 
     /**

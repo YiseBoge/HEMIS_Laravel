@@ -144,7 +144,7 @@ class ManagementStaffsController extends Controller
         $managementStaff = ManagementStaff::find($managementStaff->id);
         $managementStaff->general()->save($staff);
 
-        return redirect('/staff/management');
+        return redirect('/staff/management')->with('success', 'Successfully Added Management Staff');
     }
 
     /**

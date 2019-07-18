@@ -27,12 +27,10 @@
                                 <th style="min-width: 50px; width: 50px"></th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
-                                    aria-label="Name: activate to sort column descending"
-                                >Department Name
+                                    aria-label="Name: activate to sort column descending">Department Name
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                >Acronym
+                                    colspan="1" aria-label="Acronym: activate to sort column ascending">Acronym
                                 </th>
 
                             </tr>
@@ -103,11 +101,11 @@
 
                     <div class="modal-body row p-4">
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::text('department_name', null, ['class' => 'form-control', 'id' => 'add_department_name', 'required' => 'true']) !!}
+                            {!! Form::text('department_name', old('department_name'), ['class' => 'form-control', 'id' => 'add_department_name', 'required' => 'true']) !!}
                             {!! Form::label('add_department_name', 'Department Name', ['class' => 'form-control-placeholder']) !!}
                         </div>
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::text('department_acronym', null, ['class' => 'form-control', 'id' => 'add_department_acronym', 'required' => 'true']) !!}
+                            {!! Form::text('department_acronym', old('department_acronym'), ['class' => 'form-control', 'id' => 'add_department_acronym', 'required' => 'true']) !!}
                             {!! Form::label('add_department_acronym', 'Acronym', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>
