@@ -226,16 +226,16 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $college = $department->college()->first();
 
         $data = array(
-            'programs' => $college->education_program,
-            'education_levels' => $college->education_level,
-            'quintiles' => $disadvantagedStudentEnrollment->quintile,
+            'id' => $disadvantagedStudentEnrollment->id,
+            'program' => $college->education_program,
+            'education_level' => $college->education_level,
+            'quintile' => $disadvantagedStudentEnrollment->quintile,
             'male_students_number' => $disadvantagedStudentEnrollment->male_students_number,
             'female_students_number' => $disadvantagedStudentEnrollment->female_students_number,
-            'year_levels' => $department->year_level,
+            'year_level' => $department->year_level,
             'page_name' => 'enrollment.disadvantaged_students.edit'
         );
 
-        die(print_r($data));
         return view("enrollment.disadvantaged_students.edit")->with($data);
     }
 
@@ -253,8 +253,8 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
         $disadvantagedStudentEnrollment = DisadvantagedStudentEnrollment::find($id)->first();
-        $disadvantagedStudentEnrollment->male_students_number = $request->input("male_students_number");
-        $disadvantagedStudentEnrollment->female_students_number = $request->input("female_students_number");
+        $disadvantagedStudentEnrollment->male_students_number = $request->input("male_number");
+        $disadvantagedStudentEnrollment->female_students_number = $request->input("female_number");
 
         $disadvantagedStudentEnrollment->save();
 
