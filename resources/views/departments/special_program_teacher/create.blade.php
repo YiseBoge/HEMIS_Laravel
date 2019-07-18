@@ -26,13 +26,13 @@
                         <div class="form-group row pt-3">
                             <div class="col form-group">
                                 <input type="number" id="male_number" name="male_number" class="form-control" required
-                                       value=“{{ old('male_number') }}">
+                                       value="{{ old('male_number') }}">
                                 <label class="form-control-placeholder" for="male_number">Male Teachers</label>
                             </div>
 
                             <div class="col form-group">
                                 <input type="number" id="female_number" name="female_number" class="form-control"
-                                       required value=“{{ old('female_number') }}">
+                                       required value="{{ old('female_number') }}">
                                 <label class="form-control-placeholder" for="female_number">Female Teachers</label>
                             </div>
                         </div>

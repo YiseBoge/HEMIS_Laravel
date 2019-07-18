@@ -10,7 +10,12 @@ use App\Models\Department\Enrollment;
 use App\Models\Institution\AgeEnrollment;
 use App\Models\Institution\InstitutionName;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class HomeController extends Controller
 {
@@ -67,9 +72,52 @@ class HomeController extends Controller
 
             return view('home')->with($data);
         }
-
     }
 
+    /**
+     * @return Response
+     */
+    public function showChangePasswordForm()
+    {
+        $data = array(
+            'page_name' => 'user.change_password.index'
+        );
+        return view('auth.passwords.change_password');
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @throws ValidationException
+     */
+    public function changePassword(Request $request)
+    {
+
+        if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
+            // The passwords matches
+            return redirect()->back()->with("error", "Your current password does not matches with the password you provided. Please try again.");
+        }
+
+        if (strcmp($request->get('current-password'), $request->get('new-password')) == 0) {
+            //Current password and new password are same
+            return redirect()->back()->with("error", "New Password cannot be same as your current password. Please choose a different password.");
+        }
+
+        $this->validate($request, [
+            'current-password' => 'required',
+            'new-password' => 'required|string|min:6|confirmed',
+        ]);
+
+        //Change Password
+        $user = Auth::user();
+        $user->password = bcrypt($request->get('new-password'));
+        $user->save();
+        return redirect("/home")->with("success", "Successfully Changed Password");
+    }
+
+    /**
+     * @return JsonResponse
+     */
     public function enrollmentChart()
     {
         $year_levels = array();
@@ -156,44 +204,6 @@ class HomeController extends Controller
         $result = array(
             "ages" => $ages,
             "enrollments" => $enrollments
-        );
-        return response()->json($result);
-    }
-
-    public function specialNeedEnrollmentChart()
-    {
-        $disability_type = array();
-        $disability_type_code = array();
-        $number_of_male = array();
-        $number_of_female = array();
-        // $user = Auth::user();
-        // $institution = $user->institution();
-
-        foreach (SpecialNeeds::getEnum('NeedsTypes') as $key => $value) {
-            $disability_type_code[] = $key;
-            $disability_type[] = $value;
-        }
-
-        $total = SpecialNeeds::all();
-        // die(var_dump($disability_type));
-        foreach ($disability_type_code as $type) {
-            foreach ($total as $info) {
-                // die($info);
-                // die($info->type == $type);
-                if ($info->type == $type) {
-                    // die(var_dump($info['male_students_number']));
-                    $number_of_male[] = $info['male_students_number'];
-                    // array_push($number_of_male , intval($info['male_student_number']));
-                    // die(var_dump($number_of_male));
-                    $number_of_female[] = $info['female_students_number'];
-                }
-            }
-        }
-
-        $result = array(
-            'types' => $disability_type,
-            'male' => $number_of_male,
-            'female' => $number_of_female
         );
         return response()->json($result);
     }

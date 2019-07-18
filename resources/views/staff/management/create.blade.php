@@ -24,7 +24,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input class="form-control" id="bdate" name="birth_date" type="date"
-                                               value=“{{ old('birth_date') }}"
+                                               value="{{ old('birth_date') }}"
                                                placeholder="2011-08-19">
                                         <label for="bdate" class="form-control-placeholder">Date of Birth</label>
                                     </div>
@@ -49,7 +49,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input type="tel" id="phoneno" name="phone_number" class="form-control"
-                                               value=“{{ old('phone_number') }}"
+                                               value="{{ old('phone_number') }}"
                                                required>
                                         <label class="form-control-placeholder" for="phoneno">Phone Number</label>
                                     </div>
@@ -58,7 +58,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input type="text" id="nationality" name="nationality" class="form-control"
-                                               value=“{{ old('nationality') }}"
+                                               value="{{ old('nationality') }}"
                                                required>
                                         <label class="form-control-placeholder" for="nationality">Nationality</label>
                                     </div>
@@ -76,17 +76,17 @@
                             <div class="form-row pt-3">
                                 <div class="col-md form-group">
                                     <input type="text" id="job_title" name="job_title" class="form-control" required
-                                           value=“{{ old('job_title') }}">
+                                           value="{{ old('job_title') }}">
                                     <label class="form-control-placeholder" for="job_title">Job Title</label>
                                 </div>
                                 <div class="col-md form-group">
                                     <input type="number" id="salary" name="salary" class="form-control" required
-                                           value=“{{ old('salary') }}">
+                                           value="{{ old('salary') }}">
                                     <label class="form-control-placeholder" for="salary">Salary</label>
                                 </div>
                                 <div class="col-md form-group">
                                     <input type="number" id="service_year" name="service_year" class="form-control"
-                                           value=“{{ old('service_year') }}"
+                                           value="{{ old('service_year') }}"
                                            required>
                                     <label class="form-control-placeholder" for="service_year">Service Year</label>
                                 </div>

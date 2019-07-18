@@ -13,7 +13,7 @@
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
                                 <div class="col-md form-group">
-                                    <select class="form-control" id="ageRange" name="age_range">
+                                    <select class="form-control" id="age_range" name="age_range">
                                         @foreach ($age_range as $key => $value)
                                             <option value="{{$key}}" {{ (old('age_range') == $key ? 'selected':'') }}>{{$value}}</option>
                                         @endforeach
@@ -68,14 +68,14 @@
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <input type="number" id="number_of_males" name="number_of_males"
-                                           value=“{{ old('number_of_males') }}"
+                                           value="{{ old('number_of_males') }}"
                                            class="form-control" required>
                                     <label class="form-control-placeholder" for="number_of_males">Male Students</label>
                                 </div>
 
                                 <div class="col form-group">
                                     <input type="number" id="number_of_females" name="number_of_females"
-                                           value=“{{ old('number_of_females') }}"
+                                           value="{{ old('number_of_females') }}"
                                            class="form-control" required>
                                     <label class="form-control-placeholder" for="number_of_females">Female
                                         Students</label>

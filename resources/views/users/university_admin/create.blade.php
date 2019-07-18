@@ -76,8 +76,8 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-12 offset-md-5">
-                                {!! Form::submit('Add Admin', ['class' => 'btn btn-primary']) !!}
+                            <div class="col-md-6 offset-md-5">
+                                {!! Form::submit('Add Admin', ['class' => 'btn btn-primary btn-sm']) !!}
                             </div>
                         </div>
                         {!! Form::close() !!}

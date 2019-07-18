@@ -1,16 +1,20 @@
 @if(count($errors) > 0)
-    <div class="container-fluid p-0 px-md-4">
-        @foreach($errors->all() as $error)
-            <div class="alert alert-danger">
-                {{$error}}
-            </div>
-        @endforeach
+    <div class="container-fluid p-0 px-md-3">
+        <div class="alert alert-danger">
+            <h5>Please fix the following issues</h5>
+            <hr class="mt-0">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
     </div>
 @endif
 
 
 @if (session('success'))
-    <div class="container-fluid p-0 px-md-4">
+    <div class="container-fluid p-0 px-md-3">
         <div class="card border-0 shadow-none">
             <div class="fade-alert alert alert-success text-center shadow w-100">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -24,7 +28,7 @@
 @endif
 
 @if (session('primary'))
-    <div class="container-fluid p-0 px-md-4">
+    <div class="container-fluid p-0 px-md-3">
         <div class="card border-0 shadow-none">
             <div class="fade-alert alert alert-primary text-center shadow w-100">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -38,7 +42,7 @@
 @endif
 
 @if (session('error'))
-    <div class="container-fluid p-0 px-md-4">
+    <div class="container-fluid p-0 px-md-3">
         <div class="card border-0 shadow-none">
             <div class="fade-alert alert alert-danger text-center shadow w-100">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
