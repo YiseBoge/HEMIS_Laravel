@@ -13,6 +13,16 @@ use Illuminate\Validation\ValidationException;
 class RegionNamesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -20,7 +30,6 @@ class RegionNamesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $regionNames = RegionName::all();
@@ -39,7 +48,6 @@ class RegionNamesController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $regionNames = RegionName::all();
@@ -60,7 +68,6 @@ class RegionNamesController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $this->validate($request, [

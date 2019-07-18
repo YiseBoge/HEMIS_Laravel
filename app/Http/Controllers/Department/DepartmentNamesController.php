@@ -16,6 +16,16 @@ use Illuminate\Validation\ValidationException;
 class DepartmentNamesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -23,7 +33,6 @@ class DepartmentNamesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
         $institutionName = $user->institution()->institutionName;
@@ -44,7 +53,6 @@ class DepartmentNamesController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
         $institutionName = $user->institution()->institutionName;
@@ -67,7 +75,6 @@ class DepartmentNamesController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
         $this->validate($request, [
@@ -95,7 +102,6 @@ class DepartmentNamesController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
         return view('departments.details');
@@ -110,7 +116,6 @@ class DepartmentNamesController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
         $department = DepartmentName::find($id);

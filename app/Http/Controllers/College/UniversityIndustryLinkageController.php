@@ -17,6 +17,16 @@ use Illuminate\Validation\ValidationException;
 class UniversityIndustryLinkageController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -24,7 +34,6 @@ class UniversityIndustryLinkageController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['College Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -65,7 +74,6 @@ class UniversityIndustryLinkageController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -121,7 +129,6 @@ class UniversityIndustryLinkageController extends Controller
         $linkage->training_area = $request->input('training_area');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $institution = $user->institution();
