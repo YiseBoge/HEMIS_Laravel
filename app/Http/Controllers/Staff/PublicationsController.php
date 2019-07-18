@@ -251,7 +251,46 @@ class PublicationsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+        
+        $publication = StaffPublication::find($id)->first();
+        $staff = $publication->academicStaff()->first();
+        $general = $staff->general()->first();
+
+        $data = array(
+            'title' => $publication->title,
+            'date' => $publication->date_of_publication,
+            'author' => $general->name,
+            'page_name' => 'publication.publication.edit'
+        );
+        die(print_r($data));
+        return view("staff.publication.edit")->with($data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     * @throws ValidationException
+     */
+    public function updatePublication(Request $request, $id)
+    {
+        die("This is a separate method for updating the publications");
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Department Admin');
+        
+        $publication = StaffPublication::find($id)->first();
+
+        $publication->title = $request->input("title");
+
+        $publication->save();
+
+        return redirect("/department/publication");
     }
 
     /**
@@ -324,7 +363,7 @@ class PublicationsController extends Controller
      */
     public function destroy($id)
     {
-        $item = PublicationsAndPatents::find($id);
+        $item = StaffPublication::find($id);
         $item->delete();
         return redirect('/department/publication');
     }
