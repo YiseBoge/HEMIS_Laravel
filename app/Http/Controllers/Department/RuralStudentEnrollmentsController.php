@@ -227,16 +227,16 @@ class RuralStudentEnrollmentsController extends Controller
         $college = $department->college()->first();
         
         $data = array(
+            'id' => $ruralStudenetEnrollment->id,
             'program' => $college->education_program,
             'education_level' => $college->education_level,
             'region' => $ruralStudenetEnrollment->region,
             'male_students_number' => $ruralStudenetEnrollment->male_students_number,
             'female_students_number' => $ruralStudenetEnrollment->female_students_number,
             'year_level' => $department->year_level,
-            'page_name' => 'enrollment.rural_students.create'
+            'page_name' => 'enrollment.rural_students.edit'
         );
-        die(print_r($data));
-        return view("enrollment.rural_students.create")->with($data);
+        return view("enrollment.rural_students.edit")->with($data);
     }
 
     /**
@@ -253,8 +253,8 @@ class RuralStudentEnrollmentsController extends Controller
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
         $ruralStudenetEnrollment = RuralStudentEnrollment::find($id)->first();
-        $ruralStudenetEnrollment->male_students_number = $request->input("male_students_number");
-        $ruralStudenetEnrollment->female_students_number = $request->input("female_students_number");
+        $ruralStudenetEnrollment->male_students_number = $request->input("male_number");
+        $ruralStudenetEnrollment->female_students_number = $request->input("female_number");
 
         $ruralStudenetEnrollment->save();
 
