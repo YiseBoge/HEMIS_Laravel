@@ -214,15 +214,15 @@ class AgeEnrollmentsController extends Controller
         $college = $department->college()->first();
 
         $data = [
+            'id' => $id,
             'age_range' => $ageEnrollment->age,
             'male_students_number' => $ageEnrollment->male_students_number,
             'female_students_number' => $ageEnrollment->female_students_number,
-            'programs' => $college->education_program,
-            'education_levels' => $college->education_level,
-            'year_levels' => $department->year_level,
+            'program' => $college->education_program,
+            'education_level' => $college->education_level,
+            'year_level' => $department->year_level,
             'page_name' => 'enrollment.age_enrollment.edit'];
-
-        die(print_r($data));
+            
         return view('enrollment.age_enrollment.edit')->with($data);
     }
 
@@ -241,8 +241,8 @@ class AgeEnrollmentsController extends Controller
 
         $ageEnrollment = AgeEnrollment::find($id)->first();
 
-        $ageEnrollment->male_students_number = $request->input("male_students_number");
-        $ageEnrollment->female_students_number = $request->input("female_students_number");
+        $ageEnrollment->male_students_number = $request->input("number_of_males");
+        $ageEnrollment->female_students_number = $request->input("number_of_females");
 
         $ageEnrollment->save();
 
