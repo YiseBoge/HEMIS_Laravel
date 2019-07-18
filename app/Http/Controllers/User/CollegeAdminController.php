@@ -119,7 +119,7 @@ class CollegeAdminController extends Controller
         }
 
 
-        return redirect('/college-admin');
+        return redirect('/college-admin')->with('success', 'Successfully Added College Admin');
     }
 
     /**

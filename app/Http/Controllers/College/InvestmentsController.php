@@ -141,7 +141,7 @@ class InvestmentsController extends Controller
         $college->investments()->save($investment);
 
 
-        return redirect('/budgets/private-investment');
+        return redirect('/budgets/private-investment')->with('success', 'Successfully Added Investment');
     }
 
     /**
@@ -281,7 +281,7 @@ class InvestmentsController extends Controller
 
             }
         }
-        return redirect("/budgets/private-investment");
+        return redirect("/budgets/private-investment")->with('primary', 'Success');
     }
 
 }

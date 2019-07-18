@@ -157,7 +157,7 @@ class ExitExaminationsController extends Controller
 
         $department->exitExaminations()->save($examination);
 
-        return redirect("/student/exit-examination");
+        return redirect("/student/exit-examination")->with('success', 'Successfully Added Exit Examination Info');
     }
 
     /**
@@ -249,7 +249,7 @@ class ExitExaminationsController extends Controller
 
             }
         }
-        return redirect("/student/exit-examination?department=" . $selectedDepartment);
+        return redirect("/student/exit-examination?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 
 }

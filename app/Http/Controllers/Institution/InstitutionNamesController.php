@@ -101,7 +101,7 @@ class InstitutionNamesController extends Controller
         $generalInformation->institution()->save($institution);
 
 
-        return redirect('/institution/institution-name');
+        return redirect('/institution/institution-name')->with('success', 'Successfully Added Institution Name');
     }
 
     /**

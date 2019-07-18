@@ -184,7 +184,7 @@ class ResearchsController extends Controller
 
         $department->researches()->save($research);
 
-        return redirect("/institution/researches");
+        return redirect("/institution/researches")->with('success', 'Successfully Added Research');
     }
 
     /**
@@ -278,7 +278,7 @@ class ResearchsController extends Controller
                 }
             }
         }
-        return redirect("/institution/researches");
+        return redirect("/institution/researches")->with('primary', 'Success');
     }
 
 }

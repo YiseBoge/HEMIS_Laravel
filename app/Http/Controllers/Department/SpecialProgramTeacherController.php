@@ -178,7 +178,7 @@ class SpecialProgramTeacherController extends Controller
 
         $department->specialProgramTeachers()->save($specialProgramTeacher);
 
-        return redirect("/department/special-program-teacher");
+        return redirect("/department/special-program-teacher")->with('success', 'Successfully Added Special Program Enrollment');
 
 
     }
@@ -270,6 +270,6 @@ class SpecialProgramTeacherController extends Controller
                 }
             }
         }
-        return redirect("/department/special-program-teacher");
+        return redirect("/department/special-program-teacher")->with('primary', 'Success');
     }
 }

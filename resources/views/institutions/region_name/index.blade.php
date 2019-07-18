@@ -95,7 +95,7 @@
 
                     <div class="modal-body row p-4">
                         <div class="col-md form-group pb-1">
-                            {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'add_name', 'required' => 'true']) !!}
+                            {!! Form::text('name', old('name'), ['class' => 'form-control', 'id' => 'add_name', 'required' => 'true']) !!}
                             {!! Form::label('add_name', 'Region Name', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>

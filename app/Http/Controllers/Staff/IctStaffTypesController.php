@@ -82,7 +82,7 @@ class IctStaffTypesController extends Controller
 
         $ictStaffTypes->save();
 
-        return redirect('/staff/ict-staff-types');
+        return redirect('/staff/ict-staff-types')->with('success', 'Successfully Added ICT Staff Type');
     }
 
     /**

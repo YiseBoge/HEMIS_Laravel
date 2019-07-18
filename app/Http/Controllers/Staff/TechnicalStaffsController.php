@@ -146,7 +146,7 @@ class TechnicalStaffsController extends Controller
         $technicalStaff = TechnicalStaff::find($technicalStaff->id);
         $technicalStaff->general()->save($staff);
 
-        return redirect('/staff/technical');
+        return redirect('/staff/technical')->with('success', 'Successfully Added Technical Staff');
     }
 
     /**

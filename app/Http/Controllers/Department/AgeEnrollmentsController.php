@@ -183,7 +183,7 @@ class AgeEnrollmentsController extends Controller
 
         $department->ageEnrollments()->save($age_enrollment);
 
-        return redirect('enrollment/age-enrollment');
+        return redirect('enrollment/age-enrollment')->with('success', 'Successfully Added Age Enrollment');
     }
 
     /**
@@ -275,7 +275,7 @@ class AgeEnrollmentsController extends Controller
 
             }
         }
-        return redirect("/enrollment/age-enrollment?department=" . $selectedDepartment);
+        return redirect("/enrollment/age-enrollment?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 
 }

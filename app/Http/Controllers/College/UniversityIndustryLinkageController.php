@@ -149,7 +149,7 @@ class UniversityIndustryLinkageController extends Controller
 
         $college->universityIndustryLinkages()->save($linkage);
 
-        return redirect("/student/university-industry-linkage");
+        return redirect("/student/university-industry-linkage")->with('success', 'Successfully Added Industry Linkage');
     }
 
     /**
@@ -236,7 +236,7 @@ class UniversityIndustryLinkageController extends Controller
 
             }
         }
-        return redirect("/student/university-industry-linkage");
+        return redirect("/student/university-industry-linkage")->with('success', 'Successfully Approved Industry Linkages');
     }
 
 }

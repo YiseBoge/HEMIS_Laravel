@@ -100,14 +100,13 @@
                         </a>
                     </div>
 
-
                     <div class="modal-body row pt-4">
-                        <div class="col-md-6 form-group pb-1">
-                            {!! Form::text('college_name', null, ['class' => 'form-control', 'id' => 'add_college_name', 'required' => 'true']) !!}
+                        <div class="col-md-12 form-group pb-1">
+                            {!! Form::text('college_name', old('college_name'), ['class' => 'form-control', 'id' => 'add_college_name', 'required' => 'true']) !!}
                             {!! Form::label('add_college_name', 'College Name', ['class' => 'form-control-placeholder']) !!}
                         </div>
-                        <div class="col-md-6 form-group pb-1">
-                            {!! Form::text('college_acronym', null, ['class' => 'form-control', 'id' => 'add_college_acronym', 'required' => 'true']) !!}
+                        <div class="col-md-12 form-group pb-1">
+                            {!! Form::text('college_acronym', old('college_acronym'), ['class' => 'form-control', 'id' => 'add_college_acronym', 'required' => 'true']) !!}
                             {!! Form::label('add_college_acronym', 'Acronym', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>

@@ -166,7 +166,7 @@ class BudgetsController extends Controller
         $budget = Budget::find($budget->id);
         $exampleDescription->budget()->save($budget);
 
-        return redirect('/budgets/budget');
+        return redirect('/budgets/budget')->with('success', 'Successfully Added Budget');
     }
 
     /**
@@ -321,6 +321,6 @@ class BudgetsController extends Controller
 
             }
         }
-        return redirect("/budgets/budget");
+        return redirect("/budgets/budget")->with('primary', 'Success');
     }
 }

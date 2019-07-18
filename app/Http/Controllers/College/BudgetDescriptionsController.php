@@ -76,7 +76,7 @@ class BudgetDescriptionsController extends Controller
 
         $budgetDescription->save();
 
-        return redirect('/budgets/budget-description');
+        return redirect('/budgets/budget-description')->with('success', 'Successfully Added Budget Description');
     }
 
     /**

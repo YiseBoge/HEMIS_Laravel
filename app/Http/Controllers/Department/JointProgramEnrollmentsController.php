@@ -200,7 +200,7 @@ class JointProgramEnrollmentsController extends Controller
 
         $department->jointProgramEnrollments()->save($enrollment);
 
-        return redirect("/enrollment/joint-program");
+        return redirect("/enrollment/joint-program")->with('success', 'Successfully Added Joint Program Enrollment');
 
     }
 
@@ -293,6 +293,6 @@ class JointProgramEnrollmentsController extends Controller
 
             }
         }
-        return redirect("/enrollment/joint-program?department=" . $selectedDepartment);
+        return redirect("/enrollment/joint-program?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 }

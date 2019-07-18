@@ -128,7 +128,7 @@ class UniversityAdminController extends Controller
 
             $generalInformation->institution()->save($institution);
         }
-        return redirect('/university-admin');
+        return redirect('/university-admin')->with('success', 'Successfully Added University Admin');
     }
 
     /**

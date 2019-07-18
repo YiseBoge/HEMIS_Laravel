@@ -83,7 +83,7 @@ class DepartmentNamesController extends Controller
 
         $institutionName->departmentNames()->save($departmentName);
 
-        return redirect('/department/department-name');
+        return redirect('/department/department-name')->with('success', 'Successfully Added Department Name');
     }
 
     /**

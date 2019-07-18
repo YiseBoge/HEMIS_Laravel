@@ -148,7 +148,7 @@ class AdministrativeStaffsController extends Controller
         $administrativeStaff = AdministrativeStaff::find($administrativeStaff->id);
         $administrativeStaff->general()->save($staff);
 
-        return redirect('/staff/administrative');
+        return redirect('/staff/administrative')->with('success', 'Successfully Added Administrative Staff');
     }
 
     /**

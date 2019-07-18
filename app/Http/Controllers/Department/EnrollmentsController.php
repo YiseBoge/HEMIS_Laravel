@@ -202,7 +202,7 @@ class EnrollmentsController extends Controller
 
         $department->enrollments()->save($enrollment);
 
-        return redirect("/enrollment/normal");
+        return redirect("/enrollment/normal")->with('success', 'Successfully Added Enrollment');
 
     }
 
@@ -293,7 +293,7 @@ class EnrollmentsController extends Controller
                 }
             }
         }
-        return redirect("/enrollment/normal");
+        return redirect("/enrollment/normal")->with('primary', 'Success');
     }
 
     public function viewChart(Request $request)

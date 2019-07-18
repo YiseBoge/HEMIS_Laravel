@@ -76,9 +76,7 @@ class BandNamesController extends Controller
         $bandName->acronym = $request->input('band_acronym');
         $bandName->save();
 
-        return redirect('/band/band-name');
-
-
+        return redirect('/band/band-name')->with('success', 'Successfully Added Band Name');
     }
 
     /**

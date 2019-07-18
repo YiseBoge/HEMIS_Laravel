@@ -195,7 +195,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
 
         $department->disadvantagedStudentEnrollments()->save($enrollment);
 
-        return redirect("/enrollment/economically-disadvantaged");
+        return redirect("/enrollment/economically-disadvantaged")->with('success', 'Successfully Added Economically Disadvantaged Enrollment');
     }
 
     /**
@@ -287,6 +287,6 @@ class DisadvantagedStudentEnrollmentsController extends Controller
 
             }
         }
-        return redirect("/enrollment/economically-disadvantaged?department=" . $selectedDepartment);
+        return redirect("/enrollment/economically-disadvantaged?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 }

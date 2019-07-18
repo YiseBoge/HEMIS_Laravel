@@ -189,7 +189,7 @@ class PostGraduateDiplomaTrainingController extends Controller
 
         $department->postgraduateDiplomaTrainings()->save($training);
 
-        return redirect("/department/postgraduate-diploma-training");
+        return redirect("/department/postgraduate-diploma-training")->with('success', 'Successfully Added Diploma Training');
     }
 
     /**
@@ -279,6 +279,6 @@ class PostGraduateDiplomaTrainingController extends Controller
                 }
             }
         }
-        return redirect("/department/postgraduate-diploma-training");
+        return redirect("/department/postgraduate-diploma-training")->with('primary', 'Success');
     }
 }

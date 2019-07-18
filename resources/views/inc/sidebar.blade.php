@@ -131,7 +131,7 @@
                 <span>Research</span></a>
         </li>
 
-        <li class="nav-item {{ preg_split ("/\./", $page_name)[1] == 'publications' ? 'active': '' }}">
+        <li class="nav-item {{ preg_split ("/\./", $page_name)[1] == 'publication' ? 'active': '' }}">
             <a class="nav-link" href="/department/publication">
                 <i class="fas fa-book"></i>
                 <span>Publications</span></a>

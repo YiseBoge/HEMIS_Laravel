@@ -180,7 +180,7 @@ class UpgradingStaffController extends Controller
 
         $department->upgradingStaffs()->save($upgradingStaff);
 
-        return redirect("/department/upgrading-staff");
+        return redirect("/department/upgrading-staff")->with('success', 'Successfully Added Upgrading Staff');
 
 
     }
@@ -272,6 +272,6 @@ class UpgradingStaffController extends Controller
                 }
             }
         }
-        return redirect("/department/upgrading-staff");
+        return redirect("/department/upgrading-staff")->with('primary', 'Success');
     }
 }

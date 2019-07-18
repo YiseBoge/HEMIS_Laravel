@@ -156,7 +156,7 @@ class DiasporaCoursesController extends Controller
 
         $department->diasporaCourses()->save($course);
 
-        return redirect("/department/diaspora-courses");
+        return redirect("/department/diaspora-courses")->with('success', 'Successfully Added Diaspora Course');
 
     }
 
@@ -247,6 +247,6 @@ class DiasporaCoursesController extends Controller
                 }
             }
         }
-        return redirect("/department/diaspora-courses");
+        return redirect("/department/diaspora-courses")->with('primary', 'Success');
     }
 }
