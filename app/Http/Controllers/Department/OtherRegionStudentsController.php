@@ -213,9 +213,10 @@ class OtherRegionStudentsController extends Controller
         $department = $otherRegionStudentsEnrollment->department()->first();
         $college = $department->department()->first();
         $data = array(
-            'programs' => $college->education_program,
-            'education_levels' => $college->education_level,
-            'year_levels' => $department->year_level,
+            'id' => $id,
+            'program' => $college->education_program,
+            'education_level' => $college->education_level,
+            'year_level' => $department->year_level,
             'male_students_number' => $otherRegionStudentsEnrollment->male_students_number,
             'female_students_number' => $otherRegionStudentsEnrollment->female_students_number,
             'page_name' => 'enrollment.other_region_students.create'
@@ -238,8 +239,8 @@ class OtherRegionStudentsController extends Controller
 
         $otherRegionStudentsEnrollment = OtherRegionStudent::find($id);
 
-        $otherRegionStudentsEnrollment->male_students_number = $request->input("male_students_number");
-        $otherRegionStudentsEnrollment->female_students_number = $request->input("female_students_number");
+        $otherRegionStudentsEnrollment->male_students_number = $request->input("male_number");
+        $otherRegionStudentsEnrollment->female_students_number = $request->input("female_number");
 
         $otherRegionStudentsEnrollment->save();
         
