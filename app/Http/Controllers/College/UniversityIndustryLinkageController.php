@@ -171,7 +171,46 @@ class UniversityIndustryLinkageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('College Admin');
+
+        $universityIndustryLinkage = UniversityIndustryLinkage::find($id);
+
+        $institution = $user->institution();
+
+        $linkages = array();
+
+        if ($institution != null) {
+            foreach ($institution->bands as $band) {
+                if ($band->bandName->band_name == $user->bandName->band_name) {
+                    foreach ($band->colleges as $college) {
+                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
+                            foreach ($college->universityIndustryLinkages as $linkage) {
+                                $linkages[] = $linkage;
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        } else {
+            $linkages = UniversityIndustryLinkage::with('band')->get();
+        }
+
+        $data = array(
+            'id' => $id,
+            'linkages' => $linkages,
+            'bands' => BandName::all(),
+            'years' => UniversityIndustryLinkage::getEnum('Years'),
+            'number_of_linked_indutries' => $universityIndustryLinkage->number_of_industry_links,
+            'training_area' => $universityIndustryLinkage->training_area,
+            'number_of_students' => $universityIndustryLinkage->number_of_students,
+            'year' => $universityIndustryLinkage->year,
+            'page_name' => 'students.university_industry_linkage.edit'
+        );
+        return view("bands.university_industry_linkage.index")->with($data);
     }
 
     /**
@@ -183,7 +222,20 @@ class UniversityIndustryLinkageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('College Admin');
+
+        $universityIndustryLinkage = UniversityIndustryLinkage::find($id);
+
+        $universityIndustryLinkage->number_of_industry_links = $request->input('industry_number');
+        $universityIndustryLinkage->training_area = $request->input('training_area');
+        $universityIndustryLinkage->number_of_students = $request->input('number_of_students');
+
+        $universityIndustryLinkage->save();
+
+        return redirect("/student/university-industry-linkage");
+
     }
 
     /**
