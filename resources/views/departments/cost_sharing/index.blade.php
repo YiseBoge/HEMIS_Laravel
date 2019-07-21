@@ -10,48 +10,50 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row">
                         <div class="col text-right">
-                                <form action="cost-sharing/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <input type="hidden" name="department"
-                                            value="{{$selected_department}}">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending in Selected Department<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="cost-sharing/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <input type="hidden" name="department"
+                                       value="{{$selected_department}}">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending in Selected Department<i
+                                            class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
-                    </div>                           
+                    </div>
                 @else
                     <div class="row my-3">
                         <div class="col text-right">
-                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/student/cost-sharing/create">New Entry<i
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/student/cost-sharing/create">New
+                                Entry<i
                                         class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                         </div>
                     </div>
                 @endif
 
                 <form class="mt-4" action="" method="get">
-                        @if(Auth::user()->hasRole('College Super Admin'))
-                            <div class="form-group row pt-3">
-                                <div class="col-md form-group">
-                                    <select class="form-control" name="department" id="department"
-                                            onchange="this.form.submit()">
-                                        @foreach ($departments as $department)
-                                            @if ($department->id == $selected_department)
-                                                <option value="{{$department->id}}"
-                                                        selected>{{$department->department_name}}</option>
-                                            @else
-                                                <option value="{{$department->id}}">{{$department->department_name}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <label for="department" class="form-control-placeholder">
-                                        Department
-                                    </label>
-                                </div>
+                    @if(Auth::user()->hasRole('College Super Admin'))
+                        <div class="form-group row pt-3">
+                            <div class="col-md form-group">
+                                <select class="form-control" name="department" id="department"
+                                        onchange="this.form.submit()">
+                                    @foreach ($departments as $department)
+                                        @if ($department->id == $selected_department)
+                                            <option value="{{$department->id}}"
+                                                    selected>{{$department->department_name}}</option>
+                                        @else
+                                            <option value="{{$department->id}}">{{$department->department_name}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="department" class="form-control-placeholder">
+                                    Department
+                                </label>
                             </div>
-                        @endif
+                        </div>
+                    @endif
                 </form>
                 <div class="table-responsive">
                     <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
@@ -104,19 +106,20 @@
                                 <tr role="row" class="odd"
                                     onclick="window.location='cost-sharing/{{$costSharing->id}}'">
                                     <td class="text-center">
-                                            @if(Auth::user()->hasRole('College Super Admin'))
-                                                @if($costSharing->approval_status == "Pending")
-                                                    <form action="normal/{{$costSharing->id}}/approve" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="action" value="disapprove">
-                                                        <button type="submit" style="opacity:0.80" data-toggle="tooltip" title="Disapprove"
-                                                                class="btn btn-danger btn-circle text-white btn-sm">
-                                                            <i class="fas fa-times" style="opacity:0.75"></i>
-                                                        </button>
-                                                    </form>
-                                                @endif                                                
-                                            @else
-                                                @if($costSharing->approval_status != "Approved")
+                                        @if(Auth::user()->hasRole('College Super Admin'))
+                                            @if($costSharing->approval_status == "Pending")
+                                                <form action="normal/{{$costSharing->id}}/approve" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="action" value="disapprove">
+                                                    <button type="submit" style="opacity:0.80" data-toggle="tooltip"
+                                                            title="Disapprove"
+                                                            class="btn btn-danger btn-circle text-white btn-sm">
+                                                        <i class="fas fa-times" style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @else
+                                            @if($costSharing->approval_status != "Approved")
                                                 <div class="row px-1">
                                                     <div class="col px-0">
                                                         <form class="p-0"
@@ -148,9 +151,9 @@
                                                         </form>
                                                     </div>
                                                 </div>
-                                                @endif                                                           
                                             @endif
-                                        </td>
+                                        @endif
+                                    </td>
                                     <td>{{$costSharing->name}}</td>
                                     <td>{{$costSharing->student_id}}</td>
                                     <td>{{$costSharing->sex}}</td>
@@ -159,11 +162,14 @@
                                     <td>{{$costSharing->receipt_number}}</td>
                                     <td>{{$costSharing->unpaid_amount}}</td>
                                     @if($costSharing->approval_status == "Approved")
-                                        <td class="text-success"><i class="fas fa-check"></i> {{$costSharing->approval_status}}</td>
+                                        <td class="text-success"><i
+                                                    class="fas fa-check"></i> {{$costSharing->approval_status}}</td>
                                     @elseif($costSharing->approval_status == "Pending")
-                                        <td class="text-warning"> <i class="far fa-clock"></i></i> {{$costSharing->approval_status}}</td>
+                                        <td class="text-warning"><i
+                                                    class="far fa-clock"></i></i> {{$costSharing->approval_status}}</td>
                                     @else
-                                        <td class="text-danger"><i class="fas fa-times"></i> {{$costSharing->approval_status}}</td>
+                                        <td class="text-danger"><i
+                                                    class="fas fa-times"></i> {{$costSharing->approval_status}}</td>
                                     @endif
                                 </tr>
                             @endforeach

@@ -2,56 +2,56 @@
 
 @section('content')
     <div class="container-fluid">
-            <div class="row my-3">
-                <div class="col-md-3">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Number of Institutions
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$institutions_number}}
-                            </div>
+        <div class="row my-3">
+            <div class="col-md-3">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Number of Institutions
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Number of Colleges
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$colleges_number}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Number of Bands
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$bands_number}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Number of Departments
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$departments_number}}
-                            </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{$institutions_number}}
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Number of Colleges
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{$colleges_number}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Number of Bands
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{$bands_number}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Number of Departments
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{$departments_number}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <div class="row my-5">
@@ -156,5 +156,5 @@
         });
     </script>
 
-   
+
 @endSection

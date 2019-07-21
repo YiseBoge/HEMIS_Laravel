@@ -10,22 +10,24 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row my-3">
                         <div class="col text-right">
-                                <form action="postgraduate-diploma-training/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <input type="hidden" name="department"
-                                            value="{{$selected_department}}">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending in Selected Department<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="postgraduate-diploma-training/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <input type="hidden" name="department"
+                                       value="{{$selected_department}}">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending in Selected Department<i
+                                            class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 @else
                     <div class="row my-3">
                         <div class="col text-right">
-                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="postgraduate-diploma-training/create">New
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm"
+                               href="postgraduate-diploma-training/create">New
                                 Entry<i
                                         class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                         </div>
@@ -126,21 +128,21 @@
                                 <tr role="row" class="odd"
                                     onclick="window.location='postgraduate-diploma-training/{{$training->id}}'">
                                     <td class="text-center">
-                                            @if(Auth::user()->hasRole('College Super Admin'))
-                                                @if($training->approval_status == "Pending")
-                                                    <form action="postgraduate-diploma-training/{{$training->id}}/approve"
-                                                          method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="action" value="disapprove">
-                                                        <button type="submit" style="opacity:0.80"
-                                                                data-toggle="tooltip" title="Disapprove"
-                                                                class="btn btn-danger btn-circle text-white btn-sm">
-                                                            <i class="fas fa-times" style="opacity:0.75"></i>
-                                                        </button>
-                                                    </form>
-                                                @endif
-                                            @else
-                                                @if($training->approval_status != "Approved")
+                                        @if(Auth::user()->hasRole('College Super Admin'))
+                                            @if($training->approval_status == "Pending")
+                                                <form action="postgraduate-diploma-training/{{$training->id}}/approve"
+                                                      method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="action" value="disapprove">
+                                                    <button type="submit" style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Disapprove"
+                                                            class="btn btn-danger btn-circle text-white btn-sm">
+                                                        <i class="fas fa-times" style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @else
+                                            @if($training->approval_status != "Approved")
                                                 <div class="row px-1">
                                                     <div class="col px-0">
                                                         <form class="p-0"
@@ -172,9 +174,9 @@
                                                         </form>
                                                     </div>
                                                 </div>
-                                                @endif
                                             @endif
-                                        </td>
+                                        @endif
+                                    </td>
                                     <td>{{$training->department->departmentName->department_name}}</td>
                                     <td>{{$training->number_of_male_students}}</td>
                                     <td>{{$training->number_of_female_students}}</td>

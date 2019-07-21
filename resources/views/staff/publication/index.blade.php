@@ -11,16 +11,17 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row my-3">
                         <div class="col text-right">
-                                <form action="publication/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <input type="hidden" name="department"
-                                            value="{{$selected_department}}">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending in Selected Department<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="publication/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <input type="hidden" name="department"
+                                       value="{{$selected_department}}">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending in Selected Department<i
+                                            class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 @else
@@ -93,7 +94,7 @@
                                         @if(Auth::user()->hasRole('College Super Admin'))
                                             @if($publication->approval_status == "Pending")
                                                 <form action="publication/{{$publication->id}}/approve"
-                                                        method="POST">
+                                                      method="POST">
                                                     @csrf
                                                     <input type="hidden" name="action" value="disapprove">
                                                     <button type="submit" style="opacity:0.80"
@@ -108,30 +109,30 @@
                                                 <div class="row px-1">
                                                     <div class="col px-0">
                                                         <form class="p-0"
-                                                                action="publication/{{$publication->id}}/edit"
-                                                                method="GET">
+                                                              action="publication/{{$publication->id}}/edit"
+                                                              method="GET">
                                                             <button type="submit"
                                                                     class="btn btn-primary btn-circle text-white btn-sm mx-0"
                                                                     style="opacity:0.80"
                                                                     data-toggle="tooltip" title="Edit">
                                                                 <i class="fas fa-pencil-alt fa-sm"
-                                                                    style="opacity:0.75"></i>
+                                                                   style="opacity:0.75"></i>
                                                             </button>
                                                         </form>
                                                     </div>
                                                     <div class="col px-0">
                                                         <form class="p-0"
-                                                                action="publication/{{$publication->id}}"
-                                                                method="POST">
+                                                              action="publication/{{$publication->id}}"
+                                                              method="POST">
                                                             @csrf
                                                             <input type="hidden" name="_method"
-                                                                    value="DELETE">
+                                                                   value="DELETE">
                                                             <button type="submit"
                                                                     class="btn btn-danger btn-circle text-white btn-sm mx-0"
                                                                     style="opacity:0.80"
                                                                     data-toggle="tooltip" title="Delete">
                                                                 <i class="fas fa-trash fa-sm"
-                                                                    style="opacity:0.75"></i>
+                                                                   style="opacity:0.75"></i>
                                                             </button>
                                                         </form>
                                                     </div>

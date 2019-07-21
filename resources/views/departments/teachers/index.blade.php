@@ -10,16 +10,17 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row">
                         <div class="col text-right">
-                                <form action="teachers/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <input type="hidden" name="department"
-                                            value="{{$selected_department}}">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending in Selected Department<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="teachers/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <input type="hidden" name="department"
+                                       value="{{$selected_department}}">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending in Selected Department<i
+                                            class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 @else
@@ -113,21 +114,21 @@
                                 <tr role="row" class="odd"
                                     onclick="window.location='teachers/{{$teacher->id}}'">
                                     <td class="text-center">
-                                            @if(Auth::user()->hasRole('College Super Admin'))
-                                                @if($teacher->approval_status == "Pending")
-                                                    <form action="normal/{{$teacher->id}}/approve"
-                                                          method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="action" value="disapprove">
-                                                        <button type="submit" style="opacity:0.80"
-                                                                data-toggle="tooltip" title="Disapprove"
-                                                                class="btn btn-danger btn-circle text-white btn-sm">
-                                                            <i class="fas fa-times" style="opacity:0.75"></i>
-                                                        </button>
-                                                    </form>
-                                                @endif
-                                            @else
-                                                @if($teacher->approval_status != "Approved")
+                                        @if(Auth::user()->hasRole('College Super Admin'))
+                                            @if($teacher->approval_status == "Pending")
+                                                <form action="normal/{{$teacher->id}}/approve"
+                                                      method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="action" value="disapprove">
+                                                    <button type="submit" style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Disapprove"
+                                                            class="btn btn-danger btn-circle text-white btn-sm">
+                                                        <i class="fas fa-times" style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @else
+                                            @if($teacher->approval_status != "Approved")
                                                 <div class="row px-1">
                                                     <div class="col px-0">
                                                         <form class="p-0"
@@ -159,9 +160,9 @@
                                                         </form>
                                                     </div>
                                                 </div>
-                                                @endif
                                             @endif
-                                        </td>
+                                        @endif
+                                    </td>
                                     <td>{{$teacher->department->departmentName->department_name}}</td>
                                     <td>{{$teacher->citizenship}}</td>
                                     <td>{{$teacher->male_number}}</td>

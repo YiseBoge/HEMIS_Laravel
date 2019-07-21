@@ -10,18 +10,19 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row">
                         <div class="col text-right">
-                                <form action="student-attrition/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <input type="hidden" name="department"
-                                            value="{{$selected_department}}">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending in Selected Department<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="student-attrition/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <input type="hidden" name="department"
+                                       value="{{$selected_department}}">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending in Selected Department<i
+                                            class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
-                    </div>                           
+                    </div>
                 @else
                     <div class="row my-3">
                         <div class="col text-right">
@@ -171,15 +172,17 @@
                                     <td class="text-center">
                                         @if(Auth::user()->hasRole('College Super Admin'))
                                             @if($attrition->approval_status == "Pending")
-                                                <form action="student-attrition/{{$attrition->id}}/approve" method="POST">
+                                                <form action="student-attrition/{{$attrition->id}}/approve"
+                                                      method="POST">
                                                     @csrf
                                                     <input type="hidden" name="action" value="disapprove">
-                                                    <button type="submit" style="opacity:0.80" data-toggle="tooltip" title="Disapprove"
+                                                    <button type="submit" style="opacity:0.80" data-toggle="tooltip"
+                                                            title="Disapprove"
                                                             class="btn btn-danger btn-circle text-white btn-sm">
                                                         <i class="fas fa-times" style="opacity:0.75"></i>
                                                     </button>
                                                 </form>
-                                            @endif                                                
+                                            @endif
                                         @else
                                             @if($attrition->approval_status != "Approved")
                                                 <div class="row px-1">
@@ -213,18 +216,21 @@
                                                         </form>
                                                     </div>
                                                 </div>
-                                            @endif                                                           
+                                            @endif
                                         @endif
                                     </td>
                                     <td>{{$attrition->department->year_level}}</td>
                                     <td>{{$attrition->male_students_number}}</td>
                                     <td>{{$attrition->female_students_number}}</td>
                                     @if($attrition->approval_status == "Approved")
-                                        <td class="text-success"><i class="fas fa-check"></i> {{$attrition->approval_status}}</td>
+                                        <td class="text-success"><i
+                                                    class="fas fa-check"></i> {{$attrition->approval_status}}</td>
                                     @elseif($attrition->approval_status == "Pending")
-                                        <td class="text-warning"> <i class="far fa-clock"></i></i> {{$attrition->approval_status}}</td>
+                                        <td class="text-warning"><i
+                                                    class="far fa-clock"></i></i> {{$attrition->approval_status}}</td>
                                     @else
-                                        <td class="text-danger"><i class="fas fa-times"></i> {{$attrition->approval_status}}</td>
+                                        <td class="text-danger"><i
+                                                    class="fas fa-times"></i> {{$attrition->approval_status}}</td>
                                     @endif
                                 </tr>
                             @endforeach

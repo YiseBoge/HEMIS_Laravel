@@ -10,21 +10,21 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row my-3">
                         <div class="col text-right">
-                                <form action="budget/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="budget/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
-                    </div>                           
+                    </div>
                 @else
                     <div class="row my-3">
                         <div class="col text-right">
                             <a class="btn btn-primary btn-sm mb-0 shadow-sm"
-                            href="budget/create">New Entry<i
+                               href="budget/create">New Entry<i
                                         class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                         </div>
                     </div>
@@ -99,56 +99,56 @@
                             <tbody>
                             @foreach($budgets as $budget)
                                 <tr>
-                                        <td class="text-center">
-                                                @if(Auth::user()->hasRole('College Super Admin'))
-                                                    @if($budget->approval_status == "Pending")
-                                                        <form action="budget/{{$budget->id}}/approve"
-                                                              method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="action" value="disapprove">
-                                                            <button type="submit" style="opacity:0.80"
-                                                                    data-toggle="tooltip" title="Disapprove"
-                                                                    class="btn btn-danger btn-circle text-white btn-sm">
-                                                                <i class="fas fa-times" style="opacity:0.75"></i>
+                                    <td class="text-center">
+                                        @if(Auth::user()->hasRole('College Super Admin'))
+                                            @if($budget->approval_status == "Pending")
+                                                <form action="budget/{{$budget->id}}/approve"
+                                                      method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="action" value="disapprove">
+                                                    <button type="submit" style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Disapprove"
+                                                            class="btn btn-danger btn-circle text-white btn-sm">
+                                                        <i class="fas fa-times" style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @else
+                                            @if($budget->approval_status != "Approved")
+                                                <div class="row px-1">
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                              action="budget/{{$budget->id}}/edit"
+                                                              method="GET">
+                                                            <button type="submit"
+                                                                    class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Edit">
+                                                                <i class="fas fa-pencil-alt fa-sm"
+                                                                   style="opacity:0.75"></i>
                                                             </button>
                                                         </form>
-                                                    @endif
-                                                @else
-                                                    @if($budget->approval_status != "Approved")
-                                                        <div class="row px-1">
-                                                            <div class="col px-0">
-                                                                <form class="p-0"
-                                                                      action="budget/{{$budget->id}}/edit"
-                                                                      method="GET">
-                                                                    <button type="submit"
-                                                                            class="btn btn-primary btn-circle text-white btn-sm mx-0"
-                                                                            style="opacity:0.80"
-                                                                            data-toggle="tooltip" title="Edit">
-                                                                        <i class="fas fa-pencil-alt fa-sm"
-                                                                           style="opacity:0.75"></i>
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                            <div class="col px-0">
-                                                                <form class="p-0"
-                                                                      action="budget/{{$budget->id}}"
-                                                                      method="POST">
-                                                                    @csrf
-                                                                    <input type="hidden" name="_method"
-                                                                           value="DELETE">
-                                                                    <button type="submit"
-                                                                            class="btn btn-danger btn-circle text-white btn-sm mx-0"
-                                                                            style="opacity:0.80"
-                                                                            data-toggle="tooltip" title="Delete">
-                                                                        <i class="fas fa-trash fa-sm"
-                                                                           style="opacity:0.75"></i>
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                @endif
-                                            </td>
+                                                    </div>
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                              action="budget/{{$budget->id}}"
+                                                              method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="_method"
+                                                                   value="DELETE">
+                                                            <button type="submit"
+                                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Delete">
+                                                                <i class="fas fa-trash fa-sm"
+                                                                   style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endif
+                                    </td>
                                     <td>{{ $budget->budgetDescription->budget_code }}</td>
                                     <td>{{ $budget->budgetDescription->description }}</td>
                                     <td>{{ $budget->allocated_budget }}</td>

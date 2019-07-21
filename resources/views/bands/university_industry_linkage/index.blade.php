@@ -10,21 +10,21 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row my-3">
                         <div class="col text-right">
-                                <form action="university-industry-linkage/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="university-industry-linkage/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
-                    </div>                           
+                    </div>
                 @else
                     <div class="row my-3">
                         <div class="col text-right">
                             <a class="btn btn-primary btn-sm mb-0 shadow-sm"
-                            href="/student/university-industry-linkage/create">New Entry<i
+                               href="/student/university-industry-linkage/create">New Entry<i
                                         class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                         </div>
                     </div>
@@ -68,58 +68,68 @@
                             <tbody>
                             @foreach($linkages as $linkage)
                                 <tr>
-                                        <td class="text-center">
-                                                @if(Auth::user()->hasRole('College Super Admin'))
-                                                    @if($linkage->approval_status == "Pending")
-                                                        <form action="university-industry-linkage/{{$linkage->id}}/approve" method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="action" value="disapprove">
-                                                            <button type="submit" style="opacity:0.80" data-toggle="tooltip" title="Disapprove"
-                                                                    class="btn btn-danger btn-circle text-white btn-sm">
-                                                                <i class="fas fa-times" style="opacity:0.75"></i>
+                                    <td class="text-center">
+                                        @if(Auth::user()->hasRole('College Super Admin'))
+                                            @if($linkage->approval_status == "Pending")
+                                                <form action="university-industry-linkage/{{$linkage->id}}/approve"
+                                                      method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="action" value="disapprove">
+                                                    <button type="submit" style="opacity:0.80" data-toggle="tooltip"
+                                                            title="Disapprove"
+                                                            class="btn btn-danger btn-circle text-white btn-sm">
+                                                        <i class="fas fa-times" style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @else
+                                            @if($linkage->approval_status != "Approved")
+                                                <div class="row px-1">
+                                                    <div class="col">
+                                                        <form class="p-0"
+                                                              action="/student/university-industry-linkage/{{$linkage->id}}/edit"
+                                                              method="GET">
+                                                            <button type="submit"
+                                                                    class="btn btn-primary btn-circle text-white btn-sm"
+                                                                    style="opacity:0.80" data-toggle="tooltip"
+                                                                    title="Edit">
+                                                                <i class="fas fa-pencil-alt fa-sm"
+                                                                   style="opacity:0.75"></i>
                                                             </button>
                                                         </form>
-                                                    @endif                                                
-                                                @else
-                                                    @if($linkage->approval_status != "Approved")
-                                                        <div class="row px-1">
-                                                            <div class="col">
-                                                                <form class="p-0"
-                                                                    action="/student/university-industry-linkage/{{$linkage->id}}/edit"
-                                                                    method="GET">
-                                                                  <button type="submit"
-                                                                          class="btn btn-primary btn-circle text-white btn-sm" style="opacity:0.80" data-toggle="tooltip" title="Edit">
-                                                                          <i class="fas fa-pencil-alt fa-sm" style="opacity:0.75"></i>
-                                                                  </button>
-                                                              </form>
-                                                            </div>
-                                                            <div class="col">
-                                                                <form class="p-0"
-                                                                      action="/student/university-industry-linkage/{{$linkage->id}}"
-                                                                      method="POST">
-                                                                    @csrf
-                                                                    <input type="hidden" name="_method"
-                                                                           value="DELETE">
-                                                                    <button type="submit"
-                                                                            class="btn btn-danger btn-circle text-white btn-sm" style="opacity:0.80" data-toggle="tooltip" title="Delete">
-                                                                        <i class="fas fa-trash fa-sm" style="opacity:0.75"></i>
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                        </div> 
-                                                    @endif                                                           
-                                                @endif
-                                            </td>
+                                                    </div>
+                                                    <div class="col">
+                                                        <form class="p-0"
+                                                              action="/student/university-industry-linkage/{{$linkage->id}}"
+                                                              method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="_method"
+                                                                   value="DELETE">
+                                                            <button type="submit"
+                                                                    class="btn btn-danger btn-circle text-white btn-sm"
+                                                                    style="opacity:0.80" data-toggle="tooltip"
+                                                                    title="Delete">
+                                                                <i class="fas fa-trash fa-sm" style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endif
+                                    </td>
                                     <td>{{ $linkage->year}}</td>
                                     <td>{{ $linkage->number_of_industry_links }}</td>
                                     <td>{{ $linkage->training_area }}</td>
                                     <td>{{ $linkage->number_of_students }}</td>
                                     @if($linkage->approval_status == "Approved")
-                                        <td class="text-success"><i class="fas fa-check"></i> {{$linkage->approval_status}}</td>
+                                        <td class="text-success"><i
+                                                    class="fas fa-check"></i> {{$linkage->approval_status}}</td>
                                     @elseif($linkage->approval_status == "Pending")
-                                        <td class="text-warning"> <i class="far fa-clock"></i></i> {{$linkage->approval_status}}</td>
+                                        <td class="text-warning"><i
+                                                    class="far fa-clock"></i></i> {{$linkage->approval_status}}</td>
                                     @else
-                                        <td class="text-danger"><i class="fas fa-times"></i> {{$linkage->approval_status}}</td>
+                                        <td class="text-danger"><i
+                                                    class="fas fa-times"></i> {{$linkage->approval_status}}</td>
                                     @endif
                                 </tr>
                             @endforeach
