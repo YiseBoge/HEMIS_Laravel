@@ -232,18 +232,18 @@ class StudentAttritionController extends Controller
         $department = $studentAttrition->department()->first();
         $college = $department->college()->first();
         $data = array(
-            'programs' => $college->education_program,
-            'education_levels' => $college->education_level,
-            'years' => $department->year_level,
-            'student_types' => $studentAttrition->student_type,
-            'types' => $studentAttrition->type,
-            'cases' => $studentAttrition->case,
+            'id' => $id,
+            'program' => $college->education_program,
+            'education_level' => $college->education_level,
+            'year_level' => $department->year_level,
+            'student_type' => $studentAttrition->student_type,
+            'type' => $studentAttrition->type,
+            'case' => $studentAttrition->case,
             'male_students_number' => $studentAttrition->male_students_number,
             'female_students_number' => $studentAttrition->female_students_number,
             'page_name' => 'students.student_attrition.edit'
         );
 
-        die(print_r($data));
         return view("departments.student_attrition.edit")->with($data);
     }
 
@@ -262,8 +262,8 @@ class StudentAttritionController extends Controller
 
         $studentAttrition = StudentAttrition::find($id)->first();
 
-        $studentAttrition->male_students_number = $request->input("male_students_number"); 
-        $studentAttrition->female_students_number = $request->input("female_students_number"); 
+        $studentAttrition->male_students_number = $request->input("male_number"); 
+        $studentAttrition->female_students_number = $request->input("female_number"); 
 
         $studentAttrition->save();
 
