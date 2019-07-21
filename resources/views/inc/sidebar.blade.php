@@ -392,6 +392,10 @@
                                href="/college-admin">College/Institute Admin</a>
                         @endif
                     @elseif(Auth::user()->hasRole('College Super Admin'))
+                        @if(!Auth::user()->institution()->institutionName->collegeNames->isEmpty())
+                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
+                               href="/college-admin">Administerer Admin</a>
+                        @endif
                         @if(!Auth::user()->institution()->institutionName->departmentNames->isEmpty())
                             <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'department_admin' ? 'active': '' }}"
                                href="/department-admin">School/Department Admins</a>

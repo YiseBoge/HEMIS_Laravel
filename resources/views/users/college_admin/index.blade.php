@@ -4,7 +4,7 @@
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">College Admin</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ Auth::user()->hasRole('University Admin') ? 'College Super Admins' : 'Administerer Admins' }}</h6>
             </div>
             <div class="card-body">
                 <div class="row my-3">
