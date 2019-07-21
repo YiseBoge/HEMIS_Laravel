@@ -209,14 +209,13 @@ class SpecialProgramTeacherController extends Controller
         $specialProgramTeacher = SpecialProgramTeacher::find($id)->first();
 
         $data = [
+            'id' => $id,
             'program_type' => $specialProgramTeacher->program_type,
             'program_status' => $specialProgramTeacher->program_stat,
             'male_number' => $specialProgramTeacher->male_number,
             'female_number' => $specialProgramTeacher->female_number,
             'page_name' => 'staff.special-program-teacher.edit'
         ];
-
-        die(print_r($data));
 
         return view('departments.special_program_teacher.edit')->with($data);
     }
