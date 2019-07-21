@@ -185,12 +185,13 @@ class DegreeEmploymentsController extends Controller
         $degreeEmployment = DegreeEmployment::find($id)->first();
 
         $data = array(
+            'id' => $id,
             'male_students_number' => $degreeEmployment->male_students_number,
             'female_students_number' => $degreeEmployment->female_students_number,
-            'page_name' => 'students.exit_examination.create'
+            'page_name' => 'students.degree_employment.edit'
         );
-        die(print_r($data));
-        return view("departments.exit_examination.create")->with($data);
+        
+        return view("departments.degree_employment.edit")->with($data);
     }
 
     /**
@@ -208,10 +209,10 @@ class DegreeEmploymentsController extends Controller
 
         $degreeEmployment = DegreeEmployment::find($id)->first();
 
-        $degreeEmployment->male_students_number = $request->input("male_sstudents_number");
-        $degreeEmployment->female_students_number = $request->input("female_sstudents_number");
+        $degreeEmployment->male_students_number = $request->input("male_number");
+        $degreeEmployment->female_students_number = $request->input("female_number");
 
-        $examination->save();
+        $degreeEmployment->save();
 
         return redirect("/student/degree-relevant-employment");
     }
