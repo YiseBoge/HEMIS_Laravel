@@ -211,6 +211,7 @@ class UpgradingStaffController extends Controller
         $upgradingStaff = UpgradingStaff::find($id)->first();
 
         $data = [
+            'id' => $id,
             'education_level' => $upgradingStaff->education_level,
             'study_place' => $upgradingStaff->study_place,
             'male_number' => $upgradingStaff->male_number,
@@ -218,7 +219,6 @@ class UpgradingStaffController extends Controller
             'page_name' => 'staff.upgrading-staff.edit'
         ];
 
-        die(print_r($data));
         return view('departments.upgrading_staff.edit')->with($data);
     }
 
