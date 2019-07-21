@@ -184,14 +184,18 @@ class ExitExaminationsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $exitExamination = ExitExamination::find($id)->first();
-
+        $department = $exitExamination->department()->first();
+        $departmentName = $department->departmentName()->first();
+       
         $data = array(
+            'id' => $id,
+            'departmentName' => $departmentName,
             'male_students_number' => $exitExamination->male_students_number,
             'female_students_number' => $exitExamination->female_students_number,
-            'page_name' => 'students.exit_examination.create'
+            'page_name' => 'departments.exit_examination.edit'
         );
-        die(print_r($data));
-        return view("departments.exit_examination.create")->with($data);
+
+        return view("departments.exit_examination.edit")->with($data);
     }
 
     /**
@@ -209,10 +213,10 @@ class ExitExaminationsController extends Controller
 
         $exitExamination = ExitExamination::find($id)->first();
 
-        $exitExamination->male_students_number = $request->input("male_sstudents_number");
-        $exitExamination->female_students_number = $request->input("female_sstudents_number");
+        $exitExamination->male_students_number = $request->input("male_number");
+        $exitExamination->female_students_number = $request->input("female_number");
 
-        $examination->save();
+        $exitExamination->save();
 
         return redirect("/student/exit-examination");
     }
