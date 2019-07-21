@@ -60,7 +60,7 @@
                            style="width: 100%;">
                         <thead>
                         <tr role="row">
-                            <th style="min-width: 75px; width: 75px"></th>
+                            <th style="min-width: 50px; width: 50px"></th>
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
@@ -117,31 +117,37 @@
                                                 @endif                                                
                                             @else
                                                 @if($costSharing->approval_status != "Approved")
-                                                    <div class="row px-1">
-                                                        <div class="col">
-                                                            <form class="p-0"
-                                                                action="/student/cost-sharing/{{$costSharing->id}}/edit"
-                                                                method="GET">
-                                                              <button type="submit"
-                                                                      class="btn btn-primary btn-circle text-white btn-sm" style="opacity:0.80" data-toggle="tooltip" title="Edit">
-                                                                      <i class="fas fa-pencil-alt fa-sm" style="opacity:0.75"></i>
-                                                              </button>
-                                                          </form>
-                                                        </div>
-                                                        <div class="col">
-                                                            <form class="p-0"
-                                                                  action="/student/cost-sharing/{{$costSharing->id}}"
-                                                                  method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="_method"
-                                                                       value="DELETE">
-                                                                <button type="submit"
-                                                                        class="btn btn-danger btn-circle text-white btn-sm" style="opacity:0.80" data-toggle="tooltip" title="Delete">
-                                                                    <i class="fas fa-trash fa-sm" style="opacity:0.75"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </div> 
+                                                <div class="row px-1">
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                              action="/student/cost-sharing/{{$costSharing->id}}/edit"
+                                                              method="GET">
+                                                            <button type="submit"
+                                                                    class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Edit">
+                                                                <i class="fas fa-pencil-alt fa-sm"
+                                                                   style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                              action="/student/cost-sharing/{{$costSharing->id}}"
+                                                              method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="_method"
+                                                                   value="DELETE">
+                                                            <button type="submit"
+                                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Delete">
+                                                                <i class="fas fa-trash fa-sm"
+                                                                   style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                                 @endif                                                           
                                             @endif
                                         </td>

@@ -73,7 +73,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input type="text" id="tin_number" name="tin_number" class="form-control"
-                                               value=“{{ old('tin_number') }}"
+                                               value="{{ old('tin_number') }}"
                                                required>
                                         <label class="form-control-placeholder" for="tin_number">TIN Number</label>
 
