@@ -260,12 +260,13 @@ class PublicationsController extends Controller
         $general = $staff->general()->first();
 
         $data = array(
+            'id' => $id,
             'title' => $publication->title,
             'date' => $publication->date_of_publication,
             'author' => $general->name,
-            'page_name' => 'publication.publication.edit'
+            'page_name' => 'staff.publication.edit'
         );
-        die(print_r($data));
+
         return view("staff.publication.edit")->with($data);
     }
 
@@ -277,21 +278,6 @@ class PublicationsController extends Controller
      * @return Response
      * @throws ValidationException
      */
-    public function updatePublication(Request $request, $id)
-    {
-        die("This is a separate method for updating the publications");
-        $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
-        
-        $publication = StaffPublication::find($id)->first();
-
-        $publication->title = $request->input("title");
-
-        $publication->save();
-
-        return redirect("/department/publication");
-    }
 
     /**
      * Update the specified resource in storage.
@@ -303,6 +289,22 @@ class PublicationsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        if($request->input('publication') == 'true'){
+            $user = Auth::user();
+            if ($user == null) return redirect('/login');
+            $user->authorizeRoles('Department Admin');
+            
+            $publication = StaffPublication::find($id)->first();
+
+            $publication->title = $request->input("title");
+            $publication->date_of_publication = $request->input("date");
+
+            $publication->save();
+
+            return redirect("/department/publication");
+        }
+
         $this->validate($request, [
             'student_publications' => 'required',
             'patents' => 'required'
