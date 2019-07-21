@@ -85,7 +85,7 @@
                                                         <div class="row px-1">
                                                             <div class="col px-0">
                                                                 <form class="p-0"
-                                                                      action="private-investment/{{$investment->id}}/edit"
+                                                                      action="/budgets/private-investment/{{$investment->id}}/edit"
                                                                       method="GET">
                                                                     <button type="submit"
                                                                             class="btn btn-primary btn-circle text-white btn-sm mx-0"
@@ -98,7 +98,7 @@
                                                             </div>
                                                             <div class="col px-0">
                                                                 <form class="p-0"
-                                                                      action="private-investment/{{$investment->id}}"
+                                                                      action="/budgets/private-investment/{{$investment->id}}"
                                                                       method="POST">
                                                                     @csrf
                                                                     <input type="hidden" name="_method"
@@ -195,7 +195,7 @@
         </div>
     @endif
 
-    @if ($page_name == 'budgets.investment.edit')
+    @if ($page_name == 'budgets.private_investment.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
