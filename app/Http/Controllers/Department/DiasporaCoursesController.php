@@ -183,7 +183,7 @@ class DiasporaCoursesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $diasporaCourses = DiasporaCourses::find($id)->first();
+        $diasporaCourses = DiasporaCourses::find($id);
 
         $data = array(
             'id' => $id,
@@ -207,7 +207,7 @@ class DiasporaCoursesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $diasporaCourses = DiasporaCourses::find($id)->first();
+        $diasporaCourses = DiasporaCourses::find($id);
 
         $diasporaCourses->number_of_courses = $request->input('number_of_courses');
         $diasporaCourses->number_of_researches = $request->input('number_of_researches');

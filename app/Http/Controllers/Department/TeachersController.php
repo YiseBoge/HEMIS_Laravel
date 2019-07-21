@@ -202,7 +202,7 @@ class TeachersController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $teachers = Teacher::find($id)->first();
+        $teachers = Teacher::find($id);
         $data = array(
             'id' => $id,
             'education_level' => $teachers->level_of_education,
@@ -228,7 +228,7 @@ class TeachersController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $teachers = Teacher::find($id)->first();
+        $teachers = Teacher::find($id);
 
         $teachers->male_number = $request->input("male_number");
         $teachers->female_number = $request->input("female_number");

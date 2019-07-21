@@ -255,7 +255,7 @@ class PublicationsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
         
-        $publication = StaffPublication::find($id)->first();
+        $publication = StaffPublication::find($id);
         $staff = $publication->academicStaff()->first();
         $general = $staff->general()->first();
 
@@ -295,7 +295,7 @@ class PublicationsController extends Controller
             if ($user == null) return redirect('/login');
             $user->authorizeRoles('Department Admin');
             
-            $publication = StaffPublication::find($id)->first();
+            $publication = StaffPublication::find($id);
 
             $publication->title = $request->input("title");
             $publication->date_of_publication = $request->input("date");

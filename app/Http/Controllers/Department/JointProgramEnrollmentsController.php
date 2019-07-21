@@ -227,7 +227,7 @@ class JointProgramEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $jointProgramEnrollment = JointProgramEnrollment::find($id)->first();
+        $jointProgramEnrollment = JointProgramEnrollment::find($id);
         $department = $jointProgramEnrollment->department()->first();
         $college = $department->college()->first();
 
@@ -258,7 +258,7 @@ class JointProgramEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $jointProgramEnrollment = JointProgramEnrollment::find($id)->first();
+        $jointProgramEnrollment = JointProgramEnrollment::find($id);
 
         $jointProgramEnrollment->male_students_number = $request->input("male_number");
         $jointProgramEnrollment->female_students_number = $request->input("female_number");

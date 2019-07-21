@@ -208,7 +208,7 @@ class UpgradingStaffController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $upgradingStaff = UpgradingStaff::find($id)->first();
+        $upgradingStaff = UpgradingStaff::find($id);
 
         $data = [
             'id' => $id,
@@ -235,7 +235,7 @@ class UpgradingStaffController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $upgradingStaff = UpgradingStaff::find($id)->first();
+        $upgradingStaff = UpgradingStaff::find($id);
 
         $upgradingStaff->male_number = $request->input("male_number");
         $upgradingStaff->female_number = $request->input("female_number");

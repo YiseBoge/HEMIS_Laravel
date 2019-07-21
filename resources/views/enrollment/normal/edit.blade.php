@@ -10,7 +10,7 @@
                 </div>
             @endforeach
         @endif
-        <form class="pb-5" action="/enrollment/normal/{{$enrollment->id}}" method="POST">
+        <form class="pb-5" action="/enrollment/normal/{{$id}}" method="POST">
             @csrf
             <input type="hidden" name="_method" value="PUT">
             <div class="row my-5">

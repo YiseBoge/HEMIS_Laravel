@@ -182,7 +182,7 @@ class DegreeEmploymentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $degreeEmployment = DegreeEmployment::find($id)->first();
+        $degreeEmployment = DegreeEmployment::find($id);
 
         $data = array(
             'id' => $id,
@@ -207,7 +207,7 @@ class DegreeEmploymentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $degreeEmployment = DegreeEmployment::find($id)->first();
+        $degreeEmployment = DegreeEmployment::find($id);
 
         $degreeEmployment->male_students_number = $request->input("male_number");
         $degreeEmployment->female_students_number = $request->input("female_number");

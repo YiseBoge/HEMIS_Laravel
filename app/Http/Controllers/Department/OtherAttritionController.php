@@ -218,7 +218,7 @@ class OtherAttritionController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $otherAttrition = OtherAttrition::find($id)->first();
+        $otherAttrition = OtherAttrition::find($id);
         $department = $otherAttrition->department()->first();
         $college = $department->college()->first();
         $data = array(
@@ -250,7 +250,7 @@ class OtherAttritionController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $otherAttrition = OtherAttrition::find($id)->first();
+        $otherAttrition = OtherAttrition::find($id);
 
         $otherAttrition->male_students_number = $request->input("male_number"); 
         $otherAttrition->female_students_number = $request->input("female_number"); 

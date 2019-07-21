@@ -215,7 +215,7 @@ class PostGraduateDiplomaTrainingController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $postGraduateDiplomaTraining = PostGraduateDiplomaTraining::find($id)->first();
+        $postGraduateDiplomaTraining = PostGraduateDiplomaTraining::find($id);
         $department = $postGraduateDiplomaTraining->department()->first();
         $college = $department->college()->first();
         
@@ -244,7 +244,7 @@ class PostGraduateDiplomaTrainingController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $postGraduateDiplomaTraining = PostGraduateDiplomaTraining::find($id)->first();
+        $postGraduateDiplomaTraining = PostGraduateDiplomaTraining::find($id);
 
         $postGraduateDiplomaTraining->number_of_male_students = $request->input("male_number");
         $postGraduateDiplomaTraining->number_of_female_students = $request->input("female_number");

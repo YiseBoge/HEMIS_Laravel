@@ -20,6 +20,8 @@ class OtherRegionStudent extends Model
     use Uuids;
     use Enums;
 
+    public $incrementing = false;
+
     /**
      * @return BelongsTo
      */

@@ -204,14 +204,13 @@ class OtherRegionStudentsController extends Controller
      */
     public function edit($id)
     {
-        // there is some error please remember to review this part
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $otherRegionStudentsEnrollment = OtherRegionStudent::find($id);
+        $otherRegionStudentsEnrollment = OtherRegionStudent::find($id)->first();
         $department = $otherRegionStudentsEnrollment->department()->first();
-        $college = $department->department()->first();
+        $college = $department->college()->first();
         $data = array(
             'id' => $id,
             'program' => $college->education_program,
@@ -219,9 +218,9 @@ class OtherRegionStudentsController extends Controller
             'year_level' => $department->year_level,
             'male_students_number' => $otherRegionStudentsEnrollment->male_students_number,
             'female_students_number' => $otherRegionStudentsEnrollment->female_students_number,
-            'page_name' => 'enrollment.other_region_students.create'
+            'page_name' => 'enrollment.other_region_students.edit'
         );
-        return view('enrollment.other_region_students.create')->with($data);
+        return view('enrollment.other_region_students.edit')->with($data);
     }
 
     /**

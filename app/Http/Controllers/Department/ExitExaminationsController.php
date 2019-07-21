@@ -183,7 +183,7 @@ class ExitExaminationsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $exitExamination = ExitExamination::find($id)->first();
+        $exitExamination = ExitExamination::find($id);
         $department = $exitExamination->department()->first();
         $departmentName = $department->departmentName()->first();
        
@@ -211,7 +211,7 @@ class ExitExaminationsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $exitExamination = ExitExamination::find($id)->first();
+        $exitExamination = ExitExamination::find($id);
 
         $exitExamination->male_students_number = $request->input("male_number");
         $exitExamination->female_students_number = $request->input("female_number");

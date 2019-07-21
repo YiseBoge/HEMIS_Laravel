@@ -222,7 +222,7 @@ class RuralStudentEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
-        $ruralStudenetEnrollment = RuralStudentEnrollment::find($id)->first();
+        $ruralStudenetEnrollment = RuralStudentEnrollment::find($id);
         $department = $ruralStudenetEnrollment->department()->first();
         $college = $department->college()->first();
         
@@ -252,7 +252,7 @@ class RuralStudentEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
-        $ruralStudenetEnrollment = RuralStudentEnrollment::find($id)->first();
+        $ruralStudenetEnrollment = RuralStudentEnrollment::find($id);
         $ruralStudenetEnrollment->male_students_number = $request->input("male_number");
         $ruralStudenetEnrollment->female_students_number = $request->input("female_number");
 

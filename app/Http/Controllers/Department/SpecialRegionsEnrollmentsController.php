@@ -235,7 +235,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $specialRegionEnrollment = SpecialRegionEnrollment::find($id)->first();
+        $specialRegionEnrollment = SpecialRegionEnrollment::find($id);
         $regionName = $specialRegionEnrollment->regionName()->first();
         $department = $specialRegionEnrollment->department()->first();
         $college = $department->college()->first();
@@ -267,7 +267,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $specialRegionEnorllment = SpecialRegionEnrollment::find($id)->first();
+        $specialRegionEnorllment = SpecialRegionEnrollment::find($id);
         $specialRegionEnorllment->male_number = $request->input("male_number");
         $specialRegionEnorllment->female_number = $request->input("female_number");
 

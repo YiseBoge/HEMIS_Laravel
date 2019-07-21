@@ -206,7 +206,7 @@ class SpecialProgramTeacherController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $specialProgramTeacher = SpecialProgramTeacher::find($id)->first();
+        $specialProgramTeacher = SpecialProgramTeacher::find($id);
 
         $data = [
             'id' => $id,
@@ -233,7 +233,7 @@ class SpecialProgramTeacherController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $specialProgramTeacher = SpecialProgramTeacher::find($id)->first();
+        $specialProgramTeacher = SpecialProgramTeacher::find($id);
 
         $specialProgramTeacher->male_number = $request->input("male_number");
         $specialProgramTeacher->female_number = $request->input("female_number");

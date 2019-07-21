@@ -221,7 +221,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
-        $disadvantagedStudentEnrollment = DisadvantagedStudentEnrollment::find($id)->first();
+        $disadvantagedStudentEnrollment = DisadvantagedStudentEnrollment::find($id);
         $department = $disadvantagedStudentEnrollment->department()->first();
         $college = $department->college()->first();
 
@@ -252,7 +252,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
-        $disadvantagedStudentEnrollment = DisadvantagedStudentEnrollment::find($id)->first();
+        $disadvantagedStudentEnrollment = DisadvantagedStudentEnrollment::find($id);
         $disadvantagedStudentEnrollment->male_students_number = $request->input("male_number");
         $disadvantagedStudentEnrollment->female_students_number = $request->input("female_number");
 

@@ -229,7 +229,7 @@ class EnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
-        $enrollment = Enrollment::find($id)->first();
+        $enrollment = Enrollment::find($id);
         $department = $enrollment->department()->first();
         $college = $department->college()->first();
         // die($enrollment);
@@ -239,7 +239,7 @@ class EnrollmentsController extends Controller
         // $yearLevel = $department->year_level;
 
         $data = array(
-            'enrollment' => $enrollment,
+            'id' => $id,
             'program' => $college->education_program,
             'education_level' => $college->education_level,
             'student_type' =>$studentType,
@@ -250,10 +250,6 @@ class EnrollmentsController extends Controller
         );
 
         return view('enrollment.normal.edit')->with($data);
-
-
-
-        // die('This is the shit');
     }
 
     /**
@@ -269,14 +265,13 @@ class EnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
-        $enrollment = Enrollment::find($id)->first();
+        $enrollment = Enrollment::find($id);
 
         $enrollment->female_students_number = $request->input('female_number');
         $enrollment->male_students_number = $request->input('male_number');
 
         $enrollment->save();
         return redirect("/enrollment/normal");
-        // die("BIACHHHH");
     }
 
     /**

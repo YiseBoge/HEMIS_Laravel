@@ -209,7 +209,7 @@ class AgeEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $ageEnrollment = AgeEnrollment::find($id)->first();
+        $ageEnrollment = AgeEnrollment::find($id);
         $department = $ageEnrollment->department()->first();
         $college = $department->college()->first();
 
@@ -239,7 +239,7 @@ class AgeEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $ageEnrollment = AgeEnrollment::find($id)->first();
+        $ageEnrollment = AgeEnrollment::find($id);
 
         $ageEnrollment->male_students_number = $request->input("number_of_males");
         $ageEnrollment->female_students_number = $request->input("number_of_females");

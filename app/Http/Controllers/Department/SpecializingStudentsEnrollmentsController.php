@@ -227,7 +227,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $specializingStudentsEnrollment = SpecializingStudentsEnrollment::find($id)->first();
+        $specializingStudentsEnrollment = SpecializingStudentsEnrollment::find($id);
         $department = $specializingStudentsEnrollment->department()->first();
         $college = $department->college()->first();
         $data = array(
@@ -258,7 +258,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $specializingStudentsEnrollment = SpecializingStudentsEnrollment::find($id)->first();
+        $specializingStudentsEnrollment = SpecializingStudentsEnrollment::find($id);
 
         $specializingStudentsEnrollment->male_students_number = $request->input('male_number');
         $specializingStudentsEnrollment->female_students_number = $request->input('female_number');
