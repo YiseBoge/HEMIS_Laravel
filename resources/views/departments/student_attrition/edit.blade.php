@@ -24,41 +24,16 @@
 
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    {{-- <select class="form-control" name="program" id="program">
-                                        @foreach ($programs as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="program" class="form-control-placeholder">
-                                        Education Program
-                                    </label> --}}
-
                                     <label class="label" for="program">Program</label>
                                     <input type="text" id="program" class="form-control"
                                            disabled value="{{$program}}">
                                 </div>
                                 <div class="col form-group">
-                                    {{-- <select class="form-control" name="education_level" id="education_level">
-                                        @foreach ($education_levels as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="education_level" class="form-control-placeholder">
-                                        Education Level
-                                    </label> --}}
                                     <label class="label" for="education_level">Education Level</label>
                                     <input type="text" id="education_level" class="form-control"
                                            disabled value="{{$education_level}}">
                                 </div>
                                 <div class="col form-group">
-                                    {{-- <select class="form-control" name="year_level" id="year_level">
-                                        @foreach ($years as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="year_level" class="form-control-placeholder">
-                                        Year Level
-                                    </label> --}}
                                     <label class="label" for="year_level">Year Level</label>
                                     <input type="text" id="year_level" class="form-control"
                                            disabled value="{{$year_level}}">
@@ -66,40 +41,16 @@
                             </div>
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    {{-- <select class="form-control" name="student_type" id="student_type">
-                                        @foreach ($student_types as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="student_type" class="form-control-placeholder">
-                                        Student Type
-                                    </label> --}}
                                     <label class="label" for="student_type">Student Type</label>
                                     <input type="text" id="student_type" class="form-control"
                                            disabled value="{{$student_type}}">
                                 </div>
                                 <div class="col form-group">
-                                    {{-- <select class="form-control" name="type" id="type">
-                                        @foreach ($types as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="type" class="form-control-placeholder">
-                                        Type
-                                    </label> --}}
                                     <label class="label" for="type">Attrition Type</label>
                                     <input type="text" id="type" class="form-control"
                                            disabled value="{{$type}}">
                                 </div>
                                 <div class="col form-group">
-                                    {{-- <select class="form-control" name="case" id="case">
-                                        @foreach ($cases as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="case" class="form-control-placeholder">
-                                        Case
-                                    </label> --}}
                                     <label class="label" for="case">Attrition Case</label>
                                     <input type="case" id="type" class="form-control"
                                            disabled value="{{$case}}">

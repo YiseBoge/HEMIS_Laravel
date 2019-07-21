@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
-        <!--  Disabled Students Form  -->
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)
                 <div class="alert alert-danger">
@@ -31,14 +30,6 @@
                             </div>
                             <div class="form-group row pt-3">
                                 <div class="col-md-6 form-group">
-                                    {{-- <select class="form-control" name="staff" id="staff">
-                                        @foreach ($staffs as $staff)
-                                            <option value="{{$staff->id}}">{{$staff->general->name}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="staff" class="form-control-placeholder">
-                                        Author
-                                    </label> --}}
                                     <label class="label" for="author">Author</label>
                                     <input type="text" id="author" name="author" class="form-control"
                                            disabled value="{{$author}}">

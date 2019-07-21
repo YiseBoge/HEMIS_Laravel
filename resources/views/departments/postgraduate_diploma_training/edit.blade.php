@@ -23,28 +23,12 @@
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    {{-- <select class="form-control" name="type" id="type">
-                                        @foreach ($types as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="type" class="form-control-placeholder">
-                                        Teacher Type
-                                    </label> --}}
                                     <label class="label" for="teacher_type">Teacher Type</label>
                                     <input type="text" id="teacher_type" class="form-control"
                                            disabled value="{{$teacher_type}}">
                                 </div>
 
                                 <div class="col-md-6 form-group">
-                                    {{-- <select class="form-control" name="program" id="program">
-                                        @foreach ($programs as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="program" class="form-control-placeholder">
-                                        Program
-                                    </label> --}}
                                     <label class="label" for="program">Program</label>
                                     <input type="text" id="program" class="form-control"
                                            disabled value="{{$program}}">
@@ -74,7 +58,7 @@
 
             </div>
 
-            <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit">
+            {{-- <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit"> --}}
         </form>
     </div>
 @endsection

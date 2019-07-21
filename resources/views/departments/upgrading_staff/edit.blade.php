@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
-        <!--  Disabled Students Form  -->
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)
                 <div class="alert alert-danger">
@@ -24,15 +23,11 @@
 
                         <div class="form-group row pt-3">
                             <div class="col form-group">
-                                {{-- {!! Form::select('education_level', \App\Models\Department\UpgradingStaff::getEnum('EducationLevels') , $education_level , ['class' => 'form-control', 'id' => 'add_education_level', 'onchange' => 'this.form.submit()']) !!}
-                                {!! Form::label('add_education_level', 'Education Level', ['class' => 'form-control-placeholder']) !!} --}}
                                 <label class="label" for="education_level">Eucation Level</label>
                                 <input type="text" id="education_level" class="form-control"
                                         disabled value="{{$education_level}}">
                             </div>
                             <div class="col form-group">
-                                {{-- {!! Form::select('study_place', \App\Models\Department\UpgradingStaff::getEnum('StudyPlaces') , $study_place , ['class' => 'form-control', 'id' => 'add_study_place', 'onchange' => 'this.form.submit()']) !!}
-                                {!! Form::label('add_study_place', 'Study Place', ['class' => 'form-control-placeholder']) !!} --}}
                                 <label class="label" for="study_place">Study Place</label>
                                 <input type="text" id="study_place" class="form-control"
                                         disabled value="{{$study_place}}">
@@ -60,7 +55,7 @@
 
         </div>
 
-        <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit">
+        {{-- <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit"> --}}
         </form>
     </div>
 @endsection

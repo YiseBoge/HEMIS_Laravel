@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
-        <!--  Disabled Students Form  -->
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)
                 <div class="alert alert-danger">
@@ -23,14 +22,6 @@
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    {{-- <select class="form-control" name="region" id="region">
-                                        @foreach ($regions as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="region" class="form-control-placeholder">
-                                        Region
-                                    </label> --}}
                                     <label class="label" for="region">Region</label>
                                     <input type="text" id="region" class="form-control"
                                            disabled value="{{$region}}">
@@ -39,45 +30,17 @@
 
                             <div class="form-group row pt-3">
                                 <div class="col-md-4 form-group">
-{{-- 
-                                    <select class="form-control" name="program" id="program">
-                                        @foreach ($programs as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="program" class="form-control-placeholder">
-                                        Program
-                                    </label> --}}
                                     <label class="label" for="program">Program</label>
                                     <input type="text" id="program" class="form-control"
                                            disabled value="{{$program}}">
                                 </div>
 
                                 <div class="col-md-5 form-group">
-
-                                    {{-- <select class="form-control" name="education_level" id="level">
-                                        @foreach ($education_levels as $key => $value)
-                                            @if ($key == 'SPECIALIZATION')
-                                                <option disabled value="{{$key}}">{{$value}}</option>
-                                            @else
-                                                <option value="{{$key}}">{{$value}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <label for="level" class="form-control-placeholder">
-                                        Education Level
-                                    </label> --}}
                                     <label class="label" for="education_level">Education Level</label>
                                     <input type="text" id="education_level" class="form-control"
                                            disabled value="{{$education_level}}">
                                 </div>
                                 <div class="col-md-3 form-group">
-
-                                    {{-- <select class="form-control" name="year_level" id="year_level">
-                                        @foreach ($year_levels as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endforeach
-                                    </select> --}}
                                     <label for="year_level" class="form-control-placeholder">
                                         Year Level
                                     </label>
