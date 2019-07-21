@@ -204,13 +204,14 @@ class TeachersController extends Controller
 
         $teachers = Teacher::find($id)->first();
         $data = array(
-            'education_levels' => $teachers->level_of_education,
+            'id' => $id,
+            'education_level' => $teachers->level_of_education,
             'citizenship' => $teachers->citizenship,
             'male_number' => $teachers->male_number,
             'female_number' => $teachers->female_number,
-            'page_name' => 'staff.teachers.edit'
+            'page_name' => 'departments.teachers.edit'
         );
-        die(print_r($data));
+
         return view('departments.teachers.edit')->with($data);
     }
 
@@ -229,8 +230,8 @@ class TeachersController extends Controller
 
         $teachers = Teacher::find($id)->first();
 
-        $teachers->male_number = $request->input("male_numbers");
-        $teachers->female_number = $request->input("female_numbers");
+        $teachers->male_number = $request->input("male_number");
+        $teachers->female_number = $request->input("female_number");
 
         $teachers->save();
 
