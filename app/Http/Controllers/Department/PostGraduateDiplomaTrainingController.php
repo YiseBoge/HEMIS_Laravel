@@ -220,10 +220,11 @@ class PostGraduateDiplomaTrainingController extends Controller
         $college = $department->college()->first();
         
         $data = array(
-            'programs' => $college->education_program,
-            'types' => $postGraduateDiplomaTraining->is_lead,
-            'number_of_male_students' => $postGraduateDiplomaTraining->number_of_male_students,
-            'number_of_female_students' => $postGraduateDiplomaTraining->number_of_female_students,
+            'id' => $id,
+            'program' => $college->education_program,
+            'teacher_type' => $postGraduateDiplomaTraining->is_lead,
+            'male_number' => $postGraduateDiplomaTraining->number_of_male_students,
+            'female_number' => $postGraduateDiplomaTraining->number_of_female_students,
             'page_name' => 'staff.postgraduate_diploma_training.edit'
         );
 
@@ -245,8 +246,8 @@ class PostGraduateDiplomaTrainingController extends Controller
 
         $postGraduateDiplomaTraining = PostGraduateDiplomaTraining::find($id)->first();
 
-        $postGraduateDiplomaTraining->number_of_male_students = $request->input("number_of_male_students");
-        $postGraduateDiplomaTraining->number_of_female_students = $request->input("number_of_female_students");
+        $postGraduateDiplomaTraining->number_of_male_students = $request->input("male_number");
+        $postGraduateDiplomaTraining->number_of_female_students = $request->input("female_number");
 
         $postGraduateDiplomaTraining->save();
 
