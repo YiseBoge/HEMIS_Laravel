@@ -186,6 +186,7 @@ class DiasporaCoursesController extends Controller
         $diasporaCourses = DiasporaCourses::find($id)->first();
 
         $data = array(
+            'id' => $id,
             'number_of_courses' => $diasporaCourses->number_of_courses,
             'number_of_researches' => $diasporaCourses->number_of_researches,
             'page_name' => 'staff.diaspora_course.edit'
