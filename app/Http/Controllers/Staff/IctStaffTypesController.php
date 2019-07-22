@@ -16,6 +16,16 @@ use Illuminate\Validation\ValidationException;
 class IctStaffTypesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -23,7 +33,6 @@ class IctStaffTypesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $ictStaffTypes = IctStaffType::all();
@@ -43,7 +52,6 @@ class IctStaffTypesController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $categories = IctStaffType::getEnum('category');
@@ -68,7 +76,6 @@ class IctStaffTypesController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $this->validate($request, [
@@ -82,7 +89,7 @@ class IctStaffTypesController extends Controller
 
         $ictStaffTypes->save();
 
-        return redirect('/staff/ict-staff-types');
+        return redirect('/staff/ict-staff-types')->with('success', 'Successfully Added ICT Staff Type');
     }
 
     /**
@@ -104,7 +111,22 @@ class IctStaffTypesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Super Admin');
+
+        $categories = IctStaffType::getEnum('category');
+        $ictStaffTypes = IctStaffType::all();
+        $current_type = IctStaffType::find($id);
+
+        $data = array(
+            'categories' => $categories,
+            'ict_staff_types' => $ictStaffTypes,
+            'current_type' => $current_type,
+            'page_name' => 'administer.ict_staff_type.edit',
+        );
+
+        return view('staff.ict_staff_type.index')->with($data);
     }
 
     /**

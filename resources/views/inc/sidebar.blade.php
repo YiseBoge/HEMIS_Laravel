@@ -17,7 +17,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item {{ preg_split ("/\./", $page_name)[1] == 'dashboard' ? 'active': '' }}">
+    <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'dashboard' ? 'active': '' }}">
         <a class="nav-link" href="/home">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
@@ -37,13 +37,13 @@
             </a>
             <div id="collapseEnrollment" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'normal' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'normal' ? 'active': '' }}"
                        href="/enrollment/normal">Students</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'special_region_students' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'special_region_students' ? 'active': '' }}"
                        href="/enrollment/special-region-students">Special Region Students</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'specializing_student_enrollment' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'specializing_student_enrollment' ? 'active': '' }}"
                        href="/enrollment/specializing-students">Specializing Students</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'rural_students' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'rural_students' ? 'active': '' }}"
                        href="/enrollment/rural-area-students">Rural Area Students</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'disadvantaged_students' ? 'active': '' }}"
                        href="/enrollment/economically-disadvantaged">Economically
@@ -51,14 +51,14 @@
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'other_region_students' ? 'active': '' }}"
                        href="/enrollment/other-region-students">Students From Other
                         Regions</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'age_enrollment' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'age_enrollment' ? 'active': '' }}"
                        href="/enrollment/age-enrollment">Enrollment With Age</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'joint_program' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'joint_program' ? 'active': '' }}"
                        href="/enrollment/joint-program">Joint Programs</a>
                 </div>
             </div>
         </li>
-        <li class="nav-item {{ preg_split ("/\./", $page_name)[0] == 'students' ? 'active': '' }}">
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[0] == 'students' ? 'active': '' }}">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents"
                aria-expanded="false"
                aria-controls="collapseInstitution">
@@ -69,23 +69,23 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Details:</h6>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'foreign' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'foreign' ? 'active': '' }}"
                        href="/student/foreign">Foreigner Students</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'special_need' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'special_need' ? 'active': '' }}"
                        href="/student/special-need">Special Need Students</a>
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'cost_sharing' ? 'active': '' }}"
+                       href="/student/cost-sharing">Cost Sharing</a>
 
                     <h6 class="collapse-header">Aggregates:</h6>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'student_attrition' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'student_attrition' ? 'active': '' }}"
                        href="/student/student-attrition">Student Attrition</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'other_attrition' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'other_attrition' ? 'active': '' }}"
                        href="/student/other-attrition">Other Information</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'exit_examination' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'exit_examination' ? 'active': '' }}"
                        href="/student/exit-examination">Exit Examination</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'degree_employment' ? 'active': '' }}"
                        href="/student/degree-relevant-employment">Degree Relevant
                         Employment</a>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'cost_sharing' ? 'active': '' }}"
-                       href="/student/cost-sharing">Cost Sharing</a>
 
                 </div>
             </div>
@@ -101,13 +101,13 @@
             <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Details:</h6>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'academic' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'academic' ? 'active': '' }}"
                        href="/staff/academic">Academic Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'attrition' ? 'active': '' }}"
                        href="/staff/attrition">Staff Attrition</a>
 
                     <h6 class="collapse-header">Aggregates:</h6>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'teachers' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'teachers' ? 'active': '' }}"
                        href="/department/teachers">Teachers</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'upgrading-staff' ? 'active': '' }}"
                        href="/department/upgrading-staff">Staff Upgrading Level of
@@ -125,13 +125,13 @@
             </div>
         </li>
 
-        <li class="nav-item {{ preg_split ("/\./", $page_name)[1] == 'research' ? 'active': '' }}">
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'research' ? 'active': '' }}">
             <a class="nav-link" href="/institution/researches">
                 <i class="fas fa-microscope"></i>
                 <span>Research</span></a>
         </li>
 
-        <li class="nav-item {{ preg_split ("/\./", $page_name)[1] == 'publications' ? 'active': '' }}">
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'publication' ? 'active': '' }}">
             <a class="nav-link" href="/department/publication">
                 <i class="fas fa-book"></i>
                 <span>Publications</span></a>
@@ -149,16 +149,16 @@
             <div id="collapseBudget" class="collapse" aria-labelledby="headingTwo"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'budget' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'budget' ? 'active': '' }}"
                        href="/budgets/budget">Budget</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'internal-revenue' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'internal-revenue' ? 'active': '' }}"
                        href="/budgets/internal-revenue">Internal Revenue</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'investment' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'investment' ? 'active': '' }}"
                        href="/budgets/private-investment">Private Investment</a>
                 </div>
             </div>
         </li>
-        <li class="nav-item {{ preg_split ("/\./", $page_name)[0] == 'students' ? 'active': '' }}">
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[0] == 'students' ? 'active': '' }}">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents"
                aria-expanded="false"
                aria-controls="collapseInstitution">
@@ -185,11 +185,11 @@
                     <h6 class="collapse-header">Details:</h6>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'administrative' ? 'active': '' }}"
                        href="/staff/administrative">Administrative Staff</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'ict' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'ict' ? 'active': '' }}"
                        href="/staff/ict">ICT Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'management' ? 'active': '' }}"
                        href="/staff/management">Management Staff</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'technical' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'technical' ? 'active': '' }}"
                        href="/staff/technical">Technical Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'supportive' ? 'active': '' }}"
                        href="/staff/supportive">Supportive Staff</a>
@@ -217,17 +217,17 @@
             <div id="collapseBudget" class="collapse" aria-labelledby="headingTwo"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'budget' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'budget' ? 'active': '' }}"
                        href="/budgets/budget">Budget</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'internal-revenue' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'internal-revenue' ? 'active': '' }}"
                        href="/budgets/internal-revenue">Internal Revenue</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'investment' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'investment' ? 'active': '' }}"
                        href="/budgets/private-investment">Private Investment</a>
                 </div>
             </div>
         </li>
 
-        <li class="nav-item {{ preg_split ("/\./", $page_name)[0] == 'enrollment' ? 'active': '' }}">
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[0] == 'enrollment' ? 'active': '' }}">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEnrollment"
                aria-expanded="false"
                aria-controls="collapseStudents">
@@ -236,13 +236,13 @@
             </a>
             <div id="collapseEnrollment" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'normal' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'normal' ? 'active': '' }}"
                        href="/enrollment/normal">Students</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'special_region_students' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'special_region_students' ? 'active': '' }}"
                        href="/enrollment/special-region-students">Special Region Students</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'specializing_student_enrollment' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'specializing_student_enrollment' ? 'active': '' }}"
                        href="/enrollment/specializing-students">Specializing Students</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'rural_students' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'rural_students' ? 'active': '' }}"
                        href="/enrollment/rural-area-students">Rural Area Students</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'disadvantaged_students' ? 'active': '' }}"
                        href="/enrollment/economically-disadvantaged">Economically
@@ -250,9 +250,9 @@
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'other_region_students' ? 'active': '' }}"
                        href="/enrollment/other-region-students">Students From Other
                         Regions</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'age_enrollment' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'age_enrollment' ? 'active': '' }}"
                        href="/enrollment/age-enrollment">Enrollment With Age</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'joint_program' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'joint_program' ? 'active': '' }}"
                        href="/enrollment/joint-program">Joint Programs</a>
                 </div>
             </div>
@@ -270,11 +270,11 @@
                 <div class="bg-white py-2 collapse-inner rounded">
 
                     <h6 class="collapse-header">Aggregates:</h6>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'student_attrition' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'student_attrition' ? 'active': '' }}"
                        href="/student/student-attrition">Student Attrition</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'other_attrition' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'other_attrition' ? 'active': '' }}"
                        href="/student/other-attrition">Other Information</a>
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'exit_examination' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'exit_examination' ? 'active': '' }}"
                        href="/student/exit-examination">Exit Examination</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'degree_employment' ? 'active': '' }}"
                        href="/student/degree-relevant-employment">Degree Relevant
@@ -313,7 +313,7 @@
             </div>
         </li>
 
-        <li class="nav-item {{ preg_split ("/\./", $page_name)[1] == 'research' ? 'active': '' }}">
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'research' ? 'active': '' }}">
             <a class="nav-link" href="/institution/researches">
                 <i class="fas fa-microscope"></i>
                 <span>Research</span></a>
@@ -321,15 +321,20 @@
 
     @elseif(Auth::user()->hasRole('University Admin'))
 
-        <li class="nav-item {{ preg_split ("/\./", $page_name)[1] == 'general_info' ? 'active': '' }}">
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'general_info' ? 'active': '' }}">
             <a class="nav-link" href="/institution/general">
                 <i class="fas fa-info-circle"></i>
                 <span>General Information</span></a>
         </li>
+        <li class="nav-item {{ preg_split ("/\./", $page_name)[1] == 'management_data' ? 'active': '' }}">
+            <a class="nav-link" href="/institution/management-data">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Management Data</span></a>
+        </li>
 
     @elseif(Auth::user()->hasRole('Super Admin'))
 
-        <li class="nav-item {{ preg_split ("/\./", $page_name)[0] == 'report' ? 'active': '' }}">
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[0] == 'report' ? 'active': '' }}">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReport"
                aria-expanded="false"
                aria-controls="collapseReport">
@@ -339,7 +344,7 @@
             <div id="collapseReport" class="collapse" aria-labelledby="headingTwo"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'report_card' ? 'active': '' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'report_card' ? 'active': '' }}"
                        href="/report">MoSHE Report Card</a>
                 </div>
             </div>
@@ -350,7 +355,7 @@
 
     <hr class="sidebar-divider">
 
-    @if(Auth::user()->hasAnyRole(['Super Admin', 'University Admin']) || (Auth::user()->hasRole('College Admin') && !Auth::user()->institution()->institutionName->departmentNames->isEmpty()))
+    @if(Auth::user()->hasAnyRole(['Super Admin', 'University Admin']) || (Auth::user()->hasRole('College Super Admin') && !Auth::user()->institution()->institutionName->departmentNames->isEmpty()))
         <div class="sidebar-heading">
             Management Components
         </div>
@@ -364,36 +369,40 @@
             <div id="collapseAdmin" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     @if (Auth::user()->hasRole('Super Admin'))
-                        <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'instance' ? 'active': '' }}"
+                        <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'instance' ? 'active': '' }}"
                            href="/institution/instance">Instances</a>
                         @if (Auth::user()->currentInstance != null)
-                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'institution-name' ? 'active': '' }}"
+                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'institution-name' ? 'active': '' }}"
                                href="/institution/institution-name">University Names</a>
                             @if(!\App\Models\Institution\InstitutionName::all()->isEmpty())
-                                <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'university_admin' ? 'active': '' }}"
+                                <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'university_admin' ? 'active': '' }}"
                                    href="/university-admin">University Admin</a>
                             @endif
-                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'region-name' ? 'active': '' }}"
+                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'region-name' ? 'active': '' }}"
                                href="/region-name">Region Names</a>
-                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'band-name' ? 'active': '' }}"
+                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'band-name' ? 'active': '' }}"
                                href="/band/band-name">Band/ICED Names</a>
-                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'ict_staff_type' ? 'active': '' }}"
+                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'ict_staff_type' ? 'active': '' }}"
                                href="/staff/ict-staff-types">ICT Staff Types</a>
                             <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'budget-description' ? 'active': '' }}"
                                href="/budgets/budget-description">Budget Descriptions</a>
                         @endif
                     @elseif(Auth::user()->hasRole('University Admin'))
-                        <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'colleges-name' ? 'active': '' }}"
+                        <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'colleges-name' ? 'active': '' }}"
                            href="/college/college-name">College/Institute Names</a>
-                        <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'department-name' ? 'active': '' }}"
+                        <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'department-name' ? 'active': '' }}"
                            href="/department/department-name">School/Department Names</a>
                         @if(!Auth::user()->institution()->institutionName->collegeNames->isEmpty())
-                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
-                               href="/college-admin">College/Institute Admin</a>
+                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
+                               href="/college-admin">College/Institute Super Admins</a>
                         @endif
-                    @elseif(Auth::user()->hasRole('College Admin'))
+                    @elseif(Auth::user()->hasRole('College Super Admin'))
+                        @if(!Auth::user()->institution()->institutionName->collegeNames->isEmpty())
+                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
+                               href="/college-admin">College/Institute Administerer Admins</a>
+                        @endif
                         @if(!Auth::user()->institution()->institutionName->departmentNames->isEmpty())
-                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'department_admin' ? 'active': '' }}"
+                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'department_admin' ? 'active': '' }}"
                                href="/department-admin">School/Department Admins</a>
                         @endif
                     @endif

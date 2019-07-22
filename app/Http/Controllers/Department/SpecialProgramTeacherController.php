@@ -20,6 +20,16 @@ use Illuminate\Validation\ValidationException;
 class SpecialProgramTeacherController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -28,7 +38,6 @@ class SpecialProgramTeacherController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -51,17 +60,19 @@ class SpecialProgramTeacherController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->id == $user->bandName->id) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->id == $user->collegeName->id) {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->id == $user->collegeName->id) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->SpecialProgramTeachers as $teacher) {
-                                            if ($teacher->program_stat == $requestedStatus) {
-                                                $filteredTeachers[] = $teacher;
-                                            }
+                                            $filteredTeachers[] = $teacher;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->id == $user->collegeName->id) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->SpecialProgramTeachers as $teacher) {
                                             if ($teacher->program_stat == $requestedStatus) {
@@ -72,6 +83,7 @@ class SpecialProgramTeacherController extends Controller
                                 }
                             }
                         }
+                        
                     }
                 }
             }
@@ -105,7 +117,6 @@ class SpecialProgramTeacherController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = [
@@ -142,7 +153,6 @@ class SpecialProgramTeacherController extends Controller
         $specialProgramTeacher->program_type = $request->input('program_type');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -178,7 +188,7 @@ class SpecialProgramTeacherController extends Controller
 
         $department->specialProgramTeachers()->save($specialProgramTeacher);
 
-        return redirect("/department/special-program-teacher");
+        return redirect("/department/special-program-teacher")->with('success', 'Successfully Added Special Program Enrollment');
 
 
     }
@@ -297,6 +307,6 @@ class SpecialProgramTeacherController extends Controller
                 }
             }
         }
-        return redirect("/department/special-program-teacher");
+        return redirect("/department/special-program-teacher")->with('primary', 'Success');
     }
 }

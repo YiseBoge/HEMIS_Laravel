@@ -10,21 +10,21 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row my-3">
                         <div class="col text-right">
-                                <form action="private-investment/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="private-investment/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
-                    </div>                           
+                    </div>
                 @else
                     <div class="row my-3">
                         <div class="col text-right">
                             <a class="btn btn-primary btn-sm mb-0 shadow-sm"
-                            href="private-investment/create">New Entry<i
+                               href="private-investment/create">New Entry<i
                                         class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                         </div>
                     </div>
@@ -66,17 +66,49 @@
                             <tbody>
                             @foreach($investments as $investment)
                                 <tr>
-                                        <td class="text-center">
-                                                @if(Auth::user()->hasRole('College Super Admin'))
-                                                    @if($investment->approval_status == "Pending")
-                                                        <form action="private-investment/{{$investment->id}}/approve"
+                                    <td class="text-center">
+                                        @if(Auth::user()->hasRole('College Super Admin'))
+                                            @if($investment->approval_status == "Pending")
+                                                <form action="private-investment/{{$investment->id}}/approve"
+                                                      method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="action" value="disapprove">
+                                                    <button type="submit" style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Disapprove"
+                                                            class="btn btn-danger btn-circle text-white btn-sm">
+                                                        <i class="fas fa-times" style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @else
+                                            @if($investment->approval_status != "Approved")
+                                                <div class="row px-1">
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                              action="private-investment/{{$investment->id}}/edit"
+                                                              method="GET">
+                                                            <button type="submit"
+                                                                    class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Edit">
+                                                                <i class="fas fa-pencil-alt fa-sm"
+                                                                   style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                              action="private-investment/{{$investment->id}}"
                                                               method="POST">
                                                             @csrf
-                                                            <input type="hidden" name="action" value="disapprove">
-                                                            <button type="submit" style="opacity:0.80"
-                                                                    data-toggle="tooltip" title="Disapprove"
-                                                                    class="btn btn-danger btn-circle text-white btn-sm">
-                                                                <i class="fas fa-times" style="opacity:0.75"></i>
+                                                            <input type="hidden" name="_method"
+                                                                   value="DELETE">
+                                                            <button type="submit"
+                                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Delete">
+                                                                <i class="fas fa-trash fa-sm"
+                                                                   style="opacity:0.75"></i>
                                                             </button>
                                                         </form>
                                                     @endif
@@ -171,17 +203,17 @@
                     </div>
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
-                            {!! Form::select('investment_title', $investment_titles , null , ['class' => 'form-control', 'id' => 'add_investment_title']) !!}
+                            {!! Form::select('investment_title', $investment_titles , old('investment_title') , ['class' => 'form-control', 'id' => 'add_investment_title']) !!}
                             {!! Form::label('add_investment_title', 'Investment Title', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            {!! Form::number('cost_incurred', 0, ['class' => 'form-control', 'id' => 'add_cost_incurred', 'required' => 'true']) !!}
+                            {!! Form::number('cost_incurred', old('cost_incurred'), ['class' => 'form-control', 'id' => 'add_cost_incurred', 'required' => 'true']) !!}
                             {!! Form::label('add_cost_incurred', 'Cost Incured', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            {!! Form::textarea('remarks', '', ['class' => 'form-control', 'id' => 'add_remarks']) !!}
+                            {!! Form::textarea('remarks', old('remarks'), ['class' => 'form-control', 'id' => 'add_remarks']) !!}
                             {!! Form::label('add_remarks', 'Remarks', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>

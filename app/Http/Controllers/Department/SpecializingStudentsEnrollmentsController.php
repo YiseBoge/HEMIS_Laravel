@@ -20,6 +20,16 @@ use Illuminate\Validation\ValidationException;
 class SpecializingStudentsEnrollmentsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -28,7 +38,6 @@ class SpecializingStudentsEnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -63,17 +72,19 @@ class SpecializingStudentsEnrollmentsController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "Specialization" && $college->education_program == $requestedProgram) {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->specializingStudentEnrollments as $enrollment) {
-                                            if ($enrollment->student_type == $requestedType && $enrollment->specialization_type == $requestedSpecializationType) {
-                                                $enrollments[] = $enrollment;
-                                            }
+                                            $enrollments[] = $enrollment;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "Specialization" && $college->education_program == $requestedProgram) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->specializingStudentEnrollments as $enrollment) {
                                             if ($enrollment->student_type == $requestedType && $enrollment->specialization_type == $requestedSpecializationType) {
@@ -121,7 +132,6 @@ class SpecializingStudentsEnrollmentsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -135,7 +145,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
             'specialization_types' => SpecializingStudentsEnrollment::getEnum("SpecializationTypes"),
             'student_types' => SpecializingStudentsEnrollment::getEnum('StudentTypes'),
             'year_levels' => Department::getEnum('YearLevels'),
-            'page_name' => 'enrollment.specializing_students.create'
+            'page_name' => 'enrollment.specializing_student_enrollment.create'
         );
         return view('enrollment.specializing_students.create')->with($data);
     }
@@ -162,7 +172,6 @@ class SpecializingStudentsEnrollmentsController extends Controller
         $enrollment->field_of_specialization = $request->input('field_of_specialization');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -201,7 +210,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
 
         $department->specializingStudentEnrollments()->save($enrollment);
 
-        return redirect("/enrollment/specializing-students");
+        return redirect("/enrollment/specializing-students")->with('success', 'Successfully Added Specializing Students Enrollment');
     }
 
     /**
@@ -325,6 +334,6 @@ class SpecializingStudentsEnrollmentsController extends Controller
 
             }
         }
-        return redirect("/enrollment/specializing-students?department=" . $selectedDepartment);
+        return redirect("/enrollment/specializing-students?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 }

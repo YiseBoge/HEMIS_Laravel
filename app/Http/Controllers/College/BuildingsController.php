@@ -16,6 +16,16 @@ use Illuminate\Validation\ValidationException;
 class BuildingsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -32,7 +42,6 @@ class BuildingsController extends Controller
         $buildingPurpose = $buildingPurposes[$requestedPurpose];
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['College Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -77,7 +86,6 @@ class BuildingsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $buildingPurposes = BuildingPurpose::all();
@@ -119,7 +127,6 @@ class BuildingsController extends Controller
         $building->completion_status = $request->input('completion_status');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -157,7 +164,7 @@ class BuildingsController extends Controller
 
         $college->buildings()->save($building);
 
-        return redirect('institution/buildings');
+        return redirect('institution/buildings')->with('success', 'Successfully Added Building');
     }
 
     /**

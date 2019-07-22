@@ -131,9 +131,9 @@ class DepartmentService
     function emergingRegionsEnrollment()
     {
         $total = 0;
-        foreach ($this->department->emergingRegions as $enrollment) {
-            $total += $enrollment->male_number + $enrollment->female_number;
-        }
+//        foreach ($this->department->emergingRegions as $enrollment) {
+//            $total += $enrollment->male_number + $enrollment->female_number;
+//        }
         return $total;
     }
 

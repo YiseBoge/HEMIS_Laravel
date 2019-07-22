@@ -35,6 +35,7 @@ class Institution extends Model
         static::deleting(function(Institution $model) { // before delete() method call this
             $model->generalInformation()->delete();
             $model->bands()->delete();
+            $model->managements()->delete();
         });
     }
 
@@ -74,6 +75,14 @@ class Institution extends Model
     public function bands()
     {
         return $this->hasMany('App\Models\Band\Band');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function managements()
+    {
+        return $this->hasMany('App\Models\Institution\ManagementData');
     }
 
     /**

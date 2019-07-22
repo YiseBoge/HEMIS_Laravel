@@ -18,6 +18,16 @@ use Illuminate\Validation\ValidationException;
 class ResearchsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -26,7 +36,6 @@ class ResearchsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
         $institution = $user->institution();
@@ -34,11 +43,6 @@ class ResearchsController extends Controller
         $requestedType = $request->input('type');
         if ($requestedType == null) {
             $requestedType = 'Normal';
-        }
-
-        $requestedStatus = $request->input('status');
-        if ($requestedStatus == null) {
-            $requestedStatus = 'On Going';
         }
 
         $requestedDepartment = $request->input('department');
@@ -52,20 +56,22 @@ class ResearchsController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->researches as $research) {
-                                            if ($research->type == $requestedType && $research->status == $requestedStatus) {
-                                                $researches[] = $research;
-                                            }
+                                            $researches[] = $research;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->researches as $research) {
-                                            if ($research->type == $requestedType && $research->status == $requestedStatus) {
+                                            if ($research->type == $requestedType) {
                                                 $researches[] = $research;
                                             }
                                         }
@@ -88,8 +94,7 @@ class ResearchsController extends Controller
             'page_name' => 'research.research.index',
 
             'selected_department' => $requestedDepartment,
-            "selected_type" => $requestedType,
-            "selected_status" => $requestedStatus
+            "selected_type" => $requestedType
         );
         return view("bands.research.index")->with($data);
     }
@@ -102,7 +107,6 @@ class ResearchsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -146,7 +150,6 @@ class ResearchsController extends Controller
         $research->type = $request->input('type');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -184,7 +187,7 @@ class ResearchsController extends Controller
 
         $department->researches()->save($research);
 
-        return redirect("/institution/researches");
+        return redirect("/institution/researches")->with('success', 'Successfully Added Research');
     }
 
     /**
@@ -207,7 +210,6 @@ class ResearchsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
     }
 
@@ -221,7 +223,6 @@ class ResearchsController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
     }
 
@@ -278,7 +279,7 @@ class ResearchsController extends Controller
                 }
             }
         }
-        return redirect("/institution/researches");
+        return redirect("/institution/researches")->with('primary', 'Success');
     }
 
 }

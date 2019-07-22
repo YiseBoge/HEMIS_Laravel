@@ -18,6 +18,16 @@ use Illuminate\Validation\ValidationException;
 class CostSharingController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -26,7 +36,6 @@ class CostSharingController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -85,7 +94,6 @@ class CostSharingController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -136,7 +144,6 @@ class CostSharingController extends Controller
         $costSharing->unpaid_amount = $request->input('unpaid_amount');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -174,7 +181,7 @@ class CostSharingController extends Controller
 
         $department->costSharings()->save($costSharing);
 
-        return redirect("/student/cost-sharing");
+        return redirect("/student/cost-sharing")->with('success', 'Successfully Added Cost Sharing Info');
     }
 
     /**
@@ -266,7 +273,7 @@ class CostSharingController extends Controller
 
             }
         }
-        return redirect("/student/cost-sharing?department=" . $selectedDepartment);
+        return redirect("/student/cost-sharing?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 
 }

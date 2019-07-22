@@ -17,6 +17,16 @@ use Illuminate\Validation\ValidationException;
 class BudgetsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -32,7 +42,6 @@ class BudgetsController extends Controller
 
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['College Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -42,10 +51,18 @@ class BudgetsController extends Controller
         if ($institution != null) {
             foreach ($institution->bands as $band) {
                 foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->budgets as $budget) {
-                            if ($budget->budget_type == $budget_type) {
+                    if ($user->hasRole('College Super Admin')) {
+                        if ($college->collegeName->id == $collegeName->id) {
+                            foreach ($college->budgets as $budget) {
                                 $budgets[] = $budget;
+                            }
+                        }
+                    }else{
+                        if ($college->collegeName->id == $collegeName->id) {
+                            foreach ($college->budgets as $budget) {
+                                if ($budget->budget_type == $budget_type) {
+                                    $budgets[] = $budget;
+                                }
                             }
                         }
                     }
@@ -74,8 +91,7 @@ class BudgetsController extends Controller
     {
         $budget_type = Budget::getEnum('budget_type')['CAPITAL'];
 
-        $user = Auth::user();
-        if ($user == null) return redirect('/login');
+$user = Auth::user();
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -136,7 +152,6 @@ class BudgetsController extends Controller
         $budget->utilized_budget = $request->input('utilized');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -166,7 +181,7 @@ class BudgetsController extends Controller
         $budget = Budget::find($budget->id);
         $exampleDescription->budget()->save($budget);
 
-        return redirect('/budgets/budget');
+        return redirect('/budgets/budget')->with('success', 'Successfully Added Budget');
     }
 
     /**
@@ -193,7 +208,6 @@ class BudgetsController extends Controller
         $budget_type = Budget::getValueKey(Budget::getEnum("budget_type"), $budget->budget_type);
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -246,7 +260,6 @@ class BudgetsController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $this->validate($request, [
@@ -321,6 +334,6 @@ class BudgetsController extends Controller
 
             }
         }
-        return redirect("/budgets/budget");
+        return redirect("/budgets/budget")->with('primary', 'Success');
     }
 }

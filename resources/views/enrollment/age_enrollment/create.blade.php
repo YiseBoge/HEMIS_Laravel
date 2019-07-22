@@ -2,14 +2,6 @@
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
-        <!--  Disabled Students Form  -->
-        @if(count($errors) > 0)
-            @foreach($errors->all() as $error)
-                <div class="alert alert-danger">
-                    {{$error}}
-                </div>
-            @endforeach
-        @endif
         <form class="pb-5" action="/enrollment/age-enrollment" method="POST">
             @csrf
             <div class="row my-5">
@@ -21,9 +13,9 @@
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
                                 <div class="col-md form-group">
-                                    <select class="form-control" id="ageRange" name="age_range">
+                                    <select class="form-control" id="age_range" name="age_range">
                                         @foreach ($age_range as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                            <option value="{{$key}}" {{ (old('age_range') == $key ? 'selected':'') }}>{{$value}}</option>
                                         @endforeach
                                     </select>
                                     <label for="age_range" class="form-control-placeholder pt-3">Age Range</label>
@@ -35,7 +27,7 @@
 
                                     <select class="form-control" name="program" id="program">
                                         @foreach ($programs as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                            <option value="{{$key}}" {{ (old('program') == $key ? 'selected':'') }}>{{$value}}</option>
                                         @endforeach
                                     </select>
                                     <label for="program" class="form-control-placeholder">
@@ -50,7 +42,7 @@
                                             @if ($key == 'SPECIALIZATION')
                                                 <option disabled value="{{$key}}">{{$value}}</option>
                                             @else
-                                                <option value="{{$key}}">{{$value}}</option>
+                                                <option value="{{$key}}" {{ (old('education_level') == $key ? 'selected':'') }}>{{$value}}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -62,7 +54,7 @@
 
                                     <select class="form-control" name="year_level" id="year_level">
                                         @foreach ($year_levels as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                            <option value="{{$key}}" {{ (old('year_level') == $key ? 'selected':'') }}>{{$value}}</option>
                                         @endforeach
                                     </select>
                                     <label for="year_level" class="form-control-placeholder">
@@ -76,14 +68,14 @@
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <input type="number" id="number_of_males" name="number_of_males"
-                                           class="form-control"
-                                           required>
-                                    <label class="form-control-placeholder" for="number_of_males">Male
-                                        Students</label>
+                                           value="{{ old('number_of_males') }}"
+                                           class="form-control" required>
+                                    <label class="form-control-placeholder" for="number_of_males">Male Students</label>
                                 </div>
 
                                 <div class="col form-group">
                                     <input type="number" id="number_of_females" name="number_of_females"
+                                           value="{{ old('number_of_females') }}"
                                            class="form-control" required>
                                     <label class="form-control-placeholder" for="number_of_females">Female
                                         Students</label>

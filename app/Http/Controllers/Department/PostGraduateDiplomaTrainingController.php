@@ -20,6 +20,16 @@ use Illuminate\Validation\ValidationException;
 class PostGraduateDiplomaTrainingController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -28,7 +38,6 @@ class PostGraduateDiplomaTrainingController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -56,17 +65,19 @@ class PostGraduateDiplomaTrainingController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->id == $user->bandName->id) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->id == $user->collegeName->id && $college->education_level == "None" && $college->education_program == $requestedProgram) {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->id == $user->collegeName->id) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->postgraduateDiplomaTrainings as $training) {
-                                            if ($training->is_lead == $requestedType) {
-                                                $trainings[] = $training;
-                                            }
+                                            $trainings[] = $training;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->id == $user->collegeName->id && $college->education_level == "None") {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->postgraduateDiplomaTrainings as $training) {
                                             if ($training->is_lead == $requestedType) {
@@ -76,7 +87,9 @@ class PostGraduateDiplomaTrainingController extends Controller
                                     }
                                 }
                             }
+                            
                         }
+                        
                     }
                 }
             }
@@ -110,7 +123,6 @@ class PostGraduateDiplomaTrainingController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -150,7 +162,6 @@ class PostGraduateDiplomaTrainingController extends Controller
         }
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -189,7 +200,7 @@ class PostGraduateDiplomaTrainingController extends Controller
 
         $department->postgraduateDiplomaTrainings()->save($training);
 
-        return redirect("/department/postgraduate-diploma-training");
+        return redirect("/department/postgraduate-diploma-training")->with('success', 'Successfully Added Diploma Training');
     }
 
     /**
@@ -307,6 +318,6 @@ class PostGraduateDiplomaTrainingController extends Controller
                 }
             }
         }
-        return redirect("/department/postgraduate-diploma-training");
+        return redirect("/department/postgraduate-diploma-training")->with('primary', 'Success');
     }
 }

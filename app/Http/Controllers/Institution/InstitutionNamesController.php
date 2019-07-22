@@ -20,6 +20,16 @@ use Illuminate\Validation\ValidationException;
 class InstitutionNamesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -27,7 +37,6 @@ class InstitutionNamesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $institutions = InstitutionName::all();
@@ -46,7 +55,6 @@ class InstitutionNamesController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $institutions = InstitutionName::all();
@@ -72,7 +80,6 @@ class InstitutionNamesController extends Controller
         ]);
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
         $instance = $user->currentInstance;
 
@@ -101,7 +108,7 @@ class InstitutionNamesController extends Controller
         $generalInformation->institution()->save($institution);
 
 
-        return redirect('/institution/institution-name');
+        return redirect('/institution/institution-name')->with('success', 'Successfully Added Institution Name');
     }
 
     /**
@@ -114,7 +121,6 @@ class InstitutionNamesController extends Controller
     function show($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
         return view('institutions.details');
     }
@@ -129,9 +135,18 @@ class InstitutionNamesController extends Controller
     function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
-        return view('institutions.edit');
+
+        $institutions = InstitutionName::all();
+        $institution = InstitutionName::find($id);
+        // return $institution; 
+        $data = [
+            'institutions' => $institutions,
+            'current_institution' => $institution,
+            'page_name' => 'administer.institution-name.edit'
+        ];
+
+        return view('institutions.institution_name.index')->with($data);
     }
 
     /**
@@ -144,7 +159,24 @@ class InstitutionNamesController extends Controller
     public
     function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'institution_name' => 'required',
+            'institution_acronym' => 'required'
+        ]);
+
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Super Admin');
+        $instance = $user->currentInstance;
+
+        $institutionName = InstitutionName::find($id);
+        $institutionName->institution_name = $request->input('institution_name');
+        $institutionName->acronym = $request->input('institution_acronym');
+        $institutionName->is_private = $request->has('is_private');
+        $institutionName->save();
+
+        return redirect('/institution/institution-name')->with('primary', 'Successfully Edited Institution Name');
+
     }
 
     /**

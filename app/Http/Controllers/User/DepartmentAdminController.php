@@ -16,6 +16,16 @@ use Illuminate\Validation\ValidationException;
 class DepartmentAdminController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -23,8 +33,7 @@ class DepartmentAdminController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('College Admin');
+        $user->authorizeRoles('College Super Admin');
 
         $collegeNameId = $user->college_name_id;
 
@@ -50,8 +59,7 @@ class DepartmentAdminController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('College Admin');
+        $user->authorizeRoles('College Super Admin');
 
         $departmentNames = $user->institution()->institutionName->departmentNames;
 
@@ -79,8 +87,7 @@ class DepartmentAdminController extends Controller
         ]);
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('College Admin');
+        $user->authorizeRoles('College Super Admin');
 
         $currentInstanceId = $user->currentInstance;
         $institutionName = $user->institutionName;
@@ -107,7 +114,7 @@ class DepartmentAdminController extends Controller
             ->roles()
             ->attach(Role::where('role_name', 'Department Admin')->first());
 
-        return redirect('/department-admin');
+        return redirect('/department-admin')->with('success', 'Successfully Added Department Admin');
     }
 
     /**

@@ -8,6 +8,7 @@ require('jquery');
 require('./bootstrap');
 require('./theme');
 require('./modal');
+require('aos');
 require('jquery.easing');
 require('datatables');
 require('datatables.net-bs4');
@@ -20,7 +21,6 @@ require('tableexport.jquery.plugin');
 require('bootstrap-select');
 require('print-js');
 require('print-this');
-require('jquery.cookie');
 
 window.Vue = require('vue');
 

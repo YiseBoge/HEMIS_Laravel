@@ -18,14 +18,24 @@ use Illuminate\Validation\ValidationException;
 class DiasporaCoursesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
         $institution = $user->institution();
@@ -41,15 +51,19 @@ class DiasporaCoursesController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == 'None' && $college->education_program == 'None') {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->diasporaCourses as $course) {
                                             $courses[] = $course;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == 'None' && $college->education_program == 'None') {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->diasporaCourses as $course) {
                                             $courses[] = $course;
@@ -88,7 +102,6 @@ class DiasporaCoursesController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -117,7 +130,6 @@ class DiasporaCoursesController extends Controller
         $course->number_of_researches = $request->input('research_number');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -156,7 +168,7 @@ class DiasporaCoursesController extends Controller
 
         $department->diasporaCourses()->save($course);
 
-        return redirect("/department/diaspora-courses");
+        return redirect("/department/diaspora-courses")->with('success', 'Successfully Added Diaspora Course');
 
     }
 
@@ -270,6 +282,6 @@ class DiasporaCoursesController extends Controller
                 }
             }
         }
-        return redirect("/department/diaspora-courses");
+        return redirect("/department/diaspora-courses")->with('primary', 'Success');
     }
 }

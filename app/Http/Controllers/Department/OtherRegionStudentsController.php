@@ -20,6 +20,16 @@ use Illuminate\Validation\ValidationException;
 class OtherRegionStudentsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -28,7 +38,6 @@ class OtherRegionStudentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -53,15 +62,19 @@ class OtherRegionStudentsController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->otherRegionStudents as $enrollment) {
                                             $enrollments[] = $enrollment;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->otherRegionStudents as $enrollment) {
                                             $enrollments[] = $enrollment;
@@ -92,7 +105,6 @@ class OtherRegionStudentsController extends Controller
 
             'page_name' => 'enrollment.other_region_students.index'
         );
-        //return $filteredEnrollments;
         return view("enrollment.other_region_students.index")->with($data);
     }
 
@@ -104,7 +116,6 @@ class OtherRegionStudentsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -143,7 +154,6 @@ class OtherRegionStudentsController extends Controller
         $enrollment->female_students_number = $request->input('female_number');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -182,7 +192,7 @@ class OtherRegionStudentsController extends Controller
 
         $department->otherRegionStudents()->save($enrollment);
 
-        return redirect("/enrollment/other-region-students");
+        return redirect("/enrollment/other-region-students")->with('success', 'Successfully Added Other Region Enrollment');
     }
 
     /**
@@ -301,7 +311,7 @@ class OtherRegionStudentsController extends Controller
 
             }
         }
-        return redirect("/enrollment/other-region-students?department=" . $selectedDepartment);
+        return redirect("/enrollment/other-region-students?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 
 }

@@ -20,6 +20,16 @@ use Illuminate\Validation\ValidationException;
 class TeachersController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -48,17 +58,19 @@ class TeachersController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->teachers as $teacher) {
-                                            if ($teacher->level_of_education == $requestedLevel) {
-                                                $teachers[] = $teacher;
-                                            }
+                                            $teachers[] = $teacher;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->teachers as $teacher) {
                                             if ($teacher->level_of_education == $requestedLevel) {
@@ -69,6 +81,7 @@ class TeachersController extends Controller
                                 }
                             }
                         }
+                        
                     }
                 }
             }
@@ -175,7 +188,7 @@ class TeachersController extends Controller
 
         $department->teachers()->save($teacher);
 
-        return redirect("/department/teachers");
+        return redirect("/department/teachers")->with('success', 'Successfully Added Teachers');
 
     }
 
@@ -293,6 +306,6 @@ class TeachersController extends Controller
                 }
             }
         }
-        return redirect("/department/teachers");
+        return redirect("/department/teachers")->with('primary', 'Success');
     }
 }

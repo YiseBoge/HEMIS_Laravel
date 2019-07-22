@@ -101,11 +101,11 @@
 
                     <div class="modal-body row p-4">
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::select('category', $categories, null , ['class' => 'form-control', 'id' => 'add_category']) !!}
+                            {!! Form::select('category', $categories, old('category') , ['class' => 'form-control', 'id' => 'add_category']) !!}
                             {!! Form::label('add_category', 'Category', ['class' => 'form-control-placeholder']) !!}
                         </div>
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::text('ict_staff_type', null, ['class' => 'form-control', 'id' => 'add_ict_staff_type', 'required' => 'true']) !!}
+                            {!! Form::text('ict_staff_type', old('ict_staff_type'), ['class' => 'form-control', 'id' => 'add_ict_staff_type', 'required' => 'true']) !!}
                             {!! Form::label('add_ict_staff_type', 'Ict Staff Type', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>
@@ -123,21 +123,30 @@
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
+                    {!! Form::open(['action'=> ['Staff\IctStaffTypesController@update', $current_type],'method'=>'POST'])!!}
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <a href="/budgets/budget-description" class="close" aria-label="Close">
+                        <h5 class="modal-title" id="editTitle">Add</h5>
+                        <a href="/staff/ict-staff-types" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
                     </div>
-                    <div class="modal-body">
 
-
-                        <input class="form-control " id="department_name_edit" type="text" value="Computer Science">
+                    <div class="modal-body row p-4">
+                        <div class="col-md-12 form-group pb-1">
+                            {!! Form::select('category', $categories, $current_type->category , ['class' => 'form-control', 'id' => 'add_category']) !!}
+                            {!! Form::label('add_category', 'Category', ['class' => 'form-control-placeholder']) !!}
+                        </div>
+                        <div class="col-md-12 form-group pb-1">
+                            {!! Form::text('ict_staff_type', $current_type->type, ['class' => 'form-control', 'id' => 'add_ict_staff_type', 'required' => 'true']) !!}
+                            {!! Form::label('add_ict_staff_type', 'Ict Staff Type', ['class' => 'form-control-placeholder']) !!}
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                     </div>
+                    {!! Form::close()!!}
                 </div>
+
             </div>
         </div>
     @endif

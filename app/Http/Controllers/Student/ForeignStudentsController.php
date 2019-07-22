@@ -22,6 +22,15 @@ use Illuminate\Validation\ValidationException;
 
 class ForeignStudentsController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -32,7 +41,6 @@ class ForeignStudentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -109,7 +117,6 @@ class ForeignStudentsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -160,7 +167,6 @@ class ForeignStudentsController extends Controller
         $foreignerStudent->years_in_ethiopia = $request->input("years_in_ethiopia");
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -205,7 +211,7 @@ class ForeignStudentsController extends Controller
         $foreignerStudent->general()->save($student);
         $studentService->student()->save($student);
 
-        return redirect("/student/foreign");
+        return redirect("/student/foreign")->with('success', 'Successfully Added Foreign Student');
     }
 
     /**
@@ -217,7 +223,6 @@ class ForeignStudentsController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -236,7 +241,6 @@ class ForeignStudentsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -287,7 +291,6 @@ class ForeignStudentsController extends Controller
         $foreignerStudent->years_in_ethiopia = $request->input("years_in_ethiopia");
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();

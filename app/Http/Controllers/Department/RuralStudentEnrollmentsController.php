@@ -21,6 +21,16 @@ use Illuminate\Validation\ValidationException;
 class RuralStudentEnrollmentsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -29,7 +39,6 @@ class RuralStudentEnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -59,17 +68,19 @@ class RuralStudentEnrollmentsController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->ruralStudentEnrollments as $enrollment) {
-                                            if ($enrollment->region == $requestedRegion) {
-                                                $enrollments[] = $enrollment;
-                                            }
+                                            $enrollments[] = $enrollment;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->ruralStudentEnrollments as $enrollment) {
                                             if ($enrollment->region == $requestedRegion) {
@@ -116,7 +127,6 @@ class RuralStudentEnrollmentsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -157,7 +167,6 @@ class RuralStudentEnrollmentsController extends Controller
         $enrollment->region = $request->input('region');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -196,7 +205,7 @@ class RuralStudentEnrollmentsController extends Controller
 
         $department->ruralStudentEnrollments()->save($enrollment);
 
-        return redirect("/enrollment/rural-area-students");
+        return redirect("/enrollment/rural-area-students")->with('success', 'Successfully Added Rural Area Enrollment');
     }
 
     /**
@@ -318,6 +327,6 @@ class RuralStudentEnrollmentsController extends Controller
 
             }
         }
-        return redirect("/enrollment/rural-area-students?department=" . $selectedDepartment);
+        return redirect("/enrollment/rural-area-students?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 }

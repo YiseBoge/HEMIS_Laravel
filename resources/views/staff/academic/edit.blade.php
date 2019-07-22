@@ -45,8 +45,14 @@
                                             <span class="input-group-text bg-white border-0"><i
                                                         class="text-gray-400 float-right far fa-edit "></i></span>
                                         </div>
-                                        <input type="text" class="form-control form-control-plaintext" name="sex"
-                                               value="{{$staff->general->sex}}">
+                                        <select class="form-control form-control-plaintext" name="sex">
+                                            <option {{$staff->general->sex == 'Male' ? 'selected' : ''}} value="Male">
+                                                Male
+                                            </option>
+                                            <option {{$staff->general->sex == 'Female' ? 'selected' : ''}} value="Female">
+                                                Female
+                                            </option>
+                                        </select>
                                     </div>
 
                                 </div>
@@ -69,7 +75,7 @@
                                             <span class="input-group-text bg-white border-0"><i
                                                         class="text-gray-400 float-right far fa-edit "></i></span>
                                         </div>
-                                        <input type="text" class="form-control form-control-plaintext"
+                                        <input type="tel" class="form-control form-control-plaintext"
                                                name="phone_number" value="{{$staff->general->phone_number}}">
                                     </div>
                                 </div>
@@ -82,7 +88,7 @@
                                             <span class="input-group-text bg-white border-0"><i
                                                         class="text-gray-400 float-right far fa-edit "></i></span>
                                         </div>
-                                        <input type="text" class="form-control form-control-plaintext" name="birth_date"
+                                        <input type="date" class="form-control form-control-plaintext" name="birth_date"
                                                value="{{$staff->general->birth_date}}">
                                     </div>
                                 </div>
@@ -92,7 +98,59 @@
                 </div>
             </div>
 
-            <div class="card shadow">
+            <div class="card shadow mt-3">
+                <div class="card-header text-primary">
+                    Place of Origin Information
+                </div>
+                <div class="card-body">
+                    <div class="row mt-4">
+                        <div class="col-md-3">
+                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is Expatriate</div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text bg-white border-0"><i
+                                                class="text-gray-400 float-right far fa-edit "></i></span>
+                                </div>
+                                <select class="form-control form-control-plaintext" name="expatriate">
+                                    @if ($staff->general->is_expatriate == 0)
+                                        <option value="1">Yes</option>
+                                        <option selected value="0">No</option>
+                                    @else
+                                        <option selected value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    @endif
+
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is From Region Other
+                                than the Host Region
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text bg-white border-0"><i
+                                                class="text-gray-400 float-right far fa-edit "></i></span>
+                                </div>
+                                <select class="form-control form-control-plaintext" name="other_region">
+                                    @if ($staff->general->is_from_other_region == 0)
+                                        <option value="1">Yes</option>
+                                        <option selected value="0">No</option>
+                                    @else
+                                        <option selected value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    @endif
+
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow mt-3">
                 <div class="card-header text-primary">
                     Employment Information
                 </div>
@@ -149,34 +207,11 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Status</div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text bg-white border-0"><i
-                                                class="text-gray-400 float-right far fa-edit "></i></span>
-                                </div>
-                                <select class="form-control form-control-plaintext" id="status_select" name="status">
-                                    @if ($staff->staff_leave_id == 0)
-                                        <option value="onLeave">On Study Leave</option>
-                                        <option value="onDuty" selected>On Duty</option>
-                                    @else
-                                        <option value="onLeave" selected>On Study Leave</option>
-                                        <option value="onDuty">On Duty</option>
-                                    @endif
-
-                                </select>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-4">
-                        <div class="col-md-3">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Academic Level</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
-                                    <span class="input-group-text bg-white border-0"><i
-                                                class="text-gray-400 float-right far fa-edit "></i></span>
+                                        <span class="input-group-text bg-white border-0"><i
+                                                    class="text-gray-400 float-right far fa-edit "></i></span>
                                 </div>
                                 <select class="form-control form-control-plaintext" name="academic_level">
                                     @foreach ($staff->general->getEnum("AcademicLevels") as $key => $value)
@@ -190,6 +225,10 @@
 
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row mt-4">
+
                         <div class="col-md-3">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Salary</div>
                             <div class="input-group mb-3">
@@ -209,31 +248,10 @@
                                     <span class="input-group-text bg-white border-0"><i
                                                 class="text-gray-400 float-right far fa-edit "></i></span>
                                 </div>
-                                <input type="text" class="form-control form-control-plaintext" name="service_year"
+                                <input type="number" class="form-control form-control-plaintext" name="service_year"
                                        value="{{$staff->general->service_year}}">
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is Expatriate</div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text bg-white border-0"><i
-                                                class="text-gray-400 float-right far fa-edit "></i></span>
-                                </div>
-                                <select class="form-control form-control-plaintext" name="expatriate">
-                                    @if ($staff->general->is_expatriate == 0)
-                                        <option value="1">Yes</option>
-                                        <option selected value="0">No</option>
-                                    @else
-                                        <option selected value="1">Yes</option>
-                                        <option value="0">No</option>
-                                    @endif
-
-                                </select>
-
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -279,7 +297,7 @@
                                     <span class="input-group-text bg-white border-0"><i
                                                 class="text-gray-400 float-right far fa-edit "></i></span>
                                 </div>
-                                <input type="text" class="form-control form-control-plaintext" name="teaching_load"
+                                <input type="number" class="form-control form-control-plaintext" name="teaching_load"
                                        value="{{$staff->teaching_load}}">
                             </div>
                         </div>
@@ -305,13 +323,33 @@
                 <div class="card-header text-primary">
                     Leave Information
                 </div>
-                @if ($staff->staff_leave_id == 0)
-                    <div class="mb-0 text-gray-600 p-3" id="leave_message">Staff Member is on Duty</div>
-                    <div class="card-body d-none" id="leave_card">
-                        @else
-                            <div class="card-body" id="leave_card">
-                                @endif
-                                <div class="row mt-4 text-muted">
+                <div class="card-body" id="select_card">
+                    <div class="row mt-4 text-muted">
+                        <div class="col-md-3">
+                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Status</div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text bg-white border-0"><i
+                                                class="text-gray-400 float-right far fa-edit "></i></span>
+                                </div>
+                                <select class="form-control form-control-plaintext" id="status_select" name="status">
+                                    @if ($staff->staff_leave_id == 0)
+                                        <option value="onLeave">On Study Leave</option>
+                                        <option value="onDuty" selected>On Duty</option>
+                                    @else
+                                        <option value="onLeave" selected>On Study Leave</option>
+                                        <option value="onDuty">On Duty</option>
+                                    @endif
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    @if ($staff->staff_leave_id == 0)
+                        <div class="row d-none mt-4 text-muted" id="leave_card">
+                            @else
+                                <div class="row mt-4 text-muted" id="leave_card">
+                                    @endif
                                     <div class="col-md-3">
                                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Leave
                                             Type
@@ -379,7 +417,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Status
+                                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Leave
+                                            Status
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-append">
@@ -396,87 +435,97 @@
                                             @endif
                                         </div>
                                     </div>
+
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Rank
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-append">
+                                @if ($staff->staff_leave_id == 0)
+                                    <div class="row d-none mt-4 text-muted" id="leave_card_second">
+                                        @else
+                                            <div class="row mt-4 text-muted" id="leave_card_second">
+                                                @endif
+                                                <div class="col-md-3">
+                                                    <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">
+                                                        Rank
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-append">
                                                 <span class="input-group-text bg-white border-0"><i
                                                             class="text-gray-400 float-right far fa-edit "></i></span>
-                                            </div>
-                                            @if ($staff->staff_leave_id == 0)
-                                                <input type="text" name="leave_rank"
-                                                       class="form-control form-control-plaintext">
-                                            @else
-                                                <input type="text" name="leave_rank"
-                                                       class="form-control form-control-plaintext"
-                                                       value="{{$staff->staffLeave->rank_of_study}}">
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">
-                                            Scholarship
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text bg-white border-0"><i
-                                                            class="text-gray-400 float-right far fa-edit "></i></span>
-                                            </div>
-                                            @if ($staff->staff_leave_id == 0)
-                                                <select class="form-control form-control-plaintext"
-                                                        name="leave_scholarship">
-                                                    @foreach ($staff_scholarship_types as $key => $value)
-                                                        <option value="{{$key}}">{{$value}}</option>
-                                                    @endforeach
-                                                </select>
-                                            @else
-                                                <select class="form-control form-control-plaintext"
-                                                        name="leave_scholarship">
-                                                    @foreach ($staff_scholarship_types as $key => $value)
-                                                        @if ($value == $staff->staffLeave->leave_type)
-                                                            <option selected value="{{$key}}">{{$value}}</option>
+                                                        </div>
+                                                        @if ($staff->staff_leave_id == 0)
+                                                            <input type="text" name="leave_rank"
+                                                                   class="form-control form-control-plaintext">
                                                         @else
-                                                            <option value="{{$key}}">{{$value}}</option>
+                                                            <input type="text" name="leave_rank"
+                                                                   class="form-control form-control-plaintext"
+                                                                   value="{{$staff->staffLeave->rank_of_study}}">
                                                         @endif
-                                                    @endforeach
-                                                </select>
-                                            @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">
+                                                        Scholarship
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-append">
+                                                <span class="input-group-text bg-white border-0"><i
+                                                            class="text-gray-400 float-right far fa-edit "></i></span>
+                                                        </div>
+                                                        @if ($staff->staff_leave_id == 0)
+                                                            <select class="form-control form-control-plaintext"
+                                                                    name="leave_scholarship">
+                                                                @foreach ($staff_scholarship_types as $key => $value)
+                                                                    <option value="{{$key}}">{{$value}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        @else
+                                                            <select class="form-control form-control-plaintext"
+                                                                    name="leave_scholarship">
+                                                                @foreach ($staff_scholarship_types as $key => $value)
+                                                                    @if ($value == $staff->staffLeave->leave_type)
+                                                                        <option selected
+                                                                                value="{{$key}}">{{$value}}</option>
+                                                                    @else
+                                                                        <option value="{{$key}}">{{$value}}</option>
+                                                                    @endif
+                                                                @endforeach
+                                                            </select>
+                                                        @endif
 
-                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                     </div>
-                                </div>
-                            </div>
-                    </div>
 
-                    <div class="card shadow mt-3">
-                        <div class="card-header text-primary">
-                            Remarks
                         </div>
-                        <div class="card-body">
+
+                        <div class="card shadow mt-3">
+                            <div class="card-header text-primary">
+                                Remarks
+                            </div>
+                            <div class="card-body">
                             <textarea class="form-control" id="additional_remarks" name="additional_remark"
                                       rows="3">{{$staff->general->remarks}}</textarea>
-                        </div>
+                            </div>
 
-                    </div>
+                        </div>
 
         </form>
     </div>
     <script>
+
         var statusSelect = document.getElementById('status_select');
         var leaveCard = document.getElementById('leave_card');
+        var leaveCardSecond = document.getElementById('leave_card_second');
         var leaveMessage = document.getElementById('leave_message');
         statusSelect.addEventListener('change', function (e) {
             switch (statusSelect.selectedIndex) {
                 case 0:
-                    leaveCard.className = "card-body";
-                    leaveMessage.className = 'mb-0 text-gray-600 p-3 d-none';
+                    leaveCard.className = "row mt-4 text-muted";
+                    leaveCardSecond.className = "row mt-4 text-muted";
                     break;
                 case 1:
-                    leaveCard.className = "card-body d-none";
-                    leaveMessage.className = 'mb-0 text-gray-600 p-3';
+                    leaveCard.className = "row mt-4 text-muted d-none";
+                    leaveCardSecond.className = "row mt-4 text-muted d-none";
                     break
             }
         })

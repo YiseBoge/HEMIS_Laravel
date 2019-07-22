@@ -2,13 +2,6 @@
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
-        @if(count($errors) > 0)
-            @foreach($errors->all() as $error)
-                <div class="alert alert-danger">
-                    {{$error}}
-                </div>
-            @endforeach
-        @endif
         {!! Form::open(['action' => 'College\BuildingsController@store', 'method' => 'POST']) !!}
         <div class="row my-5">
             <div class="col-md">
@@ -20,45 +13,45 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    {!! Form::text('building_name', null, ['class'=>'form-control', 'id'=>'create_building_name', 'required' => 'true']) !!}
+                                    {!! Form::text('building_name', old('building_name'), ['class'=>'form-control', 'id'=>'create_building_name', 'required' => 'true']) !!}
                                     {!! Form::label('create_building_name', 'Building Name', ['class' => 'form-control-placeholder']) !!}
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-md">
-                                        {!! Form::text('contractor_name', null, ['class'=>'form-control', 'id'=>'create_contractor_name', 'required' => 'true']) !!}
+                                        {!! Form::text('contractor_name', old('contractor_name'), ['class'=>'form-control', 'id'=>'create_contractor_name', 'required' => 'true']) !!}
                                         {!! Form::label('create_contractor_name', 'Contractor\'s Name', ['class' => 'form-control-placeholder']) !!}
                                     </div>
                                     <div class="form-group col-md">
-                                        {!! Form::text('consultant_name', null, ['class'=>'form-control', 'id'=>'create_consultant_name', 'required' => 'true']) !!}
+                                        {!! Form::text('consultant_name', old('consultant_name'), ['class'=>'form-control', 'id'=>'create_consultant_name', 'required' => 'true']) !!}
                                         {!! Form::label('create_consultant_name', 'Consultant\'s Name', ['class' => 'form-control-placeholder']) !!}
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-md">
-                                        {!! Form::date('date_started', new DateTime(), ['class'=>'form-control', 'id'=>'create_date_started', 'required']) !!}
+                                        {!! Form::date('date_started', old('date_started'), ['class'=>'form-control', 'id'=>'create_date_started']) !!}
                                         {!! Form::label('create_date_started', 'Date Started', ['class' => 'form-control-placeholder']) !!}
                                     </div>
                                     <div class="form-group col-md">
-                                        {!! Form::date('date_completed', new DateTime(), ['class'=>'form-control', 'id'=>'create_date_completed', 'required']) !!}
+                                        {!! Form::date('date_completed', old('date_completed'), ['class'=>'form-control', 'id'=>'create_date_completed']) !!}
                                         {!! Form::label('create_date_completed', 'Date Completed', ['class' => 'form-control-placeholder']) !!}
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-md">
-                                        {!! Form::number('budget_allocated', null, ['class'=>'form-control', 'id'=>'create_budget_allocated', 'required']) !!}
+                                        {!! Form::number('budget_allocated', old('budget_allocated'), ['class'=>'form-control', 'id'=>'create_budget_allocated', 'required']) !!}
                                         {!! Form::label('create_budget_allocated', 'Budget Allocated', ['class' => 'form-control-placeholder']) !!}
                                     </div>
                                     <div class="form-group col-md">
-                                        {!! Form::number('financial_status', null, ['class'=>'form-control', 'id'=>'create_financial_status', 'required']) !!}
+                                        {!! Form::number('financial_status', old('financial_status'), ['class'=>'form-control', 'id'=>'create_financial_status', 'required']) !!}
                                         {!! Form::label('create_financial_status', 'Financial Status', ['class' => 'form-control-placeholder']) !!}
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    {!! Form::number('completion_status', null, ['class'=>'form-control', 'id'=>'create_completion_status', 'required']) !!}
+                                    {!! Form::number('completion_status', old('completion_status'), ['class'=>'form-control', 'id'=>'create_completion_status', 'required']) !!}
                                     {!! Form::label('create_completion_status', 'Completion Status', ['class' => 'form-control-placeholder']) !!}
                                 </div>
                             </div>

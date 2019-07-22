@@ -8,8 +8,8 @@ use App\Models\College\College;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\SpecialRegionEnrollment;
-use App\Models\Institution\RegionName;
 use App\Models\Institution\Institution;
+use App\Models\Institution\RegionName;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -19,6 +19,16 @@ use Illuminate\Validation\ValidationException;
 class SpecialRegionsEnrollmentsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -27,7 +37,6 @@ class SpecialRegionsEnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -62,17 +71,19 @@ class SpecialRegionsEnrollmentsController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->specialRegionEnrollments as $enrollment) {
-                                            if($enrollment->region_type == $requestedType){
-                                                $enrollments[] = $enrollment;
-                                            }
+                                            $enrollments[] = $enrollment;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->specialRegionEnrollments as $enrollment) {
                                             if($enrollment->region_type == $requestedType){
@@ -125,7 +136,6 @@ class SpecialRegionsEnrollmentsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -161,7 +171,6 @@ class SpecialRegionsEnrollmentsController extends Controller
         ]);
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -209,7 +218,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         $department->specialRegionEnrollments()->save($enrollment);
         $regionName->specialRegionEnrollment()->save($enrollment);
 
-        return redirect("/enrollment/special-region-students");
+        return redirect("/enrollment/special-region-students")->with('success', 'Successfully Added Special Region Enrollment');
     }
 
     /**
@@ -331,6 +340,6 @@ class SpecialRegionsEnrollmentsController extends Controller
 
             }
         }
-        return redirect("/enrollment/special-region-students?department=" . $selectedDepartment);
+        return redirect("/enrollment/special-region-students?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 }

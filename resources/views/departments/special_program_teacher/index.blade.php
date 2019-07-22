@@ -10,16 +10,17 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row my-3">
                         <div class="col text-right">
-                                <form action="special-program-teacher/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <input type="hidden" name="department"
-                                            value="{{$selected_department}}">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending in Selected Department<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="special-program-teacher/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <input type="hidden" name="department"
+                                       value="{{$selected_department}}">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending in Selected Department<i
+                                            class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 @else
@@ -40,16 +41,17 @@
                                 {!! Form::label('department', 'Department', ['class' => 'form-control-placeholder']) !!}
                             </div>
                         </div>
-                    @endif
-                    <div class="form-row">
-                        <div class="col-md-6 px-3 py-md-1 col">
-                            <div class="form-group">
-                                {!! Form::select('program_status', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramStats') , $selected_status , ['class' => 'form-control', 'id' => 'add_program_status', 'onchange' => 'this.form.submit()']) !!}
-                                {!! Form::label('add_program_status', 'Program Status', ['class' => 'form-control-placeholder']) !!}
+                    @else
+                        <div class="form-row">
+                            <div class="col-md-6 px-3 py-md-1 col">
+                                <div class="form-group">
+                                    {!! Form::select('program_status', \App\Models\Department\SpecialProgramTeacher::getEnum('ProgramStats') , $selected_status , ['class' => 'form-control', 'id' => 'add_program_status', 'onchange' => 'this.form.submit()']) !!}
+                                    {!! Form::label('add_program_status', 'Program Status', ['class' => 'form-control-placeholder']) !!}
+                                </div>
                             </div>
-                        </div>
 
-                    </div>
+                        </div>
+                    @endif
                     {!! Form::close() !!}
 
                 </div>
@@ -65,7 +67,13 @@
                             <thead>
                             <tr role="row">
                                 <th style="min-width: 50px; width: 50px"></th>
-
+                                @if(Auth::user()->hasRole('College Super Admin'))
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                        rowspan="1" colspan="1" aria-sort="ascending"
+                                        aria-label="Name: activate to sort column descending"
+                                    >Program Status
+                                    </th>
+                                @endif
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
                                 >Program
@@ -81,7 +89,7 @@
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1"
                                     aria-label="Start date: activate to sort column ascending"
-                                    style="min-width: 99px;">Approval Status
+                                >Approval Status
                                 </th>
 
                             </tr>
@@ -89,11 +97,11 @@
                             <tbody>
                             @foreach($special_program_teachers as $specialProgramTeacher)
                                 <tr>
-                                    <td class="text-center">
-                                        @if(Auth::user()->hasRole('College Super Admin'))
+                                    @if(Auth::user()->hasRole('College Super Admin'))
+                                        <td class="text-center">
                                             @if($specialProgramTeacher->approval_status == "Pending")
                                                 <form action="special-program-teacher/{{$specialProgramTeacher->id}}/approve"
-                                                        method="POST">
+                                                      method="POST">
                                                     @csrf
                                                     <input type="hidden" name="action" value="disapprove">
                                                     <button type="submit" style="opacity:0.80"
@@ -103,43 +111,45 @@
                                                     </button>
                                                 </form>
                                             @endif
-                                        @else
+                                        </td>
+                                        <td>{{$specialProgramTeacher->program_stat}}</td>
+                                    @else
+                                        <td class="text-center">
                                             @if($specialProgramTeacher->approval_status != "Approved")
                                                 <div class="row px-1">
                                                     <div class="col px-0">
                                                         <form class="p-0"
-                                                                action="special-program-teacher/{{$specialProgramTeacher->id}}/edit"
-                                                                method="GET">
+                                                              action="special-program-teacher/{{$specialProgramTeacher->id}}/edit"
+                                                              method="GET">
                                                             <button type="submit"
                                                                     class="btn btn-primary btn-circle text-white btn-sm mx-0"
                                                                     style="opacity:0.80"
                                                                     data-toggle="tooltip" title="Edit">
                                                                 <i class="fas fa-pencil-alt fa-sm"
-                                                                    style="opacity:0.75"></i>
+                                                                   style="opacity:0.75"></i>
                                                             </button>
                                                         </form>
                                                     </div>
                                                     <div class="col px-0">
                                                         <form class="p-0"
-                                                                action="special-program-teacher/{{$specialProgramTeacher->id}}"
-                                                                method="POST">
+                                                              action="special-program-teacher/{{$specialProgramTeacher->id}}"
+                                                              method="POST">
                                                             @csrf
                                                             <input type="hidden" name="_method"
-                                                                    value="DELETE">
+                                                                   value="DELETE">
                                                             <button type="submit"
                                                                     class="btn btn-danger btn-circle text-white btn-sm mx-0"
                                                                     style="opacity:0.80"
                                                                     data-toggle="tooltip" title="Delete">
                                                                 <i class="fas fa-trash fa-sm"
-                                                                    style="opacity:0.75"></i>
+                                                                   style="opacity:0.75"></i>
                                                             </button>
                                                         </form>
                                                     </div>
                                                 </div>
                                             @endif
-                                        @endif
-                                    </td>
-
+                                        </td>
+                                    @endif
                                     <td>{{ $specialProgramTeacher->program_type}}</td>
                                     <td>{{ $specialProgramTeacher->male_number }}</td>
                                     <td>{{ $specialProgramTeacher->female_number }}</td>
@@ -189,5 +199,5 @@
                 </div>
             </div>
         </div>
-
+    </div>
 @endSection

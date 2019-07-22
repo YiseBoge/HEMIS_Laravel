@@ -19,6 +19,16 @@ use Illuminate\Validation\ValidationException;
 class OtherAttritionController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -27,7 +37,6 @@ class OtherAttritionController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
         $institution = $user->institution();
@@ -62,17 +71,19 @@ class OtherAttritionController extends Controller
         if ($institution != null) {
             foreach ($institution->bands as $band) {
                 foreach ($band->colleges as $college) {
-                    if ($college->education_program == $requestedProgram && $college->education_level == $requestedLevel) {
-                        foreach ($college->departments as $department) {
-                            if ($user->hasRole('College Super Admin')) {
+                    if ($user->hasRole('College Super Admin')) {
+                        if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                            foreach ($college->departments as $department) {
                                 if ($department->departmentName->id == $requestedDepartment) {
                                     foreach ($department->otherAttritions as $attrition) {
-                                        if ($attrition->type == $requestedType && $attrition->case == $requestedCase) {
-                                            $attritions[] = $attrition;
-                                        }
+                                        $attritions[] = $attrition;
                                     }
                                 }
-                            } else {
+                            }
+                        }
+                    }else{
+                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_program == $requestedProgram && $college->education_level == $requestedLevel) {
+                            foreach ($college->departments as $department) {
                                 if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                     foreach ($department->otherAttritions as $attrition) {
                                         if ($attrition->type == $requestedType && $attrition->case == $requestedCase) {
@@ -83,7 +94,6 @@ class OtherAttritionController extends Controller
                             }
                         }
                     }
-
                 }
 
             }
@@ -117,7 +127,6 @@ class OtherAttritionController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -153,7 +162,6 @@ class OtherAttritionController extends Controller
         $attrition->female_students_number = $request->input('female_number');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -192,7 +200,7 @@ class OtherAttritionController extends Controller
 
         $department->otherAttritions()->save($attrition);
 
-        return redirect("/student/other-attrition");
+        return redirect("/student/other-attrition")->with('success', 'Successfully Added Other Information');
     }
 
     /**
@@ -315,7 +323,7 @@ class OtherAttritionController extends Controller
 
             }
         }
-        return redirect("/student/other-attrition?department=" . $selectedDepartment);
+        return redirect("/student/other-attrition?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 
 }

@@ -11,6 +11,7 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid id
  * @property int number_of_courses
  * @property int number_of_researches
+ * @property string|null approval_status
  * @method static DiasporaCourses find(int $id)
  */
 class DiasporaCourses extends Model

@@ -16,6 +16,16 @@ use Illuminate\Validation\ValidationException;
 class InvestmentsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -23,7 +33,6 @@ class InvestmentsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['College Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -62,7 +71,6 @@ class InvestmentsController extends Controller
         $investmentTitles = Investment::getEnum('investment_title');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -113,7 +121,6 @@ class InvestmentsController extends Controller
         $investment->remarks = $request->input('remarks');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -141,7 +148,7 @@ class InvestmentsController extends Controller
         $college->investments()->save($investment);
 
 
-        return redirect('/budgets/private-investment');
+        return redirect('/budgets/private-investment')->with('success', 'Successfully Added Investment');
     }
 
     /**
@@ -169,7 +176,6 @@ class InvestmentsController extends Controller
         $investmentTitle = Investment::getValueKey($investmentTitles, $investment->investment_title);
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -212,7 +218,6 @@ class InvestmentsController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $this->validate($request, [
@@ -281,7 +286,7 @@ class InvestmentsController extends Controller
 
             }
         }
-        return redirect("/budgets/private-investment");
+        return redirect("/budgets/private-investment")->with('primary', 'Success');
     }
 
 }

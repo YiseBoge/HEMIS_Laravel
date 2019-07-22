@@ -18,6 +18,16 @@ use Illuminate\Validation\ValidationException;
 class DegreeEmploymentsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -26,7 +36,6 @@ class DegreeEmploymentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -41,15 +50,19 @@ class DegreeEmploymentsController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == 'None' && $college->education_program == 'None') {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->degreeEmployments as $employment) {
                                             $employments[] = $employment;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == 'None' && $college->education_program == 'None') {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->degreeEmployments as $employment) {
                                             $employments[] = $employment;
@@ -88,7 +101,6 @@ class DegreeEmploymentsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -117,7 +129,6 @@ class DegreeEmploymentsController extends Controller
         $employment->female_students_number = $request->input('female_number');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -156,7 +167,7 @@ class DegreeEmploymentsController extends Controller
 
         $department->degreeEmployments()->save($employment);
 
-        return redirect("/student/degree-relevant-employment");
+        return redirect("/student/degree-relevant-employment")->with('success', 'Successfully Added Degree Relevant Employment');
     }
 
     /**
@@ -272,7 +283,7 @@ class DegreeEmploymentsController extends Controller
 
             }
         }
-        return redirect("/student/degree-relevant-employment?department=" . $selectedDepartment);
+        return redirect("/student/degree-relevant-employment?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 
 }

@@ -10,22 +10,24 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row my-3">
                         <div class="col text-right">
-                                <form action="postgraduate-diploma-training/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <input type="hidden" name="department"
-                                            value="{{$selected_department}}">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending in Selected Department<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="postgraduate-diploma-training/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <input type="hidden" name="department"
+                                       value="{{$selected_department}}">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending in Selected Department<i
+                                            class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 @else
                     <div class="row my-3">
                         <div class="col text-right">
-                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="postgraduate-diploma-training/create">New
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm"
+                               href="postgraduate-diploma-training/create">New
                                 Entry<i
                                         class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                         </div>
@@ -52,43 +54,28 @@
                                 </label>
                             </div>
                         </div>
+                    @else
+
+                        <div class="form-group row pt-3">
+                            <div class="col-md-6 form-group">
+                                <select class="form-control" name="type" id="type" onchange="this.form.submit()">
+                                    @foreach ($types as $key => $value)
+                                        @if ($value == "Normal" && $selected_type == 0)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @elseif ($value == "School Leaders" && $selected_type == 1)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+
+                                    @endforeach
+                                </select>
+                                <label for="type" class="form-control-placeholder">
+                                    Teacher Type
+                                </label>
+                            </div>
+                        </div>
                     @endif
-
-                    <div class="form-group row pt-3">
-                        <div class="col-md-6 form-group">
-                            <select class="form-control" name="type" id="type" onchange="this.form.submit()">
-                                @foreach ($types as $key => $value)
-                                    @if ($value == $selected_type)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
-
-                                @endforeach
-                            </select>
-                            <label for="type" class="form-control-placeholder">
-                                Teacher Type
-                            </label>
-                        </div>
-
-                        <div class="col-md-6 form-group">
-                            <select class="form-control" name="program" id="program"
-                                    onchange="this.form.submit()">
-                                @foreach ($programs as $key => $value)
-                                    @if ($value == $selected_program)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
-
-                                @endforeach
-                            </select>
-                            <label for="program" class="form-control-placeholder">
-                                Program
-                            </label>
-                        </div>
-
-                    </div>
                 </form>
                 <div class="table-responsive">
                     <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
@@ -98,24 +85,31 @@
                         <thead>
                         <tr role="row">
                             <th style="min-width: 50px; width: 50px"></th>
+                            @if(Auth::user()->hasRole('College Super Admin'))
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                >Teacher Type
+                                </th>
+                            @endif
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
-                                style="min-width: 121px;">Department
+                            >Program
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                style="min-width: 46px;">Number of Male Teachers
+                            >Number of Male Teachers
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Number of Female Teachers
+                            >Number of Female Teachers
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Approval Status
+                            >Approval Status
                             </th>
 
                         </tr>
@@ -123,59 +117,61 @@
                         <tbody>
                         @if (count($trainings) > 0)
                             @foreach ($trainings as $training)
-                                <tr role="row" class="odd"
-                                    onclick="window.location='postgraduate-diploma-training/{{$training->id}}'">
-                                    <td class="text-center">
-                                            @if(Auth::user()->hasRole('College Super Admin'))
-                                                @if($training->approval_status == "Pending")
-                                                    <form action="postgraduate-diploma-training/{{$training->id}}/approve"
-                                                          method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="action" value="disapprove">
-                                                        <button type="submit" style="opacity:0.80"
-                                                                data-toggle="tooltip" title="Disapprove"
-                                                                class="btn btn-danger btn-circle text-white btn-sm">
-                                                            <i class="fas fa-times" style="opacity:0.75"></i>
-                                                        </button>
-                                                    </form>
-                                                @endif
-                                            @else
-                                                @if($training->approval_status != "Approved")
-                                                    <div class="row px-1">
-                                                        <div class="col px-0">
-                                                            <form class="p-0"
-                                                                  action="postgraduate-diploma-training/{{$training->id}}/edit"
-                                                                  method="GET">
-                                                                <button type="submit"
-                                                                        class="btn btn-primary btn-circle text-white btn-sm mx-0"
-                                                                        style="opacity:0.80"
-                                                                        data-toggle="tooltip" title="Edit">
-                                                                    <i class="fas fa-pencil-alt fa-sm"
-                                                                       style="opacity:0.75"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                        <div class="col px-0">
-                                                            <form class="p-0"
-                                                                  action="postgraduate-diploma-training/{{$training->id}}"
-                                                                  method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="_method"
-                                                                       value="DELETE">
-                                                                <button type="submit"
-                                                                        class="btn btn-danger btn-circle text-white btn-sm mx-0"
-                                                                        style="opacity:0.80"
-                                                                        data-toggle="tooltip" title="Delete">
-                                                                    <i class="fas fa-trash fa-sm"
-                                                                       style="opacity:0.75"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                @endif
+                                <tr role="row" class="odd">
+                                    @if(Auth::user()->hasRole('College Super Admin'))
+                                        <td class="text-center">
+                                            @if($training->approval_status == "Pending")
+                                                <form action="postgraduate-diploma-training/{{$training->id}}/approve"
+                                                      method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="action" value="disapprove">
+                                                    <button type="submit" style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Disapprove"
+                                                            class="btn btn-danger btn-circle text-white btn-sm">
+                                                        <i class="fas fa-times" style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
                                             @endif
                                         </td>
-                                    <td>{{$training->department->departmentName->department_name}}</td>
+                                        <td>{{$training->is_lead ? "School Leaders" : "Normal"}}</td>
+                                    @else
+                                        <td class="text-center">
+                                            @if($training->approval_status != "Approved")
+                                                <div class="row px-1">
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                              action="postgraduate-diploma-training/{{$training->id}}/edit"
+                                                              method="GET">
+                                                            <button type="submit"
+                                                                    class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Edit">
+                                                                <i class="fas fa-pencil-alt fa-sm"
+                                                                   style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                              action="postgraduate-diploma-training/{{$training->id}}"
+                                                              method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="_method"
+                                                                   value="DELETE">
+                                                            <button type="submit"
+                                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Delete">
+                                                                <i class="fas fa-trash fa-sm"
+                                                                   style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </td>
+                                    @endif
+                                    <td>{{$training->department->college->education_program}}</td>
                                     <td>{{$training->number_of_male_students}}</td>
                                     <td>{{$training->number_of_female_students}}</td>
                                     @if($training->approval_status == "Approved")

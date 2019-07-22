@@ -21,6 +21,16 @@ use Illuminate\Validation\ValidationException;
 class EnrollmentsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -29,7 +39,6 @@ class EnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -59,19 +68,21 @@ class EnrollmentsController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->enrollments as $enrollment) {
-                                            if ($enrollment->student_type == $requestedType) {
-                                                $service = new GeneralReportService("2018/19");
-                                                //return $service->nonAcademicAttrition();
-                                                $enrollments[] = $enrollment;
-                                            }
+                                            $service = new GeneralReportService("2018/19");
+                                            //return $service->nonAcademicAttrition();
+                                            $enrollments[] = $enrollment;
                                         }
-                                    }
-                                } else {
+                                    }                                    
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->enrollments as $enrollment) {
                                             if ($enrollment->student_type == $requestedType) {
@@ -123,7 +134,6 @@ class EnrollmentsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -163,7 +173,6 @@ class EnrollmentsController extends Controller
         $enrollment->student_type = $request->input('student_type');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -202,7 +211,7 @@ class EnrollmentsController extends Controller
 
         $department->enrollments()->save($enrollment);
 
-        return redirect("/enrollment/normal");
+        return redirect("/enrollment/normal")->with('success', 'Successfully Added Enrollment');
 
     }
 
@@ -327,7 +336,7 @@ class EnrollmentsController extends Controller
                 }
             }
         }
-        return redirect("/enrollment/normal");
+        return redirect("/enrollment/normal?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 
     public function viewChart(Request $request)
@@ -408,6 +417,8 @@ class EnrollmentsController extends Controller
             'selected_band' => $requestedBand,
             'selected_department' => $requestedDepartment,
 
+            'path' => 'enrollment/student-enrollment-chart?student_type=' . $requestedType . '&program=' . $requestedProgram . '&college=' . $requestedCollege . '&band=' . $requestedBand . '&education_level=' . $requestedLevel . '&department=' . $requestedDepartment ,
+
             'page_name' => 'enrollment.normal.index'
         );
         //return $filteredEnrollments;
@@ -422,21 +433,25 @@ class EnrollmentsController extends Controller
 
         $requestedType = $request->input('student_type');
         if ($requestedType == null) {
+            //return "&type null";
             $requestedType = 'Normal';
         }
 
         $requestedProgram = $request->input('program');
         if ($requestedProgram == null) {
+            //return "&program null";
             $requestedProgram = 'Regular';
         }
 
         $requestedCollege = $request->input('college');
         if ($requestedCollege == null) {
+            //return "college null";
             $requestedCollege = CollegeName::all()->first()->college_name;
         }
 
         $requestedLevel = $request->input('education_level');
         if ($requestedLevel == null) {
+            //return "&level null";
             $requestedLevel = 'Undergraduate';
         }
 
@@ -475,7 +490,6 @@ class EnrollmentsController extends Controller
                                     }
                                 }
                             }
-
                         }
                     }
                 }

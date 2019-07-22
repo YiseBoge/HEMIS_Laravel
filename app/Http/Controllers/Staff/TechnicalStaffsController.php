@@ -16,6 +16,16 @@ use Illuminate\Validation\ValidationException;
 class TechnicalStaffsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -24,7 +34,6 @@ class TechnicalStaffsController extends Controller
     {
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['College Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -59,7 +68,6 @@ class TechnicalStaffsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -117,7 +125,6 @@ class TechnicalStaffsController extends Controller
         $technicalStaff->staffRank = $request->input('technical_staff_rank');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -146,7 +153,7 @@ class TechnicalStaffsController extends Controller
         $technicalStaff = TechnicalStaff::find($technicalStaff->id);
         $technicalStaff->general()->save($staff);
 
-        return redirect('/staff/technical');
+        return redirect('/staff/technical')->with('success', 'Successfully Added Technical Staff');
     }
 
     /**
@@ -158,7 +165,6 @@ class TechnicalStaffsController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -177,7 +183,6 @@ class TechnicalStaffsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -198,7 +203,6 @@ class TechnicalStaffsController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $this->validate($request, [
@@ -236,6 +240,7 @@ class TechnicalStaffsController extends Controller
         $staff->dedication = $request->input('dedication');
         $staff->academic_level = $request->input('academic_level');
         $staff->is_expatriate = $request->input('expatriate');
+        $staff->is_from_other_region = $request->input('other_region');
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 

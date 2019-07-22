@@ -19,14 +19,24 @@ use Illuminate\Validation\ValidationException;
 class PublicationsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -132,7 +142,6 @@ class PublicationsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -188,7 +197,6 @@ class PublicationsController extends Controller
         $publication->date_of_publication = $request->input('date');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -229,7 +237,7 @@ class PublicationsController extends Controller
 
         $staff->publications()->save($publication);
 
-        return redirect("/department/publication");
+        return redirect("/department/publication")->with('success', 'Successfully Added Publication');
     }
 
     /**
@@ -315,7 +323,6 @@ class PublicationsController extends Controller
         $publicationsAndPatents->patents = $request->input('patents');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -353,7 +360,7 @@ class PublicationsController extends Controller
 
         $department->publicationsAndPatents()->save($publicationsAndPatents);
 
-        return redirect("/department/publication");
+        return redirect("/department/publication")->with('success', 'Successfully Updated Publication');
     }
 
     /**

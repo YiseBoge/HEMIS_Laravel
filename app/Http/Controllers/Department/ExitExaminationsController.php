@@ -18,6 +18,16 @@ use Illuminate\Validation\ValidationException;
 class ExitExaminationsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -26,7 +36,6 @@ class ExitExaminationsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
         $institution = $user->institution();
@@ -42,15 +51,19 @@ class ExitExaminationsController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == 'None' && $college->education_program == 'None') {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->exitExaminations as $examination) {
                                             $examinations[] = $examination;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == 'None' && $college->education_program == 'None') {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->exitExaminations as $examination) {
                                             $examinations[] = $examination;
@@ -89,7 +102,6 @@ class ExitExaminationsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -118,7 +130,6 @@ class ExitExaminationsController extends Controller
         $examination->female_students_number = $request->input('female_number');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -157,7 +168,7 @@ class ExitExaminationsController extends Controller
 
         $department->exitExaminations()->save($examination);
 
-        return redirect("/student/exit-examination");
+        return redirect("/student/exit-examination")->with('success', 'Successfully Added Exit Examination Info');
     }
 
     /**
@@ -276,7 +287,7 @@ class ExitExaminationsController extends Controller
 
             }
         }
-        return redirect("/student/exit-examination?department=" . $selectedDepartment);
+        return redirect("/student/exit-examination?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 
 }

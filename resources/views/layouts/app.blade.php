@@ -34,7 +34,7 @@
 <div id="wrapper" style="min-height:100vh">
     @isset($page_name)
     @else
-        <div class="d-none">{{ $page_name = '1.2.3' }}</div>
+        <span class="d-none">{{ $page_name = '1.2.3' }}</span>
 @endisset
 
 
@@ -55,14 +55,10 @@
 
         <!-- Begin Page Content -->
             <div class="container-fluid">
-                <div class="card border-0 shadow-none">
-                    <div class="fade-alert alert alert-success text-center shadow w-100">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                            ×</button>
-                        <i class="far fa-check-circle fa-sm d-inline-block mx-2"></i>
-                        <strong>Hurray!!</strong> Successfully Added.
-                    </div>
-                </div>
+                @if ($page_name != '1.2.3')
+                    @include('inc.messages')
+                @endif
+
                 @yield('content')
 
             </div>

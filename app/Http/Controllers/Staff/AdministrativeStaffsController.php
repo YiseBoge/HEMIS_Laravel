@@ -16,6 +16,16 @@ use Illuminate\Validation\ValidationException;
 class AdministrativeStaffsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -23,7 +33,6 @@ class AdministrativeStaffsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['College Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -61,7 +70,6 @@ class AdministrativeStaffsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -119,7 +127,6 @@ class AdministrativeStaffsController extends Controller
         $administrativeStaff->staffRank = $request->input('administrative_staff_rank');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -148,7 +155,7 @@ class AdministrativeStaffsController extends Controller
         $administrativeStaff = AdministrativeStaff::find($administrativeStaff->id);
         $administrativeStaff->general()->save($staff);
 
-        return redirect('/staff/administrative');
+        return redirect('/staff/administrative')->with('success', 'Successfully Added Administrative Staff');
     }
 
     /**
@@ -160,7 +167,6 @@ class AdministrativeStaffsController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -179,7 +185,6 @@ class AdministrativeStaffsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -199,6 +204,7 @@ class AdministrativeStaffsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $this->validate($request, [
             'name' => 'required',
             'birth_date' => 'required',
@@ -217,8 +223,8 @@ class AdministrativeStaffsController extends Controller
 
         $administrativeStaff = AdministrativeStaff::find($id);
         $administrativeStaff->staffRank = $request->input('administrative_staff_rank');
-
-        $staff = new $administrativeStaff->general;
+        
+        $staff = $administrativeStaff->general;
         $staff->name = $request->input('name');
         $staff->birth_date = $request->input('birth_date');
         $staff->sex = $request->input('sex');
@@ -230,13 +236,12 @@ class AdministrativeStaffsController extends Controller
         $staff->employment_type = $request->input('employment_type');
         $staff->dedication = $request->input('dedication');
         $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $request->has('expatriate');
-        $staff->is_from_other_region = $request->has('other_region');
+        $staff->is_expatriate = $request->input('expatriate');
+        $staff->is_from_other_region = $request->input('other_region');
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -262,7 +267,7 @@ class AdministrativeStaffsController extends Controller
         }
 
         $college->administrativeStaffs()->save($administrativeStaff);
-        $administrativeStaff = AdministrativeStaff::find($administrativeStaff->id);
+        $administrativeStaff->save();
         $administrativeStaff->general()->save($staff);
 
         return redirect('/staff/administrative');

@@ -10,36 +10,40 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row my-3">
                         <div class="col text-right">
-                                <form action="budget/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="budget/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
-                    </div>                           
+                    </div>
                 @else
                     <div class="row my-3">
                         <div class="col text-right">
                             <a class="btn btn-primary btn-sm mb-0 shadow-sm"
-                            href="budget/create">New Entry<i
+                               href="budget/create">New Entry<i
                                         class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                         </div>
                     </div>
                 @endif
 
-                <div class="row">
-                    {!! Form::open(['action' => 'College\BudgetsController@index', 'method' => 'GET', 'class' => 'w-100']) !!}
-                    <div class="col-md-6 px-3 py-md-1">
-                        <div class="form-group">
-                            {!! Form::select('budget_type', $budget_types , $budget_type , ['class' => 'form-control', 'id' => 'set_budget_type', 'onchange' => 'this.form.submit()']) !!}
-                            {!! Form::label('set_budget_type', 'Budget Type', ['class' => 'form-control-placeholder']) !!}
+                @if(Auth::user()->hasRole('College Super Admin'))
+                @else
+                    <div class="row">
+                        {!! Form::open(['action' => 'College\BudgetsController@index', 'method' => 'GET', 'class' => 'w-100']) !!}
+                        <div class="col-md-6 px-3 py-md-1">
+                            <div class="form-group">
+                                {!! Form::select('budget_type', $budget_types , $budget_type , ['class' => 'form-control', 'id' => 'set_budget_type', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('set_budget_type', 'Budget Type', ['class' => 'form-control-placeholder']) !!}
+                            </div>
                         </div>
+                        {!! Form::close() !!}
                     </div>
-                    {!! Form::close() !!}
-                </div>
+                @endif
+
 
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
@@ -52,6 +56,13 @@
                             <thead>
                             <tr role="row">
                                 <th style="min-width: 50px; width: 50px"></th>
+                                @if(Auth::user()->hasRole('College Super Admin'))
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                        rowspan="1" colspan="1" aria-sort="ascending"
+                                        aria-label="Name: activate to sort column descending"
+                                    >Budget Type
+                                    </th>
+                                @endif
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
                                     aria-label="Name: activate to sort column descending"
@@ -99,56 +110,62 @@
                             <tbody>
                             @foreach($budgets as $budget)
                                 <tr>
+                                    @if(Auth::user()->hasRole('College Super Admin'))
                                         <td class="text-center">
-                                                @if(Auth::user()->hasRole('College Super Admin'))
-                                                    @if($budget->approval_status == "Pending")
-                                                        <form action="budget/{{$budget->id}}/approve"
-                                                              method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="action" value="disapprove">
-                                                            <button type="submit" style="opacity:0.80"
-                                                                    data-toggle="tooltip" title="Disapprove"
-                                                                    class="btn btn-danger btn-circle text-white btn-sm">
-                                                                <i class="fas fa-times" style="opacity:0.75"></i>
+                                            @if($budget->approval_status == "Pending")
+                                                <form action="budget/{{$budget->id}}/approve"
+                                                      method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="_method"
+                                                           value="DELETE">
+                                                    <button type="submit"
+                                                            class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                            style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Delete">
+                                                        <i class="fas fa-trash fa-sm"
+                                                           style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </td>
+                                        <td>{{ $budget->budget_type }}</td>
+                                    @else
+                                        <td class="text-center">
+                                            @if($budget->approval_status != "Approved")
+                                                <div class="row px-1">
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                              action="budget/{{$budget->id}}/edit"
+                                                              method="GET">
+                                                            <button type="submit"
+                                                                    class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Edit">
+                                                                <i class="fas fa-pencil-alt fa-sm"
+                                                                   style="opacity:0.75"></i>
                                                             </button>
                                                         </form>
-                                                    @endif
-                                                @else
-                                                    @if($budget->approval_status != "Approved")
-                                                        <div class="row px-1">
-                                                            <div class="col px-0">
-                                                                <form class="p-0"
-                                                                      action="budget/{{$budget->id}}/edit"
-                                                                      method="GET">
-                                                                    <button type="submit"
-                                                                            class="btn btn-primary btn-circle text-white btn-sm mx-0"
-                                                                            style="opacity:0.80"
-                                                                            data-toggle="tooltip" title="Edit">
-                                                                        <i class="fas fa-pencil-alt fa-sm"
-                                                                           style="opacity:0.75"></i>
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                            <div class="col px-0">
-                                                                <form class="p-0"
-                                                                      action="budget/{{$budget->id}}"
-                                                                      method="POST">
-                                                                    @csrf
-                                                                    <input type="hidden" name="_method"
-                                                                           value="DELETE">
-                                                                    <button type="submit"
-                                                                            class="btn btn-danger btn-circle text-white btn-sm mx-0"
-                                                                            style="opacity:0.80"
-                                                                            data-toggle="tooltip" title="Delete">
-                                                                        <i class="fas fa-trash fa-sm"
-                                                                           style="opacity:0.75"></i>
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                @endif
-                                            </td>
+                                                    </div>
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                              action="budget/{{$budget->id}}"
+                                                              method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="_method"
+                                                                   value="DELETE">
+                                                            <button type="submit"
+                                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Delete">
+                                                                <i class="fas fa-trash fa-sm"
+                                                                   style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </td>
+                                    @endif
                                     <td>{{ $budget->budgetDescription->budget_code }}</td>
                                     <td>{{ $budget->budgetDescription->description }}</td>
                                     <td>{{ $budget->allocated_budget }}</td>
@@ -214,27 +231,27 @@
 
                     <div class="modal-body row pt-4">
                         <div class="col-12 form-group pb-2">
-                            {!! Form::select('budget_type', $budget_types, null , ['class' => 'form-control', 'id' => 'add_budget_type']) !!}
+                            {!! Form::select('budget_type', $budget_types, old('budget_type') , ['class' => 'form-control', 'id' => 'add_budget_type']) !!}
                             {!! Form::label('add_budget_type', 'Budget Type', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-12 form-group pb-2">
-                            {!! Form::select('budget_description', $budget_descriptions , null , ['class' => 'form-control', 'id' => 'add_budget_description']) !!}
+                            {!! Form::select('budget_description', $budget_descriptions , old('budget_description') , ['class' => 'form-control', 'id' => 'add_budget_description']) !!}
                             {!! Form::label('add_budget_description', 'Budget Description', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('allocated', null, ['class' => 'form-control', 'id' => 'add_allocated', 'required' => 'true']) !!}
+                            {!! Form::number('allocated', old('allocated'), ['class' => 'form-control', 'id' => 'add_allocated', 'required' => 'true']) !!}
                             {!! Form::label('add_allocated', 'Allocated', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('additional', null, ['class' => 'form-control', 'id' => 'add_additional', 'required' => 'true']) !!}
+                            {!! Form::number('additional', old('additional'), ['class' => 'form-control', 'id' => 'add_additional', 'required' => 'true']) !!}
                             {!! Form::label('add_additional', 'Additional', ['class' => 'form-control-placeholder']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('utilized', null, ['class' => 'form-control', 'id' => 'add_utilized', 'required' => 'true']) !!}
+                            {!! Form::number('utilized', old('utilized'), ['class' => 'form-control', 'id' => 'add_utilized', 'required' => 'true']) !!}
                             {!! Form::label('add_utilized', 'Utilized', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>

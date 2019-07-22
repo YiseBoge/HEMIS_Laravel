@@ -10,23 +10,24 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row">
                         <div class="col text-right">
-                                <form action="economically-disadvantaged/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <input type="hidden" name="department"
-                                            value="{{$selected_department}}">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending in Selected Department<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="economically-disadvantaged/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <input type="hidden" name="department"
+                                       value="{{$selected_department}}">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending in Selected Department<i
+                                            class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
-                    </div>                           
+                    </div>
                 @else
                     <div class="row my-3">
                         <div class="col text-right">
                             <a class="btn btn-primary btn-sm mb-0 shadow-sm"
-                            href="/enrollment/economically-disadvantaged/create">New Entry<i
+                               href="/enrollment/economically-disadvantaged/create">New Entry<i
                                         class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                         </div>
                     </div>
@@ -52,58 +53,59 @@
                                 </label>
                             </div>
                         </div>
+                    @else
+                        <div class="form-group row pt-3">
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="quintile" id="quintile"
+                                        onchange="this.form.submit()">
+                                    @foreach ($quintiles as $key => $value)
+                                        @if ($value == $selected_quintile)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="quintile" class="form-control-placeholder">
+                                    Quintile
+                                </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="program" id="program"
+                                        onchange="this.form.submit()">
+                                    @foreach ($programs as $key => $value)
+                                        @if ($value == $selected_program)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+
+                                    @endforeach
+                                </select>
+                                <label for="program" class="form-control-placeholder">
+                                    Program
+                                </label>
+                            </div>
+
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="education_level" id="level"
+                                        onchange="this.form.submit()">
+                                    @foreach ($education_levels as $key => $value)
+                                        @if ($key == 'SPECIALIZATION')
+                                            <option disabled value="{{$value}}">{{$value}}</option>
+                                        @elseif($value == $selected_education_level)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="level" class="form-control-placeholder">
+                                    Education Level
+                                </label>
+                            </div>
+                        </div>
                     @endif
-                    <div class="form-group row pt-3">
-                        <div class="col-md-4 form-group">
-                            <select class="form-control" name="quintile" id="quintile"
-                                    onchange="this.form.submit()">
-                                @foreach ($quintiles as $key => $value)
-                                    @if ($value == $selected_quintile)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            <label for="quintile" class="form-control-placeholder">
-                                Quintile
-                            </label>
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <select class="form-control" name="program" id="program"
-                                    onchange="this.form.submit()">
-                                @foreach ($programs as $key => $value)
-                                    @if ($value == $selected_program)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
-
-                                @endforeach
-                            </select>
-                            <label for="program" class="form-control-placeholder">
-                                Program
-                            </label>
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            <select class="form-control" name="education_level" id="level"
-                                    onchange="this.form.submit()">
-                                @foreach ($education_levels as $key => $value)
-                                    @if ($key == 'SPECIALIZATION')
-                                        <option disabled value="{{$value}}">{{$value}}</option>
-                                    @elseif($value == $selected_education_level)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            <label for="level" class="form-control-placeholder">
-                                Education Level
-                            </label>
-                        </div>
-                    </div>
                 </form>
                 <div class="table-responsive">
                     <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
@@ -112,11 +114,28 @@
                            style="width: 100%;">
                         <thead>
                         <tr role="row">
-                            <th style="min-width: 75px; width: 75px"></th>
+                            <th style="min-width: 50px; width: 50px"></th>
+                            @if(Auth::user()->hasRole('College Super Admin'))
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                >Quintile
+                                </th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                >Education Level
+                                </th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                >Program
+                                </th>
+                            @endif
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
-                                style="min-width: 151px;">Year
+                            >Year
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
@@ -125,12 +144,12 @@
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Number of Female Students
+                            >Number of Female Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Approval Status
+                            >Approval Status
                             </th>
 
                         </tr>
@@ -138,60 +157,76 @@
                         <tbody>
                         @if (count($enrollments) > 0)
                             @foreach ($enrollments as $enrollment)
-                                <tr role="row" class="odd"
-                                    onclick="window.location='normal/{{$enrollment->id}}'">
-                                    <td class="text-center">
-                                        @if(Auth::user()->hasRole('College Super Admin'))
+                                <tr role="row" class="odd">
+                                    @if(Auth::user()->hasRole('College Super Admin'))
+                                        <td class="text-center">
                                             @if($enrollment->approval_status == "Pending")
-                                                <form action="economically-disadvantaged/{{$enrollment->id}}/approve" method="POST">
+                                                <form action="economically-disadvantaged/{{$enrollment->id}}/approve"
+                                                      method="POST">
                                                     @csrf
                                                     <input type="hidden" name="action" value="disapprove">
-                                                    <button type="submit" style="opacity:0.80" data-toggle="tooltip" title="Disapprove"
+                                                    <button type="submit" style="opacity:0.80" data-toggle="tooltip"
+                                                            title="Disapprove"
                                                             class="btn btn-danger btn-circle text-white btn-sm">
                                                         <i class="fas fa-times" style="opacity:0.75"></i>
                                                     </button>
                                                 </form>
-                                            @endif                                                
-                                        @else
+                                            @endif
+                                        </td>
+                                        <td>{{$enrollment->quintile}}</td>
+                                        <td>{{$enrollment->department->college->education_level}}</td>
+                                        <td>{{$enrollment->department->college->education_program}}</td>
+                                    @else
+                                        <td class="text-center">
                                             @if($enrollment->approval_status != "Approved")
                                                 <div class="row px-1">
-                                                    <div class="col">
+                                                    <div class="col px-0">
                                                         <form class="p-0"
-                                                            action="/enrollment/economically-disadvantaged/{{$enrollment->id}}/edit"
-                                                            method="GET">
+                                                              action="/enrollment/economically-disadvantaged/{{$enrollment->id}}/edit"
+                                                              method="GET">
                                                             <button type="submit"
-                                                                    class="btn btn-primary btn-circle text-white btn-sm" style="opacity:0.80" data-toggle="tooltip" title="Edit">
-                                                                    <i class="fas fa-pencil-alt fa-sm" style="opacity:0.75"></i>
+                                                                    class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Edit">
+                                                                <i class="fas fa-pencil-alt fa-sm"
+                                                                   style="opacity:0.75"></i>
                                                             </button>
                                                         </form>
                                                     </div>
-                                                    <div class="col">
+                                                    <div class="col px-0">
                                                         <form class="p-0"
-                                                                action="/enrollment/economically-disadvantaged/{{$enrollment->id}}"
-                                                                method="POST">
+                                                              action="/enrollment/economically-disadvantaged/{{$enrollment->id}}"
+                                                              method="POST">
                                                             @csrf
                                                             <input type="hidden" name="_method"
-                                                                    value="DELETE">
+                                                                   value="DELETE">
                                                             <button type="submit"
-                                                                    class="btn btn-danger btn-circle text-white btn-sm" style="opacity:0.80" data-toggle="tooltip" title="Delete">
-                                                                <i class="fas fa-trash fa-sm" style="opacity:0.75"></i>
+                                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Delete">
+                                                                <i class="fas fa-trash fa-sm"
+                                                                   style="opacity:0.75"></i>
                                                             </button>
                                                         </form>
                                                     </div>
-                                                </div> 
-                                            @endif                                                           
-                                        @endif
-                                    </td>
+                                                </div>
+                                            @endif
+                                        </td>
+                                    @endif
+
 
                                     <td>{{$enrollment->department->year_level}}</td>
                                     <td>{{$enrollment->male_students_number}}</td>
                                     <td>{{$enrollment->female_students_number}}</td>
                                     @if($enrollment->approval_status == "Approved")
-                                        <td class="text-success"><i class="fas fa-check"></i> {{$enrollment->approval_status}}</td>
+                                        <td class="text-success"><i
+                                                    class="fas fa-check"></i> {{$enrollment->approval_status}}</td>
                                     @elseif($enrollment->approval_status == "Pending")
-                                        <td class="text-warning"> <i class="far fa-clock"></i></i> {{$enrollment->approval_status}}</td>
+                                        <td class="text-warning"><i
+                                                    class="far fa-clock"></i></i> {{$enrollment->approval_status}}</td>
                                     @else
-                                        <td class="text-danger"><i class="fas fa-times"></i> {{$enrollment->approval_status}}</td>
+                                        <td class="text-danger"><i
+                                                    class="fas fa-times"></i> {{$enrollment->approval_status}}</td>
                                     @endif
                                 </tr>
                             @endforeach

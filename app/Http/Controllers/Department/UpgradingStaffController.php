@@ -20,6 +20,16 @@ use Illuminate\Validation\ValidationException;
 class UpgradingStaffController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -28,7 +38,6 @@ class UpgradingStaffController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -51,17 +60,19 @@ class UpgradingStaffController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->UpgradingStaffs as $staff) {
-                                            if (strtoupper($staff->study_place) == $requestedPlace) {
-                                                $filteredTeachers[] = $staff;
-                                            }
+                                            $filteredTeachers[] = $staff;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->UpgradingStaffs as $staff) {
                                             if (strtoupper($staff->study_place) == $requestedPlace) {
@@ -72,6 +83,7 @@ class UpgradingStaffController extends Controller
                                 }
                             }
                         }
+                        
                     }
                 }
             }
@@ -105,7 +117,6 @@ class UpgradingStaffController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = [
@@ -144,7 +155,6 @@ class UpgradingStaffController extends Controller
 
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
@@ -180,7 +190,7 @@ class UpgradingStaffController extends Controller
 
         $department->upgradingStaffs()->save($upgradingStaff);
 
-        return redirect("/department/upgrading-staff");
+        return redirect("/department/upgrading-staff")->with('success', 'Successfully Added Upgrading Staff');
 
 
     }
@@ -298,6 +308,6 @@ class UpgradingStaffController extends Controller
                 }
             }
         }
-        return redirect("/department/upgrading-staff");
+        return redirect("/department/upgrading-staff")->with('primary', 'Success');
     }
 }

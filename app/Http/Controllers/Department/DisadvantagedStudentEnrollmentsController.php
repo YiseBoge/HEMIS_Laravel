@@ -20,6 +20,16 @@ use Illuminate\Validation\ValidationException;
 class DisadvantagedStudentEnrollmentsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -28,7 +38,6 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -58,17 +67,19 @@ class DisadvantagedStudentEnrollmentsController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->disadvantagedStudentEnrollments as $enrollment) {
-                                            if ($enrollment->quintile == $requestedQuintile) {
-                                                $enrollments[] = $enrollment;
-                                            }
+                                            $enrollments[] = $enrollment;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->disadvantagedStudentEnrollments as $enrollment) {
                                             if ($enrollment->quintile == $requestedQuintile) {
@@ -79,6 +90,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
                                 }
                             }
                         }
+                        
                     }
                 }
             }
@@ -115,7 +127,6 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -156,7 +167,6 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $enrollment->quintile = $request->input('quintile');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -195,7 +205,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
 
         $department->disadvantagedStudentEnrollments()->save($enrollment);
 
-        return redirect("/enrollment/economically-disadvantaged");
+        return redirect("/enrollment/economically-disadvantaged")->with('success', 'Successfully Added Economically Disadvantaged Enrollment');
     }
 
     /**
@@ -316,6 +326,6 @@ class DisadvantagedStudentEnrollmentsController extends Controller
 
             }
         }
-        return redirect("/enrollment/economically-disadvantaged?department=" . $selectedDepartment);
+        return redirect("/enrollment/economically-disadvantaged?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 }

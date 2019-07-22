@@ -16,6 +16,16 @@ use Illuminate\Validation\ValidationException;
 class BandNamesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -23,7 +33,6 @@ class BandNamesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $bands = BandName::all();
@@ -42,7 +51,6 @@ class BandNamesController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $bands = BandName::all();
@@ -63,7 +71,6 @@ class BandNamesController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $this->validate($request, [
@@ -76,9 +83,7 @@ class BandNamesController extends Controller
         $bandName->acronym = $request->input('band_acronym');
         $bandName->save();
 
-        return redirect('/band/band-name');
-
-
+        return redirect('/band/band-name')->with('success', 'Successfully Added Band Name');
     }
 
     /**
@@ -90,7 +95,6 @@ class BandNamesController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         return view('bands.details');
@@ -105,10 +109,16 @@ class BandNamesController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
-        return view('bands.edit');
+        $bands = BandName::all();
+        $current_band_name = BandName::find($id);
+        $data = [
+            'bands' => $bands,
+            'current_band_name' => $current_band_name,
+            'page_name' => 'administer.band-name.edit'
+        ];
+        return view('bands.band_name.list')->with($data);
     }
 
     /**
@@ -120,7 +130,7 @@ class BandNamesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       
     }
 
     /**

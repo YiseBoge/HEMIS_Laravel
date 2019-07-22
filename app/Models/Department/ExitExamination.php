@@ -20,6 +20,7 @@ class ExitExamination extends Model
     use Enums;
 
     public $incrementing = false;
+    
     /**
      * @return BelongsTo
      */

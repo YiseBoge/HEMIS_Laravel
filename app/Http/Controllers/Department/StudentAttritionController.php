@@ -19,6 +19,16 @@ use Illuminate\Validation\ValidationException;
 class StudentAttritionController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -68,17 +78,19 @@ class StudentAttritionController extends Controller
         if ($institution != null) {
             foreach ($institution->bands as $band) {
                 foreach ($band->colleges as $college) {
-                    if ($college->education_program == $requestedProgram && $college->education_level == $requestedLevel) {
-                        foreach ($college->departments as $department) {
-                            if ($user->hasRole('College Super Admin')) {
+                    if ($user->hasRole('College Super Admin')) {
+                        if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                            foreach ($college->departments as $department) {
                                 if ($department->departmentName->id == $requestedDepartment) {
                                     foreach ($department->studentAttritions as $attrition) {
-                                        if ($attrition->type == $requestedType && $attrition->case == $requestedCase && $attrition->student_type == $requestedStudentType) {
-                                            $attritions[] = $attrition;
-                                        }
+                                        $attritions[] = $attrition;
                                     }
                                 }
-                            } else {
+                            }
+                        }
+                    }else{
+                        if ($college->education_program == $requestedProgram && $college->education_level == $requestedLevel) {
+                            foreach ($college->departments as $department) {
                                 if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                     foreach ($department->studentAttritions as $attrition) {
                                         if ($attrition->type == $requestedType && $attrition->case == $requestedCase && $attrition->student_type == $requestedStudentType) {
@@ -89,7 +101,6 @@ class StudentAttritionController extends Controller
                             }
                         }
                     }
-
                 }
 
             }
@@ -202,7 +213,7 @@ class StudentAttritionController extends Controller
 
         $department->studentAttritions()->save($attrition);
 
-        return redirect("/student/student-attrition");
+        return redirect("/student/student-attrition")->with('success', 'Successfully Added Attrition Information');
     }
 
     /**
@@ -325,6 +336,6 @@ class StudentAttritionController extends Controller
 
             }
         }
-        return redirect("/student/student-attrition?department=" . $selectedDepartment);
+        return redirect("/student/student-attrition?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 }

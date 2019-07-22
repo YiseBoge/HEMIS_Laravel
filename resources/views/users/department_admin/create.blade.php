@@ -13,7 +13,7 @@
                             <label for="name"
                                    class="col-md-4 col-form-label text-md-right">{{ __('Department') }}</label>
                             <div class="col-md-6">
-                                {!! Form::select('department_name_id', $department_names ,null  , ['class' => 'form-control']) !!}
+                                {!! Form::select('department_name_id', $department_names, old('department_name_id'), ['class' => 'form-control']) !!}
                             </div>
 
                         </div>
@@ -77,8 +77,8 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-12 offset-md-5">
-                                {!! Form::submit('Add Admin', ['class' => 'btn btn-primary']) !!}
+                            <div class="col-md-6 offset-md-5">
+                                {!! Form::submit('Add Admin', ['class' => 'btn btn-primary btn-sm']) !!}
                             </div>
                         </div>
                         {!! Form::close() !!}

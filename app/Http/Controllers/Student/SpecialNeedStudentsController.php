@@ -22,6 +22,16 @@ use Illuminate\Validation\ValidationException;
 class SpecialNeedStudentsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -30,7 +40,6 @@ class SpecialNeedStudentsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -108,7 +117,6 @@ class SpecialNeedStudentsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -202,7 +210,7 @@ class SpecialNeedStudentsController extends Controller
         $specialNeedStudent->general()->save($student);
         $studentService->student()->save($student);
 
-        return redirect("/student/special-need");
+        return redirect("/student/special-need")->with('success', 'Successfully Added Special Need Student');
     }
 
     /**
@@ -214,7 +222,6 @@ class SpecialNeedStudentsController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -233,7 +240,6 @@ class SpecialNeedStudentsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -281,7 +287,6 @@ class SpecialNeedStudentsController extends Controller
         $specialNeedStudent->disability = $request->input("disability_type");
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();

@@ -101,11 +101,11 @@
 
                     <div class="modal-body row p-4">
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::text('budget_code', null, ['class' => 'form-control', 'id' => 'add_budget_code', 'required' => 'true']) !!}
+                            {!! Form::text('budget_code', old('budget_code'), ['class' => 'form-control', 'id' => 'add_budget_code', 'required' => 'true']) !!}
                             {!! Form::label('add_budget_code', 'Budget Code', ['class' => 'form-control-placeholder']) !!}
                         </div>
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::text('description', null, ['class' => 'form-control', 'id' => 'add_description', 'required' => 'true']) !!}
+                            {!! Form::text('description', old('description'), ['class' => 'form-control', 'id' => 'add_description', 'required' => 'true']) !!}
                             {!! Form::label('add_description', 'Budget Description', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>

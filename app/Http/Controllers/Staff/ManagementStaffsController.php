@@ -16,6 +16,16 @@ use Illuminate\Validation\ValidationException;
 class ManagementStaffsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -23,7 +33,6 @@ class ManagementStaffsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['College Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -58,7 +67,6 @@ class ManagementStaffsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -115,7 +123,6 @@ class ManagementStaffsController extends Controller
         $managementStaff->management_level = $request->input('management_level');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -144,7 +151,7 @@ class ManagementStaffsController extends Controller
         $managementStaff = ManagementStaff::find($managementStaff->id);
         $managementStaff->general()->save($staff);
 
-        return redirect('/staff/management');
+        return redirect('/staff/management')->with('success', 'Successfully Added Management Staff');
     }
 
     /**
@@ -156,7 +163,6 @@ class ManagementStaffsController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -175,7 +181,6 @@ class ManagementStaffsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $data = array(
@@ -214,7 +219,7 @@ class ManagementStaffsController extends Controller
         $managementStaff = ManagementStaff::find($id);
         $managementStaff->management_level = $request->input('management_level');
 
-        $staff = new $managementStaff->general;
+        $staff = $managementStaff->general;
         $staff->name = $request->input('name');
         $staff->birth_date = $request->input('birth_date');
         $staff->sex = $request->input('sex');
@@ -226,13 +231,12 @@ class ManagementStaffsController extends Controller
         $staff->employment_type = $request->input('employment_type');
         $staff->dedication = $request->input('dedication');
         $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $request->has('expatriate');
-        $staff->is_from_other_region = $request->has('other_region');
+        $staff->is_expatriate = $request->input('expatriate');
+        $staff->is_from_other_region = $request->input('other_region');
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 

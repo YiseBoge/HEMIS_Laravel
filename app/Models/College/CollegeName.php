@@ -2,16 +2,18 @@
 
 namespace App\Models\College;
 
+use App\Models\Band\BandName;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
  * @property string|null college_name
  * @property string|null acronym
+ * @property BandName bandName
  * @method static CollegeName find(int $id)
  */
 class CollegeName extends Model
@@ -54,5 +56,13 @@ class CollegeName extends Model
     public function users()
     {
         return $this->hasMany('App\User');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function bandName()
+    {
+        return $this->belongsTo('App\Models\Band\BandName');
     }
 }

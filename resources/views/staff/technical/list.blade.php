@@ -62,12 +62,12 @@
                         @if (count($staffs) > 0)
                             @foreach ($staffs as $staff)
                                 <tr role="row" class="odd"
-                                    onclick="window.location='administrative/{{$staff->id}}'">
+                                    onclick="window.location='technical/{{$staff->id}}'">
                                     <td class="text-center">
                                         <div class="row px-1">
                                             <div class="col px-0">
                                                 <form class="p-0"
-                                                      action="/staff/administrative/{{$staff->id}}/edit"
+                                                      action="/staff/technical/{{$staff->id}}/edit"
                                                       method="GET">
                                                     <button type="submit"
                                                             class="btn btn-primary btn-circle text-white btn-sm mx-0"
@@ -80,7 +80,7 @@
                                             </div>
                                             <div class="col px-0">
                                                 <form class="p-0"
-                                                      action="/staff/administrative/{{$staff->id}}"
+                                                      action="/staff/technical/{{$staff->id}}"
                                                       method="POST">
                                                     @csrf
                                                     <input type="hidden" name="_method"

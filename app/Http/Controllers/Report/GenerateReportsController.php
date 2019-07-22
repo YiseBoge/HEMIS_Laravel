@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Auth;
 
 class GenerateReportsController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Generate all institutions KPI Report.
@@ -23,7 +32,6 @@ class GenerateReportsController extends Controller
     public function generateFullReport()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
         $year = $user->currentInstance->year;
 
@@ -811,7 +819,7 @@ class GenerateReportsController extends Controller
         $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
-        return redirect('/report');
+        return redirect('/report')->with('success', 'Successfully Updated Current Year');
     }
 
     /**
@@ -823,7 +831,6 @@ class GenerateReportsController extends Controller
     public function generateInstitutionReport($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
         $year = $user->currentInstance->year;
 

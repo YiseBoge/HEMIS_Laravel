@@ -19,6 +19,16 @@ use Illuminate\Validation\ValidationException;
 class AcademicStaffsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -27,7 +37,6 @@ class AcademicStaffsController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
@@ -84,7 +93,6 @@ class AcademicStaffsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -149,7 +157,6 @@ class AcademicStaffsController extends Controller
         $academicStaff->overload_remark = $request->input('overload_remark') == null ? " " : $request->input('overload_remark');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();
@@ -190,7 +197,7 @@ class AcademicStaffsController extends Controller
         $academicStaff = AcademicStaff::find($academicStaff->id);
         $academicStaff->general()->save($staff);
 
-        return redirect('/staff/academic');
+        return redirect('/staff/academic')->with('success', 'Successfully Added Academic Staff');
     }
 
     /**
@@ -202,7 +209,6 @@ class AcademicStaffsController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -222,7 +228,6 @@ class AcademicStaffsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $data = array(
@@ -263,7 +268,9 @@ class AcademicStaffsController extends Controller
 
         ]);
         $academicStaff = AcademicStaff::find($id);
+        
         if ($request->input('status') == "onLeave") {
+            //die("1" . $request->input('status'));
             $this->validate($request, [
                 'leave_type' => 'required',
                 'leave_country' => 'required',
@@ -289,8 +296,12 @@ class AcademicStaffsController extends Controller
             $staffLeave->academicStaff()->save($academicStaff);
 
         } else {
-            //Handle On duty
+            //die("2" . $request->input('status'));
+            $item = StaffLeave::find($academicStaff->staff_leave_id);
+            $item->delete();
+            $academicStaff->staff_leave_id = 0;
         }
+
         $academicStaff->field_of_study = $request->input('field_of_study');
         $academicStaff->teaching_load = $request->input('teaching_load');
         $academicStaff->overload_remark = $request->input('overload_remark');
@@ -309,13 +320,12 @@ class AcademicStaffsController extends Controller
         $staff->employment_type = $request->input('employment_type');
         $staff->dedication = $request->input('dedication');
         $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $request->has('expatriate');
-        $staff->is_from_other_region = $request->has('other_region');
+        $staff->is_expatriate = $request->input('expatriate');
+        $staff->is_from_other_region = $request->input('other_region');
         $staff->salary = $request->input('salary');
         $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
         $institution = $user->institution();

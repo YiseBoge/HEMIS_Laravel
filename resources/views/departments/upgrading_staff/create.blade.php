@@ -2,14 +2,6 @@
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
-        <!--  Disabled Students Form  -->
-        @if(count($errors) > 0)
-            @foreach($errors->all() as $error)
-                <div class="alert alert-danger">
-                    {{$error}}
-                </div>
-            @endforeach
-        @endif
         {!! Form::open(['action' => 'Department\UpgradingStaffController@store', 'method' => 'POST', 'class' => 'w-100']) !!}
         @csrf
         <div class="row my-5">
@@ -33,16 +25,15 @@
 
                         <div class="form-group row pt-3">
                             <div class="col form-group">
-                                <input type="number" id="male_number" name="male_number" class="form-control" required>
-                                <label class="form-control-placeholder" for="male_number">Male
-                                    Teachers</label>
+                                <input type="number" id="male_number" name="male_number" class="form-control" required
+                                       value="{{ old('male_number') }}">
+                                <label class="form-control-placeholder" for="male_number">Male Teachers</label>
                             </div>
 
                             <div class="col form-group">
                                 <input type="number" id="female_number" name="female_number" class="form-control"
-                                       required>
-                                <label class="form-control-placeholder" for="female_number">Female
-                                    Teachers</label>
+                                       required value="{{ old('female_number') }}">
+                                <label class="form-control-placeholder" for="female_number">Female Teachers</label>
                             </div>
                         </div>
 
