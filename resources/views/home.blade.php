@@ -55,7 +55,16 @@
                 </div>
             </div>
         @else
-            <h1 class="text-primary">{{$name}}</h1>
+            <h1 class="text-primary">
+                @if (Auth::user()->hasRole('Department Admin'))
+                    {{ Auth::user()->departmentName }}
+                @elseif (Auth::user()->hasAnyRole(['College Admin', 'College Super Admin']))
+                    {{ Auth::user()->collegeName }}
+                @elseif (Auth::user()->hasRole('University Admin'))
+                    {{ Auth::user()->institution()->institutionName }}
+                @endif
+            </h1>
+            <hr>
             <div class="row my-3">
                 <div class="col-md-3">
                     <div class="card border-left-primary shadow h-100 py-2">

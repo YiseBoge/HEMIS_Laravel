@@ -11,6 +11,15 @@ use Illuminate\Support\Facades\Auth;
 
 class ReportsController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -20,7 +29,6 @@ class ReportsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $reports = ReportCard::groupedReports();
@@ -76,7 +84,6 @@ class ReportsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $reports = ReportCard::groupedReports();
@@ -109,7 +116,6 @@ class ReportsController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $report = ReportCard::find($id);

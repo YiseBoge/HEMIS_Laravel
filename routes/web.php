@@ -144,5 +144,7 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/change-password', 'HomeController@showChangePasswordForm');
+Route::post('/changePassword', 'HomeController@changePassword')->name('changePassword');
 Route::get('home/student-enrollment-chart', 'HomeController@enrollmentChart');
 Route::get('home/age-enrollment-chart', 'HomeController@ageEnrollmentChart');

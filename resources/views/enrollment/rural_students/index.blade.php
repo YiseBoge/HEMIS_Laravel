@@ -10,22 +10,24 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row">
                         <div class="col text-right">
-                                <form action="rural-area-students/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <input type="hidden" name="department"
-                                            value="{{$selected_department}}">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending in Selected Department<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="rural-area-students/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <input type="hidden" name="department"
+                                       value="{{$selected_department}}">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending in Selected Department<i
+                                            class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
-                    </div>                           
+                    </div>
                 @else
                     <div class="row my-3">
                         <div class="col text-right">
-                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/enrollment/rural-area-students/create">New
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm"
+                               href="/enrollment/rural-area-students/create">New
                                 Entry<i
                                         class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                         </div>
@@ -113,7 +115,7 @@
                            style="width: 100%;">
                         <thead>
                         <tr role="row">
-                            <th style="min-width: 75px; width: 75px"></th>
+                            <th style="min-width: 50px; width: 50px"></th>
                             @if(Auth::user()->hasRole('College Super Admin'))
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
@@ -209,11 +211,14 @@
                                     <td>{{$enrollment->male_students_number}}</td>
                                     <td>{{$enrollment->female_students_number}}</td>
                                     @if($enrollment->approval_status == "Approved")
-                                        <td class="text-success"><i class="fas fa-check"></i> {{$enrollment->approval_status}}</td>
+                                        <td class="text-success"><i
+                                                    class="fas fa-check"></i> {{$enrollment->approval_status}}</td>
                                     @elseif($enrollment->approval_status == "Pending")
-                                        <td class="text-warning"> <i class="far fa-clock"></i></i> {{$enrollment->approval_status}}</td>
+                                        <td class="text-warning"><i
+                                                    class="far fa-clock"></i></i> {{$enrollment->approval_status}}</td>
                                     @else
-                                        <td class="text-danger"><i class="fas fa-times"></i> {{$enrollment->approval_status}}</td>
+                                        <td class="text-danger"><i
+                                                    class="fas fa-times"></i> {{$enrollment->approval_status}}</td>
                                     @endif
                                 </tr>
                             @endforeach

@@ -17,6 +17,16 @@ use Illuminate\Validation\ValidationException;
 class BudgetsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -32,7 +42,6 @@ class BudgetsController extends Controller
 
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles(['College Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -82,8 +91,7 @@ class BudgetsController extends Controller
     {
         $budget_type = Budget::getEnum('budget_type')['CAPITAL'];
 
-        $user = Auth::user();
-        if ($user == null) return redirect('/login');
+$user = Auth::user();
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -144,7 +152,6 @@ class BudgetsController extends Controller
         $budget->utilized_budget = $request->input('utilized');
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
 
@@ -201,7 +208,6 @@ class BudgetsController extends Controller
         $budget_type = Budget::getValueKey(Budget::getEnum("budget_type"), $budget->budget_type);
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -254,7 +260,6 @@ class BudgetsController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
         $this->validate($request, [

@@ -2,65 +2,11 @@
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
-        <!--  Disabled Students Form  -->
-        @if(count($errors) > 0)
-            @foreach($errors->all() as $error)
-                <div class="alert alert-danger">
-                    {{$error}}
-                </div>
-            @endforeach
-        @endif
         <form class="pb-5" action="/student/foreign" method="POST">
             @csrf
             <h3 class="font-weight-bold text-primary">Add Foreign Student</h3>
             <hr>
-            <div class="row my-5">
-                <div class="col-md-5">
-                    <fieldset class="card shadow h-100">
-                        <div class="card-header text-primary">
-                            Academic Information
-                        </div>
-                        <div class="card-body px-4">
-                            <div class="form-group row pt-3">
-                                <div class="col form-group">
-                                    <select class="form-control" name="education_level" id="level">
-                                        @foreach ($education_levels as $key => $value)
-                                            <option value="{{$key}}" {{ (old('education_level') == $key ? 'selected':'') }}>{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="level" class="form-control-placeholder">
-                                        Education Level
-                                    </label>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row pt-3">
-                                <div class="col-md-6 form-group">
-                                    <select class="form-control" name="program" id="program">
-                                        @foreach ($programs as $key => $value)
-                                            <option value="{{$key}}" {{ (old('program') == $key ? 'selected':'') }}>{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="program" class="form-control-placeholder">
-                                        Program
-                                    </label>
-                                </div>
-
-                                <div class="col-md-6 form-group">
-                                    <select class="form-control" name="year_level" id="year_level">
-                                        @for ($i = 1; $i < 7; $i++)
-                                            <option value="{{$i}}" {{ (old('year_level') == $i ? 'selected':'') }}>{{$i}}</option>
-                                        @endfor
-                                    </select>
-                                    <label for="year_level" class="form-control-placeholder">
-                                        Year Level
-                                    </label>
-                                </div>
-
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
+            <div class="row my-4">
                 <div class="col-md-7">
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
@@ -70,17 +16,17 @@
                             <div class="form-row">
                                 <div class="col-md form-group">
                                     <input type="text" id="name" name="name" class="form-control" required
-                                           value=“{{ old('name') }}">
+                                           value="{{ old('name') }}">
                                     <label class="form-control-placeholder" for="name">Name</label>
                                 </div>
                             </div>
-                            <hr>
+                            <hr class="mb-4">
                             <div class="form-row pt-3">
                                 <div class="col-md-6">
                                     <div class="form-group">
 
                                         <input class="form-control" id="bdate" name="birth_date" type="date"
-                                               value=“{{ old('birth_date') }}"
+                                               value="{{ old('birth_date') }}"
                                                placeholder="2011-08-19">
                                         <label for="bdate" class="form-control-placeholder">
                                             Date of Birth
@@ -89,7 +35,7 @@
                                     <hr>
                                     <div class="form-group">
                                         <input type="text" id="student_id" name="student_id" class="form-control"
-                                               required value=“{{ old('student_id') }}">
+                                               required value="{{ old('student_id') }}">
                                         <label class="form-control-placeholder" for="student_id">Student ID</label>
 
                                     </div>
@@ -113,11 +59,57 @@
                                     <hr>
                                     <div class="form-group">
                                         <input type="tel" id="phoneno" name="phone_number" class="form-control" required
-                                               value=“{{ old('phone_number') }}">
+                                               value="{{ old('phone_number') }}">
                                         <label class="form-control-placeholder" for="phoneno">Phone Number</label>
                                     </div>
 
                                 </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-5">
+                    <fieldset class="card shadow h-100">
+                        <div class="card-header text-primary">
+                            Academic Information
+                        </div>
+                        <div class="card-body px-4">
+                            <div class="form-group row pt-3">
+                                <div class="col form-group">
+                                    <select class="form-control" name="education_level" id="level">
+                                        @foreach ($education_levels as $key => $value)
+                                            <option value="{{$key}}" {{ (old('education_level') == $key ? 'selected':'') }}>{{$value}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="level" class="form-control-placeholder">
+                                        Education Level
+                                    </label>
+                                </div>
+                            </div>
+                            <hr class="mb-4">
+                            <div class="form-group row pt-3">
+                                <div class="col-md-6 form-group">
+                                    <select class="form-control" name="program" id="program">
+                                        @foreach ($programs as $key => $value)
+                                            <option value="{{$key}}" {{ (old('program') == $key ? 'selected':'') }}>{{$value}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="program" class="form-control-placeholder">
+                                        Program
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <select class="form-control" name="year_level" id="year_level">
+                                        @for ($i = 1; $i < 7; $i++)
+                                            <option value="{{$i}}" {{ (old('year_level') == $i ? 'selected':'') }}>{{$i}}</option>
+                                        @endfor
+                                    </select>
+                                    <label for="year_level" class="form-control-placeholder">
+                                        Year Level
+                                    </label>
+                                </div>
+
                             </div>
                         </div>
                     </fieldset>
@@ -154,18 +146,18 @@
                             </label>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="mb-4">
 
                     <div class="form-group row" id="dormitory_info">
                         <!-- this drop down is going to be changed -->
                         <div class="col-md-6 form-group">
                             <input type="text" id="block_number" name="block_number" class="form-control" required
-                                   value=“{{ old('block_number') }}">
+                                   value="{{ old('block_number') }}">
                             <label class="form-control-placeholder" for="block_number">Block No</label>
                         </div>
                         <div class="col-md-6 form-group">
                             <input type="text" id="room_number" name="room_number" class="form-control" required
-                                   value=“{{ old('room_number') }}">
+                                   value="{{ old('room_number') }}">
                             <label class="form-control-placeholder" for="room_number">Room No</label>
                         </div>
                     </div>
@@ -181,16 +173,16 @@
                     <div class="form-group row pt-3">
                         <div class="col-md-6 form-group">
                             <input type="text" id="nationality" name="nationality" class="form-control" required
-                                   value=“{{ old('nationality') }}">
+                                   value="{{ old('nationality') }}">
                             <label class="form-control-placeholder" for="nationality">Nationality</label>
                         </div>
                         <div class="col-md-6 form-group">
                             <input type="number" id="years_in_ethiopia" name="years_in_ethiopia" class="form-control"
-                                   required value=“{{ old('years_in_ethiopia') }}">
+                                   required value="{{ old('years_in_ethiopia') }}">
                             <label class="form-control-placeholder" for="years_in_ethiopia">Years in Ethiopia</label>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="mb-4">
                     <div class="form-group row pt-3">
                         <div class="col form-group">
 

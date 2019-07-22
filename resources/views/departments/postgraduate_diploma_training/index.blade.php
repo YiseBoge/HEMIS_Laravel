@@ -10,22 +10,24 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row my-3">
                         <div class="col text-right">
-                                <form action="postgraduate-diploma-training/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <input type="hidden" name="department"
-                                            value="{{$selected_department}}">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending in Selected Department<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="postgraduate-diploma-training/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <input type="hidden" name="department"
+                                       value="{{$selected_department}}">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending in Selected Department<i
+                                            class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 @else
                     <div class="row my-3">
                         <div class="col text-right">
-                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="postgraduate-diploma-training/create">New
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm"
+                               href="postgraduate-diploma-training/create">New
                                 Entry<i
                                         class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                         </div>

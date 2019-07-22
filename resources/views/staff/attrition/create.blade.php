@@ -23,7 +23,7 @@
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <input type="number" id="male_number" name="male_number" class="form-control"
-                                           value=“{{ old('male_number’) }}"
+                                           value="{{ old('male_number’) }}"
                                            required>
                                     <label class="form-control-placeholder" for="male_number">Male
                                         Students</label>
@@ -31,7 +31,7 @@
 
                                 <div class="col form-group">
                                     <input type="number" id="female_number" name="female_number" class="form-control"
-                                           value=“{{ old('female_number’) }}"
+                                           value="{{ old('female_number’) }}"
                                            required>
                                     <label class="form-control-placeholder" for="female_number">Female
                                         Students</label>

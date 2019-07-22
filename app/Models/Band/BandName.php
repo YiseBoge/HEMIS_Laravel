@@ -5,7 +5,6 @@ namespace App\Models\Band;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Webpatser\Uuid\Uuid;
 
 /**
@@ -28,6 +27,7 @@ class BandName extends Model
 
         static::deleting(function(BandName $model) { // before delete() method call this
             $model->band()->delete();
+            $model->collegeNames()->delete();
             $model->users()->delete();
         });
     }
@@ -37,6 +37,14 @@ class BandName extends Model
     public function band()
     {
         return $this->hasMany('App\Models\Band\Band');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function collegeNames()
+    {
+        return $this->hasMany('App\Models\College\CollegeName');
     }
 
     /**

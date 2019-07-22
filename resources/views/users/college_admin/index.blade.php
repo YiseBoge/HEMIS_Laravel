@@ -4,7 +4,7 @@
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">College Admin</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ Auth::user()->hasRole('University Admin') ? 'College Super Admins' : 'Administerer Admins' }}</h6>
             </div>
             <div class="card-body">
                 <div class="row my-3">
@@ -37,11 +37,6 @@
                                     colspan="1" aria-label="Acronym: activate to sort column ascending"
                                 >Email
                                 </th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-label="Acronym: activate to sort column ascending"
-                                >Remark
-                                </th>
-
                             </tr>
                             </thead>
                             <tbody>
@@ -83,7 +78,6 @@
                                     <td>{{ $editor->name }}</td>
                                     <td>{{ $editor->collegeName->college_name }}</td>
                                     <td>{{ $editor->email }}</td>
-                                    <td>{{ $editor->roles->first()->role_name }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

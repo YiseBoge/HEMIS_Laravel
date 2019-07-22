@@ -5,23 +5,15 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card shadow">
-                    <div class="card-header text-primary">Add College Admin</div>
+                    <div class="card-header text-primary">{{ Auth::user()->hasRole('University Admin') ? 'Add College Super Admin' : 'Add Administerer Admin' }}</div>
                     <div class="card-body pt-4">
                         {!! Form::open(['action' => 'User\CollegeAdminController@store', 'method' => 'POST']) !!}
 
-                        <div class="form-group row">
+                        <div class="form-group row {{(Auth::user()->hasRole('University Admin') ? '' : 'd-none')}}">
                             <label for="name"
                                    class="col-md-4 col-form-label text-md-right">{{ __('College') }}</label>
                             <div class="col-md-6">
-                                {!! Form::select('college_name_id', $college_names, old('college_name_id')  , ['class' => 'form-control']) !!}
-                            </div>
-
-                        </div>
-                        <div class="form-group row">
-                            <label for="name"
-                                   class="col-md-4 col-form-label text-md-right">{{ __('Band') }}</label>
-                            <div class="col-md-6">
-                                {!! Form::select('band_name_id', $band_names, old('band_name_id')  , ['class' => 'form-control']) !!}
+                                {!! Form::select('college_name_id', $college_names, Auth::user()->hasRole('University Admin') ? old('college_name_id') : $college_name  , ['class' => 'form-control']) !!}
                             </div>
 
                         </div>
@@ -84,16 +76,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <div class="form-check m-auto">
-                                {!! Form::checkbox('is_super_admin', null, !empty(old('is_super_admin')), ['id' => "is_super_admin", 'class' => 'form-check-input']) !!}
-                                {!! Form::label('College Super Admin', null, ['class' => 'form-check-label', 'for' => "is_super_admin"]) !!}
-                            </div>
-                        </div>
-
                         <div class="form-group row mb-0">
-                            <div class="col-md-12 offset-md-5">
-                                {!! Form::submit('Add Admin', ['class' => 'btn btn-primary']) !!}
+                            <div class="col-md-6 offset-md-5">
+                                {{ Form::hidden('role', (Auth::user()->hasRole('University Admin') ? 'College Super Admin' : 'College Admin'), ['id' => 'id']) }}
+                                {!! Form::submit('Add Admin', ['class' => 'btn btn-primary btn-sm']) !!}
                             </div>
                         </div>
                         {!! Form::close() !!}

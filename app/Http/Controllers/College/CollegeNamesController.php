@@ -4,6 +4,7 @@ namespace App\Http\Controllers\College;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Band\BandName;
 use App\Models\College\CollegeName;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,6 +15,16 @@ use Illuminate\Validation\ValidationException;
 class CollegeNamesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -21,7 +32,6 @@ class CollegeNamesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
         $institutionName = $user->institution()->institutionName;
@@ -42,14 +52,15 @@ class CollegeNamesController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
         $institutionName = $user->institution()->institutionName;
         $colleges = $institutionName->collegeNames;
+        $bandNames = BandName::all();
 
         $data = [
             'colleges' => $colleges,
+            'band_names' => $bandNames,
             'page_name' => 'administer.colleges-name.create'
         ];
         return view('colleges.college_name.index')->with($data);
@@ -65,7 +76,6 @@ class CollegeNamesController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
         $this->validate($request, [
@@ -75,11 +85,16 @@ class CollegeNamesController extends Controller
 
         $institutionName = $user->institution()->institutionName;
 
+        $bandNames = BandName::all();
+        /** @var BandName $bandName */
+        $bandName = $bandNames[$request->input('band_name_id')];
+
         $collegeName = new CollegeName;
         $collegeName->college_name = $request->input('college_name');
         $collegeName->acronym = $request->input('college_acronym');
 
         $institutionName->collegeNames()->save($collegeName);
+        $bandName->collegeNames()->save($collegeName);
 
         return redirect('/college/college-name')->with('success', 'Successfully Added College Name');
     }

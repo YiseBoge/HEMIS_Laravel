@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\BandName;
 use App\Models\College\CollegeName;
 use App\Role;
 use App\User;
@@ -17,6 +16,16 @@ use Illuminate\Validation\ValidationException;
 class CollegeAdminController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -24,15 +33,21 @@ class CollegeAdminController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('University Admin');
+        $user->authorizeRoles(['University Admin', 'College Super Admin']);
 
         $institutionNameId = $user->institution_name_id;
 
         $editors = [];
-        foreach (User::all() as $user) {
-            if ($user->hasAnyRole(['College Admin', 'College Super Admin']) && $user->institution_name_id == $institutionNameId) {
-                array_push($editors, $user);
+        foreach (User::all() as $editor) {
+            if ($user->hasRole('University Admin')) {
+                if ($editor->hasRole('College Super Admin') && $editor->institution_name_id == $institutionNameId) {
+                    array_push($editors, $editor);
+                }
+            } else {
+                if ($editor->hasRole('College Admin') && $editor->institution_name_id == $institutionNameId &&
+                    $editor->college_name_id == $user->college_name_id) {
+                    array_push($editors, $editor);
+                }
             }
         }
 
@@ -51,15 +66,20 @@ class CollegeAdminController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('University Admin');
+        $user->authorizeRoles(['University Admin', 'College Super Admin']);
 
         $collegeNames = $user->institution()->institutionName->collegeNames;
-        $bandNames = BandName::all();
+
+        $currentCollege = null;
+        if ($user->hasRole('College Super Admin')) {
+            $currentCollege = $collegeNames->search(function ($collegeName) {
+                return $collegeName->id === Auth::user()->collegeName->id;
+            });
+        }
 
         $data = array(
             'college_names' => $collegeNames,
-            'band_names' => $bandNames,
+            'college_name' => $currentCollege,
             'page_name' => 'administer.college_admin.create',
         );
         return view('users.college_admin.create')->with($data);
@@ -84,15 +104,10 @@ class CollegeAdminController extends Controller
         ]);
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('University Admin');
+        $user->authorizeRoles(['University Admin', 'College Super Admin']);
 
         $currentInstanceId = $user->currentInstance;
         $institutionName = $user->institution()->institutionName;
-
-        $bandNames = BandName::all();
-        /** @var BandName $bandName */
-        $bandName = $bandNames[$request->input('band_name_id')];
 
         $collegeNames = CollegeName::all();
         /** @var CollegeName $collegeName */
@@ -104,20 +119,13 @@ class CollegeAdminController extends Controller
         $user->password = Hash::make($request->input('password'));
 
         $institutionName->users()->save($user);
-        $bandName->users()->save($user);
+        $collegeName->bandName->users()->save($user);
         $collegeName->users()->save($user);
         $currentInstanceId->users()->save($user);
 
-        if ($request->has('is_super_admin')) {
-            $user
-                ->roles()
-                ->attach(Role::where('role_name', 'College Super Admin')->first());
-        } else {
-            $user
-                ->roles()
-                ->attach(Role::where('role_name', 'College Admin')->first());
-        }
-
+        $user
+            ->roles()
+            ->attach(Role::where('role_name', $request->input('role'))->first());
 
         return redirect('/college-admin')->with('success', 'Successfully Added College Admin');
     }

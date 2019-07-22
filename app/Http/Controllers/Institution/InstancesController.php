@@ -13,6 +13,16 @@ use Illuminate\Validation\ValidationException;
 class InstancesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -20,7 +30,6 @@ class InstancesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $instances = Instance::orderByDesc('year')->get();
@@ -59,7 +68,6 @@ class InstancesController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $instances = Instance::orderByDesc('year')->get();
@@ -90,7 +98,6 @@ class InstancesController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
         $this->validate($request, [
@@ -122,7 +129,6 @@ class InstancesController extends Controller
         ]);
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
         $currentInstances = Instance::orderByDesc('year')->get();
         $currentInstance = $currentInstances[$request->input('current_instance')];

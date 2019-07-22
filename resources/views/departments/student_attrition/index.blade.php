@@ -10,18 +10,19 @@
                 @if(Auth::user()->hasRole('College Super Admin'))
                     <div class="row">
                         <div class="col text-right">
-                                <form action="student-attrition/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <input type="hidden" name="department"
-                                            value="{{$selected_department}}">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending in Selected Department<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                            <form action="student-attrition/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <input type="hidden" name="department"
+                                       value="{{$selected_department}}">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending in Selected Department<i
+                                            class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
                         </div>
-                    </div>                           
+                    </div>
                 @else
                     <div class="row my-3">
                         <div class="col text-right">
@@ -143,7 +144,7 @@
                            style="width: 100%;">
                         <thead>
                         <tr role="row">
-                            <th style="min-width: 75px; width: 75px"></th>
+                            <th style="min-width: 50px; width: 50px"></th>
                             @if(Auth::user()->hasRole('College Super Admin'))
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
@@ -198,10 +199,12 @@
                                         @if(Auth::user()->hasRole('College Super Admin'))
                                         <td class="text-center">
                                             @if($attrition->approval_status == "Pending")
-                                                <form action="student-attrition/{{$attrition->id}}/approve" method="POST">
+                                                <form action="student-attrition/{{$attrition->id}}/approve"
+                                                      method="POST">
                                                     @csrf
                                                     <input type="hidden" name="action" value="disapprove">
-                                                    <button type="submit" style="opacity:0.80" data-toggle="tooltip" title="Disapprove"
+                                                    <button type="submit" style="opacity:0.80" data-toggle="tooltip"
+                                                            title="Disapprove"
                                                             class="btn btn-danger btn-circle text-white btn-sm">
                                                         <i class="fas fa-times" style="opacity:0.75"></i>
                                                     </button>
@@ -217,26 +220,32 @@
                                         <td class="text-center">
                                             @if($attrition->approval_status != "Approved")
                                                 <div class="row px-1">
-                                                    <div class="col">
+                                                    <div class="col px-0">
                                                         <form class="p-0"
-                                                            action="/attrition/student-attrition/{{$attrition->id}}/edit"
-                                                            method="GET">
+                                                              action="/attrition/student-attrition/{{$attrition->id}}/edit"
+                                                              method="GET">
                                                             <button type="submit"
-                                                                    class="btn btn-primary btn-circle text-white btn-sm" style="opacity:0.80" data-toggle="tooltip" title="Edit">
-                                                                    <i class="fas fa-pencil-alt fa-sm" style="opacity:0.75"></i>
+                                                                    class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Edit">
+                                                                <i class="fas fa-pencil-alt fa-sm"
+                                                                   style="opacity:0.75"></i>
                                                             </button>
                                                         </form>
                                                     </div>
-                                                    <div class="col">
+                                                    <div class="col px-0">
                                                         <form class="p-0"
-                                                                action="/attrition/student-attrition/{{$attrition->id}}"
-                                                                method="POST">
+                                                              action="/attrition/student-attrition/{{$attrition->id}}"
+                                                              method="POST">
                                                             @csrf
                                                             <input type="hidden" name="_method"
-                                                                    value="DELETE">
+                                                                   value="DELETE">
                                                             <button type="submit"
-                                                                    class="btn btn-danger btn-circle text-white btn-sm" style="opacity:0.80" data-toggle="tooltip" title="Delete">
-                                                                <i class="fas fa-trash fa-sm" style="opacity:0.75"></i>
+                                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Delete">
+                                                                <i class="fas fa-trash fa-sm"
+                                                                   style="opacity:0.75"></i>
                                                             </button>
                                                         </form>
                                                     </div>
@@ -248,11 +257,14 @@
                                     <td>{{$attrition->male_students_number}}</td>
                                     <td>{{$attrition->female_students_number}}</td>
                                     @if($attrition->approval_status == "Approved")
-                                        <td class="text-success"><i class="fas fa-check"></i> {{$attrition->approval_status}}</td>
+                                        <td class="text-success"><i
+                                                    class="fas fa-check"></i> {{$attrition->approval_status}}</td>
                                     @elseif($attrition->approval_status == "Pending")
-                                        <td class="text-warning"> <i class="far fa-clock"></i></i> {{$attrition->approval_status}}</td>
+                                        <td class="text-warning"><i
+                                                    class="far fa-clock"></i></i> {{$attrition->approval_status}}</td>
                                     @else
-                                        <td class="text-danger"><i class="fas fa-times"></i> {{$attrition->approval_status}}</td>
+                                        <td class="text-danger"><i
+                                                    class="fas fa-times"></i> {{$attrition->approval_status}}</td>
                                     @endif
                                 </tr>
                             @endforeach

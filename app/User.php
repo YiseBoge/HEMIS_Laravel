@@ -2,6 +2,10 @@
 
 namespace App;
 
+use App\Models\Band\BandName;
+use App\Models\College\CollegeName;
+use App\Models\Department\DepartmentName;
+use App\Models\Institution\Instance;
 use App\Models\Institution\Institution;
 use App\Models\Institution\InstitutionName;
 use App\Traits\Uuids;
@@ -14,10 +18,10 @@ use Webpatser\Uuid\Uuid;
  * @property array|string|null name
  * @property array|string|null email
  * @property string password
- * @property mixed bandName
- * @property mixed departmentName
- * @property mixed currentInstance
- * @property mixed collegeName
+ * @property BandName bandName
+ * @property DepartmentName departmentName
+ * @property Instance currentInstance
+ * @property CollegeName collegeName
  * @property mixed institution_name_id
  * @property mixed college_name_id
  * @property InstitutionName institutionName

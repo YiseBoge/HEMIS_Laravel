@@ -11,6 +11,7 @@
                             class="fas fa-pen text-white-50 fa-sm ml-2"></i></a>
             </div>
         </div>
+        <hr>
         <div class="row my-3">
             <div class="col-md-3 col-sm-6 mb-md-3">
                 <div class="card border-left-primary shadow h-100 py-2">

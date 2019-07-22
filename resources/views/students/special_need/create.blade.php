@@ -2,14 +2,6 @@
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
-        <!--  Disabled Students Form  -->
-        @if(count($errors) > 0)
-            @foreach($errors->all() as $error)
-                <div class="alert alert-danger">
-                    {{$error}}
-                </div>
-            @endforeach
-        @endif
         <form class="pb-5" action="/student/special-need" method="POST">
             @csrf
             <h3 class="font-weight-bold text-primary">Add Special Need Student</h3>
@@ -33,7 +25,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <hr>
+                            <hr class="mb-4">
                             <div class="form-group row pt-3">
                                 <div class="col-md-6 form-group">
                                     <select class="form-control" name="program" id="program">
@@ -70,7 +62,7 @@
                             <div class="form-row">
                                 <div class="col-md form-group">
                                     <input type="text" id="name" name="name" class="form-control" required
-                                           value=“{{ old('name') }}">
+                                           value="{{ old('name') }}">
                                     <label class="form-control-placeholder" for="name">Name</label>
                                 </div>
                             </div>
@@ -80,7 +72,7 @@
                                     <div class="form-group">
 
                                         <input class="form-control" id="bdate" name="birth_date" type="date"
-                                               value=“{{ old('birth_date') }}"
+                                               value="{{ old('birth_date') }}"
                                                placeholder="2011-08-19">
                                         <label for="bdate" class="form-control-placeholder">
                                             Date of Birth
@@ -89,7 +81,7 @@
                                     <hr>
                                     <div class="form-group">
                                         <input type="text" id="student_id" name="student_id" class="form-control"
-                                               required value=“{{ old('student_id') }}">
+                                               required value="{{ old('student_id') }}">
                                         <label class="form-control-placeholder" for="student_id">Student ID</label>
                                     </div>
                                 </div>
@@ -109,10 +101,10 @@
                                                         name="sex" value="Female">Female</label>
                                         </div>
                                     </div>
-                                    <hr>
+                                    <hr class="mb-4">
                                     <div class="form-group">
                                         <input type="tel" id="phoneno" name="phone_number" class="form-control" required
-                                               value=“{{ old('phone_number') }}">
+                                               value="{{ old('phone_number') }}">
                                         <label class="form-control-placeholder" for="phoneno">Phone Number</label>
                                     </div>
 
@@ -153,18 +145,18 @@
                             </label>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="mb-4">
 
                     <div class="form-group row" id="dormitory_info">
                         <!-- this drop down is going to be changed -->
                         <div class="col-md-6 form-group">
                             <input type="text" id="block_number" name="block_number" class="form-control" required
-                                   value=“{{ old('block_number') }}">
+                                   value="{{ old('block_number') }}">
                             <label class="form-control-placeholder" for="block_number">Block No</label>
                         </div>
                         <div class="col-md-6 form-group">
                             <input type="text" id="room_number" name="room_number" class="form-control" required
-                                   value=“{{ old('room_number') }}">
+                                   value="{{ old('room_number') }}">
                             <label class="form-control-placeholder" for="room_number">Room No</label>
                         </div>
                     </div>
@@ -190,7 +182,7 @@
                             </label>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="mb-4">
                     <div class="form-group row pt-3">
                         <div class="col form-group">
 
