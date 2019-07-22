@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                         @else
-                            <div class="form-group row pt-3">
+                            {{-- <div class="form-group row pt-3">
                                 <div class="col-md form-group">
                                     <select class="form-control" name="department" id="department"
                                             onchange="this.form.submit()">
@@ -73,7 +73,7 @@
                                     </label>
                                 </div>
                             </div>
-                        @endif
+                        @endif --}}
                         <div class="form-group row pt-3">
                             <div class="col-md-4 form-group">
                                 <select class="form-control" name="student_type" id="student_type"
@@ -124,6 +124,7 @@
                                     Education Level
                                 </label>
                             </div>
+                        </div>
                         @endif
                     </form>
 
@@ -261,5 +262,5 @@
                     </div>
                 </div>
             </div>
-
+        </div>
 @endsection

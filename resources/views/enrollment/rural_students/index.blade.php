@@ -230,13 +230,10 @@
                                 </tr>
                             @endforeach
                         @endif
-
-
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
