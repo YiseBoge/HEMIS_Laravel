@@ -102,9 +102,9 @@ class PublicationsController extends Controller
 
         if ($user->hasRole('College Super Admin')) {
             $departmentName = DepartmentName::find($requestedDepartment);
-        }else{
+        } else {
             $departmentName = $user->departmentName;
-        }       
+        }
         $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => "None",
             'college_id' => $college->id])->first();
         if ($department == null) {
@@ -128,7 +128,7 @@ class PublicationsController extends Controller
             'publications_and_patents' => $publicationsAndPatents,
 
             'selected_department' => $requestedDepartment,
-            
+
             'page_name' => 'publication.publication.index'
         );
         return view("staff.publication.index")->with($data);
@@ -262,7 +262,7 @@ class PublicationsController extends Controller
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
-        
+
         $publication = StaffPublication::find($id);
         $staff = $publication->academicStaff()->first();
         $general = $staff->general()->first();
@@ -298,11 +298,11 @@ class PublicationsController extends Controller
     public function update(Request $request, $id)
     {
 
-        if($request->input('publication') == 'true'){
+        if ($request->input('publication') == 'true') {
             $user = Auth::user();
             if ($user == null) return redirect('/login');
             $user->authorizeRoles('Department Admin');
-            
+
             $publication = StaffPublication::find($id);
 
             $publication->title = $request->input("title");

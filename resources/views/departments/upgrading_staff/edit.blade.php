@@ -10,52 +10,55 @@
             @endforeach
         @endif
         <form class="pb-5" action="/department/upgrading-staff/{{$id}}" method="POST">
-        @csrf
-        <input type="hidden" name="_method" value="PUT">
-        <div class="row my-5">
-            <div class="col">
-                <fieldset class="card shadow h-100">
-                    <div class="card-header text-primary">
-                        Edit Upgrading Staff Information
-                        <button class="btn btn-outline-warning float-right" type="submit"> <i class="fa fa-save"></i> Save</button>
-                    </div>
-                    <div class="card-body px-4">
-
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <label class="label" for="education_level">Eucation Level</label>
-                                <input type="text" id="education_level" class="form-control"
-                                        disabled value="{{$education_level}}">
-                            </div>
-                            <div class="col form-group">
-                                <label class="label" for="study_place">Study Place</label>
-                                <input type="text" id="study_place" class="form-control"
-                                        disabled value="{{$study_place}}">
-                            </div>
+            @csrf
+            <input type="hidden" name="_method" value="PUT">
+            <div class="row my-5">
+                <div class="col">
+                    <fieldset class="card shadow h-100">
+                        <div class="card-header text-primary">
+                            Edit Upgrading Staff Information
+                            <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
+                                Save
+                            </button>
                         </div>
+                        <div class="card-body px-4">
 
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <input type="number" id="male_number" name="male_number" class="form-control" required value="{{$male_number}}">
-                                <label class="form-control-placeholder" for="male_number">Male
-                                    Teachers</label>
+                            <div class="form-group row pt-3">
+                                <div class="col form-group">
+                                    <label class="label" for="education_level">Eucation Level</label>
+                                    <input type="text" id="education_level" class="form-control"
+                                           disabled value="{{$education_level}}">
+                                </div>
+                                <div class="col form-group">
+                                    <label class="label" for="study_place">Study Place</label>
+                                    <input type="text" id="study_place" class="form-control"
+                                           disabled value="{{$study_place}}">
+                                </div>
                             </div>
 
-                            <div class="col form-group">
-                                <input type="number" id="female_number" name="female_number" class="form-control"
-                                       required value="{{$female_number}}">
-                                <label class="form-control-placeholder" for="female_number">Female
-                                    Teachers</label>
+                            <div class="form-group row pt-3">
+                                <div class="col form-group">
+                                    <input type="number" id="male_number" name="male_number" class="form-control"
+                                           required value="{{$male_number}}">
+                                    <label class="form-control-placeholder" for="male_number">Male
+                                        Teachers</label>
+                                </div>
+
+                                <div class="col form-group">
+                                    <input type="number" id="female_number" name="female_number" class="form-control"
+                                           required value="{{$female_number}}">
+                                    <label class="form-control-placeholder" for="female_number">Female
+                                        Teachers</label>
+                                </div>
                             </div>
+
                         </div>
+                    </fieldset>
+                </div>
 
-                    </div>
-                </fieldset>
             </div>
 
-        </div>
-
-        {{-- <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit"> --}}
+            {{-- <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit"> --}}
         </form>
     </div>
 @endsection

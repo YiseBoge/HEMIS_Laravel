@@ -77,10 +77,10 @@ class EnrollmentsController extends Controller
                                             //return $service->nonAcademicAttrition();
                                             $enrollments[] = $enrollment;
                                         }
-                                    }                                    
+                                    }
                                 }
                             }
-                        }else{
+                        } else {
                             if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
@@ -251,9 +251,9 @@ class EnrollmentsController extends Controller
             'id' => $id,
             'program' => $college->education_program,
             'education_level' => $college->education_level,
-            'student_type' =>$studentType,
-            'female_students_number' =>$enrollment->female_students_number,
-            'male_students_number' =>$enrollment->male_students_number,
+            'student_type' => $studentType,
+            'female_students_number' => $enrollment->female_students_number,
+            'male_students_number' => $enrollment->male_students_number,
             'year_level' => $department->year_level,
             'page_name' => 'enrollment.normal.edit'
         );
@@ -417,7 +417,7 @@ class EnrollmentsController extends Controller
             'selected_band' => $requestedBand,
             'selected_department' => $requestedDepartment,
 
-            'path' => 'enrollment/student-enrollment-chart?student_type=' . $requestedType . '&program=' . $requestedProgram . '&college=' . $requestedCollege . '&band=' . $requestedBand . '&education_level=' . $requestedLevel . '&department=' . $requestedDepartment ,
+            'path' => 'enrollment/student-enrollment-chart?student_type=' . $requestedType . '&program=' . $requestedProgram . '&college=' . $requestedCollege . '&band=' . $requestedBand . '&education_level=' . $requestedLevel . '&department=' . $requestedDepartment,
 
             'page_name' => 'enrollment.normal.index'
         );

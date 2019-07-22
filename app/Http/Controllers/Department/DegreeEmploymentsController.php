@@ -60,7 +60,7 @@ class DegreeEmploymentsController extends Controller
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == 'None' && $college->education_program == 'None') {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
@@ -201,7 +201,7 @@ class DegreeEmploymentsController extends Controller
             'female_students_number' => $degreeEmployment->female_students_number,
             'page_name' => 'students.degree_employment.edit'
         );
-        
+
         return view("departments.degree_employment.edit")->with($data);
     }
 
@@ -268,10 +268,10 @@ class DegreeEmploymentsController extends Controller
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
                                         foreach ($department->degreeEmployments as $employment) {
-                                            if($employment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                            if ($employment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
                                                 $employment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                                                 $employment->save();
-                                            } 
+                                            }
                                         }
                                     }
                                 }

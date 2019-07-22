@@ -17,7 +17,9 @@
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
                             Edit Economically Disadvantaged Students Enrollment Information
-                            <button class="btn btn-outline-warning float-right" type="submit"> <i class="fa fa-save"></i> Save</button>
+                            <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
+                                Save
+                            </button>
                         </div>
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">

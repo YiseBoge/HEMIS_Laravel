@@ -9,15 +9,18 @@
                 </div>
             @endforeach
         @endif
-            <form class="pb-5" action="/student/degree-relevant-employment/{{$id}}" method="POST">
+        <form class="pb-5" action="/student/degree-relevant-employment/{{$id}}" method="POST">
             @csrf
             <input type="hidden" name="_method" value="PUT">
             <div class="row my-5">
                 <div class="col">
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
-                            Edit Students Accessing Degree-relevant Employment Within 12 Months After Graduation Information
-                            <button class="btn btn-outline-warning float-right" type="submit"> <i class="fa fa-save"></i> Save</button>
+                            Edit Students Accessing Degree-relevant Employment Within 12 Months After Graduation
+                            Information
+                            <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
+                                Save
+                            </button>
                         </div>
                         <div class="card-body px-4">
 

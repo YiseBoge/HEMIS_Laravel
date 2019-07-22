@@ -204,7 +204,7 @@ class AdministrativeStaffsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $this->validate($request, [
             'name' => 'required',
             'birth_date' => 'required',
@@ -223,7 +223,7 @@ class AdministrativeStaffsController extends Controller
 
         $administrativeStaff = AdministrativeStaff::find($id);
         $administrativeStaff->staffRank = $request->input('administrative_staff_rank');
-        
+
         $staff = $administrativeStaff->general;
         $staff->name = $request->input('name');
         $staff->birth_date = $request->input('birth_date');

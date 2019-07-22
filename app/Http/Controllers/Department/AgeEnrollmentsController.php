@@ -70,7 +70,7 @@ class AgeEnrollmentsController extends Controller
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
@@ -233,7 +233,7 @@ class AgeEnrollmentsController extends Controller
             'education_level' => $college->education_level,
             'year_level' => $department->year_level,
             'page_name' => 'enrollment.age_enrollment.edit'];
-            
+
         return view('enrollment.age_enrollment.edit')->with($data);
     }
 
@@ -300,10 +300,10 @@ class AgeEnrollmentsController extends Controller
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
                                         foreach ($department->ageEnrollments as $enrollment) {
-                                            if($enrollment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                            if ($enrollment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
                                                 $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                                                 $enrollment->save();
-                                            } 
+                                            }
                                         }
                                     }
                                 }

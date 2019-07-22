@@ -282,10 +282,10 @@ class UniversityIndustryLinkageController extends Controller
                         foreach ($band->colleges as $college) {
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->universityIndustryLinkages as $linkage) {
-                                    if($linkage->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                    if ($linkage->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
                                         $linkage->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                                         $linkage->save();
-                                    } 
+                                    }
                                 }
                             }
                         }

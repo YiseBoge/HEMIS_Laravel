@@ -57,7 +57,7 @@ class BudgetsController extends Controller
                                 $budgets[] = $budget;
                             }
                         }
-                    }else{
+                    } else {
                         if ($college->collegeName->id == $collegeName->id) {
                             foreach ($college->budgets as $budget) {
                                 if ($budget->budget_type == $budget_type) {
@@ -91,7 +91,7 @@ class BudgetsController extends Controller
     {
         $budget_type = Budget::getEnum('budget_type')['CAPITAL'];
 
-$user = Auth::user();
+        $user = Auth::user();
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -321,10 +321,10 @@ $user = Auth::user();
                         foreach ($band->colleges as $college) {
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->budgets as $budget) {
-                                    if($budget->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                    if ($budget->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
                                         $budget->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                                         $budget->save();
-                                    } 
+                                    }
                                 }
                             }
                         }

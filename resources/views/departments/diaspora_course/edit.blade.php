@@ -16,13 +16,15 @@
                 <div class="col">
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
-                           Edit Courses/Modules Taught and Postgraduate Researches Advised by Ethiopian Diaspora Information
+                            Edit Courses/Modules Taught and Postgraduate Researches Advised by Ethiopian Diaspora
+                            Information
                         </div>
                         <div class="card-body px-4">
 
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <input type="number" id="course_number" name="number_of_courses" class="form-control"
+                                    <input type="number" id="course_number" name="number_of_courses"
+                                           class="form-control"
                                            required value="{{$number_of_courses}}">
                                     <label class="form-control-placeholder" for="course_number">Number of
                                         Courses/Modules</label>

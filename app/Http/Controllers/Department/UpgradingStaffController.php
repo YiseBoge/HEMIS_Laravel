@@ -70,7 +70,7 @@ class UpgradingStaffController extends Controller
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
@@ -83,7 +83,7 @@ class UpgradingStaffController extends Controller
                                 }
                             }
                         }
-                        
+
                     }
                 }
             }

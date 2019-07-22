@@ -70,7 +70,7 @@ class SpecialProgramTeacherController extends Controller
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if ($college->collegeName->id == $user->collegeName->id) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
@@ -83,7 +83,7 @@ class SpecialProgramTeacherController extends Controller
                                 }
                             }
                         }
-                        
+
                     }
                 }
             }

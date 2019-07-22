@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Band\BandName;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
@@ -20,7 +21,7 @@ class IndexController extends Controller
      * @return Response
      */
     public function index()
-    {    
+    {
         $institutions = InstitutionName::all();
         $bands = BandName::all();
         $colleges = CollegeName::all();
@@ -34,7 +35,7 @@ class IndexController extends Controller
             "page_name" => 'dashboard.dashboard.index',
         );
         return view('index')->with($data);
-        
+
     }
 
     /**
@@ -61,7 +62,7 @@ class IndexController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -72,7 +73,7 @@ class IndexController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -84,7 +85,7 @@ class IndexController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -95,7 +96,7 @@ class IndexController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)
@@ -112,7 +113,7 @@ class IndexController extends Controller
         array_pop($year_levels);
         $enrollments = array();
 
-        
+
         foreach ($year_levels as $year) {
             $yearEnrollment = 0;
             foreach (Enrollment::all() as $enrollment) {
@@ -143,7 +144,7 @@ class IndexController extends Controller
         foreach (AgeEnrollment::all() as $enrollment) {
             $enrollments[] = $enrollment->male_students_number + $enrollment->female_students_number;
         }
-         
+
         $result = array(
             "ages" => $ages,
             "enrollments" => $enrollments
@@ -151,5 +152,5 @@ class IndexController extends Controller
         return response()->json($result);
     }
 
-    
+
 }

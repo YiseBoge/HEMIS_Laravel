@@ -81,12 +81,12 @@ class SpecialRegionsEnrollmentsController extends Controller
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->specialRegionEnrollments as $enrollment) {
-                                            if($enrollment->region_type == $requestedType){
+                                            if ($enrollment->region_type == $requestedType) {
                                                 $enrollments[] = $enrollment;
                                             }
                                         }
@@ -174,7 +174,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
 
-        $enrollment = new SpecialRegionEnrollment;       
+        $enrollment = new SpecialRegionEnrollment;
 
         $enrollment->male_number = $request->input('male_number');
         $enrollment->female_number = $request->input('female_number');
@@ -305,7 +305,7 @@ class SpecialRegionsEnrollmentsController extends Controller
 
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
-        
+
         $enrollment = SpecialRegionEnrollment::find($id);
         if ($action == "approve") {
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
@@ -325,10 +325,10 @@ class SpecialRegionsEnrollmentsController extends Controller
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
                                         foreach ($department->specialRegionEnrollments as $enrollment) {
-                                            if($enrollment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                            if ($enrollment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
                                                 $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                                                 $enrollment->save();
-                                            } 
+                                            }
                                         }
                                     }
                                 }

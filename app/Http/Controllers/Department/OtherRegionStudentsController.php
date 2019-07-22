@@ -72,7 +72,7 @@ class OtherRegionStudentsController extends Controller
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
@@ -252,7 +252,7 @@ class OtherRegionStudentsController extends Controller
         $otherRegionStudentsEnrollment->female_students_number = $request->input("female_number");
 
         $otherRegionStudentsEnrollment->save();
-        
+
         return redirect("/enrollment/other-region-students");
     }
 
@@ -296,10 +296,10 @@ class OtherRegionStudentsController extends Controller
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
                                         foreach ($department->otherRegionStudents as $enrollment) {
-                                            if($enrollment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                            if ($enrollment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
                                                 $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                                                 $enrollment->save();
-                                            } 
+                                            }
                                         }
                                     }
                                 }

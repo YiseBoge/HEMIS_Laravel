@@ -209,69 +209,69 @@
 
     @if ($page_name == 'students.university_industry_linkage.edit')
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <form class="pb-5" action="/student/university-industry-linkage/{{$id}}" method="POST">
-                    @csrf
-                    <input type="hidden" name="_method" value="PUT">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <a href="/student/university-industry-linkage" class="close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </a>
-                    </div>
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form class="pb-5" action="/student/university-industry-linkage/{{$id}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="_method" value="PUT">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editTitle">Edit</h5>
+                            <a href="/student/university-industry-linkage" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+                        </div>
 
-                    <div class="modal-body pt-4">
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                {{-- <select class="form-control" name="year" id="year">
-                                    @foreach ($years as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="year" class="form-control-placeholder">
-                                    Year Level
-                                </label> --}}
+                        <div class="modal-body pt-4">
+                            <div class="form-group row pt-3">
+                                <div class="col form-group">
+                                    {{-- <select class="form-control" name="year" id="year">
+                                        @foreach ($years as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="year" class="form-control-placeholder">
+                                        Year Level
+                                    </label> --}}
 
-                                <label class="label" for="year">Year Level</label>
+                                    <label class="label" for="year">Year Level</label>
                                     <input type="text" id="year" class="form-control"
                                            disabled value="{{$year}}">
+                                </div>
+                            </div>
+                            <div class="form-group row pt-3">
+                                <div class="col form-group">
+                                    <input type="number" id="industry_number" name="industry_number"
+                                           class="form-control"
+                                           required value="{{$number_of_linked_indutries}}">
+                                    <label class="form-control-placeholder" for="industry_number">Linked
+                                        Industries</label>
+                                </div>
+                            </div>
+                            <div class="form-group row pt-3">
+                                <div class="col form-group">
+                                    <input type="text" id="training_area" name="training_area" class="form-control"
+                                           required value="{{$training_area}}">
+                                    <label class="form-control-placeholder" for="training_area">Training Area</label>
+                                </div>
+                                <div class="col form-group">
+                                    <input type="number" id="number_of_students" name="number_of_students"
+                                           class="form-control" required value="{{$number_of_students}}">
+                                    <label class="form-control-placeholder" for="number_of_students">Number of
+                                        Students</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <input type="number" id="industry_number" name="industry_number"
-                                        class="form-control"
-                                        required value="{{$number_of_linked_indutries}}">
-                                <label class="form-control-placeholder" for="industry_number">Linked
-                                    Industries</label>
-                            </div>
+
+
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="Submit">
                         </div>
-                        <div class="form-group row pt-3">
-                            <div class="col form-group">
-                                <input type="text" id="training_area" name="training_area" class="form-control"
-                                        required value="{{$training_area}}">
-                                <label class="form-control-placeholder" for="training_area">Training Area</label>
-                            </div>
-                            <div class="col form-group">
-                                <input type="number" id="number_of_students" name="number_of_students"
-                                        class="form-control" required value="{{$number_of_students}}">
-                                <label class="form-control-placeholder" for="number_of_students">Number of
-                                    Students</label>
-                            </div>
-                        </div>
-                    </div>
 
+                    </form>
+                </div>
 
-                    <div class="modal-footer">
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                    </div>
-
-                </form>
             </div>
-
-        </div>
         </div>
     @endif
 

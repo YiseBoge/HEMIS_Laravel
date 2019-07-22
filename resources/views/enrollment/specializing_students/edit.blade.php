@@ -17,7 +17,9 @@
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
                             Edit Specializing Students Enrollment Information
-                            <button class="btn btn-outline-warning float-right" type="submit"> <i class="fa fa-save"></i> Save</button>
+                            <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
+                                Save
+                            </button>
                         </div>
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
@@ -48,7 +50,7 @@
                                 <div class="col form-group">
                                     <label class="label" for="specialization_field">Field of Specialization</label>
                                     <input type="text" id="specialization_field" class="form-control"
-                                            disabled value="{{$field_of_specialization}}">
+                                           disabled value="{{$field_of_specialization}}">
                                 </div>
 
                             </div>

@@ -273,10 +273,10 @@ class InvestmentsController extends Controller
                         foreach ($band->colleges as $college) {
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->investments as $investment) {
-                                    if($investment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                    if ($investment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
                                         $investment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                                         $investment->save();
-                                    } 
+                                    }
                                 }
                             }
                         }

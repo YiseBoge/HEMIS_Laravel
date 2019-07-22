@@ -81,7 +81,7 @@ class OtherAttritionController extends Controller
                                 }
                             }
                         }
-                    }else{
+                    } else {
                         if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_program == $requestedProgram && $college->education_level == $requestedLevel) {
                             foreach ($college->departments as $department) {
                                 if ($department->departmentName->department_name == $user->departmentName->department_name) {
@@ -260,8 +260,8 @@ class OtherAttritionController extends Controller
 
         $otherAttrition = OtherAttrition::find($id);
 
-        $otherAttrition->male_students_number = $request->input("male_number"); 
-        $otherAttrition->female_students_number = $request->input("female_number"); 
+        $otherAttrition->male_students_number = $request->input("male_number");
+        $otherAttrition->female_students_number = $request->input("female_number");
 
         $otherAttrition->save();
 
@@ -308,10 +308,10 @@ class OtherAttritionController extends Controller
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
                                         foreach ($department->otherAttritions as $attrition) {
-                                            if($attrition->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                            if ($attrition->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
                                                 $attrition->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                                                 $attrition->save();
-                                            } 
+                                            }
                                         }
                                     }
                                 }

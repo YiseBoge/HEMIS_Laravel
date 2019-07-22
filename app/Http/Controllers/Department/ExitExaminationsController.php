@@ -61,7 +61,7 @@ class ExitExaminationsController extends Controller
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == 'None' && $college->education_program == 'None') {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
@@ -197,7 +197,7 @@ class ExitExaminationsController extends Controller
         $exitExamination = ExitExamination::find($id);
         $department = $exitExamination->department()->first();
         $departmentName = $department->departmentName()->first();
-       
+
         $data = array(
             'id' => $id,
             'departmentName' => $departmentName,
@@ -272,10 +272,10 @@ class ExitExaminationsController extends Controller
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
                                         foreach ($department->exitExaminations as $examination) {
-                                            if($examination->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                            if ($examination->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
                                                 $examination->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                                                 $examination->save();
-                                            } 
+                                            }
                                         }
                                     }
                                 }

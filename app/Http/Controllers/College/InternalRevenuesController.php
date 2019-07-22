@@ -273,10 +273,10 @@ class InternalRevenuesController extends Controller
                         foreach ($band->colleges as $college) {
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->internalRevenues as $internalRevenue) {
-                                    if($internalRevenue->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                    if ($internalRevenue->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
                                         $internalRevenue->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                                         $internalRevenue->save();
-                                    } 
+                                    }
                                 }
                             }
                         }
@@ -289,5 +289,5 @@ class InternalRevenuesController extends Controller
         return redirect("/budgets/internal-revenue")->with('primary', 'Success');
     }
 
-   
+
 }

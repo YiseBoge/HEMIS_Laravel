@@ -268,7 +268,7 @@ class AcademicStaffsController extends Controller
 
         ]);
         $academicStaff = AcademicStaff::find($id);
-        
+
         if ($request->input('status') == "onLeave") {
             //die("1" . $request->input('status'));
             $this->validate($request, [

@@ -258,10 +258,10 @@ class CostSharingController extends Controller
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
                                         foreach ($department->costSharings as $costSharing) {
-                                            if($costSharing->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]){
+                                            if ($costSharing->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
                                                 $costSharing->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                                                 $costSharing->save();
-                                            } 
+                                            }
                                         }
                                     }
                                 }

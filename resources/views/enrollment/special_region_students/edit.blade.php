@@ -17,33 +17,40 @@
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
                             Edit Special Regions Enrollment Information
-                            <button class="btn btn-outline-warning float-right" type="submit"> <i class="fa fa-save"></i> Save</button>
+                            <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
+                                Save
+                            </button>
                         </div>
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <label class="label" for="region_type">Region Type</label>
-                                    <input type="text" id="region_type" name="region_type" class="form-control" value="{{$type}}" disabled>
+                                    <input type="text" id="region_type" name="region_type" class="form-control"
+                                           value="{{$type}}" disabled>
                                 </div>
                                 <div class="col form-group">
                                     <label class="label" for="region">Region</label>
-                                    <input type="text" id="region" name="region" class="form-control" value="{{$region}}" disabled>
+                                    <input type="text" id="region" name="region" class="form-control"
+                                           value="{{$region}}" disabled>
                                 </div>
                             </div>
 
                             <div class="form-group row pt-3">
                                 <div class="col-md-4 form-group">
                                     <label class="label" for="education_level">Education Level</label>
-                                    <input type="text" id="education_level" name="education_level" class="form-control" value="{{$education_level}}" disabled>
+                                    <input type="text" id="education_level" name="education_level" class="form-control"
+                                           value="{{$education_level}}" disabled>
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="label" for="program">Program</label>
-                                    <input type="text" id="program" name="program" class="form-control" value="{{$program}}" disabled>
+                                    <input type="text" id="program" name="program" class="form-control"
+                                           value="{{$program}}" disabled>
                                 </div>
 
                                 <div class="col-md-4 form-group">
                                     <label class="label" for="year_levl">Year Level</label>
-                                    <input type="text" id="year_levl" name="year_levl" class="form-control" value="{{$year_level}}" disabled>
+                                    <input type="text" id="year_levl" name="year_levl" class="form-control"
+                                           value="{{$year_level}}" disabled>
                                 </div>
 
                             </div>

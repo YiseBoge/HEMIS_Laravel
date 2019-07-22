@@ -68,7 +68,7 @@ class TeachersController extends Controller
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
@@ -81,7 +81,7 @@ class TeachersController extends Controller
                                 }
                             }
                         }
-                        
+
                     }
                 }
             }

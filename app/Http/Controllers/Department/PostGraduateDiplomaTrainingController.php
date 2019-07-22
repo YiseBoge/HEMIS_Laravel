@@ -75,7 +75,7 @@ class PostGraduateDiplomaTrainingController extends Controller
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if ($college->collegeName->id == $user->collegeName->id && $college->education_level == "None") {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
@@ -87,9 +87,9 @@ class PostGraduateDiplomaTrainingController extends Controller
                                     }
                                 }
                             }
-                            
+
                         }
-                        
+
                     }
                 }
             }
@@ -229,7 +229,7 @@ class PostGraduateDiplomaTrainingController extends Controller
         $postGraduateDiplomaTraining = PostGraduateDiplomaTraining::find($id);
         $department = $postGraduateDiplomaTraining->department()->first();
         $college = $department->college()->first();
-        
+
         $data = array(
             'id' => $id,
             'program' => $college->education_program,
