@@ -80,14 +80,14 @@
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
-                                >Male
+                                >Male Teachers
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
-                                >Female
+                                >Female Teachers
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1"
+                                    colspan="1" style="min-width: 95px"
                                     aria-label="Start date: activate to sort column ascending"
                                 >Approval Status
                                 </th>

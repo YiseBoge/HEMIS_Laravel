@@ -63,11 +63,11 @@
                             </th>
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending">
-                                Date Started
+                                Starting Date
                             </th>
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending">
-                                Date Completed
+                                Completion Date
                             </th>
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending">
