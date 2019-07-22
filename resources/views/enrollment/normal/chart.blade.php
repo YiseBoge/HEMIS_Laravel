@@ -137,7 +137,7 @@
     </div>
 
     <script>
-        var path = "{{$path}}"
+        var path = "{{$path}}";
         var url = "{{url('enrollment/student-enrollment-chart?student_type=' . $selected_student_type . '&program=' . $selected_program . '&college=' . $selected_college . '&band=' . $selected_band . '&education_level=' . $selected_education_level . '&department=' . $selected_department )}}";
         var Enrollments = [];
         var Years = [];
@@ -145,7 +145,7 @@
             $.get(url, function (response) {
                 Enrollments = response.enrollments;
                 Years = response.year_levels;
-                alert(encodeURI(path))
+                alert(encodeURI(path));
                 alert(Enrollments);
                 var ctx = document.getElementById('enrollment').getContext('2d');
                 var chart = new Chart(ctx, {

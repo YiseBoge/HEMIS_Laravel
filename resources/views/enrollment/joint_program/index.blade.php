@@ -54,57 +54,57 @@
                             </div>
                         </div>
                     @else
-                    <div class="form-group row pt-3">
-                        <div class="col-md-4 form-group">
-                            <select class="form-control" name="sponsor" id="sponsor"
-                                    onchange="this.form.submit()">
-                                @foreach ($sponsors as $key => $value)
-                                    @if ($value == $selected_sponsor)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            <label for="sponsor" class="form-control-placeholder">
-                                Sponsor
-                            </label>
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <select class="form-control" name="program" id="program"
-                                    onchange="this.form.submit()">
-                                @foreach ($programs as $key => $value)
-                                    @if ($value == $selected_program)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
+                        <div class="form-group row pt-3">
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="sponsor" id="sponsor"
+                                        onchange="this.form.submit()">
+                                    @foreach ($sponsors as $key => $value)
+                                        @if ($value == $selected_sponsor)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="sponsor" class="form-control-placeholder">
+                                    Sponsor
+                                </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="program" id="program"
+                                        onchange="this.form.submit()">
+                                    @foreach ($programs as $key => $value)
+                                        @if ($value == $selected_program)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
 
-                                @endforeach
-                            </select>
-                            <label for="program" class="form-control-placeholder">
-                                Program
-                            </label>
-                        </div>
+                                    @endforeach
+                                </select>
+                                <label for="program" class="form-control-placeholder">
+                                    Program
+                                </label>
+                            </div>
 
-                        <div class="col-md-4 form-group">
-                            <select class="form-control" name="education_level" id="level"
-                                    onchange="this.form.submit()">
-                                @foreach ($education_levels as $key => $value)
-                                    @if ($key == 'SPECIALIZATION')
-                                        <option disabled value="{{$value}}">{{$value}}</option>
-                                    @elseif($value == $selected_education_level)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            <label for="level" class="form-control-placeholder">
-                                Education Level
-                            </label>
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="education_level" id="level"
+                                        onchange="this.form.submit()">
+                                    @foreach ($education_levels as $key => $value)
+                                        @if ($key == 'SPECIALIZATION')
+                                            <option disabled value="{{$value}}">{{$value}}</option>
+                                        @elseif($value == $selected_education_level)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="level" class="form-control-placeholder">
+                                    Education Level
+                                </label>
+                            </div>
                         </div>
-                    </div>
                     @endif
                 </form>
                 <div class="table-responsive">
@@ -124,32 +124,32 @@
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
                                     aria-label="Name: activate to sort column descending"
-                                    >Education Level
+                                >Education Level
                                 </th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
                                     aria-label="Name: activate to sort column descending"
-                                    >Program
+                                >Program
                                 </th>
                             @endif
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
-                                >Year
+                            >Year
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                >Number of Male Students
+                            >Number of Male Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                >Number of Female Students
+                            >Number of Female Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                >Approval Status
+                            >Approval Status
                             </th>
 
                         </tr>
@@ -159,7 +159,7 @@
                         @if (count($enrollments) > 0)
                             @foreach ($enrollments as $enrollment)
                                 <tr role="row" class="odd">
-                                        @if(Auth::user()->hasRole('College Super Admin'))
+                                    @if(Auth::user()->hasRole('College Super Admin'))
                                         <td class="text-center">
                                             @if($enrollment->approval_status == "Pending")
                                                 <form action="joint-program/{{$enrollment->id}}/approve" method="POST">
@@ -171,12 +171,12 @@
                                                         <i class="fas fa-times" style="opacity:0.75"></i>
                                                     </button>
                                                 </form>
-                                            @endif 
-                                        </td>     
+                                            @endif
+                                        </td>
                                         <td>{{$enrollment->sponsor}}</td>
                                         <td>{{$enrollment->department->college->education_level}}</td>
-                                        <td>{{$enrollment->department->college->education_program}}</td>                                          
-                                        @else
+                                        <td>{{$enrollment->department->college->education_program}}</td>
+                                    @else
                                         <td class="text-center">
                                             @if($enrollment->approval_status != "Approved")
                                                 <div class="row px-1">
@@ -209,10 +209,10 @@
                                                             </button>
                                                         </form>
                                                     </div>
-                                                </div> 
-                                            @endif 
-                                        </td>                                                          
-                                        @endif
+                                                </div>
+                                            @endif
+                                        </td>
+                                    @endif
                                     <td>{{$enrollment->department->year_level}}</td>
                                     <td>{{$enrollment->male_students_number}}</td>
                                     <td>{{$enrollment->female_students_number}}</td>

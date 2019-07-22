@@ -232,31 +232,31 @@
                         scales: {
                             xAxes: [{
                                 time: {
-                                unit: 'date'
+                                    unit: 'date'
                                 },
                                 gridLines: {
-                                display: false,
-                                drawBorder: false
+                                    display: false,
+                                    drawBorder: false
                                 },
                                 ticks: {
-                                maxTicksLimit: 7
+                                    maxTicksLimit: 7
                                 }
                             }],
                             yAxes: [{
                                 ticks: {
-                                maxTicksLimit: 5,
-                                padding: 10,
-                                
+                                    maxTicksLimit: 5,
+                                    padding: 10,
+
                                 },
                                 gridLines: {
-                                color: "rgb(234, 236, 244)",
-                                zeroLineColor: "rgb(234, 236, 244)",
-                                drawBorder: false,
-                                borderDash: [2],
-                                zeroLineBorderDash: [2]
+                                    color: "rgb(234, 236, 244)",
+                                    zeroLineColor: "rgb(234, 236, 244)",
+                                    drawBorder: false,
+                                    borderDash: [2],
+                                    zeroLineBorderDash: [2]
                                 }
                             }],
-                            },
+                        },
                         legend: {
                             display: false
                         },
@@ -317,7 +317,7 @@
                     },
 
                     // Configuration options go here
-                     options: {
+                    options: {
                         maintainAspectRatio: false,
                         layout: {
                             padding: {
@@ -330,31 +330,31 @@
                         scales: {
                             xAxes: [{
                                 time: {
-                                unit: 'date'
+                                    unit: 'date'
                                 },
                                 gridLines: {
-                                display: false,
-                                drawBorder: false
+                                    display: false,
+                                    drawBorder: false
                                 },
                                 ticks: {
-                                maxTicksLimit: 7
+                                    maxTicksLimit: 7
                                 }
                             }],
                             yAxes: [{
                                 ticks: {
-                                maxTicksLimit: 5,
-                                padding: 10,
-                                
+                                    maxTicksLimit: 5,
+                                    padding: 10,
+
                                 },
                                 gridLines: {
-                                color: "rgb(234, 236, 244)",
-                                zeroLineColor: "rgb(234, 236, 244)",
-                                drawBorder: false,
-                                borderDash: [2],
-                                zeroLineBorderDash: [2]
+                                    color: "rgb(234, 236, 244)",
+                                    zeroLineColor: "rgb(234, 236, 244)",
+                                    drawBorder: false,
+                                    borderDash: [2],
+                                    zeroLineBorderDash: [2]
                                 }
                             }],
-                            },
+                        },
                         legend: {
                             display: false
                         },
@@ -422,59 +422,59 @@
                     options: {
                         maintainAspectRatio: false,
                         layout: {
-                        padding: {
-                            left: 10,
-                            right: 25,
-                            top: 25,
-                            bottom: 0
-                        }
+                            padding: {
+                                left: 10,
+                                right: 25,
+                                top: 25,
+                                bottom: 0
+                            }
                         },
                         scales: {
-                        xAxes: [{
-                            time: {
-                            unit: 'date'
-                            },
-                            gridLines: {
-                            display: false,
-                            drawBorder: false
-                            },
-                            ticks: {
-                            maxTicksLimit: 7
-                            }
-                        }],
-                        yAxes: [{
-                            ticks: {
-                            maxTicksLimit: 5,
-                            padding: 10,
-                           
-                            },
-                            gridLines: {
-                            color: "rgb(234, 236, 244)",
-                            zeroLineColor: "rgb(234, 236, 244)",
-                            drawBorder: false,
-                            borderDash: [2],
-                            zeroLineBorderDash: [2]
-                            }
-                        }],
+                            xAxes: [{
+                                time: {
+                                    unit: 'date'
+                                },
+                                gridLines: {
+                                    display: false,
+                                    drawBorder: false
+                                },
+                                ticks: {
+                                    maxTicksLimit: 7
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    maxTicksLimit: 5,
+                                    padding: 10,
+
+                                },
+                                gridLines: {
+                                    color: "rgb(234, 236, 244)",
+                                    zeroLineColor: "rgb(234, 236, 244)",
+                                    drawBorder: false,
+                                    borderDash: [2],
+                                    zeroLineBorderDash: [2]
+                                }
+                            }],
                         },
                         legend: {
-                        display: false
+                            display: false
                         },
                         tooltips: {
-                        backgroundColor: "rgb(255,255,255)",
-                        bodyFontColor: "#858796",
-                        titleMarginBottom: 10,
-                        titleFontColor: '#6e707e',
-                        titleFontSize: 14,
-                        borderColor: '#dddfeb',
-                        borderWidth: 1,
-                        xPadding: 15,
-                        yPadding: 15,
-                        displayColors: false,
-                        intersect: false,
-                        mode: 'index',
-                        caretPadding: 10,
-                        
+                            backgroundColor: "rgb(255,255,255)",
+                            bodyFontColor: "#858796",
+                            titleMarginBottom: 10,
+                            titleFontColor: '#6e707e',
+                            titleFontSize: 14,
+                            borderColor: '#dddfeb',
+                            borderWidth: 1,
+                            xPadding: 15,
+                            yPadding: 15,
+                            displayColors: false,
+                            intersect: false,
+                            mode: 'index',
+                            caretPadding: 10,
+
                         }
                     },
 

@@ -125,40 +125,40 @@
 
 
     @if ($page_name == 'administer.band-name.edit')
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
-            aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
 
-            <div class="modal-content">
-                {!! Form::open(['action' => ['Band\BandNamesController@update', $current_band_name], 'method' => 'POST']) !!}
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editTitle">Edit</h5>
-                    <a href="/band/band-name" class="close" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </a>
-                </div>
-
-
-                <div class="modal-body row p-4">
-                    <div class="col-md-12 form-group pb-1">
-                        {!! Form::text('band_name', $current_band_name->band_name, ['class' => 'form-control', 'id' => 'add_band_name', 'required' => 'true']) !!}
-                        {!! Form::label('add_band_name', 'Band Name', ['class' => 'form-control-placeholder']) !!}
+                <div class="modal-content">
+                    {!! Form::open(['action' => ['Band\BandNamesController@update', $current_band_name], 'method' => 'POST']) !!}
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editTitle">Edit</h5>
+                        <a href="/band/band-name" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
                     </div>
-                    <div class="col-md-12 form-group pb-1">
-                        {!! Form::text('band_acronym', $current_band_name->acronym, ['class' => 'form-control', 'id' => 'add_band_acronym', 'required' => 'true']) !!}
-                        {!! Form::label('add_band_acronym', 'Acronym', ['class' => 'form-control-placeholder']) !!}
+
+
+                    <div class="modal-body row p-4">
+                        <div class="col-md-12 form-group pb-1">
+                            {!! Form::text('band_name', $current_band_name->band_name, ['class' => 'form-control', 'id' => 'add_band_name', 'required' => 'true']) !!}
+                            {!! Form::label('add_band_name', 'Band Name', ['class' => 'form-control-placeholder']) !!}
+                        </div>
+                        <div class="col-md-12 form-group pb-1">
+                            {!! Form::text('band_acronym', $current_band_name->acronym, ['class' => 'form-control', 'id' => 'add_band_acronym', 'required' => 'true']) !!}
+                            {!! Form::label('add_band_acronym', 'Acronym', ['class' => 'form-control-placeholder']) !!}
+                        </div>
                     </div>
+
+
+                    <div class="modal-footer">
+                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                    </div>
+
+                    {!! Form::close() !!}
                 </div>
 
-
-                <div class="modal-footer">
-                    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                </div>
-
-                {!! Form::close() !!}
             </div>
-
-        </div>
         </div>
     @endif
 

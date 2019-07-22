@@ -45,10 +45,14 @@
                                             <span class="input-group-text bg-white border-0"><i
                                                         class="text-gray-400 float-right far fa-edit "></i></span>
                                         </div>
-                                        <select class="form-control form-control-plaintext" name="sex">                                            
-                                                <option {{$staff->general->sex == 'Male' ? 'selected' : ''}} value="Male">Male</option>
-                                                <option {{$staff->general->sex == 'Female' ? 'selected' : ''}} value="Female">Female</option>                                            
-                                            </select>
+                                        <select class="form-control form-control-plaintext" name="sex">
+                                            <option {{$staff->general->sex == 'Male' ? 'selected' : ''}} value="Male">
+                                                Male
+                                            </option>
+                                            <option {{$staff->general->sex == 'Female' ? 'selected' : ''}} value="Female">
+                                                Female
+                                            </option>
+                                        </select>
                                     </div>
 
                                 </div>
@@ -95,54 +99,56 @@
             </div>
 
             <div class="card shadow mt-3">
-                    <div class="card-header text-primary">
-                        Place of Origin Information
-                    </div>
-                    <div class="card-body">
-                        <div class="row mt-4">
-                            <div class="col-md-3">
-                                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is Expatriate</div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-append">
+                <div class="card-header text-primary">
+                    Place of Origin Information
+                </div>
+                <div class="card-body">
+                    <div class="row mt-4">
+                        <div class="col-md-3">
+                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is Expatriate</div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
                                         <span class="input-group-text bg-white border-0"><i
                                                     class="text-gray-400 float-right far fa-edit "></i></span>
-                                    </div>
-                                    <select class="form-control form-control-plaintext" name="expatriate">
-                                        @if ($staff->general->is_expatriate == 0)
-                                            <option value="1">Yes</option>
-                                            <option selected value="0">No</option>
-                                        @else
-                                            <option selected value="1">Yes</option>
-                                            <option value="0">No</option>
-                                        @endif
-    
-                                    </select>
-    
                                 </div>
+                                <select class="form-control form-control-plaintext" name="expatriate">
+                                    @if ($staff->general->is_expatriate == 0)
+                                        <option value="1">Yes</option>
+                                        <option selected value="0">No</option>
+                                    @else
+                                        <option selected value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    @endif
+
+                                </select>
+
                             </div>
-                            <div class="col-md-5">
-                                <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is From Region Other than the Host Region</div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-append">
+                        </div>
+                        <div class="col-md-5">
+                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is From Region Other
+                                than the Host Region
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
                                         <span class="input-group-text bg-white border-0"><i
                                                     class="text-gray-400 float-right far fa-edit "></i></span>
-                                    </div>
-                                    <select class="form-control form-control-plaintext" name="other_region">
-                                        @if ($staff->general->is_from_other_region == 0)
-                                            <option value="1">Yes</option>
-                                            <option selected value="0">No</option>
-                                        @else
-                                            <option selected value="1">Yes</option>
-                                            <option value="0">No</option>
-                                        @endif
-    
-                                    </select>
-    
                                 </div>
+                                <select class="form-control form-control-plaintext" name="other_region">
+                                    @if ($staff->general->is_from_other_region == 0)
+                                        <option value="1">Yes</option>
+                                        <option selected value="0">No</option>
+                                    @else
+                                        <option selected value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    @endif
+
+                                </select>
+
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
 
             <div class="card shadow mt-3">
@@ -248,7 +254,7 @@
                                        value="{{$staff->general->service_year}}">
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>

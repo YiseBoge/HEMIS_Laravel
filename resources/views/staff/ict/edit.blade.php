@@ -45,10 +45,14 @@
                                             <span class="input-group-text bg-white border-0"><i
                                                         class="text-gray-400 float-right far fa-edit "></i></span>
                                         </div>
-                                        <select class="form-control form-control-plaintext" name="sex">                                            
-                                                <option {{$staff->general->sex == 'Male' ? 'selected' : ''}} value="Male">Male</option>
-                                                <option {{$staff->general->sex == 'Female' ? 'selected' : ''}} value="Female">Female</option>                                            
-                                            </select>
+                                        <select class="form-control form-control-plaintext" name="sex">
+                                            <option {{$staff->general->sex == 'Male' ? 'selected' : ''}} value="Male">
+                                                Male
+                                            </option>
+                                            <option {{$staff->general->sex == 'Female' ? 'selected' : ''}} value="Female">
+                                                Female
+                                            </option>
+                                        </select>
                                     </div>
 
                                 </div>
@@ -121,7 +125,9 @@
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is From Region Other than the Host Region</div>
+                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is From Region Other
+                                than the Host Region
+                            </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
                                     <span class="input-group-text bg-white border-0"><i

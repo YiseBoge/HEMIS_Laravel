@@ -53,78 +53,78 @@
                             </div>
                         </div>
                     @else
-                    <div class="form-group row pt-3">
-                        <div class="col-md form-group">
-                            <select class="form-control" name="region_type" id="region_type"
-                                    onchange="this.form.submit()">
-                                @foreach ($types as $key => $value)
-                                    @if($value == $selected_type)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
-                                @endforeach
+                        <div class="form-group row pt-3">
+                            <div class="col-md form-group">
+                                <select class="form-control" name="region_type" id="region_type"
+                                        onchange="this.form.submit()">
+                                    @foreach ($types as $key => $value)
+                                        @if($value == $selected_type)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                    @endforeach
 
-                            </select>
-                            <label for="region_type" class="form-control-placeholder">
-                                Region Type
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="form-group row pt-3">
-                        <div class="col-md-4 form-group">
-                            <select class="form-control" name="education_level" id="level"
-                                    onchange="this.form.submit()">
-                                @foreach ($education_levels as $key => $value)
-                                    @if ($key == 'SPECIALIZATION')
-                                        <option disabled value="{{$value}}">{{$value}}</option>
-                                    @elseif($value == $selected_education_level)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            <label for="level" class="form-control-placeholder">
-                                Education Level
-                            </label>
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <select class="form-control" name="program" id="program"
-                                    onchange="this.form.submit()">
-                                @foreach ($programs as $key => $value)
-                                    @if ($value == $selected_program)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
-
-                                @endforeach
-                            </select>
-                            <label for="program" class="form-control-placeholder">
-                                Program
-                            </label>
+                                </select>
+                                <label for="region_type" class="form-control-placeholder">
+                                    Region Type
+                                </label>
+                            </div>
                         </div>
 
-                        <div class="col-md-4 form-group">
-                            <select class="form-control" name="year_level" id="year_level"
-                                    onchange="this.form.submit()">
-                                @foreach ($year_levels as $key => $value)
-                                    @if ($value == $selected_year)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
+                        <div class="form-group row pt-3">
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="education_level" id="level"
+                                        onchange="this.form.submit()">
+                                    @foreach ($education_levels as $key => $value)
+                                        @if ($key == 'SPECIALIZATION')
+                                            <option disabled value="{{$value}}">{{$value}}</option>
+                                        @elseif($value == $selected_education_level)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="level" class="form-control-placeholder">
+                                    Education Level
+                                </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="program" id="program"
+                                        onchange="this.form.submit()">
+                                    @foreach ($programs as $key => $value)
+                                        @if ($value == $selected_program)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
 
-                                @endforeach
-                            </select>
-                            <label for="year_level" class="form-control-placeholder">
-                                Year Level
-                            </label>
+                                    @endforeach
+                                </select>
+                                <label for="program" class="form-control-placeholder">
+                                    Program
+                                </label>
+                            </div>
+
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="year_level" id="year_level"
+                                        onchange="this.form.submit()">
+                                    @foreach ($year_levels as $key => $value)
+                                        @if ($value == $selected_year)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+
+                                    @endforeach
+                                </select>
+                                <label for="year_level" class="form-control-placeholder">
+                                    Year Level
+                                </label>
+                            </div>
+
                         </div>
-
-                    </div>
                     @endif
                 </form>
                 <div class="table-responsive">
@@ -138,18 +138,18 @@
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
-                               >Region
+                            >Region
                             </th>
                             @if(Auth::user()->hasRole('College Super Admin'))
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
                                     aria-label="Name: activate to sort column descending"
-                                    >Education Level
+                                >Education Level
                                 </th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
                                     aria-label="Name: activate to sort column descending"
-                                    >Program
+                                >Program
                                 </th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
@@ -159,17 +159,17 @@
                             @endif
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                               >Number of Male Students
+                            >Number of Male Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                >Number of Female Students
+                            >Number of Female Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                >Approval Status
+                            >Approval Status
                             </th>
 
                         </tr>
@@ -179,7 +179,7 @@
                             @foreach ($enrollments as $enrollment)
                                 <tr role="row" class="odd"
                                     onclick="window.location='normal/{{$enrollment->id}}'">
-                                        @if(Auth::user()->hasRole('College Super Admin'))
+                                    @if(Auth::user()->hasRole('College Super Admin'))
                                         <td class="text-center">
                                             @if($enrollment->approval_status == "Pending")
                                                 <form action="special-region-students/{{$enrollment->id}}/approve"
@@ -192,13 +192,13 @@
                                                         <i class="fas fa-times" style="opacity:0.75"></i>
                                                     </button>
                                                 </form>
-                                            @endif  
-                                        </td> 
+                                            @endif
+                                        </td>
                                         <td>{{$enrollment->regionName->name}}</td>
                                         <td>{{$enrollment->department->college->education_level}}</td>
                                         <td>{{$enrollment->department->college->education_program}}</td>
-                                        <td>{{$enrollment->department->year_level}}</td>                                             
-                                        @else
+                                        <td>{{$enrollment->department->year_level}}</td>
+                                    @else
                                         <td class="text-center">
                                             @if($enrollment->approval_status != "Approved")
                                                 <div class="row px-1">
@@ -231,12 +231,12 @@
                                                             </button>
                                                         </form>
                                                     </div>
-                                                </div> 
-                                            @endif   
-                                        </td> 
-                                        <td>{{$enrollment->regionName->name}}</td>                                                       
-                                        @endif
-                                    
+                                                </div>
+                                            @endif
+                                        </td>
+                                        <td>{{$enrollment->regionName->name}}</td>
+                                    @endif
+
                                     <td>{{$enrollment->male_number}}</td>
                                     <td>{{$enrollment->female_number}}</td>
                                     @if($enrollment->approval_status == "Approved")

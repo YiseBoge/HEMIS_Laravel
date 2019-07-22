@@ -114,7 +114,7 @@
 
     @if ($page_name == 'administer.region-name.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
-                aria-hidden="true">
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     {!! Form::open(['action' => ['Institution\RegionNamesController@update', $current_region_name], 'method' => 'POST']) !!}

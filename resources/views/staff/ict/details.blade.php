@@ -59,7 +59,9 @@
                         @endif
                     </div>
                     <div class="col-md-5">
-                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is From Region Other that the Host Region</div>
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is From Region Other
+                            that the Host Region
+                        </div>
                         @if ($staff->general->is_from_other_region == 0)
                             <p>No</p>
                         @else

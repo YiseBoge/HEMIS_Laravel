@@ -47,11 +47,15 @@
                                             <span class="input-group-text bg-white border-0"><i
                                                         class="text-gray-400 float-right far fa-edit "></i></span>
                                         </div>
-                                        <select class="form-control form-control-plaintext" name="sex">                                            
-                                            <option {{$student->general->sex == 'Male' ? 'selected' : ''}} value="Male">Male</option>
-                                            <option {{$student->general->sex == 'Female' ? 'selected' : ''}} value="Female">Female</option>                                            
+                                        <select class="form-control form-control-plaintext" name="sex">
+                                            <option {{$student->general->sex == 'Male' ? 'selected' : ''}} value="Male">
+                                                Male
+                                            </option>
+                                            <option {{$student->general->sex == 'Female' ? 'selected' : ''}} value="Female">
+                                                Female
+                                            </option>
                                         </select>
-                                       
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -241,7 +245,8 @@
                                     <span class="input-group-text bg-white border-0"><i
                                                 class="text-gray-400 float-right far fa-edit "></i></span>
                                 </div>
-                                <input type="number" class="form-control form-control-plaintext" name="years_in_ethiopia"
+                                <input type="number" class="form-control form-control-plaintext"
+                                       name="years_in_ethiopia"
                                        value="{{$student->years_in_ethiopia}}">
                             </div>
                         </div>

@@ -34,27 +34,27 @@
                         </div>
                     @endif
 
-                        <form class="mt-4" action="" method="get">
-                            @if(Auth::user()->hasRole('College Super Admin'))
-                                <div class="form-group row pt-3">
-                                    <div class="col-md form-group">
-                                        <select class="form-control" name="department" id="department"
-                                                onchange="this.form.submit()">
-                                            @foreach ($departments as $department)
-                                                @if ($department->id == $selected_department)
-                                                    <option value="{{$department->id}}"
-                                                            selected>{{$department->department_name}}</option>
-                                                @else
-                                                    <option value="{{$department->id}}">{{$department->department_name}}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                        <label for="department" class="form-control-placeholder">
-                                            Department
-                                        </label>
-                                    </div>
+                    <form class="mt-4" action="" method="get">
+                        @if(Auth::user()->hasRole('College Super Admin'))
+                            <div class="form-group row pt-3">
+                                <div class="col-md form-group">
+                                    <select class="form-control" name="department" id="department"
+                                            onchange="this.form.submit()">
+                                        @foreach ($departments as $department)
+                                            @if ($department->id == $selected_department)
+                                                <option value="{{$department->id}}"
+                                                        selected>{{$department->department_name}}</option>
+                                            @else
+                                                <option value="{{$department->id}}">{{$department->department_name}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    <label for="department" class="form-control-placeholder">
+                                        Department
+                                    </label>
                                 </div>
-                            @else
+                            </div>
+                        @else
                             <div class="form-group row pt-3">
                                 <div class="col-md form-group">
                                     <select class="form-control" name="department" id="department"
@@ -124,142 +124,142 @@
                                     Education Level
                                 </label>
                             </div>
-                            @endif
-                        </form>
+                        @endif
+                    </form>
 
-                        <div class="row mt-3">
-                            <div class="col-sm-12">
-                                <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
-                                       width="100%"
-                                       cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                       style="width: 100%;">
-                                    <thead>
-                                    <tr role="row">
-                                        <th style="min-width: 50px; width: 50px"></th>
-                                        @if(Auth::user()->hasRole('College Super Admin'))
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                                rowspan="1" colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending"
-                                               >Student Type
-                                            </th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                                rowspan="1" colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending"
-                                                >Education Level
-                                            </th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                                rowspan="1" colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending"
-                                                >Program
-                                            </th>
-                                        @endif
+                    <div class="row mt-3">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
+                                   width="100%"
+                                   cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                                   style="width: 100%;">
+                                <thead>
+                                <tr role="row">
+                                    <th style="min-width: 50px; width: 50px"></th>
+                                    @if(Auth::user()->hasRole('College Super Admin'))
                                         <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                             rowspan="1" colspan="1" aria-sort="ascending"
                                             aria-label="Name: activate to sort column descending"
-                                            >Year
+                                        >Student Type
                                         </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                            >Number of Male Students
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                            rowspan="1" colspan="1" aria-sort="ascending"
+                                            aria-label="Name: activate to sort column descending"
+                                        >Education Level
                                         </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1"
-                                            aria-label="Start date: activate to sort column ascending"
-                                            >Number of Female Students
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                            rowspan="1" colspan="1" aria-sort="ascending"
+                                            aria-label="Name: activate to sort column descending"
+                                        >Program
                                         </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1"
-                                            aria-label="Start date: activate to sort column ascending"
-                                            >Approval Status
-                                        </th>
-
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @if (count($enrollments) > 0)
-                                        @foreach ($enrollments as $enrollment)
-                                            <tr role="row" class="odd">
-                                                    @if(Auth::user()->hasRole('College Super Admin'))
-                                                    <td class="text-center">
-                                                        @if($enrollment->approval_status == "Pending")
-                                                            <form action="normal/{{$enrollment->id}}/approve"
-                                                                  method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="action" value="disapprove">
-                                                                <button type="submit" style="opacity:0.80"
-                                                                        data-toggle="tooltip" title="Disapprove"
-                                                                        class="btn btn-danger btn-circle text-white btn-sm">
-                                                                    <i class="fas fa-times" style="opacity:0.75"></i>
-                                                                </button>
-                                                            </form>
-                                                        @endif
-                                                    </td>
-                                                    <td>{{$enrollment->student_type}}</td>
-                                                    <td>{{$enrollment->department->college->education_level}}</td>
-                                                    <td>{{$enrollment->department->college->education_program}}</td>
-                                                    @else
-                                                    <td class="text-center">
-                                                        @if($enrollment->approval_status != "Approved")
-                                                            <div class="row px-1">
-                                                                <div class="col px-0">
-                                                                    <form class="p-0"
-                                                                          action="normal/{{$enrollment->id}}/edit"
-                                                                          method="GET">
-                                                                        <button type="submit"
-                                                                                class="btn btn-primary btn-circle text-white btn-sm mx-0"
-                                                                                style="opacity:0.80"
-                                                                                data-toggle="tooltip" title="Edit">
-                                                                            <i class="fas fa-pencil-alt fa-sm"
-                                                                               style="opacity:0.75"></i>
-                                                                        </button>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="col px-0">
-                                                                    <form class="p-0"
-                                                                          action="normal/{{$enrollment->id}}"
-                                                                          method="POST">
-                                                                        @csrf
-                                                                        <input type="hidden" name="_method"
-                                                                               value="DELETE">
-                                                                        <button type="submit"
-                                                                                class="btn btn-danger btn-circle text-white btn-sm mx-0"
-                                                                                style="opacity:0.80"
-                                                                                data-toggle="tooltip" title="Delete">
-                                                                            <i class="fas fa-trash fa-sm"
-                                                                               style="opacity:0.75"></i>
-                                                                        </button>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </td>
-                                                    @endif
-                                                
-
-                                    <td>{{$enrollment->department->year_level}}</td>
-                                    <td>{{$enrollment->male_students_number}}</td>
-                                    <td>{{$enrollment->female_students_number}}</td>
-                                    @if($enrollment->approval_status == "Approved")
-                                        <td class="text-success"><i
-                                                    class="fas fa-check"></i> {{$enrollment->approval_status}}
-                                        </td>
-                                    @elseif($enrollment->approval_status == "Pending")
-                                        <td class="text-warning"><i
-                                                    class="far fa-clock"></i></i> {{$enrollment->approval_status}}
-                                        </td>
-                                    @else
-                                        <td class="text-danger"><i
-                                                    class="fas fa-times"></i> {{$enrollment->approval_status}}
-                                        </td>
                                     @endif
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                        rowspan="1" colspan="1" aria-sort="ascending"
+                                        aria-label="Name: activate to sort column descending"
+                                    >Year
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                        colspan="1" aria-label="Age: activate to sort column ascending"
+                                    >Number of Male Students
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Start date: activate to sort column ascending"
+                                    >Number of Female Students
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Start date: activate to sort column ascending"
+                                    >Approval Status
+                                    </th>
+
                                 </tr>
-                            @endforeach
-                        @endif
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody>
+                                @if (count($enrollments) > 0)
+                                    @foreach ($enrollments as $enrollment)
+                                        <tr role="row" class="odd">
+                                            @if(Auth::user()->hasRole('College Super Admin'))
+                                                <td class="text-center">
+                                                    @if($enrollment->approval_status == "Pending")
+                                                        <form action="normal/{{$enrollment->id}}/approve"
+                                                              method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="action" value="disapprove">
+                                                            <button type="submit" style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Disapprove"
+                                                                    class="btn btn-danger btn-circle text-white btn-sm">
+                                                                <i class="fas fa-times" style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                </td>
+                                                <td>{{$enrollment->student_type}}</td>
+                                                <td>{{$enrollment->department->college->education_level}}</td>
+                                                <td>{{$enrollment->department->college->education_program}}</td>
+                                            @else
+                                                <td class="text-center">
+                                                    @if($enrollment->approval_status != "Approved")
+                                                        <div class="row px-1">
+                                                            <div class="col px-0">
+                                                                <form class="p-0"
+                                                                      action="normal/{{$enrollment->id}}/edit"
+                                                                      method="GET">
+                                                                    <button type="submit"
+                                                                            class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                            style="opacity:0.80"
+                                                                            data-toggle="tooltip" title="Edit">
+                                                                        <i class="fas fa-pencil-alt fa-sm"
+                                                                           style="opacity:0.75"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                            <div class="col px-0">
+                                                                <form class="p-0"
+                                                                      action="normal/{{$enrollment->id}}"
+                                                                      method="POST">
+                                                                    @csrf
+                                                                    <input type="hidden" name="_method"
+                                                                           value="DELETE">
+                                                                    <button type="submit"
+                                                                            class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                                            style="opacity:0.80"
+                                                                            data-toggle="tooltip" title="Delete">
+                                                                        <i class="fas fa-trash fa-sm"
+                                                                           style="opacity:0.75"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                </td>
+                                            @endif
+
+
+                                            <td>{{$enrollment->department->year_level}}</td>
+                                            <td>{{$enrollment->male_students_number}}</td>
+                                            <td>{{$enrollment->female_students_number}}</td>
+                                            @if($enrollment->approval_status == "Approved")
+                                                <td class="text-success"><i
+                                                            class="fas fa-check"></i> {{$enrollment->approval_status}}
+                                                </td>
+                                            @elseif($enrollment->approval_status == "Pending")
+                                                <td class="text-warning"><i
+                                                            class="far fa-clock"></i></i> {{$enrollment->approval_status}}
+                                                </td>
+                                            @else
+                                                <td class="text-danger"><i
+                                                            class="fas fa-times"></i> {{$enrollment->approval_status}}
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
 @endsection

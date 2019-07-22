@@ -54,24 +54,24 @@
                             </div>
                         </div>
                     @else
-                    <div class="form-group row pt-3">
-                        <div class="col-md-6 form-group">
-                            <select class="form-control" name="education_level" id="education_level"
-                                    onchange="this.form.submit()">
-                                @foreach ($education_levels as $key => $value)
-                                    @if ($value == $selected_level)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
+                        <div class="form-group row pt-3">
+                            <div class="col-md-6 form-group">
+                                <select class="form-control" name="education_level" id="education_level"
+                                        onchange="this.form.submit()">
+                                    @foreach ($education_levels as $key => $value)
+                                        @if ($value == $selected_level)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
 
-                                @endforeach
-                            </select>
-                            <label for="education_level" class="form-control-placeholder">
-                                Level of Education
-                            </label>
+                                    @endforeach
+                                </select>
+                                <label for="education_level" class="form-control-placeholder">
+                                    Level of Education
+                                </label>
+                            </div>
                         </div>
-                    </div>
                     @endif
                 </form>
                 <div class="table-responsive">
@@ -92,21 +92,21 @@
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
-                                >Citizenship
+                            >Citizenship
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                >Number of Male Teachers
+                            >Number of Male Teachers
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                >Number of Female Teachers
+                            >Number of Female Teachers
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                >Approval Status
+                            >Approval Status
                             </th>
 
                         </tr>
@@ -115,59 +115,59 @@
                         @if (count($teachers) > 0)
                             @foreach ($teachers as $teacher)
                                 <tr role="row" class="odd">
-                                            @if(Auth::user()->hasRole('College Super Admin'))
-                                            <td class="text-center">
-                                                @if($teacher->approval_status == "Pending")
-                                                    <form action="normal/{{$teacher->id}}/approve"
-                                                          method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="action" value="disapprove">
-                                                        <button type="submit" style="opacity:0.80"
-                                                                data-toggle="tooltip" title="Disapprove"
-                                                                class="btn btn-danger btn-circle text-white btn-sm">
-                                                            <i class="fas fa-times" style="opacity:0.75"></i>
-                                                        </button>
-                                                    </form>
-                                                @endif
-                                            </td>
-                                            <td>{{$teacher->level_of_education}}</td>
-                                            @else
-                                            <td class="text-center">
-                                                @if($teacher->approval_status != "Approved")
-                                                    <div class="row px-1">
-                                                        <div class="col px-0">
-                                                            <form class="p-0"
-                                                                  action="/department/teachers/{{$teacher->id}}/edit"
-                                                                  method="GET">
-                                                                <button type="submit"
-                                                                        class="btn btn-primary btn-circle text-white btn-sm mx-0"
-                                                                        style="opacity:0.80"
-                                                                        data-toggle="tooltip" title="Edit">
-                                                                    <i class="fas fa-pencil-alt fa-sm"
-                                                                       style="opacity:0.75"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                        <div class="col px-0">
-                                                            <form class="p-0"
-                                                                  action="/department/teachers/{{$teacher->id}}"
-                                                                  method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="_method"
-                                                                       value="DELETE">
-                                                                <button type="submit"
-                                                                        class="btn btn-danger btn-circle text-white btn-sm mx-0"
-                                                                        style="opacity:0.80"
-                                                                        data-toggle="tooltip" title="Delete">
-                                                                    <i class="fas fa-trash fa-sm"
-                                                                       style="opacity:0.75"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </td>
+                                    @if(Auth::user()->hasRole('College Super Admin'))
+                                        <td class="text-center">
+                                            @if($teacher->approval_status == "Pending")
+                                                <form action="normal/{{$teacher->id}}/approve"
+                                                      method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="action" value="disapprove">
+                                                    <button type="submit" style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Disapprove"
+                                                            class="btn btn-danger btn-circle text-white btn-sm">
+                                                        <i class="fas fa-times" style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
                                             @endif
+                                        </td>
+                                        <td>{{$teacher->level_of_education}}</td>
+                                    @else
+                                        <td class="text-center">
+                                            @if($teacher->approval_status != "Approved")
+                                                <div class="row px-1">
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                              action="/department/teachers/{{$teacher->id}}/edit"
+                                                              method="GET">
+                                                            <button type="submit"
+                                                                    class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Edit">
+                                                                <i class="fas fa-pencil-alt fa-sm"
+                                                                   style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                              action="/department/teachers/{{$teacher->id}}"
+                                                              method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="_method"
+                                                                   value="DELETE">
+                                                            <button type="submit"
+                                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Delete">
+                                                                <i class="fas fa-trash fa-sm"
+                                                                   style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </td>
+                                    @endif
                                     <td>{{$teacher->citizenship}}</td>
                                     <td>{{$teacher->male_number}}</td>
                                     <td>{{$teacher->female_number}}</td>

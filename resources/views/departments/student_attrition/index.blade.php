@@ -53,88 +53,88 @@
                             </div>
                         </div>
                     @else
-                    <div class="form-group row pt-3">
-                        <div class="col-md-4 form-group">
-                            <select class="form-control" name="program" id="program"
-                                    onchange="this.form.submit()">
-                                @foreach ($programs as $key => $value)
-                                    @if ($value == $selected_program)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
+                        <div class="form-group row pt-3">
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="program" id="program"
+                                        onchange="this.form.submit()">
+                                    @foreach ($programs as $key => $value)
+                                        @if ($value == $selected_program)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
 
-                                @endforeach
-                            </select>
-                            <label for="program" class="form-control-placeholder">
-                                Education Program
-                            </label>
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <select class="form-control" name="education_level" id="education_level"
-                                    onchange="this.form.submit()">
-                                @foreach ($education_levels as $key => $value)
-                                    @if ($value == $selected_level)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
+                                    @endforeach
+                                </select>
+                                <label for="program" class="form-control-placeholder">
+                                    Education Program
+                                </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="education_level" id="education_level"
+                                        onchange="this.form.submit()">
+                                    @foreach ($education_levels as $key => $value)
+                                        @if ($value == $selected_level)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
 
-                                @endforeach
-                            </select>
-                            <label for="education_level" class="form-control-placeholder">
-                                Education Level
-                            </label>
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <select class="form-control" name="student_type" id="student_type"
-                                    onchange="this.form.submit()">
-                                @foreach ($student_types as $key => $value)
-                                    @if ($value == $selected_student_type)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
+                                    @endforeach
+                                </select>
+                                <label for="education_level" class="form-control-placeholder">
+                                    Education Level
+                                </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="student_type" id="student_type"
+                                        onchange="this.form.submit()">
+                                    @foreach ($student_types as $key => $value)
+                                        @if ($value == $selected_student_type)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
 
-                                @endforeach
-                            </select>
-                            <label for="student_type" class="form-control-placeholder">
-                                Student Type
-                            </label>
+                                    @endforeach
+                                </select>
+                                <label for="student_type" class="form-control-placeholder">
+                                    Student Type
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row pt-3">
-                        <div class="col-md-6 form-group">
-                            <select class="form-control" name="type" id="type" onchange="this.form.submit()">
-                                @foreach ($types as $key => $value)
-                                    @if ($value == $selected_type)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
+                        <div class="form-group row pt-3">
+                            <div class="col-md-6 form-group">
+                                <select class="form-control" name="type" id="type" onchange="this.form.submit()">
+                                    @foreach ($types as $key => $value)
+                                        @if ($value == $selected_type)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
 
-                                @endforeach
-                            </select>
-                            <label for="type" class="form-control-placeholder">
-                                Type
-                            </label>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <select class="form-control" name="case" id="case" onchange="this.form.submit()">
-                                @foreach ($cases as $key => $value)
-                                    @if ($value == $selected_case)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
+                                    @endforeach
+                                </select>
+                                <label for="type" class="form-control-placeholder">
+                                    Type
+                                </label>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <select class="form-control" name="case" id="case" onchange="this.form.submit()">
+                                    @foreach ($cases as $key => $value)
+                                        @if ($value == $selected_case)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
 
-                                @endforeach
-                            </select>
-                            <label for="case" class="form-control-placeholder">
-                                Case
-                            </label>
+                                    @endforeach
+                                </select>
+                                <label for="case" class="form-control-placeholder">
+                                    Case
+                                </label>
+                            </div>
                         </div>
-                    </div>
                     @endif
                 </form>
                 <div class="table-responsive">
@@ -154,41 +154,41 @@
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
                                     aria-label="Name: activate to sort column descending"
-                                    >Education Level
+                                >Education Level
                                 </th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
                                     aria-label="Name: activate to sort column descending"
-                                    >Program
+                                >Program
                                 </th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
                                     aria-label="Name: activate to sort column descending"
-                                    >Type
+                                >Type
                                 </th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
                                     aria-label="Name: activate to sort column descending"
-                                    >Case
+                                >Case
                                 </th>
                             @endif
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
-                                >Year
+                            >Year
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                >Number of Male Students
+                            >Number of Male Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                >Number of Female Students
+                            >Number of Female Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                >Approval Status
+                            >Approval Status
                             </th>
                         </tr>
                         </thead>
@@ -196,7 +196,7 @@
                         @if (count($attritions) > 0)
                             @foreach ($attritions as $attrition)
                                 <tr role="row" class="odd">
-                                        @if(Auth::user()->hasRole('College Super Admin'))
+                                    @if(Auth::user()->hasRole('College Super Admin'))
                                         <td class="text-center">
                                             @if($attrition->approval_status == "Pending")
                                                 <form action="student-attrition/{{$attrition->id}}/approve"
@@ -209,14 +209,14 @@
                                                         <i class="fas fa-times" style="opacity:0.75"></i>
                                                     </button>
                                                 </form>
-                                            @endif  
-                                        </td>  
+                                            @endif
+                                        </td>
                                         <td>{{$attrition->student_type}}</td>
                                         <td>{{$attrition->department->college->education_level}}</td>
-                                        <td>{{$attrition->department->college->education_program}}</td>   
+                                        <td>{{$attrition->department->college->education_program}}</td>
                                         <td>{{$attrition->type}}</td>
-                                        <td>{{$attrition->case}}</td>                                         
-                                        @else
+                                        <td>{{$attrition->case}}</td>
+                                    @else
                                         <td class="text-center">
                                             @if($attrition->approval_status != "Approved")
                                                 <div class="row px-1">
@@ -249,10 +249,10 @@
                                                             </button>
                                                         </form>
                                                     </div>
-                                                </div> 
-                                            @endif 
-                                        </td>                                                          
-                                        @endif
+                                                </div>
+                                            @endif
+                                        </td>
+                                    @endif
                                     <td>{{$attrition->department->year_level}}</td>
                                     <td>{{$attrition->male_students_number}}</td>
                                     <td>{{$attrition->female_students_number}}</td>

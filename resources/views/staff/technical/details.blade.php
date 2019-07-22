@@ -45,30 +45,32 @@
         </div>
 
         <div class="card shadow mt-3">
-                <div class="card-header text-primary">
-                    Place of Origin Information
-                </div>
-                <div class="card-body">
-                    <div class="row mt-4">
-                        <div class="col-md-3">
-                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is Expatriate</div>
-                            @if ($staff->general->is_expatriate == 0)
-                                <p>No</p>
-                            @else
-                                <p>Yes</p>
-                            @endif
+            <div class="card-header text-primary">
+                Place of Origin Information
+            </div>
+            <div class="card-body">
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is Expatriate</div>
+                        @if ($staff->general->is_expatriate == 0)
+                            <p>No</p>
+                        @else
+                            <p>Yes</p>
+                        @endif
+                    </div>
+                    <div class="col-md-5">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is From Region Other
+                            that the Host Region
                         </div>
-                        <div class="col-md-5">
-                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is From Region Other that the Host Region</div>
-                            @if ($staff->general->is_from_other_region == 0)
-                                <p>No</p>
-                            @else
-                                <p>Yes</p>
-                            @endif
-                        </div>
+                        @if ($staff->general->is_from_other_region == 0)
+                            <p>No</p>
+                        @else
+                            <p>Yes</p>
+                        @endif
                     </div>
                 </div>
             </div>
+        </div>
 
         <div class="card shadow mt-3">
             <div class="card-header text-primary">

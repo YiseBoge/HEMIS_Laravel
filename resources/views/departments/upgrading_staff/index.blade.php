@@ -42,15 +42,15 @@
                             </div>
                         </div>
                     @else
-                    <div class="form-row">
-                        <div class="col-md-6 px-3 py-md-1 col">
-                            <div class="form-group">
-                                {!! Form::select('study_place', \App\Models\Department\UpgradingStaff::getEnum('StudyPlaces') , $selected_place , ['class' => 'form-control', 'id' => 'add_study_place', 'onchange' => 'this.form.submit()']) !!}
-                                {!! Form::label('add_study_place', 'Study Place', ['class' => 'form-control-placeholder']) !!}
+                        <div class="form-row">
+                            <div class="col-md-6 px-3 py-md-1 col">
+                                <div class="form-group">
+                                    {!! Form::select('study_place', \App\Models\Department\UpgradingStaff::getEnum('StudyPlaces') , $selected_place , ['class' => 'form-control', 'id' => 'add_study_place', 'onchange' => 'this.form.submit()']) !!}
+                                    {!! Form::label('add_study_place', 'Study Place', ['class' => 'form-control-placeholder']) !!}
+                                </div>
                             </div>
-                        </div>
 
-                    </div>
+                        </div>
                     @endif
                     {!! Form::close() !!}
                 </div>
@@ -96,61 +96,61 @@
                             <tbody>
                             @foreach($upgrading_staffs as $upgrading_staff)
                                 <tr>
-                                   
-                                            @if(Auth::user()->hasRole('College Super Admin'))
-                                            <td class="text-center">
-                                                @if($upgrading_staff->approval_status == "Pending")
-                                                    <form action="upgrading-staff/{{$upgrading_staff->id}}/approve"
-                                                            method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="action" value="disapprove">
-                                                        <button type="submit" style="opacity:0.80"
-                                                                data-toggle="tooltip" title="Disapprove"
-                                                                class="btn btn-danger btn-circle text-white btn-sm">
-                                                            <i class="fas fa-times" style="opacity:0.75"></i>
-                                                        </button>
-                                                    </form>
-                                                @endif
-                                            </td>
-                                            <td>{{$upgrading_staff->study_place}}</td>
-                                            @else
-                                            <td class="text-center">
-                                                @if($upgrading_staff->approval_status != "Approved")
-                                                    <div class="row px-1">
-                                                        <div class="col px-0">
-                                                            <form class="p-0"
-                                                                    action="upgrading-staff/{{$upgrading_staff->id}}/edit"
-                                                                    method="GET">
-                                                                <button type="submit"
-                                                                        class="btn btn-primary btn-circle text-white btn-sm mx-0"
-                                                                        style="opacity:0.80"
-                                                                        data-toggle="tooltip" title="Edit">
-                                                                    <i class="fas fa-pencil-alt fa-sm"
-                                                                        style="opacity:0.75"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                        <div class="col px-0">
-                                                            <form class="p-0"
-                                                                    action="upgrading-staff/{{$upgrading_staff->id}}"
-                                                                    method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="_method"
-                                                                        value="DELETE">
-                                                                <button type="submit"
-                                                                        class="btn btn-danger btn-circle text-white btn-sm mx-0"
-                                                                        style="opacity:0.80"
-                                                                        data-toggle="tooltip" title="Delete">
-                                                                    <i class="fas fa-trash fa-sm"
-                                                                        style="opacity:0.75"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </td>
+
+                                    @if(Auth::user()->hasRole('College Super Admin'))
+                                        <td class="text-center">
+                                            @if($upgrading_staff->approval_status == "Pending")
+                                                <form action="upgrading-staff/{{$upgrading_staff->id}}/approve"
+                                                      method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="action" value="disapprove">
+                                                    <button type="submit" style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Disapprove"
+                                                            class="btn btn-danger btn-circle text-white btn-sm">
+                                                        <i class="fas fa-times" style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
                                             @endif
-                                       
+                                        </td>
+                                        <td>{{$upgrading_staff->study_place}}</td>
+                                    @else
+                                        <td class="text-center">
+                                            @if($upgrading_staff->approval_status != "Approved")
+                                                <div class="row px-1">
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                              action="upgrading-staff/{{$upgrading_staff->id}}/edit"
+                                                              method="GET">
+                                                            <button type="submit"
+                                                                    class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Edit">
+                                                                <i class="fas fa-pencil-alt fa-sm"
+                                                                   style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col px-0">
+                                                        <form class="p-0"
+                                                              action="upgrading-staff/{{$upgrading_staff->id}}"
+                                                              method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="_method"
+                                                                   value="DELETE">
+                                                            <button type="submit"
+                                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0"
+                                                                    style="opacity:0.80"
+                                                                    data-toggle="tooltip" title="Delete">
+                                                                <i class="fas fa-trash fa-sm"
+                                                                   style="opacity:0.75"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </td>
+                                    @endif
+
 
                                     <td>{{ $upgrading_staff->education_level}}</td>
                                     <td>{{ $upgrading_staff->male_number }}</td>

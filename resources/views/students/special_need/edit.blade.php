@@ -49,9 +49,13 @@
                                             <span class="input-group-text bg-white border-0"><i
                                                         class="text-gray-400 float-right far fa-edit "></i></span>
                                         </div>
-                                        <select class="form-control form-control-plaintext" name="sex">                                            
-                                            <option {{$student->general->sex == 'Male' ? 'selected' : ''}} value="Male">Male</option>
-                                            <option {{$student->general->sex == 'Female' ? 'selected' : ''}} value="Female">Female</option>                                            
+                                        <select class="form-control form-control-plaintext" name="sex">
+                                            <option {{$student->general->sex == 'Male' ? 'selected' : ''}} value="Male">
+                                                Male
+                                            </option>
+                                            <option {{$student->general->sex == 'Female' ? 'selected' : ''}} value="Female">
+                                                Female
+                                            </option>
                                         </select>
                                     </div>
                                 </div>

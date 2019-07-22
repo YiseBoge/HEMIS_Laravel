@@ -105,32 +105,32 @@
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
                                     aria-label="Name: activate to sort column descending"
-                                    >Education Level
+                                >Education Level
                                 </th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
                                     aria-label="Name: activate to sort column descending"
-                                    >Program
+                                >Program
                                 </th>
                             @endif
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
-                                >Year
+                            >Year
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                >Number of Male Students
+                            >Number of Male Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                >Number of Female Students
+                            >Number of Female Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                >Approval Status
+                            >Approval Status
                             </th>
 
                         </tr>
@@ -139,7 +139,7 @@
                         @if (count($enrollments) > 0)
                             @foreach ($enrollments as $enrollment)
                                 <tr role="row" class="odd">
-                                        @if(Auth::user()->hasRole('College Super Admin'))
+                                    @if(Auth::user()->hasRole('College Super Admin'))
                                         <td class="text-center">
                                             @if($enrollment->approval_status == "Pending")
                                                 <form action="other-region-students/{{$enrollment->id}}/approve"
@@ -152,11 +152,11 @@
                                                         <i class="fas fa-times" style="opacity:0.75"></i>
                                                     </button>
                                                 </form>
-                                            @endif    
-                                        </td> 
+                                            @endif
+                                        </td>
                                         <td>{{$enrollment->department->college->education_level}}</td>
-                                        <td>{{$enrollment->department->college->education_program}}</td>                                           
-                                        @else
+                                        <td>{{$enrollment->department->college->education_program}}</td>
+                                    @else
                                         <td class="text-center">
                                             @if($enrollment->approval_status != "Approved")
                                                 <div class="row px-1">
@@ -189,11 +189,11 @@
                                                             </button>
                                                         </form>
                                                     </div>
-                                                </div> 
-                                            @endif 
-                                        </td>                                                          
-                                        @endif
-                                    
+                                                </div>
+                                            @endif
+                                        </td>
+                                    @endif
+
                                     <td>{{$enrollment->department->year_level}}</td>
                                     <td>{{$enrollment->male_students_number}}</td>
                                     <td>{{$enrollment->female_students_number}}</td>
