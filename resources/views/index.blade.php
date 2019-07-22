@@ -142,6 +142,7 @@
                                 ticks: {
                                     maxTicksLimit: 5,
                                     padding: 10,
+                                    beginAtZero: true
 
                                 },
                                 gridLines: {
@@ -240,6 +241,7 @@
                                 ticks: {
                                     maxTicksLimit: 5,
                                     padding: 10,
+                                    beginAtZero: true
 
                                 },
                                 gridLines: {
@@ -342,6 +344,7 @@
                                 ticks: {
                                     maxTicksLimit: 5,
                                     padding: 10,
+                                    beginAtZero: true
 
                                 },
                                 gridLines: {
