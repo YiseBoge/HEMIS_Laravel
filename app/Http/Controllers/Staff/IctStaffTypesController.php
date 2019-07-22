@@ -104,7 +104,22 @@ class IctStaffTypesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Super Admin');
+
+        $categories = IctStaffType::getEnum('category');
+        $ictStaffTypes = IctStaffType::all();
+        $current_type = IctStaffType::find($id);
+
+        $data = array(
+            'categories' => $categories,
+            'ict_staff_types' => $ictStaffTypes,
+            'current_type' => $current_type,
+            'page_name' => 'administer.ict_staff_type.edit',
+        );
+
+        return view('staff.ict_staff_type.index')->with($data);
     }
 
     /**

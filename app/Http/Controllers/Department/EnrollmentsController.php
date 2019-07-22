@@ -59,19 +59,21 @@ class EnrollmentsController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->enrollments as $enrollment) {
-                                            if ($enrollment->student_type == $requestedType) {
-                                                $service = new GeneralReportService("2018/19");
-                                                //return $service->nonAcademicAttrition();
-                                                $enrollments[] = $enrollment;
-                                            }
+                                            $service = new GeneralReportService("2018/19");
+                                            //return $service->nonAcademicAttrition();
+                                            $enrollments[] = $enrollment;
                                         }
-                                    }
-                                } else {
+                                    }                                    
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->enrollments as $enrollment) {
                                             if ($enrollment->student_type == $requestedType) {
@@ -293,7 +295,7 @@ class EnrollmentsController extends Controller
                 }
             }
         }
-        return redirect("/enrollment/normal")->with('primary', 'Success');
+        return redirect("/enrollment/normal?department=" . $selectedDepartment)->with('primary', 'Success');
     }
 
     public function viewChart(Request $request)
@@ -374,6 +376,8 @@ class EnrollmentsController extends Controller
             'selected_band' => $requestedBand,
             'selected_department' => $requestedDepartment,
 
+            'path' => 'enrollment/student-enrollment-chart?student_type=' . $requestedType . '&program=' . $requestedProgram . '&college=' . $requestedCollege . '&band=' . $requestedBand . '&education_level=' . $requestedLevel . '&department=' . $requestedDepartment ,
+
             'page_name' => 'enrollment.normal.index'
         );
         //return $filteredEnrollments;
@@ -388,21 +392,25 @@ class EnrollmentsController extends Controller
 
         $requestedType = $request->input('student_type');
         if ($requestedType == null) {
+            //return "&type null";
             $requestedType = 'Normal';
         }
 
         $requestedProgram = $request->input('program');
         if ($requestedProgram == null) {
+            //return "&program null";
             $requestedProgram = 'Regular';
         }
 
         $requestedCollege = $request->input('college');
         if ($requestedCollege == null) {
+            //return "college null";
             $requestedCollege = CollegeName::all()->first()->college_name;
         }
 
         $requestedLevel = $request->input('education_level');
         if ($requestedLevel == null) {
+            //return "&level null";
             $requestedLevel = 'Undergraduate';
         }
 
@@ -441,7 +449,6 @@ class EnrollmentsController extends Controller
                                     }
                                 }
                             }
-
                         }
                     }
                 }

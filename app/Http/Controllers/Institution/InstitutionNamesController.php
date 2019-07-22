@@ -134,9 +134,10 @@ class InstitutionNamesController extends Controller
 
         $institutions = InstitutionName::all();
         $institution = InstitutionName::find($id);
+        // return $institution; 
         $data = [
             'institutions' => $institutions,
-            'institution' => $institution,
+            'current_institution' => $institution,
             'page_name' => 'administer.institution-name.edit'
         ];
 
@@ -153,7 +154,24 @@ class InstitutionNamesController extends Controller
     public
     function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'institution_name' => 'required',
+            'institution_acronym' => 'required'
+        ]);
+
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Super Admin');
+        $instance = $user->currentInstance;
+
+        $institutionName = InstitutionName::find($id);
+        $institutionName->institution_name = $request->input('institution_name');
+        $institutionName->acronym = $request->input('institution_acronym');
+        $institutionName->is_private = $request->has('is_private');
+        $institutionName->save();
+
+        return redirect('/institution/institution-name')->with('primary', 'Successfully Edited Institution Name');
+
     }
 
     /**

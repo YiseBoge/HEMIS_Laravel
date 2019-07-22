@@ -52,7 +52,7 @@
                                 </label>
                             </div>
                         </div>
-                    @endif
+                    @else
                     <div class="form-group row pt-3">
                         <div class="col-md-6 form-group">
                             <select class="form-control" name="education_level" id="education_level"
@@ -71,6 +71,7 @@
                             </label>
                         </div>
                     </div>
+                    @endif
                 </form>
                 <div class="table-responsive">
                     <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
@@ -80,29 +81,31 @@
                         <thead>
                         <tr role="row">
                             <th style="min-width: 50px; width: 50px"></th>
+                            @if(Auth::user()->hasRole('College Super Admin'))
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                >Level of Education
+                                </th>
+                            @endif
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
-                                style="min-width: 151px;">Department
-                            </th>
-                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                rowspan="1" colspan="1" aria-sort="ascending"
-                                aria-label="Name: activate to sort column descending"
-                                style="min-width: 151px;">Citizenship
+                                >Citizenship
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                style="min-width: 46px;">Number of Male Teachers
+                                >Number of Male Teachers
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Number of Female Teachers
+                                >Number of Female Teachers
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Approval Status
+                                >Approval Status
                             </th>
 
                         </tr>
@@ -110,10 +113,9 @@
                         <tbody>
                         @if (count($teachers) > 0)
                             @foreach ($teachers as $teacher)
-                                <tr role="row" class="odd"
-                                    onclick="window.location='teachers/{{$teacher->id}}'">
-                                    <td class="text-center">
+                                <tr role="row" class="odd">
                                             @if(Auth::user()->hasRole('College Super Admin'))
+                                            <td class="text-center">
                                                 @if($teacher->approval_status == "Pending")
                                                     <form action="normal/{{$teacher->id}}/approve"
                                                           method="POST">
@@ -126,7 +128,10 @@
                                                         </button>
                                                     </form>
                                                 @endif
+                                            </td>
+                                            <td>{{$teacher->level_of_education}}</td>
                                             @else
+                                            <td class="text-center">
                                                 @if($teacher->approval_status != "Approved")
                                                     <div class="row px-1">
                                                         <div class="col px-0">
@@ -160,9 +165,8 @@
                                                         </div>
                                                     </div>
                                                 @endif
+                                            </td>
                                             @endif
-                                        </td>
-                                    <td>{{$teacher->department->departmentName->department_name}}</td>
                                     <td>{{$teacher->citizenship}}</td>
                                     <td>{{$teacher->male_number}}</td>
                                     <td>{{$teacher->female_number}}</td>

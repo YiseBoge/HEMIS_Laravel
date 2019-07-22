@@ -52,13 +52,15 @@
                                 </label>
                             </div>
                         </div>
-                    @endif
+                    @else
 
                     <div class="form-group row pt-3">
                         <div class="col-md-6 form-group">
                             <select class="form-control" name="type" id="type" onchange="this.form.submit()">
                                 @foreach ($types as $key => $value)
-                                    @if ($value == $selected_type)
+                                    @if ($value == "Normal" && $selected_type == 0)
+                                        <option value="{{$value}}" selected>{{$value}}</option>
+                                    @elseif ($value == "School Leaders" && $selected_type == 1)
                                         <option value="{{$value}}" selected>{{$value}}</option>
                                     @else
                                         <option value="{{$value}}">{{$value}}</option>
@@ -70,25 +72,8 @@
                                 Teacher Type
                             </label>
                         </div>
-
-                        <div class="col-md-6 form-group">
-                            <select class="form-control" name="program" id="program"
-                                    onchange="this.form.submit()">
-                                @foreach ($programs as $key => $value)
-                                    @if ($value == $selected_program)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
-
-                                @endforeach
-                            </select>
-                            <label for="program" class="form-control-placeholder">
-                                Program
-                            </label>
-                        </div>
-
                     </div>
+                    @endif
                 </form>
                 <div class="table-responsive">
                     <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
@@ -98,24 +83,31 @@
                         <thead>
                         <tr role="row">
                             <th style="min-width: 50px; width: 50px"></th>
+                            @if(Auth::user()->hasRole('College Super Admin'))
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                    >Teacher Type
+                                </th>
+                            @endif
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
-                                style="min-width: 121px;">Department
+                                >Program
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                style="min-width: 46px;">Number of Male Teachers
+                                >Number of Male Teachers
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Number of Female Teachers
+                                >Number of Female Teachers
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Approval Status
+                                >Approval Status
                             </th>
 
                         </tr>
@@ -123,10 +115,9 @@
                         <tbody>
                         @if (count($trainings) > 0)
                             @foreach ($trainings as $training)
-                                <tr role="row" class="odd"
-                                    onclick="window.location='postgraduate-diploma-training/{{$training->id}}'">
-                                    <td class="text-center">
+                                <tr role="row" class="odd">
                                             @if(Auth::user()->hasRole('College Super Admin'))
+                                            <td class="text-center">
                                                 @if($training->approval_status == "Pending")
                                                     <form action="postgraduate-diploma-training/{{$training->id}}/approve"
                                                           method="POST">
@@ -139,7 +130,10 @@
                                                         </button>
                                                     </form>
                                                 @endif
+                                            </td>
+                                            <td>{{$training->is_lead ? "School Leaders" : "Normal"}}</td>
                                             @else
+                                            <td class="text-center">
                                                 @if($training->approval_status != "Approved")
                                                     <div class="row px-1">
                                                         <div class="col px-0">
@@ -173,9 +167,9 @@
                                                         </div>
                                                     </div>
                                                 @endif
+                                            </td>
                                             @endif
-                                        </td>
-                                    <td>{{$training->department->departmentName->department_name}}</td>
+                                    <td>{{$training->department->college->education_program}}</td>
                                     <td>{{$training->number_of_male_students}}</td>
                                     <td>{{$training->number_of_female_students}}</td>
                                     @if($training->approval_status == "Approved")

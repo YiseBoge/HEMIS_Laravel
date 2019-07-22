@@ -52,7 +52,7 @@
                                 </label>
                             </div>
                         </div>
-                    @endif
+                    @else
                     <div class="form-group row pt-3">
                         <div class="col-md-4 form-group">
                             <select class="form-control" name="student_type" id="student_type"
@@ -102,6 +102,7 @@
                             </label>
                         </div>
                     </div>
+                    @endif 
                 </form>
                 <div class="table-responsive">
                     <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
@@ -111,29 +112,41 @@
                         <thead>
                         <tr role="row">
                             <th style="min-width: 75px; width: 75px"></th>
+                            @if(Auth::user()->hasRole('College Super Admin'))
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                    >Student Type
+                                </th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                    >Program
+                                </th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                    >Specialization Type
+                                </th>
+                            @endif
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
-                                style="min-width: 151px;">Department
-                            </th>
-                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                rowspan="1" colspan="1" aria-sort="ascending"
-                                aria-label="Name: activate to sort column descending"
-                                style="min-width: 151px;">Field of Specialization
+                                >Field of Specialization
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                style="min-width: 46px;">Number of Male Students
+                                >Number of Male Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Number of Female Students
+                                >Number of Female Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Approval Status
+                                >Approval Status
                             </th>
 
                         </tr>
@@ -141,50 +154,54 @@
                         <tbody>
                         @if (count($enrollments) > 0)
                             @foreach ($enrollments as $enrollment)
-                                <tr role="row" class="odd"
-                                    onclick="window.location='normal/{{$enrollment->id}}'">
-                                    <td class="text-center">
+                                <tr role="row" class="odd">
                                         @if(Auth::user()->hasRole('College Super Admin'))
-                                            @if($enrollment->approval_status == "Pending")
-                                                <form action="specializing-students/{{$enrollment->id}}/approve" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="action" value="disapprove">
-                                                    <button type="submit" style="opacity:0.80" data-toggle="tooltip" title="Disapprove"
-                                                            class="btn btn-danger btn-circle text-white btn-sm">
-                                                        <i class="fas fa-times" style="opacity:0.75"></i>
-                                                    </button>
-                                                </form>
-                                            @endif                                                
+                                            <td class="text-center">
+                                                @if($enrollment->approval_status == "Pending")
+                                                    <form action="specializing-students/{{$enrollment->id}}/approve" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="action" value="disapprove">
+                                                        <button type="submit" style="opacity:0.80" data-toggle="tooltip" title="Disapprove"
+                                                                class="btn btn-danger btn-circle text-white btn-sm">
+                                                            <i class="fas fa-times" style="opacity:0.75"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif 
+                                            </td>  
+                                            <td>{{$enrollment->student_type}}</td>
+                                            <td>{{$enrollment->department->college->program}}</td>
+                                            <td>{{$enrollment->specialization_type}}</td>                                             
                                         @else
-                                            @if($enrollment->approval_status != "Approved")
-                                                <div class="row px-1">
-                                                    <div class="col">
-                                                        <form class="p-0"
-                                                            action="/enrollment/specializing-students/{{$enrollment->id}}/edit"
-                                                            method="GET">
-                                                            <button type="submit"
-                                                                    class="btn btn-primary btn-circle text-white btn-sm" style="opacity:0.80" data-toggle="tooltip" title="Edit">
-                                                                    <i class="fas fa-pencil-alt fa-sm" style="opacity:0.75"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                    <div class="col">
-                                                        <form class="p-0"
-                                                                action="/enrollment/specializing-students/{{$enrollment->id}}"
-                                                                method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="_method"
-                                                                    value="DELETE">
-                                                            <button type="submit"
-                                                                    class="btn btn-danger btn-circle text-white btn-sm" style="opacity:0.80" data-toggle="tooltip" title="Delete">
-                                                                <i class="fas fa-trash fa-sm" style="opacity:0.75"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </div> 
-                                            @endif                                                           
-                                        @endif
-                                    </td>
+                                            <td class="text-center">
+                                                @if($enrollment->approval_status != "Approved")
+                                                    <div class="row px-1">
+                                                        <div class="col">
+                                                            <form class="p-0"
+                                                                action="/enrollment/specializing-students/{{$enrollment->id}}/edit"
+                                                                method="GET">
+                                                                <button type="submit"
+                                                                        class="btn btn-primary btn-circle text-white btn-sm" style="opacity:0.80" data-toggle="tooltip" title="Edit">
+                                                                        <i class="fas fa-pencil-alt fa-sm" style="opacity:0.75"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col">
+                                                            <form class="p-0"
+                                                                    action="/enrollment/specializing-students/{{$enrollment->id}}"
+                                                                    method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="_method"
+                                                                        value="DELETE">
+                                                                <button type="submit"
+                                                                        class="btn btn-danger btn-circle text-white btn-sm" style="opacity:0.80" data-toggle="tooltip" title="Delete">
+                                                                    <i class="fas fa-trash fa-sm" style="opacity:0.75"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div> 
+                                                @endif
+                                            </td>                                                           
+                                        @endif                                    
                                     <td>{{$enrollment->department->departmentName->department_name}}</td>
                                     <td>{{$enrollment->field_of_specialization}}</td>
                                     <td>{{$enrollment->male_students_number}}</td>

@@ -42,10 +42,18 @@ class BudgetsController extends Controller
         if ($institution != null) {
             foreach ($institution->bands as $band) {
                 foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->budgets as $budget) {
-                            if ($budget->budget_type == $budget_type) {
+                    if ($user->hasRole('College Super Admin')) {
+                        if ($college->collegeName->id == $collegeName->id) {
+                            foreach ($college->budgets as $budget) {
                                 $budgets[] = $budget;
+                            }
+                        }
+                    }else{
+                        if ($college->collegeName->id == $collegeName->id) {
+                            foreach ($college->budgets as $budget) {
+                                if ($budget->budget_type == $budget_type) {
+                                    $budgets[] = $budget;
+                                }
                             }
                         }
                     }

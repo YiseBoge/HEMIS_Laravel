@@ -106,7 +106,14 @@ class BandNamesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
-        return view('bands.edit');
+        $bands = BandName::all();
+        $current_band_name = BandName::find($id);
+        $data = [
+            'bands' => $bands,
+            'current_band_name' => $current_band_name,
+            'page_name' => 'administer.band-name.edit'
+        ];
+        return view('bands.band_name.list')->with($data);
     }
 
     /**
@@ -118,7 +125,7 @@ class BandNamesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       
     }
 
     /**

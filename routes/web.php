@@ -77,6 +77,7 @@ Route::post('institution/buildings/{id}/approve', 'College\BuildingsController@a
 Route::resource('institution/buildings', 'College\BuildingsController');
 Route::post('institution/researches/{id}/approve', 'Department\ResearchsController@approve');
 Route::resource('institution/researches', 'Department\ResearchsController');
+Route::resource('institution/management-data', 'Institution\ManagementDataController');
 
 //  Staff Routes...
 Route::post('staff/academic/{id}/approve', 'Staff\AcademicStaffsController@approve');

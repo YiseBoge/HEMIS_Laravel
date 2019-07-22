@@ -52,7 +52,7 @@
                                 </label>
                             </div>
                         </div>
-                    @endif
+                    @else
                     <div class="form-group row pt-3">
                         <div class="col-md-6 form-group">
                             <select class="form-control" name="program" id="program"
@@ -89,6 +89,7 @@
                             </label>
                         </div>
                     </div>
+                    @endif
                 </form>
                 <div class="table-responsive">
                     <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
@@ -98,33 +99,44 @@
                         <thead>
                         <tr role="row">
                             <th style="min-width: 75px; width: 75px"></th>
+                            @if(Auth::user()->hasRole('College Super Admin'))
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                    >Education Level
+                                </th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                    >Program
+                                </th>
+                            @endif
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending" width="15"
-                                style="width: 15%;">Age Range
+                                >Age Range
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                            >Male(Aggregate number)
+                            >Number of Male Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Salary: activate to sort column ascending"
-                            >Female(Aggregate number)
+                            >Number of Male Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Approval Status
+                                >Approval Status
                             </th>
                         </tr>
                         </thead>
                         <tbody>
                         @if (count($enrollment_info) > 0)
                             @foreach ($enrollment_info as $info)
-                                <tr role="row" class="odd"
-                                    onclick="window.location='age-enrollment/{{$info->id}}'">
-                                    <td class="text-center">
+                                <tr role="row" class="odd">
                                         @if(Auth::user()->hasRole('College Super Admin'))
+                                        <td class="text-center">
                                             @if($info->approval_status == "Pending")
                                                 <form action="age-enrollment/{{$info->id}}/approve" method="POST">
                                                     @csrf
@@ -134,8 +146,12 @@
                                                         <i class="fas fa-times" style="opacity:0.75"></i>
                                                     </button>
                                                 </form>
-                                            @endif                                                
+                                            @endif  
+                                        </td>    
+                                        <td>{{$info->department->college->education_level}}</td>
+                                        <td>{{$info->department->college->education_program}}</td>                                          
                                         @else
+                                        <td class="text-center">
                                             @if($info->approval_status != "Approved")
                                                 <div class="row px-1">
                                                     <div class="col">
@@ -162,9 +178,10 @@
                                                         </form>
                                                     </div>
                                                 </div> 
-                                            @endif                                                           
+                                            @endif 
+                                        </td>                                                          
                                         @endif
-                                    </td>
+                                    
 
                                     <td class="sorting_1">{{$info->age}}</td>
                                     <td>{{$info->male_students_number}}</td>

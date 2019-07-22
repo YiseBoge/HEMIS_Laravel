@@ -52,7 +52,7 @@
                                 </label>
                             </div>
                         </div>
-                    @endif
+                    @else
 
                     <div class="form-group row pt-3">
                         <div class="col form-group">
@@ -70,22 +70,8 @@
                                 Research Type
                             </label>
                         </div>
-                        <div class="col form-group">
-                            <select class="form-control" name="status" id="status" onchange="this.form.submit()">
-                                @foreach ($completions as $key => $value)
-                                    @if ($value == $selected_status)
-                                        <option value="{{$value}}" selected>{{$value}}</option>
-                                    @else
-                                        <option value="{{$value}}">{{$value}}</option>
-                                    @endif
-
-                                @endforeach
-                            </select>
-                            <label for="status" class="form-control-placeholder" onchange="this.form.submit()">
-                                Completion Status
-                            </label>
-                        </div>
                     </div>
+                    @endif
                 </form>
                 <div class="row mt-3">
                     <div class="col-sm-12">
@@ -97,53 +83,60 @@
                                 <thead>
                                 <tr role="row">
                                     <th style="min-width: 50px; width: 50px"></th>
+                                    @if(Auth::user()->hasRole('College Super Admin'))
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                            rowspan="1" colspan="1" aria-sort="ascending"
+                                            aria-label="Name: activate to sort column descending"
+                                        >Research Type
+                                        </th>
+                                    @endif
                                     <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                         rowspan="1" colspan="1" aria-sort="ascending"
                                         aria-label="Name: activate to sort column descending"
-                                        style="width: 151px;">Department
+                                        >Completion Status
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1" aria-label="Age: activate to sort column ascending"
-                                        style="width: 46px;">Researches
+                                        >Researches
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1" aria-label="Age: activate to sort column ascending"
-                                        style="width: 46px;">Male Teachers Participating
+                                        >Male Teachers Participating
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1"
                                         aria-label="Start date: activate to sort column ascending"
-                                        style="width: 99px;">Female Teachers Participating
+                                        >Female Teachers Participating
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1"
                                         aria-label="Start date: activate to sort column ascending"
-                                        style="width: 99px;">Female Lead Researchers
+                                        >Female Lead Researchers
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1"
                                         aria-label="Start date: activate to sort column ascending"
-                                        style="width: 99px;">Male Researchers From Other Institution
+                                        >Male Researchers From Other Institution
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1"
                                         aria-label="Start date: activate to sort column ascending"
-                                        style="width: 99px;">Female Researchers From Other Institution
+                                        >Female Researchers From Other Institution
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1"
                                         aria-label="Start date: activate to sort column ascending"
-                                        style="width: 99px;">Budget Allocated
+                                        >Budget Allocated
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1"
                                         aria-label="Start date: activate to sort column ascending"
-                                        style="width: 99px;">Budget From External Fund
+                                        >Budget From External Fund
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1"
                                         aria-label="Start date: activate to sort column ascending"
-                                        style="min-width: 99px;">Approval Status
+                                        >Approval Status
                                     </th>
 
                                 </tr>
@@ -151,10 +144,9 @@
                                 <tbody>
                                 @if (count($researchs) > 0)
                                     @foreach ($researchs as $research)
-                                        <tr role="row" class="odd"
-                                            onclick="window.location='researches/{{$research->id}}'">
-                                            <td class="text-center">
+                                        <tr role="row" class="odd">
                                                     @if(Auth::user()->hasRole('College Super Admin'))
+                                                    <td class="text-center">
                                                         @if($research->approval_status == "Pending")
                                                             <form action="researches/{{$research->id}}/approve"
                                                                   method="POST">
@@ -167,7 +159,10 @@
                                                                 </button>
                                                             </form>
                                                         @endif
+                                                        </td>
+                                                        <td>{{$research->type}}</td>
                                                     @else
+                                                    <td class="text-center">
                                                         @if($research->approval_status != "Approved")
                                                             <div class="row px-1">
                                                                 <div class="col px-0">
@@ -201,9 +196,10 @@
                                                                 </div>
                                                             </div>
                                                         @endif
+                                                    </td>
                                                     @endif
-                                                </td>
-                                            <td>{{$research->department->departmentName->department_name}}</td>
+                                                
+                                            <td>{{$research->status}}</td>
                                             <td>{{$research->number}}</td>
                                             <td>{{$research->male_teachers_participating_number}}</td>
                                             <td>{{$research->female_teachers_participating_number}}</td>

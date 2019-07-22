@@ -51,7 +51,7 @@
                                 </label>
                             </div>
                         </div>
-                    @endif
+                    @else
                     <div class="form-group row pt-3">
                         <div class="col-md form-group">
                             <select class="form-control" name="region_type" id="region_type"
@@ -124,6 +124,7 @@
                         </div>
 
                     </div>
+                    @endif
                 </form>
                 <div class="table-responsive">
                     <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
@@ -136,21 +137,38 @@
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
-                                style="min-width: 151px;">Region
+                               >Region
                             </th>
+                            @if(Auth::user()->hasRole('College Super Admin'))
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                    >Education Level
+                                </th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                    >Program
+                                </th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                >Year
+                                </th>
+                            @endif
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                style="min-width: 46px;">Number of Male Students
+                               >Number of Male Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Number of Female Students
+                                >Number of Female Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Approval Status
+                                >Approval Status
                             </th>
 
                         </tr>
@@ -160,8 +178,8 @@
                             @foreach ($enrollments as $enrollment)
                                 <tr role="row" class="odd"
                                     onclick="window.location='normal/{{$enrollment->id}}'">
-                                    <td class="text-center">
                                         @if(Auth::user()->hasRole('College Super Admin'))
+                                        <td class="text-center">
                                             @if($enrollment->approval_status == "Pending")
                                                 <form action="special-region-students/{{$enrollment->id}}/approve" method="POST">
                                                     @csrf
@@ -171,8 +189,14 @@
                                                         <i class="fas fa-times" style="opacity:0.75"></i>
                                                     </button>
                                                 </form>
-                                            @endif                                                
+                                            @endif  
+                                        </td> 
+                                        <td>{{$enrollment->regionName->name}}</td>
+                                        <td>{{$enrollment->department->college->education_level}}</td>
+                                        <td>{{$enrollment->department->college->education_program}}</td>
+                                        <td>{{$enrollment->department->year_level}}</td>                                             
                                         @else
+                                        <td class="text-center">
                                             @if($enrollment->approval_status != "Approved")
                                                 <div class="row px-1">
                                                     <div class="col">
@@ -199,10 +223,11 @@
                                                         </form>
                                                     </div>
                                                 </div> 
-                                            @endif                                                           
+                                            @endif   
+                                        </td> 
+                                        <td>{{$enrollment->regionName->name}}</td>                                                       
                                         @endif
-                                    </td>
-                                    <td>{{$enrollment->regionName->name}}</td>
+                                    
                                     <td>{{$enrollment->male_number}}</td>
                                     <td>{{$enrollment->female_number}}</td>
                                     @if($enrollment->approval_status == "Approved")

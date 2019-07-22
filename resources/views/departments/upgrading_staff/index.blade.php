@@ -40,7 +40,7 @@
                                 {!! Form::label('department', 'Department', ['class' => 'form-control-placeholder']) !!}
                             </div>
                         </div>
-                    @endif
+                    @else
                     <div class="form-row">
                         <div class="col-md-6 px-3 py-md-1 col">
                             <div class="form-group">
@@ -50,6 +50,7 @@
                         </div>
 
                     </div>
+                    @endif
                     {!! Form::close() !!}
                 </div>
 
@@ -64,7 +65,13 @@
                             <thead>
                             <tr role="row">
                                 <th style="min-width: 50px; width: 50px"></th>
-
+                                @if(Auth::user()->hasRole('College Super Admin'))
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                        rowspan="1" colspan="1" aria-sort="ascending"
+                                        aria-label="Name: activate to sort column descending"
+                                    >Study Place
+                                    </th>
+                                @endif
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
                                 >Education Level
@@ -88,8 +95,9 @@
                             <tbody>
                             @foreach($upgrading_staffs as $upgrading_staff)
                                 <tr>
-                                    <td class="text-center">
+                                   
                                             @if(Auth::user()->hasRole('College Super Admin'))
+                                            <td class="text-center">
                                                 @if($upgrading_staff->approval_status == "Pending")
                                                     <form action="upgrading-staff/{{$upgrading_staff->id}}/approve"
                                                             method="POST">
@@ -102,7 +110,10 @@
                                                         </button>
                                                     </form>
                                                 @endif
+                                            </td>
+                                            <td>{{$upgrading_staff->study_place}}</td>
                                             @else
+                                            <td class="text-center">
                                                 @if($upgrading_staff->approval_status != "Approved")
                                                     <div class="row px-1">
                                                         <div class="col px-0">
@@ -136,8 +147,9 @@
                                                         </div>
                                                     </div>
                                                 @endif
+                                            </td>
                                             @endif
-                                        </td>
+                                       
 
                                     <td>{{ $upgrading_staff->education_level}}</td>
                                     <td>{{ $upgrading_staff->male_number }}</td>

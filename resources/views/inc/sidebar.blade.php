@@ -326,6 +326,11 @@
                 <i class="fas fa-info-circle"></i>
                 <span>General Information</span></a>
         </li>
+        <li class="nav-item {{ preg_split ("/\./", $page_name)[1] == 'management_data' ? 'active': '' }}">
+            <a class="nav-link" href="/institution/management-data">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Management Data</span></a>
+        </li>
 
     @elseif(Auth::user()->hasRole('Super Admin'))
 

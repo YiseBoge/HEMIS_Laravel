@@ -51,17 +51,19 @@ class SpecialProgramTeacherController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->id == $user->bandName->id) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->id == $user->collegeName->id) {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->id == $user->collegeName->id) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->SpecialProgramTeachers as $teacher) {
-                                            if ($teacher->program_stat == $requestedStatus) {
-                                                $filteredTeachers[] = $teacher;
-                                            }
+                                            $filteredTeachers[] = $teacher;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->id == $user->collegeName->id) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->SpecialProgramTeachers as $teacher) {
                                             if ($teacher->program_stat == $requestedStatus) {
@@ -72,6 +74,7 @@ class SpecialProgramTeacherController extends Controller
                                 }
                             }
                         }
+                        
                     }
                 }
             }

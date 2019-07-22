@@ -40,7 +40,7 @@
                                 {!! Form::label('department', 'Department', ['class' => 'form-control-placeholder']) !!}
                             </div>
                         </div>
-                    @endif
+                    @else
                     <div class="form-row">
                         <div class="col-md-6 px-3 py-md-1 col">
                             <div class="form-group">
@@ -50,6 +50,7 @@
                         </div>
 
                     </div>
+                    @endif
                     {!! Form::close() !!}
 
                 </div>
@@ -65,7 +66,13 @@
                             <thead>
                             <tr role="row">
                                 <th style="min-width: 50px; width: 50px"></th>
-
+                                @if(Auth::user()->hasRole('College Super Admin'))
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                        rowspan="1" colspan="1" aria-sort="ascending"
+                                        aria-label="Name: activate to sort column descending"
+                                    >Program Status
+                                    </th>
+                                @endif
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
                                 >Program
@@ -81,7 +88,7 @@
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1"
                                     aria-label="Start date: activate to sort column ascending"
-                                    style="min-width: 99px;">Approval Status
+                                    >Approval Status
                                 </th>
 
                             </tr>
@@ -89,8 +96,8 @@
                             <tbody>
                             @foreach($special_program_teachers as $specialProgramTeacher)
                                 <tr>
-                                    <td class="text-center">
                                         @if(Auth::user()->hasRole('College Super Admin'))
+                                        <td class="text-center">
                                             @if($specialProgramTeacher->approval_status == "Pending")
                                                 <form action="special-program-teacher/{{$specialProgramTeacher->id}}/approve"
                                                         method="POST">
@@ -103,7 +110,10 @@
                                                     </button>
                                                 </form>
                                             @endif
+                                        </td>
+                                        <td>{{$specialProgramTeacher->program_stat}}</td>
                                         @else
+                                        <td class="text-center">
                                             @if($specialProgramTeacher->approval_status != "Approved")
                                                 <div class="row px-1">
                                                     <div class="col px-0">
@@ -137,9 +147,8 @@
                                                     </div>
                                                 </div>
                                             @endif
+                                        </td>
                                         @endif
-                                    </td>
-
                                     <td>{{ $specialProgramTeacher->program_type}}</td>
                                     <td>{{ $specialProgramTeacher->male_number }}</td>
                                     <td>{{ $specialProgramTeacher->female_number }}</td>

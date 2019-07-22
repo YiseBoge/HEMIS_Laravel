@@ -112,50 +112,30 @@
     @endif
 
 
-    @if ($page_name == 'administer.budget.edit')
+    @if ($page_name == 'administer.region-name.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
-             aria-hidden="true">
+                aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-
                 <div class="modal-content">
-                    {!! Form::open(['action' => ['Institution\BudgetsController@update', $data['budget']->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['action' => ['Institution\RegionNamesController@update', $current_region_name], 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <a href="/institution/budget" class="close" aria-label="Close">
+                        <a href="/region-name" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
                     </div>
 
-                    <div class="modal-body row pt-6">
-                        <div class="col-12 form-group pb-2">
-                            {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , $data['budget_type'], ['class' => 'form-control', 'id' => 'edit_budget_type']) !!}
-                            {!! Form::label('budget_type', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_type']) !!}
-                        </div>
-
-                        <div class="col-12 form-group pb-2">
-                            {!! Form::select('budget_description', \App\Models\Institution\BudgetDescription::all() , $data['budget_description'], ['class' => 'form-control', 'id' => 'edit_budget_description']) !!}
-                            {!! Form::label('budget_description', 'Budget Description', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_description']) !!}
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('allocated', $data['budget']->allocated_budget, ['class' => 'form-control', 'id' => 'edit_allocated', 'required' => 'true']) !!}
-                            {!! Form::label('allocated', 'Allocated', ['class' => 'form-control-placeholder', 'for' => 'edit_allocated']) !!}
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('additional', $data['budget']->additional_budget, ['class' => 'form-control', 'id' => 'edit_additional', 'required' => 'true']) !!}
-                            {!! Form::label('additional', 'Additional', ['class' => 'form-control-placeholder', 'for' => 'edit_additional']) !!}
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('utilized', $data['budget']->utilized_budget, ['class' => 'form-control', 'id' => 'edit_utilized', 'required' => 'true']) !!}
-                            {!! Form::label('utilized', 'Utilized', ['class' => 'form-control-placeholder', 'for' => 'edit_utilized']) !!}
+                    <div class="modal-body row p-4">
+                        <div class="col-md form-group pb-1">
+                            {!! Form::text('name', $current_region_name->name, ['class' => 'form-control', 'id' => 'add_name', 'required' => 'true']) !!}
+                            {!! Form::label('add_name', 'Region Name', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>
+
                     <div class="modal-footer">
-                        {!! Form::hidden('_method', 'PUT') !!}
-                        {!! Form::submit('Save Changes', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                     </div>
+
                     {!! Form::close() !!}
                 </div>
 

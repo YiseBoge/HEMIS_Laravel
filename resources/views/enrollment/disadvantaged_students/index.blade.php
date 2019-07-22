@@ -52,7 +52,7 @@
                                 </label>
                             </div>
                         </div>
-                    @endif
+                    @else
                     <div class="form-group row pt-3">
                         <div class="col-md-4 form-group">
                             <select class="form-control" name="quintile" id="quintile"
@@ -104,6 +104,7 @@
                             </label>
                         </div>
                     </div>
+                    @endif
                 </form>
                 <div class="table-responsive">
                     <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
@@ -113,10 +114,27 @@
                         <thead>
                         <tr role="row">
                             <th style="min-width: 75px; width: 75px"></th>
+                            @if(Auth::user()->hasRole('College Super Admin'))
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                    >Quintile
+                                </th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                    >Education Level
+                                </th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                    aria-label="Name: activate to sort column descending"
+                                    >Program
+                                </th>
+                            @endif
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
-                                style="min-width: 151px;">Year
+                                >Year
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
@@ -125,12 +143,12 @@
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Number of Female Students
+                                >Number of Female Students
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Approval Status
+                                >Approval Status
                             </th>
 
                         </tr>
@@ -138,10 +156,9 @@
                         <tbody>
                         @if (count($enrollments) > 0)
                             @foreach ($enrollments as $enrollment)
-                                <tr role="row" class="odd"
-                                    onclick="window.location='normal/{{$enrollment->id}}'">
-                                    <td class="text-center">
+                                <tr role="row" class="odd">
                                         @if(Auth::user()->hasRole('College Super Admin'))
+                                        <td class="text-center">
                                             @if($enrollment->approval_status == "Pending")
                                                 <form action="economically-disadvantaged/{{$enrollment->id}}/approve" method="POST">
                                                     @csrf
@@ -151,8 +168,13 @@
                                                         <i class="fas fa-times" style="opacity:0.75"></i>
                                                     </button>
                                                 </form>
-                                            @endif                                                
+                                            @endif 
+                                        </td>  
+                                        <td>{{$enrollment->quintile}}</td>
+                                        <td>{{$enrollment->department->college->education_level}}</td>
+                                        <td>{{$enrollment->department->college->education_program}}</td>                                             
                                         @else
+                                        <td class="text-center">
                                             @if($enrollment->approval_status != "Approved")
                                                 <div class="row px-1">
                                                     <div class="col">
@@ -179,9 +201,10 @@
                                                         </form>
                                                     </div>
                                                 </div> 
-                                            @endif                                                           
+                                            @endif  
+                                        </td>                                                         
                                         @endif
-                                    </td>
+                                   
 
                                     <td>{{$enrollment->department->year_level}}</td>
                                     <td>{{$enrollment->male_students_number}}</td>

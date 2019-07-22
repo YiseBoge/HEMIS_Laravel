@@ -56,17 +56,19 @@ class PostGraduateDiplomaTrainingController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->id == $user->bandName->id) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->id == $user->collegeName->id && $college->education_level == "None" && $college->education_program == $requestedProgram) {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->id == $user->collegeName->id) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->postgraduateDiplomaTrainings as $training) {
-                                            if ($training->is_lead == $requestedType) {
-                                                $trainings[] = $training;
-                                            }
+                                            $trainings[] = $training;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->id == $user->collegeName->id && $college->education_level == "None") {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->postgraduateDiplomaTrainings as $training) {
                                             if ($training->is_lead == $requestedType) {
@@ -76,7 +78,9 @@ class PostGraduateDiplomaTrainingController extends Controller
                                     }
                                 }
                             }
+                            
                         }
+                        
                     }
                 }
             }

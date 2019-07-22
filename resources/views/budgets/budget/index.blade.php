@@ -30,16 +30,20 @@
                     </div>
                 @endif
 
-                <div class="row">
-                    {!! Form::open(['action' => 'College\BudgetsController@index', 'method' => 'GET', 'class' => 'w-100']) !!}
-                    <div class="col-md-6 px-3 py-md-1">
-                        <div class="form-group">
-                            {!! Form::select('budget_type', $budget_types , $budget_type , ['class' => 'form-control', 'id' => 'set_budget_type', 'onchange' => 'this.form.submit()']) !!}
-                            {!! Form::label('set_budget_type', 'Budget Type', ['class' => 'form-control-placeholder']) !!}
+                @if(Auth::user()->hasRole('College Super Admin'))
+                @else 
+                    <div class="row">
+                        {!! Form::open(['action' => 'College\BudgetsController@index', 'method' => 'GET', 'class' => 'w-100']) !!}
+                        <div class="col-md-6 px-3 py-md-1">
+                            <div class="form-group">
+                                {!! Form::select('budget_type', $budget_types , $budget_type , ['class' => 'form-control', 'id' => 'set_budget_type', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('set_budget_type', 'Budget Type', ['class' => 'form-control-placeholder']) !!}
+                            </div>
                         </div>
+                        {!! Form::close() !!}
                     </div>
-                    {!! Form::close() !!}
-                </div>
+                @endif
+               
 
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
@@ -52,6 +56,13 @@
                             <thead>
                             <tr role="row">
                                 <th style="min-width: 50px; width: 50px"></th>
+                                @if(Auth::user()->hasRole('College Super Admin'))
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+                                        rowspan="1" colspan="1" aria-sort="ascending"
+                                        aria-label="Name: activate to sort column descending"
+                                        >Budget Type
+                                    </th>
+                                @endif
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
                                     aria-label="Name: activate to sort column descending"
@@ -99,8 +110,8 @@
                             <tbody>
                             @foreach($budgets as $budget)
                                 <tr>
-                                        <td class="text-center">
                                                 @if(Auth::user()->hasRole('College Super Admin'))
+                                                <td class="text-center">
                                                     @if($budget->approval_status == "Pending")
                                                         <form action="budget/{{$budget->id}}/approve"
                                                               method="POST">
@@ -113,7 +124,10 @@
                                                             </button>
                                                         </form>
                                                     @endif
+                                                </td>
+                                                <td>{{ $budget->budget_type }}</td>
                                                 @else
+                                                <td class="text-center">
                                                     @if($budget->approval_status != "Approved")
                                                         <div class="row px-1">
                                                             <div class="col px-0">
@@ -147,8 +161,8 @@
                                                             </div>
                                                         </div>
                                                     @endif
+                                                </td>
                                                 @endif
-                                            </td>
                                     <td>{{ $budget->budgetDescription->budget_code }}</td>
                                     <td>{{ $budget->budgetDescription->description }}</td>
                                     <td>{{ $budget->allocated_budget }}</td>

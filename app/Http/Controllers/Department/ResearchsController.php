@@ -36,11 +36,6 @@ class ResearchsController extends Controller
             $requestedType = 'Normal';
         }
 
-        $requestedStatus = $request->input('status');
-        if ($requestedStatus == null) {
-            $requestedStatus = 'On Going';
-        }
-
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
             $requestedDepartment = DepartmentName::all()->first()->id;
@@ -52,20 +47,22 @@ class ResearchsController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->researches as $research) {
-                                            if ($research->type == $requestedType && $research->status == $requestedStatus) {
-                                                $researches[] = $research;
-                                            }
+                                            $researches[] = $research;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        }else{
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->researches as $research) {
-                                            if ($research->type == $requestedType && $research->status == $requestedStatus) {
+                                            if ($research->type == $requestedType) {
                                                 $researches[] = $research;
                                             }
                                         }
@@ -88,8 +85,7 @@ class ResearchsController extends Controller
             'page_name' => 'research.research.index',
 
             'selected_department' => $requestedDepartment,
-            "selected_type" => $requestedType,
-            "selected_status" => $requestedStatus
+            "selected_type" => $requestedType
         );
         return view("bands.research.index")->with($data);
     }

@@ -62,17 +62,19 @@ class OtherAttritionController extends Controller
         if ($institution != null) {
             foreach ($institution->bands as $band) {
                 foreach ($band->colleges as $college) {
-                    if ($college->education_program == $requestedProgram && $college->education_level == $requestedLevel) {
-                        foreach ($college->departments as $department) {
-                            if ($user->hasRole('College Super Admin')) {
+                    if ($user->hasRole('College Super Admin')) {
+                        if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                            foreach ($college->departments as $department) {
                                 if ($department->departmentName->id == $requestedDepartment) {
                                     foreach ($department->otherAttritions as $attrition) {
-                                        if ($attrition->type == $requestedType && $attrition->case == $requestedCase) {
-                                            $attritions[] = $attrition;
-                                        }
+                                        $attritions[] = $attrition;
                                     }
                                 }
-                            } else {
+                            }
+                        }
+                    }else{
+                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_program == $requestedProgram && $college->education_level == $requestedLevel) {
+                            foreach ($college->departments as $department) {
                                 if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                     foreach ($department->otherAttritions as $attrition) {
                                         if ($attrition->type == $requestedType && $attrition->case == $requestedCase) {
@@ -83,7 +85,6 @@ class OtherAttritionController extends Controller
                             }
                         }
                     }
-
                 }
 
             }
