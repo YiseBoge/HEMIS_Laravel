@@ -222,13 +222,8 @@
                                                 <div class="row px-1">
                                                     <div class="col px-0">
                                                         <form class="p-0"
-<<<<<<< HEAD
                                                             action="/student/student-attrition/{{$attrition->id}}/edit"
                                                             method="GET">
-=======
-                                                              action="/attrition/student-attrition/{{$attrition->id}}/edit"
-                                                              method="GET">
->>>>>>> 868b05803c2863174e18e84e93d43b21c3ddb250
                                                             <button type="submit"
                                                                     class="btn btn-primary btn-circle text-white btn-sm mx-0"
                                                                     style="opacity:0.80"
@@ -240,13 +235,8 @@
                                                     </div>
                                                     <div class="col px-0">
                                                         <form class="p-0"
-<<<<<<< HEAD
                                                                 action="/student/student-attrition/{{$attrition->id}}"
                                                                 method="POST">
-=======
-                                                              action="/attrition/student-attrition/{{$attrition->id}}"
-                                                              method="POST">
->>>>>>> 868b05803c2863174e18e84e93d43b21c3ddb250
                                                             @csrf
                                                             <input type="hidden" name="_method"
                                                                    value="DELETE">
