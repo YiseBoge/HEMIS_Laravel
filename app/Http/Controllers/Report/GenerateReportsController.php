@@ -8,6 +8,7 @@ use App\Models\Department\StudentAttrition;
 use App\Models\Report\ReportCard;
 use App\Models\Report\ReportYearValue;
 use App\Services\GeneralReportService;
+use App\Services\InstitutionReportService;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -832,6 +833,8 @@ class GenerateReportsController extends Controller
         $user->authorizeRoles('University Admin');
         $year = $user->currentInstance->year;
         $institution_name = $user->institutionName;
+
+        $reportService = new InstitutionReportService($institution_name, $year);
 
 
         return redirect('/institution-report')->with('primary', 'Successfully Updated Current Year');

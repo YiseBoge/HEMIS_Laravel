@@ -18,6 +18,7 @@ use Webpatser\Uuid\Uuid;
  * @property GeneralInformation generalInformation
  * @property InstitutionName institutionName
  * @method static Institution find(int $id)
+ * @method static Collection where(string $string, $year)
  */
 class Institution extends Model
 {
