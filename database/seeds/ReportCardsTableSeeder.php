@@ -13,13 +13,13 @@ class ReportCardsTableSeeder extends Seeder
     public function run()
     {
         $policies = array(
-            '1' => '1.	Improve access & equity',
-            '2' => '2.	Improve internal efficiency',
-            '3' => '3.	Improve quality & relevance of education',
-            '4' => '4.	Improve quality & relevance of research',
-            '5' => '5.	Promote diversity in higher education institutions',
-            '6' => '6.	Improve internationalization',
-            '7' => '7.	Improve resources mobilization',
+            '1' => '1.	Improve Access & Equity',
+            '2' => '2.	Improve Internal Efficiency',
+            '3' => '3.	Improve Quality & Relevance of Education',
+            '4' => '4.	Improve Quality & Relevance of Research',
+            '5' => '5.	Promote Diversity in Higher Education Institutions',
+            '6' => '6.	Improve Internationalization',
+            '7' => '7.	Improve Resources Mobilization',
         );
 
         $descriptions = array(
@@ -43,7 +43,7 @@ class ReportCardsTableSeeder extends Seeder
             '2.10' => '2.10	Reduce higher education staff attrition rate',
 
             '3.1' => '3.1	Improve quality of instruction in HEIs',
-            '3.2' => '3.2	Increase performance of students in exist examinations',
+            '3.2' => '3.2	Increase performance of students in exit examinations',
             '3.3' => '3.3	Improve employability of students in HEIs',
             '3.4' => '3.4	Increase students enrollment in science & technology fields',
 

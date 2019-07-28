@@ -819,7 +819,7 @@ class GenerateReportsController extends Controller
         $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
-        return redirect('/report')->with('primary', 'Successfully Updated Current Year');
+        return redirect('/report')->with('primary', 'Successfully Updated Current Year KPIs');
     }
 
     /**
@@ -837,6 +837,6 @@ class GenerateReportsController extends Controller
         $reportService = new InstitutionReportService($institution_name, $year);
 
 
-        return redirect('/institution-report')->with('primary', 'Successfully Updated Current Year');
+        return redirect('/institution-report')->with('primary', 'Successfully Updated Current Year KPIs');
     }
 }

@@ -25,7 +25,7 @@
                             <i class="fas fa-download text-white-50 fa-sm mr-2"></i>Export to Excel
                         </button>
                         <button type="button" class="btn btn-primary btn-sm mb-0 shadow-sm ml-1"
-                                onclick="printJS({ printable: 'printable', type: 'html', css: '/css/app.css', documentTitle: 'KPI (Key Performance Indicators) - MoSHE', ignoreElements: ['unprint'] }) ">
+                                onclick="printJS({ printable: 'printable', type: 'html', css: '/css/app.css', documentTitle: 'KPI (Key Performance Indicators) - {{$institution_name}}', ignoreElements: ['unprint'] }) ">
                             <i class="fas fa-download text-white-50 fa-sm mr-2"></i>Print to PDF
                         </button>
                     </div>
@@ -33,9 +33,9 @@
                 <div class="row mt-3">
                     <div class="col-sm text-left">
                         <p>
-                            <span class="font-weight-bold">Policy Owner/Responsible Implementer:</span> {{$institution_name}}
+                            <span class="font-weight-bold">Name of higher education institution:</span> {{$institution_name}}
                         </p>
-                        <p><span class="font-weight-bold">Responsible:</span> Core management team of MoSHE</p>
+                        {{--                        <p><span class="font-weight-bold">Responsible:</span> Core management team of MoSHE</p>--}}
                     </div>
                 </div>
                 <div class="row">
@@ -142,16 +142,16 @@
 
     </div>
 
-    @if ($page_name == 'report.report_card.edit')
+    @if ($page_name == 'report.institution_report_card.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    {!! Form::open(['action' => ['Report\ReportsController@update', $report->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['action' => ['Report\InstitutionReportsController@update', $report->id], 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Set Target</h5>
-                        <a href="/report" class="close" aria-label="Close">
+                        <a href="/institution-report" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
                     </div>
@@ -213,26 +213,4 @@
             </div>
         </div>
     @endif
-
-
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Are you sure you wish to delete?</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-danger" href="/budgets/internal-revenue/delete">
-                        Delete
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
 @endSection

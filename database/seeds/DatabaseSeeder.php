@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
 
             BuildingPurposesTableSeeder::class,
             ReportCardsTableSeeder::class,
+            InstitutionReportCardsTableSeeder::class,
 
             IctStaffTypesTableSeeder::class,
             BudgetDescriptionsTableSeeder::class,

@@ -36,11 +36,6 @@ class InstitutionReportCard extends Model
         '1.3.1' => '% increase in the number of undergraduate students with disabilities',
         '1.3.2' => '% increase in the number of postgraduate students with disabilities',
 
-        '1.4.1' => '% increase in the number of students from economically disadvantaged backgrounds',
-        '1.5.1' => '% increase in the number of students from emerging regions',
-        '1.6.1' => '% share of students from rural areas from total enrollment',
-        '1.7.1' => '% increase in the share of students enrolled in private HEIs',
-
         '2.1.1' => 'Decrease in the % of undergraduate students dropout',
         '2.1.2' => 'Decrease in the % of postgraduate students dropout',
 
@@ -59,19 +54,14 @@ class InstitutionReportCard extends Model
         '2.6.1' => '% increase the graduation rate of undergraduate female students',
         '2.6.2' => '% increase in the graduation rate of postgraduate female students',
 
-        '2.7.1' => '% decrease in the number of persons with disabilities dropping out',
-        '2.8.1' => '% decrease in the number of economically disadvantaged students dropping out',
-        '2.9.1' => '% decrease in the number of dropouts from emerging regions',
-
-        '2.10.1' => 'Decrease in the % of academic faculty leaving their positions for good',
-        '2.10.2' => 'Decrease in the % of non-academic professional staff leaving their positions',
+        '2.7.1' => 'Decrease in the % of academic faculty leaving their positions for good',
+        '2.7.2' => 'Decrease in the % of non-academic professional staff leaving their positions',
 
         '3.1.1' => 'Increase in the proportion of adequately qualified staff',
         '3.1.2' => 'Decrease in adequately qualified teacher to student ratio',
 
         '3.2.1' => 'Increase in the % of graduates who pass graduates exit examination',
         '3.3.1' => 'Increase in the % of undergraduates accessing degree-relevant employment within 12 months after graduation',
-        '3.4.1' => '% increase in enrollment in science and technology fields',
 
         '4.1.1' => 'Increase in publication per capita for academic staff with the rank of associate and full professorship',
         '4.1.2' => 'Increase in publication per capita for postgraduate researchers',
@@ -92,8 +82,9 @@ class InstitutionReportCard extends Model
         '6.3.1' => '% Increase in the number of expatriate staff in Ethiopian HEIs',
 
         '7.1.1' => '% Increase in the proportion of budget mobilized from sources other than the government subsidy',
+
         '7.2.1' => '% Reduction in the amount of non-utilized funds',
-        '7.3.1' => '% Increase in the amount of loan recovered from student cost sharing',
+        '7.2.2' => '% Reduction in the amount of unaccounted/unjustifiable expenses',
     ];
 
     /**

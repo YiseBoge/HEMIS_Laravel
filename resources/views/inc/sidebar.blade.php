@@ -318,9 +318,21 @@
                 <i class="fas fa-microscope"></i>
                 <span>Research</span></a>
         </li>
+    @elseif(Auth::user()->hasRole('University Admin'))
 
-    @elseif(Auth::user()->hasAnyRole(['Super Admin', 'University Admin']))
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'general_info' ? 'active': '' }}">
+            <a class="nav-link" href="/institution/general">
+                <i class="fas fa-info-circle"></i>
+                <span>General Information</span></a>
+        </li>
+        <li class="nav-item {{ preg_split ("/\./", $page_name)[1] == 'management_data' ? 'active': '' }}">
+            <a class="nav-link" href="/institution/management-data">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Management Data</span></a>
+        </li>
+    @endif
 
+    @if(Auth::user()->hasAnyRole(['Super Admin', 'University Admin']))
         <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[0] == 'report' ? 'active': '' }}">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReport"
                aria-expanded="false"
@@ -339,22 +351,6 @@
                        href="/institution-report">Institution Report Card</a>
                 </div>
             </div>
-        </li>
-
-    @else
-    @endif
-
-    @if(Auth::user()->hasRole('University Admin'))
-
-        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'general_info' ? 'active': '' }}">
-            <a class="nav-link" href="/institution/general">
-                <i class="fas fa-info-circle"></i>
-                <span>General Information</span></a>
-        </li>
-        <li class="nav-item {{ preg_split ("/\./", $page_name)[1] == 'management_data' ? 'active': '' }}">
-            <a class="nav-link" href="/institution/management-data">
-                <i class="fas fa-chalkboard-teacher"></i>
-                <span>Management Data</span></a>
         </li>
     @endif
 

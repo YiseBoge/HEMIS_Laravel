@@ -124,7 +124,6 @@ class InstitutionReportsController extends Controller
             }
         }
 
-        array_search($institution_name, InstitutionName::all());
         $data = [
             'reports' => $reports,
             'years' => $years,
