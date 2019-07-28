@@ -319,20 +319,7 @@
                 <span>Research</span></a>
         </li>
 
-    @elseif(Auth::user()->hasRole('University Admin'))
-
-        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'general_info' ? 'active': '' }}">
-            <a class="nav-link" href="/institution/general">
-                <i class="fas fa-info-circle"></i>
-                <span>General Information</span></a>
-        </li>
-        <li class="nav-item {{ preg_split ("/\./", $page_name)[1] == 'management_data' ? 'active': '' }}">
-            <a class="nav-link" href="/institution/management-data">
-                <i class="fas fa-chalkboard-teacher"></i>
-                <span>Management Data</span></a>
-        </li>
-
-    @elseif(Auth::user()->hasRole('Super Admin'))
+    @elseif(Auth::user()->hasAnyRole(['Super Admin', 'University Admin']))
 
         <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[0] == 'report' ? 'active': '' }}">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReport"
@@ -344,13 +331,31 @@
             <div id="collapseReport" class="collapse" aria-labelledby="headingTwo"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'report_card' ? 'active': '' }}"
-                       href="/report">MoSHE Report Card</a>
+                    @if (Auth::user()->hasRole('Super Admin'))
+                        <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'report_card' ? 'active': '' }}"
+                           href="/report">MoSHE Report Card</a>
+                    @endif
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'institution_report_card' ? 'active': '' }}"
+                       href="/institution-report">Institution Report Card</a>
                 </div>
             </div>
         </li>
-    @else
 
+    @else
+    @endif
+
+    @if(Auth::user()->hasRole('University Admin'))
+
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'general_info' ? 'active': '' }}">
+            <a class="nav-link" href="/institution/general">
+                <i class="fas fa-info-circle"></i>
+                <span>General Information</span></a>
+        </li>
+        <li class="nav-item {{ preg_split ("/\./", $page_name)[1] == 'management_data' ? 'active': '' }}">
+            <a class="nav-link" href="/institution/management-data">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Management Data</span></a>
+        </li>
     @endif
 
     <hr class="sidebar-divider">

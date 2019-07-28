@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Report;
 use App\Http\Controllers\Controller;
 use App\Models\College\College;
 use App\Models\Department\StudentAttrition;
-use App\Models\Institution\InstitutionName;
 use App\Models\Report\ReportCard;
 use App\Models\Report\ReportYearValue;
 use App\Services\GeneralReportService;
@@ -819,23 +818,22 @@ class GenerateReportsController extends Controller
         $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 
-        return redirect('/report')->with('success', 'Successfully Updated Current Year');
+        return redirect('/report')->with('primary', 'Successfully Updated Current Year');
     }
 
     /**
      * Generate specific institution KPI Report.
      *
-     * @param $id
-     * @return Response
+     * @return void
      */
-    public function generateInstitutionReport($id)
+    public function generateInstitutionReport()
     {
         $user = Auth::user();
-        $user->authorizeRoles('Super Admin');
+        $user->authorizeRoles('University Admin');
         $year = $user->currentInstance->year;
+        $institution_name = $user->institutionName;
 
-        $institution_name = InstitutionName::find($id);
 
-        // code goes here
+        return redirect('/institution-report')->with('primary', 'Successfully Updated Current Year');
     }
 }

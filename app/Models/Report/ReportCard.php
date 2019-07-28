@@ -4,6 +4,7 @@ namespace App\Models\Report;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
+use Faker\Provider\DateTime;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -16,12 +17,18 @@ use Webpatser\Uuid\Uuid;
  * @method static ReportCard find(int $id)
  * @property Collection reportYearValues
  * @property double target
+ * @property string|null policy
+ * @property string|null policy_description
+ * @property string|null kpi
+ * @property DateTime created_at
+ * @property DateTime updated_at
  */
 class ReportCard extends Model
 {
     use Uuids;
     use Enums;
     public $incrementing = false;
+
     protected $enumKpis = [
         '1.1.1' => '% increase in undergraduate students enrollment',
         '1.1.2' => '% increase in postgraduate students enrollment',
