@@ -137,15 +137,20 @@
     </div>
 
     <script>
-        var path = "{{$path}}";
-        var url = "{{url('enrollment/student-enrollment-chart?student_type=' . $selected_student_type . '&program=' . $selected_program . '&college=' . $selected_college . '&band=' . $selected_band . '&education_level=' . $selected_education_level . '&department=' . $selected_department )}}";
+        //var url = "{{'enrollment/student-enrollment-chart?student_type=' . $selected_student_type . '&program=' . $selected_program . '&college=' . $selected_college . '&band=' . $selected_band . '&education_level=' . $selected_education_level . '&department=' . $selected_department }}";
+        var url = "/enrollment/student-enrollment-chart?student_type={{$selected_student_type}}&program={{$selected_program}}&college={{$selected_college}}&band={{$selected_band}}&education_level={{$selected_education_level}}&department={{$selected_department}}";
+        // const ret = [];
+        // ret.push(encodeURIComponent("student_type") + '=' + encodeURIComponent({{$selected_student_type}}));
+        // ret.push(encodeURIComponent("program") + '=' + encodeURIComponent({{$selected_program}}));
+        //url += ret.join('&');
         var Enrollments = [];
         var Years = [];
         $(document).ready(function () {
+            //alert(url);
             $.get(url, function (response) {
                 Enrollments = response.enrollments;
                 Years = response.year_levels;
-                alert(encodeURI(path));
+                alert(url);
                 alert(Enrollments);
                 var ctx = document.getElementById('enrollment').getContext('2d');
                 var chart = new Chart(ctx, {
