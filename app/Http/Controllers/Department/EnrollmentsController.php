@@ -376,32 +376,6 @@ class EnrollmentsController extends Controller
             $requestedDepartment = DepartmentName::all()->first()->department_name;
         }
 
-        /*if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $requestedBand) {
-                    foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $requestedCollege && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-
-                            foreach ($college->departments as $department) {
-                                if ($department->year_level == $requestedYearLevel) {
-                                    foreach ($department->enrollments as $enrollment) {
-                                        if ($enrollment->student_type == $requestedType) {
-                                            $enrollments[] = $enrollment;
-                                        }
-                                    }
-                                }                                
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $enrollments = Enrollment::with('department')->get();
-        }*/
-
-        //$enrollments=Enrollment::where('department_id',$department->id)->get();
-
-
         $data = array(
             'colleges' => CollegeName::all(),
             'bands' => BandName::all(),
@@ -417,11 +391,8 @@ class EnrollmentsController extends Controller
             'selected_band' => $requestedBand,
             'selected_department' => $requestedDepartment,
 
-            'path' => 'enrollment/student-enrollment-chart?student_type=' . $requestedType . '&program=' . $requestedProgram . '&college=' . $requestedCollege . '&band=' . $requestedBand . '&education_level=' . $requestedLevel . '&department=' . $requestedDepartment,
-
             'page_name' => 'enrollment.normal.index'
         );
-        //return $filteredEnrollments;
         return view("enrollment.normal.chart")->with($data);
     }
 
