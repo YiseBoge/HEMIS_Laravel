@@ -836,7 +836,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['1.1.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -852,7 +852,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['1.1.2'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -870,7 +870,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['1.2.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -886,7 +886,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['1.2.2'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -904,7 +904,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['1.3.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -920,7 +920,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['1.3.2'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -940,7 +940,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['2.1.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -956,7 +956,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['2.1.2'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -974,7 +974,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['2.2.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -990,7 +990,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['2.2.2'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1008,7 +1008,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['2.3.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1024,7 +1024,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['2.3.2'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1042,7 +1042,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['2.4.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1058,7 +1058,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['2.4.2'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1076,7 +1076,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['2.5.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1092,7 +1092,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['2.5.2'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1110,7 +1110,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['2.6.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1126,7 +1126,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['2.6.2'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1144,7 +1144,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['2.7.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1160,7 +1160,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['2.7.2'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1179,7 +1179,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['3.1.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1195,7 +1195,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['3.1.2'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1212,7 +1212,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['3.2.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1228,7 +1228,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['3.3.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1247,7 +1247,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['4.1.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1263,7 +1263,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['4.1.2'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1279,7 +1279,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['4.1.3'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1298,7 +1298,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['5.1.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1314,7 +1314,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['5.2.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1330,7 +1330,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['5.3.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1346,7 +1346,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['5.4.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1362,7 +1362,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['5.5.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1378,7 +1378,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['5.6.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1397,7 +1397,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['6.1.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1414,7 +1414,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['6.2.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1432,7 +1432,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['6.2.2'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1451,7 +1451,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['6.3.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1470,7 +1470,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['7.1.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1486,7 +1486,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['7.2.1'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
@@ -1502,7 +1502,7 @@ class GenerateReportsController extends Controller
 
         $kpi = InstitutionReportCard::getEnum('kpi')['7.2.2'];
         $rep = InstitutionReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id);
+        $values = $rep->reportYearValues()->where('institution_name_id', $institution_name->id)->get();
         $value = null;
         foreach ($values as $val) {
             if ($val->year == $year) {
