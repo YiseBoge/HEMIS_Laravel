@@ -97,9 +97,25 @@ class Department extends Model
     /**
      * @return HasMany
      */
+    public function enrollmentsApproved()
+    {
+        return $this->hasMany('App\Models\Department\Enrollment')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function ruralStudentEnrollments()
     {
         return $this->hasMany('App\Models\Department\RuralStudentEnrollment');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function ruralStudentEnrollmentsApproved()
+    {
+        return $this->hasMany('App\Models\Department\RuralStudentEnrollment')->where('approval_status', 'Approved');
     }
 
     /**
@@ -110,9 +126,28 @@ class Department extends Model
         return $this->hasMany('App\Models\Department\DisadvantagedStudentEnrollment');
     }
 
+    /**
+     * @return HasMany
+     */
+    public function disadvantagedStudentEnrollmentsApproved()
+    {
+        return $this->hasMany('App\Models\Department\DisadvantagedStudentEnrollment')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function specialRegionEnrollments()
     {
         return $this->hasMany('App\Models\Department\SpecialRegionEnrollment');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function specialRegionEnrollmentsApproved()
+    {
+        return $this->hasMany('App\Models\Department\SpecialRegionEnrollment')->where('approval_status', 'Approved');
     }
 
     /**
@@ -126,9 +161,25 @@ class Department extends Model
     /**
      * @return HasMany
      */
+    public function specializingStudentEnrollmentsApproved()
+    {
+        return $this->hasMany('App\Models\Department\SpecializingStudentsEnrollment')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function ageEnrollments()
     {
         return $this->hasMany('App\Models\Institution\AgeEnrollment');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function ageEnrollmentsApproved()
+    {
+        return $this->hasMany('App\Models\Institution\AgeEnrollment')->where('approval_status', 'Approved');
     }
 
     /**
@@ -142,9 +193,25 @@ class Department extends Model
     /**
      * @return HasMany
      */
+    public function jointProgramEnrollmentsApproved()
+    {
+        return $this->hasMany('App\Models\Department\JointProgramEnrollment')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function exitExaminations()
     {
         return $this->hasMany('App\Models\Department\ExitExamination');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function exitExaminationsApproved()
+    {
+        return $this->hasMany('App\Models\Department\ExitExamination')->where('approval_status', 'Approved');
     }
 
     /**
@@ -158,6 +225,14 @@ class Department extends Model
     /**
      * @return HasMany
      */
+    public function degreeEmploymentsApproved()
+    {
+        return $this->hasMany('App\Models\Department\DegreeEmployment')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function costSharings()
     {
         return $this->hasMany('App\Models\Department\CostSharing');
@@ -166,7 +241,23 @@ class Department extends Model
     /**
      * @return HasMany
      */
+    public function costSharingsApproved()
+    {
+        return $this->hasMany('App\Models\Department\CostSharing')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function otherRegionStudents()
+    {
+        return $this->hasMany('App\Models\Department\OtherRegionStudent');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function otherRegionStudentsApproved()
     {
         return $this->hasMany('App\Models\Department\OtherRegionStudent');
     }
@@ -182,9 +273,25 @@ class Department extends Model
     /**
      * @return HasMany
      */
+    public function specialProgramTeachersApproved()
+    {
+        return $this->hasMany('App\Models\Department\SpecialProgramTeacher')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function upgradingStaffs()
     {
         return $this->hasMany('App\Models\Department\UpgradingStaff');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function upgradingStaffsApproved()
+    {
+        return $this->hasMany('App\Models\Department\UpgradingStaff')->where('approval_status', 'Approved');
     }
 
     /**
@@ -214,9 +321,25 @@ class Department extends Model
     /**
      * @return HasMany
      */
+    public function postgraduateDiplomaTrainingsApproved()
+    {
+        return $this->hasMany('App\Models\Department\PostGraduateDiplomaTraining')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function teachers()
     {
         return $this->hasMany('App\Models\Department\Teacher');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function teachersApproved()
+    {
+        return $this->hasMany('App\Models\Department\Teacher')->where('approval_status', 'Approved');
     }
 
     /**
@@ -246,9 +369,25 @@ class Department extends Model
     /**
      * @return HasMany
      */
+    public function studentAttritionsApproved()
+    {
+        return $this->hasMany('App\Models\Department\StudentAttrition')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function otherAttritions()
     {
         return $this->hasMany('App\Models\Department\OtherAttrition');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function otherAttritionsApproved()
+    {
+        return $this->hasMany('App\Models\Department\OtherAttrition')->where('approval_status', 'Approved');
     }
 
     /**
@@ -270,9 +409,25 @@ class Department extends Model
     /**
      * @return HasMany
      */
+    public function researchesApproved()
+    {
+        return $this->hasMany('App\Models\Band\Research')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function diasporaCourses()
     {
         return $this->hasMany('App\Models\Department\DiasporaCourses');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function diasporaCoursesApproved()
+    {
+        return $this->hasMany('App\Models\Department\DiasporaCourses')->where('approval_status', 'Approved');
     }
 
 
