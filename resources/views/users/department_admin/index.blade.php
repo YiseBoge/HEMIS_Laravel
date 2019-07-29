@@ -44,8 +44,8 @@
                             @foreach($editors as $editor)
                                 <tr>
                                     <td class="text-center">
-                                        <div class="row px-1">
-                                            <div class="col px-0">
+                                        <div class="row px-0">
+                                            {{-- <div class="col px-0">
                                                 <form class="p-0"
                                                       action="/department-admin/{{$editor->id}}/edit"
                                                       method="GET">
@@ -57,7 +57,7 @@
                                                            style="opacity:0.75"></i>
                                                     </button>
                                                 </form>
-                                            </div>
+                                            </div> --}}
                                             <div class="col px-0">
                                                 <form class="p-0"
                                                       action="/department-admin/{{$editor->id}}"
