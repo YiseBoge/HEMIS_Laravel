@@ -2,6 +2,7 @@
 
 namespace App\Models\Report;
 
+use App\Models\Institution\InstitutionName;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Faker\Provider\DateTime;
@@ -19,6 +20,9 @@ use Webpatser\Uuid\Uuid;
  * @property DateTime created_at
  * @property DateTime updated_at
  * @method static InstitutionReportCard find(int $id)
+ * @method static InstitutionReportCard where(string $string, $kpi)
+ * @method InstitutionReportCard get()
+ * @method InstitutionReportCard first()
  */
 class InstitutionReportCard extends Model
 {
@@ -153,11 +157,12 @@ class InstitutionReportCard extends Model
     }
 
     /**
+     * @param InstitutionName $institutionName
      * @return float|int
      */
-    public function change()
+    public function change(InstitutionName $institutionName)
     {
-        $years = $this->reportYearValues()->orderBy('year')->get();
+        $years = $this->reportYearValues()->where('institution_name_id', $institutionName->id)->orderBy('year')->get();
         if (count($years) <= 1) {
             return 0;
         }

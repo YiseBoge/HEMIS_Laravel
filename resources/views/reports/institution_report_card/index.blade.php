@@ -95,7 +95,7 @@
                                             <td style="min-width:275px;">
                                                 {{ $kpi->kpi }}
                                             </td>
-                                            @foreach($kpi->reportYearValues->sortBy('year') as $yearValue)
+                                            @foreach($kpi->reportYearValues()->where('institution_name_id', $institution_name->id)->orderBy('year')->get() as $yearValue)
                                                 <td>
                                                     {{ round($yearValue->value, 3) }}
                                                 </td>
@@ -104,16 +104,16 @@
                                                 {{ $kpi->target }}
                                             </td>
                                             <td class="text-center" style="min-width:115px;">
-                                                @if($kpi->change() > 0)
-                                                    <p class="text-success">{{$kpi->change()}}% <i
+                                                @if($kpi->change($institution_name) > 0)
+                                                    <p class="text-success">{{$kpi->change($institution_name)}}% <i
                                                                 class="fa fa-caret-up d-inline-block ml-2"></i>
                                                     </p>
-                                                @elseif($kpi->change())
-                                                    <p class="text-danger">{{$kpi->change()}}%<i
+                                                @elseif($kpi->change($institution_name))
+                                                    <p class="text-danger">{{$kpi->change($institution_name)}}%<i
                                                                 class="fa fa-caret-down d-inline-block ml-2"></i>
                                                     </p>
                                                 @else
-                                                    <p class="text-warning">{{$kpi->change()}}%</p>
+                                                    <p class="text-warning">{{$kpi->change($institution_name)}}%</p>
                                                 @endif
                                             </td>
                                             @if (Auth::user()->hasRole('University Admin'))
