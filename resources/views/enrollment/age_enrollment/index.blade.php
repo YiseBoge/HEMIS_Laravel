@@ -170,20 +170,13 @@
                                                         </form>
                                                     </div>
                                                     <div class="col px-0">
-                                                        <form class="p-0"
-                                                              action="/enrollment/age-enrollment/{{$info->id}}"
-                                                              method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="_method"
-                                                                   value="DELETE">
-                                                            <button type="submit"
-                                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0"
-                                                                    style="opacity:0.80"
-                                                                    data-toggle="tooltip" title="Delete">
-                                                                <i class="fas fa-trash fa-sm"
-                                                                   style="opacity:0.75"></i>
-                                                            </button>
-                                                        </form>
+                                                        <button type="submit"
+                                                                class="btn btn-danger btn-circle text-white btn-sm mx-0 deleter"
+                                                                style="opacity:0.80" data-id="{{$info->id}}"
+                                                                data-toggle="tooltip" title="Delete">
+                                                            <i class="fas fa-trash fa-sm"
+                                                               style="opacity:0.75"></i>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             @endif
@@ -267,6 +260,7 @@
                                         </fieldset>
                                     </div>
                                 </div>
+                            </form>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-outline-secondary float-right my-1" type="submit">Submit</button>

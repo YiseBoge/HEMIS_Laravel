@@ -40,7 +40,7 @@
 
                             <thead>
                             <tr role="row">
-                                <th style="min-width: 75px; width: 75px"></th>
+                                <th style="min-width: 50px; width: 50px"></th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
                                     aria-label="Name: activate to sort column descending"
@@ -84,8 +84,8 @@
                                             @endif
                                         @else
                                             @if($linkage->approval_status != "Approved")
-                                                <div class="row px-1">
-                                                    <div class="col">
+                                                <div class="row px-0">
+                                                    <div class="col px-0">
                                                         <form class="p-0"
                                                               action="/student/university-industry-linkage/{{$linkage->id}}/edit"
                                                               method="GET">
@@ -98,20 +98,14 @@
                                                             </button>
                                                         </form>
                                                     </div>
-                                                    <div class="col">
-                                                        <form class="p-0"
-                                                              action="/student/university-industry-linkage/{{$linkage->id}}"
-                                                              method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="_method"
-                                                                   value="DELETE">
-                                                            <button type="submit"
-                                                                    class="btn btn-danger btn-circle text-white btn-sm"
-                                                                    style="opacity:0.80" data-toggle="tooltip"
-                                                                    title="Delete">
-                                                                <i class="fas fa-trash fa-sm" style="opacity:0.75"></i>
-                                                            </button>
-                                                        </form>
+                                                    <div class="col px-0">
+                                                        <button type="submit"
+                                                                class="btn btn-danger btn-circle text-white btn-sm mx-0 deleter"
+                                                                style="opacity:0.80" data-id="{{$linkage->id}}"
+                                                                data-toggle="tooltip" title="Delete">
+                                                            <i class="fas fa-trash fa-sm"
+                                                               style="opacity:0.75"></i>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             @endif
@@ -274,27 +268,5 @@
             </div>
         </div>
     @endif
-
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Are you sure you wish to delete?</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-danger" href="/student/university-industry-linkage/delete">
-                        Delete
-                    </a>
-
-                </div>
-            </div>
-        </div>
-    </div>
 
 @endSection

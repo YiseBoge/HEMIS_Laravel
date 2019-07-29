@@ -32,10 +32,21 @@ class InstitutionReportService
         }
     }
 
-    // function code goes here
-    public function enrollment($string, $UNDERGRADUATE)
+    /**
+     * @param $sex
+     * @param $educationLevel
+     * @return int
+     */
+    function enrollment($sex, $educationLevel)
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->enrollment($sex, $educationLevel);
+        }
+
+        return $total;
     }
 
     public function specialNeedEnrollment($UNDERGRADUATE)

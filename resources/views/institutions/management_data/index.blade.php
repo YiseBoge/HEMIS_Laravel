@@ -61,20 +61,13 @@
                                             </form>
                                         </div>
                                         <div class="col px-0">
-                                            <form class="p-0"
-                                                  action="management-data/{{$data->id}}"
-                                                  method="POST">
-                                                @csrf
-                                                <input type="hidden" name="_method"
-                                                       value="DELETE">
-                                                <button type="submit"
-                                                        class="btn btn-danger btn-circle text-white btn-sm mx-0"
-                                                        style="opacity:0.80"
-                                                        data-toggle="tooltip" title="Delete">
-                                                    <i class="fas fa-trash fa-sm"
-                                                       style="opacity:0.75"></i>
-                                                </button>
-                                            </form>
+                                            <button type="submit"
+                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0 deleter"
+                                                    style="opacity:0.80" data-id="{{$data->id}}"
+                                                    data-toggle="tooltip" title="Delete">
+                                                <i class="fas fa-trash fa-sm"
+                                                   style="opacity:0.75"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </td>
@@ -109,13 +102,6 @@
 
                             <div class="modal-body row pt-4">
                                 <div class="col-12">
-                                    @if(count($errors) > 0)
-                                        @foreach($errors->all() as $error)
-                                            <div class="alert alert-danger">
-                                                {{$error}}
-                                            </div>
-                                        @endforeach
-                                    @endif
                                     <fieldset class="h-100">
                                         <div class="form-row pt-3">
                                             <div class="col-md form-group">
@@ -125,7 +111,7 @@
                                                         <option value="{{$key}}">{{$value}}</option>
                                                     @endforeach
                                                 </select>
-                                                <label for="management_level" class="form-control-placeholder pt-3">Management
+                                                <label for="manLevel" class="form-control-placeholder pt-3">Management
                                                     Level</label>
                                             </div>
                                         </div>
