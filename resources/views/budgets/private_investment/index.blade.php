@@ -112,7 +112,7 @@
                                                             </button>
                                                         </form>
                                                         @endif
-                                                        @else
+                                                        {{-- @else
                                                             @if($investment->approval_status != "Approved")
                                                                 <div class="row px-1">
                                                                     <div class="col px-0">
@@ -146,7 +146,7 @@
                                                                         </form>
                                                                     </div>
                                                                 </div>
-                                            @endif
+                                            @endif --}}
                                         @endif
                                     </td>
                                     <td>{{ $investment->investment_title }}</td>
