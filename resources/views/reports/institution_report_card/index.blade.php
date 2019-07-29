@@ -159,14 +159,14 @@
                     <div class="modal-body px-5">
                         <div class="row my-2">
                             <div class="col-md text-center">
-                                @if($report->change() > 0)
+                                @if($report->change($institution_name) > 0)
                                     <p class="h3 text-success">{{$report->change()}}% <i
                                                 class="fa fa-caret-up d-inline-block ml-2"></i></p>
-                                @elseif($report->change() < 0)
-                                    <p class="h3 text-danger">{{$report->change()}}%<i
+                                @elseif($report->change($institution_name) < 0)
+                                    <p class="h3 text-danger">{{$report->change($institution_name)}}%<i
                                                 class="fa fa-caret-down d-inline-block ml-2"></i></p>
                                 @else
-                                    <p class="h3 text-warning">{{$report->change()}}%</p>
+                                    <p class="h3 text-warning">{{$report->change($institution_name)}}%</p>
                                 @endif
                             </div>
                         </div>
