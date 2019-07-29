@@ -266,7 +266,7 @@ class PublicationsController extends Controller
         $publication = StaffPublication::find($id);
         $staff = $publication->academicStaff()->first();
         $general = $staff->general()->first();
-
+        
         $data = array(
             'id' => $id,
             'title' => $publication->title,

@@ -96,7 +96,7 @@
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Approval Status
+                                style="min-width: 95px;">Approval Status
                             </th>
                         </tr>
                         </thead>
