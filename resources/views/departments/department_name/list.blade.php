@@ -122,57 +122,45 @@
         </div>
     @endif
 
-
-    @if ($page_name == 'institution.budget.edit')
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
+    @if ($page_name == 'administer.department-name.edit')
+        <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    {!! Form::open(['action' => ['Institution\BudgetsController@update', $budget->id], 'method' => 'POST']) !!}
+                    <form class="" action="/department/department-name/{{$id}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="_method" value="PUT">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <a href="/institution/budget" class="close" aria-label="Close">
+                        <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
+                        {{-- <a href="/department/department-name" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
-                        </a>
+                        </a> --}}
                     </div>
 
-                    <div class="modal-body row pt-6">
-                        <div class="col-12 form-group pb-2">
-                            {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , $budget_type, ['class' => 'form-control', 'id' => 'edit_budget_type']) !!}
-                            {!! Form::label('budget_type', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_type']) !!}
-                        </div>
 
-                        <div class="col-12 form-group pb-2">
-                            {!! Form::select('budget_description', \App\Models\Institution\BudgetDescription::all() , $budget_description, ['class' => 'form-control', 'id' => 'edit_budget_description']) !!}
-                            {!! Form::label('budget_description', 'Budget Description', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_description']) !!}
+                    <div class="modal-body row p-4">
+                        <div class="col-md-12 form-group pb-1">
+                            <label class="label" for="department_name">Department Name</label>
+                            <input type="text" id="department_name" name="department_name" class="form-control"
+                                 value="{{$department_name}}">
                         </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('allocated', $budget->allocated_budget, ['class' => 'form-control', 'id' => 'edit_allocated', 'required' => 'true']) !!}
-                            {!! Form::label('allocated', 'Allocated', ['class' => 'form-control-placeholder', 'for' => 'edit_allocated']) !!}
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('additional', $budget->additional_budget, ['class' => 'form-control', 'id' => 'edit_additional', 'required' => 'true']) !!}
-                            {!! Form::label('additional', 'Additional', ['class' => 'form-control-placeholder', 'for' => 'edit_additional']) !!}
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('utilized', $budget->utilized_budget, ['class' => 'form-control', 'id' => 'edit_utilized', 'required' => 'true']) !!}
-                            {!! Form::label('utilized', 'Utilized', ['class' => 'form-control-placeholder', 'for' => 'edit_utilized']) !!}
+                        <div class="col-md-12 form-group pb-1">
+                            <label class="label" for="department_acronym">Acronym</label>
+                            <input type="text" id="department_acronym" name="department_acronym" class="form-control"
+                                value="{{$department_acronym}}">
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        {!! Form::hidden('_method', 'PUT') !!}
-                        {!! Form::submit('Save Changes', ['class' => 'btn btn-primary']) !!}
-                    </div>
-                    {!! Form::close() !!}
+                    </form>
                 </div>
 
             </div>
         </div>
     @endif
+
+
+    
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
          aria-hidden="true">
