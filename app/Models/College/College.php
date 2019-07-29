@@ -2,7 +2,6 @@
 
 namespace App\Models\College;
 
-use App\Models\Band\Band;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
@@ -91,6 +90,14 @@ class College extends Model
     /**
      * @return HasMany
      */
+    public function budgetsApproved()
+    {
+        return $this->hasMany('App\Models\College\Budget')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function internalRevenues()
     {
         return $this->hasMany('App\Models\College\InternalRevenue');
@@ -99,9 +106,25 @@ class College extends Model
     /**
      * @return HasMany
      */
+    public function internalRevenuesApproved()
+    {
+        return $this->hasMany('App\Models\College\InternalRevenue')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function investments()
     {
         return $this->hasMany('App\Models\College\Investment');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function investmentsApproved()
+    {
+        return $this->hasMany('App\Models\College\Investment')->where('approval_status', 'Approved');
     }
 
     /**
@@ -158,6 +181,14 @@ class College extends Model
     public function universityIndustryLinkages()
     {
         return $this->hasMany('App\Models\Band\UniversityIndustryLinkage');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function universityIndustryLinkagesApproved()
+    {
+        return $this->hasMany('App\Models\Band\UniversityIndustryLinkage')->where('approval_status', 'Approved');
     }
 
     /**
