@@ -124,13 +124,8 @@
                                     Education Level
                                 </label>
                             </div>
-<<<<<<< HEAD
                         </div>
                         @endif
-=======
-                        {{-- @endif --}}
-                        </div>
->>>>>>> 7c6a690014ec824f74f8e99ef92ef5f006297372
                     </form>
 
                     <div class="row mt-3">
