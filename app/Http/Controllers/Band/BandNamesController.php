@@ -114,8 +114,11 @@ class BandNamesController extends Controller
         $bands = BandName::all();
         $current_band_name = BandName::find($id);
         $data = [
+            'id' => $id,
             'bands' => $bands,
             'current_band_name' => $current_band_name,
+            'band_name' => $current_band_name->band_name,
+            'acronym' => $current_band_name->acronym,
             'page_name' => 'administer.band-name.edit'
         ];
         return view('bands.band_name.list')->with($data);
@@ -130,6 +133,16 @@ class BandNamesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
+        $current_band_name = BandName::find($id);
+
+        $current_band_name->band_name = $request->input("band_name");
+        $current_band_name->acronym = $request->input("acronym");
+
+        $current_band_name->save();
+        return redirect('/band/band-name');
 
     }
 
