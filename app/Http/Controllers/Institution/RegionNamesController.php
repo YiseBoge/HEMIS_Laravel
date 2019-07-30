@@ -107,8 +107,9 @@ class RegionNamesController extends Controller
         $regionNames = RegionName::all();
         $current_region_name = RegionName::find($id);
         $data = [
+            'id' => $id,
             'region_names' => $regionNames,
-            'current_region_name' => $current_region_name,
+            'region_name' => $current_region_name->name,
             'page_name' => 'administer.region-name.edit'
         ];
         return view('institutions.region_name.index')->with($data);
@@ -123,7 +124,16 @@ class RegionNamesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Super Admin');
+
+        $current_region_name = RegionName::find($id);
+
+        $current_region_name->name = $request->input("region_name");
+        $current_region_name->save();
+
+        return redirect('/region-name');
     }
 
     /**
