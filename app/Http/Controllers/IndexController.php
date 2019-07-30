@@ -95,7 +95,7 @@ class IndexController extends Controller
         }
 
 
-        $colleges = CollegeName::collegeNamesByInstitutionsAndBands($selectedInstitutions, $selectedBands);
+        $colleges = CollegeName::byInstitutionNamesAndBandNames($selectedInstitutions, $selectedBands);
 //        return $colleges;
         if ($requestedCollege == 0) {
             $selectedColleges = $colleges;
@@ -108,7 +108,7 @@ class IndexController extends Controller
         }
 
 
-        $departments = DepartmentName::departmentNamesByColleges($selectedColleges);
+        $departments = DepartmentName::byCollegeNames($selectedColleges);
 //        return $departments;
         if ($requestedDepartment == 0) {
             $selectedDepartment = $departments;
@@ -314,7 +314,7 @@ class IndexController extends Controller
         }
 
 
-        $colleges = CollegeName::collegeNamesByInstitutionsAndBands($selectedInstitutions, $selectedBands);
+        $colleges = CollegeName::byInstitutionNamesAndBandNames($selectedInstitutions, $selectedBands);
 //        return $colleges;
         if ($requestedCollege == 0) {
             $selectedColleges = $colleges;
@@ -326,7 +326,7 @@ class IndexController extends Controller
         }
 
 
-        $departments = DepartmentName::departmentNamesByColleges($selectedColleges);
+        $departments = DepartmentName::byCollegeNames($selectedColleges);
 //        return $departments;
         if ($requestedDepartment == 0) {
             $selectedDepartment = $departments;
@@ -355,9 +355,9 @@ class IndexController extends Controller
 
         $enrollments = array();
 
-        $cols = College::collegesByCollegeNamesAndProgramsAndLevels(
+        $cols = College::byCollegeNamesAndProgramsAndLevels(
             $selectedColleges, $selectedPrograms, $selectedLevels);
-        $deps = Department::departmentsByCollegesAndDepartmentNames($cols, $selectedDepartment);
+        $deps = Department::byCollegesAndDepartmentNames($cols, $selectedDepartment);
 //        return $deps;
 
         foreach ($year_levels as $year) {

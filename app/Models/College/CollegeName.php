@@ -25,13 +25,14 @@ class CollegeName extends Model
 
     public $incrementing = false;
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
         static::creating(function (Model $model) {
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
 
-        static::deleting(function(CollegeName $model) { // before delete() method call this
+        static::deleting(function (CollegeName $model) { // before delete() method call this
             $model->college()->delete();
             $model->users()->delete();
         });
@@ -48,17 +49,28 @@ class CollegeName extends Model
     /**
      * @return HasMany
      */
-    public function departmentNames()
+    public function users()
     {
-        return $this->hasMany('App\Models\Department\DepartmentName');
+        return $this->hasMany('App\User');
+    }
+
+    /**
+     * @param Collection $institutionNames
+     * @param Collection $bandNames
+     * @return Collection
+     */
+    public static function byInstitutionNamesAndBandNames(Collection $institutionNames, Collection $bandNames)
+    {
+        return CollegeName::all()->whereIn('institution_name_id', $institutionNames->pluck('id'))
+            ->whereIn('band_name_id', $bandNames->pluck('id'))->values();
     }
 
     /**
      * @return HasMany
      */
-    public function users()
+    public function departmentNames()
     {
-        return $this->hasMany('App\User');
+        return $this->hasMany('App\Models\Department\DepartmentName');
     }
 
     /**
@@ -67,17 +79,6 @@ class CollegeName extends Model
     public function bandName()
     {
         return $this->belongsTo('App\Models\Band\BandName');
-    }
-
-    /**
-     * @param Collection $institutionNames
-     * @param Collection $bandNames
-     * @return Collection
-     */
-    public static function collegeNamesByInstitutionsAndBands(Collection $institutionNames, Collection $bandNames)
-    {
-        return CollegeName::all()->whereIn('institution_name_id', $institutionNames->pluck('id'))
-            ->whereIn('band_name_id', $bandNames->pluck('id'))->values();
     }
 
     /**

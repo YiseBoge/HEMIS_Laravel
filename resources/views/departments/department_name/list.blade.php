@@ -128,27 +128,28 @@
                     <form class="" action="/department/department-name/{{$id}}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="PUT">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
-                        {{-- <a href="/department/department-name" class="close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </a> --}}
-                    </div>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editTitle">Edit</h5>
+                            <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
+                            {{-- <a href="/department/department-name" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </a> --}}
+                        </div>
 
 
-                    <div class="modal-body row p-4">
-                        <div class="col-md-12 form-group pb-1">
-                            <label class="label" for="department_name">Department Name</label>
-                            <input type="text" id="department_name" name="department_name" class="form-control"
-                                 value="{{$department_name}}">
+                        <div class="modal-body row p-4">
+                            <div class="col-md-12 form-group pb-1">
+                                <label class="label" for="department_name">Department Name</label>
+                                <input type="text" id="department_name" name="department_name" class="form-control"
+                                       value="{{$department_name}}">
+                            </div>
+                            <div class="col-md-12 form-group pb-1">
+                                <label class="label" for="department_acronym">Acronym</label>
+                                <input type="text" id="department_acronym" name="department_acronym"
+                                       class="form-control"
+                                       value="{{$department_acronym}}">
+                            </div>
                         </div>
-                        <div class="col-md-12 form-group pb-1">
-                            <label class="label" for="department_acronym">Acronym</label>
-                            <input type="text" id="department_acronym" name="department_acronym" class="form-control"
-                                value="{{$department_acronym}}">
-                        </div>
-                    </div>
                     </form>
                 </div>
 

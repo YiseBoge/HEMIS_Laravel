@@ -26,24 +26,17 @@ class GeneralInformation extends Model
 
     public $incrementing = false;
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
         static::creating(function (Model $model) {
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
 
-        static::deleting(function(GeneralInformation $model) { // before delete() method call this
+        static::deleting(function (GeneralInformation $model) { // before delete() method call this
             $model->resource()->delete();
             $model->communityService()->delete();
         });
-    }
-
-    /**
-     * @return HasOne
-     */
-    public function institution()
-    {
-        return $this->hasOne('App\Models\Institution\Institution');
     }
 
     /**
@@ -60,5 +53,13 @@ class GeneralInformation extends Model
     public function communityService()
     {
         return $this->belongsTo('App\Models\Institution\CommunityService');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function institution()
+    {
+        return $this->hasOne('App\Models\Institution\Institution');
     }
 }

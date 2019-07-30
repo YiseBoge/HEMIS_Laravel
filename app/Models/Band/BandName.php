@@ -19,18 +19,20 @@ class BandName extends Model
 
     public $incrementing = false;
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
         static::creating(function (Model $model) {
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
 
-        static::deleting(function(BandName $model) { // before delete() method call this
+        static::deleting(function (BandName $model) { // before delete() method call this
             $model->band()->delete();
             $model->collegeNames()->delete();
             $model->users()->delete();
         });
     }
+
     /**
      * @return HasMany
      */
@@ -48,18 +50,18 @@ class BandName extends Model
     }
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return "$this->acronym - $this->band_name";
-    }
-
-    /**
      * @return HasMany
      */
     public function users()
     {
         return $this->hasMany('App\User');
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return "$this->acronym - $this->band_name";
     }
 }

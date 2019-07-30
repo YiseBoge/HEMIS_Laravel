@@ -60,88 +60,99 @@
                     <div class="card-header text-primary font-weight-bold">Student Enrollment By Year</div>
 
                     <div class="card-body">
-                            <form action="" method="get">
-                                    <input type="hidden" value="">
-                                    <div class="form-group row pt-3">
-                                        <div class="col form-group">
-                                            {!! Form::select('institution', $institutions , $selected_institution , ['class' => 'form-control', 'id' => 'institution', 'onchange' => 'this.form.submit()', in_array('institution', $disabled)?'disabled':'']) !!}
-                                            {!! Form::label('institution', 'University', ['class' => 'form-control-placeholder']) !!}
-                                        </div>
-                                        <div class="col form-group">
-                                            {!! Form::select('band', $bands , $selected_band , ['class' => 'form-control', 'id' => 'band', 'onchange' => 'this.form.submit()', in_array('band', $disabled)?'disabled':'']) !!}
-                                            {!! Form::label('band', 'Band', ['class' => 'form-control-placeholder']) !!}
-                                        </div>
-                                        <div class="col form-group">
-                                            {!! Form::select('college', $colleges , $selected_college , ['class' => 'form-control', 'id' => 'college', 'onchange' => 'this.form.submit()', in_array('college', $disabled)?'disabled':'']) !!}
-                                            {!! Form::label('college', 'College', ['class' => 'form-control-placeholder']) !!}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row pt-3">
-                                        <div class="col form-group">
-                                            {!! Form::select('program', $programs , $selected_program , ['class' => 'form-control', 'id' => 'program', 'onchange' => 'this.form.submit()', in_array('program', $disabled)?'disabled':'']) !!}
-                                            {!! Form::label('program', 'Program', ['class' => 'form-control-placeholder']) !!}
-                                        </div>
-        
-                                        <div class="col form-group">
-                                            {!! Form::select('education_level', $education_levels , $selected_education_level , ['class' => 'form-control', 'id' => 'education_level', 'onchange' => 'this.form.submit()', in_array('level', $disabled)?'disabled':'']) !!}
-                                            {!! Form::label('education_level', 'Level', ['class' => 'form-control-placeholder']) !!}
-                                        </div>
-                                        <div class="col form-group">
-                                            {!! Form::select('department', $departments , $selected_department , ['class' => 'form-control', 'id' => 'department', 'onchange' => 'this.form.submit()', in_array('department', $disabled)?'disabled':'']) !!}
-                                            {!! Form::label('department', 'Departments', ['class' => 'form-control-placeholder']) !!}
-                                        </div>
-        
-                                    </div>
-        
-                                
-                        <div class="row my-3">
-                            <div class="col-md-9">
-                                <div class="container">
-                                    <canvas id="year-enrollment" class="chartjs-render-monitor" height="350" width="600"></canvas>
+                        <form action="" method="get">
+                            <input type="hidden" value="">
+                            <div class="form-group row pt-3">
+                                <div class="col form-group">
+                                    {!! Form::select('institution', $institutions , $selected_institution , ['class' => 'form-control', 'id' => 'institution', 'onchange' => 'this.form.submit()', in_array('institution', $disabled)?'disabled':'']) !!}
+                                    {!! Form::label('institution', 'University', ['class' => 'form-control-placeholder']) !!}
+                                </div>
+                                <div class="col form-group">
+                                    {!! Form::select('band', $bands , $selected_band , ['class' => 'form-control', 'id' => 'band', 'onchange' => 'this.form.submit()', in_array('band', $disabled)?'disabled':'']) !!}
+                                    {!! Form::label('band', 'Band', ['class' => 'form-control-placeholder']) !!}
+                                </div>
+                                <div class="col form-group">
+                                    {!! Form::select('college', $colleges , $selected_college , ['class' => 'form-control', 'id' => 'college', 'onchange' => 'this.form.submit()', in_array('college', $disabled)?'disabled':'']) !!}
+                                    {!! Form::label('college', 'College', ['class' => 'form-control-placeholder']) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row pt-3">
+                                <div class="col form-group">
+                                    {!! Form::select('program', $programs , $selected_program , ['class' => 'form-control', 'id' => 'program', 'onchange' => 'this.form.submit()', in_array('program', $disabled)?'disabled':'']) !!}
+                                    {!! Form::label('program', 'Program', ['class' => 'form-control-placeholder']) !!}
                                 </div>
 
-                                <div class="container text-center">
-                                    <div class="row mt-3">
-                                        <div class="col-md-6 custom-control custom-checkbox">
-                                            <input class="custom-control-input" type="checkbox" name="male" id="male" value="male" {{$selected_sex == "male" || $selected_sex == "all" ? 'checked' : ''}} onclick="this.form.submit()">
-                                            <label class="custom-control-label" for="male">Male</label>
-                                        </div>
-                                        <div class="col-md-6 custom-control custom-checkbox">
-                                            <input class="custom-control-input" type="checkbox" name="female" id="female" value="female" {{$selected_sex == "female" || $selected_sex == "all" ? 'checked' : ''}} onclick="this.form.submit()">
-                                            <label class="custom-control-label" for="female">Female</label>
-                                        </div>
-                                    </div>
+                                <div class="col form-group">
+                                    {!! Form::select('education_level', $education_levels , $selected_education_level , ['class' => 'form-control', 'id' => 'education_level', 'onchange' => 'this.form.submit()', in_array('level', $disabled)?'disabled':'']) !!}
+                                    {!! Form::label('education_level', 'Level', ['class' => 'form-control-placeholder']) !!}
                                 </div>
-                               
+                                <div class="col form-group">
+                                    {!! Form::select('department', $departments , $selected_department , ['class' => 'form-control', 'id' => 'department', 'onchange' => 'this.form.submit()', in_array('department', $disabled)?'disabled':'']) !!}
+                                    {!! Form::label('department', 'Departments', ['class' => 'form-control-placeholder']) !!}
+                                </div>
+
                             </div>
-                            <div class="col-md-3">
+
+
+                            <div class="row my-3">
+                                <div class="col-md-9">
+                                    <div class="container">
+                                        <canvas id="year-enrollment" class="chartjs-render-monitor" height="350"
+                                                width="600"></canvas>
+                                    </div>
+
+                                    <div class="container text-center">
+                                        <div class="row mt-3">
+                                            <div class="col-md-6 custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" name="male"
+                                                       id="male" value="male"
+                                                       {{$selected_sex == "male" || $selected_sex == "all" ? 'checked' : ''}} onclick="this.form.submit()">
+                                                <label class="custom-control-label" for="male">Male</label>
+                                            </div>
+                                            <div class="col-md-6 custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" name="female"
+                                                       id="female" value="female"
+                                                       {{$selected_sex == "female" || $selected_sex == "all" ? 'checked' : ''}} onclick="this.form.submit()">
+                                                <label class="custom-control-label" for="female">Female</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
                                     <div class="form-check my-3">
-                                    <input class="form-check-input" type="radio" name="student_type" id="students" value="Normal" {{$selected_type == "Normal" ? 'checked' : ''}}  onclick="this.form.submit()">
-                                    <label class="form-check-label" for="exampleRadios1">
-                                        Students
-                                    </label>
+                                        <input class="form-check-input" type="radio" name="student_type" id="students"
+                                               value="Normal"
+                                               {{$selected_type == "Normal" ? 'checked' : ''}}  onclick="this.form.submit()">
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            Students
+                                        </label>
                                     </div>
                                     <div class="form-check my-3">
-                                    <input class="form-check-input" type="radio" name="student_type" id="prospective_graduates" value="Prospective Graduates" {{$selected_type == "Prospective Graduates" ? 'checked' : ''}} onclick="this.form.submit()">
-                                    <label class="form-check-label" for="exampleRadios2">
-                                        Prospective Graduates
-                                    </label>
+                                        <input class="form-check-input" type="radio" name="student_type"
+                                               id="prospective_graduates" value="Prospective Graduates"
+                                               {{$selected_type == "Prospective Graduates" ? 'checked' : ''}} onclick="this.form.submit()">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                            Prospective Graduates
+                                        </label>
                                     </div>
                                     <div class="form-check disabled">
-                                    <input class="form-check-input" type="radio" name="student_type" id="graduates" value="Graduates" {{$selected_type == "Graduates" ? 'checked' : ''}} onclick="this.form.submit()">
-                                    <label class="form-check-label" for="exampleRadios3">
-                                        Graduates
-                                    </label>
+                                        <input class="form-check-input" type="radio" name="student_type" id="graduates"
+                                               value="Graduates"
+                                               {{$selected_type == "Graduates" ? 'checked' : ''}} onclick="this.form.submit()">
+                                        <label class="form-check-label" for="exampleRadios3">
+                                            Graduates
+                                        </label>
                                     </div>
-                            </div>
-                                
-                        </div>
+                                </div>
 
-                    </form>
+                            </div>
+
+                        </form>
                     </div>
 
                 </div>
-            </div>           
+            </div>
         </div>
         {{-- <div class="row">
             <div class="col-md-5">

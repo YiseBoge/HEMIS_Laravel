@@ -25,14 +25,30 @@ class College extends Model
     use Enums;
 
     public $incrementing = false;
+    protected $enumEducationLevels = [
+        'UNDERGRADUATE' => 'Undergraduate',
+        'POST_GRADUATE_MASTERS' => 'Post Graduate(Masters)',
+        'POST_GRADUATE_PHD' => 'Post Graduate(PhD)',
+        'POST_DOCTRIAL' => 'Post Doctrial',
+        'SPECIALIZATION' => 'Specialization',
+        'NONE' => 'None'
+    ];
+    protected $enumEducationPrograms = [
+        'REGULAR' => 'Regular',
+        'EXTENTION' => 'Extension',
+        'SUMMER' => 'Summer',
+        'DISTANCE' => 'Distance',
+        'NONE' => 'None'
+    ];
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
         static::creating(function (Model $model) {
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
 
-        static::deleting(function(College $model) { // before delete() method call this
+        static::deleting(function (College $model) { // before delete() method call this
             $model->departments()->delete();
             $model->budgets()->delete();
             $model->internalRevenues()->delete();
@@ -45,49 +61,6 @@ class College extends Model
             $model->universityIndustryLinkages()->delete();
             $model->buildings()->delete();
         });
-    }
-
-    protected $enumEducationLevels = [
-        'UNDERGRADUATE' => 'Undergraduate',
-        'POST_GRADUATE_MASTERS' => 'Post Graduate(Masters)',
-        'POST_GRADUATE_PHD' => 'Post Graduate(PhD)',
-        'POST_DOCTRIAL' => 'Post Doctrial',
-        'SPECIALIZATION' => 'Specialization',
-        'NONE' => 'None'
-    ];
-
-    protected $enumEducationPrograms = [
-        'REGULAR' => 'Regular',
-        'EXTENTION' => 'Extension',
-        'SUMMER' => 'Summer',
-        'DISTANCE' => 'Distance',
-        'NONE' => 'None'
-    ];
-
-    /**
-     * @param Collection $collegeNames
-     * @param array $programs
-     * @param array $levels
-     * @return College[]|\Illuminate\Database\Eloquent\Collection
-     */
-    public static function collegesByCollegeNamesAndProgramsAndLevels(Collection $collegeNames, array $programs, array $levels)
-    {
-//        $returnable = collect();
-//        foreach ($collegeNames as $collegeName){
-//            foreach ($collegeName->college()->whereIn('program', $pro))
-//        }
-        return College::all()
-            ->whereIn('college_name_id', $collegeNames->pluck('id'))
-            ->whereIn('education_program', $programs)
-            ->whereIn('education_level', $levels);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function collegeName()
-    {
-        return $this->belongsTo('App\Models\College\CollegeName');
     }
 
     /**
@@ -109,25 +82,9 @@ class College extends Model
     /**
      * @return HasMany
      */
-    public function budgetsApproved()
-    {
-        return $this->hasMany('App\Models\College\Budget')->where('approval_status', 'Approved');
-    }
-
-    /**
-     * @return HasMany
-     */
     public function internalRevenues()
     {
         return $this->hasMany('App\Models\College\InternalRevenue');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function internalRevenuesApproved()
-    {
-        return $this->hasMany('App\Models\College\InternalRevenue')->where('approval_status', 'Approved');
     }
 
     /**
@@ -141,9 +98,9 @@ class College extends Model
     /**
      * @return HasMany
      */
-    public function investmentsApproved()
+    public function administrativeStaffs()
     {
-        return $this->hasMany('App\Models\College\Investment')->where('approval_status', 'Approved');
+        return $this->hasMany('App\Models\Staff\AdministrativeStaff');
     }
 
     /**
@@ -157,25 +114,9 @@ class College extends Model
     /**
      * @return HasMany
      */
-    public function technicalStaffs()
-    {
-        return $this->hasMany('App\Models\Staff\TechnicalStaff');
-    }
-
-    /**
-     * @return HasMany
-     */
     public function managementStaffs()
     {
         return $this->hasMany('App\Models\Staff\ManagementStaff');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function administrativeStaffs()
-    {
-        return $this->hasMany('App\Models\Staff\AdministrativeStaff');
     }
 
     /**
@@ -187,11 +128,11 @@ class College extends Model
     }
 
     /**
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function band()
+    public function technicalStaffs()
     {
-        return $this->belongsTo('App\Models\Band\Band');
+        return $this->hasMany('App\Models\Staff\TechnicalStaff');
     }
 
     /**
@@ -205,17 +146,71 @@ class College extends Model
     /**
      * @return HasMany
      */
-    public function universityIndustryLinkagesApproved()
+    public function buildings()
     {
-        return $this->hasMany('App\Models\Band\UniversityIndustryLinkage')->where('approval_status', 'Approved');
+        return $this->hasMany('App\Models\Institution\Building');
+    }
+
+    /**
+     * @param Collection $collegeNames
+     * @param array $programs
+     * @param array $levels
+     * @return College[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public static function byCollegeNamesAndProgramsAndLevels(Collection $collegeNames, array $programs, array $levels)
+    {
+        return College::all()
+            ->whereIn('college_name_id', $collegeNames->pluck('id'))
+            ->whereIn('education_program', $programs)
+            ->whereIn('education_level', $levels);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function collegeName()
+    {
+        return $this->belongsTo('App\Models\College\CollegeName');
     }
 
     /**
      * @return HasMany
      */
-    public function buildings()
+    public function budgetsApproved()
     {
-        return $this->hasMany('App\Models\Institution\Building');
+        return $this->hasMany('App\Models\College\Budget')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function internalRevenuesApproved()
+    {
+        return $this->hasMany('App\Models\College\InternalRevenue')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function investmentsApproved()
+    {
+        return $this->hasMany('App\Models\College\Investment')->where('approval_status', 'Approved');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function band()
+    {
+        return $this->belongsTo('App\Models\Band\Band');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function universityIndustryLinkagesApproved()
+    {
+        return $this->hasMany('App\Models\Band\UniversityIndustryLinkage')->where('approval_status', 'Approved');
     }
 
 }

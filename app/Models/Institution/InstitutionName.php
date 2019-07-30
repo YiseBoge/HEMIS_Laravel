@@ -23,13 +23,14 @@ class InstitutionName extends Model
 
     public $incrementing = false;
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
         static::creating(function (Model $model) {
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
 
-        static::deleting(function(InstitutionName $model) { // before delete() method call this
+        static::deleting(function (InstitutionName $model) { // before delete() method call this
             $model->institutions()->delete();
             $model->collegeNames()->delete();
             $model->departmentNames()->delete();

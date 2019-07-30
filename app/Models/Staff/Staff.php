@@ -33,19 +33,6 @@ class Staff extends Model
     use Enums;
 
     public $incrementing = false;
-
-    public static function boot() {
-        parent::boot();
-        static::creating(function (Model $model) {
-            $model->{$model->getKeyName()} = Uuid::generate()->string;
-        });
-
-        static::deleting(function(Staff $model) { // before delete() method call this
-            $model->staffAttrition()->delete();
-        });
-    }
-
-    // Enums //
     protected $enumAcademicLevels = [
         'DIPLOMA' => 'Diploma',
         'BACHELORS' => 'Bachelors',
@@ -65,20 +52,31 @@ class Staff extends Model
         'Lv' => 'Level V',
     ];
 
+    // Enums //
     protected $enumDedications = [
         'FULL' => 'Full Time',
         'PART' => 'Part Time',
     ];
-
     protected $enumSexs = [
         'MALE' => 'male',
         'FEMALE' => 'female',
     ];
-
     protected $enumEmploymentTypes = [
         'EMPLOYEE' => 'Employee',
         'CONTRACTOR' => 'Contractor',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function (Staff $model) { // before delete() method call this
+            $model->staffAttrition()->delete();
+        });
+    }
 
     /**
      * @return HasOne

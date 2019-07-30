@@ -19,15 +19,24 @@ class BudgetDescription extends Model
 
     public $incrementing = false;
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
         static::creating(function (Model $model) {
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
 
-        static::deleting(function(BudgetDescription $model) { // before delete() method call this
+        static::deleting(function (BudgetDescription $model) { // before delete() method call this
             $model->budget()->delete();
         });
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function budget()
+    {
+        return $this->hasMany('App\Models\College\Budget');
     }
 
     /**
@@ -37,14 +46,6 @@ class BudgetDescription extends Model
     public static function findByBudgetCode($code)
     {
         return BudgetDescription::where('budget_code', $code)->get()->first();
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function budget()
-    {
-        return $this->hasMany('App\Models\College\Budget');
     }
 
     /**

@@ -143,7 +143,7 @@ class DepartmentNamesController extends Controller
             }
         }
         $collegeNames = $institutionName->collegeNames;
-        
+
         $department = DepartmentName::find($id);
 
         $data = [
