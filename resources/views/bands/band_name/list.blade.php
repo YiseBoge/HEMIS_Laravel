@@ -130,7 +130,6 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    {{-- {!! Form::open(['action' => ['Band\BandNamesController@update', $current_band_name], 'method' => 'POST']) !!} --}}
                     <form class="" action="/band/band-name/{{$id}}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="PUT">
@@ -145,27 +144,16 @@
 
                     <div class="modal-body row p-4">
                         <div class="col-md-12 form-group pb-1">
-                            {{-- {!! Form::text('band_name', $current_band_name->band_name, ['class' => 'form-control', 'id' => 'add_band_name', 'required' => 'true']) !!}
-                            {!! Form::label('add_band_name', 'Band Name', ['class' => 'form-control-placeholder']) !!} --}}
                             <label class="label" for="band_name">Band Name</label>
                             <input type="text" id="band_name" name="band_name" class="form-control"
                              value="{{$band_name}}">
                         </div>
                         <div class="col-md-12 form-group pb-1">
-                            {{-- {!! Form::text('band_acronym', $current_band_name->acronym, ['class' => 'form-control', 'id' => 'add_band_acronym', 'required' => 'true']) !!}
-                            {!! Form::label('add_band_acronym', 'Acronym', ['class' => 'form-control-placeholder']) !!} --}}
                             <label class="label" for="acronym">Acronym</label>
                             <input type="text" id="acronym" name="acronym" class="form-control"
                              value="{{$acronym}}">
                         </div>
                     </div>
-
-
-                    {{-- <div class="modal-footer">
-                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                    </div> --}}
-
-                    {{-- {!! Form::close() !!} --}}
                     </form>
                 </div>
 
