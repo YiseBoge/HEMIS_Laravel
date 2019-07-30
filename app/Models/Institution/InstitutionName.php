@@ -38,6 +38,11 @@ class InstitutionName extends Model
         });
     }
 
+    public function yearValues()
+    {
+        return $this->hasMany('App\Models\Report\InstitutionYearValue');
+    }
+
     /**
      * @return HasMany
      */

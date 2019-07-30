@@ -4,7 +4,7 @@
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{{ Auth::user()->hasRole('University Admin') ? 'College Super Admins' : 'Administerer Admins' }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ Auth::user()->hasRole('University Admin') ? 'College Super Admins' : 'Administrative Admins' }}</h6>
             </div>
             <div class="card-body">
                 <div class="row my-3">
@@ -44,19 +44,6 @@
                                 <tr>
                                     <td class="text-center">
                                         <div class="row px-0">
-                                            {{-- <div class="col px-0"> --}}
-                                            {{-- <form class="p-0"
-                                                  action="/college-admin/{{$editor->id}}/edit"
-                                                  method="GET">
-                                                <button type="submit"
-                                                        class="btn btn-primary btn-circle text-white btn-sm mx-0"
-                                                        style="opacity:0.80"
-                                                        data-toggle="tooltip" title="Edit">
-                                                    <i class="fas fa-pencil-alt fa-sm"
-                                                       style="opacity:0.75"></i>
-                                                </button>
-                                            </form> --}}
-                                            {{-- </div> --}}
                                             <div class="col px-0">
                                                 <button type="submit"
                                                         class="btn btn-danger btn-circle text-white btn-sm mx-0 deleter"

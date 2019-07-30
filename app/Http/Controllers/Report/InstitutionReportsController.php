@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Report;
 use App\Http\Controllers\Controller;
 use App\Models\Institution\InstitutionName;
 use App\Models\Report\InstitutionReportCard;
+use App\Models\Report\InstitutionYearValue;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -114,6 +115,7 @@ class InstitutionReportsController extends Controller
 
 
         $report = InstitutionReportCard::find($id);
+        $target = $report->target($institution_name);
         $baseline = $report->reportYearValues()->where('institution_name_id', $institution_name->id)->get()->sortBy('year')->first();
         $change = 0;
 
@@ -124,6 +126,7 @@ class InstitutionReportsController extends Controller
             }
         }
 
+
         $data = [
             'reports' => $reports,
             'years' => $years,
@@ -131,6 +134,7 @@ class InstitutionReportsController extends Controller
             'institution_name' => $institution_name,
             'ind' => $ind,
             'report' => $report,
+            'target' => $target,
             'baseline' => $baseline,
             'change' => $change,
             'page_name' => 'report.institution_report_card.edit'
@@ -150,10 +154,10 @@ class InstitutionReportsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('University Admin');
 
-        $report = InstitutionReportCard::find($id);
-        $report->target = $request->input('target');
+        $target = InstitutionYearValue::find($id);
+        $target->value = $request->input('target');
 
-        $report->save();
+        $target->save();
 
         return redirect('/institution-report')->with('primary', 'Successfully Updated Target');
     }

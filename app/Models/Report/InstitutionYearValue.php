@@ -5,7 +5,16 @@ namespace App\Models\Report;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property int year
+ * @property int value
+ * @property string type
+ * @property Uuid institution_name_id
+ * @property Uuid institution_report_card_id
+ * @method static InstitutionYearValue find(int $id)
+ */
 class InstitutionYearValue extends Model
 {
     use Uuids;

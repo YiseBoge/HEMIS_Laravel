@@ -22,6 +22,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null kpi
  * @property DateTime created_at
  * @property DateTime updated_at
+ * @property boolean is_decreasing
  */
 class ReportCard extends Model
 {
@@ -180,7 +181,10 @@ class ReportCard extends Model
             return 0;
         }
 
-        return round((($current->value - $baseline->value) / ($this->target - $baseline->value)) * 100, 2);
+        $change = round((($current->value - $baseline->value) / ($this->target - $baseline->value)) * 100, 2);
+        if ($this->is_decreasing) $change *= -1;
+
+        return $change;
     }
 
     public function reportYearValues()
