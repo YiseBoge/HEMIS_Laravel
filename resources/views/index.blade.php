@@ -57,11 +57,11 @@
         <div class="row my-5">
             <div class="col-md-12">
                 <div class="card shadow">
-                    <div class="card-header text-primary font-weight-bold">Student Enrollment By Year</div>
+                    <div class="card-header text-primary font-weight-bold">Student Enrollment By Year Levels</div>
 
                     <div class="card-body">
                         <form action="" method="get">
-                            <input type="hidden" value="">
+
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     {!! Form::select('institution', $institutions , $selected_institution , ['class' => 'form-control', 'id' => 'institution', 'onchange' => 'this.form.submit()', in_array('institution', $disabled)?'disabled':'']) !!}
@@ -76,6 +76,7 @@
                                     {!! Form::label('college', 'College', ['class' => 'form-control-placeholder']) !!}
                                 </div>
                             </div>
+
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     {!! Form::select('program', $programs , $selected_program , ['class' => 'form-control', 'id' => 'program', 'onchange' => 'this.form.submit()', in_array('program', $disabled)?'disabled':'']) !!}
@@ -90,17 +91,14 @@
                                     {!! Form::select('department', $departments , $selected_department , ['class' => 'form-control', 'id' => 'department', 'onchange' => 'this.form.submit()', in_array('department', $disabled)?'disabled':'']) !!}
                                     {!! Form::label('department', 'Departments', ['class' => 'form-control-placeholder']) !!}
                                 </div>
-
                             </div>
-
 
                             <div class="row my-3">
                                 <div class="col-md-9">
                                     <div class="container">
-                                        <canvas id="year-enrollment" class="chartjs-render-monitor" height="350"
-                                                width="600"></canvas>
+                                        <canvas id="year-enrollment" class="chartjs-render-monitor"
+                                                height="400"></canvas>
                                     </div>
-
                                     <div class="container text-center">
                                         <div class="row mt-3">
                                             <div class="col-md-6 custom-control custom-checkbox">
@@ -117,14 +115,13 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-check my-3">
                                         <input class="form-check-input" type="radio" name="student_type" id="students"
                                                value="Normal"
                                                {{$selected_type == "Normal" ? 'checked' : ''}}  onclick="this.form.submit()">
-                                        <label class="form-check-label" for="exampleRadios1">
+                                        <label class="form-check-label" for="students">
                                             Students
                                         </label>
                                     </div>
@@ -132,7 +129,7 @@
                                         <input class="form-check-input" type="radio" name="student_type"
                                                id="prospective_graduates" value="Prospective Graduates"
                                                {{$selected_type == "Prospective Graduates" ? 'checked' : ''}} onclick="this.form.submit()">
-                                        <label class="form-check-label" for="exampleRadios2">
+                                        <label class="form-check-label" for="prospective_graduates">
                                             Prospective Graduates
                                         </label>
                                     </div>
@@ -140,12 +137,11 @@
                                         <input class="form-check-input" type="radio" name="student_type" id="graduates"
                                                value="Graduates"
                                                {{$selected_type == "Graduates" ? 'checked' : ''}} onclick="this.form.submit()">
-                                        <label class="form-check-label" for="exampleRadios3">
+                                        <label class="form-check-label" for="graduates">
                                             Graduates
                                         </label>
                                     </div>
                                 </div>
-
                             </div>
 
                         </form>
