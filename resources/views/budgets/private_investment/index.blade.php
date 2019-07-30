@@ -97,23 +97,6 @@
                                                             </form>
                                                         </div>
                                                         <div class="col px-0">
-<<<<<<< HEAD
-                                                            <form class="p-0"
-                                                                    action="/budgets/private-investment/{{$investment->id}}"
-                                                                    method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="_method"
-                                                                        value="DELETE">
-                                                                <button type="submit"
-                                                                        class="btn btn-danger btn-circle text-white btn-sm mx-0"
-                                                                        style="opacity:0.80"
-                                                                        data-toggle="tooltip"
-                                                                        title="Delete">
-                                                                    <i class="fas fa-trash fa-sm"
-                                                                        style="opacity:0.75"></i>
-                                                                </button>
-                                                            </form>
-=======
                                                             <button type="submit"
                                                                     class="btn btn-danger btn-circle text-white btn-sm mx-0 deleter"
                                                                     style="opacity:0.80"
@@ -122,7 +105,6 @@
                                                                 <i class="fas fa-trash fa-sm"
                                                                    style="opacity:0.75"></i>
                                                             </button>
->>>>>>> c5628022b2cf6b6f4886fe940bbe28e14622e96d
                                                         </div>
                                                     </div>
                                             @endif
