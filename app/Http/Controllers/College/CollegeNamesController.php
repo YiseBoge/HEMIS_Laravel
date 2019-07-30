@@ -118,7 +118,23 @@ class CollegeNamesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
+        $institutionName = $user->institution()->institutionName;
+        $colleges = $institutionName->collegeNames;
+        $college_name = CollegeName::find($id);
+        $bandName = BandName::find($college_name->band_name_id);
+        $data = [
+            'id' => $id,
+            'colleges' => $colleges,
+            'college_name' => $college_name->college_name,
+            'college_acronym' => $college_name->acronym,
+            'band' => $bandName->band_name,
+            'band_acronym' => $bandName->acronym,
+            'page_name' => 'administer.colleges-name.edit'
+        ];
+        return view('colleges.college_name.index')->with($data);
     }
 
     /**
@@ -130,7 +146,18 @@ class CollegeNamesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
+        $college_name = CollegeName::find($id);
+
+        $college_name->college_name = $request->input("college_name");
+        $college_name->acronym = $request->input("college_acronym");
+
+        $college_name->save();
+        return redirect('/college/college-name');
+
+
     }
 
     /**

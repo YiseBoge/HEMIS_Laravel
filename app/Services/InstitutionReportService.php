@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Models\Institution\Instance;
+use App\Models\Institution\Institution;
 use App\Models\Institution\InstitutionName;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Class InstitutionReportService
@@ -26,9 +26,9 @@ class InstitutionReportService
     function __construct(InstitutionName $institutionName, $year)
     {
         foreach (Instance::where('year', $year)->get() as $instance) {
-            $this->institutions[] = DB::table('institutions')->where(array(
+            $this->institutions[] = Institution::where(array(
                 'institution_name_id' => $institutionName->id,
-                'instance_id' => $instance->id))->get();
+                'instance_id' => $instance->id))->get()->first();
         }
     }
 

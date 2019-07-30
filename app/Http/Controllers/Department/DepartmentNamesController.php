@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department\DepartmentName;
+use App\Models\Department\Department;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -118,8 +119,20 @@ class DepartmentNamesController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('University Admin');
 
+        $institutionName = $user->institution()->institutionName;
+        $departments = $institutionName->departmentNames;
+        
         $department = DepartmentName::find($id);
-        return view('departments.list')->with('departmentEdit', $department);
+
+        $data = [
+            'department' => DepartmentName::find($id),
+            'id' => $id,
+            'departments' => $departments,
+            'department_name' => $department->department_name,
+            'department_acronym' => $department->acronym,
+            'page_name' => 'administer.department-name.edit'
+        ];
+        return view('departments.department_name.list')->with($data);
     }
 
     /**
@@ -131,7 +144,16 @@ class DepartmentNamesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+
+        $department = DepartmentName::find($id);
+
+        $department->department_name = $request->input("department_name");
+        $department->acronym = $request->input("department_acronym");
+
+        $department->save();
+        return redirect('/department/department-name');
     }
 
     /**

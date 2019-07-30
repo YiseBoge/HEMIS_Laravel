@@ -110,26 +110,25 @@
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    {!! Form::open(['action' => ['Institution\RegionNamesController@update', $current_region_name], 'method' => 'POST']) !!}
+                    <form class="" action="/region-name/{{$id}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="_method" value="PUT">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <a href="/region-name" class="close" aria-label="Close">
+                        <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i></button>
+                        {{-- <a href="/region-name" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
-                        </a>
+                        </a> --}}
                     </div>
 
                     <div class="modal-body row p-4">
                         <div class="col-md form-group pb-1">
-                            {!! Form::text('name', $current_region_name->name, ['class' => 'form-control', 'id' => 'add_name', 'required' => 'true']) !!}
-                            {!! Form::label('add_name', 'Region Name', ['class' => 'form-control-placeholder']) !!}
+                            <label class="label" for="region_name">Region Name</label>
+                            <input type="text" id="region_name" name="region_name" class="form-control"
+                             value="{{$region_name}}">
                         </div>
                     </div>
-
-                    <div class="modal-footer">
-                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                    </div>
-
-                    {!! Form::close() !!}
+                    </form>
                 </div>
 
             </div>

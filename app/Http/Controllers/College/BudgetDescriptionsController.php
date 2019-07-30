@@ -105,7 +105,19 @@ class BudgetDescriptionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
+        $budgetDescriptions = BudgetDescription::all();
+        $current_desc = BudgetDescription::find($id);
+        $data = array(
+            'id' => $id,
+            'budget_code' => $current_desc->budget_code,
+            'description' => $current_desc->description,
+            'budgetDescriptions' => $budgetDescriptions,
+            'page_name' => 'administer.budget-description.edit',
+        );
+        return view('colleges.budget_description.index')->with($data);
     }
 
     /**
@@ -117,7 +129,16 @@ class BudgetDescriptionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
+        $current_desc = BudgetDescription::find($id);
+
+        $current_desc->budget_code = $request->input("budget_code");
+        $current_desc->description = $request->input("description");
+
+        $current_desc->save();
+        return redirect('/budgets/budget-description');
     }
 
     /**

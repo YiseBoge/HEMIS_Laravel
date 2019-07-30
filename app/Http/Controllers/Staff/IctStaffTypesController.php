@@ -120,9 +120,12 @@ class IctStaffTypesController extends Controller
         $current_type = IctStaffType::find($id);
 
         $data = array(
+            'id' => $id,
             'categories' => $categories,
             'ict_staff_types' => $ictStaffTypes,
             'current_type' => $current_type,
+            'category' => $current_type->category,
+            'staff_type' => $current_type->type,
             'page_name' => 'administer.ict_staff_type.edit',
         );
 
@@ -138,7 +141,15 @@ class IctStaffTypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        if ($user == null) return redirect('/login');
+        $user->authorizeRoles('Super Admin');
+
+        $current_type = IctStaffType::find($id);
+
+        $current_type->type = $request->input("staff_type");
+        $current_type->save();
+        return redirect('/staff/ict-staff-types');
     }
 
     /**
