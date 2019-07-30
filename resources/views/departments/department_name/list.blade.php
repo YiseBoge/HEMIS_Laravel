@@ -94,6 +94,10 @@
 
                     <div class="modal-body row p-4">
                         <div class="col-md-12 form-group pb-1">
+                            {!! Form::select('college_name_id', $college_names, old('college_name_id')  , ['class' => 'form-control', 'id' => 'college_name_id']) !!}
+                            {!! Form::label('college_name_id', 'College', ['class' => 'form-control-placeholder']) !!}
+                        </div>
+                        <div class="col-md-12 form-group pb-1">
                             {!! Form::text('department_name', old('department_name'), ['class' => 'form-control', 'id' => 'add_department_name', 'required' => 'true']) !!}
                             {!! Form::label('add_department_name', 'Department Name', ['class' => 'form-control-placeholder']) !!}
                         </div>

@@ -78,6 +78,17 @@ class Department extends Model
         return $this->belongsTo('App\Models\Department\DepartmentName');
     }
 
+    public static function departmentsByCollegesAndDepartmentNames($colleges, $departmentNames)
+    {
+        $returnable = collect();
+        foreach ($colleges as $college) {
+            foreach ($college->departments()->whereIn('department_name_id', $departmentNames->pluck('id'))->get() as $dep) {
+                $returnable->add($dep);
+            }
+        }
+        return $returnable;
+    }
+
     /**
      * @return BelongsTo
      */

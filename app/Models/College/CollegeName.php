@@ -3,10 +3,12 @@
 namespace App\Models\College;
 
 use App\Models\Band\BandName;
+use App\Models\Department\DepartmentName;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Webpatser\Uuid\Uuid;
 
 /**
@@ -14,6 +16,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null college_name
  * @property string|null acronym
  * @property BandName bandName
+ * @property DepartmentName departmentNames
  * @method static CollegeName find(int $id)
  */
 class CollegeName extends Model
@@ -43,11 +46,11 @@ class CollegeName extends Model
     }
 
     /**
-     * @return string
+     * @return HasMany
      */
-    public function __toString()
+    public function departmentNames()
     {
-        return "$this->acronym - $this->college_name";
+        return $this->hasMany('App\Models\Department\DepartmentName');
     }
 
     /**
@@ -64,5 +67,24 @@ class CollegeName extends Model
     public function bandName()
     {
         return $this->belongsTo('App\Models\Band\BandName');
+    }
+
+    /**
+     * @param Collection $institutionNames
+     * @param Collection $bandNames
+     * @return Collection
+     */
+    public static function collegeNamesByInstitutionsAndBands(Collection $institutionNames, Collection $bandNames)
+    {
+        return CollegeName::all()->whereIn('institution_name_id', $institutionNames->pluck('id'))
+            ->whereIn('band_name_id', $bandNames->pluck('id'))->values();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return "$this->acronym - $this->college_name";
     }
 }

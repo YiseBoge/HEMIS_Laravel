@@ -5,7 +5,7 @@ namespace App\Models\Department;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Collection;
 use Webpatser\Uuid\Uuid;
 
 /**
@@ -38,6 +38,15 @@ class DepartmentName extends Model
     public function department()
     {
         return $this->hasMany('App\Models\Department\Department');
+    }
+
+    /**
+     * @param Collection $collegeNames
+     * @return DepartmentName[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public static function departmentNamesByColleges(Collection $collegeNames)
+    {
+        return DepartmentName::all()->whereIn('college_name_id', $collegeNames->pluck('id'));
     }
 
     /**

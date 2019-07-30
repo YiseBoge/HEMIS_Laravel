@@ -56,14 +56,6 @@ class InstitutionName extends Model
     /**
      * @return HasMany
      */
-    public function departmentNames()
-    {
-        return $this->hasMany('App\Models\Department\DepartmentName');
-    }
-
-    /**
-     * @return HasMany
-     */
     public function users()
     {
         return $this->hasMany('App\User');

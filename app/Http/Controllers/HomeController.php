@@ -149,7 +149,7 @@ class HomeController extends Controller
                     foreach ($band->colleges as $college) {
                         foreach ($college->departments as $department) {
                             if ($department->year_level == $year) {
-                                foreach ($department->enrollments as $enrollment) {
+                                foreach ($department->enrollmentsApproved as $enrollment) {
                                     $yearEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
                                 }
                             }

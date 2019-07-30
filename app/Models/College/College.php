@@ -7,6 +7,7 @@ use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Webpatser\Uuid\Uuid;
 
 /**
@@ -62,6 +63,24 @@ class College extends Model
         'DISTANCE' => 'Distance',
         'NONE' => 'None'
     ];
+
+    /**
+     * @param Collection $collegeNames
+     * @param array $programs
+     * @param array $levels
+     * @return College[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public static function collegesByCollegeNamesAndProgramsAndLevels(Collection $collegeNames, array $programs, array $levels)
+    {
+//        $returnable = collect();
+//        foreach ($collegeNames as $collegeName){
+//            foreach ($collegeName->college()->whereIn('program', $pro))
+//        }
+        return College::all()
+            ->whereIn('college_name_id', $collegeNames->pluck('id'))
+            ->whereIn('education_program', $programs)
+            ->whereIn('education_level', $levels);
+    }
 
     /**
      * @return BelongsTo
