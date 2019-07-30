@@ -123,20 +123,13 @@
                                                     </form>
                                                 </div>
                                                 <div class="col px-0">
-                                                    <form class="p-0"
-                                                          action="buildings/{{$building->id}}"
-                                                          method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="_method"
-                                                               value="DELETE">
-                                                        <button type="submit"
-                                                                class="btn btn-danger btn-circle text-white btn-sm mx-0"
-                                                                style="opacity:0.80"
-                                                                data-toggle="tooltip" title="Delete">
-                                                            <i class="fas fa-trash fa-sm"
-                                                               style="opacity:0.75"></i>
-                                                        </button>
-                                                    </form>
+                                                    <button type="submit"
+                                                            class="btn btn-danger btn-circle text-white btn-sm mx-0 deleter"
+                                                            style="opacity:0.80" data-id="{{$building->id}}"
+                                                            data-toggle="tooltip" title="Delete">
+                                                        <i class="fas fa-trash fa-sm"
+                                                           style="opacity:0.75"></i>
+                                                    </button>
                                                 </div>
                                             </div>
                                         @endif

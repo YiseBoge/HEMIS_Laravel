@@ -61,6 +61,7 @@
 
                 @yield('content')
 
+                @include('inc.delete_modal')
             </div>
             <!-- End of Page Content -->
         </div>
@@ -100,12 +101,18 @@
     });
 </script>
 
+<script>
+    $(document).ready(function () {
+        $('.deleter').on('click', function () {
+            $('#delete-form').attr('action', '{{Request::url()}}/' + $(this).data('id'));
+            $('#deleteModal').modal('show');
+        })
+    });
+</script>
+
 
 <script>
-
-
     $(document).ready(function () {
-        $(".uncollapse").css("transition", "height 0s !important");
 
         @isset($page_name)
         @if(preg_split ("/\./", $page_name)[0] == 'enrollment')
@@ -130,7 +137,6 @@
         @endisset
 
     });
-
 </script>
 
 

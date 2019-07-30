@@ -81,72 +81,33 @@
                                                 </form>
                                             @endif
                                         @else
-                                            @if($investment->approval_status != "Approved")
-                                                <div class="row px-1">
-                                                    <div class="col px-0">
-                                                        <form class="p-0"
-                                                              action="private-investment/{{$investment->id}}/edit"
-                                                              method="GET">
+                                                @if($investment->approval_status != "Approved")
+                                                    <div class="row px-1">
+                                                        <div class="col px-0">
+                                                            <form class="p-0"
+                                                                    action="/budgets/private-investment/{{$investment->id}}/edit"
+                                                                    method="GET">
+                                                                <button type="submit"
+                                                                        class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                        style="opacity:0.80"
+                                                                        data-toggle="tooltip" title="Edit">
+                                                                    <i class="fas fa-pencil-alt fa-sm"
+                                                                        style="opacity:0.75"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col px-0">
                                                             <button type="submit"
-                                                                    class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0 deleter"
                                                                     style="opacity:0.80"
-                                                                    data-toggle="tooltip" title="Edit">
-                                                                <i class="fas fa-pencil-alt fa-sm"
-                                                                   style="opacity:0.75"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                    <div class="col px-0">
-                                                        <form class="p-0"
-                                                              action="private-investment/{{$investment->id}}"
-                                                              method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="_method"
-                                                                   value="DELETE">
-                                                            <button type="submit"
-                                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0"
-                                                                    style="opacity:0.80"
+                                                                    data-id="{{$investment->id}}"
                                                                     data-toggle="tooltip" title="Delete">
                                                                 <i class="fas fa-trash fa-sm"
                                                                    style="opacity:0.75"></i>
                                                             </button>
-                                                        </form>
-                                                        @endif
-                                                        {{-- @else
-                                                            @if($investment->approval_status != "Approved")
-                                                                <div class="row px-1">
-                                                                    <div class="col px-0">
-                                                                        <form class="p-0"
-                                                                              action="/budgets/private-investment/{{$investment->id}}/edit"
-                                                                              method="GET">
-                                                                            <button type="submit"
-                                                                                    class="btn btn-primary btn-circle text-white btn-sm mx-0"
-                                                                                    style="opacity:0.80"
-                                                                                    data-toggle="tooltip" title="Edit">
-                                                                                <i class="fas fa-pencil-alt fa-sm"
-                                                                                   style="opacity:0.75"></i>
-                                                                            </button>
-                                                                        </form>
-                                                                    </div>
-                                                                    <div class="col px-0">
-                                                                        <form class="p-0"
-                                                                              action="/budgets/private-investment/{{$investment->id}}"
-                                                                              method="POST">
-                                                                            @csrf
-                                                                            <input type="hidden" name="_method"
-                                                                                   value="DELETE">
-                                                                            <button type="submit"
-                                                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0"
-                                                                                    style="opacity:0.80"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="Delete">
-                                                                                <i class="fas fa-trash fa-sm"
-                                                                                   style="opacity:0.75"></i>
-                                                                            </button>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                            @endif --}}
+                                                        </div>
+                                                    </div>
+                                            @endif
                                         @endif
                                     </td>
                                     <td>{{ $investment->investment_title }}</td>
@@ -268,27 +229,4 @@
             </div>
         </div>
     @endif
-
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Are you sure you wish to delete?</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-danger" href="/institution/private-investment/delete">
-                        Delete
-                    </a>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
 @endSection

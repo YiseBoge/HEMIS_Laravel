@@ -4,32 +4,38 @@
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Policy Performance report Card</h6>
+                <h6 class="m-0 font-weight-bold text-primary">University Policy Performance report Card</h6>
             </div>
             <div class="card-body">
                 <div class="row my-3">
-                    <div class="col-sm-4 text-left">
-                        @if (Auth::user()->currentInstance != null)
-                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/report/generate-full-report">Update
+                    <div class="col-sm-6 text-left">
+                        @if (Auth::user()->currentInstance != null && Auth::user()->hasRole('University Admin'))
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/report/generate-institution-report">Update
                                 Current Year<i
                                         class="fas fa-sync-alt text-white-50 fa-sm ml-2"></i></a>
+                        @else
+                            {!! Form::open(['action' => 'Report\InstitutionReportsController@index', 'method' => 'GET']) !!}
+                            {!! Form::select('institution_name', $institution_names, $ind  , ['class' => 'form-control', 'id' => 'institution_name', 'onchange' => 'this.form.submit()']) !!}
+                            {!! Form::label('institution_name', 'University', ['class' => 'form-control-placeholder']) !!}
+                            {!! Form::close() !!}
                         @endif
                     </div>
-                    <div class="col-sm-8 text-right">
+                    <div class="col-sm-6 text-right">
                         <button type="button" class="btn btn-primary btn-sm mb-0 shadow-sm" id="exporter">
                             <i class="fas fa-download text-white-50 fa-sm mr-2"></i>Export to Excel
                         </button>
                         <button type="button" class="btn btn-primary btn-sm mb-0 shadow-sm ml-1"
-                                onclick="printJS({ printable: 'printable', type: 'html', css: '/css/app.css', documentTitle: 'KPI (Key Performance Indicators) - MoSHE', ignoreElements: ['unprint'] }) ">
+                                onclick="printJS({ printable: 'printable', type: 'html', css: '/css/app.css', documentTitle: 'KPI (Key Performance Indicators) - {{$institution_name}}', ignoreElements: ['unprint'] }) ">
                             <i class="fas fa-download text-white-50 fa-sm mr-2"></i>Print to PDF
                         </button>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-sm text-left">
-                        <p><span class="font-weight-bold">Policy Owner/Responsible Implementer:</span> Ministry of
-                            Science and Higher Education</p>
-                        <p><span class="font-weight-bold">Responsible:</span> Core management team of MoSHE</p>
+                        <p>
+                            <span class="font-weight-bold">Name of higher education institution:</span> {{$institution_name}}
+                        </p>
+                        {{--                        <p><span class="font-weight-bold">Responsible:</span> Core management team of MoSHE</p>--}}
                     </div>
                 </div>
                 <div class="row">
@@ -58,11 +64,14 @@
                                     colspan="1" aria-label="Year: activate to sort column ascending">Change
                                     %
                                 </th>
-                                <th class="sorting hide-print" tabindex="0" aria-controls="dataTable"
-                                    rowspan="1"
-                                    colspan="1" aria-label="Year: activate to sort column ascending"
-                                    id="unprint">
-                                </th>
+                                @if (Auth::user()->hasRole('University Admin'))
+                                    <th class="sorting hide-print" tabindex="0" aria-controls="dataTable"
+                                        rowspan="1"
+                                        colspan="1" aria-label="Year: activate to sort column ascending"
+                                        id="unprint">
+                                    </th>
+                                @endif
+
                             </tr>
                             </thead>
 
@@ -86,7 +95,7 @@
                                             <td style="min-width:275px;">
                                                 {{ $kpi->kpi }}
                                             </td>
-                                            @foreach($kpi->reportYearValues->sortBy('year') as $yearValue)
+                                            @foreach($kpi->reportYearValues()->where('institution_name_id', $institution_name->id)->orderBy('year')->get() as $yearValue)
                                                 <td>
                                                     {{ round($yearValue->value, 3) }}
                                                 </td>
@@ -95,27 +104,30 @@
                                                 {{ $kpi->target }}
                                             </td>
                                             <td class="text-center" style="min-width:115px;">
-                                                @if($kpi->change() > 0)
-                                                    <p class="text-success">{{$kpi->change()}}% <i
+                                                @if($kpi->change($institution_name) > 0)
+                                                    <p class="text-success">{{$kpi->change($institution_name)}}% <i
                                                                 class="fa fa-caret-up d-inline-block ml-2"></i>
                                                     </p>
-                                                @elseif($kpi->change())
-                                                    <p class="text-danger">{{$kpi->change()}}%<i
+                                                @elseif($kpi->change($institution_name))
+                                                    <p class="text-danger">{{$kpi->change($institution_name)}}%<i
                                                                 class="fa fa-caret-down d-inline-block ml-2"></i>
                                                     </p>
                                                 @else
-                                                    <p class="text-warning">{{$kpi->change()}}%</p>
+                                                    <p class="text-warning">{{$kpi->change($institution_name)}}%</p>
                                                 @endif
                                             </td>
-                                            <td class="hide-print" id="unprint">
-                                                <a href="/report/{{ $kpi->id }}/edit"
-                                                   class="btn btn-primary btn-circle text-white btn-sm mx-0"
-                                                   style="opacity:0.80"
-                                                   data-toggle="tooltip" title="Edit Target">
-                                                    <i class="fas fa-pencil-alt fa-sm"
-                                                       style="opacity:0.75"></i>
-                                                </a>
-                                            </td>
+                                            @if (Auth::user()->hasRole('University Admin'))
+                                                <td class="hide-print" id="unprint">
+                                                    <a href="/institution-report/{{ $kpi->id }}/edit"
+                                                       class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                       style="opacity:0.80"
+                                                       data-toggle="tooltip" title="Edit Target">
+                                                        <i class="fas fa-pencil-alt fa-sm"
+                                                           style="opacity:0.75"></i>
+                                                    </a>
+                                                </td>
+                                            @endif
+
                                         </tr>
                                     @endforeach
                                 @endforeach
@@ -130,16 +142,16 @@
 
     </div>
 
-    @if ($page_name == 'report.report_card.edit')
+    @if ($page_name == 'report.institution_report_card.edit')
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    {!! Form::open(['action' => ['Report\ReportsController@update', $report->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['action' => ['Report\InstitutionReportsController@update', $report->id], 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Set Target</h5>
-                        <a href="/report" class="close" aria-label="Close">
+                        <a href="/institution-report" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
                     </div>
@@ -147,14 +159,14 @@
                     <div class="modal-body px-5">
                         <div class="row my-2">
                             <div class="col-md text-center">
-                                @if($report->change() > 0)
+                                @if($report->change($institution_name) > 0)
                                     <p class="h3 text-success">{{$report->change()}}% <i
                                                 class="fa fa-caret-up d-inline-block ml-2"></i></p>
-                                @elseif($report->change() < 0)
-                                    <p class="h3 text-danger">{{$report->change()}}%<i
+                                @elseif($report->change($institution_name) < 0)
+                                    <p class="h3 text-danger">{{$report->change($institution_name)}}%<i
                                                 class="fa fa-caret-down d-inline-block ml-2"></i></p>
                                 @else
-                                    <p class="h3 text-warning">{{$report->change()}}%</p>
+                                    <p class="h3 text-warning">{{$report->change($institution_name)}}%</p>
                                 @endif
                             </div>
                         </div>
