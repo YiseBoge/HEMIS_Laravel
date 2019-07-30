@@ -122,7 +122,7 @@
                         <input type="hidden" name="_method" value="PUT">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
+                        <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i></button>
                         {{-- <a href="/region-name" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a> --}}
