@@ -241,14 +241,6 @@ class Department extends Model
     /**
      * @return HasMany
      */
-    public function costSharingsApproved()
-    {
-        return $this->hasMany('App\Models\Department\CostSharing')->where('approval_status', 'Approved');
-    }
-
-    /**
-     * @return HasMany
-     */
     public function otherRegionStudents()
     {
         return $this->hasMany('App\Models\Department\OtherRegionStudent');

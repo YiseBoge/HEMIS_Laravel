@@ -15,8 +15,8 @@ class CreateDormitoryServicesTable extends Migration
     {
         Schema::create('dormitory_services', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('block');
-            $table->string('room_no');
+            $table->string('block')->nullable();;
+            $table->string('room_no')->nullable();;
             $table->string('dormitory_service_type');
             $table->timestamps();
             $table->primary('id');

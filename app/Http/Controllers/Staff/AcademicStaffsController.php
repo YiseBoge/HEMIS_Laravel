@@ -298,7 +298,9 @@ class AcademicStaffsController extends Controller
         } else {
             //die("2" . $request->input('status'));
             $item = StaffLeave::find($academicStaff->staff_leave_id);
-            $item->delete();
+            if($item != null){
+                $item->delete();
+            }           
             $academicStaff->staff_leave_id = 0;
         }
 

@@ -49,9 +49,16 @@ class InstitutionReportService
         return $total;
     }
 
-    public function specialNeedEnrollment($UNDERGRADUATE)
+    function specialNeedEnrollment($educationLevel)
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->specialNeedEnrollment($educationLevel);
+        }
+
+        return $total;
     }
 
     public function dropout($string, $string1, $UNDERGRADUATE)

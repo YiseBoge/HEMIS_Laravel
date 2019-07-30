@@ -67,22 +67,22 @@
                             <th style="min-width: 50px; width: 50px"></th>
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
-                                aria-label="Name: activate to sort column descending" width="15"
-                                style="min-width: 30%;">Author
+                                aria-label="Name: activate to sort column descending"
+                                >Author
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                style="min-width: 30%;">Title
+                                >Title
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Salary: activate to sort column ascending"
                             >Date of Publication
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                            {{-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
                                 style="min-width: 99px;">Approval Status
-                            </th>
+                            </th> --}}
                         </tr>
                         </thead>
                         <tbody>
@@ -136,7 +136,7 @@
                                     <td class="sorting_1">{{$publication->academicStaff->general->name}}</td>
                                     <td>{{$publication->title}}</td>
                                     <td>{{$publication->date_of_publication}}</td>
-                                    @if($publication->approval_status == "Approved")
+                                    {{-- @if($publication->approval_status == "Approved")
                                         <td class="text-success"><i
                                                     class="fas fa-check"></i> {{$publication->approval_status}}
                                         </td>
@@ -148,7 +148,7 @@
                                         <td class="text-danger"><i
                                                     class="fas fa-times"></i> {{$publication->approval_status}}
                                         </td>
-                                    @endif
+                                    @endif --}}
                                 </tr>
                             @endforeach
                         @else

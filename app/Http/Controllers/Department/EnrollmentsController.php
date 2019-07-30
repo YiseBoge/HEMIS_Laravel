@@ -11,6 +11,8 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\Enrollment;
 use App\Models\Institution\Institution;
+use App\Services\DepartmentService;
+use App\Services\InstitutionService;
 use App\Services\GeneralReportService;
 use Exception;
 use Illuminate\Http\Request;
@@ -74,7 +76,7 @@ class EnrollmentsController extends Controller
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->enrollments as $enrollment) {
                                             $service = new GeneralReportService("2018/19");
-                                            //return $service->nonAcademicAttrition();
+                                            //return $service->enrollment("All", "Undergraduate");
                                             $enrollments[] = $enrollment;
                                         }
                                     }
@@ -87,7 +89,7 @@ class EnrollmentsController extends Controller
                                         foreach ($department->enrollments as $enrollment) {
                                             if ($enrollment->student_type == $requestedType) {
                                                 $service = new GeneralReportService("2018/19");
-                                                //return $service->nonAcademicAttrition();
+                                                //return $service->enrollment("Male", "Undergraduate");
                                                 $enrollments[] = $enrollment;
                                             }
                                         }
