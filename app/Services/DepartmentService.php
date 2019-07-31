@@ -70,6 +70,10 @@ class DepartmentService
                     if ($academicStaff->general->sex == 'Female' && $academicStaff->general->is_from_other_region == 1) {
                         $total++;
                     }
+                }else if ($sex == 'Male') {
+                    if ($academicStaff->general->sex == 'Male' && $academicStaff->general->is_from_other_region == 1) {
+                        $total++;
+                    }
                 } else {
                     if ($academicStaff->general->is_from_other_region == 1) {
                         $total++;
@@ -78,6 +82,10 @@ class DepartmentService
             } else {
                 if ($sex == 'Female') {
                     if ($academicStaff->general->sex == 'Female') {
+                        $total++;
+                    }
+                } else if ($sex == 'Male') {
+                    if ($academicStaff->general->sex == 'Male') {
                         $total++;
                     }
                 } else {
@@ -95,9 +103,11 @@ class DepartmentService
     function enrollment($sex)
     {
         $total = 0;
-        foreach ($this->department->enrollments as $enrollment) {
+        foreach ($this->department->enrollmentsApproved as $enrollment) {
             if ($sex == "Female") {
                 $total += $enrollment->female_students_number;
+            } else if ($sex == "Male") {
+                $total += $enrollment->male_students_number;
             } else {
                 $total += $enrollment->male_students_number + $enrollment->female_students_number;
             }
@@ -119,7 +129,7 @@ class DepartmentService
     function disadvantagedStudentEnrollment()
     {
         $total = 0;
-        foreach ($this->department->disadvantagedStudentEnrollments as $enrollment) {
+        foreach ($this->department->disadvantagedStudentEnrollmentsApproved as $enrollment) {
             $total += $enrollment->male_students_number + $enrollment->female_students_number;
         }
         return $total;
@@ -131,9 +141,11 @@ class DepartmentService
     function emergingRegionsEnrollment()
     {
         $total = 0;
-//        foreach ($this->department->emergingRegions as $enrollment) {
-//            $total += $enrollment->male_number + $enrollment->female_number;
-//        }
+       foreach ($this->department->specialRegionEnrollmentsApproved as $enrollment) {
+            if($enrollment->region_type == "Emerging Regions"){
+                $total += $enrollment->male_number + $enrollment->female_number;
+            }
+       }
         return $total;
     }
 
@@ -143,7 +155,7 @@ class DepartmentService
     function ruralAreasEnrollment()
     {
         $total = 0;
-        foreach ($this->department->ruralStudentEnrollments->where('region', 'Rural')->all() as $enrollment) {
+        foreach ($this->department->ruralStudentEnrollmentsApproved->where('region', 'Rural')->all() as $enrollment) {
             $total += $enrollment->male_students_number + $enrollment->female_students_number;
         }
 
@@ -158,9 +170,11 @@ class DepartmentService
     function dropout($sex, $type)
     {
         $total = 0;
-        foreach ($this->department->studentAttritions->where('case', 'Dropouts')->where('student_type', $type)->all() as $attrition) {
+        foreach ($this->department->studentAttritionsApproved->where('case', 'Dropouts')->where('student_type', $type)->all() as $attrition) {
             if ($sex == "Female") {
                 $total += $attrition->female_students_number;
+            } else if ($sex == "Male") {
+                $total += $attrition->male_students_number;
             } else {
                 $total += $attrition->male_students_number + $attrition->female_students_number;
             }
@@ -176,9 +190,11 @@ class DepartmentService
     function academicDismissal($sex, $type)
     {
         $total = 0;
-        foreach ($this->department->studentAttritions->whereIn('case', ['Academic Dismissals With Readmission', 'Academic Dismissals For Good'])->where('student_type', $type)->all() as $attrition) {
+        foreach ($this->department->studentAttritionsApproved->whereIn('case', ['Academic Dismissals With Readmission', 'Academic Dismissals For Good'])->where('student_type', $type)->all() as $attrition) {
             if ($sex == "Female") {
                 $total += $attrition->female_students_number;
+            } else if ($sex == "Male") {
+                $total += $attrition->male_students_number;
             } else {
                 $total += $attrition->male_students_number + $attrition->female_students_number;
             }
@@ -212,7 +228,7 @@ class DepartmentService
     function exitExamination()
     {
         $total = 0;
-        foreach ($this->department->exitExaminations as $enrollment) {
+        foreach ($this->department->exitExaminationsApproved as $enrollment) {
             $total += $enrollment->male_students_number + $enrollment->female_students_number;
         }
         return $total;
@@ -236,7 +252,7 @@ class DepartmentService
     public function jointEnrollment()
     {
         $total = 0;
-        foreach ($this->department->jointProgramEnrollments as $jointEnrollment) {
+        foreach ($this->department->jointProgramEnrollmentsApproved as $jointEnrollment) {
             $total += $jointEnrollment->male_students_number + $jointEnrollment->female_students_number;
         }
         return $total;
@@ -248,7 +264,7 @@ class DepartmentService
     public function diasporaCourses()
     {
         $total = 0;
-        foreach ($this->department->diasporaCourses as $diasporaCourse) {
+        foreach ($this->department->diasporaCoursesApproved as $diasporaCourse) {
             // die('Course I');
             $total += $diasporaCourse->number_of_courses + $diasporaCourse->number_of_researches;
         }
@@ -274,7 +290,7 @@ class DepartmentService
     function degreeEmployment()
     {
         $total = 0;
-        foreach ($this->department->degreeEmployments as $enrollment) {
+        foreach ($this->department->degreeEmploymentsApproved as $enrollment) {
             $total += $enrollment->male_students_number + $enrollment->female_students_number;
         }
         return $total;
@@ -287,9 +303,11 @@ class DepartmentService
     function graduationRate($sex)
     {
         $total = 0;
-        foreach ($this->department->enrollments->where('student_type', 'Graduates') as $enrollment) {
+        foreach ($this->department->enrollmentsApproved->where('student_type', 'Graduates') as $enrollment) {
             if ($sex == "Female") {
                 $total += $enrollment->female_students_number;
+            } else if ($sex == "Male") {
+                $total += $enrollment->male_students_number;
             } else {
                 $total += $enrollment->male_students_number + $enrollment->female_students_number;
             }
@@ -319,7 +337,7 @@ class DepartmentService
     function otherRegionStudents()
     {
         $total = 0;
-        foreach ($this->department->otherRegionStudents() as $enrollment) {
+        foreach ($this->department->otherRegionStudentsApproved as $enrollment) {
             $total += $enrollment->male_students_number + $enrollment->female_students_number;
         }
         return $total;

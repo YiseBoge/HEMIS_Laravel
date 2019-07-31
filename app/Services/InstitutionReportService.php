@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Institution\Instance;
 use App\Models\Institution\Institution;
 use App\Models\Institution\InstitutionName;
+use App\Models\College\College;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -49,113 +50,366 @@ class InstitutionReportService
         return $total;
     }
 
-    public function specialNeedEnrollment($UNDERGRADUATE)
+    /**
+     * @param $educationLevel
+     * @return int|mixed
+     */
+    function specialNeedEnrollment($educationLevel)
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->specialNeedEnrollment($educationLevel);
+        }
+
+        return $total;
+    }
+    
+ /**
+     * @param $sex
+     * @param $type
+     * @param $educationLevel
+     * @return int
+     */
+    function dropout($sex, $type, $educationLevel)
+    {
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->dropout($sex, $type, $educationLevel);
+        }
+
+        return $total;
     }
 
-    public function dropout($string, $string1, $UNDERGRADUATE)
+    /**
+     * @param $sex
+     * @param $type
+     * @param $educationLevel
+     * @return int
+     */
+    function academicDismissal($sex, $type, $educationLevel)
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->academicDismissal($sex, $type, $educationLevel);
+        }
+
+        return $total;
     }
 
-    public function academicDismissal($string, $ALL, $UNDERGRADUATE)
+    /**
+     * @param $sex
+     * @param $educationLevel
+     * @return float|int
+     */
+    function graduationRate($sex, $educationLevel)
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->graduationRate($sex, $educationLevel);
+        }
+
+        $totalEnrollments = $this->enrollment($sex, $educationLevel);
+        if ($totalEnrollments == 0) return 0;
+
+        return $total / $totalEnrollments;
     }
 
-    public function graduationRate($string, $UNDERGRADUATE)
+     /**
+     * @return int
+     */
+    function academicAttrition()
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->academicAttrition();
+        }
+
+        return $total;
     }
 
-    public function academicAttrition()
+    /**
+     * @return int
+     */
+    function nonAcademicAttrition()
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->nonAcademicAttrition();
+        }
+
+        return $total;
     }
 
-    public function nonAcademicAttrition()
+    /**
+     * @return int|mixed
+     */
+    function qualifiedStaff()
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->qualifiedStaff();
+        }
+
+        return $total;
     }
 
-    public function qualifiedStaff()
+    /**
+     * @return float|int
+     */
+    function qualifiedTeacherToStudent()
     {
-        return 0;
+        $total = $this->enrollment('All', College::getEnum('education_level')['UNDERGRADUATE']) +
+            $this->enrollment("All", College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
+            $this->enrollment("All", College::getEnum('education_level')['POST_GRADUATE_PHD']);
+
+        $selected = $this->qualifiedStaff();
+
+        $returnable = $total == 0 ? 0 : $selected / $total;
+
+        return $returnable;
     }
 
-    public function qualifiedTeacherToStudent()
+    /**
+     * @return int
+     */
+    function exitExamination()
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->exitExamination();
+        }
+
+        return $total;
     }
 
-    public function exitExamination()
+    /**
+     * @return int
+     */
+    function degreeEmployment()
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->degreeEmployment();
+        }
+
+        return $total;
     }
 
-    public function degreeEmployment()
+    /**
+     * @return int
+     */
+    function academicStaffPublication()
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->academicStaffPublication();
+        }
+
+        return $total;
     }
 
-    public function academicStaffPublication()
+    /**
+     * @return int
+     */
+    function publicationByPostgraduates()
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->publicationByPostgraduates();
+        }
+
+        return $total;
     }
 
-    public function publicationByPostgraduates()
+    /**
+     * @return int
+     */
+    function patents()
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->patents();
+        }
+
+        return $total;
     }
 
-    public function patents()
+    /**
+     * @param $sex
+     * @param $otherRegion
+     * @return float|int
+     */
+    function academicStaffRate($sex, $otherRegion)
     {
-        return 0;
+        $total = 0;
+
+        $selected = 0;
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->allAcademicStaff();
+            $selected += $institutionService->academicStaffRate($sex, $otherRegion);
+        }
+        $returnable = $total == 0 ? 0 : $selected / $total;
+
+        return $returnable;
     }
 
-    public function academicStaffRate($string, $false)
+        /**
+     * @param $sex
+     * @param $otherRegion
+     * @return float|int
+     */
+    function managementStaffRate($sex, $otherRegion)
     {
-        return 0;
+        $total = 0;
+
+        $selected = 0;
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->allManagementStaff();
+            $selected += $institutionService->managementStaffRate($sex, $otherRegion);
+        }
+        $returnable = $total == 0 ? 0 : $selected / $total;
+
+        return $returnable;
     }
 
-    public function managementStaffRate($string, $false)
+    /**
+     * @param $sex
+     * @param $otherRegion
+     * @return float|int
+     */
+    function enrollmentsRate($sex, $otherRegion)
     {
-        return 0;
+        $total = 0;
+
+        $selected = 0;
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->allEnrollment();
+
+            $selected += $institutionService->enrollmentsRate($sex, $otherRegion);
+        }
+        $returnable = $total == 0 ? 0 : $selected / $total;
+
+        return $returnable;
     }
 
-    public function enrollmentsRate($string, $false)
+    /**
+     * @return int
+     */
+    function diasporaCourses()
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->diasporaCourses();
+        }
+
+        return $total;
     }
 
-    public function diasporaCourses()
+    /**
+     * @param $educationLevel
+     * @return int
+     */
+    function foreignStudents($educationLevel)
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->foreignStudents($educationLevel);
+        }
+
+        return $total;
     }
 
-    public function foreignStudents($UNDERGRADUATE)
+    /**
+     * @param $educationLevel
+     * @return int
+     */
+    function jointEnrollment($educationLevel)
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->jointEnrollment($educationLevel);
+        }
+
+        return $total;
     }
 
-    public function jointEnrollment($UNDERGRADUATE)
+    /**
+     * @return int
+     */
+    function expatriateStaff()
     {
-        return 0;
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->expatriateStaff();
+        }
+
+        return $total;
     }
 
-    public function expatriateStaff()
+    /**
+     * @return float|int
+     */
+    function budgetNotFromGovernment()
     {
-        return 0;
+        $total = 0;
+        $totalBudget = 0;
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->budgetNotFromGovernment();
+            $totalBudget += $institutionService->totalBudget();
+        }
+
+        if ($totalBudget == 0) return 0;
+        return $total / $totalBudget;
     }
 
-    public function budgetNotFromGovernment()
+    /**
+     * @return int
+     */
+    function nonUtilizedFunds()
     {
-        return 0;
-    }
+        $total = 0;
 
-    public function nonUtilizedFunds()
-    {
-        return 0;
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->nonUtilizedFunds();
+        }
+
+        return $total;
     }
 }

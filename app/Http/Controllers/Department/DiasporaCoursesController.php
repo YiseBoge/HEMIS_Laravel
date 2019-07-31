@@ -269,7 +269,7 @@ class DiasporaCoursesController extends Controller
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
                                         foreach ($department->diasporaCourses as $course) {
-                                            if ($enrollment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
+                                            if ($course->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
                                                 $course->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                                                 $course->save();
                                             }
