@@ -100,8 +100,8 @@
                                                     {{ round($yearValue->value, 3) }}
                                                 </td>
                                             @endforeach
-                                            <td class="text-primary">
-                                                {{ $kpi->target }}
+                                            <td class="text-primary text-center">
+                                                {{ $kpi->target($institution_name)->value }}
                                             </td>
                                             <td class="text-center" style="min-width:115px;">
                                                 @if($kpi->change($institution_name) > 0)
@@ -148,7 +148,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    {!! Form::open(['action' => ['Report\InstitutionReportsController@update', $report->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['action' => ['Report\InstitutionReportsController@update', $target->id], 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Set Target</h5>
                         <a href="/institution-report" class="close" aria-label="Close">
@@ -198,7 +198,7 @@
                                 @endif
                             </div>
                             <div class="col-md form-group">
-                                {!! Form::number('target', $report->target, ['class' => 'form-control', 'id' => 'edit_target', 'required' => 'true',  'step' => 'any']) !!}
+                                {!! Form::number('target', $target->value , ['class' => 'form-control', 'id' => 'edit_target', 'required' => 'true',  'step' => 'any']) !!}
                                 {!! Form::label('edit_target', 'Target', ['class' => 'form-control-placeholder', 'for' => 'edit_target']) !!}
                             </div>
                         </div>

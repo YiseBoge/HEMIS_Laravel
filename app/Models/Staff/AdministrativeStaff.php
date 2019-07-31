@@ -21,23 +21,23 @@ class AdministrativeStaff extends Model
     use Enums;
 
     public $incrementing = false;
-
-    public static function boot() {
-        parent::boot();
-        static::creating(function (Model $model) {
-            $model->{$model->getKeyName()} = Uuid::generate()->string;
-        });
-
-        static::deleting(function(AdministrativeStaff $model) { // before delete() method call this
-            $model->general()->delete();
-        });
-    }
-
     protected $enumStaffRanks = [
         'a' => 'rank1',
         'b' => 'rank2',
         'c' => 'rank3',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function (AdministrativeStaff $model) { // before delete() method call this
+            $model->general()->delete();
+        });
+    }
 
 
     // Enums //

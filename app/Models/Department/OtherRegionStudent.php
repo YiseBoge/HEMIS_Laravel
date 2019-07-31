@@ -21,7 +21,7 @@ class OtherRegionStudent extends Model
     use Enums;
 
     public $incrementing = false;
-    
+
     /**
      * @return BelongsTo
      */

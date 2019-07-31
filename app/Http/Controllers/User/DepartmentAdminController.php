@@ -61,7 +61,7 @@ class DepartmentAdminController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('College Super Admin');
 
-        $departmentNames = $user->institution()->institutionName->departmentNames;
+        $departmentNames = $user->collegeName->departmentNames;
 
         $data = array(
             'department_names' => $departmentNames,

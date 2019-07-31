@@ -74,57 +74,57 @@
                                 </div>
                             </div>
                         @endif --}}
-                        <div class="form-group row pt-3">
-                            <div class="col-md-4 form-group">
-                                <select class="form-control" name="student_type" id="student_type"
-                                        onchange="this.form.submit()">
-                                    @foreach ($student_types as $key => $value)
-                                        @if ($value == $selected_student_type)
-                                            <option value="{{$value}}" selected>{{$value}}</option>
-                                        @else
-                                            <option value="{{$value}}">{{$value}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                                <label for="student_type" class="form-control-placeholder">
-                                    Student Type
-                                </label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                <select class="form-control" name="program" id="program"
-                                        onchange="this.form.submit()">
-                                    @foreach ($programs as $key => $value)
-                                        @if ($value == $selected_program)
-                                            <option value="{{$value}}" selected>{{$value}}</option>
-                                        @else
-                                            <option value="{{$value}}">{{$value}}</option>
-                                        @endif
+                            <div class="form-group row pt-3">
+                                <div class="col-md-4 form-group">
+                                    <select class="form-control" name="student_type" id="student_type"
+                                            onchange="this.form.submit()">
+                                        @foreach ($student_types as $key => $value)
+                                            @if ($value == $selected_student_type)
+                                                <option value="{{$value}}" selected>{{$value}}</option>
+                                            @else
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    <label for="student_type" class="form-control-placeholder">
+                                        Student Type
+                                    </label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <select class="form-control" name="program" id="program"
+                                            onchange="this.form.submit()">
+                                        @foreach ($programs as $key => $value)
+                                            @if ($value == $selected_program)
+                                                <option value="{{$value}}" selected>{{$value}}</option>
+                                            @else
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endif
 
-                                    @endforeach
-                                </select>
-                                <label for="program" class="form-control-placeholder">
-                                    Program
-                                </label>
-                            </div>
+                                        @endforeach
+                                    </select>
+                                    <label for="program" class="form-control-placeholder">
+                                        Program
+                                    </label>
+                                </div>
 
-                            <div class="col-md-4 form-group">
-                                <select class="form-control" name="education_level" id="level"
-                                        onchange="this.form.submit()">
-                                    @foreach ($education_levels as $key => $value)
-                                        @if ($key == 'SPECIALIZATION')
-                                            <option disabled value="{{$value}}">{{$value}}</option>
-                                        @elseif($value == $selected_education_level)
-                                            <option value="{{$value}}" selected>{{$value}}</option>
-                                        @else
-                                            <option value="{{$value}}">{{$value}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                                <label for="level" class="form-control-placeholder">
-                                    Education Level
-                                </label>
+                                <div class="col-md-4 form-group">
+                                    <select class="form-control" name="education_level" id="level"
+                                            onchange="this.form.submit()">
+                                        @foreach ($education_levels as $key => $value)
+                                            @if ($key == 'SPECIALIZATION')
+                                                <option disabled value="{{$value}}">{{$value}}</option>
+                                            @elseif($value == $selected_education_level)
+                                                <option value="{{$value}}" selected>{{$value}}</option>
+                                            @else
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    <label for="level" class="form-control-placeholder">
+                                        Education Level
+                                    </label>
+                                </div>
                             </div>
-                        </div>
                         @endif
                     </form>
 

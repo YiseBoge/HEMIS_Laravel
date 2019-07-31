@@ -6,8 +6,6 @@ use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Webpatser\Uuid\Uuid;
 
 class ManagementData extends Model
 {

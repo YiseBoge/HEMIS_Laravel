@@ -17,12 +17,14 @@ class CreateInstitutionYearValuesTable extends Migration
             $table->uuid('id');
             $table->string('year');
             $table->double('value')->default(0);
+            $table->string('type')->default('normal');
+            $table->boolean('is_decreasing')->default(false);
             $table->timestamps();
 
             $table->primary('id');
 
             $table->uuid('institution_report_card_id');
-            $table->uuid('institution_name_id');
+            $table->uuid('institution_name_id')->default(0);
         });
     }
 

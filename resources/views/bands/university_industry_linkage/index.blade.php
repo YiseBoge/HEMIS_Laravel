@@ -155,7 +155,9 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="year" id="year">
                                         @foreach ($years as $key => $value)
-                                            <option value="{{$key}}" {{ (old('year') == $key ? 'selected':'') }}>{{$value}}</option>
+                                            <option value="{{$key}}" {{ (old('year') == $key ? 'selected':'') }}>
+                                                {{$value}}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label for="year" class="form-control-placeholder">

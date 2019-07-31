@@ -359,7 +359,7 @@
 
     <hr class="sidebar-divider">
 
-    @if(Auth::user()->hasAnyRole(['Super Admin', 'University Admin']) || (Auth::user()->hasRole('College Super Admin') && !Auth::user()->institution()->institutionName->departmentNames->isEmpty()))
+    @if(Auth::user()->hasAnyRole(['Super Admin', 'University Admin']) || (Auth::user()->hasRole('College Super Admin') && !Auth::user()->collegeName->departmentNames->isEmpty()))
         <div class="sidebar-heading">
             Management Components
         </div>
@@ -394,18 +394,18 @@
                     @elseif(Auth::user()->hasRole('University Admin'))
                         <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'colleges-name' ? 'active': '' }}"
                            href="/college/college-name">College/Institute Names</a>
-                        <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'department-name' ? 'active': '' }}"
-                           href="/department/department-name">School/Department Names</a>
                         @if(!Auth::user()->institution()->institutionName->collegeNames->isEmpty())
+                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'department-name' ? 'active': '' }}"
+                               href="/department/department-name">School/Department Names</a>
                             <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
                                href="/college-admin">College/Institute Super Admins</a>
                         @endif
                     @elseif(Auth::user()->hasRole('College Super Admin'))
                         @if(!Auth::user()->institution()->institutionName->collegeNames->isEmpty())
                             <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
-                               href="/college-admin">College/Institute Administerer Admins</a>
+                               href="/college-admin">College/Institute Administrative Admins</a>
                         @endif
-                        @if(!Auth::user()->institution()->institutionName->departmentNames->isEmpty())
+                        @if(!Auth::user()->collegeName->departmentNames->isEmpty())
                             <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'department_admin' ? 'active': '' }}"
                                href="/department-admin">School/Department Admins</a>
                         @endif

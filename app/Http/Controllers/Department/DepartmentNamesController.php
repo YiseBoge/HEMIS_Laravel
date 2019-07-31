@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
+use App\Models\College\CollegeName;
 use App\Models\Department\DepartmentName;
-use App\Models\Department\Department;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -37,7 +37,12 @@ class DepartmentNamesController extends Controller
         $user->authorizeRoles('University Admin');
 
         $institutionName = $user->institution()->institutionName;
-        $departments = $institutionName->departmentNames;
+        $departments = array();
+        foreach ($institutionName->collegeNames as $collegeName) {
+            foreach ($collegeName->departmentNames as $department) {
+                $departments[] = $department;
+            }
+        }
 
         $data = [
             'departments' => $departments,
@@ -57,10 +62,17 @@ class DepartmentNamesController extends Controller
         $user->authorizeRoles('University Admin');
 
         $institutionName = $user->institution()->institutionName;
-        $departments = $institutionName->departmentNames;
+        $departments = array();
+        foreach ($institutionName->collegeNames as $collegeName) {
+            foreach ($collegeName->departmentNames as $department) {
+                $departments[] = $department;
+            }
+        }
+        $collegeNames = $institutionName->collegeNames;
 
         $data = [
             'departments' => $departments,
+            'college_names' => $collegeNames,
             'page_name' => 'administer.department-name.create'
         ];
         return view('departments.department_name.list')->with($data);
@@ -85,11 +97,15 @@ class DepartmentNamesController extends Controller
 
         $institutionName = $user->institution()->institutionName;
 
+        $collegeNames = $institutionName->collegeNames;
+        /** @var CollegeName $collegeName */
+        $collegeName = $collegeNames[$request->input('college_name_id')];
+
         $departmentName = new DepartmentName;
         $departmentName->department_name = $request->input('department_name');
         $departmentName->acronym = $request->input('department_acronym');
 
-        $institutionName->departmentNames()->save($departmentName);
+        $collegeName->departmentNames()->save($departmentName);
 
         return redirect('/department/department-name')->with('success', 'Successfully Added Department Name');
     }
@@ -105,7 +121,7 @@ class DepartmentNamesController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('University Admin');
 
-        return view('departments.details');
+        return redirect('/department/department-name');
     }
 
     /**
@@ -120,14 +136,21 @@ class DepartmentNamesController extends Controller
         $user->authorizeRoles('University Admin');
 
         $institutionName = $user->institution()->institutionName;
-        $departments = $institutionName->departmentNames;
-        
+        $departments = array();
+        foreach ($institutionName->collegeNames as $collegeName) {
+            foreach ($collegeName->departmentNames as $department) {
+                $departments[] = $department;
+            }
+        }
+        $collegeNames = $institutionName->collegeNames;
+
         $department = DepartmentName::find($id);
 
         $data = [
             'department' => DepartmentName::find($id),
             'id' => $id,
             'departments' => $departments,
+            'college_names' => $collegeNames,
             'department_name' => $department->department_name,
             'department_acronym' => $department->acronym,
             'page_name' => 'administer.department-name.edit'

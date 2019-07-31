@@ -20,18 +20,6 @@ class IctStaffType extends Model
     use Enums;
 
     public $incrementing = false;
-
-    public static function boot() {
-        parent::boot();
-        static::creating(function (Model $model) {
-            $model->{$model->getKeyName()} = Uuid::generate()->string;
-        });
-
-        static::deleting(function(IctStaffType $model) { // before delete() method call this
-            $model->ictStaffs()->delete();
-        });
-    }
-
     protected $enumCategories = [
         'INFRASTRUCTURE_SERVICES' => 'Infrastructure & Services',
         'BUSINESS_APPLICATION_DEVELOPMENT' => 'Business Application Administration & Development',
@@ -39,6 +27,18 @@ class IctStaffType extends Model
         'SUPPORT_MAINTENANCE' => 'Support and Maintenance',
         'TRAINING_CONSULTANCY' => 'Training and Consultancy'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function (IctStaffType $model) { // before delete() method call this
+            $model->ictStaffs()->delete();
+        });
+    }
 
     /**
      * @return HasMany

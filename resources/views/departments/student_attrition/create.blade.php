@@ -16,7 +16,9 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="program" id="program">
                                         @foreach ($programs as $key => $value)
-                                            <option value="{{$key}}" {{ (old('program') == $key ? 'selected':'') }}>{{$value}}</option>
+                                            <option value="{{$key}}" {{ (old('program') == $key ? 'selected':'') }}>
+                                                {{$value}}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label for="program" class="form-control-placeholder">
@@ -26,7 +28,9 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="education_level" id="education_level">
                                         @foreach ($education_levels as $key => $value)
-                                            <option value="{{$key}}" {{ (old('education_level') == $key ? 'selected':'') }}>{{$value}}</option>
+                                            <option value="{{$key}}" {{ (old('education_level') == $key ? 'selected':'') }}>
+                                                {{$value}}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label for="education_level" class="form-control-placeholder">
@@ -36,7 +40,9 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="year_level" id="year_level">
                                         @foreach ($years as $key => $value)
-                                            <option value="{{$key}}" {{ (old('year_level') == $key ? 'selected':'') }}>{{$value}}</option>
+                                            <option value="{{$key}}" {{ (old('year_level') == $key ? 'selected':'') }}>
+                                                {{$value}}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label for="year_level" class="form-control-placeholder">
@@ -48,7 +54,9 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="student_type" id="student_type">
                                         @foreach ($student_types as $key => $value)
-                                            <option value="{{$key}}" {{ (old('student_type') == $key ? 'selected':'') }}>{{$value}}</option>
+                                            <option value="{{$key}}" {{ (old('student_type') == $key ? 'selected':'') }}>
+                                                {{$value}}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label for="student_type" class="form-control-placeholder">
@@ -58,7 +66,9 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="type" id="type">
                                         @foreach ($types as $key => $value)
-                                            <option value="{{$key}}" {{ (old('type') == $key ? 'selected':'') }}>{{$value}}</option>
+                                            <option value="{{$key}}" {{ (old('type') == $key ? 'selected':'') }}>
+                                                {{$value}}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label for="type" class="form-control-placeholder">
@@ -68,7 +78,9 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="case" id="case">
                                         @foreach ($cases as $key => $value)
-                                            <option value="{{$key}}" {{ (old('case') == $key ? 'selected':'') }}>{{$value}}</option>
+                                            <option value="{{$key}}" {{ (old('case') == $key ? 'selected':'') }}>
+                                                {{$value}}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label for="case" class="form-control-placeholder">

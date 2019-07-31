@@ -25,32 +25,24 @@ class Institution extends Model
     use Enums;
 
     public $incrementing = false;
-
-    public static function boot() {
-        parent::boot();
-        static::creating(function (Model $model) {
-            $model->{$model->getKeyName()} = Uuid::generate()->string;
-        });
-
-        static::deleting(function(Institution $model) { // before delete() method call this
-            $model->generalInformation()->delete();
-            $model->bands()->delete();
-            $model->managements()->delete();
-        });
-    }
-
     protected $enumApprovalTypes = [
         'APPROVED' => 'Approved',
         'PENDING' => 'Pending',
         'DISAPPROVED' => 'Disapproved'
     ];
 
-    /**
-     * @return BelongsTo
-     */
-    public function institutionName()
+    public static function boot()
     {
-        return $this->belongsTo('App\Models\Institution\InstitutionName');
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function (Institution $model) { // before delete() method call this
+            $model->generalInformation()->delete();
+            $model->bands()->delete();
+            $model->managements()->delete();
+        });
     }
 
     /**
@@ -59,14 +51,6 @@ class Institution extends Model
     public function generalInformation()
     {
         return $this->belongsTo('App\Models\Institution\GeneralInformation');
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function instance()
-    {
-        return $this->belongsTo('App\Models\Institution\Instance');
     }
 
     /**
@@ -83,6 +67,22 @@ class Institution extends Model
     public function managements()
     {
         return $this->hasMany('App\Models\Institution\ManagementData');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function institutionName()
+    {
+        return $this->belongsTo('App\Models\Institution\InstitutionName');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function instance()
+    {
+        return $this->belongsTo('App\Models\Institution\Instance');
     }
 
     /**

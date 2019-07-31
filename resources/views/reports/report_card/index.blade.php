@@ -91,7 +91,7 @@
                                                     {{ round($yearValue->value, 3) }}
                                                 </td>
                                             @endforeach
-                                            <td class="text-primary">
+                                            <td class="text-primary text-center">
                                                 {{ $kpi->target }}
                                             </td>
                                             <td class="text-center" style="min-width:115px;">

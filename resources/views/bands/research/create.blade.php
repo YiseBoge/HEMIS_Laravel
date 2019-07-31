@@ -16,7 +16,9 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="type" id="type">
                                         @foreach ($types as $key => $value)
-                                            <option value="{{$value}}" {{ (old('type') == $value ? 'selected':'') }}>{{$value}}</option>
+                                            <option value="{{$value}}" {{ (old('type') == $value ? 'selected':'') }}>
+                                                {{$value}}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label for="type" class="form-control-placeholder">
@@ -26,7 +28,9 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="status" id="status">
                                         @foreach ($completions as $key => $value)
-                                            <option value="{{$value}}" {{ (old('status') == $value ? 'selected':'') }}>{{$value}}</option>
+                                            <option value="{{$value}}" {{ (old('status') == $value ? 'selected':'') }}>
+                                                {{$value}}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label for="status" class="form-control-placeholder">
