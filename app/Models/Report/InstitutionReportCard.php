@@ -155,30 +155,6 @@ class InstitutionReportCard extends Model
         return $kpis;
     }
 
-    public function target(InstitutionName $institutionName)
-    {
-        if ($institutionName->yearValues()->where(array(
-                'type' => 'target',
-                'institution_report_card_id' => $this->id,
-            ))->first() == null) {
-
-            $target = new InstitutionYearValue();
-            $target->year = 2025;
-            $target->value = 0;
-            $target->type = 'target';
-            $target->institution_report_card_id = $this->id;
-
-            $institutionName->yearValues()->save($target);
-        }
-
-        $targetYearValue = $institutionName->yearValues()->where(array(
-            'type' => 'target',
-            'institution_report_card_id' => $this->id,
-        ))->first();
-
-        return $targetYearValue;
-    }
-
     /**
      * @param InstitutionName $institutionName
      * @return float|int
@@ -208,5 +184,29 @@ class InstitutionReportCard extends Model
     public function reportYearValues()
     {
         return $this->hasMany('App\Models\Report\InstitutionYearValue')->where('type', 'normal');
+    }
+
+    public function target(InstitutionName $institutionName)
+    {
+        if ($institutionName->yearValues()->where(array(
+                'type' => 'target',
+                'institution_report_card_id' => $this->id,
+            ))->first() == null) {
+
+            $target = new InstitutionYearValue();
+            $target->year = 2025;
+            $target->value = 0;
+            $target->type = 'target';
+            $target->institution_report_card_id = $this->id;
+
+            $institutionName->yearValues()->save($target);
+        }
+
+        $targetYearValue = $institutionName->yearValues()->where(array(
+            'type' => 'target',
+            'institution_report_card_id' => $this->id,
+        ))->first();
+
+        return $targetYearValue;
     }
 }
