@@ -7,6 +7,7 @@ use App\Models\Institution\ManagementData;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class ManagementDataController extends Controller
 {
@@ -64,6 +65,8 @@ class ManagementDataController extends Controller
         $data = [
             'management_data' => $managements,
             'management_levels' => ManagementData::getEnum('ManagementLevels'),
+
+            'has_modal' => 'yes',
             'page_name' => 'institutions.management_data.create'
         ];
 
@@ -75,10 +78,10 @@ class ManagementDataController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
-        // die('dead');
         $this->validate($request, [
             'required_positions' => 'required',
             'assigned_positions' => 'required',
@@ -95,6 +98,10 @@ class ManagementDataController extends Controller
         $management_data->assigned = $request->input('assigned_positions');
         $management_data->female_number = $request->input('number_of_females');
         $management_data->management_level = $request->input('management_level');
+
+        if ($management_data->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
 
         $institution->managements()->save($management_data);
 
@@ -140,6 +147,7 @@ class ManagementDataController extends Controller
             'management_levels' => ManagementData::getEnum('ManagementLevels'),
             'current' => ManagementData::find($id),
 
+            'has_modal' => 'yes',
             'page_name' => 'institutions.management_data.edit',
         ];
 
@@ -152,6 +160,7 @@ class ManagementDataController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {

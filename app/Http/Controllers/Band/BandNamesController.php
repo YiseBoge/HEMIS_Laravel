@@ -38,7 +38,8 @@ class BandNamesController extends Controller
         $bands = BandName::all();
         $data = [
             'bands' => $bands,
-            'page_name' => 'administer.band-name.list'
+
+            'page_name' => 'administer.band-name.list',
         ];
         return view('bands.band_name.list')->with($data);
     }
@@ -56,6 +57,8 @@ class BandNamesController extends Controller
         $bands = BandName::all();
         $data = [
             'bands' => $bands,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.band-name.create'
         ];
         return view('bands.band_name.list')->with($data);
@@ -81,6 +84,11 @@ class BandNamesController extends Controller
         $bandName = new BandName;
         $bandName->band_name = $request->input('band_name');
         $bandName->acronym = $request->input('band_acronym');
+
+        if ($bandName->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
         $bandName->save();
 
         return redirect('/band/band-name')->with('success', 'Successfully Added Band Name');
@@ -119,6 +127,8 @@ class BandNamesController extends Controller
             'current_band_name' => $current_band_name,
             'band_name' => $current_band_name->band_name,
             'acronym' => $current_band_name->acronym,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.band-name.edit'
         ];
         return view('bands.band_name.list')->with($data);

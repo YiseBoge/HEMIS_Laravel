@@ -68,6 +68,17 @@ class InstitutionName extends Model
     }
 
     /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return InstitutionName::where(array(
+                'institution_name' => $this->institution_name,
+                'acronym' => $this->acronym,
+            ))->first() != null;
+    }
+
+    /**
      * @return string
      */
     public function __toString()

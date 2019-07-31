@@ -100,6 +100,8 @@ class ReportsController extends Controller
             'years' => $years,
             'baseline' => $baseline,
             'change' => $change,
+
+            'has_modal' => 'yes',
             'page_name' => 'report.report_card.edit'
         ];
 

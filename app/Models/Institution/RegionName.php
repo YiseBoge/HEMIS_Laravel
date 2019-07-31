@@ -37,6 +37,16 @@ class RegionName extends Model
     }
 
     /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return RegionName::where(array(
+                'name' => $this->name,
+            ))->first() != null;
+    }
+
+    /**
      * @return string
      */
     public function __toString()

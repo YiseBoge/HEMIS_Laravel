@@ -137,6 +137,8 @@ class InstitutionReportsController extends Controller
             'target' => $target,
             'baseline' => $baseline,
             'change' => $change,
+
+            'has_modal' => 'yes',
             'page_name' => 'report.institution_report_card.edit'
         ];
         return view('reports.institution_report_card.index')->with($data);

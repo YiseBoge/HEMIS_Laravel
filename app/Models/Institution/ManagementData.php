@@ -7,6 +7,12 @@ use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int required
+ * @property int assigned
+ * @property int female_number
+ * @property array|string|null management_level
+ */
 class ManagementData extends Model
 {
     use Uuids;

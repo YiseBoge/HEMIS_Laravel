@@ -13,6 +13,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null revenue_description
  * @property string|null income
  * @property string|null expense
+ * @property Uuid college_id
  * @method static InternalRevenue find(int $id)
  */
 class InternalRevenue extends Model
@@ -39,5 +40,16 @@ class InternalRevenue extends Model
     public function college()
     {
         return $this->belongsTo('App\Models\College\College');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return Budget::where(array(
+                'college_id' => $this->college_id,
+                'revenue_description' => $this->revenue_description,
+            ))->first() != null;
     }
 }

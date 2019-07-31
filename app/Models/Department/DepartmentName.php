@@ -12,6 +12,7 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid id
  * @property string|null department_name
  * @property string|null acronym
+ * @property Uuid college_name_id
  * @method static DepartmentName find(int $id)
  */
 class DepartmentName extends Model
@@ -56,6 +57,19 @@ class DepartmentName extends Model
     public static function byCollegeNames(Collection $collegeNames)
     {
         return DepartmentName::all()->whereIn('college_name_id', $collegeNames->pluck('id'));
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return DepartmentName::where(array(
+                'department_name' => $this->department_name,
+                'acronym' => $this->acronym,
+
+                'college_name_id' => $this->college_name_id,
+            ))->first() != null;
     }
 
     /**

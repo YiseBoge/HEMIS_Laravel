@@ -17,6 +17,8 @@ use Webpatser\Uuid\Uuid;
  * @property string|null acronym
  * @property BandName bandName
  * @property DepartmentName departmentNames
+ * @property Uuid institution_name_id
+ * @property Uuid band_name_id
  * @method static CollegeName find(int $id)
  */
 class CollegeName extends Model
@@ -79,6 +81,20 @@ class CollegeName extends Model
     public function bandName()
     {
         return $this->belongsTo('App\Models\Band\BandName');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return CollegeName::where(array(
+                'college_name' => $this->college_name,
+                'acronym' => $this->acronym,
+
+                'institution_name_id' => $this->institution_name_id,
+                'band_name_id' => $this->band_name_id,
+            ))->first() != null;
     }
 
     /**

@@ -55,6 +55,8 @@ class BudgetDescriptionsController extends Controller
 
         $data = array(
             'budgetDescriptions' => $budgetDescriptions,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.budget-description.create',
         );
         return view('colleges.budget_description.index')->with($data);
@@ -80,6 +82,10 @@ class BudgetDescriptionsController extends Controller
         $budgetDescription = new BudgetDescription();
         $budgetDescription->budget_code = $request->input('budget_code');
         $budgetDescription->description = $request->input('description');
+
+        if ($budgetDescription->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
 
         $budgetDescription->save();
 
@@ -115,6 +121,8 @@ class BudgetDescriptionsController extends Controller
             'budget_code' => $current_desc->budget_code,
             'description' => $current_desc->description,
             'budgetDescriptions' => $budgetDescriptions,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.budget-description.edit',
         );
         return view('colleges.budget_description.index')->with($data);

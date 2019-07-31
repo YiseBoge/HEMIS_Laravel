@@ -49,6 +49,16 @@ class BudgetDescription extends Model
     }
 
     /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return BudgetDescription::where(array(
+                'budget_code' => $this->budget_code,
+            ))->first() != null;
+    }
+
+    /**
      * @return string
      */
     public function __toString()

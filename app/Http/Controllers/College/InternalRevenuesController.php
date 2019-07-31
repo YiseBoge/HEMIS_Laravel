@@ -93,6 +93,8 @@ class InternalRevenuesController extends Controller
         $data = array(
             'internal_revenues' => $revenues,
             'revenue_descriptions' => $revenueDescriptions,
+
+            'has_modal' => 'yes',
             'page_name' => 'budgets.internal-revenue.create'
         );
 
@@ -144,6 +146,10 @@ class InternalRevenuesController extends Controller
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
+
+        if ($internalRevenue->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
 
         $college->internalRevenues()->save($internalRevenue);
 
@@ -200,6 +206,8 @@ class InternalRevenuesController extends Controller
             'internal_revenue' => $internalRevenue,
             'revenue_descriptions' => $revenueDescriptions,
             'revenue_description' => $revenueDescription,
+
+            'has_modal' => 'yes',
             'page_name' => 'budgets.internal-revenue.edit'
         );
 

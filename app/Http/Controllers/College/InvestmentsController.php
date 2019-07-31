@@ -94,6 +94,8 @@ class InvestmentsController extends Controller
         $data = array(
             'investments' => $investments,
             'investment_titles' => $investmentTitles,
+
+            'has_modal' => 'yes',
             'page_name' => 'budgets.investment.create'
         );
 
@@ -144,6 +146,10 @@ class InvestmentsController extends Controller
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
+
+        if ($investment->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
 
         $college->investments()->save($investment);
 
@@ -201,6 +207,8 @@ class InvestmentsController extends Controller
             'investment' => $investment,
             'investment_titles' => $investmentTitles,
             'investment_title' => $investmentTitle,
+
+            'has_modal' => 'yes',
             'page_name' => 'budgets.private_investment.edit'
         );
 
