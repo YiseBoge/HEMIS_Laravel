@@ -60,6 +60,8 @@ class InstitutionNamesController extends Controller
         $institutions = InstitutionName::all();
         $data = [
             'institutions' => $institutions,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.institution-name.create'
         ];
         return view('institutions.institution_name.index')->with($data);
@@ -87,6 +89,11 @@ class InstitutionNamesController extends Controller
         $institutionName->institution_name = $request->input('institution_name');
         $institutionName->acronym = $request->input('institution_acronym');
         $institutionName->is_private = $request->has('is_private');
+
+        if ($institutionName->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
         $institutionName->save();
 
 
@@ -143,6 +150,8 @@ class InstitutionNamesController extends Controller
         $data = [
             'institutions' => $institutions,
             'current_institution' => $institution,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.institution-name.edit'
         ];
 
@@ -155,6 +164,7 @@ class InstitutionNamesController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public
     function update(Request $request, $id)

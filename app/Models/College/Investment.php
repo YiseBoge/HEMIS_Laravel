@@ -13,6 +13,8 @@ use Webpatser\Uuid\Uuid;
  * @property string|null investment_title
  * @property string|null cost_incurred
  * @property string|null remarks
+ * @property string|null approval_status
+ * @property Uuid college_id
  * @method static Investment find(int $id)
  */
 class Investment extends Model
@@ -39,5 +41,16 @@ class Investment extends Model
     public function college()
     {
         return $this->belongsTo('App\Models\College\College');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return Budget::where(array(
+                'college_id' => $this->college_id,
+                'investment_title' => $this->investment_title,
+            ))->first() != null;
     }
 }

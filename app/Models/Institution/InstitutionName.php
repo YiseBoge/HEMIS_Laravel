@@ -38,11 +38,6 @@ class InstitutionName extends Model
         });
     }
 
-    public function yearValues()
-    {
-        return $this->hasMany('App\Models\Report\InstitutionYearValue');
-    }
-
     /**
      * @return HasMany
      */
@@ -65,6 +60,22 @@ class InstitutionName extends Model
     public function users()
     {
         return $this->hasMany('App\User');
+    }
+
+    public function yearValues()
+    {
+        return $this->hasMany('App\Models\Report\InstitutionYearValue');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return InstitutionName::where(array(
+                'institution_name' => $this->institution_name,
+                'acronym' => $this->acronym,
+            ))->first() != null;
     }
 
     /**

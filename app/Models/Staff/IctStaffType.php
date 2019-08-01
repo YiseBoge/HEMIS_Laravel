@@ -49,6 +49,16 @@ class IctStaffType extends Model
     }
 
     /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return IctStaffType::where(array(
+                'type' => $this->type,
+            ))->first() != null;
+    }
+
+    /**
      * @return string
      */
     function __toString()

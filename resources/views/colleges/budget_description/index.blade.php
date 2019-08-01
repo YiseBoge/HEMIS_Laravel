@@ -93,6 +93,21 @@
                     </div>
 
                     <div class="modal-body row p-4">
+
+                        @if(count($errors) > 0)
+                            <div class="col-md-12 form-group">
+                                <div class="alert alert-danger">
+                                    <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                    <hr class="my-0">
+                                    <ul class="my-1 px-4">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="col-md-12 form-group pb-1">
                             {!! Form::text('budget_code', old('budget_code'), ['class' => 'form-control', 'id' => 'add_budget_code', 'required' => 'true']) !!}
                             {!! Form::label('add_budget_code', 'Budget Code', ['class' => 'form-control-placeholder']) !!}

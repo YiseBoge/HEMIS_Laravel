@@ -11,8 +11,6 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\Enrollment;
 use App\Models\Institution\Institution;
-use App\Services\DepartmentService;
-use App\Services\InstitutionService;
 use App\Services\GeneralReportService;
 use App\Services\InstitutionReportService;
 use Exception;
@@ -212,7 +210,13 @@ class EnrollmentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->enrollments()->save($enrollment);
+        $enrollment->department_id = $department->id;
+
+        if ($enrollment->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $enrollment->save();
 
         return redirect("/enrollment/normal")->with('success', 'Successfully Added Enrollment');
 

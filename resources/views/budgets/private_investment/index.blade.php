@@ -129,18 +129,6 @@
                                 </tr>
                             @endforeach
                             </tbody>
-
-
-                            {{--                                        <tfoot>--}}
-                            {{--                                        <tr class="font-weight-bolder font-italic text-lg">--}}
-                            {{--                                            <td class="text-center">--}}
-
-                            {{--                                            </td>--}}
-                            {{--                                            <td>Total</td>--}}
-                            {{--                                            <td>sum of cost incured</td>--}}
-                            {{--                                            <td></td>--}}
-                            {{--                                        </tr>--}}
-                            {{--                                        </tfoot>--}}
                         </table>
                     </div>
                 </div>
@@ -164,6 +152,21 @@
                         </a>
                     </div>
                     <div class="modal-body row pt-4">
+
+                        @if(count($errors) > 0)
+                            <div class="col-md-12 form-group">
+                                <div class="alert alert-danger">
+                                    <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                    <hr class="my-0">
+                                    <ul class="my-1 px-4">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="col-12 form-group pb-2">
                             {!! Form::select('investment_title', $investment_titles , old('investment_title') , ['class' => 'form-control', 'id' => 'add_investment_title']) !!}
                             {!! Form::label('add_investment_title', 'Investment Title', ['class' => 'form-control-placeholder']) !!}

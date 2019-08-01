@@ -11,7 +11,7 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid id
  * @property string|null band_name
  * @property string|null acronym
- * @method static BandName find(int $id)
+ * @method static BandName find(mixed $id)
  */
 class BandName extends Model
 {
@@ -55,6 +55,17 @@ class BandName extends Model
     public function users()
     {
         return $this->hasMany('App\User');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return BandName::where(array(
+                'band_name' => $this->band_name,
+                'acronym' => $this->acronym,
+            ))->first() != null;
     }
 
     /**

@@ -17,6 +17,7 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid instance_id
  * @property GeneralInformation generalInformation
  * @property InstitutionName institutionName
+ * @property Collection managements
  * @method static Institution find(int $id)
  */
 class Institution extends Model

@@ -55,6 +55,17 @@ class Instance extends Model
     }
 
     /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return Instance::where(array(
+                'year' => $this->year,
+                'semester' => $this->semester,
+            ))->first() != null;
+    }
+
+    /**
      * @return string
      */
     public function __toString()

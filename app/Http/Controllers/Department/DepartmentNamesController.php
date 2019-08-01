@@ -73,6 +73,8 @@ class DepartmentNamesController extends Controller
         $data = [
             'departments' => $departments,
             'college_names' => $collegeNames,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.department-name.create'
         ];
         return view('departments.department_name.list')->with($data);
@@ -105,7 +107,13 @@ class DepartmentNamesController extends Controller
         $departmentName->department_name = $request->input('department_name');
         $departmentName->acronym = $request->input('department_acronym');
 
-        $collegeName->departmentNames()->save($departmentName);
+        $departmentName->college_name_id = $collegeName->id;
+
+        if ($departmentName->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $departmentName->save();
 
         return redirect('/department/department-name')->with('success', 'Successfully Added Department Name');
     }
@@ -153,6 +161,8 @@ class DepartmentNamesController extends Controller
             'college_names' => $collegeNames,
             'department_name' => $department->department_name,
             'department_acronym' => $department->acronym,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.department-name.edit'
         ];
         return view('departments.department_name.list')->with($data);
