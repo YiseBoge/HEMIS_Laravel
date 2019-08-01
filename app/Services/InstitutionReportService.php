@@ -113,7 +113,7 @@ class InstitutionReportService
 
         foreach ($this->institutions as $institution) {
             $institutionService = new InstitutionService($institution);
-            $total += $institutionService->graduationRate($sex, $educationLevel);
+            $total += $institutionService->graduationData($sex, $educationLevel);
         }
 
         $totalEnrollments = $this->enrollment($sex, $educationLevel);
@@ -278,6 +278,22 @@ class InstitutionReportService
         return $returnable;
     }
 
+    /**
+     * @param $status
+     * @param $sex
+     * @return int
+     */
+    function academicStaffByStatus($sex, $status){
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->academicStaffByStatus($sex, $status);
+        }
+
+        return $total;
+    } 
+
         /**
      * @param $sex
      * @param $otherRegion
@@ -296,6 +312,51 @@ class InstitutionReportService
         $returnable = $total == 0 ? 0 : $selected / $total;
 
         return $returnable;
+    }
+
+     /**
+     * @param $sex
+     * @return int
+     */
+    function administrativeStaff($sex){
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->administrativeStaff($sex);
+        }
+
+        return $total;
+    }
+
+    /**
+     * @param $sex
+     * @return int
+     */
+    function technicalStaff($sex){
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->technicalStaff($sex);
+        }
+
+        return $total;
+    }
+
+    /**
+     * @param $type
+     * @return int
+     */
+    function budget($type){
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->budget($type);
+        }
+
+        return $total;
     }
 
     /**

@@ -97,6 +97,37 @@ class DepartmentService
     }
 
     /**
+     * @param $status
+     * @param $sex
+     * @return int
+     */
+    function academicStaffByStatus($sex, $status){
+        $total = 0;
+        foreach ($this->department->academicStaffs as $academicStaff) {
+            if($status == "On Duty"){
+                if($sex == "All" && $academicStaff->staff_leave_id == 0){
+                    $total++;
+                }else{
+                    if($academicStaff->general->sex == $sex && $academicStaff->staff_leave_id == 0){
+                        $total++;
+                    }
+                }                
+            }else if($status == "On Leave"){
+                if($sex == "All" && $academicStaff->staff_leave_id != 0){
+                    $total++;
+                }else{
+                    if($academicStaff->general->sex == $sex && $academicStaff->staff_leave_id != 0){
+                        $total++;
+                    }
+                } 
+            }
+            
+        }
+
+        return $total;
+    }
+    
+    /**
      * @param $sex
      * @return int
      */
@@ -300,7 +331,7 @@ class DepartmentService
      * @param $sex
      * @return int
      */
-    function graduationRate($sex)
+    function graduationData($sex)
     {
         $total = 0;
         foreach ($this->department->enrollmentsApproved->where('student_type', 'Graduates') as $enrollment) {
@@ -309,10 +340,11 @@ class DepartmentService
             } else if ($sex == "Male") {
                 $total += $enrollment->male_students_number;
             } else {
+                
                 $total += $enrollment->male_students_number + $enrollment->female_students_number;
             }
         }
-
+        die($total);
         return $total;
     }
 
