@@ -14,6 +14,7 @@ use Webpatser\Uuid\Uuid;
  * @property int female_students_number
  * @property int student_type
  * @property string approval_status
+ * @property Uuid department_id
  * @method static Enrollment find($id)
  */
 class Enrollment extends Model
@@ -44,6 +45,18 @@ class Enrollment extends Model
     public function scopeInfo($query)
     {
         return $query->with('department.college.band', 'department.departmentName');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        die($this->department_id);
+        return Enrollment::where(array(
+                'department_id' => $this->department_id,
+                'student_type' => $this->student_type,
+            ))->first() != null;
     }
 
 }
