@@ -100,8 +100,8 @@
                                                     {{ round($yearValue->value, 3) }}
                                                 </td>
                                             @endforeach
-                                            <td class="text-primary">
-                                                {{ $kpi->target }}
+                                            <td class="text-primary text-center">
+                                                {{ $kpi->target($institution_name)->value }}
                                             </td>
                                             <td class="text-center" style="min-width:115px;">
                                                 @if($kpi->change($institution_name) > 0)
@@ -148,7 +148,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    {!! Form::open(['action' => ['Report\InstitutionReportsController@update', $report->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['action' => ['Report\InstitutionReportsController@update', $target->id], 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Set Target</h5>
                         <a href="/institution-report" class="close" aria-label="Close">
@@ -157,6 +157,21 @@
                     </div>
 
                     <div class="modal-body px-5">
+
+                        @if(count($errors) > 0)
+                            <div class="col-md-12 form-group">
+                                <div class="alert alert-danger">
+                                    <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                    <hr class="my-0">
+                                    <ul class="my-1 px-4">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="row my-2">
                             <div class="col-md text-center">
                                 @if($report->change($institution_name) > 0)
@@ -198,7 +213,7 @@
                                 @endif
                             </div>
                             <div class="col-md form-group">
-                                {!! Form::number('target', $report->target, ['class' => 'form-control', 'id' => 'edit_target', 'required' => 'true',  'step' => 'any']) !!}
+                                {!! Form::number('target', $target->value , ['class' => 'form-control', 'id' => 'edit_target', 'required' => 'true',  'step' => 'any']) !!}
                                 {!! Form::label('edit_target', 'Target', ['class' => 'form-control-placeholder', 'for' => 'edit_target']) !!}
                             </div>
                         </div>
