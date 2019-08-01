@@ -22,23 +22,16 @@ class Band extends Model
 
     public $incrementing = false;
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
         static::creating(function (Model $model) {
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
 
-        static::deleting(function(Band $model) { // before delete() method call this
+        static::deleting(function (Band $model) { // before delete() method call this
             $model->colleges()->delete();
         });
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function bandName()
-    {
-        return $this->belongsTo('App\Models\Band\BandName');
     }
 
     /**
@@ -47,5 +40,13 @@ class Band extends Model
     public function colleges()
     {
         return $this->hasMany('App\Models\College\College');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function bandName()
+    {
+        return $this->belongsTo('App\Models\Band\BandName');
     }
 }

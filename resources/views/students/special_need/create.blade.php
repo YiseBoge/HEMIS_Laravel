@@ -7,52 +7,6 @@
             <h3 class="font-weight-bold text-primary">Add Special Need Student</h3>
             <hr>
             <div class="row my-5">
-                <div class="col-md-5">
-                    <fieldset class="card shadow h-100">
-                        <div class="card-header text-primary">
-                            Academic Information
-                        </div>
-                        <div class="card-body px-4">
-                            <div class="form-group row pt-3">
-                                <div class="col form-group">
-                                    <select class="form-control" name="education_level" id="level">
-                                        @foreach ($education_levels as $key => $value)
-                                            <option value="{{$key}}" {{ (old('education_level') == $key ? 'selected':'') }}>{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="level" class="form-control-placeholder">
-                                        Education Level
-                                    </label>
-                                </div>
-                            </div>
-                            <hr class="mb-4">
-                            <div class="form-group row pt-3">
-                                <div class="col-md-6 form-group">
-                                    <select class="form-control" name="program" id="program">
-                                        @foreach ($programs as $key => $value)
-                                            <option value="{{$key}}" {{ (old('program') == $key ? 'selected':'') }}>{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="service_type" class="form-control-placeholder">
-                                        Program
-                                    </label>
-                                </div>
-
-                                <div class="col-md-6 form-group">
-                                    <select class="form-control" name="year_level" id="year_level">
-                                        @for ($i = 1; $i < 7; $i++)
-                                            <option value="{{$i}}" {{ (old('year_level') == $i ? 'selected':'') }}>{{$i}}</option>
-                                        @endfor
-                                    </select>
-                                    <label for="year_level" class="form-control-placeholder">
-                                        Year Level
-                                    </label>
-                                </div>
-
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
                 <div class="col-md-7">
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
@@ -113,6 +67,53 @@
                         </div>
                     </fieldset>
                 </div>
+
+                <div class="col-md-5">
+                    <fieldset class="card shadow h-100">
+                        <div class="card-header text-primary">
+                            Academic Information
+                        </div>
+                        <div class="card-body px-4">
+                            <div class="form-group row pt-3">
+                                <div class="col form-group">
+                                    <select class="form-control" name="education_level" id="level">
+                                        @foreach ($education_levels as $key => $value)
+                                            <option value="{{$key}}" {{ (old('education_level') == $key ? 'selected':'') }}>{{$value}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="level" class="form-control-placeholder">
+                                        Education Level
+                                    </label>
+                                </div>
+                            </div>
+                            <hr class="mb-4">
+                            <div class="form-group row pt-3">
+                                <div class="col-md-6 form-group">
+                                    <select class="form-control" name="program" id="program">
+                                        @foreach ($programs as $key => $value)
+                                            <option value="{{$key}}" {{ (old('program') == $key ? 'selected':'') }}>{{$value}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="service_type" class="form-control-placeholder">
+                                        Program
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <select class="form-control" name="year_level" id="year_level">
+                                        @for ($i = 1; $i < 7; $i++)
+                                            <option value="{{$i}}" {{ (old('year_level') == $i ? 'selected':'') }}>{{$i}}</option>
+                                        @endfor
+                                    </select>
+                                    <label for="year_level" class="form-control-placeholder">
+                                        Year Level
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
             </div>
 
             <fieldset class="card shadow my-5">
@@ -125,7 +126,9 @@
 
                             <select class="form-control" name="food_service_type" id="food_service_type">
                                 @foreach ($food_service_types as $key => $value)
-                                    <option value="{{$key}}" {{ (old('food_service_type') == $key ? 'selected':'') }}>{{$value}}</option>
+                                    <option value="{{$key}}" {{ (old('food_service_type') == $key ? 'selected':'') }}>
+                                        {{$value}}
+                                    </option>
                                 @endforeach
                             </select>
                             <label for="food_service_type" class="form-control-placeholder">
@@ -137,7 +140,9 @@
 
                             <select class="form-control" name="dormitory_service_type" id="dormitory_service_type">
                                 @foreach ($dormitory_service_types as $key => $value)
-                                    <option value="{{$key}}" {{ (old('dormitory_service_type') == $key ? 'selected':'') }}>{{$value}}</option>
+                                    <option value="{{$key}}" {{ (old('dormitory_service_type') == $key ? 'selected':'') }}>
+                                        {{$value}}
+                                    </option>
                                 @endforeach
                             </select>
                             <label for="dormitory_service_type" class="form-control-placeholder">
@@ -145,17 +150,15 @@
                             </label>
                         </div>
                     </div>
-                    <hr class="mb-4">
-
                     <div class="form-group row" id="dormitory_info">
                         <!-- this drop down is going to be changed -->
                         <div class="col-md-6 form-group">
-                            <input type="text" id="block_number" name="block_number" class="form-control" required
+                            <input type="text" id="block_number" name="block_number" class="form-control"
                                    value="{{ old('block_number') }}">
                             <label class="form-control-placeholder" for="block_number">Block No</label>
                         </div>
                         <div class="col-md-6 form-group">
-                            <input type="text" id="room_number" name="room_number" class="form-control" required
+                            <input type="text" id="room_number" name="room_number" class="form-control"
                                    value="{{ old('room_number') }}">
                             <label class="form-control-placeholder" for="room_number">Room No</label>
                         </div>
@@ -174,7 +177,9 @@
 
                             <select class="form-control" name="disability_type" id="disability_type">
                                 @foreach ($disabilitys as $key => $value)
-                                    <option value="{{$value}}" {{ (old('disability_type') == $key ? 'selected':'') }}>{{$value}}</option>
+                                    <option value="{{$value}}" {{ (old('disability_type') == $key ? 'selected':'') }}>
+                                        {{$value}}
+                                    </option>
                                 @endforeach
                             </select>
                             <label for="service_type" class="form-control-placeholder">
@@ -199,5 +204,21 @@
             <input type="submit" class="btn btn-outline-secondary float-right my-1" value="Submit">
         </form>
     </div>
+
+    <script>
+
+        var dormitoryType = document.getElementById('dormitory_service_type');
+        var dormitoryInfo = document.getElementById('dormitory_info');
+        dormitoryType.addEventListener('change', function (e) {
+            switch (dormitoryType.selectedIndex) {
+                case 0:
+                    dormitoryInfo.className = "form-group row";
+                    break;
+                case 1:
+                    dormitoryInfo.className = "form-group row d-none";
+                    break
+            }
+        })
+    </script>
 @endsection
 

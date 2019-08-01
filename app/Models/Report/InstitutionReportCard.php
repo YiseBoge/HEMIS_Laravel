@@ -13,12 +13,12 @@ use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property int target
  * @property string|null policy
  * @property string|null policy_description
  * @property string|null kpi
  * @property DateTime created_at
  * @property DateTime updated_at
+ * @property boolean is_decreasing
  * @method static InstitutionReportCard find(int $id)
  * @method static InstitutionReportCard where(string $string, $kpi)
  * @method InstitutionReportCard get()
@@ -146,7 +146,6 @@ class InstitutionReportCard extends Model
             $kpi->policy = $value->policy;
             $kpi->policy_description = $value->policy_description;
             $kpi->kpi = $value->kpi;
-            $kpi->target = $value->target;
             $kpi->created_at = $value->created_at;
             $kpi->updated_at = $value->updated_at;
 
@@ -169,11 +168,14 @@ class InstitutionReportCard extends Model
         $current = $years[count($years) - 1];
         $baseline = $years[0];
 
-        if (($this->target - $baseline->value) == 0) {
+        if (($this->target($institutionName)->value - $baseline->value) == 0) {
             return 0;
         }
 
-        return round((($current->value - $baseline->value) / ($this->target - $baseline->value)) * 100, 2);
+        $change = round((($current->value - $baseline->value) / ($this->target($institutionName)->value - $baseline->value)) * 100, 2);
+        if ($this->is_decreasing) $change *= -1;
+
+        return $change;
     }
 
     /**
@@ -181,6 +183,30 @@ class InstitutionReportCard extends Model
      */
     public function reportYearValues()
     {
-        return $this->hasMany('App\Models\Report\InstitutionYearValue');
+        return $this->hasMany('App\Models\Report\InstitutionYearValue')->where('type', 'normal');
+    }
+
+    public function target(InstitutionName $institutionName)
+    {
+        if ($institutionName->yearValues()->where(array(
+                'type' => 'target',
+                'institution_report_card_id' => $this->id,
+            ))->first() == null) {
+
+            $target = new InstitutionYearValue();
+            $target->year = 2025;
+            $target->value = 0;
+            $target->type = 'target';
+            $target->institution_report_card_id = $this->id;
+
+            $institutionName->yearValues()->save($target);
+        }
+
+        $targetYearValue = $institutionName->yearValues()->where(array(
+            'type' => 'target',
+            'institution_report_card_id' => $this->id,
+        ))->first();
+
+        return $targetYearValue;
     }
 }

@@ -21,7 +21,7 @@ class DegreeEmployment extends Model
     use Enums;
 
     public $incrementing = false;
-    
+
     /**
      * @return BelongsTo
      */

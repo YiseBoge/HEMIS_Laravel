@@ -23,7 +23,9 @@
                                 <div class="col-md-6 form-group">
                                     <select class="form-control" name="staff" id="staff">
                                         @foreach ($staffs as $staff)
-                                            <option value="{{$staff->id}}" {{ (old('staff') == $staff->id ? 'selected':'') }}>{{$staff->general->name}}</option>
+                                            <option value="{{$staff->id}}" {{ (old('staff') == $staff->id ? 'selected':'') }}>
+                                                {{$staff->general->name}}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label for="staff" class="form-control-placeholder">

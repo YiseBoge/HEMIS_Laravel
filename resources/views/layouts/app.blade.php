@@ -55,7 +55,7 @@
 
         <!-- Begin Page Content -->
             <div class="container-fluid">
-                @if ($page_name != '1.2.3')
+                @if ($page_name != '1.2.3' && !isset($has_modal))
                     @include('inc.messages')
                 @endif
 

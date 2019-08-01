@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card shadow">
-                    <div class="card-header text-primary">{{ Auth::user()->hasRole('University Admin') ? 'Add College Super Admin' : 'Add Administerer Admin' }}</div>
+                    <div class="card-header text-primary">{{ Auth::user()->hasRole('University Admin') ? 'Add College Super Admin' : 'Add Administrative Admin' }}</div>
                     <div class="card-body pt-4">
                         {!! Form::open(['action' => 'User\CollegeAdminController@store', 'method' => 'POST']) !!}
 

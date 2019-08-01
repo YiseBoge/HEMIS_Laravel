@@ -53,6 +53,8 @@ class RegionNamesController extends Controller
         $regionNames = RegionName::all();
         $data = [
             'region_names' => $regionNames,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.region-name.create'
         ];
         return view('institutions.region_name.index')->with($data);
@@ -76,6 +78,11 @@ class RegionNamesController extends Controller
 
         $regionNames = new RegionName;
         $regionNames->name = $request->input('name');
+
+        if ($regionNames->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
         $regionNames->save();
 
         return redirect('/region-name')->with('success', 'Successfully Added Region Name');
@@ -110,6 +117,8 @@ class RegionNamesController extends Controller
             'id' => $id,
             'region_names' => $regionNames,
             'region_name' => $current_region_name->name,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.region-name.edit'
         ];
         return view('institutions.region_name.index')->with($data);

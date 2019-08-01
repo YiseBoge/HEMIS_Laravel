@@ -102,6 +102,7 @@ class UniversityIndustryLinkageController extends Controller
             'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
 
+            'has_modal' => 'yes',
             'page_name' => 'students.university_industry_linkage.create'
         );
         return view("bands.university_industry_linkage.index")->with($data);
@@ -215,6 +216,8 @@ class UniversityIndustryLinkageController extends Controller
             'training_area' => $universityIndustryLinkage->training_area,
             'number_of_students' => $universityIndustryLinkage->number_of_students,
             'year' => $universityIndustryLinkage->year,
+
+            'has_modal' => 'yes',
             'page_name' => 'students.university_industry_linkage.edit'
         );
         return view("bands.university_industry_linkage.index")->with($data);

@@ -14,10 +14,10 @@
 
                                 <div class="col-md">
                                     <input id="email" type="email"
-                                           class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} form-control-user"
+                                           class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
                                            name="email" value="{{ old('email') }}" required autofocus>
 
-                                    <label for="email" class="form-control-placeholder" style="font-size: 1.4em">
+                                    <label for="email" class="form-control-placeholder">
                                         {{ __('Email Address') }}
                                     </label>
 
@@ -29,14 +29,14 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row my-5">
+                            <div class="form-group row mt-5">
                                 <div class="col-md">
                                     <input id="password" type="password"
-                                           class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} form-control-user"
+                                           class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                            name="password" required>
 
 
-                                    <label for="password" class="form-control-placeholder" style="font-size: 1.4em">
+                                    <label for="password" class="form-control-placeholder">
                                         {{ __('Password') }}
                                     </label>
 
@@ -63,17 +63,17 @@
                             </div>
 
                             <div class="form-group row mb-0">
-                                <div class="col-md">
-                                    <button type="submit" class="btn btn-primary form-control-user w-50 p-3 shadow-sm"
+                                <div class="col-md text-center">
+                                    <button type="submit" class="btn btn-primary w-50 p-2 shadow-sm"
                                             style="font-size: 1em">
                                         {{ __('Login') }}
                                     </button>
 
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
-                                        </a>
-                                    @endif
+                                    {{--                                    @if (Route::has('password.request'))--}}
+                                    {{--                                        <a class="btn btn-link" href="{{ route('password.request') }}">--}}
+                                    {{--                                            {{ __('Forgot Your Password?') }}--}}
+                                    {{--                                        </a>--}}
+                                    {{--                                    @endif--}}
                                 </div>
                             </div>
                         </form>

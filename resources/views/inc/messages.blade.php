@@ -1,7 +1,7 @@
 @if(count($errors) > 0)
     <div class="container-fluid p-0 px-md-3">
         <div class="alert alert-danger">
-            <h5>Please fix the following issues</h5>
+            <h5 class="font-weight-bold">Please fix the following issues</h5>
             <hr class="mt-0">
             <ul>
                 @foreach($errors->all() as $error)

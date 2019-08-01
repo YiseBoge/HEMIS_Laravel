@@ -94,6 +94,21 @@
 
 
                     <div class="modal-body row p-4">
+
+                        @if(count($errors) > 0)
+                            <div class="col-md-12 form-group">
+                                <div class="alert alert-danger">
+                                    <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                    <hr class="my-0">
+                                    <ul class="my-1 px-4">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="col-md-12 form-group pb-1">
                             {!! Form::text('band_name', old('band_name'), ['class' => 'form-control', 'id' => 'add_band_name', 'required' => 'true']) !!}
                             {!! Form::label('add_band_name', 'Band Name', ['class' => 'form-control-placeholder']) !!}
@@ -126,27 +141,28 @@
                     <form class="" action="/band/band-name/{{$id}}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="PUT">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i></button>
-                        {{-- <a href="/band/band-name" class="close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </a> --}}
-                    </div>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editTitle">Edit</h5>
+                            <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
+                            </button>
+                            {{-- <a href="/band/band-name" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </a> --}}
+                        </div>
 
 
-                    <div class="modal-body row p-4">
-                        <div class="col-md-12 form-group pb-1">
-                            <label class="label" for="band_name">Band Name</label>
-                            <input type="text" id="band_name" name="band_name" class="form-control"
-                             value="{{$band_name}}">
+                        <div class="modal-body row p-4">
+                            <div class="col-md-12 form-group pb-1">
+                                <label class="label" for="band_name">Band Name</label>
+                                <input type="text" id="band_name" name="band_name" class="form-control"
+                                       value="{{$band_name}}">
+                            </div>
+                            <div class="col-md-12 form-group pb-1">
+                                <label class="label" for="acronym">Acronym</label>
+                                <input type="text" id="acronym" name="acronym" class="form-control"
+                                       value="{{$acronym}}">
+                            </div>
                         </div>
-                        <div class="col-md-12 form-group pb-1">
-                            <label class="label" for="acronym">Acronym</label>
-                            <input type="text" id="acronym" name="acronym" class="form-control"
-                             value="{{$acronym}}">
-                        </div>
-                    </div>
                     </form>
                 </div>
 

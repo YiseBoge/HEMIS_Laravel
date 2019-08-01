@@ -8,7 +8,7 @@
             </div>
             <div class="col-md-2 pt-4">
                 <a href="{{$student->id}}/edit" class="text-primary mr-3"><i class="far fa-edit"></i> Edit</a>
-                <a href="" class="d-inline text-danger" data-toggle="modal"
+                <a href="srtwt" class="d-inline text-danger" data-toggle="modal"
                    data-target="#deleteModal"><i class="far fa-trash-alt"></i> Delete
                 </a>
             </div>
@@ -144,7 +144,7 @@
                 <div class="modal-body">Are you sure you wish to delete?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="/student/foreigner/{{$student->id}}" method="POST">
+                    <form action="/student/foreign/{{$student->id}}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="form-control btn btn-danger">

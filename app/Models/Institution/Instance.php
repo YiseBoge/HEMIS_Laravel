@@ -25,13 +25,14 @@ class Instance extends Model
 
     public $incrementing = false;
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
         static::creating(function (Model $model) {
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
 
-        static::deleting(function(Instance $model) { // before delete() method call this
+        static::deleting(function (Instance $model) { // before delete() method call this
             $model->users()->delete();
             $model->institutions()->delete();
         });
@@ -51,6 +52,17 @@ class Instance extends Model
     public function institutions()
     {
         return $this->hasMany('App\Models\Institution\Institution');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return Instance::where(array(
+                'year' => $this->year,
+                'semester' => $this->semester,
+            ))->first() != null;
     }
 
     /**

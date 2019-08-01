@@ -15,6 +15,8 @@ use Webpatser\Uuid\Uuid;
  * @property int additional_budget
  * @property int utilized_budget
  * @property string|null approval_status
+ * @property Uuid college_id
+ * @property Uuid budget_description_id
  * @method static Budget where(string $string, $budget_type)
  * @method Budget get()
  * @method static Budget find($id)
@@ -47,5 +49,16 @@ class Budget extends Model
     public function college()
     {
         return $this->belongsTo('App\Models\College\College');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return Budget::where(array(
+                'college_id' => $this->college_id,
+                'budget_description_id' => $this->budget_description_id,
+            ))->first() != null;
     }
 }

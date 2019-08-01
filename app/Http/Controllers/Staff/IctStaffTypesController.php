@@ -60,6 +60,8 @@ class IctStaffTypesController extends Controller
         $data = array(
             'categories' => $categories,
             'ict_staff_types' => $ictStaffTypes,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.ict_staff_type.create',
         );
 
@@ -86,6 +88,10 @@ class IctStaffTypesController extends Controller
         $ictStaffTypes = new IctStaffType();
         $ictStaffTypes->category = $request->input('category');
         $ictStaffTypes->type = $request->input('ict_staff_type');
+
+        if ($ictStaffTypes->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
 
         $ictStaffTypes->save();
 
@@ -126,6 +132,8 @@ class IctStaffTypesController extends Controller
             'current_type' => $current_type,
             'category' => $current_type->category,
             'staff_type' => $current_type->type,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.ict_staff_type.edit',
         );
 

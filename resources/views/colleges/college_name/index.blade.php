@@ -99,6 +99,21 @@
                     </div>
 
                     <div class="modal-body row pt-4">
+
+                        @if(count($errors) > 0)
+                            <div class="col-md-12 form-group">
+                                <div class="alert alert-danger">
+                                    <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                    <hr class="my-0">
+                                    <ul class="my-1 px-4">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="col-md-12 form-group pb-1">
                             {!! Form::select('band_name_id', $band_names, old('band_name_id')  , ['class' => 'form-control', 'id' => 'band_name_id']) !!}
                             {!! Form::label('band_name_id', 'Band', ['class' => 'form-control-placeholder']) !!}
@@ -134,32 +149,33 @@
                     <form class="" action="/college/college-name/{{$id}}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="PUT">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i></button>
-                        {{-- <a href="/department/department-name" class="close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </a> --}}
-                    </div>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editTitle">Edit</h5>
+                            <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
+                            </button>
+                            {{-- <a href="/department/department-name" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </a> --}}
+                        </div>
 
 
-                    <div class="modal-body row p-4">
-                        <div class="col-md-12 form-group pb-1">
-                            <label class="label" for="band">Band</label>
-                            <input type="text" id="band" name="band" class="form-control"
-                                disabled value="{{$band."(".$band_acronym.")"}}">
+                        <div class="modal-body row p-4">
+                            <div class="col-md-12 form-group pb-1">
+                                <label class="label" for="band">Band</label>
+                                <input type="text" id="band" name="band" class="form-control"
+                                       disabled value="{{$band."(".$band_acronym.")"}}">
+                            </div>
+                            <div class="col-md-12 form-group pb-1">
+                                <label class="label" for="college_name">College Name</label>
+                                <input type="text" id="college_name" name="college_name" class="form-control"
+                                       value="{{$college_name}}">
+                            </div>
+                            <div class="col-md-12 form-group pb-1">
+                                <label class="label" for="college_acronym">Acronym</label>
+                                <input type="text" id="college_acronym" name="college_acronym" class="form-control"
+                                       value="{{$college_acronym}}">
+                            </div>
                         </div>
-                        <div class="col-md-12 form-group pb-1">
-                            <label class="label" for="college_name">College Name</label>
-                            <input type="text" id="college_name" name="college_name" class="form-control"
-                                 value="{{$college_name}}">
-                        </div>
-                        <div class="col-md-12 form-group pb-1">
-                            <label class="label" for="college_acronym">Acronym</label>
-                            <input type="text" id="college_acronym" name="college_acronym" class="form-control"
-                                value="{{$college_acronym}}">
-                        </div>
-                    </div>
                     </form>
                 </div>
 

@@ -151,11 +151,28 @@
                         </div>
 
                         <div class="modal-body pt-4">
+
+                            @if(count($errors) > 0)
+                                <div class="col-md-12 form-group">
+                                    <div class="alert alert-danger">
+                                        <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                        <hr class="my-0">
+                                        <ul class="my-1 px-4">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{$error}}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     <select class="form-control" name="year" id="year">
                                         @foreach ($years as $key => $value)
-                                            <option value="{{$key}}" {{ (old('year') == $key ? 'selected':'') }}>{{$value}}</option>
+                                            <option value="{{$key}}" {{ (old('year') == $key ? 'selected':'') }}>
+                                                {{$value}}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label for="year" class="form-control-placeholder">

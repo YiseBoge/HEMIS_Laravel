@@ -26,22 +26,22 @@ class Student extends Model
     use Enums;
 
     public $incrementing = false;
+    protected $enumSexs = [
+        'MALE' => 'male',
+        'FEMALE' => 'female',
+    ];
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
         static::creating(function (Model $model) {
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
 
-        static::deleting(function(Student $model) { // before delete() method call this
+        static::deleting(function (Student $model) { // before delete() method call this
             $model->studentService()->delete();
         });
     }
-
-    protected $enumSexs = [
-        'MALE' => 'male',
-        'FEMALE' => 'female',
-    ];
 
     /**
      * @return BelongsTo

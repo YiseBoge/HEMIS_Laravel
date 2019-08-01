@@ -83,6 +83,8 @@ class InstancesController extends Controller
             'instances' => $instances,
             'current_instance' => $currentInstance,
             'current' => $currentInstanceIndex,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.instance.create'
         ];
         return view('institutions.instance.index')->with($data);
@@ -108,6 +110,10 @@ class InstancesController extends Controller
         $instance = new Instance();
         $instance->year = $request->input('year');
         $instance->semester = $request->input('semester');
+
+        if ($instance->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
 
         $instance->save();
 

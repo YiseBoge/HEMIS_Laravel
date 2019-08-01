@@ -119,6 +119,8 @@ class BudgetsController extends Controller
             'budget_types' => Budget::getEnum('budget_type'),
             'budget_descriptions' => BudgetDescription::all(),
             'budgets' => $budgets,
+
+            'has_modal' => 'yes',
             'page_name' => 'budgets.budget.create'
         ];
 
@@ -176,10 +178,14 @@ class BudgetsController extends Controller
             $collegeName->college()->save($college);
         }
 
-        /** @var BudgetDescription $exampleDescription */
-        $college->budgets()->save($budget);
-        $budget = Budget::find($budget->id);
-        $exampleDescription->budget()->save($budget);
+        $budget->college_id = $college->id;
+        $budget->budget_description_id = $exampleDescription->id;
+
+        if ($budget->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $budget->save();
 
         return redirect('/budgets/budget')->with('success', 'Successfully Added Budget');
     }
@@ -243,6 +249,8 @@ class BudgetsController extends Controller
             'budgets' => $budgets,
             'budget_descriptions' => $budgetDescriptions,
             'budget_description' => $budgetDescription,
+
+            'has_modal' => 'yes',
             'page_name' => 'budgets.budget.edit'
         );
 

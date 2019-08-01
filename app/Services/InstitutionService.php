@@ -582,10 +582,10 @@ class InstitutionService
         $departments = $this->departments();
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
-            if ($sex == "Female" && !$otherRegion) {
-                $total += $departmentService->enrollment("Female");
-            } elseif ($otherRegion) {
+            if($otherRegion){
                 $total += $departmentService->otherRegionStudents();
+            }else{
+                $total += $departmentService->enrollment($sex);
             }
         }
         return $total;

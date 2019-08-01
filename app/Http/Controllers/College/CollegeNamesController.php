@@ -61,6 +61,8 @@ class CollegeNamesController extends Controller
         $data = [
             'colleges' => $colleges,
             'band_names' => $bandNames,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.colleges-name.create'
         ];
         return view('colleges.college_name.index')->with($data);
@@ -92,6 +94,10 @@ class CollegeNamesController extends Controller
         $collegeName = new CollegeName;
         $collegeName->college_name = $request->input('college_name');
         $collegeName->acronym = $request->input('college_acronym');
+
+        if ($collegeName->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
 
         $institutionName->collegeNames()->save($collegeName);
         $bandName->collegeNames()->save($collegeName);
@@ -132,6 +138,8 @@ class CollegeNamesController extends Controller
             'college_acronym' => $college_name->acronym,
             'band' => $bandName->band_name,
             'band_acronym' => $bandName->acronym,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.colleges-name.edit'
         ];
         return view('colleges.college_name.index')->with($data);
