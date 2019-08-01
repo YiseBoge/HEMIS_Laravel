@@ -99,11 +99,13 @@ class ManagementDataController extends Controller
         $management_data->female_number = $request->input('number_of_females');
         $management_data->management_level = $request->input('management_level');
 
+        $management_data->institution_id = $institution->id;
+
         if ($management_data->isDuplicate()) return redirect()->back()
             ->withInput($request->toArray())
             ->withErrors('This entry already exists');
 
-        $institution->managements()->save($management_data);
+        $management_data->save();
 
         return redirect('institution/management-data/');
     }

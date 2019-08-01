@@ -47,7 +47,7 @@ class InternalRevenue extends Model
      */
     public function isDuplicate()
     {
-        return Budget::where(array(
+        return InternalRevenue::where(array(
                 'college_id' => $this->college_id,
                 'revenue_description' => $this->revenue_description,
             ))->first() != null;

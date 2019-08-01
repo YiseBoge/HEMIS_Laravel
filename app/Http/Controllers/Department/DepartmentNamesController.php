@@ -107,7 +107,13 @@ class DepartmentNamesController extends Controller
         $departmentName->department_name = $request->input('department_name');
         $departmentName->acronym = $request->input('department_acronym');
 
-        $collegeName->departmentNames()->save($departmentName);
+        $departmentName->college_name_id = $collegeName->id;
+
+        if ($departmentName->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $departmentName->save();
 
         return redirect('/department/department-name')->with('success', 'Successfully Added Department Name');
     }
@@ -178,10 +184,6 @@ class DepartmentNamesController extends Controller
 
         $department->department_name = $request->input("department_name");
         $department->acronym = $request->input("department_acronym");
-
-        if ($department->isDuplicate()) return redirect()->back()
-            ->withInput($request->toArray())
-            ->withErrors('This entry already exists');
 
         $department->save();
         return redirect('/department/department-name');

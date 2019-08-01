@@ -147,11 +147,13 @@ class InvestmentsController extends Controller
             $collegeName->college()->save($college);
         }
 
+        $investment->college_id = $college->id;
+
         if ($investment->isDuplicate()) return redirect()->back()
             ->withInput($request->toArray())
             ->withErrors('This entry already exists');
 
-        $college->investments()->save($investment);
+        $investment->save();
 
 
         return redirect('/budgets/private-investment')->with('success', 'Successfully Added Investment');

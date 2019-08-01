@@ -178,14 +178,14 @@ class BudgetsController extends Controller
             $collegeName->college()->save($college);
         }
 
+        $budget->college_id = $college->id;
+        $budget->budget_description_id = $exampleDescription->id;
+
         if ($budget->isDuplicate()) return redirect()->back()
             ->withInput($request->toArray())
             ->withErrors('This entry already exists');
 
-        /** @var BudgetDescription $exampleDescription */
-        $college->budgets()->save($budget);
-        $budget = Budget::find($budget->id);
-        $exampleDescription->budget()->save($budget);
+        $budget->save();
 
         return redirect('/budgets/budget')->with('success', 'Successfully Added Budget');
     }

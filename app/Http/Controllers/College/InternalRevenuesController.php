@@ -147,11 +147,13 @@ class InternalRevenuesController extends Controller
             $collegeName->college()->save($college);
         }
 
+        $internalRevenue->college_id = $college->id;
+
         if ($internalRevenue->isDuplicate()) return redirect()->back()
             ->withInput($request->toArray())
             ->withErrors('This entry already exists');
 
-        $college->internalRevenues()->save($internalRevenue);
+        $internalRevenue->save();
 
         return redirect('/budgets/internal-revenue')->with('success', 'Successfully Added Internal Revenue');
     }
