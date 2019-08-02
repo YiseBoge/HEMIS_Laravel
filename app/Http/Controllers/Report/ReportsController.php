@@ -139,6 +139,6 @@ class ReportsController extends Controller
     {
         $item = ReportCard::find($id);
         $item->delete();
-        return redirect('/report');
+        return redirect('/report')->with('primary', 'Successfully Deleted');
     }
 }
