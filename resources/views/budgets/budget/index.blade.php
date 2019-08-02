@@ -114,16 +114,13 @@
                                         <td class="text-center">
                                             @if($budget->approval_status == "Pending")
                                                 <form action="budget/{{$budget->id}}/approve"
-                                                      method="POST">
+                                                        method="POST">
                                                     @csrf
-                                                    <input type="hidden" name="_method"
-                                                           value="DELETE">
-                                                    <button type="submit"
-                                                            class="btn btn-danger btn-circle text-white btn-sm mx-0"
-                                                            style="opacity:0.80"
-                                                            data-toggle="tooltip" title="Delete">
-                                                        <i class="fas fa-trash fa-sm"
-                                                           style="opacity:0.75"></i>
+                                                    <input type="hidden" name="action" value="disapprove">
+                                                    <button type="submit" style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Disapprove"
+                                                            class="btn btn-danger btn-circle text-white btn-sm">
+                                                        <i class="fas fa-times" style="opacity:0.75"></i>
                                                     </button>
                                                 </form>
                                             @endif

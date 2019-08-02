@@ -371,13 +371,13 @@ class InstitutionService
         $total = 0;
         foreach ($this->institution->bands as $band) {
             foreach ($band->colleges as $college) {
-                foreach ($college->internalRevenues as $budget) {
+                foreach ($college->internalRevenuesApproved as $budget) {
                     $total += $budget->income;
                 }
-                foreach ($college->investments as $budget) {
+                foreach ($college->investmentsApproved as $budget) {
                     $total += $budget->cost_incurred;
                 }
-                foreach ($college->budgets as $budget) {
+                foreach ($college->budgetsApproved as $budget) {
                     $total += $budget->allocated_budget + $budget->additional_budget;
                 }
             }
@@ -395,7 +395,7 @@ class InstitutionService
         $total = 0;
         foreach ($this->institution->bands as $band) {
             foreach ($band->colleges as $college) {
-                foreach ($college->budgets()->where('budget_type', $type)->get() as $budget) {
+                foreach ($college->budgetsApproved()->where('budget_type', $type)->get() as $budget) {
                     $total += $budget->allocated_budget + $budget->additional_budget;
                 }
             }
@@ -410,16 +410,18 @@ class InstitutionService
     function budgetNotFromGovernment()
     {
         $total = 0;
+        // die ($this->institution);
         foreach ($this->institution->bands as $band) {
             foreach ($band->colleges as $college) {
-                foreach ($college->internalRevenues as $budget) {
+                foreach ($college->internalRevenuesApproved as $budget) {
                     $total += $budget->income;
                 }
-                foreach ($college->investments as $budget) {
+                foreach ($college->investmentsApproved as $budget) {
                     $total += $budget->cost_incurred;
                 }
             }
         }
+        
         return $total;
     }
 
