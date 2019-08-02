@@ -28,6 +28,8 @@ class CreateResourcesTable extends Migration
 
             $table->bigInteger('rate_of_smart_classrooms')->default(0);
 
+            $table->bigInteger('unjustifiable_expenses')->default(0);
+
             $table->timestamps();
 
             $table->primary('id');

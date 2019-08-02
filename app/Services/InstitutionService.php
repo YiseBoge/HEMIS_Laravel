@@ -371,6 +371,24 @@ class InstitutionService
     }
 
     /**
+     * @param $type
+     * @return int
+     */
+    function budgetByType($type)
+    {
+        $total = 0;
+        foreach ($this->institution->bands as $band) {
+            foreach ($band->colleges as $college) {
+                foreach ($college->budgets()->where('budget_type', $type)->get() as $budget) {
+                    $total += $budget->allocated_budget + $budget->additional_budget;
+                }
+            }
+        }
+
+        return $total;
+    }
+
+    /**
      * @return int
      */
     function budgetNotFromGovernment()
@@ -637,5 +655,13 @@ class InstitutionService
         }
 
         return $total;
+    }
+
+    /**
+     * @return int
+     */
+    function unjustifiableExpenses()
+    {
+        return $this->institution->generalInformation->resource->unjustifiable_expenses;
     }
 }

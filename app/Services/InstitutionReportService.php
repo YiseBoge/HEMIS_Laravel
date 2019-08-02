@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\College\College;
 use App\Models\Institution\Instance;
 use App\Models\Institution\Institution;
 use App\Models\Institution\InstitutionName;
-use App\Models\College\College;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -65,8 +65,8 @@ class InstitutionReportService
 
         return $total;
     }
-    
- /**
+
+    /**
      * @param $sex
      * @param $type
      * @param $educationLevel
@@ -122,7 +122,7 @@ class InstitutionReportService
         return $total / $totalEnrollments;
     }
 
-     /**
+    /**
      * @return int
      */
     function academicAttrition()
@@ -278,7 +278,7 @@ class InstitutionReportService
         return $returnable;
     }
 
-        /**
+    /**
      * @param $sex
      * @param $otherRegion
      * @return float|int
@@ -408,6 +408,22 @@ class InstitutionReportService
         foreach ($this->institutions as $institution) {
             $institutionService = new InstitutionService($institution);
             $total += $institutionService->nonUtilizedFunds();
+        }
+
+        return $total;
+    }
+
+
+    /**
+     * @return int
+     */
+    function unjustifiableExpenses()
+    {
+        $total = 0;
+
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->unjustifiableExpenses();
         }
 
         return $total;
