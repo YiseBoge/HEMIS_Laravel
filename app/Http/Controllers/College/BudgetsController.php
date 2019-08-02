@@ -198,7 +198,7 @@ class BudgetsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('/budgets/budget');
     }
 
     /**
@@ -289,7 +289,7 @@ class BudgetsController extends Controller
 
         $exampleDescription->budget()->save($budget);
 
-        return redirect('/budgets/budget');
+        return redirect('/budgets/budget')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -303,7 +303,7 @@ class BudgetsController extends Controller
     {
         $item = Budget::find($id);
         $item->delete();
-        return redirect('/budgets/budget');
+        return redirect('/budgets/budget')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

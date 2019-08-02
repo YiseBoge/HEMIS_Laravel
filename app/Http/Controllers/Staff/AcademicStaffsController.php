@@ -368,7 +368,7 @@ class AcademicStaffsController extends Controller
         $academicStaff->save();
         $academicStaff->general()->save($staff);
 
-        return redirect('/staff/academic');
+        return redirect('/staff/academic')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -382,6 +382,6 @@ class AcademicStaffsController extends Controller
     {
         $item = AcademicStaff::find($id);
         $item->delete();
-        return redirect('/staff/academic');
+        return redirect('/staff/academic')->with('primary', 'Successfully Deleted');
     }
 }

@@ -167,7 +167,7 @@ class InvestmentsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('/budgets/private-investment');
     }
 
     /**
@@ -243,7 +243,7 @@ class InvestmentsController extends Controller
         $investment->save();
 
 
-        return redirect('/budgets/private-investment');
+        return redirect('/budgets/private-investment')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -257,7 +257,7 @@ class InvestmentsController extends Controller
     {
         $item = Investment::find($id);
         $item->delete();
-        return redirect('/budgets/private-investment');
+        return redirect('/budgets/private-investment')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

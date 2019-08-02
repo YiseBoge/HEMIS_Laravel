@@ -248,7 +248,7 @@ class TechnicalStaffsController extends Controller
 
         $technicalStaff->general()->save($staff);
 
-        return redirect('/staff/technical');
+        return redirect('/staff/technical')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -262,6 +262,6 @@ class TechnicalStaffsController extends Controller
     {
         $item = TechnicalStaff::find($id);
         $item->delete();
-        return redirect('/staff/technical');
+        return redirect('/staff/technical')->with('primary', 'Successfully Deleted');
     }
 }

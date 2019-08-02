@@ -50,7 +50,7 @@ class ReportsController extends Controller
      */
     public function create()
     {
-        //
+        return redirect('/report');
     }
 
     /**
@@ -61,7 +61,7 @@ class ReportsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect('/report');
     }
 
     /**
@@ -72,7 +72,7 @@ class ReportsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('/report');
     }
 
     /**
@@ -139,6 +139,6 @@ class ReportsController extends Controller
     {
         $item = ReportCard::find($id);
         $item->delete();
-        return redirect('/report');
+        return redirect('/report')->with('primary', 'Successfully Deleted');
     }
 }

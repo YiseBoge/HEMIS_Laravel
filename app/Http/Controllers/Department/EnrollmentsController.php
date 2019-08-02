@@ -229,7 +229,9 @@ class EnrollmentsController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        return redirect("/enrollment/normal");
     }
 
     /**
@@ -286,7 +288,7 @@ class EnrollmentsController extends Controller
         $enrollment->male_students_number = $request->input('male_number');
 
         $enrollment->save();
-        return redirect("/enrollment/normal");
+        return redirect("/enrollment/normal")->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -300,7 +302,7 @@ class EnrollmentsController extends Controller
     {
         $item = Enrollment::find($id);
         $item->delete();
-        return redirect('/enrollment/normal');
+        return redirect('/enrollment/normal')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

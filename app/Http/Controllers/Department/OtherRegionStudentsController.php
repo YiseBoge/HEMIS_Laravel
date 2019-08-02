@@ -203,7 +203,9 @@ class OtherRegionStudentsController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        return redirect("/enrollment/other-region-students");
     }
 
     /**
@@ -253,7 +255,7 @@ class OtherRegionStudentsController extends Controller
 
         $otherRegionStudentsEnrollment->save();
 
-        return redirect("/enrollment/other-region-students");
+        return redirect("/enrollment/other-region-students")->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -267,7 +269,7 @@ class OtherRegionStudentsController extends Controller
     {
         $item = OtherRegionStudent::find($id);
         $item->delete();
-        return redirect('/enrollment/other-region-students');
+        return redirect('/enrollment/other-region-students')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

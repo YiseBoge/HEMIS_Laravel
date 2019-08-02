@@ -211,7 +211,10 @@ class OtherAttritionController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        return redirect("/student/other-attrition");
+
     }
 
     /**
@@ -265,7 +268,7 @@ class OtherAttritionController extends Controller
 
         $otherAttrition->save();
 
-        return redirect("/student/other-attrition");
+        return redirect("/student/other-attrition")->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -279,7 +282,7 @@ class OtherAttritionController extends Controller
     {
         $item = OtherAttrition::find($id);
         $item->delete();
-        return redirect('/student/other-attrition');
+        return redirect('/student/other-attrition')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

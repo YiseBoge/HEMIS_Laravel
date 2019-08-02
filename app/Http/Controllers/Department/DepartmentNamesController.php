@@ -186,7 +186,7 @@ class DepartmentNamesController extends Controller
         $department->acronym = $request->input("department_acronym");
 
         $department->save();
-        return redirect('/department/department-name');
+        return redirect('/department/department-name')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -200,6 +200,6 @@ class DepartmentNamesController extends Controller
     {
         $item = DepartmentName::find($id);
         $item->delete();
-        return redirect('/department/department-name');
+        return redirect('/department/department-name')->with('primary', 'Successfully Deleted');
     }
 }

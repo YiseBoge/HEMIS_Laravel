@@ -203,7 +203,7 @@ class UpgradingStaffController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect("/department/upgrading-staff");
     }
 
     /**
@@ -252,7 +252,7 @@ class UpgradingStaffController extends Controller
 
         $upgradingStaff->save();
 
-        return redirect("/department/upgrading-staff");
+        return redirect("/department/upgrading-staff")->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -266,7 +266,7 @@ class UpgradingStaffController extends Controller
     {
         $item = UpgradingStaff::find($id);
         $item->delete();
-        return redirect('/department/upgrading-staff');
+        return redirect('/department/upgrading-staff')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

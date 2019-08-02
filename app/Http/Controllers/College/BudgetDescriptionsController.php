@@ -100,7 +100,7 @@ class BudgetDescriptionsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('/budgets/budget-description');
     }
 
     /**

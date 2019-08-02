@@ -71,7 +71,7 @@ class InstitutionReportsController extends Controller
      */
     public function create()
     {
-        //
+        return redirect('/institution-report');
     }
 
     /**
@@ -82,7 +82,7 @@ class InstitutionReportsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect('/institution-report');
     }
 
     /**
@@ -93,7 +93,7 @@ class InstitutionReportsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('/institution-report');
     }
 
     /**

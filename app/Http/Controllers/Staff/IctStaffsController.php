@@ -272,7 +272,7 @@ class IctStaffsController extends Controller
             }
         }
 
-        return redirect('/staff/ict');
+        return redirect('/staff/ict')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -286,6 +286,6 @@ class IctStaffsController extends Controller
     {
         $item = IctStaff::find($id);
         $item->delete();
-        return redirect('/staff/ict');
+        return redirect('/staff/ict')->with('primary', 'Successfully Deleted');
     }
 }

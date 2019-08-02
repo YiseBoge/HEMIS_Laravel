@@ -270,7 +270,7 @@ class AdministrativeStaffsController extends Controller
         $administrativeStaff->save();
         $administrativeStaff->general()->save($staff);
 
-        return redirect('/staff/administrative');
+        return redirect('/staff/administrative')->with('primary', 'Successfully Updated');
 
     }
 
@@ -285,6 +285,6 @@ class AdministrativeStaffsController extends Controller
     {
         $item = AdministrativeStaff::find($id);
         $item->delete();
-        return redirect('/staff/administrative');
+        return redirect('/staff/administrative')->with('primary', 'Successfully Deleted');
     }
 }
