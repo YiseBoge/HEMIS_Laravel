@@ -281,7 +281,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         $specialRegionEnorllment->female_number = $request->input("female_number");
 
         $specialRegionEnorllment->save();
-        return redirect("/enrollment/special-region-students");
+        return redirect("/enrollment/special-region-students")->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -295,7 +295,7 @@ class SpecialRegionsEnrollmentsController extends Controller
     {
         $item = SpecialRegionEnrollment::find($id);
         $item->delete();
-        return redirect('/enrollment/special-region-students');
+        return redirect('/enrollment/special-region-students')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

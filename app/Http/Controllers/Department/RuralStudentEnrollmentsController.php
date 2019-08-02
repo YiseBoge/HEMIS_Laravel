@@ -267,7 +267,7 @@ class RuralStudentEnrollmentsController extends Controller
 
         $ruralStudenetEnrollment->save();
 
-        return redirect("/enrollment/rural-area-students");
+        return redirect("/enrollment/rural-area-students")->with('primary', 'Successfully Updated');
 
 
     }
@@ -283,7 +283,7 @@ class RuralStudentEnrollmentsController extends Controller
     {
         $item = RuralStudentEnrollment::find($id);
         $item->delete();
-        return redirect('/enrollment/rural-area-students');
+        return redirect('/enrollment/rural-area-students')->with('primary', 'Successfully Updated');
     }
 
     public function approve(Request $request, $id)

@@ -235,7 +235,7 @@ class CostSharingController extends Controller
     {
         $item = CostSharing::find($id);
         $item->delete();
-        return redirect('/student/cost-sharing');
+        return redirect('/student/cost-sharing')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

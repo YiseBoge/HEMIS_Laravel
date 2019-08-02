@@ -227,7 +227,7 @@ class DegreeEmploymentsController extends Controller
 
         $degreeEmployment->save();
 
-        return redirect("/student/degree-relevant-employment");
+        return redirect("/student/degree-relevant-employment")->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -241,7 +241,7 @@ class DegreeEmploymentsController extends Controller
     {
         $item = DegreeEmployment::find($id);
         $item->delete();
-        return redirect('/student/degree-relevant-employment');
+        return redirect('/student/degree-relevant-employment')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

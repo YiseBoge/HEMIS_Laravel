@@ -264,7 +264,7 @@ class PostGraduateDiplomaTrainingController extends Controller
 
         $postGraduateDiplomaTraining->save();
 
-        return redirect("/department/postgraduate-diploma-training");
+        return redirect("/department/postgraduate-diploma-training")->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -278,7 +278,7 @@ class PostGraduateDiplomaTrainingController extends Controller
     {
         $item = PostGraduateDiplomaTraining::find($id);
         $item->delete();
-        return redirect('/department/postgraduate-diploma-training');
+        return redirect('/department/postgraduate-diploma-training')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

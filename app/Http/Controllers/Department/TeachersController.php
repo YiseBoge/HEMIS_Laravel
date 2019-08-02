@@ -248,7 +248,7 @@ class TeachersController extends Controller
 
         $teachers->save();
 
-        return redirect("/department/teachers");
+        return redirect("/department/teachers")->with('primary', 'Successfully Updated');
 
 
     }
@@ -264,7 +264,7 @@ class TeachersController extends Controller
     {
         $item = Teacher::find($id);
         $item->delete();
-        return redirect('/department/teachers');
+        return redirect('/department/teachers')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

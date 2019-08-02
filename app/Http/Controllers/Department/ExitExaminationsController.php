@@ -231,7 +231,7 @@ class ExitExaminationsController extends Controller
 
         $exitExamination->save();
 
-        return redirect("/student/exit-examination");
+        return redirect("/student/exit-examination")->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -245,7 +245,7 @@ class ExitExaminationsController extends Controller
     {
         $item = ExitExamination::find($id);
         $item->delete();
-        return redirect('/student/exit-examination');
+        return redirect('/student/exit-examination')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

@@ -274,7 +274,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
 
         $specializingStudentsEnrollment->save();
 
-        return redirect("/enrollment/specializing-students");
+        return redirect("/enrollment/specializing-students")->with('primary', 'Successfully Updated');
 
 
     }
@@ -290,7 +290,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
     {
         $item = SpecializingStudentsEnrollment::find($id);
         $item->delete();
-        return redirect('/enrollment/specializing-students');
+        return redirect('/enrollment/specializing-students')->with('primary', 'Successfully Updated');
     }
 
     public function approve(Request $request, $id)

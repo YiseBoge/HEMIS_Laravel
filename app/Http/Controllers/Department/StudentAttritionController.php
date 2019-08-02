@@ -278,7 +278,7 @@ class StudentAttritionController extends Controller
 
         $studentAttrition->save();
 
-        return redirect("/student/student-attrition");
+        return redirect("/student/student-attrition")->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -292,7 +292,7 @@ class StudentAttritionController extends Controller
     {
         $item = StudentAttrition::find($id);
         $item->delete();
-        return redirect('/student/student-attrition');
+        return redirect('/student/student-attrition')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

@@ -250,7 +250,7 @@ class SpecialProgramTeacherController extends Controller
 
         $specialProgramTeacher->save();
 
-        return redirect("/department/special-program-teacher");
+        return redirect("/department/special-program-teacher")->with('primary', 'Successfully Updated');
 
     }
 
@@ -265,7 +265,7 @@ class SpecialProgramTeacherController extends Controller
     {
         $item = SpecialProgramTeacher::find($id);
         $item->delete();
-        return redirect('/department/special-program-teacher');
+        return redirect('/department/special-program-teacher')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)
