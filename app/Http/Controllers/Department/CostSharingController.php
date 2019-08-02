@@ -207,7 +207,16 @@ class CostSharingController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        return redirect("/student/cost-sharing");
+
+        $costSharings = CostSharing::find($id);
+        // die($costSharings);
+        $data = array(
+            'id' => $id,
+            'costSharings' => $costSharings,
+            'page_name' => 'students.cost_sharing.edit'
+        );
+        return view("departments.cost_sharing.edit")->with($data);
+
     }
 
     /**
