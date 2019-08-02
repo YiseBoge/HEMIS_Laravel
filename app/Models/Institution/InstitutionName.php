@@ -15,6 +15,8 @@ use Webpatser\Uuid\Uuid;
  * @property bool is_private
  * @property Collection collegeNames
  * @property Collection departmentNames
+ * @property Collection users
+ * @property Collection institutions
  * @method static InstitutionName find($id)
  */
 class InstitutionName extends Model

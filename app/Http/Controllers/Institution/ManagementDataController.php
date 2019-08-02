@@ -25,9 +25,7 @@ class ManagementDataController extends Controller
         $managements = array();
 
         if ($institution != null) {
-            foreach ($institution->managements as $management) {
-                $managements[] = $management;
-            }
+            foreach ($institution->managements as $management) $managements[] = $management;
         } else {
             $managements = ManagementData::all();
         }

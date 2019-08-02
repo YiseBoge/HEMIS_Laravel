@@ -101,6 +101,21 @@
                             </div>
 
                             <div class="modal-body row pt-4">
+
+                                @if(count($errors) > 0)
+                                    <div class="col-md-12 form-group">
+                                        <div class="alert alert-danger">
+                                            <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                            <hr class="my-0">
+                                            <ul class="my-1 px-4">
+                                                @foreach($errors->all() as $error)
+                                                    <li>{{$error}}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @endif
+
                                 <div class="col-12">
                                     <fieldset class="h-100">
                                         <div class="form-row pt-3">
@@ -108,7 +123,9 @@
 
                                                 <select class="form-control" id="manLevel" name="management_level">
                                                     @foreach ($management_levels as $key => $value)
-                                                        <option value="{{$key}}">{{$value}}</option>
+                                                        <option value="{{$key}}" {{ (old('management_level') == $key ? 'selected':'') }}>
+                                                            {{$value}}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                                 <label for="manLevel" class="form-control-placeholder pt-3">Management
@@ -120,6 +137,7 @@
                                             <div class="form-row ptt-1">
                                                 <div class="col form-group">
                                                     <input type="number" id="positions_required"
+                                                           value="{{ old('required_positions') }}"
                                                            name="required_positions" class="form-control" required>
                                                     <label class="form-control-placeholder"
                                                            for="positions_required">Positions Required</label>
@@ -127,6 +145,7 @@
 
                                                 <div class="col form-group">
                                                     <input type="number" id="positions_assigned"
+                                                           value="{{ old('assigned_positions') }}"
                                                            name="assigned_positions" class="form-control" required>
                                                     <label class="form-control-placeholder"
                                                            for="positions_assigned">Positions Assigned</label>
@@ -135,7 +154,7 @@
                                         </div>
                                         <div class="form-group">
                                             <input type="number" id="no_of_females" name="number_of_females"
-                                                   class="form-control" required>
+                                                   class="form-control" value="{{ old('number_of_females') }}" required>
                                             <label class="form-control-placeholder" for="no_of_females">Females(Aggregate)</label>
                                         </div>
                                     </fieldset>
@@ -144,6 +163,7 @@
                             <div class="modal-footer">
                                 <button class="btn btn-outline-secondary float-right my-1" type="submit">Submit</button>
                             </div>
+                        </form>
                     </div>
 
                 </div>
@@ -231,6 +251,7 @@
                             <div class="modal-footer">
                                 <button class="btn btn-outline-secondary float-right my-1" type="submit">Submit</button>
                             </div>
+                        </form>
                     </div>
 
                 </div>

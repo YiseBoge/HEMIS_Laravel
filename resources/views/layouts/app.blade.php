@@ -113,28 +113,29 @@
 
 <script>
     $(document).ready(function () {
-
-        @isset($page_name)
-        @if(preg_split ("/\./", $page_name)[0] == 'enrollment')
-        $("#collapseEnrollment").collapse("show");
-        $("#collapseEnrollment").addClass("uncollapse");
-        @elseif(preg_split ("/\./", $page_name)[0] == 'budgets')
-        $("#collapseBudget").collapse("show");
-        $("#collapseBudget").addClass("uncollapse");
-        @elseif(preg_split ("/\./", $page_name)[0] == 'students')
-        $("#collapseStudents").collapse("show");
-        $("#collapseStudents").addClass("uncollapse");
-        @elseif(preg_split ("/\./", $page_name)[0] == 'staff')
-        $("#collapseStaff").collapse("show");
-        $("#collapseStaff").addClass("uncollapse");
-        @elseif(preg_split ("/\./", $page_name)[0] == 'report')
-        $("#collapseReport").collapse("show");
-        $("#collapseReport").addClass("uncollapse");
-        @elseif(preg_split ("/\./", $page_name)[0] == 'administer')
-        $("#collapseAdmin").collapse("show");
-        $("#collapseAdmin").addClass("uncollapse");
-        @endif
-        @endisset
+        if ($(window).width() >= 768) {
+            @isset($page_name)
+            @if(preg_split ("/\./", $page_name)[0] == 'enrollment')
+            $("#collapseEnrollment").collapse("show");
+            $("#collapseEnrollment").addClass("uncollapse");
+            @elseif(preg_split ("/\./", $page_name)[0] == 'budgets')
+            $("#collapseBudget").collapse("show");
+            $("#collapseBudget").addClass("uncollapse");
+            @elseif(preg_split ("/\./", $page_name)[0] == 'students')
+            $("#collapseStudents").collapse("show");
+            $("#collapseStudents").addClass("uncollapse");
+            @elseif(preg_split ("/\./", $page_name)[0] == 'staff')
+            $("#collapseStaff").collapse("show");
+            $("#collapseStaff").addClass("uncollapse");
+            @elseif(preg_split ("/\./", $page_name)[0] == 'report')
+            $("#collapseReport").collapse("show");
+            $("#collapseReport").addClass("uncollapse");
+            @elseif(preg_split ("/\./", $page_name)[0] == 'administer')
+            $("#collapseAdmin").collapse("show");
+            $("#collapseAdmin").addClass("uncollapse");
+            @endif
+            @endisset
+        }
 
     });
 </script>

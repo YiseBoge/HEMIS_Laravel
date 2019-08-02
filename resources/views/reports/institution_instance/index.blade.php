@@ -7,27 +7,28 @@
                 <h6 class="m-0 font-weight-bold text-primary">Semester Overview</h6>
             </div>
             <div class="card-body">
-                <div class="row my-3">
-                    <div class="col-sm-6 text-left">
-                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href=""
-                           data-toggle="modal" data-target="#confirmModal">
-                            Shift to New Semester<i class="fas fa-hourglass-end text-white-50 fa-sm ml-2"></i>
-                        </a>
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        New Available Semester :
-                        @if (\App\User::adminInstance() != null)
-                            <span class="mx-1 text-left text-primary">
+                @if (\App\User::adminInstance() != Auth::user()->currentInstance)
+                    <div class="row my-3">
+                        <div class="col-sm-6 text-left">
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href=""
+                               data-toggle="modal" data-target="#confirmModal">
+                                Shift to New Semester<i class="fas fa-exchange-alt text-white-50 fa-sm ml-2"></i>
+                            </a>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            New Available Semester :
+                            @if (\App\User::adminInstance() != null)
+                                <span class="mx-1 text-left text-primary">
                                 {{ \App\User::adminInstance() }}
                             </span>
-                        @else
-                            <span class="mx-1 text-left text-muted">
+                            @else
+                                <span class="mx-1 text-left text-muted">
                                 No Semester Available
                             </span>
-                        @endif
+                            @endif
+                        </div>
                     </div>
-                </div>
-
+                @endif
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
                         <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
