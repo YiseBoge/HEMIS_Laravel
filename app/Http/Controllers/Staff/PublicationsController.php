@@ -248,7 +248,7 @@ class PublicationsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect("/department/publication");
     }
 
     /**
@@ -277,15 +277,6 @@ class PublicationsController extends Controller
 
         return view("staff.publication.edit")->with($data);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     * @throws ValidationException
-     */
 
     /**
      * Update the specified resource in storage.
@@ -374,6 +365,6 @@ class PublicationsController extends Controller
     {
         $item = StaffPublication::find($id);
         $item->delete();
-        return redirect('/department/publication');
+        return redirect('/department/publication')->with('primary', 'Successfully Deleted');
     }
 }

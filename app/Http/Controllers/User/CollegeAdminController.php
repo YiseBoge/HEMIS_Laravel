@@ -138,7 +138,7 @@ class CollegeAdminController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('/college-admin');
     }
 
     /**
@@ -149,7 +149,7 @@ class CollegeAdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        return redirect('/college-admin');
     }
 
     /**
@@ -161,7 +161,7 @@ class CollegeAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return redirect('/college-admin');
     }
 
     /**
@@ -175,6 +175,6 @@ class CollegeAdminController extends Controller
     {
         $item = User::find($id);
         $item->delete();
-        return redirect('/college-admin');
+        return redirect('/college-admin')->with('primary', 'Successfully Deleted');
     }
 }

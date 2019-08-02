@@ -104,8 +104,7 @@ class BandNamesController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
-
-        return view('bands.details');
+        return redirect('/band/band-name');
     }
 
     /**
@@ -152,7 +151,7 @@ class BandNamesController extends Controller
         $current_band_name->acronym = $request->input("acronym");
 
         $current_band_name->save();
-        return redirect('/band/band-name');
+        return redirect('/band/band-name')->with('primary', 'Successfully Updated');
 
     }
 
@@ -167,6 +166,6 @@ class BandNamesController extends Controller
     {
         $item = BandName::find($id);
         $item->delete();
-        return redirect('/band/band-name');
+        return redirect('/band/band-name')->with('primary', 'Successfully Deleted');
     }
 }

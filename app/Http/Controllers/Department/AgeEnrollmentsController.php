@@ -205,7 +205,9 @@ class AgeEnrollmentsController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        return redirect('enrollment/age-enrollment');
     }
 
     /**
@@ -257,7 +259,7 @@ class AgeEnrollmentsController extends Controller
 
         $ageEnrollment->save();
 
-        return redirect('enrollment/age-enrollment');
+        return redirect('enrollment/age-enrollment')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -271,7 +273,7 @@ class AgeEnrollmentsController extends Controller
     {
         $item = AgeEnrollment::find($id);
         $item->delete();
-        return redirect('/enrollment/age-enrollment');
+        return redirect('/enrollment/age-enrollment')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

@@ -175,7 +175,7 @@ class BuildingsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('institution/buildings');
     }
 
     /**
@@ -212,6 +212,6 @@ class BuildingsController extends Controller
     {
         $item = Building::find($id);
         $item->delete();
-        return redirect('/institution/buildings');
+        return redirect('/institution/buildings')->with('primary', 'Successfully Deleted');
     }
 }

@@ -222,7 +222,10 @@ class JointProgramEnrollmentsController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        return redirect("/enrollment/joint-program");
+
     }
 
     /**
@@ -275,7 +278,7 @@ class JointProgramEnrollmentsController extends Controller
 
         $jointProgramEnrollment->save();
 
-        return redirect("/enrollment/joint-program");
+        return redirect("/enrollment/joint-program")->with('primary', 'Successfully Updated');
 
 
     }
@@ -291,7 +294,7 @@ class JointProgramEnrollmentsController extends Controller
     {
         $item = JointProgramEnrollment::find($id);
         $item->delete();
-        return redirect('/enrollment/joint-program');
+        return redirect('/enrollment/joint-program')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

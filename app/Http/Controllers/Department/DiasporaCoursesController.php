@@ -180,7 +180,9 @@ class DiasporaCoursesController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        return redirect("/department/diaspora-courses");
     }
 
     /**
@@ -226,7 +228,7 @@ class DiasporaCoursesController extends Controller
 
         $diasporaCourses->save();
 
-        return redirect("/department/diaspora-courses");
+        return redirect("/department/diaspora-courses")->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -240,7 +242,7 @@ class DiasporaCoursesController extends Controller
     {
         $item = DiasporaCourses::find($id);
         $item->delete();
-        return redirect('/department/diaspora-courses');
+        return redirect('/department/diaspora-courses')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

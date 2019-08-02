@@ -216,7 +216,9 @@ class DisadvantagedStudentEnrollmentsController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        return redirect("/enrollment/economically-disadvantaged");
     }
 
     /**
@@ -268,7 +270,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
 
         $disadvantagedStudentEnrollment->save();
 
-        return redirect("/enrollment/economically-disadvantaged");
+        return redirect("/enrollment/economically-disadvantaged")->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -282,7 +284,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     {
         $item = DisadvantagedStudentEnrollment::find($id);
         $item->delete();
-        return redirect('/enrollment/economically-disadvantaged');
+        return redirect('/enrollment/economically-disadvantaged')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

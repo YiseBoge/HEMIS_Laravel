@@ -129,7 +129,7 @@ class InstitutionNamesController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
-        return view('institutions.details');
+        return redirect('/institution/institution-name');
     }
 
     /**
@@ -200,6 +200,6 @@ class InstitutionNamesController extends Controller
     {
         $item = InstitutionName::find($id);
         $item->delete();
-        return redirect('/institution/institution-name');
+        return redirect('/institution/institution-name')->with('primary', 'Successfully Deleted');
     }
 }

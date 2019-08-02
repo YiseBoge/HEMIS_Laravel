@@ -339,7 +339,7 @@ class SpecialNeedStudentsController extends Controller
         $specialNeedStudent->general()->save($student);
         $studentService->student()->save($student);
 
-        return redirect("/student/special-need");
+        return redirect("/student/special-need")->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -353,6 +353,6 @@ class SpecialNeedStudentsController extends Controller
     {
         $item = SpecialNeedStudent::find($id);
         $item->delete();
-        return redirect('/student/special-need');
+        return redirect('/student/special-need')->with('primary', 'Successfully Deleted');
     }
 }

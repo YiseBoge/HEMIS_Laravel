@@ -118,7 +118,7 @@ class ManagementDataController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('institution/management-data/');
     }
 
     /**
@@ -185,7 +185,7 @@ class ManagementDataController extends Controller
 
         $management_data->save();
 
-        return redirect('institution/management-data/');
+        return redirect('institution/management-data/')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -198,6 +198,6 @@ class ManagementDataController extends Controller
     {
         $item = ManagementData::find($id);
         $item->delete();
-        return redirect('institution/management-data');
+        return redirect('institution/management-data')->with('primary', 'Successfully Deleted');
     }
 }

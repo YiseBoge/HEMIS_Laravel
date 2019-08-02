@@ -198,7 +198,7 @@ class ResearchsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect("/institution/researches");
     }
 
     /**
@@ -237,7 +237,7 @@ class ResearchsController extends Controller
     {
         $item = Research::find($id);
         $item->delete();
-        return redirect('/institution/researches');
+        return redirect('/institution/researches')->with('primary', 'Successfully Updated');
     }
 
     public function approve(Request $request, $id)

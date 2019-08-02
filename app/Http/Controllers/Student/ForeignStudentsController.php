@@ -342,7 +342,7 @@ class ForeignStudentsController extends Controller
         $foreignerStudent->general()->save($student);
         $studentService->student()->save($student);
 
-        return redirect("/student/foreign");
+        return redirect("/student/foreign")->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -356,6 +356,6 @@ class ForeignStudentsController extends Controller
     {
         $item = ForeignStudent::find($id);
         $item->delete();
-        return redirect('/student/foreign');
+        return redirect('/student/foreign')->with('primary', 'Successfully Deleted');
     }
 }
