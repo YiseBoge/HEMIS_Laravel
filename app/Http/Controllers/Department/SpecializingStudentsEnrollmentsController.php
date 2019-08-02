@@ -221,7 +221,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect("/enrollment/specializing-students");
     }
 
     /**

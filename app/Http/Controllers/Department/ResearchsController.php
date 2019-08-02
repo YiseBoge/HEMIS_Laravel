@@ -198,7 +198,7 @@ class ResearchsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect("/institution/researches");
     }
 
     /**

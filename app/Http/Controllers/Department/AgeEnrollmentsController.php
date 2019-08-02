@@ -205,7 +205,9 @@ class AgeEnrollmentsController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        return redirect('enrollment/age-enrollment');
     }
 
     /**

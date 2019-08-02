@@ -180,7 +180,9 @@ class DiasporaCoursesController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        return redirect("/department/diaspora-courses");
     }
 
     /**

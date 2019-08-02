@@ -203,7 +203,7 @@ class UpgradingStaffController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect("/department/upgrading-staff");
     }
 
     /**

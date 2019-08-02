@@ -201,7 +201,7 @@ class SpecialProgramTeacherController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect("/department/special-program-teacher");
     }
 
     /**

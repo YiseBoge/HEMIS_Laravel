@@ -192,7 +192,9 @@ class CostSharingController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        return redirect("/student/cost-sharing");
     }
 
     /**
@@ -203,7 +205,9 @@ class CostSharingController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        return redirect("/student/cost-sharing");
     }
 
     /**
@@ -215,7 +219,9 @@ class CostSharingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        return redirect("/student/cost-sharing");
     }
 
     /**

@@ -216,7 +216,7 @@ class RuralStudentEnrollmentsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect("/enrollment/rural-area-students");
     }
 
     /**

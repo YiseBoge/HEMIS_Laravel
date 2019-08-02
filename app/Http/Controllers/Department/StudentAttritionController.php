@@ -224,7 +224,7 @@ class StudentAttritionController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect("/student/student-attrition");
     }
 
     /**

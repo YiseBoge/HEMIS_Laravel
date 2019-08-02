@@ -178,7 +178,9 @@ class DegreeEmploymentsController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        return redirect("/student/degree-relevant-employment");
     }
 
     /**

@@ -211,7 +211,10 @@ class OtherAttritionController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
+        return redirect("/student/other-attrition");
+
     }
 
     /**

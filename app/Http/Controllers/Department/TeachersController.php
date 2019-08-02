@@ -200,7 +200,7 @@ class TeachersController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect("/department/teachers");
     }
 
     /**

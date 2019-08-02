@@ -229,7 +229,7 @@ class SpecialRegionsEnrollmentsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect("/enrollment/special-region-students");
     }
 
     /**
