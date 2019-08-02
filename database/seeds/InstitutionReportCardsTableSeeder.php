@@ -100,48 +100,56 @@ class InstitutionReportCardsTableSeeder extends Seeder
         $field->policy = $policies['2'];
         $field->policy_description = $descriptions['2.1'];
         $field->kpi = $kpis['2.1.1'];
+        $field->is_decreasing = true;
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['2'];
         $field->policy_description = $descriptions['2.1'];
         $field->kpi = $kpis['2.1.2'];
+        $field->is_decreasing = true;
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['2'];
         $field->policy_description = $descriptions['2.2'];
         $field->kpi = $kpis['2.2.1'];
+        $field->is_decreasing = true;
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['2'];
         $field->policy_description = $descriptions['2.2'];
         $field->kpi = $kpis['2.2.2'];
+        $field->is_decreasing = true;
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['2'];
         $field->policy_description = $descriptions['2.3'];
         $field->kpi = $kpis['2.3.1'];
+        $field->is_decreasing = true;
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['2'];
         $field->policy_description = $descriptions['2.3'];
         $field->kpi = $kpis['2.3.2'];
+        $field->is_decreasing = true;
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['2'];
         $field->policy_description = $descriptions['2.4'];
         $field->kpi = $kpis['2.4.1'];
+        $field->is_decreasing = true;
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['2'];
         $field->policy_description = $descriptions['2.4'];
         $field->kpi = $kpis['2.4.2'];
+        $field->is_decreasing = true;
         $field->save();
 
         $field = new InstitutionReportCard();
@@ -172,12 +180,14 @@ class InstitutionReportCardsTableSeeder extends Seeder
         $field->policy = $policies['2'];
         $field->policy_description = $descriptions['2.7'];
         $field->kpi = $kpis['2.7.1'];
+        $field->is_decreasing = true;
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['2'];
         $field->policy_description = $descriptions['2.7'];
         $field->kpi = $kpis['2.7.2'];
+        $field->is_decreasing = true;
         $field->save();
 
         // break
@@ -192,6 +202,7 @@ class InstitutionReportCardsTableSeeder extends Seeder
         $field->policy = $policies['3'];
         $field->policy_description = $descriptions['3.1'];
         $field->kpi = $kpis['3.1.2'];
+        $field->is_decreasing = true;
         $field->save();
 
         $field = new InstitutionReportCard();
@@ -302,12 +313,14 @@ class InstitutionReportCardsTableSeeder extends Seeder
         $field->policy = $policies['7'];
         $field->policy_description = $descriptions['7.2'];
         $field->kpi = $kpis['7.2.1'];
+        $field->is_decreasing = true;
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['7'];
         $field->policy_description = $descriptions['7.2'];
         $field->kpi = $kpis['7.2.2'];
+        $field->is_decreasing = true;
         $field->save();
     }
 }
