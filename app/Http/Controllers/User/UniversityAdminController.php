@@ -146,7 +146,7 @@ class UniversityAdminController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('/university-admin');
     }
 
     /**
@@ -157,7 +157,7 @@ class UniversityAdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        return redirect('/university-admin');
     }
 
     /**
@@ -169,7 +169,7 @@ class UniversityAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return redirect('/university-admin');
     }
 
     /**
