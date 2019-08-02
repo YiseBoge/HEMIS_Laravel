@@ -106,7 +106,7 @@ class IctStaffTypesController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('/staff/ict-staff-types');
     }
 
     /**

@@ -261,7 +261,7 @@ class StaffAttritionsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('/staff/attrition');
     }
 
     /**
@@ -272,7 +272,7 @@ class StaffAttritionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return redirect('/staff/attrition');
     }
 
     /**
@@ -284,7 +284,7 @@ class StaffAttritionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return redirect('/staff/attrition');
     }
 
     /**
