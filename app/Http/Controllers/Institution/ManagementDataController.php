@@ -105,7 +105,7 @@ class ManagementDataController extends Controller
 
         $management_data->save();
 
-        return redirect('institution/management-data/');
+        return redirect('institution/management-data/')->with('success', 'Successfully Added Management Data');
     }
 
     /**
