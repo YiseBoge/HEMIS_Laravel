@@ -243,7 +243,7 @@ class InternalRevenuesController extends Controller
 
         $internalRevenue->save();
 
-        return redirect('/budgets/internal-revenue');
+        return redirect('/budgets/internal-revenue')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -257,7 +257,7 @@ class InternalRevenuesController extends Controller
     {
         $item = InternalRevenue::find($id);
         $item->delete();
-        return redirect('/budgets/internal-revenue');
+        return redirect('/budgets/internal-revenue')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

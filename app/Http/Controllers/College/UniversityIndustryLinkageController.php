@@ -244,7 +244,7 @@ class UniversityIndustryLinkageController extends Controller
 
         $universityIndustryLinkage->save();
 
-        return redirect("/student/university-industry-linkage");
+        return redirect("/student/university-industry-linkage")->with('primary', 'Successfully Updated');
 
     }
 
@@ -259,7 +259,7 @@ class UniversityIndustryLinkageController extends Controller
     {
         $item = UniversityIndustryLinkage::find($id);
         $item->delete();
-        return redirect('/student/university-industry-linkage');
+        return redirect('/student/university-industry-linkage')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)

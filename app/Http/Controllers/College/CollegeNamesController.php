@@ -163,7 +163,7 @@ class CollegeNamesController extends Controller
         $college_name->acronym = $request->input("college_acronym");
 
         $college_name->save();
-        return redirect('/college/college-name');
+        return redirect('/college/college-name')->with('primary', 'Successfully Updated');
 
 
     }
@@ -179,6 +179,6 @@ class CollegeNamesController extends Controller
     {
         $item = CollegeName::find($id);
         $item->delete();
-        return redirect('/college/college-name');
+        return redirect('/college/college-name')->with('primary', 'Successfully Deleted');
     }
 }
