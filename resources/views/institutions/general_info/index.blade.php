@@ -176,23 +176,37 @@
                                 Recurrent Budget
                             </div>
                             <div class="col-md-4 p-3">
-                                <span class="font-weight-bold text-gray-800">---</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$existing['recurrent_budget']}}
+                                </span>
                             </div>
 
                             <div class="col-md-8 p-3">
                                 Capital Budget
                             </div>
                             <div class="col-md-4 p-3">
-                                <span class="font-weight-bold text-gray-800">---</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$existing['capital_budget']}}
+                                </span>
                             </div>
 
                             <div class="col-md-8 p-3">
                                 From Internal Income
                             </div>
                             <div class="col-md-4 p-3">
-                                <span class="font-weight-bold text-gray-800">---</span>
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$existing['internal_income']}}
+                                </span>
                             </div>
 
+                            <div class="col-md-8 p-3">
+                                Unjustifiable Expenses
+                            </div>
+                            <div class="col-md-4 p-3">
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->resource->unjustifiable_expenses}}
+                                </span>
+                            </div>
                         </div>
                     </div>
 
@@ -331,7 +345,7 @@
                             </div>
                             <div class="col-3 p-3">
                                 <span class="font-weight-bold text-gray-800">
-                                    --- %
+                                    {{$existing['undergraduate_graduation']}} %
                                 </span>
                             </div>
 
@@ -340,16 +354,7 @@
                             </div>
                             <div class="col-3 p-3">
                                 <span class="font-weight-bold text-gray-800">
-                                    --- %
-                                </span>
-                            </div>
-
-                            <div class="col-9 p-3">
-                                Graduation Rate (Special Need Students)
-                            </div>
-                            <div class="col-3 p-3">
-                                <span class="font-weight-bold text-gray-800">
-                                    --- %
+                                    {{$existing['postgraduate_graduation']}} %
                                 </span>
                             </div>
 
@@ -358,7 +363,7 @@
                             </div>
                             <div class="col-3 p-3">
                                 <span class="font-weight-bold text-gray-800">
-                                    --- %
+                                    {{$existing['female_graduation']}} %
                                 </span>
                             </div>
 

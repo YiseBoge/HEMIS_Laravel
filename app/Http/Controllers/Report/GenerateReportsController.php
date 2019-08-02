@@ -1512,7 +1512,7 @@ class GenerateReportsController extends Controller
         $yearValue = $value == null ? new InstitutionYearValue() : $value;
         $yearValue->year = $year;
         $yearValue->institution_name_id = $institution_name->id;
-        $total = 0;
+        $total = $reportService->unjustifiableExpenses();
         $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
 

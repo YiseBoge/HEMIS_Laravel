@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
+use App\Models\College\Budget;
+use App\Models\College\College;
 use App\Models\Institution\Institution;
 use App\Models\Institution\Resource;
+use App\Services\InstitutionService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -35,8 +38,30 @@ class InstitutionsController extends Controller
         $user->authorizeRoles('University Admin');
         $institution = $user->institution();
 
+        $institutionService = new InstitutionService($institution);
+
+        $allGraduation = $institutionService->graduationRate('All', College::getEnum('education_level')['POST_GRADUATE_PHD']);
+        $undergraduateGraduation = $institutionService->graduationRate('All', College::getEnum('education_level')['UNDERGRADUATE']);
+        $postgraduateGraduation = $institutionService->graduationRate('All', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
+            $institutionService->graduationRate('Female', College::getEnum('education_level')['POST_GRADUATE_PHD']);
+        $femaleGraduation = $institutionService->graduationRate('All', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
+            $institutionService->graduationRate('Female', College::getEnum('education_level')['POST_GRADUATE_PHD']) +
+            $institutionService->graduationRate('Female', College::getEnum('education_level')['UNDERGRADUATE']);
+
+        $existing = array(
+            'recurrent_budget' => $institutionService->budgetByType(Budget::getEnum('budget_type')['RECURRENT']),
+            'capital_budget' => $institutionService->budgetByType(Budget::getEnum('budget_type')['CAPITAL']),
+            'internal_income' => $institutionService->budgetNotFromGovernment(),
+
+            'undergraduate_graduation' => $allGraduation == 0 ? 0 : $undergraduateGraduation / $allGraduation,
+            'postgraduate_graduation' => $allGraduation == 0 ? 0 : $postgraduateGraduation / $allGraduation,
+            'female_graduation' => $allGraduation == 0 ? 0 : $femaleGraduation / $allGraduation,
+        );
+
         $data = array(
             'institution' => $institution,
+            'existing' => $existing,
+
             'page_name' => 'general.general_info.index'
         );
         return view("institutions.general_info.index")->with($data);
@@ -144,6 +169,7 @@ class InstitutionsController extends Controller
             'pupil_per_teacher' => 'required',
             'text_per_student' => 'required',
             'rate_of_smart_classrooms' => 'required',
+            'unjustifiable_expenses' => 'required',
         ]);
 
         $institution = Institution::find($id);
@@ -187,6 +213,7 @@ class InstitutionsController extends Controller
         $resource->pupil_per_teacher = $request->input('pupil_per_teacher');
         $resource->text_per_student = $request->input('text_per_student');
         $resource->rate_of_smart_classrooms = $request->input('rate_of_smart_classrooms');
+        $resource->unjustifiable_expenses = $request->input('unjustifiable_expenses');
 
         $generalInformation->save();
         $communityService->save();

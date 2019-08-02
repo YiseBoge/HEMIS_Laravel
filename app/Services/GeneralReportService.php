@@ -273,7 +273,7 @@ class GeneralReportService
 
         foreach ($this->institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
-            $total += $institutionService->graduationRate($sex, $educationLevel);
+            $total += $institutionService->graduationData($sex, $educationLevel);
         }
 
         $totalEnrollments = $this->enrollment($sex, $educationLevel);

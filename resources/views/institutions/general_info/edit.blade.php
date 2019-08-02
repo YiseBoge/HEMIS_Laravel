@@ -2,13 +2,6 @@
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
-        @if(count($errors) > 0)
-            @foreach($errors->all() as $error)
-                <div class="alert alert-danger alert-dismissible">
-                    {{$error}}
-                </div>
-            @endforeach
-        @endif
         <div class="row">
             <div class="col-md">
                 <h1 class="text-primary">{{$institution->institutionName}}</h1>
@@ -33,7 +26,7 @@
 
                     <div class="form-group col-md">
                         {!! Form::number('schools', $institution->generalInformation->schools, ['class'=>'form-control', 'id'=>'edit_schools', 'required' => 'true']) !!}
-                        {!! Form::label('edit_schools', 'Institutes', ['class' => 'form-control-placeholder']) !!}
+                        {!! Form::label('edit_schools', 'Schools', ['class' => 'form-control-placeholder']) !!}
                     </div>
 
                     <div class="form-group col-md">
@@ -192,8 +185,8 @@
                 </div>
 
                 <div class="row mb-2">
-                    <div class="col-md-4">
-                        <div class="input-group mb-3">
+                    <div class="col-md-6 text-center">
+                        <div class="input-group mb-3 w-75 mx-auto">
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-white border-0">
                                     Pupil : Teacher =
@@ -209,8 +202,8 @@
                     </div>
 
 
-                    <div class="col-md-4">
-                        <div class="input-group mb-3">
+                    <div class="col-md-6 text-center">
+                        <div class="input-group mb-3 w-75 mx-auto">
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-white border-0">
                                     Student : Text =
@@ -225,13 +218,18 @@
                         </div>
 
                     </div>
+                </div>
 
+                <div class="row my-3">
+                    <div class="form-group col-md-6">
+                        {{ Form::number('unjustifiable_expenses', $institution->generalInformation->resource->unjustifiable_expenses, ['class'=>'form-control', 'id'=>'edit_unjustifiable_expenses', 'required' => 'true']) }}
+                        {{ Form::label('edit_unjustifiable_expenses', 'Unjustifiable Expenses', ['class' => 'form-control-placeholder']) }}
+                    </div>
 
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         {{ Form::number('rate_of_smart_classrooms', $institution->generalInformation->resource->rate_of_smart_classrooms, ['class'=>'form-control', 'id'=>'edit_rate_of_smart_classrooms', 'required' => 'true']) }}
                         {{ Form::label('edit_rate_of_smart_classrooms', 'Smart Classrooms (%)', ['class' => 'form-control-placeholder']) }}
                     </div>
-
                 </div>
             </div>
         </fieldset>

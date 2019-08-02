@@ -11,9 +11,7 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\Enrollment;
 use App\Models\Institution\Institution;
-use App\Services\DepartmentService;
-use App\Services\InstitutionService;
-use App\Services\GeneralReportService;
+use App\Services\InstitutionReportService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -75,7 +73,7 @@ class EnrollmentsController extends Controller
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->enrollments as $enrollment) {
-                                            $service = new GeneralReportService("2018/19");
+                                            //$service = new InstitutionReportService($institution->institution_name, "2018/19");
                                             //return $service->enrollment("All", "Undergraduate");
                                             $enrollments[] = $enrollment;
                                         }
@@ -88,8 +86,8 @@ class EnrollmentsController extends Controller
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->enrollments as $enrollment) {
                                             if ($enrollment->student_type == $requestedType) {
-                                                $service = new GeneralReportService("2018/19");
-                                                //return $service->enrollment("Male", "Undergraduate");
+                                                $service = new InstitutionReportService($institution->institutionName, "2011");
+                                                return $service->graduationRate("Female", "Undergraduate");
                                                 $enrollments[] = $enrollment;
                                             }
                                         }
@@ -211,7 +209,13 @@ class EnrollmentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->enrollments()->save($enrollment);
+        $enrollment->department_id = $department->id;
+
+        if ($enrollment->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $enrollment->save();
 
         return redirect("/enrollment/normal")->with('success', 'Successfully Added Enrollment');
 
