@@ -167,7 +167,7 @@ class InvestmentsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('/budgets/private-investment');
     }
 
     /**

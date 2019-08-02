@@ -168,7 +168,7 @@ class UniversityIndustryLinkageController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect("/student/university-industry-linkage");
     }
 
     /**

@@ -113,7 +113,7 @@ class CollegeNamesController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('/college/college-name');
     }
 
     /**

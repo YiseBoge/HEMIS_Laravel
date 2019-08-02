@@ -175,7 +175,7 @@ class BuildingsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('institution/buildings');
     }
 
     /**

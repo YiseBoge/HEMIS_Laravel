@@ -166,7 +166,7 @@ class InternalRevenuesController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('/budgets/internal-revenue');
     }
 
     /**
