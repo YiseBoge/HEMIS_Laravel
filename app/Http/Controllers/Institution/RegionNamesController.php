@@ -142,7 +142,7 @@ class RegionNamesController extends Controller
         $current_region_name->name = $request->input("region_name");
         $current_region_name->save();
 
-        return redirect('/region-name');
+        return redirect('/region-name')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -156,6 +156,6 @@ class RegionNamesController extends Controller
     {
         $item = RegionName::find($id);
         $item->delete();
-        return redirect('/region-name');
+        return redirect('/region-name')->with('primary', 'Successfully Deleted');
     }
 }

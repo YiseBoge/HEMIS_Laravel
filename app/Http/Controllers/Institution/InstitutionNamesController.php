@@ -200,6 +200,6 @@ class InstitutionNamesController extends Controller
     {
         $item = InstitutionName::find($id);
         $item->delete();
-        return redirect('/institution/institution-name');
+        return redirect('/institution/institution-name')->with('primary', 'Successfully Deleted');
     }
 }

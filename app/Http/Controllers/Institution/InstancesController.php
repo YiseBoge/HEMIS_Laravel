@@ -163,7 +163,7 @@ class InstancesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return redirect('institution/instance');
     }
 
     /**
@@ -189,6 +189,6 @@ class InstancesController extends Controller
     {
         $item = Instance::find($id);
         $item->delete();
-        return redirect('/institution/instance');
+        return redirect('/institution/instance')->with('primary', 'Successfully Deleted');
     }
 }
