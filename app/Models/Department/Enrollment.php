@@ -52,7 +52,6 @@ class Enrollment extends Model
      */
     public function isDuplicate()
     {
-        die($this->department_id);
         return Enrollment::where(array(
                 'department_id' => $this->department_id,
                 'student_type' => $this->student_type,

@@ -344,7 +344,6 @@ class DepartmentService
                 $total += $enrollment->male_students_number + $enrollment->female_students_number;
             }
         }
-        die($total);
         return $total;
     }
 

@@ -200,7 +200,7 @@ class ForeignStudentsController extends Controller
         }
 
         $departmentName = $user->departmentName;
-        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => $request->input("year_level"),
+        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => Department::getEnum('year_level')[$request->input("year_level")],
             'college_id' => $college->id])->first();
         if ($department == null) {
             $department = new Department;

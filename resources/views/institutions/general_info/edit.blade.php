@@ -186,7 +186,7 @@
 
                 <div class="row mb-2">
                     <div class="col-md-6 text-center">
-                        <div class="input-group mb-3 w-75 mx-auto">
+                        <div class="input-group mb-3 w-75 float-left">
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-white border-0">
                                     Pupil : Teacher =
@@ -203,7 +203,7 @@
 
 
                     <div class="col-md-6 text-center">
-                        <div class="input-group mb-3 w-75 mx-auto">
+                        <div class="input-group mb-3 w-75 float-right">
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-white border-0">
                                     Student : Text =
@@ -220,7 +220,7 @@
                     </div>
                 </div>
 
-                <div class="row my-3">
+                <div class="row mt-4">
                     <div class="form-group col-md-6">
                         {{ Form::number('unjustifiable_expenses', $institution->generalInformation->resource->unjustifiable_expenses, ['class'=>'form-control', 'id'=>'edit_unjustifiable_expenses', 'required' => 'true']) }}
                         {{ Form::label('edit_unjustifiable_expenses', 'Unjustifiable Expenses', ['class' => 'form-control-placeholder']) }}
