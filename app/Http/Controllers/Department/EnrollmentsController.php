@@ -11,7 +11,6 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\Enrollment;
 use App\Models\Institution\Institution;
-use App\Services\GeneralReportService;
 use App\Services\InstitutionReportService;
 use Exception;
 use Illuminate\Http\Request;
