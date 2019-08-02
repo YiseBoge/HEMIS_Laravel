@@ -104,8 +104,7 @@ class BandNamesController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
-
-        return view('bands.details');
+        return redirect('/band/band-name');
     }
 
     /**
