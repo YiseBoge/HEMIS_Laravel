@@ -152,7 +152,7 @@ class InstancesController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('institution/instance');
     }
 
     /**

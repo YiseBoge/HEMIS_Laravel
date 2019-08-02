@@ -96,7 +96,7 @@ class RegionNamesController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('/region-name');
     }
 
     /**

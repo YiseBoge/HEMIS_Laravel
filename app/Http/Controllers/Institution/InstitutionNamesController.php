@@ -129,7 +129,7 @@ class InstitutionNamesController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
-        return view('institutions.details');
+        return redirect('/institution/institution-name');
     }
 
     /**
