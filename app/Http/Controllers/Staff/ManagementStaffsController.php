@@ -265,7 +265,7 @@ class ManagementStaffsController extends Controller
         $managementStaff = ManagementStaff::find($managementStaff->id);
         $managementStaff->general()->save($staff);
 
-        return redirect('/staff/management');
+        return redirect('/staff/management')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -279,6 +279,6 @@ class ManagementStaffsController extends Controller
     {
         $item = ManagementStaff::find($id);
         $item->delete();
-        return redirect('/staff/management');
+        return redirect('/staff/management')->with('primary', 'Successfully Deleted');
     }
 }

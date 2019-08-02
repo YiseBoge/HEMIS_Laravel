@@ -286,15 +286,6 @@ class PublicationsController extends Controller
      * @return Response
      * @throws ValidationException
      */
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     * @throws ValidationException
-     */
     public function update(Request $request, $id)
     {
 
@@ -374,6 +365,6 @@ class PublicationsController extends Controller
     {
         $item = StaffPublication::find($id);
         $item->delete();
-        return redirect('/department/publication');
+        return redirect('/department/publication')->with('primary', 'Successfully Deleted');
     }
 }

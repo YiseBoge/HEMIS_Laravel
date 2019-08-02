@@ -269,7 +269,7 @@ class SupportiveStaffsController extends Controller
         $supportiveStaff = SupportiveStaff::find($supportiveStaff->id);
         $supportiveStaff->general()->save($staff);
 
-        return redirect('/staff/supportive');
+        return redirect('/staff/supportive')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -283,6 +283,6 @@ class SupportiveStaffsController extends Controller
     {
         $item = SupportiveStaff::find($id);
         $item->delete();
-        return redirect('/staff/supportive');
+        return redirect('/staff/supportive')->with('primary', 'Successfully Deleted');
     }
 }

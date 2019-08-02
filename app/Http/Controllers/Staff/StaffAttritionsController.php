@@ -298,6 +298,6 @@ class StaffAttritionsController extends Controller
     {
         $item = StaffAttrition::find($id);
         $item->delete();
-        return redirect('/staff/attrition');
+        return redirect('/staff/attrition')->with('primary', 'Successfully Deleted');
     }
 }

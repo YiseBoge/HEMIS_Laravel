@@ -157,7 +157,7 @@ class IctStaffTypesController extends Controller
 
         $current_type->type = $request->input("staff_type");
         $current_type->save();
-        return redirect('/staff/ict-staff-types');
+        return redirect('/staff/ict-staff-types')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -171,6 +171,6 @@ class IctStaffTypesController extends Controller
     {
         $item = IctStaffType::find($id);
         $item->delete();
-        return redirect('/staff/ict-staff-types');
+        return redirect('/staff/ict-staff-types')->with('primary', 'Successfully Deleted');
     }
 }
