@@ -78,6 +78,22 @@ class InstitutionService
 
     /**
      * @param $educationLevel
+     * @return int|mixed
+     */
+    function specialNeedEnrollmentRate($educationLevel)
+    {
+        $total = 0;
+
+        $totalSpecialNeed = $this->specialNeedEnrollment($educationLevel);
+
+        $totalEnrollments = $this->enrollment($sex, $educationLevel);
+        if ($totalEnrollments == 0) return 0;
+
+        return $totalSpecialNeed / $totalEnrollments;
+    }
+
+    /**
+     * @param $educationLevel
      * @return int
      */
     function disadvantagedStudentEnrollment($educationLevel)
@@ -187,13 +203,13 @@ class InstitutionService
      * @param $educationLevel
      * @return int
      */
-    function graduationRate($sex, $educationLevel)
+    function graduationData($sex, $educationLevel)
     {
         $total = 0;
         $departments = $this->departmentsByEducationLevel($educationLevel);
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
-            $total += $departmentService->graduationRate($sex);
+            $total += $departmentService->graduationData($sex);
         }
         return $total;
     }
@@ -540,6 +556,21 @@ class InstitutionService
     }
 
     /**
+     * @param $status
+     * @param $sex
+     * @return int
+     */
+    function academicStaffByStatus($sex, $status){
+        $total = 0;
+        $departments = $this->departments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->academicStaffByStatus($sex, $status);
+        }
+        return $total;
+    } 
+
+    /**
      * @param $sex
      * @param $otherRegion
      * @return int
@@ -555,6 +586,10 @@ class InstitutionService
                         if ($managementStaff->general->sex == 'Female' && $managementStaff->general->is_from_other_region == 1) {
                             $total++;
                         }
+                    }else if($sex == 'Male'){
+                        if ($managementStaff->general->sex == 'Male' && $managementStaff->general->is_from_other_region == 1) {
+                            $total++;
+                        }
                     } else {
                         if ($managementStaff->general->is_from_other_region == 1) {
                             $total++;
@@ -565,12 +600,78 @@ class InstitutionService
                         if ($managementStaff->general->sex == 'Female') {
                             $total++;
                         }
+                    } else if($sex == 'Male'){
+                        if ($managementStaff->general->sex == 'Male') {
+                            $total++;
+                        }
                     } else {
                         $total++;
                     }
                 }
             }
         }
+        return $total;
+    }
+
+    /**
+     * @param $sex
+     * @return int
+     */
+    function administrativeStaff($sex){
+        $total = 0;
+        $colleges = $this->colleges();
+        foreach ($colleges as $college) {
+            foreach ($college->administrativeStaffs as $administrativeStaff) {
+                if($sex == "All"){
+                    $total++;
+                }else{
+                    if($administrativeStaff->general->sex == $sex){
+                        $total++;
+                    }
+                }
+            }
+        }
+
+        return $total;
+    }
+
+    /**
+     * @param $sex
+     * @return int
+     */
+    function technicalStaff($sex){
+        $total = 0;
+        $colleges = $this->colleges();
+        foreach ($colleges as $college) {
+            foreach ($college->technicalStaffs as $technicalStaff) {
+                if($sex == "All"){
+                    $total++;
+                }else{
+                    if($technicalStaff->general->sex == $sex){
+                        $total++;
+                    }
+                }
+            }
+        }
+
+        return $total;
+    }
+
+    /**
+     * @param $type
+     * @return int
+     */
+    function budget($type){
+        $total = 0;
+        $colleges = $this->colleges();
+        foreach ($colleges as $college) {
+            foreach ($college->budgets as $budget) {
+                if($budget->budget_type == $type){
+                    $total += $budget->allocated_budget + $budget->additional_budget;
+                }
+            }
+        }
+
         return $total;
     }
 
