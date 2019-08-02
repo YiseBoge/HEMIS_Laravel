@@ -162,6 +162,6 @@ class DepartmentAdminController extends Controller
     {
         $item = User::find($id);
         $item->delete();
-        return redirect('/department-admin');
+        return redirect('/department-admin')->with('primary', 'Successfully Deleted');
     }
 }

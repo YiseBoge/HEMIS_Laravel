@@ -175,6 +175,6 @@ class CollegeAdminController extends Controller
     {
         $item = User::find($id);
         $item->delete();
-        return redirect('/college-admin');
+        return redirect('/college-admin')->with('primary', 'Successfully Deleted');
     }
 }

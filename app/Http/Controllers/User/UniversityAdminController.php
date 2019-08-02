@@ -183,6 +183,6 @@ class UniversityAdminController extends Controller
     {
         $item = User::find($id);
         $item->delete();
-        return redirect('/university-admin');
+        return redirect('/university-admin')->with('primary', 'Successfully Deleted');
     }
 }
