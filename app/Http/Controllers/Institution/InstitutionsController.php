@@ -40,13 +40,13 @@ class InstitutionsController extends Controller
 
         $institutionService = new InstitutionService($institution);
 
-        $allGraduation = $institutionService->graduationRate('All', College::getEnum('education_level')['POST_GRADUATE_PHD']);
-        $undergraduateGraduation = $institutionService->graduationRate('All', College::getEnum('education_level')['UNDERGRADUATE']);
-        $postgraduateGraduation = $institutionService->graduationRate('All', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
-            $institutionService->graduationRate('Female', College::getEnum('education_level')['POST_GRADUATE_PHD']);
-        $femaleGraduation = $institutionService->graduationRate('All', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
-            $institutionService->graduationRate('Female', College::getEnum('education_level')['POST_GRADUATE_PHD']) +
-            $institutionService->graduationRate('Female', College::getEnum('education_level')['UNDERGRADUATE']);
+        $allGraduation = $institutionService->graduationData('All', College::getEnum('education_level')['POST_GRADUATE_PHD']);
+        $undergraduateGraduation = $institutionService->graduationData('All', College::getEnum('education_level')['UNDERGRADUATE']);
+        $postgraduateGraduation = $institutionService->graduationData('All', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
+            $institutionService->graduationData('Female', College::getEnum('education_level')['POST_GRADUATE_PHD']);
+        $femaleGraduation = $institutionService->graduationData('All', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
+            $institutionService->graduationData('Female', College::getEnum('education_level')['POST_GRADUATE_PHD']) +
+            $institutionService->graduationData('Female', College::getEnum('education_level')['UNDERGRADUATE']);
 
         $existing = array(
             'recurrent_budget' => $institutionService->budgetByType(Budget::getEnum('budget_type')['RECURRENT']),
@@ -56,6 +56,15 @@ class InstitutionsController extends Controller
             'undergraduate_graduation' => $allGraduation == 0 ? 0 : $undergraduateGraduation / $allGraduation,
             'postgraduate_graduation' => $allGraduation == 0 ? 0 : $postgraduateGraduation / $allGraduation,
             'female_graduation' => $allGraduation == 0 ? 0 : $femaleGraduation / $allGraduation,
+
+            'academic_on_duty_male' => $institutionService->academicStaffByStatus('Male', 'On Duty'),
+            'academic_on_duty_female' => $institutionService->academicStaffByStatus('Female', 'On Duty'),
+            'academic_on_study_male' => $institutionService->academicStaffByStatus('Male', 'On Leave'),
+            'academic_on_study_female' => $institutionService->academicStaffByStatus('Female', 'On Leave'),
+            'administrative_male' => $institutionService->administrativeStaff('Male'),
+            'administrative_female' => $institutionService->administrativeStaff('Female'),
+            'technical_male' => $institutionService->technicalStaff('Male'),
+            'technical_female' => $institutionService->technicalStaff('Female'),
         );
 
         $data = array(

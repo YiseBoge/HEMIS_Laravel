@@ -116,7 +116,7 @@
 
 
         <div class="row my-4">
-            <div class="col-md-8 py-2">
+            <div class="col-md-7 py-2">
                 <div class="card shadow h-100">
                     <div class="card-header text-primary font-weight-bold">Staff Numbers</div>
                     <div class="card-body">
@@ -125,40 +125,56 @@
                                 Academic Staff (On Local Duty)
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Males: <span class="font-weight-bold text-gray-800">---</span>
+                                Males: <span class="font-weight-bold text-gray-800">
+                                    {{$existing['academic_on_duty_male']}}
+                                </span>
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Females: <span class="font-weight-bold text-gray-800">---</span>
+                                Females: <span class="font-weight-bold text-gray-800">
+                                    {{$existing['academic_on_duty_female']}}
+                                </span>
                             </div>
 
                             <div class="col-md-6 p-3">
                                 Academic Staff (On Study Leave)
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Males: <span class="font-weight-bold text-gray-800">---</span>
+                                Males: <span class="font-weight-bold text-gray-800">
+                                    {{$existing['academic_on_study_male']}}
+                                </span>
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Females: <span class="font-weight-bold text-gray-800">---</span>
+                                Females: <span class="font-weight-bold text-gray-800">
+                                    {{$existing['academic_on_study_female']}}
+                                </span>
                             </div>
 
                             <div class="col-md-6 p-3">
                                 Administrative Staff
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Males: <span class="font-weight-bold text-gray-800">---</span>
+                                Males: <span class="font-weight-bold text-gray-800">
+                                    {{$existing['administrative_male']}}
+                                </span>
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Females: <span class="font-weight-bold text-gray-800">---</span>
+                                Females: <span class="font-weight-bold text-gray-800">
+                                    {{$existing['administrative_female']}}
+                                </span>
                             </div>
 
                             <div class="col-md-6 p-3">
                                 Technical Staff
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Males: <span class="font-weight-bold text-gray-800">---</span>
+                                Males: <span class="font-weight-bold text-gray-800">
+                                    {{$existing['technical_male']}}
+                                </span>
                             </div>
                             <div class="col-md-3 col-sm-6 p-3">
-                                Females: <span class="font-weight-bold text-gray-800">---</span>
+                                Females: <span class="font-weight-bold text-gray-800">
+                                    {{$existing['technical_female']}}
+                                </span>
                             </div>
 
                         </div>
@@ -167,44 +183,44 @@
                 </div>
             </div>
 
-            <div class="col-md-4 py-2">
+            <div class="col-md-5 py-2">
                 <div class="card shadow h-100">
                     <div class="card-header text-primary font-weight-bold">Budget</div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-8 p-3">
+                            <div class="col-md-7 p-3">
                                 Recurrent Budget
                             </div>
-                            <div class="col-md-4 p-3">
+                            <div class="col-md-5 p-3">
                                 <span class="font-weight-bold text-gray-800">
-                                    {{$existing['recurrent_budget']}}
+                                    {{number_format($existing['recurrent_budget'], 2)}}
                                 </span>
                             </div>
 
-                            <div class="col-md-8 p-3">
+                            <div class="col-md-7 p-3">
                                 Capital Budget
                             </div>
-                            <div class="col-md-4 p-3">
+                            <div class="col-md-5 p-3">
                                 <span class="font-weight-bold text-gray-800">
-                                    {{$existing['capital_budget']}}
+                                    {{number_format($existing['capital_budget'], 2)}}
                                 </span>
                             </div>
 
-                            <div class="col-md-8 p-3">
+                            <div class="col-md-7 p-3">
                                 From Internal Income
                             </div>
-                            <div class="col-md-4 p-3">
+                            <div class="col-md-5 p-3">
                                 <span class="font-weight-bold text-gray-800">
-                                    {{$existing['internal_income']}}
+                                    {{number_format($existing['internal_income'], 2)}}
                                 </span>
                             </div>
 
-                            <div class="col-md-8 p-3">
+                            <div class="col-md-7 p-3">
                                 Unjustifiable Expenses
                             </div>
-                            <div class="col-md-4 p-3">
+                            <div class="col-md-5 p-3">
                                 <span class="font-weight-bold text-gray-800">
-                                    {{$institution->generalInformation->resource->unjustifiable_expenses}}
+                                    {{number_format($institution->generalInformation->resource->unjustifiable_expenses, 2)}}
                                 </span>
                             </div>
                         </div>

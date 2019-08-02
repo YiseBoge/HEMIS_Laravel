@@ -86,7 +86,7 @@ class InstitutionService
 
         $totalSpecialNeed = $this->specialNeedEnrollment($educationLevel);
 
-        $totalEnrollments = $this->enrollment($sex, $educationLevel);
+        $totalEnrollments = $this->enrollment('All', $educationLevel);
         if ($totalEnrollments == 0) return 0;
 
         return $totalSpecialNeed / $totalEnrollments;
