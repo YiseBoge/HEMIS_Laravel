@@ -187,7 +187,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
 
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
+            'education_level' => "Specialization", 'education_program' => $request->input("program")])->first();
         if ($college == null) {
             $college = new College;
             $college->education_level = "Specialization";
@@ -208,7 +208,13 @@ class SpecializingStudentsEnrollmentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->specializingStudentEnrollments()->save($enrollment);
+        $enrollment->department_id = $department->id;
+
+        if ($enrollment->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $enrollment->save();
 
         return redirect("/enrollment/specializing-students")->with('success', 'Successfully Added Specializing Students Enrollment');
     }

@@ -57,4 +57,14 @@ class ForeignStudent extends Model
     {
         return $query->with('general.studentService.dormitoryService', 'department.departmentName');
     }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return ForeignStudent::where(array(
+                'department_id' => $this->department_id,
+            ))->first() != null;
+    }
 }

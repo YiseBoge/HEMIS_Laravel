@@ -45,4 +45,16 @@ class Teacher extends Model
     {
         return $query->with('department.college.band', 'department.departmentName');
     }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return Teacher::where(array(
+                'department_id' => $this->department_id,
+                'level_of_education' => $this->level_of_education,
+                'citizenship' => $this->citizenship, 
+            ))->first() != null;
+    }
 }

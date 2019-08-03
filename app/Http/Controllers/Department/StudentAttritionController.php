@@ -211,7 +211,13 @@ class StudentAttritionController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->studentAttritions()->save($attrition);
+        $attrition->department_id = $department->id;
+
+        if ($attrition->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $attrition->save();
 
         return redirect("/student/student-attrition")->with('success', 'Successfully Added Attrition Information');
     }

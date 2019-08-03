@@ -166,7 +166,13 @@ class DiasporaCoursesController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->diasporaCourses()->save($course);
+        $course->department_id = $department->id;
+
+        if ($course->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $course->save();
 
         return redirect("/department/diaspora-courses")->with('success', 'Successfully Added Diaspora Course');
 

@@ -186,7 +186,13 @@ class TeachersController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->teachers()->save($teacher);
+        $teacher->department_id = $department->id;
+
+        if ($teacher->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $teacher->save();
 
         return redirect("/department/teachers")->with('success', 'Successfully Added Teachers');
 

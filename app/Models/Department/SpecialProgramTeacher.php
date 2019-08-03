@@ -51,4 +51,16 @@ class SpecialProgramTeacher extends Model
     {
         return $query->with('department.College.band', 'department.departmentName');
     }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return SpecialProgramTeacher::where(array(
+                'department_id' => $this->department_id,
+                'program_stat' => $this->program_stat,
+                'program_type' => $this->program_type,
+            ))->first() != null;
+    }
 }

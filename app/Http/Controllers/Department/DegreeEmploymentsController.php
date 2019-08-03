@@ -165,7 +165,13 @@ class DegreeEmploymentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->degreeEmployments()->save($employment);
+        $employment->department_id = $department->id;
+
+        if ($employment->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $employment->save();
 
         return redirect("/student/degree-relevant-employment")->with('success', 'Successfully Added Degree Relevant Employment');
     }

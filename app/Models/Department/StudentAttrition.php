@@ -59,4 +59,17 @@ class StudentAttrition extends Model
     {
         return $this->belongsTo('App\Models\Department\Department');
     }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return StudentAttrition::where(array(
+                'department_id' => $this->department_id,
+                'student_type' => $this->student_type,
+                'type' => $this->type,
+                'case' => $this->case,
+            ))->first() != null;
+    }
 }

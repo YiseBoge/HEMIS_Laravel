@@ -44,5 +44,14 @@ class AgeEnrollment extends Model
         return $this->belongsTo('App\Models\Department\Department');
     }
 
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return AgeEnrollment::where(array(
+                'department_id' => $this->department_id
+            ))->first() != null;
+    }
 
 }

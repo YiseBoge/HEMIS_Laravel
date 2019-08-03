@@ -207,6 +207,7 @@ class InstitutionService
     {
         $total = 0;
         $departments = $this->departmentsByEducationLevel($educationLevel);
+        
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
             $total += $departmentService->graduationData($sex);

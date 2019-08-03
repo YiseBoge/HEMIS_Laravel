@@ -198,7 +198,13 @@ class OtherAttritionController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->otherAttritions()->save($attrition);
+        $attrition->department_id = $department->id;
+
+        if ($attrition->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $attrition->save();
 
         return redirect("/student/other-attrition")->with('success', 'Successfully Added Other Information');
     }

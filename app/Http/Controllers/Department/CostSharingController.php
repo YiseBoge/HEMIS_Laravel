@@ -179,7 +179,13 @@ class CostSharingController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->costSharings()->save($costSharing);
+        $costSharing->department_id = $department->id;
+
+        if ($costSharing->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $costSharing->save();
 
         return redirect("/student/cost-sharing")->with('success', 'Successfully Added Cost Sharing Info');
     }

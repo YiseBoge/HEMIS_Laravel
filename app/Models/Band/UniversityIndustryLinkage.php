@@ -40,4 +40,16 @@ class UniversityIndustryLinkage extends Model
     {
         return $this->belongsTo('App\Models\College\College');
     }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return UniversityIndustryLinkage::where(array(
+                'college_id' => $this->college_id,
+                'year' => $this->year,
+                'training_area' => $this->training_area,
+            ))->first() != null;
+    }
 }

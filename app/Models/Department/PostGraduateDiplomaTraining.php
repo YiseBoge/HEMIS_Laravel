@@ -40,4 +40,15 @@ class PostGraduateDiplomaTraining extends Model
         return $this->belongsTo('App\Models\Department\Department');
     }
 
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return PostGraduateDiplomaTraining::where(array(
+                'department_id' => $this->department_id,
+                'is_lead' => $this->is_lead,
+            ))->first() != null;
+    }
+
 }

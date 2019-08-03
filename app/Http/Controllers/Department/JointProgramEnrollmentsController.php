@@ -208,7 +208,13 @@ class JointProgramEnrollmentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->jointProgramEnrollments()->save($enrollment);
+        $enrollment->department_id = $department->id;
+
+        if ($enrollment->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $enrollment->save();
 
         return redirect("/enrollment/joint-program")->with('success', 'Successfully Added Joint Program Enrollment');
 

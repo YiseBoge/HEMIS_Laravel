@@ -87,7 +87,7 @@ class EnrollmentsController extends Controller
                                         foreach ($department->enrollments as $enrollment) {
                                             if ($enrollment->student_type == $requestedType) {
                                                 $service = new InstitutionReportService($institution->institutionName, "2011");
-//                                                return $service->graduationRate("Female", "Undergraduate");
+                                                //return $service->graduationRate("All", "Undergraduate");
                                                 $enrollments[] = $enrollment;
                                             }
                                         }

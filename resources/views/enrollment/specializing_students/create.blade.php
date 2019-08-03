@@ -2,14 +2,6 @@
 
 @section('content')
     <div class="container-fluid">
-        <!--  Disabled Students Form  -->
-        @if(count($errors) > 0)
-            @foreach($errors->all() as $error)
-                <div class="alert alert-danger">
-                    {{$error}}
-                </div>
-            @endforeach
-        @endif
         <form class="pb-5" action="/enrollment/specializing-students" method="POST">
             @csrf
             <div class="row my-5">
@@ -75,7 +67,7 @@
                                 </div>
                                 <div class="col form-group">
                                     <input type="text" id="field_of_specialization" name="field_of_specialization"
-                                           class="form-control" required value=“{{ old('field_of_specialization') }}">
+                                           class="form-control" required value="{{ old('field_of_specialization') }}">
                                     <label class="form-control-placeholder" for="field_of_specialization">
                                         Field of Specialization</label>
                                 </div>

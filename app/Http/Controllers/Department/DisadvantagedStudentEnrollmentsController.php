@@ -203,8 +203,14 @@ class DisadvantagedStudentEnrollmentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->disadvantagedStudentEnrollments()->save($enrollment);
+        $enrollment->department_id = $department->id;
 
+        if ($enrollment->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $enrollment->save();
+        
         return redirect("/enrollment/economically-disadvantaged")->with('success', 'Successfully Added Economically Disadvantaged Enrollment');
     }
 
