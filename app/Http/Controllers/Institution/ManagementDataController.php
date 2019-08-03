@@ -25,9 +25,7 @@ class ManagementDataController extends Controller
         $managements = array();
 
         if ($institution != null) {
-            foreach ($institution->managements as $management) {
-                $managements[] = $management;
-            }
+            foreach ($institution->managements as $management) $managements[] = $management;
         } else {
             $managements = ManagementData::all();
         }
@@ -107,7 +105,7 @@ class ManagementDataController extends Controller
 
         $management_data->save();
 
-        return redirect('institution/management-data/');
+        return redirect('institution/management-data/')->with('success', 'Successfully Added Management Data');
     }
 
     /**

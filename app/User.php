@@ -98,6 +98,18 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Institution\Instance', 'instance_id');
     }
 
+    private static function adminUser()
+    {
+        foreach (User::all() as $user) {
+            if ($user->hasRole('Super Admin')) return $user;
+        }
+    }
+
+    public static function adminInstance()
+    {
+        return self::adminUser()->currentInstance;
+    }
+
     public function authorizeRoles($roles)
     {
         if (is_array($roles)) {
