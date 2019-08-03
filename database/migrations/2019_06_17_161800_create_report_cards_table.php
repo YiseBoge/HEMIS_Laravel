@@ -19,6 +19,7 @@ class CreateReportCardsTable extends Migration
             $table->string('policy_description');
             $table->string('kpi');
             $table->double('target')->default(0);
+            $table->boolean('is_decreasing')->default(false);
             $table->timestamps();
 
             $table->primary('id');

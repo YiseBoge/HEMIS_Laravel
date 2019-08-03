@@ -17,7 +17,6 @@ class CreateReportYearValuesTable extends Migration
             $table->uuid('id');
             $table->string('year');
             $table->double('value')->default(0);
-            $table->boolean('is_decreasing')->default(false);
             $table->timestamps();
 
             $table->primary('id');
