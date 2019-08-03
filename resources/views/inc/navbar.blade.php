@@ -1,58 +1,95 @@
-<!-- Navigation -->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-laravel">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+<!-- Topbar -->
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-5 static-top shadow">
+
+    @guest
+        {{--        <a class="btn btn-primary btn-circle text-white shadow-sm" href="/" data-toggle="tooltip" title="Home">--}}
+        {{--            <i class="fa fa-home"></i>--}}
+        {{--        </a>--}}
+        <a class="sidebar-brand d-flex align-items-center justify-content-center m-4" href="/">
+            <div class="sidebar-brand-icon">
+                <img class="rounded-circle d-inline-block" width="55" height="55"
+                     src="{{ asset('img/logo-transparent.png') }}">
+            </div>
+            <div class="sidebar-brand-text mx-2">
+                <img class="d-inline-block" height="40" src="{{ asset('img/brand-blue.png') }}">
+            </div>
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
+@else
+    <!-- Sidebar Toggle (Topbar) -->
+        <button id="sidebarToggleTop" class="btn d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
         </button>
+        <span class="small">
+            Current :
+                @if (Auth::user()->currentInstance != null)
+                <span class="mx-1 text-left text-primary">
+                        {{ Auth::user()->currentInstance }}
+                    </span>
+            @else
+                <span class="mx-1 text-left text-muted">
+                        No Semester Selected
+                    </span>
+            @endif
+        </span>
+@endguest
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
 
-            </ul>
+<!-- Topbar Navbar -->
+    <ul class="navbar-nav ml-auto">
 
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
-                <!-- Authentication Links -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/students">Students</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/staff">Staff Members</a>
-                </li>
+        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+        @guest
+            <li class="nav-item btn">
+                <a class="nav-link text-primary" href="{{ route('login') }}" data-toggle="tooltip" title="Login">
+                    <i class="fas fa-sign-in-alt fa-sm mx-1"></i>
+                    {{ __('Login') }}
+                </a>
+            </li>
+        @else
+            <li class="nav-item">
+                <a class="nav-link">
+                    <span class="mr-2 d-none d-lg-inline text-primary small">
+                        @if (Auth::user()->hasRole('Department Admin'))
+                            {{ Auth::user()->institution()->institutionName->acronym }} <i
+                                    class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->collegeName->acronym }}
+                            <i class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->departmentName }}
+                            <i class="fas fa-angle-double-right mx-2 text-gray-400"></i>
+                        @elseif (Auth::user()->hasAnyRole(['College Admin', 'College Super Admin']))
+                            {{ Auth::user()->institution()->institutionName->acronym }} <i
+                                    class="fas fa-chevron-right mx-2 text-gray-400"></i> {{ Auth::user()->collegeName }}
+                            <i class="fas fa-angle-double-right mx-2 text-gray-400"></i>
+                        @elseif (Auth::user()->hasRole('University Admin'))
+                            {{ Auth::user()->institution()->institutionName }} <i
+                                    class="fas fa-angle-double-right mx-2 text-gray-400"></i>
+                        @endif
+                        {{ Auth::user()->name }}
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="/change-password">
+                        <i class="fas fa-unlock-alt fa-fw mr-2"></i>
+                        Change Password
+                    </a>
+                    <hr class="dropdown-divider"/>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                        <i class="fas fa-sign-out-alt fa-fw mr-2"></i>
+                        {{ __('Logout') }}
+                    </a>
+                </div>
 
-                @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
-                @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
+            </li>
+    @endguest
+    <!-- Nav Item - User Information -->
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-                @endguest
-            </ul>
-        </div>
-    </div>
+    </ul>
+
 </nav>
+<!-- End of Topbar -->

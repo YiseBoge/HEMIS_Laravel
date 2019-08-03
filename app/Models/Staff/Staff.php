@@ -4,36 +4,86 @@ namespace App\Models\Staff;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @property string|null name
+ * @property DateTime birth_date
+ * @property string|null sex
+ * @property string|null phone_number
+ * @property string|null nationality
+ * @property string|null job_title
+ * @property int salary
+ * @property int service_year
+ * @property string|null employment_type
+ * @property string|null dedication
+ * @property string|null academic_level
+ * @property bool is_expatriate
+ * @property bool is_from_other_region
+ * @property string|null remarks
+ * @method static Staff find(array|string|null $input)
+ */
 class Staff extends Model
 {
     use Uuids;
     use Enums;
 
     public $incrementing = false;
+    protected $enumAcademicLevels = [
+        'DIPLOMA' => 'Diploma',
+        'BACHELORS' => 'Bachelors',
+        'MD_DV' => 'M.D/D.V',
+        'MASTERS' => 'Masters',
+        'PHD' => 'PhD',
+        'G10' => '< = Grade 10',
+        'G11' => 'Grade 11',
+        'G12' => 'Grade 12',
+        '10+1' => '10 + 1',
+        '10+2' => '10 + 2',
+        '10+3' => '10 + 3',
+        'LI' => 'Level I',
+        'LII' => 'Level II',
+        'LIII' => 'Level III',
+        'LIV' => 'Level IV',
+        'Lv' => 'Level V',
+    ];
 
     // Enums //
-    protected $enumAcademicLevels = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
-    ];
-
     protected $enumDedications = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'FULL' => 'Full Time',
+        'PART' => 'Part Time',
     ];
-
     protected $enumSexs = [
         'MALE' => 'male',
         'FEMALE' => 'female',
     ];
-
     protected $enumEmploymentTypes = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
+        'EMPLOYEE' => 'Employee',
+        'CONTRACTOR' => 'Contractor',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function (Staff $model) { // before delete() method call this
+            $model->staffAttrition()->delete();
+        });
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function staffAttrition()
+    {
+        return $this->hasOne('App\Models\Staff\StaffAttrition');
+    }
+
 }

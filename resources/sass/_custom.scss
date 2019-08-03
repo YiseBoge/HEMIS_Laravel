@@ -1,23 +1,37 @@
-main{
-    min-height: 74.5vh !important;
+main {
+  min-height: 74.5vh !important;
 }
 
 .form-group {
-    position: relative;
-    margin-bottom: 1.5rem;
+  position: relative;
+  margin-bottom: 1.5rem;
 }
 
 .form-control-placeholder {
-    position: absolute;
-    top: 0;
-    padding: 7px 0 0 13px;
-    transition: all 200ms;
-    opacity: 0.5;
+  position: absolute;
+  top: 0;
+  padding: 7px 0 0 13px;
+  transition: all 200ms;
+  opacity: 0.5;
 }
 
 .form-control:focus + .form-control-placeholder,
 .form-control:valid + .form-control-placeholder {
-    font-size: 75%;
-    transform: translate3d(0, -100%, 0);
-    opacity: 1;
+  font-size: 90%;
+  transform: translate3d(0, -100%, 0);
+  opacity: 1;
+}
+
+#accordionSidebar {
+  -webkit-transition: width 0.35s ease;
+  -moz-transition: width 0.35s ease;
+  -ms-transition: width 0.35s ease;
+  -o-transition: width 0.35s ease;
+  transition: width 0.35s ease;
+}
+
+.fade-alert {
+  position: absolute;
+  z-index: 1;
+  opacity: 0.95;
 }

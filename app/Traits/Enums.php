@@ -7,6 +7,18 @@ use Illuminate\Support\Str;
 
 trait Enums
 {
+    public static function getValueKey(array $array, $string)
+    {
+        $result = null;
+
+        foreach ($array as $key => $value) {
+            if ($string == $value) {
+                $result = $key;
+            }
+        }
+        return $result;
+    }
+
     /**
      * Check for the presence of a property that starts
      *     with enum for the provided attribute
@@ -27,6 +39,29 @@ trait Enums
             }
         }
         return parent::setAttribute($field, $value);
+    }
+
+    /**
+     * Is an enum property defined for the provided field
+     *
+     * @param string $field
+     * @return boolean
+     */
+    protected function hasEnumProperty(string $field)
+    {
+        $property = $this->getEnumProperty($field);
+        return isset($this->$property) && is_array($this->$property);
+    }
+
+    /**
+     * Gets the expected enum property
+     *
+     * @param string $field
+     * @return string
+     */
+    protected function getEnumProperty(string $field)
+    {
+        return 'enum' . Str::plural(Str::studly($field));
     }
 
     /**
@@ -68,29 +103,6 @@ trait Enums
             return $instance->$property;
         }
         return false;
-    }
-
-    /**
-     * Is an enum property defined for the provided field
-     *
-     * @param string $field
-     * @return boolean
-     */
-    protected function hasEnumProperty(string $field)
-    {
-        $property = $this->getEnumProperty($field);
-        return isset($this->$property) && is_array($this->$property);
-    }
-
-    /**
-     * Gets the expected enum property
-     *
-     * @param string $field
-     * @return string
-     */
-    protected function getEnumProperty(string $field)
-    {
-        return 'enum' . Str::plural(Str::studly($field));
     }
 
     /**

@@ -4,8 +4,19 @@ namespace App\Models\Band;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Webpatser\Uuid\Uuid;
 
+/**
+ * @property Uuid id
+ * @method static Collection where(array $array)
+ * @property Uuid band_name_id
+ * @property Uuid institution_id
+ * @property Collection colleges
+ */
 class Band extends Model
 {
     use Uuids;
@@ -13,26 +24,31 @@ class Band extends Model
 
     public $incrementing = false;
 
-    public function bandName(){
-        return $this->hasOne('App\Models\Band\BandName');
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function (Model $model) {
+            $model->{$model->getKeyName()} = Uuid::generate()->string;
+        });
+
+        static::deleting(function (Band $model) { // before delete() method call this
+            $model->colleges()->delete();
+        });
     }
 
-    public function departments(){
-        return $this->hasMany('App\Models\Department\Department');
+    /**
+     * @return HasMany
+     */
+    public function colleges()
+    {
+        return $this->hasMany('App\Models\College\College');
     }
 
-
-
-    // Enums //
-    protected $enumEducationLevels = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
-    ];
-
-    protected $enumEducationPrograms = [
-        'a' => 'abebe',
-        'b' => 'bacha',
-        'c' => 'challa',
-    ];
+    /**
+     * @return BelongsTo
+     */
+    public function bandName()
+    {
+        return $this->belongsTo('App\Models\Band\BandName');
+    }
 }

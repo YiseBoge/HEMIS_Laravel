@@ -1,12 +1,26 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+require('jquery');
 require('./bootstrap');
-require('./script');
+require('./theme');
+require('./modal');
+require('aos');
+require('jquery.easing');
+require('datatables');
+require('datatables.net-bs4');
+require('datatables.net-buttons');
+require('chart.js');
+require('jspdf');
+require('jspdf-autotable');
+require('xlsx');
+require('tableexport.jquery.plugin');
+require('bootstrap-select');
+require('print-js');
+require('print-this');
 
 window.Vue = require('vue');
 

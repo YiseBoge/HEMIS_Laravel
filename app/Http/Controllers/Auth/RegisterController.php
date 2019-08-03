@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
+use App\Models\Institution\InstitutionName;
+use App\Role;
+use App\Traits\Uuids;
+use App\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+
 
 class RegisterController extends Controller
 {
@@ -22,6 +26,7 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    use Uuids;
 
     /**
      * Where to redirect users after registration.
@@ -40,10 +45,18 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function getRegistrationForm()
+    {
+        $institutions = InstitutionName::pluck('institution_name', 'id');
+
+        return view('auth.register', compact('id', 'institutions'));
+
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -51,6 +64,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'institution_name_id' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -58,15 +72,25 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
-     * @return \App\User
+     * @param array $data
+     * @return User
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'institution_name_id' => 0,
+            'currentInstance_id' => 0,
             'password' => Hash::make($data['password']),
         ]);
+
+        $user
+            ->roles()
+            ->attach(Role::where('role_name', 'Viewer')->first());
+
+        return $user;
     }
+
+
 }

@@ -1,23 +1,22 @@
-
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
-// Variables
-@import 'variables';
-
-// Bootswatch Variables
-@import "~bootswatch/dist/flatly/variables";
-
-// Bootstrap
+// Import Custom SB Admin 2 Variables (Overrides Default Bootstrap Variables)
+@import "variables.scss";
+// Import Dependencies
 @import '~bootstrap/scss/bootstrap';
+@import '~print-js/dist/print.css';
+@import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
+@import '~aos/dist/aos.css';
+// Import Custom SB Admin 2 Mixins and Components
+@import "mixins.scss";
+@import "global.scss";
+@import "utilities.scss";
+// Custom Components
+@import "dropdowns.scss";
+@import "navs.scss";
+@import "buttons.scss";
+@import "cards.scss";
+@import "charts.scss";
+@import "login.scss";
+@import "error.scss";
+@import "footer.scss";
+@import "custom.scss";
 
-// Bootswatch theme
-@import "~bootswatch/dist/flatly/bootswatch";
-
-// Custom CSS
-@import "custom";
-
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateDepartmentsTable extends Migration
 {
@@ -15,17 +15,14 @@ class CreateDepartmentsTable extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->uuid('id');
-            $table->bigInteger('year_level');
-            $table->bigInteger('male_students_number');
-            $table->bigInteger('female_students_number');
-            $table->bigInteger('graduated_students_number');
-            $table->bigInteger('prospective_graduates_number');
             $table->timestamps();
+
+            $table->string('year_level');
 
             $table->primary('id');
             $table->uuid('department_name_id');
-
-            $table->uuid('band_id');
+            
+            $table->uuid('college_id');
         });
     }
 

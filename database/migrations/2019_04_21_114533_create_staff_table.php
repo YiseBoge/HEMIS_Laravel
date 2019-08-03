@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateStaffTable extends Migration
 {
@@ -21,9 +21,10 @@ class CreateStaffTable extends Migration
             $table->string('nationality');
             $table->date('birth_date');
             $table->boolean('is_expatriate');
+            $table->boolean('is_from_other_region');
             $table->bigInteger('salary');
             $table->bigInteger('service_year');
-            $table->text('remarks');
+            $table->text('remarks')->nullable();
 
             $table->string('academic_level');
             $table->string('dedication');
@@ -33,7 +34,7 @@ class CreateStaffTable extends Migration
 
             $table->primary('id');
             $table->uuid('staffable_id');
-            $table->uuid('staffable_type');
+            $table->string('staffable_type');
         });
     }
 

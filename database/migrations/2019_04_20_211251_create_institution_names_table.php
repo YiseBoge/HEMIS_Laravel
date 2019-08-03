@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateInstitutionNamesTable extends Migration
 {
@@ -17,6 +17,7 @@ class CreateInstitutionNamesTable extends Migration
             $table->uuid('id');
             $table->string('institution_name');
             $table->string('acronym');
+            $table->boolean('is_private');
             $table->timestamps();
 
             $table->primary('id');
