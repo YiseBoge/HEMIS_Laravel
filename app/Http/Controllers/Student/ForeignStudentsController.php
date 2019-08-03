@@ -150,7 +150,7 @@ class ForeignStudentsController extends Controller
             'years_in_ethiopia' => 'required'
         ]);
 
-        if( $request->input("dormitory_service_type")  == "In Kind"){
+        if ($request->input("dormitory_service_type") == "In Kind") {
             $this->validate($request, [
                 'block_number' => 'required',
                 'room_number' => 'required'

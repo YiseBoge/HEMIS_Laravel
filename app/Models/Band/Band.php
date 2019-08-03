@@ -14,6 +14,8 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid id
  * @method static Collection where(array $array)
  * @property Uuid band_name_id
+ * @property Uuid institution_id
+ * @property Collection colleges
  */
 class Band extends Model
 {

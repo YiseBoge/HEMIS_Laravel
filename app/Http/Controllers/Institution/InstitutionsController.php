@@ -95,7 +95,7 @@ class InstitutionsController extends Controller
     public function store(Request $request)
     {
         return redirect("/institution/general");
-        
+
     }
 
     /**
@@ -106,7 +106,7 @@ class InstitutionsController extends Controller
      */
     public function show($id)
     {
-        return redirect("/institution/general");        
+        return redirect("/institution/general");
     }
 
     /**

@@ -149,13 +149,13 @@ class SpecialNeedStudentsController extends Controller
             'student_id' => 'required'
         ]);
 
-        if( $request->input("dormitory_service_type")  == "In Kind"){
+        if ($request->input("dormitory_service_type") == "In Kind") {
             $this->validate($request, [
                 'block_number' => 'required',
                 'room_number' => 'required'
             ]);
         }
-        
+
         $dormitoryService = new DormitoryService;
         $dormitoryService->dormitory_service_type = $request->input("dormitory_service_type");
         $dormitoryService->block = $request->input("block_number");
