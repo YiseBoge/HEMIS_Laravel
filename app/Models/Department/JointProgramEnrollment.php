@@ -43,4 +43,15 @@ class JointProgramEnrollment extends Model
         return $query->with('department.college.band', 'department.departmentName');
     }
 
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return JointProgramEnrollment::where(array(
+                'department_id' => $this->department_id,
+                'sponsor' => $this->sponsor,
+            ))->first() != null;
+    }
+
 }

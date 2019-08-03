@@ -185,7 +185,13 @@ class ResearchsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->researches()->save($research);
+        $research->department_id = $department->id;
+
+        if ($research->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $research->save();
 
         return redirect("/institution/researches")->with('success', 'Successfully Added Research');
     }

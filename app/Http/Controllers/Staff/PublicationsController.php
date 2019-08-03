@@ -235,7 +235,13 @@ class PublicationsController extends Controller
 
         $staff = AcademicStaff::where(['id' => $request->input('staff'), 'department_id' => $department->id])->first();
 
-        $staff->publications()->save($publication);
+        $publication->academic_staff_id = $staff->id;
+
+        if ($publication->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $publication->save();
 
         return redirect("/department/publication")->with('success', 'Successfully Added Publication');
     }

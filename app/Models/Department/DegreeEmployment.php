@@ -38,4 +38,14 @@ class DegreeEmployment extends Model
     {
         return $query->with('department.college.band', 'department.departmentName');
     }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return DegreeEmployment::where(array(
+                'department_id' => $this->department_id
+            ))->first() != null;
+    }
 }

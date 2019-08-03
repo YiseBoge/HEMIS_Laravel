@@ -47,4 +47,16 @@ class OtherAttrition extends Model
     {
         return $this->belongsTo('App\Models\Department\Department');
     }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return OtherAttrition::where(array(
+                'department_id' => $this->department_id,
+                'type' => $this->type,
+                'case' => $this->case,
+            ))->first() != null;
+    }
 }

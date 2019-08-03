@@ -150,7 +150,12 @@ class BuildingsController extends Controller
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
+
         $building->college_id = $college->id;
+
+        if ($building->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
 
         $building->save();
 
@@ -161,8 +166,6 @@ class BuildingsController extends Controller
                 $purpose->buildings()->attach([$building->id]);
             }
         }
-
-        $college->buildings()->save($building);
 
         return redirect('institution/buildings')->with('success', 'Successfully Added Building');
     }

@@ -155,7 +155,13 @@ class UniversityIndustryLinkageController extends Controller
             $collegeName->college()->save($college);
         }
 
-        $college->universityIndustryLinkages()->save($linkage);
+        $linkage->college_id = $college->id;
+
+        if ($linkage->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $linkage->save();
 
         return redirect("/student/university-industry-linkage")->with('success', 'Successfully Added Industry Linkage');
     }

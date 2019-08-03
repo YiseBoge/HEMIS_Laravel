@@ -190,7 +190,13 @@ class OtherRegionStudentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->otherRegionStudents()->save($enrollment);
+        $enrollment->department_id = $department->id;
+
+        if ($enrollment->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $enrollment->save();
 
         return redirect("/enrollment/other-region-students")->with('success', 'Successfully Added Other Region Enrollment');
     }

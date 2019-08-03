@@ -28,4 +28,15 @@ class StaffPublication extends Model
     {
         return $this->belongsto('App\Models\Staff\AcademicStaff');
     }
+
+     /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return StaffPublication::where(array(
+                'academic_staff_id' => $this->academic_staff_id,
+                'title' => $this->title,
+            ))->first() != null;
+    }
 }

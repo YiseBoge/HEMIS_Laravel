@@ -45,4 +45,15 @@ class DisadvantagedStudentEnrollment extends Model
     {
         return $query->with('department.college.band', 'department.departmentName');
     }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return DisadvantagedStudentEnrollment::where(array(
+                'department_id' => $this->department_id,
+                'quintile' => $this->quintile,
+            ))->first() != null;
+    }
 }

@@ -47,4 +47,16 @@ class Research extends Model
         return $this->belongsTo('App\Models\Department\Department');
     }
 
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return Research::where(array(
+                'department_id' => $this->department_id,
+                'status' => $this->status,
+                'type' => $this->type,
+            ))->first() != null;
+    }
+
 }

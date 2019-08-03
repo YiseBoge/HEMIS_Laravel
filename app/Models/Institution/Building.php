@@ -51,4 +51,15 @@ class Building extends Model
     {
         return $this->building_name;
     }
+
+     /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return Building::where(array(
+                'college_id' => $this->college_id,
+                'building_name' => $this->building_name,
+            ))->first() != null;
+    }
 }

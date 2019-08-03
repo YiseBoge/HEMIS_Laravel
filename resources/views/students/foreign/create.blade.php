@@ -105,11 +105,11 @@
 
                                 <div class="col-md-6 form-group">
                                     <select class="form-control" name="year_level" id="year_level">
-                                        @for ($i = 1; $i < 7; $i++)
-                                            <option value="{{$i}}" {{ (old('year_level') == $i ? 'selected':'') }}>
-                                                {{$i}}
+                                        @foreach ($year_levels as $key => $value)
+                                            <option value="{{$key}}" {{ (old('year_level') == $key ? 'selected':'') }}>
+                                                {{$value}}
                                             </option>
-                                        @endfor
+                                        @endforeach
                                     </select>
                                     <label for="year_level" class="form-control-placeholder">
                                         Year Level

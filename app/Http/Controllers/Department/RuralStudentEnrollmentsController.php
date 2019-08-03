@@ -203,7 +203,13 @@ class RuralStudentEnrollmentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->ruralStudentEnrollments()->save($enrollment);
+        $enrollment->department_id = $department->id;
+
+        if ($enrollment->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $enrollment->save();
 
         return redirect("/enrollment/rural-area-students")->with('success', 'Successfully Added Rural Area Enrollment');
     }

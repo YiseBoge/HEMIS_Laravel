@@ -50,4 +50,17 @@ class SpecializingStudentsEnrollment extends Model
     {
         return $query->with('department.college.band', 'department.departmentName');
     }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return SpecializingStudentsEnrollment::where(array(
+                'department_id' => $this->department_id,
+                'student_type' => $this->student_type,
+                'specialization_type' => $this->specialization_type,
+                'field_of_specialization' => $this->field_of_specialization,
+            ))->first() != null;
+    }
 }

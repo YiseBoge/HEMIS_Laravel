@@ -39,4 +39,15 @@ class RuralStudentEnrollment extends Model
     {
         return $query->with('department.college.band', 'department.departmentName');
     }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return RuralStudentEnrollment::where(array(
+                'department_id' => $this->department_id,
+                'region' => $this->region,
+            ))->first() != null;
+    }
 }

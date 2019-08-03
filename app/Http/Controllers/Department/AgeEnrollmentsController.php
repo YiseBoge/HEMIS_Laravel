@@ -192,7 +192,13 @@ class AgeEnrollmentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->ageEnrollments()->save($age_enrollment);
+        $age_enrollment->department_id = $department->id;
+
+        if ($age_enrollment->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $age_enrollment->save();
 
         return redirect('enrollment/age-enrollment')->with('success', 'Successfully Added Age Enrollment');
     }
