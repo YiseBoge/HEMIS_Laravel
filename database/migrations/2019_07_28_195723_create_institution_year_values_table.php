@@ -18,7 +18,6 @@ class CreateInstitutionYearValuesTable extends Migration
             $table->string('year');
             $table->double('value')->default(0);
             $table->string('type')->default('normal');
-            $table->boolean('is_decreasing')->default(false);
             $table->timestamps();
 
             $table->primary('id');
