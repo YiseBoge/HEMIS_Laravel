@@ -29,7 +29,7 @@ class StaffPublication extends Model
         return $this->belongsto('App\Models\Staff\AcademicStaff');
     }
 
-     /**
+    /**
      * @return bool
      */
     public function isDuplicate()

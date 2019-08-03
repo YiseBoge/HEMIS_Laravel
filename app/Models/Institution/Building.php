@@ -52,7 +52,7 @@ class Building extends Model
         return $this->building_name;
     }
 
-     /**
+    /**
      * @return bool
      */
     public function isDuplicate()

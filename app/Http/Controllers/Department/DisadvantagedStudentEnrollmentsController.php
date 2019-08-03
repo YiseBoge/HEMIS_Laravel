@@ -210,7 +210,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
             ->withErrors('This entry already exists');
 
         $enrollment->save();
-        
+
         return redirect("/enrollment/economically-disadvantaged")->with('success', 'Successfully Added Economically Disadvantaged Enrollment');
     }
 

@@ -214,7 +214,7 @@ class SpecialRegionsEnrollmentsController extends Controller
             $college->departments()->save($department);
             $departmentName->department()->save($department);
         }
-        
+
         $enrollment->department_id = $department->id;
         $enrollment->region_name_id = $regionName->id;
 

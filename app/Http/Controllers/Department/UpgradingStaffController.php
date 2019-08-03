@@ -195,7 +195,7 @@ class UpgradingStaffController extends Controller
             ->withErrors('This entry already exists');
 
         $upgradingStaff->save();
-        
+
         return redirect("/department/upgrading-staff")->with('success', 'Successfully Added Upgrading Staff');
 
 

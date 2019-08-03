@@ -68,7 +68,7 @@ class SpecialNeedStudent extends Model
     public function isDuplicate()
     {
         return SpecialNeedStudent::where(array(
-            'department_id' => $this->department_id,
+                'department_id' => $this->department_id,
             ))->first() != null;
     }
 }
