@@ -211,6 +211,17 @@ class ResearchsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
+
+        $research = Research::find($id);
+
+        $data = array(
+            'id' => $id,
+            'research' => $research,
+            'completions' => Research::getEnum('Completions'),
+            'types' => Research::getEnum('Types'),
+            'page_name' => 'research.research.create'
+        );
+        return view("bands.research.edit")->with($data);
     }
 
     /**
@@ -224,6 +235,20 @@ class ResearchsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
+
+        $research = Research::find($id);
+
+        $research->number = $request->input('number');
+        $research->male_teachers_participating_number = $request->input('male_participating_number');
+        $research->female_teachers_participating_number = $request->input('female_participating_number');
+        $research->female_researchers_number = $request->input('female_number');
+        $research->male_researchers_other_number = $request->input('other_male_number');
+        $research->female_researchers_other_number = $request->input('other_female_number');
+        $research->budget_allocated = $request->input('budget');
+        $research->budget_from_externals = $request->input('external_budget');
+
+        $research->save();
+        return redirect('/institution/researches')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -237,7 +262,7 @@ class ResearchsController extends Controller
     {
         $item = Research::find($id);
         $item->delete();
-        return redirect('/institution/researches')->with('primary', 'Successfully Updated');
+        return redirect('/institution/researches')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)
