@@ -4,23 +4,15 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('jquery');
 require('./bootstrap');
 require('./theme');
 require('./modal');
-require('aos');
 require('jquery.easing');
 require('datatables');
 require('datatables.net-bs4');
-require('datatables.net-buttons');
 require('chart.js');
-require('jspdf');
-require('jspdf-autotable');
-require('xlsx');
 require('tableexport.jquery.plugin');
-require('bootstrap-select');
 require('print-js');
-require('print-this');
 
 window.Vue = require('vue');
 
