@@ -6,11 +6,10 @@
 
 require('./bootstrap');
 require('./theme');
-require('./modal');
+require('./custom');
 require('jquery.easing');
 require('datatables');
 require('datatables.net-bs4');
-require('chart.js');
 require('tableexport.jquery.plugin');
 require('print-js');
 
