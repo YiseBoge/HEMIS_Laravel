@@ -79,7 +79,6 @@
                                         @else
                                             <option value="{{$value}}">{{$value}}</option>
                                         @endif
-
                                     @endforeach
                                 </select>
                                 <label for="program" class="form-control-placeholder">
@@ -153,9 +152,9 @@
                                         aria-label="Start date: activate to sort column ascending"
                                     >Approval Status
                                     </th>
-
                                 </tr>
                                 </thead>
+
                                 <tbody>
                                 @if (count($enrollments) > 0)
                                     @foreach ($enrollments as $enrollment)
@@ -209,7 +208,6 @@
                                                     @endif
                                                 </td>
                                             @endif
-
 
                                             <td>{{$enrollment->department->year_level}}</td>
                                             <td>{{$enrollment->male_students_number}}</td>
