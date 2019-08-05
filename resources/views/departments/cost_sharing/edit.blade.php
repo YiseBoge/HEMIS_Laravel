@@ -123,7 +123,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input type="number" id="food_expenses" name="food_expenses" class="form-control"
+                                <input type="number" id="food_expenses" name="food_expense" class="form-control"
                                        value="{{ $costSharings->food_expense }}"
                                        required>
                                 <label class="form-control-placeholder" for="food_expenses">Food Expenses</label>
@@ -131,7 +131,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input type="number" id="dormitory_expenses" name="dormitory_expenses"
+                                <input type="number" id="dormitory_expenses" name="dormitory_expense"
                                        value="{{ $costSharings->dormitory_expense }}"
                                        class="form-control" required>
                                 <label class="form-control-placeholder" for="dormitory_expenses">Dormitory

@@ -230,7 +230,17 @@ class CostSharingController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        return redirect("/student/cost-sharing");
+
+        $costSharings = CostSharing::find($id);
+
+        $costSharings->tuition_fee = $request->input("tuition_fee");
+        $costSharings->food_expense = $request->input("food_expense");
+        $costSharings->dormitory_expense = $request->input("dormitory_expense");
+        $costSharings->pre_payment_amount = $request->input("pre_payment_amount");
+        $costSharings->unpaid_amount = $request->input("unpaid_amount");
+
+        $costSharings->save();        
+        return redirect('/student/cost-sharing')->with('primary', 'Successfully Updated');
     }
 
     /**
