@@ -7,127 +7,107 @@
                 <h6 class="m-0 font-weight-bold text-primary">Student Enrollment</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                @if(Auth::user()->hasRole('College Super Admin'))
+                    <div class="row my-3">
+                        <div class="col text-right">
+                            <form action="normal/0/approve" method="POST">
+                                @csrf
+                                <input type="hidden" name="action" value="approveAll">
+                                <input type="hidden" name="department"
+                                       value="{{$selected_department}}">
+                                <button type="submit"
+                                        class="btn btn-sm btn-primary shadow-sm">
+                                    Approve All Pending in Selected Department<i
+                                            class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @else
+                    <div class="row my-3">
+                        <div class="col text-right">
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm"
+                               href="/enrollment/normal/create">New Entry<i
+                                        class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
+                        </div>
+                    </div>
+                @endif
+
+                <form class="mt-4" action="" method="get">
                     @if(Auth::user()->hasRole('College Super Admin'))
-                        <div class="row my-3">
-                            <div class="col text-right">
-                                <form action="normal/0/approve" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="action" value="approveAll">
-                                    <input type="hidden" name="department"
-                                           value="{{$selected_department}}">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-primary shadow-sm">
-                                        Approve All Pending in Selected Department<i
-                                                class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                                    </button>
-                                </form>
+                        <div class="form-group row pt-3">
+                            <div class="col-md form-group">
+                                <select class="form-control" name="department" id="department"
+                                        onchange="this.form.submit()">
+                                    @foreach ($departments as $department)
+                                        @if ($department->id == $selected_department)
+                                            <option value="{{$department->id}}"
+                                                    selected>{{$department->department_name}}</option>
+                                        @else
+                                            <option value="{{$department->id}}">{{$department->department_name}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="department" class="form-control-placeholder">
+                                    Department
+                                </label>
                             </div>
                         </div>
                     @else
-                        <div class="row my-3">
-                            <div class="col text-right">
-                                <a class="btn btn-primary btn-sm mb-0 shadow-sm"
-                                   href="/enrollment/normal/create">New Entry<i
-                                            class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
+                        <div class="form-group row pt-3">
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="student_type" id="student_type"
+                                        onchange="this.form.submit()">
+                                    @foreach ($student_types as $key => $value)
+                                        @if ($value == $selected_student_type)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="student_type" class="form-control-placeholder">
+                                    Student Type
+                                </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="program" id="program"
+                                        onchange="this.form.submit()">
+                                    @foreach ($programs as $key => $value)
+                                        @if ($value == $selected_program)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+
+                                    @endforeach
+                                </select>
+                                <label for="program" class="form-control-placeholder">
+                                    Program
+                                </label>
+                            </div>
+
+                            <div class="col-md-4 form-group">
+                                <select class="form-control" name="education_level" id="level"
+                                        onchange="this.form.submit()">
+                                    @foreach ($education_levels as $key => $value)
+                                        @if ($key == 'SPECIALIZATION')
+                                            <option disabled value="{{$value}}">{{$value}}</option>
+                                        @elseif($value == $selected_education_level)
+                                            <option value="{{$value}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="level" class="form-control-placeholder">
+                                    Education Level
+                                </label>
                             </div>
                         </div>
                     @endif
-
-                    <form class="mt-4" action="" method="get">
-                        @if(Auth::user()->hasRole('College Super Admin'))
-                            <div class="form-group row pt-3">
-                                <div class="col-md form-group">
-                                    <select class="form-control" name="department" id="department"
-                                            onchange="this.form.submit()">
-                                        @foreach ($departments as $department)
-                                            @if ($department->id == $selected_department)
-                                                <option value="{{$department->id}}"
-                                                        selected>{{$department->department_name}}</option>
-                                            @else
-                                                <option value="{{$department->id}}">{{$department->department_name}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <label for="department" class="form-control-placeholder">
-                                        Department
-                                    </label>
-                                </div>
-                            </div>
-                        @else
-                            {{-- <div class="form-group row pt-3">
-                                <div class="col-md form-group">
-                                    <select class="form-control" name="department" id="department"
-                                            onchange="this.form.submit()">
-                                        @foreach ($departments as $department)
-                                            @if ($department->id == $selected_department)
-                                                <option value="{{$department->id}}"
-                                                        selected>{{$department->department_name}}</option>
-                                            @else
-                                                <option value="{{$department->id}}">{{$department->department_name}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <label for="department" class="form-control-placeholder">
-                                        Department
-                                    </label>
-                                </div>
-                            </div>
-                        @endif --}}
-                            <div class="form-group row pt-3">
-                                <div class="col-md-4 form-group">
-                                    <select class="form-control" name="student_type" id="student_type"
-                                            onchange="this.form.submit()">
-                                        @foreach ($student_types as $key => $value)
-                                            @if ($value == $selected_student_type)
-                                                <option value="{{$value}}" selected>{{$value}}</option>
-                                            @else
-                                                <option value="{{$value}}">{{$value}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <label for="student_type" class="form-control-placeholder">
-                                        Student Type
-                                    </label>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <select class="form-control" name="program" id="program"
-                                            onchange="this.form.submit()">
-                                        @foreach ($programs as $key => $value)
-                                            @if ($value == $selected_program)
-                                                <option value="{{$value}}" selected>{{$value}}</option>
-                                            @else
-                                                <option value="{{$value}}">{{$value}}</option>
-                                            @endif
-
-                                        @endforeach
-                                    </select>
-                                    <label for="program" class="form-control-placeholder">
-                                        Program
-                                    </label>
-                                </div>
-
-                                <div class="col-md-4 form-group">
-                                    <select class="form-control" name="education_level" id="level"
-                                            onchange="this.form.submit()">
-                                        @foreach ($education_levels as $key => $value)
-                                            @if ($key == 'SPECIALIZATION')
-                                                <option disabled value="{{$value}}">{{$value}}</option>
-                                            @elseif($value == $selected_education_level)
-                                                <option value="{{$value}}" selected>{{$value}}</option>
-                                            @else
-                                                <option value="{{$value}}">{{$value}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <label for="level" class="form-control-placeholder">
-                                        Education Level
-                                    </label>
-                                </div>
-                            </div>
-                        @endif
-                    </form>
-
+                </form>
+                <div class="table-responsive">
                     <div class="row mt-3">
                         <div class="col-sm-12">
                             <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
@@ -257,4 +237,5 @@
                 </div>
             </div>
         </div>
+    </div>
 @endsection
