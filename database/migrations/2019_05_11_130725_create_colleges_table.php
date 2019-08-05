@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateCollegesTable extends Migration
 {
@@ -20,8 +20,8 @@ class CreateCollegesTable extends Migration
             $table->timestamps();
 
             $table->primary('id');
-            $table->uuid('college_name_id');
-            $table->uuid('band_id');
+            $table->uuid('college_name_id')->nullable();
+            $table->uuid('band_id')->nullable();
         });
     }
 

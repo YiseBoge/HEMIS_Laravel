@@ -132,7 +132,7 @@ class TechnicalStaffsController extends Controller
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if ($band == null) {
             $band = new Band;
-            $band->band_name_id = 0;
+            $band->band_name_id = null;
             $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
@@ -144,7 +144,7 @@ class TechnicalStaffsController extends Controller
             $college = new College;
             $college->education_level = 'None';
             $college->education_program = "None";
-            $college->college_name_id = 0;
+            $college->college_name_id = null;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
@@ -225,7 +225,7 @@ class TechnicalStaffsController extends Controller
         $technicalStaff = TechnicalStaff::find($id);
 
         $technicalStaff->staffRank = $request->input('technical_staff_rank');
-        $technicalStaff->institution_id = 0;
+        $technicalStaff->institution_id = null;
 
         $staff = $technicalStaff->general;
         $staff->name = $request->input('name');

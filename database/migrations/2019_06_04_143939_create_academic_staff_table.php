@@ -25,7 +25,7 @@ class CreateAcademicStaffTable extends Migration
             $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
-            $table->uuid('staff_leave_id');
+            $table->uuid('staff_leave_id')->nullable();
             $table->uuid('department_id');
         });
     }

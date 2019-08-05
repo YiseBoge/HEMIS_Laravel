@@ -18,10 +18,10 @@ class CreateInstitutionsTable extends Migration
             $table->timestamps();
 
             $table->primary('id');
-            $table->uuid('institution_name_id');
+            $table->uuid('institution_name_id')->nullable();
             $table->uuid('instance_id');
 
-            $table->uuid('general_information_id');
+            $table->uuid('general_information_id')->nullable();
         });
     }
 

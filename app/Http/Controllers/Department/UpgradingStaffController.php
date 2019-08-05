@@ -162,7 +162,7 @@ class UpgradingStaffController extends Controller
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if ($band == null) {
             $band = new Band;
-            $band->band_name_id = 0;
+            $band->band_name_id = null;
             $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
@@ -173,7 +173,7 @@ class UpgradingStaffController extends Controller
             $college = new College;
             $college->education_level = 'NONE';
             $college->education_program = 'NONE';
-            $college->college_name_id = 0;
+            $college->college_name_id = null;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
@@ -183,7 +183,7 @@ class UpgradingStaffController extends Controller
         if ($department == null) {
             $department = new Department;
             $department->year_level = 'NONE';
-            $department->department_name_id = 0;
+            $department->department_name_id = null;
             $college->departments()->save($department);
             $departmentName->department()->save($department);
         }
