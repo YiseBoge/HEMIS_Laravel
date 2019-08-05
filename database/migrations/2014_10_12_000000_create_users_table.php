@@ -23,11 +23,11 @@ class CreateUsersTable extends Migration
             $table->timestamps();
 
             $table->primary('id');
-            $table->uuid('instance_id')->default('');
-            $table->uuid('institution_name_id')->default('');
-            $table->uuid('band_name_id')->default('');
-            $table->uuid('college_name_id')->default('');
-            $table->uuid('department_name_id')->default('');
+            $table->uuid('instance_id')->nullable();
+            $table->uuid('institution_name_id')->nullable();
+            $table->uuid('band_name_id')->nullable();
+            $table->uuid('college_name_id')->nullable();
+            $table->uuid('department_name_id')->nullable();
 
         });
     }
