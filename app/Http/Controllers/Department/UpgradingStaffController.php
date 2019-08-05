@@ -188,7 +188,13 @@ class UpgradingStaffController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->upgradingStaffs()->save($upgradingStaff);
+        $upgradingStaff->department_id = $department->id;
+
+        if ($upgradingStaff->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $upgradingStaff->save();
 
         return redirect("/department/upgrading-staff")->with('success', 'Successfully Added Upgrading Staff');
 

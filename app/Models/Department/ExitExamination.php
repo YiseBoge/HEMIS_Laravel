@@ -37,4 +37,14 @@ class ExitExamination extends Model
     {
         return $query->with('department.college.band', 'department.departmentName');
     }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return ExitExamination::where(array(
+                'department_id' => $this->department_id
+            ))->first() != null;
+    }
 }

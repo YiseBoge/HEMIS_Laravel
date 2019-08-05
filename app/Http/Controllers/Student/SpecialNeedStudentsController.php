@@ -119,11 +119,19 @@ class SpecialNeedStudentsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
 
+        $educationPrograms = College::getEnum("EducationPrograms");
+        $educationLevels = College::getEnum("EducationLevels");
+        $year_levels = Department::getEnum('YearLevels');
+        array_pop($educationPrograms);
+        array_pop($educationLevels);
+        array_pop($year_levels);
+
         $data = array(
             'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
-            'programs' => College::getEnum("EducationPrograms"),
-            'education_levels' => College::getEnum("EducationLevels"),
+            'programs' => $educationPrograms,
+            'education_levels' => $educationLevels,
+            'year_levels' => $year_levels,
             'food_service_types' => StudentService::getEnum("FoodServiceTypes"),
             'dormitory_service_types' => DormitoryService::getEnum("DormitoryServiceTypes"),
             'disabilitys' => SpecialNeedStudent::getEnum("Disabilitys"),
@@ -149,13 +157,13 @@ class SpecialNeedStudentsController extends Controller
             'student_id' => 'required'
         ]);
 
-        if( $request->input("dormitory_service_type")  == "In Kind"){
+        if ($request->input("dormitory_service_type") == "In Kind") {
             $this->validate($request, [
                 'block_number' => 'required',
                 'room_number' => 'required'
             ]);
         }
-        
+
         $dormitoryService = new DormitoryService;
         $dormitoryService->dormitory_service_type = $request->input("dormitory_service_type");
         $dormitoryService->block = $request->input("block_number");
@@ -210,9 +218,16 @@ class SpecialNeedStudentsController extends Controller
             $departmentName->department()->save($department);
         }
 
+        $specialNeedStudent->department_id = $department->id;
+
+        if ($specialNeedStudent->isDuplicate() && $student->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $specialNeedStudent->save();
+
         $dormitoryService->save();
         $dormitoryService->studentService()->save($studentService);
-        $department->specialNeedStudents()->save($specialNeedStudent);
         $specialNeedStudent = SpecialNeedStudent::find($specialNeedStudent->id);
         $student->student_service_id = 0;
         $specialNeedStudent->general()->save($student);

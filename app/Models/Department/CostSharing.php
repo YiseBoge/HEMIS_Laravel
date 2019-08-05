@@ -53,4 +53,12 @@ class CostSharing extends Model
     {
         return $query->with('department.college.band', 'department.departmentName');
     }
+
+    public function isDuplicate()
+    {
+        return CostSharing::where(array(
+                'department_id' => $this->department_id,
+                'student_id' => $this->student_id,
+            ))->first() != null;
+    }
 }

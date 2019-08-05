@@ -215,8 +215,14 @@ class SpecialRegionsEnrollmentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->specialRegionEnrollments()->save($enrollment);
-        $regionName->specialRegionEnrollment()->save($enrollment);
+        $enrollment->department_id = $department->id;
+        $enrollment->region_name_id = $regionName->id;
+
+        if ($enrollment->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $enrollment->save();
 
         return redirect("/enrollment/special-region-students")->with('success', 'Successfully Added Special Region Enrollment');
     }

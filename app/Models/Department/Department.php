@@ -14,6 +14,7 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid id
  * @property string|null year_level
  * @property int department_name_id
+ * @property Uuid college_id
  * @method static Collection where(array $array)
  */
 class Department extends Model
@@ -50,8 +51,8 @@ class Department extends Model
             $model->jointProgramEnrollments()->delete();
             $model->exitExaminations()->delete();
             $model->degreeEmployments()->delete();
-            $model->costSharings()->delete();
             $model->otherRegionStudents()->delete();
+            $model->costSharings()->delete();
 
             $model->specialProgramTeachers()->delete();
             $model->upgradingStaffs()->delete();
@@ -145,17 +146,17 @@ class Department extends Model
     /**
      * @return HasMany
      */
-    public function costSharings()
+    public function otherRegionStudents()
     {
-        return $this->hasMany('App\Models\Department\CostSharing');
+        return $this->hasMany('App\Models\Department\OtherRegionStudent');
     }
 
     /**
      * @return HasMany
      */
-    public function otherRegionStudents()
+    public function costSharings()
     {
-        return $this->hasMany('App\Models\Department\OtherRegionStudent');
+        return $this->hasMany('App\Models\Department\CostSharing');
     }
 
     /**

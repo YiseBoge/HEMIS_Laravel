@@ -204,7 +204,6 @@
                                             @endif
                                         </td>
                                     @endif
-                                    <td>{{$enrollment->department->departmentName->department_name}}</td>
                                     <td>{{$enrollment->field_of_specialization}}</td>
                                     <td>{{$enrollment->male_students_number}}</td>
                                     <td>{{$enrollment->female_students_number}}</td>

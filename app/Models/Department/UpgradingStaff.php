@@ -41,4 +41,16 @@ class UpgradingStaff extends Model
     {
         return $this->belongsTo('App\Models\Department\Department');
     }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return UpgradingStaff::where(array(
+                'department_id' => $this->department_id,
+                'education_level' => $this->education_level,
+                'study_place' => $this->study_place,
+            ))->first() != null;
+    }
 }

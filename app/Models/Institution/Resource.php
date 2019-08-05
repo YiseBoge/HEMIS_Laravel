@@ -28,14 +28,20 @@ class Resource extends Model
     public $incrementing = false;
 
     protected $enumStatusOfLibraries = [
-        'UNKNOWN' => 'Unknown'
+        'VERY_GOOD' => 'Very Good',
+        'GOOD' => 'Good',
+        'POOR' => 'Poor',
     ];
 
     protected $enumStatusOfLaboratories = [
-        'UNKNOWN' => 'Unknown'
+        'VERY_GOOD' => 'Very Good',
+        'GOOD' => 'Good',
+        'POOR' => 'Poor',
     ];
 
     protected $enumStatusOfWorkshops = [
-        'UNKNOWN' => 'Unknown'
+        'VERY_GOOD' => 'Very Good',
+        'GOOD' => 'Good',
+        'POOR' => 'Poor',
     ];
 }

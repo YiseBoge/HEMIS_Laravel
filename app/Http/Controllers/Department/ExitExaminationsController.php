@@ -166,7 +166,13 @@ class ExitExaminationsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->exitExaminations()->save($examination);
+        $examination->department_id = $department->id;
+
+        if ($examination->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $examination->save();
 
         return redirect("/student/exit-examination")->with('success', 'Successfully Added Exit Examination Info');
     }

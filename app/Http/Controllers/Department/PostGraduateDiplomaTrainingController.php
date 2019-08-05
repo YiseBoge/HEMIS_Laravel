@@ -198,7 +198,13 @@ class PostGraduateDiplomaTrainingController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->postgraduateDiplomaTrainings()->save($training);
+        $training->department_id = $department->id;
+
+        if ($training->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $training->save();
 
         return redirect("/department/postgraduate-diploma-training")->with('success', 'Successfully Added Diploma Training');
     }

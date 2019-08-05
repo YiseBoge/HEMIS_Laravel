@@ -17,6 +17,8 @@ use Webpatser\Uuid\Uuid;
  * @property string education_level
  * @property string education_program
  * @property int college_name_id
+ * @property Uuid band_id
+ * @property Collection departments
  */
 class College extends Model
 {

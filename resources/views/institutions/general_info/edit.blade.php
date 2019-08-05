@@ -154,7 +154,7 @@
                         {{ Form::label('edit_number_of_libraries', 'Quantity', ['class' => 'form-control-placeholder']) }}
                     </div>
                     <div class="form-group col-md-4 col-sm-6 mb-2">
-                        {!! Form::select('status_of_libraries', $status_of_libraries , $institution->generalInformation->resource->status_of_libraries , ['class' => 'form-control', 'id' => 'edit_status_of_libraries']) !!}
+                        {!! Form::select('status_of_libraries', $status_of_libraries , \App\Models\Institution\Resource::getValueKey(\App\Models\Institution\Resource::getEnum('status_of_libraries'), $institution->generalInformation->resource->status_of_libraries), ['class' => 'form-control', 'id' => 'edit_status_of_libraries']) !!}
                         {!! Form::label('edit_status_of_libraries', 'Status', ['class' => 'form-control-placeholder']) !!}
                     </div>
 
@@ -166,7 +166,7 @@
                         {{ Form::label('edit_number_of_laboratories', 'Quantity', ['class' => 'form-control-placeholder']) }}
                     </div>
                     <div class="form-group col-md-4 col-sm-6 mb-2">
-                        {!! Form::select('status_of_laboratories', $status_of_laboratories , $institution->generalInformation->resource->status_of_laboratories , ['class' => 'form-control', 'id' => 'edit_status_of_laboratories']) !!}
+                        {!! Form::select('status_of_laboratories', $status_of_laboratories , \App\Models\Institution\Resource::getValueKey(\App\Models\Institution\Resource::getEnum('status_of_laboratories'), $institution->generalInformation->resource->status_of_laboratories), ['class' => 'form-control', 'id' => 'edit_status_of_laboratories']) !!}
                         {!! Form::label('edit_status_of_laboratories', 'Status', ['class' => 'form-control-placeholder']) !!}
                     </div>
 
@@ -178,7 +178,7 @@
                         {{ Form::label('edit_number_of_workshops', 'Quantity', ['class' => 'form-control-placeholder']) }}
                     </div>
                     <div class="form-group col-md-4 col-sm-6 mb-2">
-                        {!! Form::select('status_of_workshops', $status_of_workshops , $institution->generalInformation->resource->status_of_workshops , ['class' => 'form-control', 'id' => 'edit_status_of_workshops']) !!}
+                        {!! Form::select('status_of_workshops', $status_of_workshops , \App\Models\Institution\Resource::getValueKey(\App\Models\Institution\Resource::getEnum('status_of_workshops'), $institution->generalInformation->resource->status_of_workshops) , ['class' => 'form-control', 'id' => 'edit_status_of_workshops']) !!}
                         {!! Form::label('edit_status_of_workshops', 'Status', ['class' => 'form-control-placeholder']) !!}
                     </div>
 

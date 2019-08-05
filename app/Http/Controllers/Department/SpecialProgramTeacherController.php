@@ -186,7 +186,13 @@ class SpecialProgramTeacherController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $department->specialProgramTeachers()->save($specialProgramTeacher);
+        $specialProgramTeacher->department_id = $department->id;
+
+        if ($specialProgramTeacher->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
+        $specialProgramTeacher->save();
 
         return redirect("/department/special-program-teacher")->with('success', 'Successfully Added Special Program Enrollment');
 

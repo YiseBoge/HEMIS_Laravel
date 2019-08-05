@@ -50,4 +50,11 @@ class Student extends Model
     {
         return $this->belongsTo('App\Models\Student\StudentService');
     }
+
+    public function isDuplicate()
+    {
+        return Student::where(array(
+                'student_id' => $this->student_id,
+            ))->first() != null;
+    }
 }

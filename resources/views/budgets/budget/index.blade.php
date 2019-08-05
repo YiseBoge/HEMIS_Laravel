@@ -114,7 +114,7 @@
                                         <td class="text-center">
                                             @if($budget->approval_status == "Pending")
                                                 <form action="budget/{{$budget->id}}/approve"
-                                                        method="POST">
+                                                      method="POST">
                                                     @csrf
                                                     <input type="hidden" name="action" value="disapprove">
                                                     <button type="submit" style="opacity:0.80"

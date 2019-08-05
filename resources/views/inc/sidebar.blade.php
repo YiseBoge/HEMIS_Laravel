@@ -330,10 +330,23 @@
                 <i class="fas fa-chalkboard-teacher"></i>
                 <span>Management Data</span></a>
         </li>
-        <li class="nav-item {{ preg_split ("/\./", $page_name)[0] == 'report' ? 'active': '' }}">
-            <a class="nav-link" href="/institution-report">
+
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[0] == 'report' ? 'active': '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReport"
+               aria-expanded="false"
+               aria-controls="collapseReport">
                 <i class="fas fa-table"></i>
-                <span>KPI Report</span></a>
+                <span>Reports</span>
+            </a>
+            <div id="collapseReport" class="collapse" aria-labelledby="headingTwo"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'institution_report_card' ? 'active': '' }}"
+                       href="/institution-report">Institution Report Card</a>
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'institution_instance' ? 'active': '' }}"
+                       href="/institution/semester-overview">Semester Overview</a>
+                </div>
+            </div>
         </li>
     @endif
 

@@ -36,4 +36,15 @@ class SpecialRegionEnrollment extends Model
     {
         return $this->belongsTo('App\Models\Department\Department');
     }
+
+    /**
+     * @return bool
+     */
+    public function isDuplicate()
+    {
+        return SpecialRegionEnrollment::where(array(
+                'department_id' => $this->department_id,
+                'region_name_id' => $this->region_name_id,
+            ))->first() != null;
+    }
 }

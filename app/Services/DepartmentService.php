@@ -340,8 +340,7 @@ class DepartmentService
             } else if ($sex == "Male") {
                 $total += $enrollment->male_students_number;
             } else {
-                
-                $total += $enrollment->male_students_number + $enrollment->female_students_number;
+                $total += $enrollment->male_students_number + $enrollment->female_students_number;        
             }
         }
         return $total;
