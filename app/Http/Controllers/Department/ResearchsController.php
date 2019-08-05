@@ -143,9 +143,9 @@ class ResearchsController extends Controller
         $research->female_teachers_participating_number = $request->input('female_participating_number');
         $research->female_researchers_number = $request->input('female_number');
         $research->male_researchers_other_number = $request->input('other_male_number');
-        $research->female_researchers_other_number = $request->input('other_male_number');
-        $research->budget_allocated = $request->input('other_male_number');
-        $research->budget_from_externals = $request->input('other_male_number');
+        $research->female_researchers_other_number = $request->input('other_female_number');
+        $research->budget_allocated = $request->input('budget');
+        $research->budget_from_externals = $request->input('external_budget');
         $research->status = $request->input('status');
         $research->type = $request->input('type');
 
