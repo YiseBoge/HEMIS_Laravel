@@ -186,7 +186,19 @@ class BuildingsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
+        $building = Building::find($id);
+
+        // die(print_r($building));
+
+        $data = array(
+            'id' => $id,
+            'building' => $building,
+            'page_name' => 'institution.buildings.edit'
+        );
+        return view('institutions.buildings.edit')->with($data);
     }
 
     /**
@@ -198,7 +210,19 @@ class BuildingsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+
+        $building = Building::find($id);
+
+        $building->budget_allocated = $request->input("budget_allocated");
+        $building->financial_status = $request->input("financial_status");
+        $building->completion_status = $request->input("completion_status");
+
+        $building->save();
+        return redirect('/institution/buildings')->with('primary', 'Successfully Updated');
+
     }
 
     /**
