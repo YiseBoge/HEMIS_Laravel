@@ -25,7 +25,7 @@ class CreateBudgetsTable extends Migration
             $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
             
             $table->primary('id');
-            $table->uuid('budget_description_id')->default(0);
+            $table->uuid('budget_description_id')->nullable();
 
             $table->uuid('college_id');
         });

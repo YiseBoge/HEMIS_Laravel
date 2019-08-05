@@ -23,7 +23,7 @@ class CreateInstitutionYearValuesTable extends Migration
             $table->primary('id');
 
             $table->uuid('institution_report_card_id');
-            $table->uuid('institution_name_id')->default(0);
+            $table->uuid('institution_name_id')->nullable();
         });
     }
 
