@@ -8,6 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta property="og:site_name" content="MoSHE HEMIS"/>
+    <meta property="og:title" content="Ethiopian Higher Education Management and Information System"/>
+    <meta property="og:description" content="Data Collection system for Ethiopian Universities."/>
+    <meta property="og:image" content="{{ asset('img/logo.png') }}">
+    <meta property="og:url" content="http://moshe-hemis.herokuapp.com">
+    <meta property="og:type" content="data management system"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
