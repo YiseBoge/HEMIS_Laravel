@@ -63,32 +63,32 @@
                         <form action="" method="get">
 
                             <div class="form-group row pt-3">
-                                <div class="col form-group">
-                                    {!! Form::select('institution', $institutions , $selected_institution , ['class' => 'form-control', 'id' => 'institution', 'onchange' => 'this.form.submit()', in_array('institution', $disabled)?'disabled':'']) !!}
+                                <div class="col form-group{{in_array('institution', $disabled)?' d-none':''}}">
+                                    {!! Form::select('institution', $institutions , $selected_institution , ['class' => 'form-control', 'id' => 'institution', 'onchange' => 'this.form.submit()']) !!}
                                     {!! Form::label('institution', 'University', ['class' => 'form-control-placeholder']) !!}
                                 </div>
-                                <div class="col form-group">
-                                    {!! Form::select('band', $bands , $selected_band , ['class' => 'form-control', 'id' => 'band', 'onchange' => 'this.form.submit()', in_array('band', $disabled)?'disabled':'']) !!}
+                                <div class="col form-group{{in_array('band', $disabled)?' d-none':''}}">
+                                    {!! Form::select('band', $bands , $selected_band , ['class' => 'form-control', 'id' => 'band', 'onchange' => 'this.form.submit()']) !!}
                                     {!! Form::label('band', 'Band', ['class' => 'form-control-placeholder']) !!}
                                 </div>
-                                <div class="col form-group">
-                                    {!! Form::select('college', $colleges , $selected_college , ['class' => 'form-control', 'id' => 'college', 'onchange' => 'this.form.submit()', in_array('college', $disabled)?'disabled':'']) !!}
+                                <div class="col form-group{{in_array('college', $disabled)?' d-none':''}}">
+                                    {!! Form::select('college', $colleges , $selected_college , ['class' => 'form-control', 'id' => 'college', 'onchange' => 'this.form.submit()']) !!}
                                     {!! Form::label('college', 'College', ['class' => 'form-control-placeholder']) !!}
                                 </div>
                             </div>
 
                             <div class="form-group row pt-3">
-                                <div class="col form-group">
-                                    {!! Form::select('program', $programs , $selected_program , ['class' => 'form-control', 'id' => 'program', 'onchange' => 'this.form.submit()', in_array('program', $disabled)?'disabled':'']) !!}
+                                <div class="col form-group{{in_array('program', $disabled)?' d-none':''}}">
+                                    {!! Form::select('program', $programs , $selected_program , ['class' => 'form-control', 'id' => 'program', 'onchange' => 'this.form.submit()']) !!}
                                     {!! Form::label('program', 'Program', ['class' => 'form-control-placeholder']) !!}
                                 </div>
 
-                                <div class="col form-group">
-                                    {!! Form::select('education_level', $education_levels , $selected_education_level , ['class' => 'form-control', 'id' => 'education_level', 'onchange' => 'this.form.submit()', in_array('level', $disabled)?'disabled':'']) !!}
+                                <div class="col form-group{{in_array('level', $disabled)?' d-none':''}}">
+                                    {!! Form::select('education_level', $education_levels , $selected_education_level , ['class' => 'form-control', 'id' => 'education_level', 'onchange' => 'this.form.submit()']) !!}
                                     {!! Form::label('education_level', 'Level', ['class' => 'form-control-placeholder']) !!}
                                 </div>
-                                <div class="col form-group">
-                                    {!! Form::select('department', $departments , $selected_department , ['class' => 'form-control', 'id' => 'department', 'onchange' => 'this.form.submit()', in_array('department', $disabled)?'disabled':'']) !!}
+                                <div class="col form-group{{in_array('department', $disabled)?' d-none':''}}">
+                                    {!! Form::select('department', $departments , $selected_department , ['class' => 'form-control', 'id' => 'department', 'onchange' => 'this.form.submit()']) !!}
                                     {!! Form::label('department', 'Departments', ['class' => 'form-control-placeholder']) !!}
                                 </div>
                             </div>
