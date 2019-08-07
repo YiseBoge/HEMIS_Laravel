@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <meta property="og:site_name" content="MoSHE HEMIS"/>
     <meta property="og:title" content="Ethiopian Higher Education Management and Information System"/>
-    <meta property="og:description" content="Data Collection system for Ethiopian Universities."/>
+    <meta property="og:description" content="Data Collection System for Ethiopian Universities."/>
     <meta property="og:image" content="{{ asset('img/logo-transparent.png') }}">
     <meta property="og:image:width" content="100px">
     <meta property="og:image:height" content="100px">
