@@ -15,7 +15,7 @@
     <meta property="og:image:width" content="100px">
     <meta property="og:image:height" content="100px">
     <meta property="og:url" content="http://moshe-hemis.herokuapp.com">
-    <meta property="og:type" content="product.item"/>
+    <meta property="og:type" content="product"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
