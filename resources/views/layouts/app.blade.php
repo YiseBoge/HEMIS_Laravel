@@ -12,6 +12,8 @@
     <meta property="og:title" content="Ethiopian Higher Education Management and Information System"/>
     <meta property="og:description" content="Data Collection system for Ethiopian Universities."/>
     <meta property="og:image" content="{{ asset('img/logo.png') }}">
+    <meta property="og:image:width" content="100px">
+    <meta property="og:image:height" content="100px">
     <meta property="og:url" content="http://moshe-hemis.herokuapp.com">
     <meta property="og:type" content="data management system"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
