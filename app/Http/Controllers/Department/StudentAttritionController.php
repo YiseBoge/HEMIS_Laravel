@@ -309,11 +309,8 @@ class StudentAttritionController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $attrition = StudentAttrition::find($id);
-        if ($action == "approve") {
-            $attrition->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $attrition->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $attrition = StudentAttrition::find($id);
             $attrition->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $attrition->save();
         } else {

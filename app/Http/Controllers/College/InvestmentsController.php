@@ -267,11 +267,8 @@ class InvestmentsController extends Controller
 
         $action = $request->input('action');
 
-        $investment = Investment::find($id);
-        if ($action == "approve") {
-            $investment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $investment->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $investment = Investment::find($id);
             $investment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $investment->save();
         } else {

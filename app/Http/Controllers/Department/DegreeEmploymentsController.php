@@ -258,11 +258,8 @@ class DegreeEmploymentsController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $employment = DegreeEmployment::find($id);
-        if ($action == "approve") {
-            $employment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $employment->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $employment = DegreeEmployment::find($id);
             $employment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $employment->save();
         } else {

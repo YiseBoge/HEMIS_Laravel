@@ -281,11 +281,8 @@ class TeachersController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $teacher = Teacher::find($id);
-        if ($action == "approve") {
-            $teacher->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $teacher->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $teacher = Teacher::find($id);
             $teacher->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $teacher->save();
         } else {

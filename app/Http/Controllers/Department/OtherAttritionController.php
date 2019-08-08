@@ -299,11 +299,8 @@ class OtherAttritionController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $attrition = OtherAttrition::find($id);
-        if ($action == "approve") {
-            $attrition->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $attrition->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $attrition = OtherAttrition::find($id);
             $attrition->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $attrition->save();
         } else {

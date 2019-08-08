@@ -279,11 +279,8 @@ class ResearchsController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $research = Research::find($id);
-        if ($action == "approve") {
-            $research->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $research->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $research = Research::find($id);
             $research->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $research->save();
         } else {

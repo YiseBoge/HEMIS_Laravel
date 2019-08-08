@@ -262,11 +262,8 @@ class ExitExaminationsController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $examination = ExitExamination::find($id);
-        if ($action == "approve") {
-            $examination->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $examination->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $examination = ExitExamination::find($id);
             $examination->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $examination->save();
         } else {

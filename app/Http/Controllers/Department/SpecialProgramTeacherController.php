@@ -282,11 +282,8 @@ class SpecialProgramTeacherController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $specialProgramTeacher = SpecialProgramTeacher::find($id);
-        if ($action == "approve") {
-            $specialProgramTeacher->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $specialProgramTeacher->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $specialProgramTeacher = SpecialProgramTeacher::find($id);
             $specialProgramTeacher->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $specialProgramTeacher->save();
         } else {

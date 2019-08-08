@@ -271,11 +271,8 @@ class CostSharingController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $costSharing = CostSharing::find($id);
-        if ($action == "approve") {
-            $costSharing->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $costSharing->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $costSharing = CostSharing::find($id);
             $costSharing->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $costSharing->save();
         } else {

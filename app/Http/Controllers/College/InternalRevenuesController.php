@@ -267,11 +267,8 @@ class InternalRevenuesController extends Controller
 
         $action = $request->input('action');
 
-        $internalRevenue = InternalRevenue::find($id);
-        if ($action == "approve") {
-            $internalRevenue->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $internalRevenue->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $internalRevenue = InternalRevenue::find($id);
             $internalRevenue->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $internalRevenue->save();
         } else {

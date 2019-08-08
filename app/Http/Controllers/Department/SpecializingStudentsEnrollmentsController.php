@@ -307,11 +307,8 @@ class SpecializingStudentsEnrollmentsController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $enrollment = SpecializingStudentsEnrollment::find($id);
-        if ($action == "approve") {
-            $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $enrollment->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $enrollment = SpecializingStudentsEnrollment::find($id);
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $enrollment->save();
         } else {

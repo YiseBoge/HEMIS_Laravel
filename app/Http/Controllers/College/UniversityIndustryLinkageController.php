@@ -275,11 +275,8 @@ class UniversityIndustryLinkageController extends Controller
 
         $action = $request->input('action');
 
-        $linkage = UniversityIndustryLinkage::find($id);
-        if ($action == "approve") {
-            $linkage->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $linkage->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $linkage = UniversityIndustryLinkage::find($id);
             $linkage->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $linkage->save();
         } else {

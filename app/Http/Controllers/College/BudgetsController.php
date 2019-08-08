@@ -313,11 +313,9 @@ class BudgetsController extends Controller
 
         $action = $request->input('action');
 
-        $budget = Budget::find($id);
-        if ($action == "approve") {
-            $budget->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $budget->save();
-        } elseif ($action == "disapprove") {
+
+        if ($action == "disapprove") {
+            $budget = Budget::find($id);
             $budget->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $budget->save();
         } else {

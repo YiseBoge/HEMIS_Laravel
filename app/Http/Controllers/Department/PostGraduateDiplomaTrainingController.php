@@ -295,11 +295,8 @@ class PostGraduateDiplomaTrainingController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $training = PostGraduateDiplomaTraining::find($id);
-        if ($action == "approve") {
-            $training->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $training->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $training = PostGraduateDiplomaTraining::find($id);
             $training->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $training->save();
         } else {

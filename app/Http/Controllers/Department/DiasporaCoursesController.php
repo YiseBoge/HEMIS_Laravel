@@ -259,11 +259,8 @@ class DiasporaCoursesController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $course = DiasporaCourses::find($id);
-        if ($action == "approve") {
-            $course->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $course->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $course = DiasporaCourses::find($id);
             $course->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $course->save();
         } else {

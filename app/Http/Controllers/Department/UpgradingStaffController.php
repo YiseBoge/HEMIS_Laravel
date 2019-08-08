@@ -283,11 +283,8 @@ class UpgradingStaffController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $upgradingStaff = UpgradingStaff::find($id);
-        if ($action == "approve") {
-            $upgradingStaff->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $upgradingStaff->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $upgradingStaff = UpgradingStaff::find($id);
             $upgradingStaff->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $upgradingStaff->save();
         } else {

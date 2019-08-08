@@ -312,11 +312,8 @@ class SpecialRegionsEnrollmentsController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $enrollment = SpecialRegionEnrollment::find($id);
-        if ($action == "approve") {
-            $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $enrollment->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $enrollment = SpecialRegionEnrollment::find($id);
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $enrollment->save();
         } else {
