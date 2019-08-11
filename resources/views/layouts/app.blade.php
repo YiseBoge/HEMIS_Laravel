@@ -59,9 +59,9 @@
         <div id="content">
 
         @include('inc.navbar')
-
+        @yield('index_content')
         <!-- Begin Page Content -->
-            <div class="container-fluid">
+            <div class="container-fluid pt-5">
                 @if ($page_name != '1.2.3' && !isset($has_modal))
                     @include('inc.messages')
                 @endif
