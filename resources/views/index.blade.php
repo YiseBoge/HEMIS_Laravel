@@ -1,24 +1,26 @@
 @extends('layouts.app')
 
 @section('index_content')
-    <!-- Masthead -->
-    <header class="masthead text-white text-center">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-9 mx-auto">
-                    <h1 class="mb-5">Welcome to the MoSHE - Higher Education Management Information System</h1>
-                </div>
-                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                    <div class="form-row mx-auto">
-                        <div class="col-12 col-md-3 mx-auto">
-                            <a href="/login" class="btn btn-block btn-lg btn-primary mx-auto shadow-sm">Sign in</a>
+    @guest
+        <!-- Masthead -->
+        <header class="masthead text-white text-center">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 mx-auto">
+                        <h1 class="mb-5">Welcome to the MoSHE - Higher Education Management Information System</h1>
+                    </div>
+                    <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                        <div class="form-row mx-auto">
+                            <div class="col-12 col-md-3 mx-auto">
+                                <a href="/login" class="btn btn-block btn-lg btn-primary mx-auto shadow-sm">Sign in</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
+    @endguest
 
     <!-- Icons Grid -->
     <section class="features-icons bg-light text-center">
@@ -71,7 +73,7 @@
             <hr>
             <div class="row p-5">
                 <div class="col-lg-5 my-auto px-4">
-                    <h2>Student Enrollments</h2>
+                    <h3>Student Enrollments</h3>
                     <hr>
                     <div class="row">
                         <div class="col-md-7">
@@ -158,7 +160,7 @@
                 </div>
                 <div class="col-lg-7 text-white showcase-img">
                     <div class="card shadow card-body border-right-primary">
-                        <canvas id="year-enrollment" class="chartjs-render-monitor" style="min-height: 40vh"></canvas>
+                        <canvas id="year-enrollment" class="chartjs-render-monitor" style="min-height: 38vh"></canvas>
                     </div>
                 </div>
             </div>
