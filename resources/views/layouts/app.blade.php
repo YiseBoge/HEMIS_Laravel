@@ -94,30 +94,31 @@
 <script>
     $(document).ready(function () {
         $('#dataTable').DataTable();
-    });
-</script>
-<script>
-    $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        $('#exporter').on('click', function () {
-            $('#printable').tableExport({type: 'excel'});
-        })
-    });
-</script>
+        $('.counter-count').each(function () {
+            $(this).prop('Counter', 0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: (Math.random() * 2000) + 3000,
+                easing: 'swing',
+                step: function (now) {
+                    $(this).text(Math.ceil(now));
+                }
+            });
+        });
 
-<script>
-    $(document).ready(function () {
         $('.deleter').on('click', function () {
             $('#delete-form').attr('action', '{{Request::url()}}/' + $(this).data('id'));
             $('#deleteModal').modal('show');
-        })
+        });
+
+        $(document).ready(function () {
+            $('#exporter').on('click', function () {
+                $('#printable').tableExport({type: 'excel'});
+            })
+        });
     });
 </script>
-
 
 <script>
     $(document).ready(function () {
