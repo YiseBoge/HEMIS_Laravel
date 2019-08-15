@@ -64,11 +64,4 @@ class SpecialNeedStudent extends Model
     {
         return $query->with('general.studentService.dormitoryService', 'department.departmentName');
     }
-
-    public function isDuplicate()
-    {
-        return SpecialNeedStudent::where(array(
-            'department_id' => $this->department_id,
-            ))->first() != null;
-    }
 }

@@ -21,7 +21,7 @@
                                         @endforeach
                                     </select>
                                     <label for="type" class="form-control-placeholder">
-                                        Teacher Type
+                                        Staff Type
                                     </label>
                                 </div>
 

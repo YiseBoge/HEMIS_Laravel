@@ -23,7 +23,7 @@ class PostGraduateDiplomaTraining extends Model
     public $incrementing = false;
 
     protected $enumTypes = [
-        'NORMAL' => 'Normal',
+        'TEACHERS' => 'Teachers',
         'LEADER' => 'School Leaders',
     ];
 

@@ -1,0 +1,154 @@
+A. Data
+1. Student Data
+    a. Enrollment: 
+        - Total Students: 
+            - Aggregated By: Student Type(Normal, Prospective Graduates, Graduates), Education Program, Education Level, Year Level, Sex
+        - Special Region Students:
+            - Aggregated By: Region Type(Emerging Regions, Pastoral Regions), Region, Education Program, Education Level, Year Level, Sex
+        - Rural Area Students: 
+            - Aggregated By: Region(Urban, Rural), Education Program, Education Level, Year Level, Sex
+        - Economically Disadvantaged Students:
+            - Aggregated By: Quintile(Lowest, Second, Third, Fourth, Highest Fifth), Education Program, Education Level, Year Level, Sex
+        - Students From Other Regions:
+            - Aggregated By: Education Program, Education Level, Year Level, Sex
+        - Enrollment With Age: 
+            - Aggregated By: Age Range, Education Program, Education Level, Year Level, Sex
+        - Students Enrolled in Joint Programs with Foreign Universities:
+            - Aggregated By: Sponsor(Ethiopian Government, Other), Education Program, Education Level, Year Level, Sex
+
+    b. Other Student Information:
+        - Student Attrition:
+            - Aggregated By: Student Type(All, Emerging Region Students, Pastoral Region Students, Rural Area Students, Economically Disadvantaged Students, 
+                             Students From Other Regions, Special Need Students, Foreign Students), Type(CET, CNCS, CMHS, CAES, CBE, CSSH), Case(Academic Dismissal With Readmission,
+                             Academic Dismissal For Good, Discipline Dismissals, Withdrawals, Dropouts, Others), Education Program, Education Level, Year Level, Sex
+        - Other Information:  
+            - Aggregated By: Type(CET, CNCS, CMHS, CAES, CBE, CSSH), Case(Academic Dismissal With Readmission, Academic Dismissal For Good, Discipline Dismissals, 
+                             Withdrawals, Dropouts, Others), Education Program, Education Level, Year Level, Sex
+        - Students that Passed Graduates Exit Examination:
+            - Aggregated By: Sex
+        - Students Accessing Degree-relevant Employment Within 12 Months After Graduation: 
+            - Aggregated By: Sex
+        - University Industry Linkage: 
+            - Aggregated By: Year Level
+    
+    c. Cost Sharing:
+        - Fields: Name, Student Id, Sex, Field of Study, Tin Number, Receipt Number, Registration Date, Clearance Date from Campus, Tuition Fee, Food Expenses, Dormitory Expenses,
+                  Pre-Payment Amount, Total Unpaid Cost Sharing Amount
+    
+    d. Students Detailed Data: 
+        - Common Fields: Name, Date of Birth, Student Id, Sex, Phone Number, Education Level, Education Program, Year Level, Food Service Type(In Kind, In Cash), Dormitory Service Type(In Kind, In Cash),
+                  Block Number, Room Number
+        i. Foreign Students:
+            -Fields: Nationality, Years in Ethiopia
+        ii. Special Need Students: 
+            - Disability Type
+
+
+2. Staff Data
+    a. Aggregate Data:
+        - Teachers: 
+            - Aggregated By: Education Level, Sex
+        - Staff Upgrading Their Level Of Education: 
+            - Aggregated By: Education Level, Study Place(Ethiopia, Abroad), Sex
+        - Teachers Participating in Special Programs: 
+            - Aggregated By: Program Type(English Language Improvement Program, Comprehensive Continuous Professional Development, Higher Diploma Program), 
+                             Program Status(Completed, On Training, Not Yet Started), Sex
+        - Post Graduate Diploma Training:
+            - Aggregated By: Teacher Type(Teachers, School Leaders), Program(Regular, Non Regular), Sex
+        - Courses/Modules Taught and Postgraduate Researches Advised by Ethiopian Diaspora
+            - Fields: Number of Courses/Modules, Number of Researches
+        - Management Data: 
+            - Aggregated By: Management Level
+            - Fields: Positions Required, Positions Assigned, Number of Females
+    
+    b. Detailed Data:
+        - Common Fields: Name, Date of Birth, Sex, Phone Number, Nationality, Job Title, Salary, Service Year, Employment type, Dedication, Academic Level, 
+                         Is or is not Expatriate, Is or is not From Region Other than the Host Region, Remarks
+        i. Academic Staff: 
+            - Fields: Field of Study, Teaching Load, Reason for Overload, Academic Staff Rank
+        ii. Administrative Staff: 
+            - Fields: Administrative Staff Rank
+        iii. ICT Staff: 
+            - Fields: ICT Staff Rank, ICT Staff Type
+        iv. Management Staff: 
+            - Fields: Management Level
+        v. Technical Staff:
+            - Fields: Technical Staff Rank
+        vi. Supportive Staff: 
+            - Fields: Supportive Staff Rank
+    c. Staff Attrition:
+            - Fields: Staff Type(Academic Staff, Administrative Staff, ICT Staff, Management Staff, Technical Staff, Supportive Staff), Case(Government Appointment,
+                      Transfer to Higher Education Institutions, Transfer to Other Government Agencies, Resignation, Retirement, Death, Discipline, Others), Staff Member
+    
+
+3. Financial Data:
+    - Budget: 
+        - Aggregated By: Budget Type(Capital Budget, Recurrent Budget)
+        - Fields: Budget Description, Allocated, Additional, Utilized
+    - Internal Revenues: 
+        - Fields: Revenue Description, Income, Expense
+    - Private Investment: 
+        - Fields: Investment Title, Cost Incurred, Remarks
+    
+        
+
+4. Building Data: 
+    - Fields: Building Name, Contractor's Name, Consultant's Name, Date Started, Date Completed, Budget Allocated, Financial Status, Completion Status, Building Purposes 
+
+
+5. Research
+    - Aggregated By: Research Type(Normal, Thematic), Completion Status(On Going)
+    - Fields: Number of Researches, Number of Female Researchers, Budget Allocated, Budget From External Fund, Number of Male Teachers Participating,
+              Number of Female Teachers Participating, Number of Male Researchers From Other Institution, Number of Female Researchers From Other Institution
+
+
+
+6. Publications
+    a. Publications By Academic Staff with Rank of Associate and Full Professor:
+        - Fields: Title, Author, Date of Publication
+    b. Publications and Patents: 
+        - Fields: Number of Publications By Postgraduate Students, Number of Patents Earned
+
+7. General Information: 
+    a. General:
+        - Fields: Number of Campuses, Number of Colleges, Number of Schools, Number of Institutes, Number of Board Members, Number of Vice Presidents, Number of Middle Level Leaders
+    b. Community Service:
+        - Fields: Number of Community Services Delivered,  Number of Teachers who participated in community Service(Male and Female), Number of People who benefited from Community Service(Male and Female),
+                  Number of TVET's linked to the University, Whether the University Has the Following(Strategic Plan Document, Incubation Center, HDP Lead, CCPD Coordinator, ELIP Center For Teachers, ELIP Center For Teachers,
+                  Career Center)
+    c. Resources: 
+        - Fields: Quantity and Status of(Libraries, Laboratories, Workshops), Pupil to Teacher Ratio, Student to Text Ratio, Unjustifiable Expenses, Percentage of Smart Classrooms
+
+B. User Roles
+1. Department Admin
+    - Enrollment: All
+    - Student Information: All data except University Industry Linkage
+    - Staff Information: All aggregate data except for Management Data, Academic Staff Data, Academic Staff Attrition
+    - Research
+    - Publications
+
+2. College Administrative Admin:
+    - Budgets: All
+    - Students: University Industry Linkage
+    - Staff: All detailed staff data except Academic Staff, Staff Attrition
+    - Buildings
+
+3. College Super Admin: 
+    - Approves all data entered by Department Admin and College Administrative Admin
+    - Administrative: College/Institute Administrative Admins, School/Department Admins
+
+4. University Admin: 
+    - General Information
+    - Management Data
+    - Administer: College/Institute Names, School/Department Names, College/Institute Super Admins
+    - Views Institution Report Card
+
+5. Moshe Admin: 
+    - Instance
+    - University Names
+    - University Admins
+    - Region Names
+    - Band/ICED Names
+    - ICT Staff Types
+    - Budget Descriptions
+    - Views all report cards

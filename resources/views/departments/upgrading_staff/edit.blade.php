@@ -16,7 +16,7 @@
                 <div class="col">
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
-                            Edit Upgrading Staff Information
+                            Edit Academic Staffs Upgrading Their Level of Education Information
                             <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
                                 Save
                             </button>

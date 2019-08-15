@@ -43,7 +43,7 @@ class PostGraduateDiplomaTrainingController extends Controller
 
         if ($request->input('type') == null) {
             $requestedType = 0;
-        } else if ($request->input('type') == "Normal") {
+        } else if ($request->input('type') == "Teachers") {
             $requestedType = 0;
         } else {
             $requestedType = 1;
@@ -155,7 +155,7 @@ class PostGraduateDiplomaTrainingController extends Controller
         $training = new PostGraduateDiplomaTraining;
         $training->number_of_male_students = $request->input('male_number');
         $training->number_of_female_students = $request->input('female_number');
-        if ($request->input('type') == "NORMAL") {
+        if ($request->input('type') == "TEACHERS") {
             $training->is_lead = 0;
         } else {
             $training->is_lead = 1;

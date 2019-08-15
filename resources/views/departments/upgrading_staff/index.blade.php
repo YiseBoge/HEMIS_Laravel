@@ -4,7 +4,7 @@
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Upgrading Staff</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Academic Staffs Upgrading Their Level of Education</h6>
             </div>
             <div class="card-body">
                 @if(Auth::user()->hasRole('College Super Admin'))

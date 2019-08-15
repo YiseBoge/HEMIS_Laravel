@@ -218,16 +218,9 @@ class SpecialNeedStudentsController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $specialNeedStudent->department_id = $department->id;
-
-        if ($specialNeedStudent->isDuplicate() && $student->isDuplicate()) return redirect()->back()
-            ->withInput($request->toArray())
-            ->withErrors('This entry already exists');
-
-        $specialNeedStudent->save();
-
         $dormitoryService->save();
         $dormitoryService->studentService()->save($studentService);
+        $department->specialNeedStudents()->save($specialNeedStudent);
         $specialNeedStudent = SpecialNeedStudent::find($specialNeedStudent->id);
         $student->student_service_id = 0;
         $specialNeedStudent->general()->save($student);

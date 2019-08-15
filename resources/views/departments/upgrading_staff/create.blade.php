@@ -8,7 +8,7 @@
             <div class="col">
                 <fieldset class="card shadow h-100">
                     <div class="card-header text-primary">
-                        Upgrading Staff
+                        Academic Staffs Upgrading Their Level of Education
                     </div>
                     <div class="card-body px-4">
 

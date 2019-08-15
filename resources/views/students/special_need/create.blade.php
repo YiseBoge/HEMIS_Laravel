@@ -211,7 +211,8 @@
 
         var dormitoryType = document.getElementById('dormitory_service_type');
         var dormitoryInfo = document.getElementById('dormitory_info');
-        dormitoryType.addEventListener('change', function (e) {
+
+        function displayDormitoryDetails(){
             switch (dormitoryType.selectedIndex) {
                 case 0:
                     dormitoryInfo.className = "form-group row";
@@ -220,7 +221,11 @@
                     dormitoryInfo.className = "form-group row d-none";
                     break
             }
-        })
+        }
+
+        displayDormitoryDetails();
+
+        dormitoryType.addEventListener('change', displayDormitoryDetails)
     </script>
 @endsection
 

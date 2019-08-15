@@ -25,7 +25,7 @@
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <label class="label" for="teacher_type">Teacher Type</label>
+                                    <label class="label" for="teacher_type">Staff Type</label>
                                     <input type="text" id="teacher_type" class="form-control"
                                            disabled value="{{$teacher_type}}">
                                 </div>
