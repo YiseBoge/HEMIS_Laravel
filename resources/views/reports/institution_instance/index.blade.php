@@ -12,7 +12,7 @@
                         <div class="col-sm-6 text-left">
                             <a class="btn btn-primary btn-sm mb-0 shadow-sm" href=""
                                data-toggle="modal" data-target="#confirmModal">
-                                Shift to New Semester<i class="fas fa-exchange-alt text-white-50 fa-sm ml-2"></i>
+                                Switch to New Semester<i class="fas fa-exchange-alt text-white-50 fa-sm ml-2"></i>
                             </a>
                         </div>
                         <div class="col-sm-6 text-right">

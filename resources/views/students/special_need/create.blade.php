@@ -78,7 +78,9 @@
                                 <div class="col form-group">
                                     <select class="form-control" name="education_level" id="level">
                                         @foreach ($education_levels as $key => $value)
-                                            <option value="{{$key}}" {{ (old('education_level') == $key ? 'selected':'') }}>{{$value}}</option>
+                                            <option value="{{$key}}" {{ (old('education_level') == $key ? 'selected':'') }}>
+                                                {{$value}}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label for="level" class="form-control-placeholder">
@@ -91,7 +93,9 @@
                                 <div class="col-md-6 form-group">
                                     <select class="form-control" name="program" id="program">
                                         @foreach ($programs as $key => $value)
-                                            <option value="{{$key}}" {{ (old('program') == $key ? 'selected':'') }}>{{$value}}</option>
+                                            <option value="{{$key}}" {{ (old('program') == $key ? 'selected':'') }}>
+                                                {{$value}}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label for="service_type" class="form-control-placeholder">

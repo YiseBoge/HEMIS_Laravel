@@ -22,9 +22,9 @@ class CreateIctStaffTable extends Migration
             $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
            
             $table->primary('id');
-            $table->uuid('ict_staff_type_id');
+            $table->uuid('ict_staff_type_id')->nullable();
 
-            $table->uuid('college_id');
+            $table->uuid('college_id')->nullable();
         });
     }
 

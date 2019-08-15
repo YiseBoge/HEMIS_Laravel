@@ -1,5 +1,5 @@
 <!-- Topbar -->
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-5 static-top shadow">
+<nav class="navbar navbar-expand navbar-light bg-white topbar static-top shadow">
 
     @guest
         {{--        <a class="btn btn-primary btn-circle text-white shadow-sm" href="/" data-toggle="tooltip" title="Home">--}}
@@ -7,11 +7,11 @@
         {{--        </a>--}}
         <a class="sidebar-brand d-flex align-items-center justify-content-center m-4" href="/">
             <div class="sidebar-brand-icon">
-                <img class="rounded-circle d-inline-block" width="55" height="55"
+                <img class="rounded-circle d-inline-block" height="50"
                      src="{{ asset('img/logo-transparent.png') }}">
             </div>
             <div class="sidebar-brand-text mx-2">
-                <img class="d-inline-block" height="40" src="{{ asset('img/brand-blue.png') }}">
+                <img class="d-inline-block" height="35" style="opacity: 0.7" src="{{ asset('img/brand-black.png') }}">
             </div>
         </a>
 @else
@@ -40,10 +40,9 @@
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
         @guest
             <li class="nav-item btn">
-                <a class="nav-link text-primary" href="{{ route('login') }}" data-toggle="tooltip" title="Login">
-                    <i class="fas fa-sign-in-alt fa-sm mx-1"></i>
-                    {{ __('Login') }}
-                </a>
+                <a class="btn btn-primary mb-0 shadow-sm"
+                   href="{{ route('login') }}">
+                    Sign in</a>
             </li>
         @else
             <li class="nav-item">

@@ -1,168 +1,226 @@
 @extends('layouts.app')
 
-@section('content')
-    <div class="container-fluid">
-        <div class="row my-3">
-            <div class="col-md-3">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Number of Institutions
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$institutions_number}}
-                        </div>
+@section('index_content')
+    @guest
+        <!-- Masthead -->
+        <header class="masthead text-white text-center" style="min-height: 650px">
+            <div class="overlay shadow d-block"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 mx-auto">
+                        <h1>Welcome to the MoSHE - Higher Education Management Information System</h1>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Number of Colleges
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$colleges_number}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Number of Bands
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$bands_number}}
+        </header>
+    @endguest
+
+    <!-- Icons Grid -->
+    <section class="features-icons bg-light text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
+                    <div class="card border-bottom-primary shadow">
+                        <div class="card-body">
+                            <div class="h1 text-muted text-center mb-4">
+                                <i class="fas fa-university text-primary" style="opacity: 0.8"></i>
+                            </div>
+                            <div class="h4 mb-0 counter-count">{{ number_format($institutions_number - 1, 0) }}</div>
+                            <small class="text-muted text-uppercase font-weight-bold">Institutions</small>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Number of Departments
+                <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
+                    <div class="card border-bottom-primary shadow">
+                        <div class="card-body">
+                            <div class="h1 text-muted text-center mb-4">
+                                <i class="fas fa-user-graduate text-primary" style="opacity: 0.8"></i>
+                            </div>
+                            <div class="h4 mb-0 counter-count">{{ number_format($institutions_number - 1, 0) }}</div>
+                            <small class="text-muted text-uppercase font-weight-bold">Students Enrolled</small>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$departments_number}}
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
+                    <div class="card border-bottom-primary shadow">
+                        <div class="card-body">
+                            <div class="h1 text-muted text-center mb-4">
+                                <i class="fas fa-chalkboard-teacher text-primary" style="opacity: 0.8"></i>
+                            </div>
+                            <div class="h4 mb-0 counter-count">{{ number_format($institutions_number - 1, 0) }}</div>
+                            <small class="text-muted text-uppercase font-weight-bold">Staff Members</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
+                    <div class="card border-bottom-primary shadow">
+                        <div class="card-body">
+                            <div class="h1 text-muted text-center mb-4">
+                                <i class="fas fa-users-cog text-primary" style="opacity: 0.8"></i>
+                            </div>
+                            <div class="h4 mb-0 counter-count">{{ number_format(\App\User::all()->count(), 0) }}</div>
+                            <small class="text-muted text-uppercase font-weight-bold">Registered Admins</small>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-        <div class="row my-5">
-            <div class="col-md-12">
-                <div class="card shadow">
-                    <div class="card-header text-primary font-weight-bold">Student Enrollment By Year Levels</div>
-
-                    <div class="card-body">
-                        <form action="" method="get">
-
-                            <div class="form-group row pt-3">
-                                <div class="col form-group">
-                                    {!! Form::select('institution', $institutions , $selected_institution , ['class' => 'form-control', 'id' => 'institution', 'onchange' => 'this.form.submit()', in_array('institution', $disabled)?'disabled':'']) !!}
-                                    {!! Form::label('institution', 'University', ['class' => 'form-control-placeholder']) !!}
+    </section>
+    @guest
+        <br>
+    @endguest
+    <!-- Image Showcases -->
+    <section class="showcase">
+        <div class="container-fluid p-0">
+            <h2 class="text-center text-primary bg-white shadow-sm p-3 mb-5">Overview</h2>
+            <div class="row px-5">
+                <div class="col-lg-5 my-auto px-4">
+                    <h3>Student Enrollments</h3>
+                    <hr>
+                    <form action="" method="get">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="student_type" id="students"
+                                           value="Normal"
+                                           {{$selected_type == "Normal" ? 'checked' : ''}}  onclick="this.form.submit()">
+                                    <label class="form-check-label" for="students">
+                                        All Students
+                                    </label>
                                 </div>
-                                <div class="col form-group">
-                                    {!! Form::select('band', $bands , $selected_band , ['class' => 'form-control', 'id' => 'band', 'onchange' => 'this.form.submit()', in_array('band', $disabled)?'disabled':'']) !!}
-                                    {!! Form::label('band', 'Band', ['class' => 'form-control-placeholder']) !!}
+                                <div class="form-check my-3">
+                                    <input class="form-check-input" type="radio" name="student_type"
+                                           id="prospective_graduates" value="Prospective Graduates"
+                                           {{$selected_type == "Prospective Graduates" ? 'checked' : ''}} onclick="this.form.submit()">
+                                    <label class="form-check-label" for="prospective_graduates">
+                                        Prospective Graduates
+                                    </label>
                                 </div>
-                                <div class="col form-group">
-                                    {!! Form::select('college', $colleges , $selected_college , ['class' => 'form-control', 'id' => 'college', 'onchange' => 'this.form.submit()', in_array('college', $disabled)?'disabled':'']) !!}
-                                    {!! Form::label('college', 'College', ['class' => 'form-control-placeholder']) !!}
-                                </div>
-                            </div>
-
-                            <div class="form-group row pt-3">
-                                <div class="col form-group">
-                                    {!! Form::select('program', $programs , $selected_program , ['class' => 'form-control', 'id' => 'program', 'onchange' => 'this.form.submit()', in_array('program', $disabled)?'disabled':'']) !!}
-                                    {!! Form::label('program', 'Program', ['class' => 'form-control-placeholder']) !!}
-                                </div>
-
-                                <div class="col form-group">
-                                    {!! Form::select('education_level', $education_levels , $selected_education_level , ['class' => 'form-control', 'id' => 'education_level', 'onchange' => 'this.form.submit()', in_array('level', $disabled)?'disabled':'']) !!}
-                                    {!! Form::label('education_level', 'Level', ['class' => 'form-control-placeholder']) !!}
-                                </div>
-                                <div class="col form-group">
-                                    {!! Form::select('department', $departments , $selected_department , ['class' => 'form-control', 'id' => 'department', 'onchange' => 'this.form.submit()', in_array('department', $disabled)?'disabled':'']) !!}
-                                    {!! Form::label('department', 'Departments', ['class' => 'form-control-placeholder']) !!}
-                                </div>
-                            </div>
-
-                            <div class="row my-3">
-                                <div class="col-md-9">
-                                    <div class="container">
-                                        <canvas id="year-enrollment" class="chartjs-render-monitor"
-                                                height="400"></canvas>
-                                    </div>
-                                    <div class="container text-center">
-                                        <div class="row mt-3">
-                                            <div class="col-md-6 custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" name="male"
-                                                       id="male" value="male"
-                                                       {{$selected_sex == "male" || $selected_sex == "all" ? 'checked' : ''}} onclick="this.form.submit()">
-                                                <label class="custom-control-label" for="male">Male</label>
-                                            </div>
-                                            <div class="col-md-6 custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" name="female"
-                                                       id="female" value="female"
-                                                       {{$selected_sex == "female" || $selected_sex == "all" ? 'checked' : ''}} onclick="this.form.submit()">
-                                                <label class="custom-control-label" for="female">Female</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-check my-3">
-                                        <input class="form-check-input" type="radio" name="student_type" id="students"
-                                               value="Normal"
-                                               {{$selected_type == "Normal" ? 'checked' : ''}}  onclick="this.form.submit()">
-                                        <label class="form-check-label" for="students">
-                                            Students
-                                        </label>
-                                    </div>
-                                    <div class="form-check my-3">
-                                        <input class="form-check-input" type="radio" name="student_type"
-                                               id="prospective_graduates" value="Prospective Graduates"
-                                               {{$selected_type == "Prospective Graduates" ? 'checked' : ''}} onclick="this.form.submit()">
-                                        <label class="form-check-label" for="prospective_graduates">
-                                            Prospective Graduates
-                                        </label>
-                                    </div>
-                                    <div class="form-check disabled">
-                                        <input class="form-check-input" type="radio" name="student_type" id="graduates"
-                                               value="Graduates"
-                                               {{$selected_type == "Graduates" ? 'checked' : ''}} onclick="this.form.submit()">
-                                        <label class="form-check-label" for="graduates">
-                                            Graduates
-                                        </label>
-                                    </div>
+                                <div class="form-check disabled">
+                                    <input class="form-check-input" type="radio" name="student_type" id="graduates"
+                                           value="Graduates"
+                                           {{$selected_type == "Graduates" ? 'checked' : ''}} onclick="this.form.submit()">
+                                    <label class="form-check-label" for="graduates">
+                                        Graduates
+                                    </label>
                                 </div>
                             </div>
 
-                        </form>
+                            <div class="col-md-5">
+                                <div class="container">
+                                    <div class="col-md-12 custom-control custom-checkbox">
+                                        <input class="custom-control-input" type="checkbox" name="male"
+                                               id="male" value="male"
+                                               {{$selected_sex == "male" || $selected_sex == "all" ? 'checked' : ''}} onclick="this.form.submit()">
+                                        <label class="custom-control-label" for="male">Male</label>
+                                    </div>
+                                    <br>
+                                    <div class="col-md-12 custom-control custom-checkbox">
+                                        <input class="custom-control-input" type="checkbox" name="female"
+                                               id="female" value="female"
+                                               {{$selected_sex == "female" || $selected_sex == "all" ? 'checked' : ''}} onclick="this.form.submit()">
+                                        <label class="custom-control-label" for="female">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group row pt-3">
+                            <div class="col form-group{{in_array('institution', $disabled)?' d-none':''}}">
+                                {!! Form::select('institution', $institutions , $selected_institution , ['class' => 'form-control', 'id' => 'institution', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('institution', 'University', ['class' => 'form-control-placeholder']) !!}
+                            </div>
+                            <div class="col form-group{{in_array('band', $disabled)?' d-none':''}}">
+                                {!! Form::select('band', $bands , $selected_band , ['class' => 'form-control', 'id' => 'band', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('band', 'Band', ['class' => 'form-control-placeholder']) !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col form-group{{in_array('college', $disabled)?' d-none':''}}">
+                                {!! Form::select('college', $colleges , $selected_college , ['class' => 'form-control', 'id' => 'college', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('college', 'College', ['class' => 'form-control-placeholder']) !!}
+                            </div>
+                            <div class="col form-group{{in_array('department', $disabled)?' d-none':''}}">
+                                {!! Form::select('department', $departments , $selected_department , ['class' => 'form-control', 'id' => 'department', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('department', 'Departments', ['class' => 'form-control-placeholder']) !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col form-group{{in_array('program', $disabled)?' d-none':''}}">
+                                {!! Form::select('program', $programs , $selected_program , ['class' => 'form-control', 'id' => 'program', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('program', 'Program', ['class' => 'form-control-placeholder']) !!}
+                            </div>
+                            <div class="col form-group{{in_array('level', $disabled)?' d-none':''}}">
+                                {!! Form::select('education_level', $education_levels , $selected_education_level , ['class' => 'form-control', 'id' => 'education_level', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('education_level', 'Level', ['class' => 'form-control-placeholder']) !!}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-7 text-white showcase-img overflow-auto">
+                    <div class="card card-body border-right-primary" style="min-width: 500px">
+                        <canvas id="year-enrollment" class="chartjs-render-monitor" style="min-height: 38vh;"></canvas>
                     </div>
+                </div>
+            </div>
+            <hr class="mt-0">
+        </div>
+    </section>
 
+    <!-- Testimonials -->
+    <section class="testimonials text-center bg-light">
+        <h2 class="text-center text-primary bg-white shadow-sm p-3 mb-5">What people are saying...</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                        <img class="img-fluid rounded-circle mb-3" src="{{asset('img/logo.png')}}" alt="">
+                        <h5>Margaret E.</h5>
+                        <p class="font-weight-light mb-0">"This is fantastic! Thanks so much guys!"</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                        <img class="img-fluid rounded-circle mb-3" src="{{asset('img/logo.png')}}" alt="">
+                        <h5>Fred S.</h5>
+                        <p class="font-weight-light mb-0">"Bootstrap is amazing. I've been using it to create lots of
+                            super nice landing pages."</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                        <img class="img-fluid rounded-circle mb-3" src="{{asset('img/logo.png')}}" alt="">
+                        <h5>Sarah W.</h5>
+                        <p class="font-weight-light mb-0">"Thanks so much for making these free resources available to
+                            us!"</p>
+                    </div>
                 </div>
             </div>
         </div>
-        {{-- <div class="row">
-            <div class="col-md-5">
-                <div class="card shadow h-100">
-                    <div class="card-header text-primary font-weight-bold">Student Enrollment By Age</div>
+    </section>
 
-                    <div class="card-body">
-                        <canvas id="age-enrollment" height="300" width="600"></canvas>
+    @guest
+        <!-- Call to Action -->
+        <section class="call-to-action text-white text-center" style="margin-bottom: -95px;">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 mx-auto">
+                        <h2 class="mb-4">Ready to get started? Sign in!</h2>
+                    </div>
+                    <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                        <div class="form-row mx-auto">
+                            <div class="col-12 col-md-3 mx-auto">
+                                <a href="/login" class="btn btn-block btn-primary mx-auto shadow-sm">Sign in</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div> --}}
-    </div>
-
+        </section>
+    @endguest
 
     <script>
         var url = "/student-enrollment-chart?student_type={{$selected_type}}&sex={{$selected_sex}}&institution={{$selected_institution}}&program={{$selected_program}}&college={{$selected_college}}&band={{$selected_band}}&education_level={{$selected_education_level}}&department={{$selected_department}}";
@@ -211,6 +269,10 @@
                         },
                         scales: {
                             xAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Year Level'
+                                },
                                 time: {
                                     unit: 'date'
                                 },
@@ -223,6 +285,10 @@
                                 }
                             }],
                             yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Enrollment'
+                                },
                                 ticks: {
                                     maxTicksLimit: 5,
                                     padding: 10,
@@ -355,9 +421,7 @@
                             mode: 'index',
                             caretPadding: 10,
                         }
-
                     },
-
                 });
             });
         });
@@ -413,6 +477,10 @@
                         },
                         scales: {
                             xAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Year Level'
+                                },
                                 time: {
                                     unit: 'date'
                                 },

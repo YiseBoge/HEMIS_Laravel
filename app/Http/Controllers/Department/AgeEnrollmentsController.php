@@ -164,7 +164,7 @@ class AgeEnrollmentsController extends Controller
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if ($band == null) {
             $band = new Band;
-            $band->band_name_id = 0;
+            $band->band_name_id = null;
             $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
@@ -176,7 +176,7 @@ class AgeEnrollmentsController extends Controller
             $college = new College;
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
-            $college->college_name_id = 0;
+            $college->college_name_id = null;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
@@ -187,7 +187,7 @@ class AgeEnrollmentsController extends Controller
         if ($department == null) {
             $department = new Department;
             $department->year_level = $request->input("year_level");
-            $department->department_name_id = 0;
+            $department->department_name_id = null;
             $college->departments()->save($department);
             $departmentName->department()->save($department);
         }
@@ -290,11 +290,8 @@ class AgeEnrollmentsController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $enrollment = AgeEnrollment::find($id);
-        if ($action == "approve") {
-            $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $enrollment->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $enrollment = AgeEnrollment::find($id);
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $enrollment->save();
         } else {

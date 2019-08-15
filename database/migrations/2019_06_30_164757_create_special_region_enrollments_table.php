@@ -1,9 +1,9 @@
 <?php
 
 use App\Models\Institution\Institution;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateSpecialRegionEnrollmentsTable extends Migration
 {
@@ -24,9 +24,9 @@ class CreateSpecialRegionEnrollmentsTable extends Migration
             $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
-            
-            $table->uuid('region_name_id');
-            $table->uuid('department_id');
+
+            $table->uuid('region_name_id')->nullable();
+            $table->uuid('department_id')->nullable();
         });
     }
 

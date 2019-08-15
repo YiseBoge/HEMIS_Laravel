@@ -130,7 +130,7 @@ class ManagementStaffsController extends Controller
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if ($band == null) {
             $band = new Band;
-            $band->band_name_id = 0;
+            $band->band_name_id = null;
             $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
@@ -142,7 +142,7 @@ class ManagementStaffsController extends Controller
             $college = new College;
             $college->education_level = 'None';
             $college->education_program = "None";
-            $college->college_name_id = 0;
+            $college->college_name_id = null;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
@@ -244,7 +244,7 @@ class ManagementStaffsController extends Controller
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if ($band == null) {
             $band = new Band;
-            $band->band_name_id = 0;
+            $band->band_name_id = null;
             $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
@@ -256,7 +256,7 @@ class ManagementStaffsController extends Controller
             $college = new College;
             $college->education_level = 'None';
             $college->education_program = "None";
-            $college->college_name_id = 0;
+            $college->college_name_id = null;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }

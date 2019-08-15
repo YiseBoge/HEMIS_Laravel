@@ -18,9 +18,9 @@ class CreateBandsTable extends Migration
             $table->timestamps();
 
             $table->primary('id');
-            $table->uuid('band_name_id');
+            $table->uuid('band_name_id')->nullable();
 
-            $table->uuid('institution_id');
+            $table->uuid('institution_id')->nullable();
 
         });
     }

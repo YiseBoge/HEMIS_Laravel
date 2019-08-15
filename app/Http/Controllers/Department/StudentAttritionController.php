@@ -183,7 +183,7 @@ class StudentAttritionController extends Controller
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if ($band == null) {
             $band = new Band;
-            $band->band_name_id = 0;
+            $band->band_name_id = null;
             $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
@@ -195,7 +195,7 @@ class StudentAttritionController extends Controller
             $college = new College;
             $college->education_level = $request->input("education_level");
             $college->education_program = $request->input("program");
-            $college->college_name_id = 0;
+            $college->college_name_id = null;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
@@ -206,7 +206,7 @@ class StudentAttritionController extends Controller
         if ($department == null) {
             $department = new Department;
             $department->year_level = $request->input("year_level");
-            $department->department_name_id = 0;
+            $department->department_name_id = null;
             $college->departments()->save($department);
             $departmentName->department()->save($department);
         }
@@ -309,11 +309,8 @@ class StudentAttritionController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $attrition = StudentAttrition::find($id);
-        if ($action == "approve") {
-            $attrition->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $attrition->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $attrition = StudentAttrition::find($id);
             $attrition->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $attrition->save();
         } else {

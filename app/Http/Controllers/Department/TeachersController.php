@@ -158,7 +158,7 @@ class TeachersController extends Controller
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if ($band == null) {
             $band = new Band;
-            $band->band_name_id = 0;
+            $band->band_name_id = null;
             $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
@@ -170,7 +170,7 @@ class TeachersController extends Controller
             $college = new College;
             $college->education_level = "None";
             $college->education_program = "None";
-            $college->college_name_id = 0;
+            $college->college_name_id = null;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
@@ -181,7 +181,7 @@ class TeachersController extends Controller
         if ($department == null) {
             $department = new Department;
             $department->year_level = "None";
-            $department->department_name_id = 0;
+            $department->department_name_id = null;
             $college->departments()->save($department);
             $departmentName->department()->save($department);
         }
@@ -281,11 +281,8 @@ class TeachersController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $teacher = Teacher::find($id);
-        if ($action == "approve") {
-            $teacher->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $teacher->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $teacher = Teacher::find($id);
             $teacher->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $teacher->save();
         } else {

@@ -54,7 +54,7 @@ class Teacher extends Model
         return Teacher::where(array(
                 'department_id' => $this->department_id,
                 'level_of_education' => $this->level_of_education,
-                'citizenship' => $this->citizenship, 
+                'citizenship' => $this->citizenship,
             ))->first() != null;
     }
 }

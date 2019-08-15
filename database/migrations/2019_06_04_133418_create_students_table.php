@@ -25,7 +25,7 @@ class CreateStudentsTable extends Migration
             $table->timestamps();
 
             $table->primary('id');
-            $table->uuid('student_service_id');
+            $table->uuid('student_service_id')->nullable();
             $table->uuid('studentable_id');
             $table->string('studentable_type');
         });

@@ -151,7 +151,7 @@ class CostSharingController extends Controller
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if ($band == null) {
             $band = new Band;
-            $band->band_name_id = 0;
+            $band->band_name_id = null;
             $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
@@ -163,7 +163,7 @@ class CostSharingController extends Controller
             $college = new College;
             $college->education_level = "None";
             $college->education_program = "None";
-            $college->college_name_id = 0;
+            $college->college_name_id = null;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
@@ -174,7 +174,7 @@ class CostSharingController extends Controller
         if ($department == null) {
             $department = new Department;
             $department->year_level = "None";
-            $department->department_name_id = 0;
+            $department->department_name_id = null;
             $college->departments()->save($department);
             $departmentName->department()->save($department);
         }
@@ -236,7 +236,17 @@ class CostSharingController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        return redirect("/student/cost-sharing");
+
+        $costSharings = CostSharing::find($id);
+
+        $costSharings->tuition_fee = $request->input("tuition_fee");
+        $costSharings->food_expense = $request->input("food_expense");
+        $costSharings->dormitory_expense = $request->input("dormitory_expense");
+        $costSharings->pre_payment_amount = $request->input("pre_payment_amount");
+        $costSharings->unpaid_amount = $request->input("unpaid_amount");
+
+        $costSharings->save();        
+        return redirect('/student/cost-sharing')->with('primary', 'Successfully Updated');
     }
 
     /**
@@ -261,11 +271,8 @@ class CostSharingController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $costSharing = CostSharing::find($id);
-        if ($action == "approve") {
-            $costSharing->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $costSharing->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $costSharing = CostSharing::find($id);
             $costSharing->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $costSharing->save();
         } else {

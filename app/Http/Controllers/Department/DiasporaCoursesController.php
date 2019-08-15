@@ -138,7 +138,7 @@ class DiasporaCoursesController extends Controller
         $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
         if ($band == null) {
             $band = new Band;
-            $band->band_name_id = 0;
+            $band->band_name_id = null;
             $institution->bands()->save($band);
             $bandName->band()->save($band);
         }
@@ -150,7 +150,7 @@ class DiasporaCoursesController extends Controller
             $college = new College;
             $college->education_level = 'None';
             $college->education_program = 'None';
-            $college->college_name_id = 0;
+            $college->college_name_id = null;
             $band->colleges()->save($college);
             $collegeName->college()->save($college);
         }
@@ -161,7 +161,7 @@ class DiasporaCoursesController extends Controller
         if ($department == null) {
             $department = new Department;
             $department->year_level = 'None';
-            $department->department_name_id = 0;
+            $department->department_name_id = null;
             $college->departments()->save($department);
             $departmentName->department()->save($department);
         }
@@ -259,11 +259,8 @@ class DiasporaCoursesController extends Controller
         $action = $request->input('action');
         $selectedDepartment = $request->input('department');
 
-        $course = DiasporaCourses::find($id);
-        if ($action == "approve") {
-            $course->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-            $course->save();
-        } elseif ($action == "disapprove") {
+        if ($action == "disapprove") {
+            $course = DiasporaCourses::find($id);
             $course->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $course->save();
         } else {

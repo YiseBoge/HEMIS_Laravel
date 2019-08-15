@@ -20,9 +20,9 @@ class CreateDepartmentsTable extends Migration
             $table->string('year_level');
 
             $table->primary('id');
-            $table->uuid('department_name_id');
-            
-            $table->uuid('college_id');
+            $table->uuid('department_name_id')->nullable();
+
+            $table->uuid('college_id')->nullable();
         });
     }
 

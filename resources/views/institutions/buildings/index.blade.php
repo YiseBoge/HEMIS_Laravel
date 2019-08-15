@@ -75,14 +75,14 @@
                                         <div class="row px-1">
                                             <div class="col px-0">
                                                 <form class="p-0"
-                                                        action="buildings/{{$building->id}}/edit"
-                                                        method="GET">
+                                                      action="buildings/{{$building->id}}/edit"
+                                                      method="GET">
                                                     <button type="submit"
                                                             class="btn btn-primary btn-circle text-white btn-sm mx-0"
                                                             style="opacity:0.80"
                                                             data-toggle="tooltip" title="Edit">
                                                         <i class="fas fa-pencil-alt fa-sm"
-                                                            style="opacity:0.75"></i>
+                                                           style="opacity:0.75"></i>
                                                     </button>
                                                 </form>
                                             </div>
@@ -92,7 +92,7 @@
                                                         style="opacity:0.80" data-id="{{$building->id}}"
                                                         data-toggle="tooltip" title="Delete">
                                                     <i class="fas fa-trash fa-sm"
-                                                        style="opacity:0.75"></i>
+                                                       style="opacity:0.75"></i>
                                                 </button>
                                             </div>
                                         </div>
