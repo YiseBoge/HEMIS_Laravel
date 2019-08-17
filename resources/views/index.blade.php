@@ -77,13 +77,13 @@
                 <div class="col-lg-5 my-auto px-4">
                     <h3>Student Enrollments</h3>
                     <hr>
-                    <form action="" method="get">
+                    <form action="" method="get" id="enrollmentsFilter">
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="form-check mb-3">
                                     <input class="form-check-input" type="radio" name="student_type" id="students"
                                            value="Normal"
-                                           {{$selected_type == "Normal" ? 'checked' : ''}}  onclick="this.form.submit()">
+                                           {{$selected_type == "Normal" ? 'checked' : ''}}  onclick="updateEnrollmentChart()">
                                     <label class="form-check-label" for="students">
                                         All Students
                                     </label>
@@ -91,7 +91,7 @@
                                 <div class="form-check my-3">
                                     <input class="form-check-input" type="radio" name="student_type"
                                            id="prospective_graduates" value="Prospective Graduates"
-                                           {{$selected_type == "Prospective Graduates" ? 'checked' : ''}} onclick="this.form.submit()">
+                                           {{$selected_type == "Prospective Graduates" ? 'checked' : ''}} onclick="updateEnrollmentChart()">
                                     <label class="form-check-label" for="prospective_graduates">
                                         Prospective Graduates
                                     </label>
@@ -99,7 +99,7 @@
                                 <div class="form-check disabled">
                                     <input class="form-check-input" type="radio" name="student_type" id="graduates"
                                            value="Graduates"
-                                           {{$selected_type == "Graduates" ? 'checked' : ''}} onclick="this.form.submit()">
+                                           {{$selected_type == "Graduates" ? 'checked' : ''}} onclick="updateEnrollmentChart()">
                                     <label class="form-check-label" for="graduates">
                                         Graduates
                                     </label>
@@ -111,14 +111,14 @@
                                     <div class="col-md-12 custom-control custom-checkbox">
                                         <input class="custom-control-input" type="checkbox" name="male"
                                                id="male" value="male"
-                                               {{$selected_sex == "male" || $selected_sex == "all" ? 'checked' : ''}} onclick="this.form.submit()">
+                                               {{$selected_sex == "male" || $selected_sex == "all" ? 'checked' : ''}} onclick="updateEnrollmentChart()">
                                         <label class="custom-control-label" for="male">Male</label>
                                     </div>
                                     <br>
                                     <div class="col-md-12 custom-control custom-checkbox">
                                         <input class="custom-control-input" type="checkbox" name="female"
                                                id="female" value="female"
-                                               {{$selected_sex == "female" || $selected_sex == "all" ? 'checked' : ''}} onclick="this.form.submit()">
+                                               {{$selected_sex == "female" || $selected_sex == "all" ? 'checked' : ''}} onclick="updateEnrollmentChart()">
                                         <label class="custom-control-label" for="female">Female</label>
                                     </div>
                                 </div>
@@ -126,34 +126,34 @@
                         </div>
                         <hr>
                         <div class="form-group row pt-3">
-                            <div class="col form-group{{in_array('institution', $disabled)?' d-none':''}}">
-                                {!! Form::select('institution', $institutions , $selected_institution , ['class' => 'form-control', 'id' => 'institution', 'onchange' => 'this.form.submit()']) !!}
+                            <div class="col form-group">
+                                {!! Form::select('institution', $institutions , $selected_institution , ['class' => 'form-control', 'id' => 'institution']) !!}
                                 {!! Form::label('institution', 'University', ['class' => 'form-control-placeholder']) !!}
                             </div>
-                            <div class="col form-group{{in_array('band', $disabled)?' d-none':''}}">
-                                {!! Form::select('band', $bands , $selected_band , ['class' => 'form-control', 'id' => 'band', 'onchange' => 'this.form.submit()']) !!}
+                            <div class="col form-group d-none">
+                                {!! Form::select('band', $bands , $selected_band , ['class' => 'form-control', 'id' => 'band']) !!}
                                 {!! Form::label('band', 'Band', ['class' => 'form-control-placeholder']) !!}
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <div class="col form-group{{in_array('college', $disabled)?' d-none':''}}">
-                                {!! Form::select('college', $colleges , $selected_college , ['class' => 'form-control', 'id' => 'college', 'onchange' => 'this.form.submit()']) !!}
+                            <div class="col form-group d-none">
+                                {!! Form::select('college', $colleges , $selected_college , ['class' => 'form-control', 'id' => 'college']) !!}
                                 {!! Form::label('college', 'College', ['class' => 'form-control-placeholder']) !!}
                             </div>
-                            <div class="col form-group{{in_array('department', $disabled)?' d-none':''}}">
-                                {!! Form::select('department', $departments , $selected_department , ['class' => 'form-control', 'id' => 'department', 'onchange' => 'this.form.submit()']) !!}
+                            <div class="col form-group d-none">
+                                {!! Form::select('department', $departments , $selected_department , ['class' => 'form-control', 'id' => 'department']) !!}
                                 {!! Form::label('department', 'Departments', ['class' => 'form-control-placeholder']) !!}
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <div class="col form-group{{in_array('program', $disabled)?' d-none':''}}">
-                                {!! Form::select('program', $programs , $selected_program , ['class' => 'form-control', 'id' => 'program', 'onchange' => 'this.form.submit()']) !!}
+                            <div class="col form-group d-none">
+                                {!! Form::select('program', $programs , $selected_program , ['class' => 'form-control', 'id' => 'program']) !!}
                                 {!! Form::label('program', 'Program', ['class' => 'form-control-placeholder']) !!}
                             </div>
-                            <div class="col form-group{{in_array('level', $disabled)?' d-none':''}}">
-                                {!! Form::select('education_level', $education_levels , $selected_education_level , ['class' => 'form-control', 'id' => 'education_level', 'onchange' => 'this.form.submit()']) !!}
+                            <div class="col form-group d-none">
+                                {!! Form::select('education_level', $education_levels , $selected_education_level , ['class' => 'form-control', 'id' => 'education_level']) !!}
                                 {!! Form::label('education_level', 'Level', ['class' => 'form-control-placeholder']) !!}
                             </div>
                         </div>
@@ -161,6 +161,12 @@
                 </div>
                 <div class="col-lg-7 text-white showcase-img overflow-auto">
                     <div class="card card-body border-right-primary" style="min-width: 500px">
+                        <span id="loading" class="intro-banner-vdo-play-btn pinkBg d-none">
+                            <i class="glyphicon glyphicon-play whiteText" aria-hidden="true"></i>
+                            <span class="ripple pinkBg"></span>
+                            <span class="ripple pinkBg"></span>
+                            <span class="ripple pinkBg"></span>
+                        </span>
                         <canvas id="year-enrollment" class="chartjs-render-monitor" style="min-height: 38vh;"></canvas>
                     </div>
                 </div>
@@ -168,7 +174,6 @@
             <hr class="mt-0">
         </div>
     </section>
-
     <!-- Testimonials -->
     <section class="testimonials text-center bg-light">
         <h2 class="text-center text-primary bg-white shadow-sm p-3 mb-5">What people are saying...</h2>
@@ -223,316 +228,92 @@
     @endguest
 
     <script>
-        var url = "/student-enrollment-chart?student_type={{$selected_type}}&sex={{$selected_sex}}&institution={{$selected_institution}}&program={{$selected_program}}&college={{$selected_college}}&band={{$selected_band}}&education_level={{$selected_education_level}}&department={{$selected_department}}";
-        var Enrollments = [];
-        var Years = [];
         $(document).ready(function () {
+            updateEnrollmentChart();
+
+            let institutionSelect = $("#institution");
+            let bandSelect = $("#band");
+            let collegeSelect = $("#college");
+            let departmentSelect = $("#department");
+            let programSelect = $("#program");
+            let levelSelect = $("#education_level");
+
+            institutionSelect.on("change", function (ev) {
+                let nodes = [];
+                nodes = nodes.concat([bandSelect.parent()]);
+                bandSelect.val(0);
+                collegeSelect.val(0);
+                departmentSelect.val(0);
+                programSelect.val(0);
+                levelSelect.val(0);
+                console.log(bandSelect.value);
+                updateEnrollmentChart();
+                showNodes(nodes)
+            });
+            bandSelect.on("change", function (ev) {
+                let nodes = [];
+                nodes = nodes.concat([bandSelect.parent(), collegeSelect.parent()]);
+                collegeSelect.val(0);
+                departmentSelect.val(0);
+                programSelect.val(0);
+                levelSelect.val(0);
+                updateEnrollmentChart();
+                showNodes(nodes)
+            });
+            collegeSelect.on("change", function (ev) {
+                let nodes = [];
+                nodes = nodes.concat([bandSelect.parent(), collegeSelect.parent(), departmentSelect.parent(), programSelect.parent(), levelSelect.parent()]);
+                departmentSelect.val(0);
+                programSelect.val(0);
+                levelSelect.val(0);
+                updateEnrollmentChart();
+                showNodes(nodes)
+            });
+            departmentSelect.on("change", function (ev) {
+                updateEnrollmentChart();
+            });
+            programSelect.on("change", function (ev) {
+                updateEnrollmentChart()
+            });
+            levelSelect.on("change", function (ev) {
+                updateEnrollmentChart()
+            })
+
+        });
+
+        function showNodes(nodes) {
+            hideAll();
+            for (let i = 0; i < nodes.length; i++) {
+                console.log(nodes[0]);
+                nodes[i].removeClass("d-none")
+            }
+        }
+
+        function hideAll() {
+            $("#band").parent().addClass("d-none");
+            $("#college").parent().addClass("d-none");
+            $("#department").parent().addClass("d-none");
+            $("#program").parent().addClass("d-none");
+            $("#education_level").parent().addClass("d-none");
+        }
+
+        function updateEnrollmentChart() {
+            let url = "/student-enrollment-chart?" + $("#enrollmentsFilter").serialize();
+            console.log(url);
+            let Enrollments = [];
+            let Years = [];
+            let loader = $("#loading");
+            loader.removeClass("d-none");
             $.get(url, function (response) {
                 Years = response.year_levels;
                 Enrollments = response.enrollments;
 
-                var ctx = document.getElementById('year-enrollment').getContext('2d');
-                var chart = new Chart(ctx, {
-                    // The type of chart we want to create
-                    type: 'line',
-
-                    // The data for our dataset
-                    data: {
-                        labels: Years,
-                        datasets: [{
-                            label: 'Enrollment',
-                            data: Enrollments,
-                            lineTension: 0.3,
-                            backgroundColor: "rgba(78, 115, 223, 0.05)",
-                            borderColor: "rgba(78, 115, 223, 1)",
-                            pointRadius: 3,
-                            pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                            pointBorderColor: "rgba(78, 115, 223, 1)",
-                            pointHoverRadius: 3,
-                            pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                            pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                            pointHitRadius: 10,
-                            pointBorderWidth: 2
-                        }]
-                    },
-
-                    // Configuration options go here
-                    options: {
-                        maintainAspectRatio: false,
-                        layout: {
-                            padding: {
-                                left: 10,
-                                right: 25,
-                                top: 25,
-                                bottom: 0
-                            }
-                        },
-                        scales: {
-                            xAxes: [{
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: 'Year Level'
-                                },
-                                time: {
-                                    unit: 'date'
-                                },
-                                gridLines: {
-                                    display: false,
-                                    drawBorder: false
-                                },
-                                ticks: {
-                                    maxTicksLimit: 7
-                                }
-                            }],
-                            yAxes: [{
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: 'Enrollment'
-                                },
-                                ticks: {
-                                    maxTicksLimit: 5,
-                                    padding: 10,
-                                    beginAtZero: true
-
-                                },
-                                gridLines: {
-                                    color: "rgb(234, 236, 244)",
-                                    zeroLineColor: "rgb(234, 236, 244)",
-                                    drawBorder: false,
-                                    borderDash: [2],
-                                    zeroLineBorderDash: [2]
-                                }
-                            }],
-                        },
-                        legend: {
-                            display: false
-                        },
-                        tooltips: {
-                            backgroundColor: "rgb(255,255,255)",
-                            bodyFontColor: "#858796",
-                            titleMarginBottom: 10,
-                            titleFontColor: '#6e707e',
-                            titleFontSize: 14,
-                            borderColor: '#dddfeb',
-                            borderWidth: 1,
-                            xPadding: 15,
-                            yPadding: 15,
-                            displayColors: false,
-                            intersect: false,
-                            mode: 'index',
-                            caretPadding: 10,
-                        }
-
-                    },
-
-                });
+                let ctx = document.getElementById('year-enrollment').getContext('2d');
+                makeChart(ctx, Years, Enrollments, "line", "Enrollments", "Year Level", "Enrollments");
             });
-        });
+
+            loader.addClass("d-none");
+        }
     </script>
-    <script>
-        var url2 = "age-enrollment-chart";
-        var Enrollments = [];
-        var Ages = [];
-        $(document).ready(function () {
-            $.get(url2, function (response) {
-                Ages = response.ages;
-                Enrollments = response.enrollments;
-
-                var ctx = document.getElementById('age-enrollment').getContext('2d');
-                var chart = new Chart(ctx, {
-                    // The type of chart we want to create
-                    type: 'bar',
-
-                    // The data for our dataset
-                    data: {
-                        labels: Ages,
-                        datasets: [{
-                            label: 'Enrollment',
-                            data: Enrollments,
-                            lineTension: 0.3,
-                            backgroundColor: "rgba(78, 115, 223, 1)",
-                            borderColor: "rgba(78, 115, 223, 1)",
-                            pointRadius: 3,
-                            pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                            pointBorderColor: "rgba(78, 115, 223, 1)",
-                            pointHoverRadius: 3,
-                            pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                            pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                            pointHitRadius: 10,
-                            pointBorderWidth: 2
-                        }]
-                    },
-
-                    // Configuration options go here
-                    options: {
-                        maintainAspectRatio: false,
-                        layout: {
-                            padding: {
-                                left: 10,
-                                right: 25,
-                                top: 25,
-                                bottom: 0
-                            }
-                        },
-                        scales: {
-                            xAxes: [{
-                                time: {
-                                    unit: 'date'
-                                },
-                                gridLines: {
-                                    display: false,
-                                    drawBorder: false
-                                },
-                                ticks: {
-                                    maxTicksLimit: 7
-                                }
-                            }],
-                            yAxes: [{
-                                ticks: {
-                                    maxTicksLimit: 5,
-                                    padding: 10,
-                                    beginAtZero: true
-
-                                },
-                                gridLines: {
-                                    color: "rgb(234, 236, 244)",
-                                    zeroLineColor: "rgb(234, 236, 244)",
-                                    drawBorder: false,
-                                    borderDash: [2],
-                                    zeroLineBorderDash: [2]
-                                }
-                            }],
-                        },
-                        legend: {
-                            display: false
-                        },
-                        tooltips: {
-                            backgroundColor: "rgb(255,255,255)",
-                            bodyFontColor: "#858796",
-                            titleMarginBottom: 10,
-                            titleFontColor: '#6e707e',
-                            titleFontSize: 14,
-                            borderColor: '#dddfeb',
-                            borderWidth: 1,
-                            xPadding: 15,
-                            yPadding: 15,
-                            displayColors: false,
-                            intersect: false,
-                            mode: 'index',
-                            caretPadding: 10,
-                        }
-                    },
-                });
-            });
-        });
-    </script>
-
-    <script>
-        var url3 = "{{url('specialNeeds-enrollment-chart')}}";
-        var specialNeedsTypes = [];
-        var numberOfMale = [];
-        var numberOfFemale = [];
-        $(document).ready(function () {
-            $.get(url3, function (response) {
-                specialNeedsTypes = response.types;
-                numberOfMale = response.male;
-                numberOfFemale = response.female;
-
-
-                var ctx = document.getElementById('specialNeeds-enrollment').getContext('2d');
-                var chart = new Chart(ctx, {
-                    // The type of chart we want to create
-                    type: 'pie',
-
-                    // The data for our dataset
-                    data: {
-                        labels: specialNeedsTypes,
-                        datasets: [{
-                            label: 'SpecialNeeds',
-                            data: numberOfMale,
-                            lineTension: 0.3,
-                            backgroundColor: "rgba(78, 115, 223, 0.05)",
-                            borderColor: "rgba(78, 115, 223, 1)",
-                            pointRadius: 3,
-                            pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                            pointBorderColor: "rgba(78, 115, 223, 1)",
-                            pointHoverRadius: 3,
-                            pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                            pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                            pointHitRadius: 10,
-                            pointBorderWidth: 2
-                        }]
-                    },
-
-                    // Configuration options go here
-                    options: {
-                        maintainAspectRatio: false,
-                        layout: {
-                            padding: {
-                                left: 10,
-                                right: 25,
-                                top: 25,
-                                bottom: 0
-                            }
-                        },
-                        scales: {
-                            xAxes: [{
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: 'Year Level'
-                                },
-                                time: {
-                                    unit: 'date'
-                                },
-                                gridLines: {
-                                    display: false,
-                                    drawBorder: false
-                                },
-                                ticks: {
-                                    maxTicksLimit: 7
-                                }
-                            }],
-                            yAxes: [{
-                                ticks: {
-                                    maxTicksLimit: 5,
-                                    padding: 10,
-                                    beginAtZero: true
-
-                                },
-                                gridLines: {
-                                    color: "rgb(234, 236, 244)",
-                                    zeroLineColor: "rgb(234, 236, 244)",
-                                    drawBorder: false,
-                                    borderDash: [2],
-                                    zeroLineBorderDash: [2]
-                                }
-                            }],
-                        },
-                        legend: {
-                            display: false
-                        },
-                        tooltips: {
-                            backgroundColor: "rgb(255,255,255)",
-                            bodyFontColor: "#858796",
-                            titleMarginBottom: 10,
-                            titleFontColor: '#6e707e',
-                            titleFontSize: 14,
-                            borderColor: '#dddfeb',
-                            borderWidth: 1,
-                            xPadding: 15,
-                            yPadding: 15,
-                            displayColors: false,
-                            intersect: false,
-                            mode: 'index',
-                            caretPadding: 10,
-
-                        }
-                    },
-
-                });
-            });
-        });
-    </script>
-
 
 @endSection
