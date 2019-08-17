@@ -85,13 +85,13 @@ function updateEnrollmentChart(toDo = 'nothing') {
         if (toDo === "cols") {
             $('#college').find('option').remove().end().append('<option value="0">Any</option>');
             for (let i = 0; i < cols.length; i++) {
-                $("#college").append('<option value=\"' + (i+1) + '\" selected=\"selected\">' + cols[i] + '</option>')
+                $("#college").append('<option value=\"' + (i + 1) + '\" selected=\"selected\">' + cols[i] + '</option>')
             }
             $('#college').val('0');
         } else if (toDo === "deps") {
             $('#department').find('option').remove().end().append('<option value="0">Any</option>');
             for (let i = 0; i < deps.length; i++) {
-                $("#department").append('<option value=\"' + (i+1) + '\" selected=\"selected\">' + deps[i] + '</option>')
+                $("#department").append('<option value=\"' + (i + 1) + '\" selected=\"selected\">' + deps[i] + '</option>')
             }
             $('#department').val('0');
         }
