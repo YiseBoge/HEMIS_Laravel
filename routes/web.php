@@ -14,8 +14,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'IndexController@index');
-Route::get('/student-enrollment-chart', 'IndexController@enrollmentChart');
-Route::get('/age-enrollment-chart', 'IndexController@ageEnrollmentChart');
+Route::get('/api/student-enrollment-chart', 'IndexController@enrollmentChart');
+Route::get('/api/age-enrollment-chart', 'IndexController@ageEnrollmentChart');
 //  Band Routes...
 Route::resource('band/band-name', 'Band\BandNamesController');
 

@@ -121,17 +121,24 @@
 </script>
 
 <script>
-    function makeChart(target, labels, data, graphType, dataName, xLabel, yLabel, color = [78, 115, 223]) {
-        let chart = new Chart(target, {
+
+    function updateChartData(chart, labels, data) {
+        chart.data.labels = labels;
+        chart.data.datasets[0].data = data;
+        chart.update();
+    }
+
+    function makeChart(target, graphType, dataName, xLabel, yLabel, color = [78, 115, 223]) {
+        return new Chart(target, {
             // The type of chart we want to create
             type: graphType,
 
             // The data for our dataset
             data: {
-                labels: labels,
+                labels: [],
                 datasets: [{
                     label: dataName,
-                    data: data,
+                    data: [],
                     lineTension: 0.3,
                     backgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 0.07)",
                     borderColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",

@@ -16,7 +16,11 @@
     @endguest
 
     <!-- Icons Grid -->
-    <section class="features-icons bg-light text-center">
+    @guest()
+        <section class="features-icons bg-light text-center">
+        @else
+        <section class="features-icons bg-light text-center" style="background: url('/img/landing.jpg'); background-size: cover; background-position: center;">
+        @endguest
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
@@ -109,14 +113,14 @@
                             <div class="col-md-5">
                                 <div class="container">
                                     <div class="col-md-12 custom-control custom-checkbox">
-                                        <input class="custom-control-input" type="checkbox" name="male"
+                                        <input class="custom-control-input" type="checkbox" name="sex[]"
                                                id="male" value="male"
                                                {{$selected_sex == "male" || $selected_sex == "all" ? 'checked' : ''}} onclick="updateEnrollmentChart()">
                                         <label class="custom-control-label" for="male">Male</label>
                                     </div>
                                     <br>
                                     <div class="col-md-12 custom-control custom-checkbox">
-                                        <input class="custom-control-input" type="checkbox" name="female"
+                                        <input class="custom-control-input" type="checkbox" name="sex[]"
                                                id="female" value="female"
                                                {{$selected_sex == "female" || $selected_sex == "all" ? 'checked' : ''}} onclick="updateEnrollmentChart()">
                                         <label class="custom-control-label" for="female">Female</label>
@@ -138,11 +142,11 @@
 
                         <div class="form-group row">
                             <div class="col form-group d-none">
-                                {!! Form::select('college', $colleges , $selected_college , ['class' => 'form-control', 'id' => 'college']) !!}
+                                {!! Form::select('college', [] , $selected_college , ['class' => 'form-control', 'id' => 'college']) !!}
                                 {!! Form::label('college', 'College', ['class' => 'form-control-placeholder']) !!}
                             </div>
                             <div class="col form-group d-none">
-                                {!! Form::select('department', $departments , $selected_department , ['class' => 'form-control', 'id' => 'department']) !!}
+                                {!! Form::select('department', [] , $selected_department , ['class' => 'form-control', 'id' => 'department']) !!}
                                 {!! Form::label('department', 'Departments', ['class' => 'form-control-placeholder']) !!}
                             </div>
                         </div>
@@ -177,7 +181,7 @@
     <!-- Testimonials -->
     <section class="testimonials text-center bg-light">
         <h2 class="text-center text-primary bg-white shadow-sm p-3 mb-5">What people are saying...</h2>
-        <div class="container">
+        <div class="container py-5">
             <div class="row">
                 <div class="col-lg-4">
                     <div class="testimonial-item mx-auto mb-5 mb-lg-0">
@@ -228,8 +232,11 @@
     @endguest
 
     <script>
+        let chart;
         $(document).ready(function () {
             updateEnrollmentChart();
+            let ctx = document.getElementById('year-enrollment').getContext('2d');
+            chart = makeChart(ctx, "line", "Enrollments", "Year Level", "Enrollments");
 
             let institutionSelect = $("#institution");
             let bandSelect = $("#band");
@@ -240,34 +247,35 @@
 
             institutionSelect.on("change", function (ev) {
                 let nodes = [];
-                nodes = nodes.concat([bandSelect.parent()]);
+                if (institutionSelect.val() != 0) nodes = nodes.concat([bandSelect.parent()]);
                 bandSelect.val(0);
                 collegeSelect.val(0);
                 departmentSelect.val(0);
                 programSelect.val(0);
                 levelSelect.val(0);
-                console.log(bandSelect.value);
                 updateEnrollmentChart();
                 showNodes(nodes)
             });
             bandSelect.on("change", function (ev) {
                 let nodes = [];
-                nodes = nodes.concat([bandSelect.parent(), collegeSelect.parent()]);
+                nodes = nodes.concat([bandSelect.parent()]);
+                if (bandSelect.val() != 0) nodes = nodes.concat([collegeSelect.parent()]);
                 collegeSelect.val(0);
                 departmentSelect.val(0);
                 programSelect.val(0);
                 levelSelect.val(0);
-                updateEnrollmentChart();
+                updateEnrollmentChart("cols");
                 showNodes(nodes)
             });
             collegeSelect.on("change", function (ev) {
                 let nodes = [];
-                nodes = nodes.concat([bandSelect.parent(), collegeSelect.parent(), departmentSelect.parent(), programSelect.parent(), levelSelect.parent()]);
+                nodes = nodes.concat([bandSelect.parent(), collegeSelect.parent()]);
+                if (collegeSelect.val() != 0) nodes = nodes.concat([departmentSelect.parent(), programSelect.parent(), levelSelect.parent()]);
                 departmentSelect.val(0);
                 programSelect.val(0);
                 levelSelect.val(0);
-                updateEnrollmentChart();
-                showNodes(nodes)
+                updateEnrollmentChart("deps");
+                showNodes(nodes);
             });
             departmentSelect.on("change", function (ev) {
                 updateEnrollmentChart();
@@ -284,7 +292,6 @@
         function showNodes(nodes) {
             hideAll();
             for (let i = 0; i < nodes.length; i++) {
-                console.log(nodes[0]);
                 nodes[i].removeClass("d-none")
             }
         }
@@ -297,22 +304,38 @@
             $("#education_level").parent().addClass("d-none");
         }
 
-        function updateEnrollmentChart() {
-            let url = "/student-enrollment-chart?" + $("#enrollmentsFilter").serialize();
-            console.log(url);
-            let Enrollments = [];
-            let Years = [];
+        function updateEnrollmentChart(toDo = 'nothing') {
+            let url = "/api/student-enrollment-chart?" + $("#enrollmentsFilter").serialize();
+
             let loader = $("#loading");
             loader.removeClass("d-none");
+
             $.get(url, function (response) {
-                Years = response.year_levels;
-                Enrollments = response.enrollments;
+                let years = response.year_levels;
+                let enrollments = response.enrollments;
+                let cols = response.colleges;
+                let deps = response.departments;
 
-                let ctx = document.getElementById('year-enrollment').getContext('2d');
-                makeChart(ctx, Years, Enrollments, "line", "Enrollments", "Year Level", "Enrollments");
+                if (toDo === "cols") {
+                    $('#college').find('option').remove().end().append('<option value="0">Any</option>');
+                    for (let i = 0; i < cols.length; i++) {
+                        $("#college").append('<option value=\"' + (i+1) + '\" selected=\"selected\">' + cols[i] + '</option>')
+                    }
+                    $('#college').val('0');
+                } else if (toDo === "deps") {
+                    $('#department').find('option').remove().end().append('<option value="0">Any</option>');
+                    for (let i = 0; i < deps.length; i++) {
+                        $("#department").append('<option value=\"' + (i+1) + '\" selected=\"selected\">' + deps[i] + '</option>')
+                    }
+                    $('#department').val('0');
+                }
+                // console.log(cols);
+                // console.log(deps);
+
+                updateChartData(chart, years, enrollments);
+
+                loader.addClass("d-none");
             });
-
-            loader.addClass("d-none");
         }
     </script>
 

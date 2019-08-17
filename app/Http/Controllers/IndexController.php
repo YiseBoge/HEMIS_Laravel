@@ -8,6 +8,7 @@ use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Institution\InstitutionName;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -239,6 +240,10 @@ class IndexController extends Controller
         //
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function enrollmentChart(Request $request)
     {
 
@@ -249,7 +254,7 @@ class IndexController extends Controller
 
         $requestedSex = $request->input('sex');
         if ($requestedSex == null) {
-            $requestedSex = 'all';
+            $requestedSex = array();
         }
 
         $requestedInstitution = $request->input('institution');
@@ -360,18 +365,18 @@ class IndexController extends Controller
         $deps = Department::byCollegesAndDepartmentNames($cols, $selectedDepartment);
 //        return $deps;
 
+
         foreach ($year_levels as $year) {
             $yearEnrollment = 0;
             foreach ($deps as $department) {
                 if ($department->year_level == $year) {
                     foreach ($department->enrollmentsApproved as $enrollment) {
                         if ($enrollment->student_type == $requestedType) {
-                            if ($requestedSex == "male") {
+                            if (in_array("male", $requestedSex)) {
                                 $yearEnrollment += $enrollment->male_students_number;
-                            } elseif ($requestedSex == "female") {
+                            }
+                            if (in_array("female", $requestedSex)) {
                                 $yearEnrollment += $enrollment->female_students_number;
-                            } else {
-                                $yearEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
                             }
                         }
                     }
@@ -380,8 +385,17 @@ class IndexController extends Controller
             $enrollments[] = $yearEnrollment;
         }
 
+        $cols = $colleges->map(function($col) {
+            return $col->__toString();
+        });
+        $deps = $departments->map(function($dep) {
+            return $dep->__toString();
+        });
 
         $result = array(
+            'colleges' => $cols,
+            'departments' => $deps,
+
             "year_levels" => $year_levels,
             "enrollments" => $enrollments
         );
