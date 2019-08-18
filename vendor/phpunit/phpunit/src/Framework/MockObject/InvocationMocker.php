@@ -17,6 +17,8 @@ use PHPUnit\Framework\MockObject\Builder\NamespaceMatch;
 use PHPUnit\Framework\MockObject\Matcher\DeferredError;
 use PHPUnit\Framework\MockObject\Matcher\Invocation as MatcherInvocation;
 use PHPUnit\Framework\MockObject\Stub\MatcherCollection;
+use function sprintf;
+use function strtolower;
 
 /**
  * Mocker for invocations which are sent from
@@ -25,7 +27,7 @@ use PHPUnit\Framework\MockObject\Stub\MatcherCollection;
  * Keeps track of all expectations and stubs as well as registering
  * identifications for builders.
  */
-class InvocationMocker implements Invokable, MatcherCollection, NamespaceMatch
+class InvocationMocker implements MatcherCollection, Invokable, NamespaceMatch
 {
     /**
      * @var MatcherInvocation[]
@@ -139,14 +141,14 @@ class InvocationMocker implements Invokable, MatcherCollection, NamespaceMatch
 
         if ($this->returnValueGeneration === false) {
             $exception = new ExpectationFailedException(
-                \sprintf(
+                sprintf(
                     'Return value inference disabled and no expectation set up for %s::%s()',
                     $invocation->getClassName(),
                     $invocation->getMethodName()
                 )
             );
 
-            if (\strtolower($invocation->getMethodName()) === '__tostring') {
+            if (strtolower($invocation->getMethodName()) === '__tostring') {
                 $this->addMatcher(new DeferredError($exception));
 
                 return '';
@@ -173,7 +175,7 @@ class InvocationMocker implements Invokable, MatcherCollection, NamespaceMatch
     }
 
     /**
-     * @throws \PHPUnit\Framework\ExpectationFailedException
+     * @throws ExpectationFailedException
      *
      * @return bool
      */
