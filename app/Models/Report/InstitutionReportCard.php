@@ -116,7 +116,7 @@ class InstitutionReportCard extends Model
      */
     private static function policies()
     {
-        return InstitutionReportCard::groupBy('policy')->pluck('policy', 'policy');
+        return InstitutionReportCard::groupBy('policy')->orderBy('policy')->pluck('policy', 'policy');
     }
 
     /**
@@ -125,7 +125,7 @@ class InstitutionReportCard extends Model
      */
     private static function descriptions($policy)
     {
-        return InstitutionReportCard::where('policy', $policy)->groupBy('policy_description')->pluck('policy_description', 'policy_description');
+        return InstitutionReportCard::where('policy', $policy)->groupBy('policy_description')->orderBy('policy_description')->pluck('policy_description', 'policy_description');
     }
 
     /**
