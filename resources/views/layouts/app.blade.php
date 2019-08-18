@@ -82,7 +82,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/jquery.dataTables.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/dataTables.bootstrap4.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.5/tableExport.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/print-js@1.0.61/dist/print.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" defer></script>
 <script src="{{asset('js/commons.js')}}"></script>
 

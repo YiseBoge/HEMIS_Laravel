@@ -79,7 +79,8 @@
             <!-- Image Showcases -->
                 <section class="showcase">
                     <div class="container-fluid p-0">
-                        <h2 class="text-center text-primary bg-white shadow-sm p-3 mb-5">Overview</h2>
+                        <h2 id="overview-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">
+                            Overview</h2>
                         <div class="row px-5">
                             <div class="col-lg-5 my-auto px-4">
                                 <h3>Student Enrollments</h3>
@@ -192,7 +193,8 @@
                 </section>
                 <!-- Testimonials -->
                 <section class="testimonials text-center bg-light">
-                    <h2 class="text-center text-primary bg-white shadow-sm p-3 mb-5">What people are saying...</h2>
+                    <h2 id="people-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">What people are
+                        saying...</h2>
                     <div class="container py-5">
                         <div class="row">
                             <div class="col-lg-4">
