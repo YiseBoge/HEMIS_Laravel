@@ -169,15 +169,21 @@
                                 </form>
                             </div>
                             <div class="col-lg-7 text-white showcase-img overflow-auto">
-                                <div class="card card-body border-right-primary" style="min-width: 500px">
-                        <span id="loading" class="intro-banner-vdo-play-btn pinkBg d-none">
+                                <div class="card card-body border-right-primary" style="min-width: 500px;">
+                                    <div class="row d-none" id="year-enrollment-error">
+                                        <div class="col-12 text-danger text-center my-auto">
+                                            Could not retrieve data.
+                                        </div>
+                                    </div>
+                                    <div class="row" style="min-height: 38vh;">
+                                        <span id="loading" class="intro-banner-vdo-play-btn pinkBg d-none">
                             <i class="glyphicon glyphicon-play whiteText" aria-hidden="true"></i>
                             <span class="ripple pinkBg"></span>
                             <span class="ripple pinkBg"></span>
                             <span class="ripple pinkBg"></span>
                         </span>
-                                    <canvas id="year-enrollment" class="chartjs-render-monitor"
-                                            style="min-height: 38vh;"></canvas>
+                                        <canvas id="year-enrollment" class="chartjs-render-monitor"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>

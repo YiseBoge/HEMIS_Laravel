@@ -75,31 +75,45 @@ function updateEnrollmentChart(toDo = 'nothing') {
 
     let loader = $("#loading");
     loader.removeClass("d-none");
+    $('#year-enrollment').css('opacity', 0.2);
 
-    $.get(url, function (response) {
-        let years = response.year_levels;
-        let enrollments = response.enrollments;
-        let cols = response.colleges;
-        let deps = response.departments;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function (response) {
+            let years = response.year_levels;
+            let enrollments = response.enrollments;
+            let cols = response.colleges;
+            let deps = response.departments;
 
-        if (toDo === "cols") {
-            $('#college').find('option').remove().end().append('<option value="0">Any</option>');
-            for (let i = 0; i < cols.length; i++) {
-                $("#college").append('<option value=\"' + (i + 1) + '\" selected=\"selected\">' + cols[i] + '</option>')
+            if (toDo === "cols") {
+                $('#college').find('option').remove().end().append('<option value="0">Any</option>');
+                for (let i = 0; i < cols.length; i++) {
+                    $("#college").append('<option value=\"' + (i + 1) + '\" selected=\"selected\">' + cols[i] + '</option>')
+                }
+                $('#college').val('0');
+            } else if (toDo === "deps") {
+                $('#department').find('option').remove().end().append('<option value="0">Any</option>');
+                for (let i = 0; i < deps.length; i++) {
+                    $("#department").append('<option value=\"' + (i + 1) + '\" selected=\"selected\">' + deps[i] + '</option>')
+                }
+                $('#department').val('0');
             }
-            $('#college').val('0');
-        } else if (toDo === "deps") {
-            $('#department').find('option').remove().end().append('<option value="0">Any</option>');
-            for (let i = 0; i < deps.length; i++) {
-                $("#department").append('<option value=\"' + (i + 1) + '\" selected=\"selected\">' + deps[i] + '</option>')
-            }
-            $('#department').val('0');
+            // console.log(cols);
+            // console.log(deps);
+
+            updateChartData(chart, years, enrollments);
+
+
+            $('#year-enrollment-error').addClass('d-none');
+            $('#year-enrollment').css('opacity', 1);
+            loader.addClass("d-none");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+            loader.addClass("d-none");
+            $('#year-enrollment').addClass('d-none');
+            $('#year-enrollment-error').removeClass('d-none');
         }
-        // console.log(cols);
-        // console.log(deps);
-
-        updateChartData(chart, years, enrollments);
-
-        loader.addClass("d-none");
     });
 }
