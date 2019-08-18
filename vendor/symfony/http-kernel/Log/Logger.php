@@ -11,9 +11,16 @@
 
 namespace Symfony\Component\HttpKernel\Log;
 
+use DateTime;
+use DateTimeInterface;
 use Psr\Log\AbstractLogger;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
+use function get_class;
+use function gettype;
+use function is_object;
+use function is_resource;
+use const PHP_EOL;
 
 /**
  * Minimalist PSR-3 logger designed to write in stderr or any other stream.
@@ -58,7 +65,7 @@ class Logger extends AbstractLogger
 
         $this->minLevelIndex = self::$levels[$minLevel];
         $this->formatter = $formatter ?: [$this, 'format'];
-        if (false === $this->handle = \is_resource($output) ? $output : @fopen($output, 'a')) {
+        if (false === $this->handle = is_resource($output) ? $output : @fopen($output, 'a')) {
             throw new InvalidArgumentException(sprintf('Unable to open "%s".', $output));
         }
     }
@@ -85,20 +92,20 @@ class Logger extends AbstractLogger
         if (false !== strpos($message, '{')) {
             $replacements = [];
             foreach ($context as $key => $val) {
-                if (null === $val || is_scalar($val) || (\is_object($val) && method_exists($val, '__toString'))) {
+                if (null === $val || is_scalar($val) || (is_object($val) && method_exists($val, '__toString'))) {
                     $replacements["{{$key}}"] = $val;
-                } elseif ($val instanceof \DateTimeInterface) {
-                    $replacements["{{$key}}"] = $val->format(\DateTime::RFC3339);
-                } elseif (\is_object($val)) {
-                    $replacements["{{$key}}"] = '[object '.\get_class($val).']';
+                } elseif ($val instanceof DateTimeInterface) {
+                    $replacements["{{$key}}"] = $val->format(DateTime::RFC3339);
+                } elseif (is_object($val)) {
+                    $replacements["{{$key}}"] = '[object '. get_class($val).']';
                 } else {
-                    $replacements["{{$key}}"] = '['.\gettype($val).']';
+                    $replacements["{{$key}}"] = '['. gettype($val).']';
                 }
             }
 
             $message = strtr($message, $replacements);
         }
 
-        return sprintf('%s [%s] %s', date(\DateTime::RFC3339), $level, $message).\PHP_EOL;
+        return sprintf('%s [%s] %s', date(DateTime::RFC3339), $level, $message). PHP_EOL;
     }
 }

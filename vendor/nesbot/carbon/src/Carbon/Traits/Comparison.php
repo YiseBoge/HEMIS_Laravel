@@ -10,6 +10,8 @@
  */
 namespace Carbon\Traits;
 
+use BadMethodCallException;
+use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use DateTimeInterface;
 use InvalidArgumentException;
@@ -31,11 +33,11 @@ trait Comparison
     /**
      * Determines if the instance is equal to another
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @see equalTo()
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return bool
+     *@see equalTo()
+     *
      */
     public function eq($date): bool
     {
@@ -45,7 +47,7 @@ trait Comparison
     /**
      * Determines if the instance is equal to another
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return bool
      */
@@ -57,11 +59,11 @@ trait Comparison
     /**
      * Determines if the instance is not equal to another
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @see notEqualTo()
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return bool
+     *@see notEqualTo()
+     *
      */
     public function ne($date): bool
     {
@@ -71,7 +73,7 @@ trait Comparison
     /**
      * Determines if the instance is not equal to another
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return bool
      */
@@ -83,11 +85,11 @@ trait Comparison
     /**
      * Determines if the instance is greater (after) than another
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @see greaterThan()
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return bool
+     *@see greaterThan()
+     *
      */
     public function gt($date): bool
     {
@@ -97,7 +99,7 @@ trait Comparison
     /**
      * Determines if the instance is greater (after) than another
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return bool
      */
@@ -109,11 +111,11 @@ trait Comparison
     /**
      * Determines if the instance is greater (after) than another
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @see greaterThan()
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return bool
+     *@see greaterThan()
+     *
      */
     public function isAfter($date): bool
     {
@@ -123,11 +125,11 @@ trait Comparison
     /**
      * Determines if the instance is greater (after) than or equal to another
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @see greaterThanOrEqualTo()
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return bool
+     *@see greaterThanOrEqualTo()
+     *
      */
     public function gte($date): bool
     {
@@ -137,7 +139,7 @@ trait Comparison
     /**
      * Determines if the instance is greater (after) than or equal to another
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return bool
      */
@@ -149,11 +151,11 @@ trait Comparison
     /**
      * Determines if the instance is less (before) than another
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @see lessThan()
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return bool
+     *@see lessThan()
+     *
      */
     public function lt($date): bool
     {
@@ -163,7 +165,7 @@ trait Comparison
     /**
      * Determines if the instance is less (before) than another
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return bool
      */
@@ -175,11 +177,11 @@ trait Comparison
     /**
      * Determines if the instance is less (before) than another
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @see lessThan()
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return bool
+     *@see lessThan()
+     *
      */
     public function isBefore($date): bool
     {
@@ -189,11 +191,11 @@ trait Comparison
     /**
      * Determines if the instance is less (before) or equal to another
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @see lessThanOrEqualTo()
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return bool
+     *@see lessThanOrEqualTo()
+     *
      */
     public function lte($date): bool
     {
@@ -203,7 +205,7 @@ trait Comparison
     /**
      * Determines if the instance is less (before) or equal to another
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return bool
      */
@@ -215,8 +217,8 @@ trait Comparison
     /**
      * Determines if the instance is between two others
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
+     * @param Carbon|DateTimeInterface|mixed $date1
+     * @param Carbon|DateTimeInterface|mixed $date2
      * @param bool                                    $equal Indicates if an equal to comparison should be done
      *
      * @return bool
@@ -239,8 +241,8 @@ trait Comparison
     /**
      * Determines if the instance is between two others
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
+     * @param Carbon|DateTimeInterface|mixed $date1
+     * @param Carbon|DateTimeInterface|mixed $date2
      * @param bool                                    $equal Indicates if an equal to comparison should be done
      *
      * @return bool
@@ -346,11 +348,11 @@ trait Comparison
      * Compares the formatted values of the two dates.
      *
      * @param string                                 $format date formats to compare.
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date   instance to compare with or null to use current day.
-     *
-     * @throws \InvalidArgumentException
+     * @param Carbon|DateTimeInterface|null $date   instance to compare with or null to use current day.
      *
      * @return bool
+     *@throws \InvalidArgumentException
+     *
      */
     public function isSameAs($format, $date = null)
     {
@@ -367,11 +369,11 @@ trait Comparison
      * Determines if the instance is in the current unit given.
      *
      * @param string                                 $unit singular unit string
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date instance to compare with or null to use current day.
-     *
-     * @throws \InvalidArgumentException
+     * @param Carbon|DateTimeInterface|null $date instance to compare with or null to use current day.
      *
      * @return bool
+     *@throws \InvalidArgumentException
+     *
      */
     public function isSameUnit($unit, $date = null)
     {
@@ -418,7 +420,7 @@ trait Comparison
      *
      * @param string $unit The unit to test.
      *
-     * @throws \BadMethodCallException
+     * @throws BadMethodCallException
      *
      * @return bool
      */
@@ -430,7 +432,7 @@ trait Comparison
     /**
      * Checks if the passed in date is in the same quarter as the instance quarter (and year if needed).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date       The instance to compare with or null to use current day.
+     * @param Carbon|DateTimeInterface|null $date       The instance to compare with or null to use current day.
      * @param bool                                   $ofSameYear Check if it is the same month in the same year.
      *
      * @return bool
@@ -450,7 +452,7 @@ trait Comparison
      * Note that this defaults to only comparing the month while ignoring the year.
      * To test if it is the same exact month of the same year, pass in true as the second parameter.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date       The instance to compare with or null to use the current date.
+     * @param Carbon|DateTimeInterface|null $date       The instance to compare with or null to use the current date.
      * @param bool                                   $ofSameYear Check if it is the same month in the same year.
      *
      * @return bool
@@ -479,7 +481,7 @@ trait Comparison
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use current day.
+     * @param Carbon|DateTimeInterface|null $date The instance to compare with or null to use current day.
      *
      * @return bool
      */

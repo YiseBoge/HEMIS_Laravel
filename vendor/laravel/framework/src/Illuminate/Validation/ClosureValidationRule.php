@@ -2,6 +2,7 @@
 
 namespace Illuminate\Validation;
 
+use Closure;
 use Illuminate\Contracts\Validation\Rule as RuleContract;
 
 class ClosureValidationRule implements RuleContract
@@ -9,7 +10,7 @@ class ClosureValidationRule implements RuleContract
     /**
      * The callback that validates the attribute.
      *
-     * @var \Closure
+     * @var Closure
      */
     public $callback;
 
@@ -30,7 +31,7 @@ class ClosureValidationRule implements RuleContract
     /**
      * Create a new Closure based validation rule.
      *
-     * @param  \Closure  $callback
+     * @param  Closure  $callback
      * @return void
      */
     public function __construct($callback)

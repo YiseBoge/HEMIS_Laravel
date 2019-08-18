@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpKernel\EventListener;
 
+use SplObjectStorage;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -24,6 +25,8 @@ use Symfony\Component\HttpKernel\Profiler\Profiler;
  * ProfilerListener collects data for the current request by listening to the kernel events.
  *
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @final since Symfony 4.3
  */
 class ProfilerListener implements EventSubscriberInterface
 {
@@ -49,8 +52,8 @@ class ProfilerListener implements EventSubscriberInterface
         $this->matcher = $matcher;
         $this->onlyException = $onlyException;
         $this->onlyMasterRequests = $onlyMasterRequests;
-        $this->profiles = new \SplObjectStorage();
-        $this->parents = new \SplObjectStorage();
+        $this->profiles = new SplObjectStorage();
+        $this->parents = new SplObjectStorage();
         $this->requestStack = $requestStack;
     }
 
@@ -113,8 +116,8 @@ class ProfilerListener implements EventSubscriberInterface
             $this->profiler->saveProfile($this->profiles[$request]);
         }
 
-        $this->profiles = new \SplObjectStorage();
-        $this->parents = new \SplObjectStorage();
+        $this->profiles = new SplObjectStorage();
+        $this->parents = new SplObjectStorage();
     }
 
     public static function getSubscribedEvents()

@@ -23,6 +23,7 @@ namespace Mockery\Generator\StringManipulation\Pass;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Generator\MockConfiguration;
+use function mb_strpos;
 
 class ClassPassTest extends MockeryTestCase
 {
@@ -40,7 +41,7 @@ class ClassPassTest extends MockeryTestCase
     {
         $config = new MockConfiguration(array("Testing\TestClass"), array(), array(), "Dave\Dave");
         $code = $this->pass->apply(static::CODE, $config);
-        $this->assertTrue(\mb_strpos($code, 'class Mock extends \Testing\TestClass implements MockInterface') !== false);
+        $this->assertTrue(mb_strpos($code, 'class Mock extends \Testing\TestClass implements MockInterface') !== false);
     }
 
     /**

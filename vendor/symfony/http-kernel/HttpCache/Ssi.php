@@ -11,8 +11,10 @@
 
 namespace Symfony\Component\HttpKernel\HttpCache;
 
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use function in_array;
 
 /**
  * Ssi implements the SSI capabilities to Request and Response instances.
@@ -58,7 +60,7 @@ class Ssi extends AbstractSurrogate
         }
 
         $parts = explode(';', $type);
-        if (!\in_array($parts[0], $this->contentTypes)) {
+        if (!in_array($parts[0], $this->contentTypes)) {
             return $response;
         }
 
@@ -77,7 +79,7 @@ class Ssi extends AbstractSurrogate
             }
 
             if (!isset($options['virtual'])) {
-                throw new \RuntimeException('Unable to process an SSI tag without a "virtual" attribute.');
+                throw new RuntimeException('Unable to process an SSI tag without a "virtual" attribute.');
             }
 
             $chunks[$i] = sprintf('<?php echo $this->surrogate->handle($this, %s, \'\', false) ?>'."\n",

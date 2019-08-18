@@ -18,9 +18,9 @@ class Parser
      *
      * @param string $entry
      *
-     * @throws \Dotenv\Exception\InvalidFileException
-     *
      * @return array
+     * @throws InvalidFileException
+     *
      */
     public static function parse($entry)
     {
@@ -34,9 +34,9 @@ class Parser
      *
      * @param string $line
      *
-     * @throws \Dotenv\Exception\InvalidFileException
-     *
      * @return array
+     * @throws InvalidFileException
+     *
      */
     private static function splitStringIntoParts($line)
     {
@@ -61,9 +61,9 @@ class Parser
      *
      * @param string $name
      *
-     * @throws \Dotenv\Exception\InvalidFileException
-     *
      * @return string
+     * @throws InvalidFileException
+     *
      */
     private static function parseName($name)
     {
@@ -95,9 +95,9 @@ class Parser
      *
      * @param string|null $value
      *
-     * @throws \Dotenv\Exception\InvalidFileException
-     *
      * @return string|null
+     * @throws InvalidFileException
+     *
      */
     private static function parseValue($value)
     {

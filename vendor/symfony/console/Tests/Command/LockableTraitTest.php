@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Console\Tests\Command;
 
+use FooLock2Command;
+use FooLockCommand;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Lock\Factory;
@@ -30,7 +32,7 @@ class LockableTraitTest extends TestCase
 
     public function testLockIsReleased()
     {
-        $command = new \FooLockCommand();
+        $command = new FooLockCommand();
 
         $tester = new CommandTester($command);
         $this->assertSame(2, $tester->execute([]));
@@ -39,7 +41,7 @@ class LockableTraitTest extends TestCase
 
     public function testLockReturnsFalseIfAlreadyLockedByAnotherCommand()
     {
-        $command = new \FooLockCommand();
+        $command = new FooLockCommand();
 
         if (SemaphoreStore::isSupported()) {
             $store = new SemaphoreStore();
@@ -59,7 +61,7 @@ class LockableTraitTest extends TestCase
 
     public function testMultipleLockCallsThrowLogicException()
     {
-        $command = new \FooLock2Command();
+        $command = new FooLock2Command();
 
         $tester = new CommandTester($command);
         $this->assertSame(1, $tester->execute([]));

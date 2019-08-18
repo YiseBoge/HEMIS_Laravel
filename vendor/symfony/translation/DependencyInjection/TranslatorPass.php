@@ -15,6 +15,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use function count;
 
 class TranslatorPass implements CompilerPassInterface
 {
@@ -68,12 +69,22 @@ class TranslatorPass implements CompilerPassInterface
             return;
         }
 
+        $paths = array_keys($container->getDefinition('twig.template_iterator')->getArgument(2));
         if ($container->hasDefinition($this->debugCommandServiceId)) {
-            $container->getDefinition($this->debugCommandServiceId)->replaceArgument(4, $container->getParameter('twig.default_path'));
-        }
+            $definition = $container->getDefinition($this->debugCommandServiceId);
+            $definition->replaceArgument(4, $container->getParameter('twig.default_path'));
 
+            if (count($definition->getArguments()) > 6) {
+                $definition->replaceArgument(6, $paths);
+            }
+        }
         if ($container->hasDefinition($this->updateCommandServiceId)) {
-            $container->getDefinition($this->updateCommandServiceId)->replaceArgument(5, $container->getParameter('twig.default_path'));
+            $definition = $container->getDefinition($this->updateCommandServiceId);
+            $definition->replaceArgument(5, $container->getParameter('twig.default_path'));
+
+            if (count($definition->getArguments()) > 7) {
+                $definition->replaceArgument(7, $paths);
+            }
         }
     }
 }

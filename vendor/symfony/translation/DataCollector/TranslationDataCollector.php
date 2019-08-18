@@ -11,11 +11,14 @@
 
 namespace Symfony\Component\Translation\DataCollector;
 
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
 use Symfony\Component\Translation\DataCollectorTranslator;
+use function count;
+use function strlen;
 
 /**
  * @author Abdellatif Ait boudad <a.aitboudad@gmail.com>
@@ -36,11 +39,8 @@ class TranslationDataCollector extends DataCollector implements LateDataCollecto
     {
         $messages = $this->sanitizeCollectedMessages($this->translator->getCollectedMessages());
 
-        $this->data = $this->computeCount($messages);
+        $this->data += $this->computeCount($messages);
         $this->data['messages'] = $messages;
-
-        $this->data['locale'] = $this->translator->getLocale();
-        $this->data['fallback_locales'] = $this->translator->getFallbackLocales();
 
         $this->data = $this->cloneVar($this->data);
     }
@@ -48,8 +48,10 @@ class TranslationDataCollector extends DataCollector implements LateDataCollecto
     /**
      * {@inheritdoc}
      */
-    public function collect(Request $request, Response $response, \Exception $exception = null)
+    public function collect(Request $request, Response $response, Exception $exception = null)
     {
+        $this->data['locale'] = $this->translator->getLocale();
+        $this->data['fallback_locales'] = $this->translator->getFallbackLocales();
     }
 
     /**
@@ -102,7 +104,7 @@ class TranslationDataCollector extends DataCollector implements LateDataCollecto
      */
     public function getFallbackLocales()
     {
-        return (isset($this->data['fallback_locales']) && \count($this->data['fallback_locales']) > 0) ? $this->data['fallback_locales'] : [];
+        return (isset($this->data['fallback_locales']) && count($this->data['fallback_locales']) > 0) ? $this->data['fallback_locales'] : [];
     }
 
     /**
@@ -161,7 +163,7 @@ class TranslationDataCollector extends DataCollector implements LateDataCollecto
             if (mb_strlen($string, $encoding) > $length) {
                 return mb_substr($string, 0, $length - 3, $encoding).'...';
             }
-        } elseif (\strlen($string) > $length) {
+        } elseif (strlen($string) > $length) {
             return substr($string, 0, $length - 3).'...';
         }
 

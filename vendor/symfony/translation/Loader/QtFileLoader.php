@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Translation\Loader;
 
+use DOMXPath;
+use InvalidArgumentException;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Config\Util\XmlUtils;
 use Symfony\Component\Translation\Exception\InvalidResourceException;
@@ -39,14 +41,14 @@ class QtFileLoader implements LoaderInterface
 
         try {
             $dom = XmlUtils::loadFile($resource);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             throw new InvalidResourceException(sprintf('Unable to load "%s".', $resource), $e->getCode(), $e);
         }
 
         $internalErrors = libxml_use_internal_errors(true);
         libxml_clear_errors();
 
-        $xpath = new \DOMXPath($dom);
+        $xpath = new DOMXPath($dom);
         $nodes = $xpath->evaluate('//TS/context/name[text()="'.$domain.'"]');
 
         $catalogue = new MessageCatalogue($locale);

@@ -11,9 +11,21 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
+use DateInterval;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeZone;
+use DOMDocument;
+use DOMXPath;
+use Exception;
+use InvalidArgumentException;
+use ReflectionProperty;
+use stdClass;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use UnexpectedValueException;
+use function in_array;
 
 /**
  * @group time-sensitive
@@ -599,7 +611,7 @@ class ResponseTest extends ResponseTestCase
         try {
             $response->setCache(['wrong option' => 'value']);
             $this->fail('->setCache() throws an InvalidArgumentException if an option is not supported');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertInstanceOf('InvalidArgumentException', $e, '->setCache() throws an InvalidArgumentException if an option is not supported');
             $this->assertContains('"wrong option"', $e->getMessage());
         }
@@ -685,17 +697,17 @@ class ResponseTest extends ResponseTestCase
     public function testSetDate()
     {
         $response = new Response();
-        $response->setDate(\DateTime::createFromFormat(\DateTime::ATOM, '2013-01-26T09:21:56+0100', new \DateTimeZone('Europe/Berlin')));
+        $response->setDate(DateTime::createFromFormat(DateTime::ATOM, '2013-01-26T09:21:56+0100', new DateTimeZone('Europe/Berlin')));
 
-        $this->assertEquals('2013-01-26T08:21:56+00:00', $response->getDate()->format(\DateTime::ATOM));
+        $this->assertEquals('2013-01-26T08:21:56+00:00', $response->getDate()->format(DateTime::ATOM));
     }
 
     public function testSetDateWithImmutable()
     {
         $response = new Response();
-        $response->setDate(\DateTimeImmutable::createFromFormat(\DateTime::ATOM, '2013-01-26T09:21:56+0100', new \DateTimeZone('Europe/Berlin')));
+        $response->setDate(DateTimeImmutable::createFromFormat(DateTime::ATOM, '2013-01-26T09:21:56+0100', new DateTimeZone('Europe/Berlin')));
 
-        $this->assertEquals('2013-01-26T08:21:56+00:00', $response->getDate()->format(\DateTime::ATOM));
+        $this->assertEquals('2013-01-26T08:21:56+00:00', $response->getDate()->format(DateTime::ATOM));
     }
 
     public function testSetExpires()
@@ -748,14 +760,14 @@ class ResponseTest extends ResponseTestCase
         try {
             $response->setStatusCode(99);
             $this->fail();
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertTrue($response->isInvalid());
         }
 
         try {
             $response->setStatusCode(650);
             $this->fail();
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->assertTrue($response->isInvalid());
         }
 
@@ -772,7 +784,7 @@ class ResponseTest extends ResponseTestCase
 
         $response->setStatusCode($code, $text);
 
-        $statusText = new \ReflectionProperty($response, 'statusText');
+        $statusText = new ReflectionProperty($response, 'statusText');
         $statusText->setAccessible(true);
 
         $this->assertEquals($expectedText, $statusText->getValue($response));
@@ -901,7 +913,7 @@ class ResponseTest extends ResponseTestCase
     }
 
     /**
-     * @expectedException \UnexpectedValueException
+     * @expectedException UnexpectedValueException
      * @dataProvider invalidContentProvider
      */
     public function testSetContentInvalid($content)
@@ -954,7 +966,7 @@ class ResponseTest extends ResponseTestCase
     public function invalidContentProvider()
     {
         return [
-            'obj' => [new \stdClass()],
+            'obj' => [new stdClass()],
             'array' => [[]],
             'bool' => [true, '1'],
         ];
@@ -962,24 +974,24 @@ class ResponseTest extends ResponseTestCase
 
     protected function createDateTimeOneHourAgo()
     {
-        return $this->createDateTimeNow()->sub(new \DateInterval('PT1H'));
+        return $this->createDateTimeNow()->sub(new DateInterval('PT1H'));
     }
 
     protected function createDateTimeOneHourLater()
     {
-        return $this->createDateTimeNow()->add(new \DateInterval('PT1H'));
+        return $this->createDateTimeNow()->add(new DateInterval('PT1H'));
     }
 
     protected function createDateTimeNow()
     {
-        $date = new \DateTime();
+        $date = new DateTime();
 
         return $date->setTimestamp(time());
     }
 
     protected function createDateTimeImmutableNow()
     {
-        $date = new \DateTimeImmutable();
+        $date = new DateTimeImmutable();
 
         return $date->setTimestamp(time());
     }
@@ -998,27 +1010,28 @@ class ResponseTest extends ResponseTestCase
      */
     public function ianaCodesReasonPhrasesProvider()
     {
-        if (!\in_array('https', stream_get_wrappers(), true)) {
+        if (!in_array('https', stream_get_wrappers(), true)) {
             $this->markTestSkipped('The "https" wrapper is not available');
         }
 
-        $ianaHttpStatusCodes = new \DOMDocument();
+        $ianaHttpStatusCodes = new DOMDocument();
 
-        libxml_set_streams_context(stream_context_create([
+        $context = stream_context_create([
             'http' => [
                 'method' => 'GET',
                 'timeout' => 30,
+                'user_agent' => __METHOD__,
             ],
-        ]));
+        ]);
 
-        $ianaHttpStatusCodes->load('https://www.iana.org/assignments/http-status-codes/http-status-codes.xml');
+        $ianaHttpStatusCodes->loadXML(file_get_contents('https://www.iana.org/assignments/http-status-codes/http-status-codes.xml', false, $context));
         if (!$ianaHttpStatusCodes->relaxNGValidate(__DIR__.'/schema/http-status-codes.rng')) {
             self::fail('Invalid IANA\'s HTTP status code list.');
         }
 
         $ianaCodesReasonPhrases = [];
 
-        $xpath = new \DOMXPath($ianaHttpStatusCodes);
+        $xpath = new DOMXPath($ianaHttpStatusCodes);
         $xpath->registerNamespace('ns', 'http://www.iana.org/assignments');
 
         $records = $xpath->query('//ns:record');
@@ -1026,7 +1039,7 @@ class ResponseTest extends ResponseTestCase
             $value = $xpath->query('.//ns:value', $record)->item(0)->nodeValue;
             $description = $xpath->query('.//ns:description', $record)->item(0)->nodeValue;
 
-            if (\in_array($description, ['Unassigned', '(Unused)'], true)) {
+            if (in_array($description, ['Unassigned', '(Unused)'], true)) {
                 continue;
             }
 

@@ -20,7 +20,10 @@ use Symfony\Component\HttpFoundation\File\Exception\IniSizeFileException;
 use Symfony\Component\HttpFoundation\File\Exception\NoFileException;
 use Symfony\Component\HttpFoundation\File\Exception\NoTmpDirFileException;
 use Symfony\Component\HttpFoundation\File\Exception\PartialFileException;
-use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesser;
+use Symfony\Component\Mime\MimeTypes;
+use function func_num_args;
+use function intval;
+use function is_bool;
 
 /**
  * A file uploaded through a form.
@@ -65,10 +68,10 @@ class UploadedFile extends File
         $this->originalName = $this->getName($originalName);
         $this->mimeType = $mimeType ?: 'application/octet-stream';
 
-        if (4 < \func_num_args() ? !\is_bool($test) : null !== $error && @filesize($path) === $error) {
+        if (4 < func_num_args() ? !is_bool($test) : null !== $error && @filesize($path) === $error) {
             @trigger_error(sprintf('Passing a size as 4th argument to the constructor of "%s" is deprecated since Symfony 4.1.', __CLASS__), E_USER_DEPRECATED);
             $error = $test;
-            $test = 5 < \func_num_args() ? func_get_arg(5) : false;
+            $test = 5 < func_num_args() ? func_get_arg(5) : false;
         }
 
         $this->error = $error ?: UPLOAD_ERR_OK;
@@ -140,10 +143,7 @@ class UploadedFile extends File
      */
     public function guessClientExtension()
     {
-        $type = $this->getClientMimeType();
-        $guesser = ExtensionGuesser::getInstance();
-
-        return $guesser->guess($type);
+        return MimeTypes::getDefault()->getExtensions($this->getClientMimeType())[0] ?? null;
     }
 
     /**
@@ -254,9 +254,9 @@ class UploadedFile extends File
 
         $max = ltrim($iniMax, '+');
         if (0 === strpos($max, '0x')) {
-            $max = \intval($max, 16);
+            $max = intval($max, 16);
         } elseif (0 === strpos($max, '0')) {
-            $max = \intval($max, 8);
+            $max = intval($max, 8);
         } else {
             $max = (int) $max;
         }

@@ -11,20 +11,20 @@
 
 namespace Symfony\Component\HttpKernel\DataCollector;
 
+use Exception;
+use SplObjectStorage;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
 /**
- * RouterDataCollector.
- *
  * @author Fabien Potencier <fabien@symfony.com>
  */
 class RouterDataCollector extends DataCollector
 {
     /**
-     * @var \SplObjectStorage
+     * @var SplObjectStorage
      */
     protected $controllers;
 
@@ -36,7 +36,7 @@ class RouterDataCollector extends DataCollector
     /**
      * {@inheritdoc}
      */
-    public function collect(Request $request, Response $response, \Exception $exception = null)
+    public function collect(Request $request, Response $response, Exception $exception = null)
     {
         if ($response instanceof RedirectResponse) {
             $this->data['redirect'] = true;
@@ -52,7 +52,7 @@ class RouterDataCollector extends DataCollector
 
     public function reset()
     {
-        $this->controllers = new \SplObjectStorage();
+        $this->controllers = new SplObjectStorage();
 
         $this->data = [
             'redirect' => false,
@@ -68,6 +68,8 @@ class RouterDataCollector extends DataCollector
 
     /**
      * Remembers the controller associated to each request.
+     *
+     * @final since Symfony 4.3
      */
     public function onKernelController(FilterControllerEvent $event)
     {

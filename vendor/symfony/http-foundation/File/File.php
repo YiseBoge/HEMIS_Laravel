@@ -11,17 +11,18 @@
 
 namespace Symfony\Component\HttpFoundation\File;
 
+use SplFileInfo;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesser;
-use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
+use Symfony\Component\Mime\MimeTypes;
+use const DIRECTORY_SEPARATOR;
 
 /**
  * A file in the file system.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class File extends \SplFileInfo
+class File extends SplFileInfo
 {
     /**
      * Constructs a new file from the given path.
@@ -50,33 +51,28 @@ class File extends \SplFileInfo
      *
      * @return string|null The guessed extension or null if it cannot be guessed
      *
-     * @see ExtensionGuesser
+     * @see MimeTypes
      * @see getMimeType()
      */
     public function guessExtension()
     {
-        $type = $this->getMimeType();
-        $guesser = ExtensionGuesser::getInstance();
-
-        return $guesser->guess($type);
+        return MimeTypes::getDefault()->getExtensions($this->getMimeType())[0] ?? null;
     }
 
     /**
      * Returns the mime type of the file.
      *
-     * The mime type is guessed using a MimeTypeGuesser instance, which uses finfo(),
-     * mime_content_type() and the system binary "file" (in this order), depending on
-     * which of those are available.
+     * The mime type is guessed using a MimeTypeGuesserInterface instance,
+     * which uses finfo_file() then the "file" system binary,
+     * depending on which of those are available.
      *
      * @return string|null The guessed mime type (e.g. "application/pdf")
      *
-     * @see MimeTypeGuesser
+     * @see MimeTypes
      */
     public function getMimeType()
     {
-        $guesser = MimeTypeGuesser::getInstance();
-
-        return $guesser->guess($this->getPathname());
+        return MimeTypes::getDefault()->guessMimeType($this->getPathname());
     }
 
     /**
@@ -115,7 +111,7 @@ class File extends \SplFileInfo
             throw new FileException(sprintf('Unable to write in the "%s" directory', $directory));
         }
 
-        $target = rtrim($directory, '/\\').\DIRECTORY_SEPARATOR.(null === $name ? $this->getBasename() : $this->getName($name));
+        $target = rtrim($directory, '/\\'). DIRECTORY_SEPARATOR.(null === $name ? $this->getBasename() : $this->getName($name));
 
         return new self($target, false);
     }

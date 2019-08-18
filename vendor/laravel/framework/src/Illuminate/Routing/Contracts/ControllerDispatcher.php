@@ -2,6 +2,7 @@
 
 namespace Illuminate\Routing\Contracts;
 
+use Illuminate\Routing\Controller;
 use Illuminate\Routing\Route;
 
 interface ControllerDispatcher
@@ -9,7 +10,7 @@ interface ControllerDispatcher
     /**
      * Dispatch a request to a given controller and method.
      *
-     * @param  \Illuminate\Routing\Route  $route
+     * @param Route $route
      * @param  mixed  $controller
      * @param  string  $method
      * @return mixed
@@ -19,7 +20,7 @@ interface ControllerDispatcher
     /**
      * Get the middleware for the controller instance.
      *
-     * @param  \Illuminate\Routing\Controller  $controller
+     * @param  Controller  $controller
      * @param  string  $method
      * @return array
      */

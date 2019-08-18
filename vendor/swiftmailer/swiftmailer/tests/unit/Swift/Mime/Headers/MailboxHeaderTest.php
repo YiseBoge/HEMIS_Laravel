@@ -2,7 +2,7 @@
 
 use Egulias\EmailValidator\EmailValidator;
 
-class Swift_Mime_Headers_MailboxHeaderTest extends \SwiftMailerTestCase
+class Swift_Mime_Headers_MailboxHeaderTest extends SwiftMailerTestCase
 {
     /* -- RFC 2822, 3.6.2 for all tests.
      */
@@ -84,7 +84,7 @@ class Swift_Mime_Headers_MailboxHeaderTest extends \SwiftMailerTestCase
     }
 
     /**
-     * @expectedException \Swift_AddressEncoderException
+     * @expectedException Swift_AddressEncoderException
      */
     public function testUtf8CharsInLocalPartThrows()
     {
@@ -233,7 +233,7 @@ class Swift_Mime_Headers_MailboxHeaderTest extends \SwiftMailerTestCase
         $encoder = $this->getEncoder('Q');
         $encoder->shouldReceive('encodeString')
                 ->once()
-                ->with($name, \Mockery::any(), \Mockery::any(), \Mockery::any())
+                ->with($name, Mockery::any(), Mockery::any(), Mockery::any())
                 ->andReturn('C=8Frbyn');
 
         $header = $this->getHeader('From', $encoder);
@@ -258,7 +258,7 @@ class Swift_Mime_Headers_MailboxHeaderTest extends \SwiftMailerTestCase
         $encoder = $this->getEncoder('Q');
         $encoder->shouldReceive('encodeString')
                 ->once()
-                ->with($name, \Mockery::any(), \Mockery::any(), \Mockery::any())
+                ->with($name, Mockery::any(), Mockery::any(), Mockery::any())
                 ->andReturn('C=8Frbyn');
 
         $header = $this->getHeader('From', $encoder);

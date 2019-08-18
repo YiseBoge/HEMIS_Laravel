@@ -11,8 +11,10 @@
 
 namespace Symfony\Component\Translation\Formatter;
 
+use IntlException;
 use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use Symfony\Component\Translation\Exception\LogicException;
+use function in_array;
 
 /**
  * @author Guilherme Blanco <guilhermeblanco@hotmail.com>
@@ -34,13 +36,13 @@ class IntlFormatter implements IntlFormatterInterface
             }
             try {
                 $this->cache[$locale][$message] = $formatter = new \MessageFormatter($locale, $message);
-            } catch (\IntlException $e) {
+            } catch (IntlException $e) {
                 throw new InvalidArgumentException(sprintf('Invalid message format (error #%d): %s.', intl_get_error_code(), intl_get_error_message()), 0, $e);
             }
         }
 
         foreach ($parameters as $key => $value) {
-            if (\in_array($key[0] ?? null, ['%', '{'], true)) {
+            if (in_array($key[0] ?? null, ['%', '{'], true)) {
                 unset($parameters[$key]);
                 $parameters[trim($key, '%{ }')] = $value;
             }

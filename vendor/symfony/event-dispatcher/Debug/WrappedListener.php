@@ -11,17 +11,30 @@
 
 namespace Symfony\Component\EventDispatcher\Debug;
 
+use Closure;
+use Psr\EventDispatcher\StoppableEventInterface;
+use ReflectionFunction;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\LegacyEventProxy;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\VarDumper\Caster\ClassStub;
+use Symfony\Contracts\EventDispatcher\Event as ContractsEvent;
+use function get_class;
+use function is_array;
+use function is_callable;
+use function is_object;
+use function is_string;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @final since Symfony 4.3: the "Event" type-hint on __invoke() will be replaced by "object" in 5.0
  */
 class WrappedListener
 {
     private $listener;
+    private $optimizedListener;
     private $name;
     private $called;
     private $stoppedPropagation;
@@ -32,19 +45,20 @@ class WrappedListener
     private $priority;
     private static $hasClassStub;
 
-    public function __construct($listener, $name, Stopwatch $stopwatch, EventDispatcherInterface $dispatcher = null)
+    public function __construct($listener, ?string $name, Stopwatch $stopwatch, EventDispatcherInterface $dispatcher = null)
     {
         $this->listener = $listener;
+        $this->optimizedListener = $listener instanceof Closure ? $listener : (is_callable($listener) ? Closure::fromCallable($listener) : null);
         $this->stopwatch = $stopwatch;
         $this->dispatcher = $dispatcher;
         $this->called = false;
         $this->stoppedPropagation = false;
 
-        if (\is_array($listener)) {
-            $this->name = \is_object($listener[0]) ? \get_class($listener[0]) : $listener[0];
+        if (is_array($listener)) {
+            $this->name = is_object($listener[0]) ? get_class($listener[0]) : $listener[0];
             $this->pretty = $this->name.'::'.$listener[1];
-        } elseif ($listener instanceof \Closure) {
-            $r = new \ReflectionFunction($listener);
+        } elseif ($listener instanceof Closure) {
+            $r = new ReflectionFunction($listener);
             if (false !== strpos($r->name, '{closure}')) {
                 $this->pretty = $this->name = 'closure';
             } elseif ($class = $r->getClosureScopeClass()) {
@@ -53,10 +67,10 @@ class WrappedListener
             } else {
                 $this->pretty = $this->name = $r->name;
             }
-        } elseif (\is_string($listener)) {
+        } elseif (is_string($listener)) {
             $this->pretty = $this->name = $listener;
         } else {
-            $this->name = \get_class($listener);
+            $this->name = get_class($listener);
             $this->pretty = $this->name.'::__invoke';
         }
 
@@ -105,6 +119,10 @@ class WrappedListener
 
     public function __invoke(Event $event, $eventName, EventDispatcherInterface $dispatcher)
     {
+        if ($event instanceof LegacyEventProxy) {
+            $event = $event->getEvent();
+        }
+
         $dispatcher = $this->dispatcher ?: $dispatcher;
 
         $this->called = true;
@@ -112,13 +130,13 @@ class WrappedListener
 
         $e = $this->stopwatch->start($this->name, 'event_listener');
 
-        ($this->listener)($event, $eventName, $dispatcher);
+        ($this->optimizedListener ?? $this->listener)($event, $eventName, $dispatcher);
 
         if ($e->isStarted()) {
             $e->stop();
         }
 
-        if ($event->isPropagationStopped()) {
+        if (($event instanceof Event || $event instanceof ContractsEvent || $event instanceof StoppableEventInterface) && $event->isPropagationStopped()) {
             $this->stoppedPropagation = true;
         }
     }

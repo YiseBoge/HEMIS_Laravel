@@ -3,13 +3,14 @@
 namespace Illuminate\Queue;
 
 use Illuminate\Contracts\Queue\Job as JobContract;
+use Throwable;
 
 trait InteractsWithQueue
 {
     /**
      * The underlying queue job instance.
      *
-     * @var \Illuminate\Contracts\Queue\Job
+     * @var JobContract
      */
     protected $job;
 
@@ -38,7 +39,7 @@ trait InteractsWithQueue
     /**
      * Fail the job from the queue.
      *
-     * @param  \Throwable  $exception
+     * @param  Throwable  $exception
      * @return void
      */
     public function fail($exception = null)
@@ -64,7 +65,7 @@ trait InteractsWithQueue
     /**
      * Set the base queue job instance.
      *
-     * @param  \Illuminate\Contracts\Queue\Job  $job
+     * @param JobContract $job
      * @return $this
      */
     public function setJob(JobContract $job)

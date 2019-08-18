@@ -11,7 +11,12 @@
 
 namespace Symfony\Component\Process;
 
+use Iterator;
+use IteratorIterator;
 use Symfony\Component\Process\Exception\InvalidArgumentException;
+use Traversable;
+use function is_resource;
+use function is_string;
 
 /**
  * ProcessUtils is a bunch of utility methods.
@@ -42,10 +47,10 @@ class ProcessUtils
     public static function validateInput($caller, $input)
     {
         if (null !== $input) {
-            if (\is_resource($input)) {
+            if (is_resource($input)) {
                 return $input;
             }
-            if (\is_string($input)) {
+            if (is_string($input)) {
                 return $input;
             }
             if (is_scalar($input)) {
@@ -54,11 +59,11 @@ class ProcessUtils
             if ($input instanceof Process) {
                 return $input->getIterator($input::ITER_SKIP_ERR);
             }
-            if ($input instanceof \Iterator) {
+            if ($input instanceof Iterator) {
                 return $input;
             }
-            if ($input instanceof \Traversable) {
-                return new \IteratorIterator($input);
+            if ($input instanceof Traversable) {
+                return new IteratorIterator($input);
             }
 
             throw new InvalidArgumentException(sprintf('%s only accepts strings, Traversable objects or stream resources.', $caller));

@@ -2,10 +2,12 @@
 
 namespace PhpParser\Builder;
 
+use LogicException;
 use PhpParser;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt;
+use function get_class;
 
 class Class_ extends Declaration
 {
@@ -96,9 +98,9 @@ class Class_ extends Declaration
             Stmt\ClassMethod::class => &$this->methods,
         ];
 
-        $class = \get_class($stmt);
+        $class = get_class($stmt);
         if (!isset($targets[$class])) {
-            throw new \LogicException(sprintf('Unexpected node of type "%s"', $stmt->getType()));
+            throw new LogicException(sprintf('Unexpected node of type "%s"', $stmt->getType()));
         }
 
         $targets[$class][] = $stmt;

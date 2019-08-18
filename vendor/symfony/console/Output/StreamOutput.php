@@ -14,6 +14,9 @@ namespace Symfony\Component\Console\Output;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use function function_exists;
+use function is_resource;
+use const DIRECTORY_SEPARATOR;
 
 /**
  * StreamOutput writes the output to a given stream.
@@ -42,7 +45,7 @@ class StreamOutput extends Output
      */
     public function __construct($stream, int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = null, OutputFormatterInterface $formatter = null)
     {
-        if (!\is_resource($stream) || 'stream' !== get_resource_type($stream)) {
+        if (!is_resource($stream) || 'stream' !== get_resource_type($stream)) {
             throw new InvalidArgumentException('The StreamOutput class needs a stream as its first argument.');
         }
 
@@ -101,19 +104,19 @@ class StreamOutput extends Output
             return true;
         }
 
-        if (\DIRECTORY_SEPARATOR === '\\') {
-            return (\function_exists('sapi_windows_vt100_support')
+        if (DIRECTORY_SEPARATOR === '\\') {
+            return (function_exists('sapi_windows_vt100_support')
                 && @sapi_windows_vt100_support($this->stream))
                 || false !== getenv('ANSICON')
                 || 'ON' === getenv('ConEmuANSI')
                 || 'xterm' === getenv('TERM');
         }
 
-        if (\function_exists('stream_isatty')) {
+        if (function_exists('stream_isatty')) {
             return @stream_isatty($this->stream);
         }
 
-        if (\function_exists('posix_isatty')) {
+        if (function_exists('posix_isatty')) {
             return @posix_isatty($this->stream);
         }
 

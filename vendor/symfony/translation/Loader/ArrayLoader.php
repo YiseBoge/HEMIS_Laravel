@@ -12,6 +12,7 @@
 namespace Symfony\Component\Translation\Loader;
 
 use Symfony\Component\Translation\MessageCatalogue;
+use function is_array;
 
 /**
  * ArrayLoader loads translations from a PHP array.
@@ -52,7 +53,7 @@ class ArrayLoader implements LoaderInterface
             $subnode = &$messages;
         }
         foreach ($subnode as $key => $value) {
-            if (\is_array($value)) {
+            if (is_array($value)) {
                 $nodePath = $path ? $path.'.'.$key : $key;
                 $this->flatten($messages, $value, $nodePath);
                 if (null === $path) {

@@ -11,9 +11,12 @@
 
 namespace Symfony\Component\Translation\Dumper;
 
+use LogicException;
 use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use Symfony\Component\Translation\Exception\RuntimeException;
 use Symfony\Component\Translation\MessageCatalogue;
+use function array_key_exists;
+use function dirname;
 
 /**
  * FileDumper is an implementation of DumperInterface that dump a message catalogue to file(s).
@@ -54,7 +57,7 @@ abstract class FileDumper implements DumperInterface
         @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 4.1.', __METHOD__), E_USER_DEPRECATED);
 
         if (false !== $backup) {
-            throw new \LogicException('The backup feature is no longer supported.');
+            throw new LogicException('The backup feature is no longer supported.');
         }
     }
 
@@ -63,7 +66,7 @@ abstract class FileDumper implements DumperInterface
      */
     public function dump(MessageCatalogue $messages, $options = [])
     {
-        if (!\array_key_exists('path', $options)) {
+        if (!array_key_exists('path', $options)) {
             throw new InvalidArgumentException('The file dumper needs a path option.');
         }
 
@@ -71,7 +74,7 @@ abstract class FileDumper implements DumperInterface
         foreach ($messages->getDomains() as $domain) {
             $fullpath = $options['path'].'/'.$this->getRelativePath($domain, $messages->getLocale());
             if (!file_exists($fullpath)) {
-                $directory = \dirname($fullpath);
+                $directory = dirname($fullpath);
                 if (!file_exists($directory) && !@mkdir($directory, 0777, true)) {
                     throw new RuntimeException(sprintf('Unable to create directory "%s".', $directory));
                 }

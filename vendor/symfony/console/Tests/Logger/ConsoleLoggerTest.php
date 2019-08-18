@@ -11,7 +11,10 @@
 
 namespace Symfony\Component\Console\Tests\Logger;
 
+use DateTime;
+use LogicException;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\Console\Logger\ConsoleLogger;
@@ -142,7 +145,7 @@ class ConsoleLoggerTest extends TestCase
     }
 
     /**
-     * @expectedException \Psr\Log\InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testThrowsOnInvalidLevel()
     {
@@ -183,7 +186,7 @@ class ConsoleLoggerTest extends TestCase
             'int' => 0,
             'float' => 0.5,
             'nested' => ['with object' => new DummyTest()],
-            'object' => new \DateTime(),
+            'object' => new DateTime(),
             'resource' => fopen('php://memory', 'r'),
         ];
 
@@ -197,7 +200,7 @@ class ConsoleLoggerTest extends TestCase
     {
         $logger = $this->getLogger();
         $logger->warning('Random message', ['exception' => 'oops']);
-        $logger->critical('Uncaught Exception!', ['exception' => new \LogicException('Fail')]);
+        $logger->critical('Uncaught Exception!', ['exception' => new LogicException('Fail')]);
 
         $expected = [
             'warning Random message',

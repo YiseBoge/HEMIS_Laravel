@@ -11,7 +11,13 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
+use BadMethodCallException;
+use Locale;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionMethod;
+use RuntimeException;
+use Symfony\Component\HttpFoundation\Exception\ConflictingHeadersException;
 use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -893,7 +899,7 @@ class RequestTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException RuntimeException
      */
     public function testGetHostWithFakeHttpHostValue()
     {
@@ -1061,7 +1067,7 @@ class RequestTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\HttpFoundation\Exception\ConflictingHeadersException
+     * @expectedException ConflictingHeadersException
      * @dataProvider getClientIpsWithConflictingHeadersProvider
      */
     public function testGetClientIpsWithConflictingHeaders($httpForwarded, $httpXForwardedFor)
@@ -1478,15 +1484,15 @@ class RequestTest extends TestCase
 
         $request->setDefaultLocale('fr');
         $this->assertEquals('fr', $request->getLocale());
-        $this->assertEquals('fr', \Locale::getDefault());
+        $this->assertEquals('fr', Locale::getDefault());
 
         $request->setLocale('en');
         $this->assertEquals('en', $request->getLocale());
-        $this->assertEquals('en', \Locale::getDefault());
+        $this->assertEquals('en', Locale::getDefault());
 
         $request->setDefaultLocale('de');
         $this->assertEquals('en', $request->getLocale());
-        $this->assertEquals('en', \Locale::getDefault());
+        $this->assertEquals('en', Locale::getDefault());
     }
 
     public function testGetCharsets()
@@ -1752,7 +1758,7 @@ class RequestTest extends TestCase
     {
         $request = new Request();
 
-        $me = new \ReflectionMethod($request, 'getUrlencodedPrefix');
+        $me = new ReflectionMethod($request, 'getUrlencodedPrefix');
         $me->setAccessible(true);
 
         $this->assertSame($expect, $me->invoke($request, $string, $prefix));
@@ -1774,7 +1780,7 @@ class RequestTest extends TestCase
 
     private function disableHttpMethodParameterOverride()
     {
-        $class = new \ReflectionClass('Symfony\\Component\\HttpFoundation\\Request');
+        $class = new ReflectionClass('Symfony\\Component\\HttpFoundation\\Request');
         $property = $class->getProperty('httpMethodParameterOverride');
         $property->setAccessible(true);
         $property->setValue(false);
@@ -2135,7 +2141,7 @@ class RequestTest extends TestCase
     }
 
     /**
-     * @expectedException \BadMethodCallException
+     * @expectedException BadMethodCallException
      */
     public function testMethodSafeChecksCacheable()
     {
@@ -2302,6 +2308,18 @@ class RequestTest extends TestCase
         $request->headers->set('X-Forwarded-Port', 443);
 
         $this->assertSame(443, $request->getPort());
+    }
+
+    public function testTrustedPortDoesNotDefaultToZero()
+    {
+        Request::setTrustedProxies(['1.1.1.1'], Request::HEADER_X_FORWARDED_ALL);
+
+        $request = Request::create('/');
+        $request->server->set('REMOTE_ADDR', '1.1.1.1');
+        $request->headers->set('X-Forwarded-Host', 'test.example.com');
+        $request->headers->set('X-Forwarded-Port', '');
+
+        $this->assertSame(80, $request->getPort());
     }
 }
 

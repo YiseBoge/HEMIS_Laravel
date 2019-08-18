@@ -1,13 +1,15 @@
 <?php
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use PHPUnit\Framework\Constraint\RegularExpression;
+use PHPUnit\Framework\TestCase;
 
 /**
  * A base test case with some custom expectations.
  *
  * @author Rouven Weßling
  */
-class SwiftMailerTestCase extends \PHPUnit\Framework\TestCase
+class SwiftMailerTestCase extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
@@ -17,7 +19,7 @@ class SwiftMailerTestCase extends \PHPUnit\Framework\TestCase
             throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'string');
         }
 
-        return new \PHPUnit\Framework\Constraint\RegularExpression($pattern);
+        return new RegularExpression($pattern);
     }
 
     public function assertIdenticalBinary($expected, $actual, $message = '')
@@ -28,11 +30,11 @@ class SwiftMailerTestCase extends \PHPUnit\Framework\TestCase
 
     protected function tearDown()
     {
-        \Mockery::close();
+        Mockery::close();
     }
 
     protected function getMockery($class)
     {
-        return \Mockery::mock($class);
+        return Mockery::mock($class);
     }
 }

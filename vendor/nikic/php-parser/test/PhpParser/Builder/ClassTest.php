@@ -2,12 +2,14 @@
 
 namespace PhpParser\Builder;
 
+use LogicException;
 use PhpParser\Comment;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt;
+use PHPUnit\Framework\TestCase;
 
-class ClassTest extends \PHPUnit\Framework\TestCase
+class ClassTest extends TestCase
 {
     protected function createClassBuilder($class) {
         return new Class_($class);
@@ -123,7 +125,7 @@ DOC;
     }
 
     public function testInvalidStmtError() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Unexpected node of type "Stmt_Echo"');
         $this->createClassBuilder('Test')
             ->addStmt(new Stmt\Echo_([]))
@@ -131,21 +133,21 @@ DOC;
     }
 
     public function testInvalidDocComment() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Doc comment must be a string or an instance of PhpParser\Comment\Doc');
         $this->createClassBuilder('Test')
             ->setDocComment(new Comment('Test'));
     }
 
     public function testEmptyName() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Name cannot be empty');
         $this->createClassBuilder('Test')
             ->extend('');
     }
 
     public function testInvalidName() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Name must be a string or an instance of Node\Name');
         $this->createClassBuilder('Test')
             ->extend(['Foo']);

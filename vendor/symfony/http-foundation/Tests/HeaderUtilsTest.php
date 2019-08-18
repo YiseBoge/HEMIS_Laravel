@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 
@@ -84,7 +85,7 @@ class HeaderUtilsTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testMakeDispositionInvalidDisposition()
     {
@@ -113,7 +114,7 @@ class HeaderUtilsTest extends TestCase
 
     /**
      * @dataProvider provideMakeDispositionFail
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testMakeDispositionFail($disposition, $filename)
     {

@@ -11,7 +11,11 @@
 
 namespace Symfony\Component\Routing;
 
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
 use Symfony\Component\Config\Resource\ResourceInterface;
+use function count;
 
 /**
  * A RouteCollection represents a set of Route instances.
@@ -23,7 +27,7 @@ use Symfony\Component\Config\Resource\ResourceInterface;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Tobias Schultze <http://tobion.de>
  */
-class RouteCollection implements \IteratorAggregate, \Countable
+class RouteCollection implements IteratorAggregate, Countable
 {
     /**
      * @var Route[]
@@ -49,11 +53,11 @@ class RouteCollection implements \IteratorAggregate, \Countable
      *
      * @see all()
      *
-     * @return \ArrayIterator|Route[] An \ArrayIterator object for iterating over routes
+     * @return ArrayIterator|Route[] An \ArrayIterator object for iterating over routes
      */
     public function getIterator()
     {
-        return new \ArrayIterator($this->routes);
+        return new ArrayIterator($this->routes);
     }
 
     /**
@@ -63,7 +67,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
      */
     public function count()
     {
-        return \count($this->routes);
+        return count($this->routes);
     }
 
     /**

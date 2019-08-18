@@ -14,8 +14,13 @@
 
 namespace Symfony\Component\HttpKernel\HttpCache;
 
+use RuntimeException;
+use SplObjectStorage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use function dirname;
+use function strlen;
+use const DIRECTORY_SEPARATOR;
 
 /**
  * Store implements all the logic for storing cache metadata (Request and Response headers).
@@ -29,15 +34,15 @@ class Store implements StoreInterface
     private $locks;
 
     /**
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function __construct(string $root)
     {
         $this->root = $root;
         if (!file_exists($this->root) && !@mkdir($this->root, 0777, true) && !is_dir($this->root)) {
-            throw new \RuntimeException(sprintf('Unable to create the store directory (%s).', $this->root));
+            throw new RuntimeException(sprintf('Unable to create the store directory (%s).', $this->root));
         }
-        $this->keyCache = new \SplObjectStorage();
+        $this->keyCache = new SplObjectStorage();
         $this->locks = [];
     }
 
@@ -66,7 +71,7 @@ class Store implements StoreInterface
 
         if (!isset($this->locks[$key])) {
             $path = $this->getPath($key);
-            if (!file_exists(\dirname($path)) && false === @mkdir(\dirname($path), 0777, true) && !is_dir(\dirname($path))) {
+            if (!file_exists(dirname($path)) && false === @mkdir(dirname($path), 0777, true) && !is_dir(dirname($path))) {
                 return $path;
             }
             $h = fopen($path, 'cb');
@@ -167,7 +172,7 @@ class Store implements StoreInterface
      *
      * @return string The key under which the response is stored
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function write(Request $request, Response $response)
     {
@@ -179,13 +184,13 @@ class Store implements StoreInterface
             $digest = $this->generateContentDigest($response);
 
             if (false === $this->save($digest, $response->getContent())) {
-                throw new \RuntimeException('Unable to store the entity.');
+                throw new RuntimeException('Unable to store the entity.');
             }
 
             $response->headers->set('X-Content-Digest', $digest);
 
             if (!$response->headers->has('Transfer-Encoding')) {
-                $response->headers->set('Content-Length', \strlen($response->getContent()));
+                $response->headers->set('Content-Length', strlen($response->getContent()));
             }
         }
 
@@ -208,7 +213,7 @@ class Store implements StoreInterface
         array_unshift($entries, [$storedEnv, $headers]);
 
         if (false === $this->save($key, serialize($entries))) {
-            throw new \RuntimeException('Unable to store the metadata.');
+            throw new RuntimeException('Unable to store the metadata.');
         }
 
         return $key;
@@ -227,7 +232,7 @@ class Store implements StoreInterface
     /**
      * Invalidates all cache entries that match the request.
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function invalidate(Request $request)
     {
@@ -247,7 +252,7 @@ class Store implements StoreInterface
         }
 
         if ($modified && false === $this->save($key, serialize($entries))) {
-            throw new \RuntimeException('Unable to store the metadata.');
+            throw new RuntimeException('Unable to store the metadata.');
         }
     }
 
@@ -373,17 +378,17 @@ class Store implements StoreInterface
             @ftruncate($fp, 0);
             @fseek($fp, 0);
             $len = @fwrite($fp, $data);
-            if (\strlen($data) !== $len) {
+            if (strlen($data) !== $len) {
                 @ftruncate($fp, 0);
 
                 return false;
             }
         } else {
-            if (!file_exists(\dirname($path)) && false === @mkdir(\dirname($path), 0777, true) && !is_dir(\dirname($path))) {
+            if (!file_exists(dirname($path)) && false === @mkdir(dirname($path), 0777, true) && !is_dir(dirname($path))) {
                 return false;
             }
 
-            $tmpFile = tempnam(\dirname($path), basename($path));
+            $tmpFile = tempnam(dirname($path), basename($path));
             if (false === $fp = @fopen($tmpFile, 'wb')) {
                 @unlink($tmpFile);
 
@@ -410,7 +415,7 @@ class Store implements StoreInterface
 
     public function getPath($key)
     {
-        return $this->root.\DIRECTORY_SEPARATOR.substr($key, 0, 2).\DIRECTORY_SEPARATOR.substr($key, 2, 2).\DIRECTORY_SEPARATOR.substr($key, 4, 2).\DIRECTORY_SEPARATOR.substr($key, 6);
+        return $this->root. DIRECTORY_SEPARATOR.substr($key, 0, 2). DIRECTORY_SEPARATOR.substr($key, 2, 2). DIRECTORY_SEPARATOR.substr($key, 4, 2). DIRECTORY_SEPARATOR.substr($key, 6);
     }
 
     /**

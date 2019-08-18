@@ -18,6 +18,8 @@ use Egulias\EmailValidator\Warning\CFWSWithFWS;
 use Egulias\EmailValidator\Warning\Comment;
 use Egulias\EmailValidator\Warning\QuotedPart;
 use Egulias\EmailValidator\Warning\QuotedString;
+use Exception;
+use RuntimeException;
 
 abstract class Parser
 {
@@ -85,7 +87,7 @@ abstract class Parser
         try {
             $this->lexer->find(EmailLexer::S_CLOSEPARENTHESIS);
             return true;
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             throw new UnclosedComment();
         }
     }
@@ -190,7 +192,7 @@ abstract class Parser
         try {
             $this->lexer->find(EmailLexer::S_DQUOTE);
             $hasClosingQuote = true;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new UnclosedQuotedString();
         }
         $this->warnings[QuotedString::CODE] = new QuotedString($previous['value'], $this->lexer->token['value']);

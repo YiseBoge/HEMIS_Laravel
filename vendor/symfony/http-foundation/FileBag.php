@@ -11,7 +11,9 @@
 
 namespace Symfony\Component\HttpFoundation;
 
+use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use function is_array;
 
 /**
  * FileBag is a container for uploaded files.
@@ -45,8 +47,8 @@ class FileBag extends ParameterBag
      */
     public function set($key, $value)
     {
-        if (!\is_array($value) && !$value instanceof UploadedFile) {
-            throw new \InvalidArgumentException('An uploaded file must be an array or an instance of UploadedFile.');
+        if (!is_array($value) && !$value instanceof UploadedFile) {
+            throw new InvalidArgumentException('An uploaded file must be an array or an instance of UploadedFile.');
         }
 
         parent::set($key, $this->convertFileInformation($value));
@@ -76,7 +78,7 @@ class FileBag extends ParameterBag
         }
 
         $file = $this->fixPhpFilesArray($file);
-        if (\is_array($file)) {
+        if (is_array($file)) {
             $keys = array_keys($file);
             sort($keys);
 
@@ -84,7 +86,7 @@ class FileBag extends ParameterBag
                 if (UPLOAD_ERR_NO_FILE == $file['error']) {
                     $file = null;
                 } else {
-                    $file = new UploadedFile($file['tmp_name'], $file['name'], $file['type'], $file['error']);
+                    $file = new UploadedFile($file['tmp_name'], $file['name'], $file['type'], $file['error'], false);
                 }
             } else {
                 $file = array_map([$this, 'convertFileInformation'], $file);
@@ -113,14 +115,14 @@ class FileBag extends ParameterBag
      */
     protected function fixPhpFilesArray($data)
     {
-        if (!\is_array($data)) {
+        if (!is_array($data)) {
             return $data;
         }
 
         $keys = array_keys($data);
         sort($keys);
 
-        if (self::$fileKeys != $keys || !isset($data['name']) || !\is_array($data['name'])) {
+        if (self::$fileKeys != $keys || !isset($data['name']) || !is_array($data['name'])) {
             return $data;
         }
 

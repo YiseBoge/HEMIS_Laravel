@@ -12,6 +12,7 @@
 namespace Symfony\Component\Process;
 
 use Symfony\Component\Process\Exception\RuntimeException;
+use const PHP_SAPI;
 
 /**
  * PhpProcess runs a PHP script in an independent process.
@@ -38,7 +39,7 @@ class PhpProcess extends Process
             $php = $executableFinder->find(false);
             $php = false === $php ? null : array_merge([$php], $executableFinder->findArguments());
         }
-        if ('phpdbg' === \PHP_SAPI) {
+        if ('phpdbg' === PHP_SAPI) {
             $file = tempnam(sys_get_temp_dir(), 'dbg');
             file_put_contents($file, $script);
             register_shutdown_function('unlink', $file);

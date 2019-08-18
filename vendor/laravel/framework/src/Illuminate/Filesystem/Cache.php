@@ -10,7 +10,7 @@ class Cache extends AbstractCache
     /**
      * The cache repository implementation.
      *
-     * @var \Illuminate\Contracts\Cache\Repository
+     * @var Repository
      */
     protected $repository;
 
@@ -31,7 +31,7 @@ class Cache extends AbstractCache
     /**
      * Create a new cache instance.
      *
-     * @param \Illuminate\Contracts\Cache\Repository  $repository
+     * @param Repository $repository
      * @param string  $key
      * @param int|null  $expire
      */

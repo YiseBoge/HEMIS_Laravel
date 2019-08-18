@@ -15,6 +15,10 @@ use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use TypeError;
+use function get_class;
+use function gettype;
+use function is_object;
 
 /**
  * @author Abdellatif Ait boudad <a.aitboudad@gmail.com>
@@ -32,7 +36,7 @@ class MessageFormatter implements MessageFormatterInterface, IntlFormatterInterf
         if ($translator instanceof MessageSelector) {
             $translator = new IdentityTranslator($translator);
         } elseif (null !== $translator && !$translator instanceof TranslatorInterface && !$translator instanceof LegacyTranslatorInterface) {
-            throw new \TypeError(sprintf('Argument 1 passed to %s() must be an instance of %s, %s given.', __METHOD__, TranslatorInterface::class, \is_object($translator) ? \get_class($translator) : \gettype($translator)));
+            throw new TypeError(sprintf('Argument 1 passed to %s() must be an instance of %s, %s given.', __METHOD__, TranslatorInterface::class, is_object($translator) ? get_class($translator) : gettype($translator)));
         }
 
         $this->translator = $translator ?? new IdentityTranslator();

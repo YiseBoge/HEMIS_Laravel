@@ -11,9 +11,11 @@
 
 namespace Symfony\Component\HttpKernel\Fragment;
 
+use LogicException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\EventListener\FragmentListener;
+use function is_array;
 
 /**
  * Adds the possibility to generate a fragment URI for a given Controller.
@@ -80,10 +82,10 @@ abstract class RoutableFragmentRenderer implements FragmentRendererInterface
     private function checkNonScalar($values)
     {
         foreach ($values as $key => $value) {
-            if (\is_array($value)) {
+            if (is_array($value)) {
                 $this->checkNonScalar($value);
             } elseif (!is_scalar($value) && null !== $value) {
-                throw new \LogicException(sprintf('Controller attributes cannot contain non-scalar/non-null values (value for key "%s" is not a scalar or null).', $key));
+                throw new LogicException(sprintf('Controller attributes cannot contain non-scalar/non-null values (value for key "%s" is not a scalar or null).', $key));
             }
         }
     }

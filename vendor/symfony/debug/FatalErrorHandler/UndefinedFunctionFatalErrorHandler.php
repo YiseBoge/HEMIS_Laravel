@@ -13,6 +13,7 @@ namespace Symfony\Component\Debug\FatalErrorHandler;
 
 use Symfony\Component\Debug\Exception\FatalErrorException;
 use Symfony\Component\Debug\Exception\UndefinedFunctionException;
+use function strlen;
 
 /**
  * ErrorHandler for undefined functions.
@@ -26,9 +27,9 @@ class UndefinedFunctionFatalErrorHandler implements FatalErrorHandlerInterface
      */
     public function handleError(array $error, FatalErrorException $exception)
     {
-        $messageLen = \strlen($error['message']);
+        $messageLen = strlen($error['message']);
         $notFoundSuffix = '()';
-        $notFoundSuffixLen = \strlen($notFoundSuffix);
+        $notFoundSuffixLen = strlen($notFoundSuffix);
         if ($notFoundSuffixLen > $messageLen) {
             return;
         }
@@ -38,7 +39,7 @@ class UndefinedFunctionFatalErrorHandler implements FatalErrorHandlerInterface
         }
 
         $prefix = 'Call to undefined function ';
-        $prefixLen = \strlen($prefix);
+        $prefixLen = strlen($prefix);
         if (0 !== strpos($error['message'], $prefix)) {
             return;
         }

@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Translation\Loader;
 
+use Exception;
+use ResourceBundle;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Translation\Exception\InvalidResourceException;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
@@ -37,8 +39,8 @@ class IcuDatFileLoader extends IcuResFileLoader
         }
 
         try {
-            $rb = new \ResourceBundle($locale, $resource);
-        } catch (\Exception $e) {
+            $rb = new ResourceBundle($locale, $resource);
+        } catch (Exception $e) {
             $rb = null;
         }
 

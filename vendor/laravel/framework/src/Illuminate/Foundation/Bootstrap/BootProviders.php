@@ -9,7 +9,7 @@ class BootProviders
     /**
      * Bootstrap the given application.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @param Application $app
      * @return void
      */
     public function bootstrap(Application $app)

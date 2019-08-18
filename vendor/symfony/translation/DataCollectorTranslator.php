@@ -11,15 +11,20 @@
 
 namespace Symfony\Component\Translation;
 
+use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use TypeError;
+use function get_class;
+use function gettype;
+use function is_object;
 
 /**
  * @author Abdellatif Ait boudad <a.aitboudad@gmail.com>
  */
-class DataCollectorTranslator implements LegacyTranslatorInterface, TranslatorInterface, TranslatorBagInterface
+class DataCollectorTranslator implements LegacyTranslatorInterface, TranslatorInterface, TranslatorBagInterface, WarmableInterface
 {
     const MESSAGE_DEFINED = 0;
     const MESSAGE_MISSING = 1;
@@ -38,10 +43,10 @@ class DataCollectorTranslator implements LegacyTranslatorInterface, TranslatorIn
     public function __construct($translator)
     {
         if (!$translator instanceof LegacyTranslatorInterface && !$translator instanceof TranslatorInterface) {
-            throw new \TypeError(sprintf('Argument 1 passed to %s() must be an instance of %s, %s given.', __METHOD__, TranslatorInterface::class, \is_object($translator) ? \get_class($translator) : \gettype($translator)));
+            throw new TypeError(sprintf('Argument 1 passed to %s() must be an instance of %s, %s given.', __METHOD__, TranslatorInterface::class, is_object($translator) ? get_class($translator) : gettype($translator)));
         }
         if (!$translator instanceof TranslatorBagInterface || !$translator instanceof LocaleAwareInterface) {
-            throw new InvalidArgumentException(sprintf('The Translator "%s" must implement TranslatorInterface, TranslatorBagInterface and LocaleAwareInterface.', \get_class($translator)));
+            throw new InvalidArgumentException(sprintf('The Translator "%s" must implement TranslatorInterface, TranslatorBagInterface and LocaleAwareInterface.', get_class($translator)));
         }
 
         $this->translator = $translator;
@@ -67,9 +72,9 @@ class DataCollectorTranslator implements LegacyTranslatorInterface, TranslatorIn
     {
         if ($this->translator instanceof TranslatorInterface) {
             $trans = $this->translator->trans($id, ['%count%' => $number] + $parameters, $domain, $locale);
+        } else {
+            $trans = $this->translator->transChoice($id, $number, $parameters, $domain, $locale);
         }
-
-        $trans = $this->translator->transChoice($id, $number, $parameters, $domain, $locale);
 
         $this->collectMessage($locale, $domain, $id, $trans, ['%count%' => $number] + $parameters);
 
@@ -98,6 +103,16 @@ class DataCollectorTranslator implements LegacyTranslatorInterface, TranslatorIn
     public function getCatalogue($locale = null)
     {
         return $this->translator->getCatalogue($locale);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function warmUp($cacheDir)
+    {
+        if ($this->translator instanceof WarmableInterface) {
+            $this->translator->warmUp($cacheDir);
+        }
     }
 
     /**

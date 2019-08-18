@@ -14,9 +14,12 @@ use BadMethodCallException;
 use Carbon\Traits\Options;
 use Closure;
 use DateInterval;
+use Exception;
 use InvalidArgumentException;
 use ReflectionClass;
+use ReflectionException;
 use ReflectionMethod;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * A simple API extension for DateInterval.
@@ -104,7 +107,7 @@ class CarbonInterval extends DateInterval
     /**
      * A translator to ... er ... translate stuff
      *
-     * @var \Symfony\Component\Translation\TranslatorInterface
+     * @var TranslatorInterface
      */
     protected static $translator;
 
@@ -205,7 +208,7 @@ class CarbonInterval extends DateInterval
      * @param int $seconds
      * @param int $microseconds
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
     {
@@ -650,9 +653,9 @@ class CarbonInterval extends DateInterval
      *
      * @param string $name
      *
-     * @throws \InvalidArgumentException
-     *
      * @return int|float|string
+     *@throws InvalidArgumentException
+     *
      */
     public function __get($name)
     {
@@ -708,7 +711,7 @@ class CarbonInterval extends DateInterval
      * @param string $name
      * @param int    $value
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __set($name, $value)
     {
@@ -842,7 +845,7 @@ class CarbonInterval extends DateInterval
      *
      * @param object $mixin
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      *
      * @return void
      */
@@ -1425,9 +1428,9 @@ class CarbonInterval extends DateInterval
      *
      * @param string $unit
      *
-     * @throws \InvalidArgumentException
-     *
      * @return float
+     * @throws InvalidArgumentException
+     *
      */
     public function total($unit)
     {
@@ -1491,7 +1494,7 @@ class CarbonInterval extends DateInterval
         }
 
         if (!$unitFound) {
-            throw new \InvalidArgumentException("Unit $unit have no configuration to get total from other units.");
+            throw new InvalidArgumentException("Unit $unit have no configuration to get total from other units.");
         }
 
         if ($unit === 'weeks') {

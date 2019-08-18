@@ -10,7 +10,7 @@ class PackageManifest
     /**
      * The filesystem instance.
      *
-     * @var \Illuminate\Filesystem\Filesystem
+     * @var Filesystem
      */
     public $files;
 
@@ -45,7 +45,7 @@ class PackageManifest
     /**
      * Create a new package manifest instance.
      *
-     * @param  \Illuminate\Filesystem\Filesystem  $files
+     * @param Filesystem $files
      * @param  string  $basePath
      * @param  string  $manifestPath
      * @return void
@@ -160,7 +160,7 @@ class PackageManifest
      * @param  array  $manifest
      * @return void
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function write(array $manifest)
     {

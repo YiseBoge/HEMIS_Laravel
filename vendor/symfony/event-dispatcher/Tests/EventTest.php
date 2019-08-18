@@ -15,12 +15,12 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Test class for Event.
+ * @group legacy
  */
 class EventTest extends TestCase
 {
     /**
-     * @var \Symfony\Component\EventDispatcher\Event
+     * @var Event
      */
     protected $event;
 

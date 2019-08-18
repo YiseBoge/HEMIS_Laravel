@@ -11,7 +11,9 @@
 
 namespace Symfony\Component\EventDispatcher\Tests;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
@@ -31,7 +33,7 @@ class GenericEventTest extends TestCase
      */
     protected function setUp()
     {
-        $this->subject = new \stdClass();
+        $this->subject = new stdClass();
         $this->event = new GenericEvent($this->subject, ['name' => 'Event']);
     }
 
@@ -79,7 +81,7 @@ class GenericEventTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testGetArgException()
     {
@@ -92,7 +94,7 @@ class GenericEventTest extends TestCase
         $this->assertEquals('Event', $this->event['name']);
 
         // test getting invalid arg
-        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
         $this->assertFalse($this->event['nameNotExist']);
     }
 

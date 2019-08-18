@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Finder\Iterator;
 
+use FilterIterator;
+use Iterator;
 use Symfony\Component\Finder\Comparator\NumberComparator;
 
 /**
@@ -18,15 +20,15 @@ use Symfony\Component\Finder\Comparator\NumberComparator;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class SizeRangeFilterIterator extends \FilterIterator
+class SizeRangeFilterIterator extends FilterIterator
 {
     private $comparators = [];
 
     /**
-     * @param \Iterator          $iterator    The Iterator to filter
+     * @param Iterator          $iterator    The Iterator to filter
      * @param NumberComparator[] $comparators An array of NumberComparator instances
      */
-    public function __construct(\Iterator $iterator, array $comparators)
+    public function __construct(Iterator $iterator, array $comparators)
     {
         $this->comparators = $comparators;
 

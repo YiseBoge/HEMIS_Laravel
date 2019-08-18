@@ -31,6 +31,7 @@ use Egulias\EmailValidator\Warning\IPV6MaxGroups;
 use Egulias\EmailValidator\Warning\LabelTooLong;
 use Egulias\EmailValidator\Warning\ObsoleteDTEXT;
 use Egulias\EmailValidator\Warning\TLD;
+use RuntimeException;
 
 class DomainPart extends Parser
 {
@@ -328,7 +329,7 @@ class DomainPart extends Parser
 
         try {
             $this->lexer->find(EmailLexer::S_CLOSEBRACKET);
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             throw new ExpectingDomainLiteralClose();
         }
 

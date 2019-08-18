@@ -11,14 +11,17 @@
 
 namespace Symfony\Component\Process;
 
+use Iterator;
+use IteratorAggregate;
 use Symfony\Component\Process\Exception\RuntimeException;
+use Traversable;
 
 /**
  * Provides a way to continuously write to the input of a Process until the InputStream is closed.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class InputStream implements \IteratorAggregate
+class InputStream implements IteratorAggregate
 {
     /** @var callable|null */
     private $onEmpty = null;
@@ -36,7 +39,7 @@ class InputStream implements \IteratorAggregate
     /**
      * Appends an input to the write buffer.
      *
-     * @param resource|string|int|float|bool|\Traversable|null $input The input to append as scalar,
+     * @param resource|string|int|float|bool|Traversable|null $input The input to append as scalar,
      *                                                                stream resource or \Traversable
      */
     public function write($input)
@@ -77,7 +80,7 @@ class InputStream implements \IteratorAggregate
             }
             $current = array_shift($this->input);
 
-            if ($current instanceof \Iterator) {
+            if ($current instanceof Iterator) {
                 yield from $current;
             } else {
                 yield $current;

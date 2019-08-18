@@ -14,7 +14,7 @@ class FileStore implements Store
     /**
      * The Illuminate Filesystem instance.
      *
-     * @var \Illuminate\Filesystem\Filesystem
+     * @var Filesystem
      */
     protected $files;
 
@@ -28,7 +28,7 @@ class FileStore implements Store
     /**
      * Create a new file cache store instance.
      *
-     * @param  \Illuminate\Filesystem\Filesystem  $files
+     * @param Filesystem $files
      * @param  string  $directory
      * @return void
      */
@@ -186,7 +186,13 @@ class FileStore implements Store
             return $this->emptyPayload();
         }
 
-        $data = unserialize(substr($contents, 10));
+        try {
+            $data = unserialize(substr($contents, 10));
+        } catch (Exception $e) {
+            $this->forget($key);
+
+            return $this->emptyPayload();
+        }
 
         // Next, we'll extract the number of seconds that are remaining for a cache
         // so that we can properly retain the time for things like the increment
@@ -235,7 +241,7 @@ class FileStore implements Store
     /**
      * Get the Filesystem instance.
      *
-     * @return \Illuminate\Filesystem\Filesystem
+     * @return Filesystem
      */
     public function getFilesystem()
     {

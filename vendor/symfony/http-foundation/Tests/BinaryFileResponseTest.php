@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
+use LogicException;
+use ReflectionObject;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Stream;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,7 +49,7 @@ class BinaryFileResponseTest extends ResponseTestCase
     }
 
     /**
-     * @expectedException \LogicException
+     * @expectedException LogicException
      */
     public function testSetContent()
     {
@@ -287,7 +289,7 @@ class BinaryFileResponseTest extends ResponseTestCase
 
         BinaryFileResponse::trustXSendfileTypeHeader();
         $response = new BinaryFileResponse($file, 200, ['Content-Type' => 'application/octet-stream']);
-        $reflection = new \ReflectionObject($response);
+        $reflection = new ReflectionObject($response);
         $property = $reflection->getProperty('file');
         $property->setAccessible(true);
         $property->setValue($response, $file);
@@ -339,6 +341,7 @@ class BinaryFileResponseTest extends ResponseTestCase
             ['/var/www/var/www/files/foo.txt', '/var/www/=/files/', '/files/var/www/files/foo.txt'],
             ['/home/Foo/bar.txt', '/var/www/=/files/,/home/Foo/=/baz/', '/baz/bar.txt'],
             ['/home/Foo/bar.txt', '"/var/www/"="/files/", "/home/Foo/"="/baz/"', '/baz/bar.txt'],
+            ['/tmp/bar.txt', '"/var/www/"="/files/", "/home/Foo/"="/baz/"', null],
         ];
     }
 

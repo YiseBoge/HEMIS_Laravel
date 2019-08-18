@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -27,7 +28,7 @@ class RedirectResponseTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testRedirectResponseConstructorNullUrl()
     {
@@ -35,7 +36,7 @@ class RedirectResponseTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testRedirectResponseConstructorWrongStatusCode()
     {
@@ -66,7 +67,7 @@ class RedirectResponseTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testSetTargetUrlNull()
     {
@@ -88,6 +89,10 @@ class RedirectResponseTest extends TestCase
         $this->assertFalse($response->headers->hasCacheControlDirective('no-cache'));
 
         $response = new RedirectResponse('foo.bar', 301, ['cache-control' => 'max-age=86400']);
+        $this->assertFalse($response->headers->hasCacheControlDirective('no-cache'));
+        $this->assertTrue($response->headers->hasCacheControlDirective('max-age'));
+
+        $response = new RedirectResponse('foo.bar', 301, ['Cache-Control' => 'max-age=86400']);
         $this->assertFalse($response->headers->hasCacheControlDirective('no-cache'));
         $this->assertTrue($response->headers->hasCacheControlDirective('max-age'));
 

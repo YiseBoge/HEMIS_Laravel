@@ -11,8 +11,12 @@
 
 namespace Symfony\Component\VarDumper\Dumper;
 
+use RuntimeException;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\VarDumper\Cloner\DumperInterface;
+use function function_exists;
+use function is_callable;
+use function is_string;
 
 /**
  * Abstract mechanism for dumping a Data object.
@@ -49,7 +53,7 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
         $this->decimalPoint = localeconv();
         $this->decimalPoint = $this->decimalPoint['decimal_point'];
         $this->setOutput($output ?: static::$defaultOutput);
-        if (!$output && \is_string(static::$defaultOutput)) {
+        if (!$output && is_string(static::$defaultOutput)) {
             static::$defaultOutput = $this->outputStream;
         }
     }
@@ -65,11 +69,11 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
     {
         $prev = null !== $this->outputStream ? $this->outputStream : $this->lineDumper;
 
-        if (\is_callable($output)) {
+        if (is_callable($output)) {
             $this->outputStream = null;
             $this->lineDumper = $output;
         } else {
-            if (\is_string($output)) {
+            if (is_string($output)) {
                 $output = fopen($output, 'wb');
             }
             $this->outputStream = $output;
@@ -195,8 +199,8 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
             return $s;
         }
 
-        if (!\function_exists('iconv')) {
-            throw new \RuntimeException('Unable to convert a non-UTF-8 string to UTF-8: required function iconv() does not exist. You should install ext-iconv or symfony/polyfill-iconv.');
+        if (!function_exists('iconv')) {
+            throw new RuntimeException('Unable to convert a non-UTF-8 string to UTF-8: required function iconv() does not exist. You should install ext-iconv or symfony/polyfill-iconv.');
         }
 
         if (false !== $c = @iconv($this->charset, 'UTF-8', $s)) {

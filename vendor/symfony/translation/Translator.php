@@ -25,6 +25,9 @@ use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use function get_class;
+use function in_array;
+use function strlen;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -136,7 +139,7 @@ class Translator implements LegacyTranslatorInterface, TranslatorInterface, Tran
 
         $this->resources[$locale][] = [$format, $resource, $domain];
 
-        if (\in_array($locale, $this->fallbackLocales)) {
+        if (in_array($locale, $this->fallbackLocales)) {
             $this->catalogues = [];
         } else {
             unset($this->catalogues[$locale]);
@@ -229,7 +232,7 @@ class Translator implements LegacyTranslatorInterface, TranslatorInterface, Tran
         @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 4.2, use the trans() one instead with a "%%count%%" parameter.', __METHOD__), E_USER_DEPRECATED);
 
         if (!$this->formatter instanceof ChoiceMessageFormatterInterface) {
-            throw new LogicException(sprintf('The formatter "%s" does not support plural translations.', \get_class($this->formatter)));
+            throw new LogicException(sprintf('The formatter "%s" does not support plural translations.', get_class($this->formatter)));
         }
 
         if (null === $domain) {
@@ -395,7 +398,10 @@ EOF
         return $this->cacheDir.'/catalogue.'.$locale.'.'.strtr(substr(base64_encode(hash('sha256', serialize($this->fallbackLocales), true)), 0, 7), '/', '_').'.php';
     }
 
-    private function doLoadCatalogue($locale): void
+    /**
+     * @internal
+     */
+    protected function doLoadCatalogue($locale): void
     {
         $this->catalogues[$locale] = new MessageCatalogue($locale);
 
@@ -430,7 +436,7 @@ EOF
     protected function computeFallbackLocales($locale)
     {
         if (null === $this->parentLocales) {
-            $parentLocales = \json_decode(\file_get_contents(__DIR__.'/Resources/data/parents.json'), true);
+            $parentLocales = json_decode(file_get_contents(__DIR__.'/Resources/data/parents.json'), true);
         }
 
         $locales = [];
@@ -446,7 +452,7 @@ EOF
             $parent = $parentLocales[$locale] ?? null;
 
             if (!$parent && false !== strrchr($locale, '_')) {
-                $locale = substr($locale, 0, -\strlen(strrchr($locale, '_')));
+                $locale = substr($locale, 0, -strlen(strrchr($locale, '_')));
             } elseif ('root' !== $parent) {
                 $locale = $parent;
             } else {

@@ -3,13 +3,14 @@
 namespace Illuminate\Redis\Limiters;
 
 use Illuminate\Contracts\Redis\LimiterTimeoutException;
+use Illuminate\Redis\Connections\Connection;
 
 class DurationLimiter
 {
     /**
      * The Redis factory implementation.
      *
-     * @var \Illuminate\Redis\Connections\Connection
+     * @var Connection
      */
     private $redis;
 
@@ -51,7 +52,7 @@ class DurationLimiter
     /**
      * Create a new duration limiter instance.
      *
-     * @param  \Illuminate\Redis\Connections\Connection $redis
+     * @param  Connection $redis
      * @param  string $name
      * @param  int $maxLocks
      * @param  int $decay
@@ -72,7 +73,7 @@ class DurationLimiter
      * @param  callable|null $callback
      * @return bool
      *
-     * @throws \Illuminate\Contracts\Redis\LimiterTimeoutException
+     * @throws LimiterTimeoutException
      */
     public function block($timeout, $callback = null)
     {

@@ -11,8 +11,17 @@
 
 namespace Symfony\Component\Routing\Loader;
 
+use Exception;
+use FilesystemIterator;
+use InvalidArgumentException;
+use RecursiveCallbackFilterIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use ReflectionClass;
+use SplFileInfo;
 use Symfony\Component\Config\Resource\DirectoryResource;
 use Symfony\Component\Routing\RouteCollection;
+use function is_string;
 
 /**
  * AnnotationDirectoryLoader loads routing information from annotations set
@@ -30,7 +39,7 @@ class AnnotationDirectoryLoader extends AnnotationFileLoader
      *
      * @return RouteCollection A RouteCollection instance
      *
-     * @throws \InvalidArgumentException When the directory does not exist or its routes cannot be parsed
+     * @throws InvalidArgumentException When the directory does not exist or its routes cannot be parsed
      */
     public function load($path, $type = null)
     {
@@ -40,16 +49,16 @@ class AnnotationDirectoryLoader extends AnnotationFileLoader
 
         $collection = new RouteCollection();
         $collection->addResource(new DirectoryResource($dir, '/\.php$/'));
-        $files = iterator_to_array(new \RecursiveIteratorIterator(
-            new \RecursiveCallbackFilterIterator(
-                new \RecursiveDirectoryIterator($dir, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS),
-                function (\SplFileInfo $current) {
+        $files = iterator_to_array(new RecursiveIteratorIterator(
+            new RecursiveCallbackFilterIterator(
+                new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS | FilesystemIterator::FOLLOW_SYMLINKS),
+                function (SplFileInfo $current) {
                     return '.' !== substr($current->getBasename(), 0, 1);
                 }
             ),
-            \RecursiveIteratorIterator::LEAVES_ONLY
+            RecursiveIteratorIterator::LEAVES_ONLY
         ));
-        usort($files, function (\SplFileInfo $a, \SplFileInfo $b) {
+        usort($files, function (SplFileInfo $a, SplFileInfo $b) {
             return (string) $a > (string) $b ? 1 : -1;
         });
 
@@ -59,7 +68,7 @@ class AnnotationDirectoryLoader extends AnnotationFileLoader
             }
 
             if ($class = $this->findClass($file)) {
-                $refl = new \ReflectionClass($class);
+                $refl = new ReflectionClass($class);
                 if ($refl->isAbstract()) {
                     continue;
                 }
@@ -80,13 +89,13 @@ class AnnotationDirectoryLoader extends AnnotationFileLoader
             return true;
         }
 
-        if ($type || !\is_string($resource)) {
+        if ($type || !is_string($resource)) {
             return false;
         }
 
         try {
             return is_dir($this->locator->locate($resource));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }

@@ -2,10 +2,12 @@
 
 namespace PhpParser\Builder;
 
+use LogicException;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt;
+use PHPUnit\Framework\TestCase;
 
-class TraitUseTest extends \PHPUnit\Framework\TestCase
+class TraitUseTest extends TestCase
 {
     protected function createTraitUseBuilder(...$traits) {
         return new TraitUse(...$traits);
@@ -43,7 +45,7 @@ class TraitUseTest extends \PHPUnit\Framework\TestCase
     }
 
     public function testInvalidAdaptationNode() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Adaptation must have type TraitUseAdaptation');
         $this->createTraitUseBuilder('Test')
             ->with(new Stmt\Echo_([]))

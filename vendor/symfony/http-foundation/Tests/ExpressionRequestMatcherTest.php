@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
+use LogicException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\HttpFoundation\ExpressionRequestMatcher;
@@ -19,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ExpressionRequestMatcherTest extends TestCase
 {
     /**
-     * @expectedException \LogicException
+     * @expectedException LogicException
      */
     public function testWhenNoExpressionIsSet()
     {

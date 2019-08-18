@@ -12,6 +12,7 @@
 namespace Symfony\Component\Console\Formatter;
 
 use Symfony\Component\Console\Exception\InvalidArgumentException;
+use function strlen;
 
 /**
  * Formatter class for console output.
@@ -51,10 +52,10 @@ class OutputFormatter implements WrappableOutputFormatterInterface
     public static function escapeTrailingBackslash($text)
     {
         if ('\\' === substr($text, -1)) {
-            $len = \strlen($text);
+            $len = strlen($text);
             $text = rtrim($text, '\\');
             $text = str_replace("\0", '', $text);
-            $text .= str_repeat("\0", $len - \strlen($text));
+            $text .= str_repeat("\0", $len - strlen($text));
         }
 
         return $text;
@@ -141,7 +142,7 @@ class OutputFormatter implements WrappableOutputFormatterInterface
     {
         $offset = 0;
         $output = '';
-        $tagRegex = '[a-z][a-z0-9,_=;-]*+';
+        $tagRegex = '[a-z][^<>]*+';
         $currentLineLength = 0;
         preg_match_all("#<(($tagRegex) | /($tagRegex)?)>#ix", $message, $matches, PREG_OFFSET_CAPTURE);
         foreach ($matches[0] as $i => $match) {
@@ -154,7 +155,7 @@ class OutputFormatter implements WrappableOutputFormatterInterface
 
             // add the text up to the next tag
             $output .= $this->applyCurrentStyle(substr($message, $offset, $pos - $offset), $output, $width, $currentLineLength);
-            $offset = $pos + \strlen($text);
+            $offset = $pos + strlen($text);
 
             // opening tag?
             if ($open = '/' != $text[1]) {
@@ -216,6 +217,8 @@ class OutputFormatter implements WrappableOutputFormatterInterface
                 $style->setForeground(strtolower($match[1]));
             } elseif ('bg' == $match[0]) {
                 $style->setBackground(strtolower($match[1]));
+            } elseif ('href' === $match[0]) {
+                $style->setHref($match[1]);
             } elseif ('options' === $match[0]) {
                 preg_match_all('([^,;]+)', strtolower($match[1]), $options);
                 $options = array_shift($options);
@@ -263,8 +266,12 @@ class OutputFormatter implements WrappableOutputFormatterInterface
         }
 
         $lines = explode("\n", $text);
-        if ($width === $currentLineLength = \strlen(end($lines))) {
-            $currentLineLength = 0;
+
+        foreach ($lines as $line) {
+            $currentLineLength += strlen($line);
+            if ($width <= $currentLineLength) {
+                $currentLineLength = 0;
+            }
         }
 
         if ($this->isDecorated()) {

@@ -3,6 +3,7 @@
 namespace PhpParser\Node;
 
 use PhpParser\NodeAbstract;
+use function is_string;
 
 class Param extends NodeAbstract
 {
@@ -32,7 +33,7 @@ class Param extends NodeAbstract
         bool $byRef = false, bool $variadic = false, array $attributes = []
     ) {
         parent::__construct($attributes);
-        $this->type = \is_string($type) ? new Identifier($type) : $type;
+        $this->type = is_string($type) ? new Identifier($type) : $type;
         $this->byRef = $byRef;
         $this->variadic = $variadic;
         $this->var = $var;

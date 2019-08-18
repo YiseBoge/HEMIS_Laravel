@@ -11,7 +11,7 @@ class FileFactory
      *
      * @param  string  $name
      * @param  int  $kilobytes
-     * @return \Illuminate\Http\Testing\File
+     * @return File
      */
     public function create($name, $kilobytes = 0)
     {
@@ -26,7 +26,7 @@ class FileFactory
      * @param  string  $name
      * @param  int  $width
      * @param  int  $height
-     * @return \Illuminate\Http\Testing\File
+     * @return File
      */
     public function image($name, $width = 10, $height = 10)
     {

@@ -2,7 +2,7 @@
 
 use Egulias\EmailValidator\EmailValidator;
 
-class Swift_Signers_DKIMSignerTest extends \SwiftMailerTestCase
+class Swift_Signers_DKIMSignerTest extends SwiftMailerTestCase
 {
     public function testBasicSigningHeaderManipulation()
     {
@@ -147,8 +147,8 @@ class Swift_Signers_DKIMSignerTest extends \SwiftMailerTestCase
         $factory = new Swift_CharacterReaderFactory_SimpleCharacterReaderFactory();
         $contentEncoder = new Swift_Mime_ContentEncoder_Base64ContentEncoder();
 
-        $headerEncoder = new Swift_Mime_HeaderEncoder_QpHeaderEncoder(new Swift_CharacterStream_CharacterStream($factory, 'utf-8'));
-        $paramEncoder = new Swift_Encoder_Rfc2231Encoder(new Swift_CharacterStream_CharacterStream($factory, 'utf-8'));
+        $headerEncoder = new Swift_Mime_HeaderEncoder_QpHeaderEncoder(new Swift_CharacterStream_ArrayCharacterStream($factory, 'utf-8'));
+        $paramEncoder = new Swift_Encoder_Rfc2231Encoder(new Swift_CharacterStream_ArrayCharacterStream($factory, 'utf-8'));
         $emailValidator = new EmailValidator();
         $headers = new Swift_Mime_SimpleHeaderSet(new Swift_Mime_SimpleHeaderFactory($headerEncoder, $paramEncoder, $emailValidator));
 
@@ -165,8 +165,8 @@ class Swift_Signers_DKIMSignerTest extends \SwiftMailerTestCase
         $factory = new Swift_CharacterReaderFactory_SimpleCharacterReaderFactory();
         $contentEncoder = new Swift_Mime_ContentEncoder_Base64ContentEncoder();
 
-        $headerEncoder = new Swift_Mime_HeaderEncoder_QpHeaderEncoder(new Swift_CharacterStream_CharacterStream($factory, 'utf-8'));
-        $paramEncoder = new Swift_Encoder_Rfc2231Encoder(new Swift_CharacterStream_CharacterStream($factory, 'utf-8'));
+        $headerEncoder = new Swift_Mime_HeaderEncoder_QpHeaderEncoder(new Swift_CharacterStream_ArrayCharacterStream($factory, 'utf-8'));
+        $paramEncoder = new Swift_Encoder_Rfc2231Encoder(new Swift_CharacterStream_ArrayCharacterStream($factory, 'utf-8'));
         $emailValidator = new EmailValidator();
         $headerFactory = new Swift_Mime_SimpleHeaderFactory($headerEncoder, $paramEncoder, $emailValidator);
         $headers = $this->getMockery('Swift_Mime_SimpleHeaderSet');
@@ -208,7 +208,7 @@ class Swift_Signers_DKIMSignerTest extends \SwiftMailerTestCase
                 ->andReturn([$headerFactory->createTextHeader('Subject', 'Foo Bar Text Message')]);
         $headers->shouldReceive('addTextHeader')
                 ->zeroOrMoreTimes()
-                ->with('DKIM-Signature', \Mockery::any())
+                ->with('DKIM-Signature', Mockery::any())
                 ->andReturn(true);
         $headers->shouldReceive('getAll')
                 ->zeroOrMoreTimes()

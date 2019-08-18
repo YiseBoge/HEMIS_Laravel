@@ -17,14 +17,14 @@ class CommandStarting
     /**
      * The console input implementation.
      *
-     * @var \Symfony\Component\Console\Input\InputInterface|null
+     * @var InputInterface|null
      */
     public $input;
 
     /**
      * The command output implementation.
      *
-     * @var \Symfony\Component\Console\Output\OutputInterface|null
+     * @var OutputInterface|null
      */
     public $output;
 
@@ -32,8 +32,8 @@ class CommandStarting
      * Create a new event instance.
      *
      * @param  string  $command
-     * @param  \Symfony\Component\Console\Input\InputInterface  $input
-     * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+     * @param InputInterface $input
+     * @param OutputInterface $output
      * @return void
      */
     public function __construct($command, InputInterface $input, OutputInterface $output)

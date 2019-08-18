@@ -13,7 +13,7 @@ class Regex
      * @param string $replacement
      * @param string $subject
      *
-     * @return \Dotenv\Regex\Result
+     * @return Result
      */
     public static function replace($pattern, $replacement, $subject)
     {
@@ -29,7 +29,7 @@ class Regex
      * @param callable $callback
      * @param string   $subject
      *
-     * @return \Dotenv\Regex\Result
+     * @return Result
      */
     public static function replaceCallback($pattern, callable $callback, $subject)
     {
@@ -44,7 +44,7 @@ class Regex
      * @param callable $operation
      * @param string   $subject
      *
-     * @return \Dotenv\Regex\Result
+     * @return Result
      */
     private static function pregAndWrap(callable $operation, $subject)
     {

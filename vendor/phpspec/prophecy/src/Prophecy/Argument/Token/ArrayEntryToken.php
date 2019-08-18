@@ -11,7 +11,9 @@
 
 namespace Prophecy\Argument\Token;
 
+use ArrayAccess;
 use Prophecy\Exception\InvalidArgumentException;
+use Traversable;
 
 /**
  * Array entry token.
@@ -20,9 +22,9 @@ use Prophecy\Exception\InvalidArgumentException;
  */
 class ArrayEntryToken implements TokenInterface
 {
-    /** @var \Prophecy\Argument\Token\TokenInterface */
+    /** @var TokenInterface */
     private $key;
-    /** @var \Prophecy\Argument\Token\TokenInterface */
+    /** @var TokenInterface */
     private $value;
 
     /**
@@ -39,18 +41,18 @@ class ArrayEntryToken implements TokenInterface
      * Scores half of combined scores from key and value tokens for same entry. Capped at 8.
      * If argument implements \ArrayAccess without \Traversable, then key token is restricted to ExactValueToken.
      *
-     * @param array|\ArrayAccess|\Traversable $argument
+     * @param array|ArrayAccess|Traversable $argument
      *
-     * @throws \Prophecy\Exception\InvalidArgumentException
      * @return bool|int
+     *@throws InvalidArgumentException
      */
     public function scoreArgument($argument)
     {
-        if ($argument instanceof \Traversable) {
+        if ($argument instanceof Traversable) {
             $argument = iterator_to_array($argument);
         }
 
-        if ($argument instanceof \ArrayAccess) {
+        if ($argument instanceof ArrayAccess) {
             $argument = $this->convertArrayAccessToEntry($argument);
         }
 
@@ -121,12 +123,12 @@ class ArrayEntryToken implements TokenInterface
     /**
      * Converts instance of \ArrayAccess to key => value array entry
      *
-     * @param \ArrayAccess $object
+     * @param ArrayAccess $object
      *
      * @return array|null
-     * @throws \Prophecy\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function convertArrayAccessToEntry(\ArrayAccess $object)
+    private function convertArrayAccessToEntry(ArrayAccess $object)
     {
         if (!$this->key instanceof ExactValueToken) {
             throw new InvalidArgumentException(sprintf(

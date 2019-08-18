@@ -1,6 +1,6 @@
 <?php
 /* ===========================================================================
- * Copyright (c) 2018 Zindex Software
+ * Copyright (c) 2018-2019 Zindex Software
  *
  * Licensed under the MIT License
  * =========================================================================== */
@@ -8,6 +8,7 @@
 namespace Opis\Closure;
 
 use Closure;
+use ReflectionException;
 use ReflectionFunction;
 
 class ReflectionClosure extends ReflectionFunction
@@ -31,7 +32,7 @@ class ReflectionClosure extends ReflectionFunction
      * ReflectionClosure constructor.
      * @param Closure $closure
      * @param string|null $code
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function __construct(Closure $closure, $code = null)
     {
@@ -615,7 +616,7 @@ class ReflectionClosure extends ReflectionFunction
     protected function getHashedFileName()
     {
         if ($this->hashedName === null) {
-            $this->hashedName = md5($this->getFileName());
+            $this->hashedName = sha1($this->getFileName());
         }
 
         return $this->hashedName;

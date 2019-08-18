@@ -11,11 +11,11 @@ trait ManagesTransactions
     /**
      * Execute a Closure within a transaction.
      *
-     * @param  \Closure  $callback
+     * @param Closure $callback
      * @param  int  $attempts
      * @return mixed
      *
-     * @throws \Exception|\Throwable
+     * @throws Exception|Throwable
      */
     public function transaction(Closure $callback, $attempts = 1)
     {
@@ -49,12 +49,12 @@ trait ManagesTransactions
     /**
      * Handle an exception encountered when running a transacted statement.
      *
-     * @param  \Exception  $e
+     * @param Exception $e
      * @param  int  $currentAttempt
      * @param  int  $maxAttempts
      * @return void
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function handleTransactionException($e, $currentAttempt, $maxAttempts)
     {
@@ -86,7 +86,7 @@ trait ManagesTransactions
      *
      * @return void
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function beginTransaction()
     {
@@ -130,10 +130,10 @@ trait ManagesTransactions
     /**
      * Handle an exception from a transaction beginning.
      *
-     * @param  \Throwable  $e
+     * @param Throwable $e
      * @return void
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function handleBeginTransactionException($e)
     {
@@ -168,7 +168,7 @@ trait ManagesTransactions
      * @param  int|null  $toLevel
      * @return void
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function rollBack($toLevel = null)
     {
@@ -217,9 +217,9 @@ trait ManagesTransactions
     /**
      * Handle an exception from a rollback.
      *
-     * @param \Exception  $e
+     * @param Exception $e
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function handleRollBackException($e)
     {

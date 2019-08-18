@@ -11,10 +11,14 @@
 
 namespace Symfony\Component\Console\Tester;
 
+use LogicException;
+use ReflectionObject;
+use RuntimeException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
+use function array_key_exists;
 
 /**
  * @author Amrouche Hamza <hamza.simperfit@gmail.com>
@@ -36,7 +40,7 @@ trait TesterTrait
     public function getDisplay($normalize = false)
     {
         if (null === $this->output) {
-            throw new \RuntimeException('Output not initialized, did you execute the command before requesting the display?');
+            throw new RuntimeException('Output not initialized, did you execute the command before requesting the display?');
         }
 
         rewind($this->output->getStream());
@@ -60,7 +64,7 @@ trait TesterTrait
     public function getErrorOutput($normalize = false)
     {
         if (!$this->captureStreamsIndependently) {
-            throw new \LogicException('The error output is not available when the tester is run without "capture_stderr_separately" option set.');
+            throw new LogicException('The error output is not available when the tester is run without "capture_stderr_separately" option set.');
         }
 
         rewind($this->output->getErrorOutput()->getStream());
@@ -130,7 +134,7 @@ trait TesterTrait
      */
     private function initOutput(array $options)
     {
-        $this->captureStreamsIndependently = \array_key_exists('capture_stderr_separately', $options) && $options['capture_stderr_separately'];
+        $this->captureStreamsIndependently = array_key_exists('capture_stderr_separately', $options) && $options['capture_stderr_separately'];
         if (!$this->captureStreamsIndependently) {
             $this->output = new StreamOutput(fopen('php://memory', 'w', false));
             if (isset($options['decorated'])) {
@@ -150,7 +154,7 @@ trait TesterTrait
             $errorOutput->setVerbosity($this->output->getVerbosity());
             $errorOutput->setDecorated($this->output->isDecorated());
 
-            $reflectedOutput = new \ReflectionObject($this->output);
+            $reflectedOutput = new ReflectionObject($this->output);
             $strErrProperty = $reflectedOutput->getProperty('stderr');
             $strErrProperty->setAccessible(true);
             $strErrProperty->setValue($this->output, $errorOutput);

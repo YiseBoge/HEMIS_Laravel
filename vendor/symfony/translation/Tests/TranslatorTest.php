@@ -12,15 +12,20 @@
 namespace Symfony\Component\Translation\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
+use Symfony\Component\Translation\Exception\RuntimeException;
 use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\Translator;
+use const DIRECTORY_SEPARATOR;
 
 class TranslatorTest extends TestCase
 {
     /**
      * @dataProvider      getInvalidLocalesTests
-     * @expectedException \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testConstructorInvalidLocale($locale)
     {
@@ -56,7 +61,7 @@ class TranslatorTest extends TestCase
 
     /**
      * @dataProvider      getInvalidLocalesTests
-     * @expectedException \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testSetInvalidLocale($locale)
     {
@@ -139,7 +144,7 @@ class TranslatorTest extends TestCase
 
     /**
      * @dataProvider      getInvalidLocalesTests
-     * @expectedException \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testSetFallbackInvalidLocales($locale)
     {
@@ -171,7 +176,7 @@ class TranslatorTest extends TestCase
 
     /**
      * @dataProvider      getInvalidLocalesTests
-     * @expectedException \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testAddResourceInvalidLocales($locale)
     {
@@ -206,7 +211,7 @@ class TranslatorTest extends TestCase
 
     /**
      * @dataProvider      getTransFileTests
-     * @expectedException \Symfony\Component\Translation\Exception\NotFoundResourceException
+     * @expectedException NotFoundResourceException
      */
     public function testTransWithoutFallbackLocaleFile($format, $loader)
     {
@@ -301,7 +306,7 @@ class TranslatorTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Translation\Exception\RuntimeException
+     * @expectedException RuntimeException
      */
     public function testWhenAResourceHasNoRegisteredLoader()
     {
@@ -324,7 +329,7 @@ class TranslatorTest extends TestCase
     public function testFallbackCatalogueResources()
     {
         $translator = new Translator('en_GB');
-        $translator->addLoader('yml', new \Symfony\Component\Translation\Loader\YamlFileLoader());
+        $translator->addLoader('yml', new YamlFileLoader());
         $translator->addResource('yml', __DIR__.'/fixtures/empty.yml', 'en_GB');
         $translator->addResource('yml', __DIR__.'/fixtures/resources.yml', 'en');
 
@@ -333,12 +338,12 @@ class TranslatorTest extends TestCase
 
         $resources = $translator->getCatalogue('en')->getResources();
         $this->assertCount(1, $resources);
-        $this->assertContains(__DIR__.\DIRECTORY_SEPARATOR.'fixtures'.\DIRECTORY_SEPARATOR.'resources.yml', $resources);
+        $this->assertContains(__DIR__. DIRECTORY_SEPARATOR.'fixtures'. DIRECTORY_SEPARATOR.'resources.yml', $resources);
 
         $resources = $translator->getCatalogue('en_GB')->getResources();
         $this->assertCount(2, $resources);
-        $this->assertContains(__DIR__.\DIRECTORY_SEPARATOR.'fixtures'.\DIRECTORY_SEPARATOR.'empty.yml', $resources);
-        $this->assertContains(__DIR__.\DIRECTORY_SEPARATOR.'fixtures'.\DIRECTORY_SEPARATOR.'resources.yml', $resources);
+        $this->assertContains(__DIR__. DIRECTORY_SEPARATOR.'fixtures'. DIRECTORY_SEPARATOR.'empty.yml', $resources);
+        $this->assertContains(__DIR__. DIRECTORY_SEPARATOR.'fixtures'. DIRECTORY_SEPARATOR.'resources.yml', $resources);
     }
 
     /**
@@ -355,7 +360,7 @@ class TranslatorTest extends TestCase
 
     /**
      * @dataProvider      getInvalidLocalesTests
-     * @expectedException \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testTransInvalidLocale($locale)
     {
@@ -406,7 +411,7 @@ class TranslatorTest extends TestCase
 
     /**
      * @dataProvider      getInvalidLocalesTests
-     * @expectedException \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @expectedException InvalidArgumentException
      * @group legacy
      */
     public function testTransChoiceInvalidLocale($locale)

@@ -2,14 +2,16 @@
 
 namespace PhpParser\Builder;
 
+use LogicException;
 use PhpParser\Comment;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Print_;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt;
+use PHPUnit\Framework\TestCase;
 
-class FunctionTest extends \PHPUnit\Framework\TestCase
+class FunctionTest extends TestCase
 {
     public function createFunctionBuilder($name) {
         return new Function_($name);
@@ -92,13 +94,13 @@ class FunctionTest extends \PHPUnit\Framework\TestCase
     }
 
     public function testInvalidNullableVoidType() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('void type cannot be nullable');
         $this->createFunctionBuilder('test')->setReturnType('?void');
     }
 
     public function testInvalidParamError() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Expected parameter node, got "Name"');
         $this->createFunctionBuilder('test')
             ->addParam(new Node\Name('foo'))
@@ -106,7 +108,7 @@ class FunctionTest extends \PHPUnit\Framework\TestCase
     }
 
     public function testAddNonStmt() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Expected statement or expression node');
         $this->createFunctionBuilder('test')
             ->addStmt(new Node\Name('Test'));

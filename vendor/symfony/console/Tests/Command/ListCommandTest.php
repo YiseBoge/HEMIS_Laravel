@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Console\Tests\Command;
 
+use Foo6Command;
+use FooCommand;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -52,7 +54,7 @@ EOF;
     {
         require_once realpath(__DIR__.'/../Fixtures/FooCommand.php');
         $application = new Application();
-        $application->add(new \FooCommand());
+        $application->add(new FooCommand());
         $commandTester = new CommandTester($command = $application->get('list'));
         $commandTester->execute(['command' => $command->getName(), 'namespace' => 'foo', '--raw' => true]);
         $output = <<<'EOF'
@@ -67,7 +69,7 @@ EOF;
     {
         require_once realpath(__DIR__.'/../Fixtures/Foo6Command.php');
         $application = new Application();
-        $application->add(new \Foo6Command());
+        $application->add(new Foo6Command());
         $commandTester = new CommandTester($command = $application->get('list'));
         $commandTester->execute(['command' => $command->getName()], ['decorated' => false]);
         $output = <<<'EOF'
@@ -99,7 +101,7 @@ EOF;
     {
         require_once realpath(__DIR__.'/../Fixtures/Foo6Command.php');
         $application = new Application();
-        $application->add(new \Foo6Command());
+        $application->add(new Foo6Command());
         $commandTester = new CommandTester($command = $application->get('list'));
         $commandTester->execute(['command' => $command->getName(), '--raw' => true]);
         $output = <<<'EOF'

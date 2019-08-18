@@ -11,8 +11,13 @@
 
 namespace Symfony\Component\Debug\Tests;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use RuntimeException;
 use Symfony\Component\Debug\DebugClassLoader;
+use function is_array;
+use const DIRECTORY_SEPARATOR;
 
 class DebugClassLoaderTest extends TestCase
 {
@@ -44,8 +49,8 @@ class DebugClassLoaderTest extends TestCase
 
         $functions = spl_autoload_functions();
         foreach ($functions as $function) {
-            if (\is_array($function) && $function[0] instanceof DebugClassLoader) {
-                $reflClass = new \ReflectionClass($function[0]);
+            if (is_array($function) && $function[0] instanceof DebugClassLoader) {
+                $reflClass = new ReflectionClass($function[0]);
                 $reflProp = $reflClass->getProperty('classLoader');
                 $reflProp->setAccessible(true);
 
@@ -59,7 +64,7 @@ class DebugClassLoaderTest extends TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException Exception
      * @expectedExceptionMessage boo
      */
     public function testThrowingClass()
@@ -67,7 +72,7 @@ class DebugClassLoaderTest extends TestCase
         try {
             class_exists(__NAMESPACE__.'\Fixtures\Throwing');
             $this->fail('Exception expected');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertSame('boo', $e->getMessage());
         }
 
@@ -76,7 +81,7 @@ class DebugClassLoaderTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException RuntimeException
      */
     public function testNameCaseMismatch()
     {
@@ -84,7 +89,7 @@ class DebugClassLoaderTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException RuntimeException
      * @expectedExceptionMessage Case mismatch between class and real file names
      */
     public function testFileCaseMismatch()
@@ -97,7 +102,7 @@ class DebugClassLoaderTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException RuntimeException
      */
     public function testPsr4CaseMismatch()
     {
@@ -294,6 +299,11 @@ class DebugClassLoaderTest extends TestCase
         $this->assertSame([
             'The "Symfony\Component\Debug\Tests\Fixtures\SubClassWithAnnotatedParameters::quzMethod()" method will require a new "Quz $quz" argument in the next major version of its parent class "Symfony\Component\Debug\Tests\Fixtures\ClassWithAnnotatedParameters", not defining it is deprecated.',
             'The "Symfony\Component\Debug\Tests\Fixtures\SubClassWithAnnotatedParameters::whereAmI()" method will require a new "bool $matrix" argument in the next major version of its parent class "Symfony\Component\Debug\Tests\Fixtures\InterfaceWithAnnotatedParameters", not defining it is deprecated.',
+            'The "Symfony\Component\Debug\Tests\Fixtures\SubClassWithAnnotatedParameters::iAmHere()" method will require a new "$noType" argument in the next major version of its parent class "Symfony\Component\Debug\Tests\Fixtures\InterfaceWithAnnotatedParameters", not defining it is deprecated.',
+            'The "Symfony\Component\Debug\Tests\Fixtures\SubClassWithAnnotatedParameters::iAmHere()" method will require a new "callable(\Throwable|null $reason, mixed $value) $callback" argument in the next major version of its parent class "Symfony\Component\Debug\Tests\Fixtures\InterfaceWithAnnotatedParameters", not defining it is deprecated.',
+            'The "Symfony\Component\Debug\Tests\Fixtures\SubClassWithAnnotatedParameters::iAmHere()" method will require a new "string $param" argument in the next major version of its parent class "Symfony\Component\Debug\Tests\Fixtures\InterfaceWithAnnotatedParameters", not defining it is deprecated.',
+            'The "Symfony\Component\Debug\Tests\Fixtures\SubClassWithAnnotatedParameters::iAmHere()" method will require a new "callable  ($a,  $b) $anotherOne" argument in the next major version of its parent class "Symfony\Component\Debug\Tests\Fixtures\InterfaceWithAnnotatedParameters", not defining it is deprecated.',
+            'The "Symfony\Component\Debug\Tests\Fixtures\SubClassWithAnnotatedParameters::iAmHere()" method will require a new "Type$WithDollarIsStillAType $ccc" argument in the next major version of its parent class "Symfony\Component\Debug\Tests\Fixtures\InterfaceWithAnnotatedParameters", not defining it is deprecated.',
             'The "Symfony\Component\Debug\Tests\Fixtures\SubClassWithAnnotatedParameters::isSymfony()" method will require a new "true $yes" argument in the next major version of its parent class "Symfony\Component\Debug\Tests\Fixtures\ClassWithAnnotatedParameters", not defining it is deprecated.',
         ], $deprecations);
     }
@@ -305,6 +315,46 @@ class DebugClassLoaderTest extends TestCase
         $e = error_reporting(E_USER_DEPRECATED);
 
         class_exists('Test\\'.__NAMESPACE__.'\\UseTraitWithInternalMethod', true);
+
+        error_reporting($e);
+        restore_error_handler();
+
+        $this->assertSame([], $deprecations);
+    }
+
+    public function testVirtualUse()
+    {
+        $deprecations = [];
+        set_error_handler(function ($type, $msg) use (&$deprecations) { $deprecations[] = $msg; });
+        $e = error_reporting(E_USER_DEPRECATED);
+
+        class_exists('Test\\'.__NAMESPACE__.'\\ExtendsVirtual', true);
+
+        error_reporting($e);
+        restore_error_handler();
+
+        $this->assertSame([
+            'Class "Test\Symfony\Component\Debug\Tests\ExtendsVirtualParent" should implement method "Symfony\Component\Debug\Tests\Fixtures\VirtualInterface::sameLineInterfaceMethodNoBraces()".',
+            'Class "Test\Symfony\Component\Debug\Tests\ExtendsVirtualParent" should implement method "Symfony\Component\Debug\Tests\Fixtures\VirtualInterface::newLineInterfaceMethod()": Some description!',
+            'Class "Test\Symfony\Component\Debug\Tests\ExtendsVirtualParent" should implement method "Symfony\Component\Debug\Tests\Fixtures\VirtualInterface::newLineInterfaceMethodNoBraces()": Description.',
+            'Class "Test\Symfony\Component\Debug\Tests\ExtendsVirtualParent" should implement method "Symfony\Component\Debug\Tests\Fixtures\VirtualInterface::invalidInterfaceMethod()".',
+            'Class "Test\Symfony\Component\Debug\Tests\ExtendsVirtualParent" should implement method "Symfony\Component\Debug\Tests\Fixtures\VirtualInterface::invalidInterfaceMethodNoBraces()".',
+            'Class "Test\Symfony\Component\Debug\Tests\ExtendsVirtualParent" should implement method "Symfony\Component\Debug\Tests\Fixtures\VirtualInterface::complexInterfaceMethod($arg, ...$args)".',
+            'Class "Test\Symfony\Component\Debug\Tests\ExtendsVirtualParent" should implement method "Symfony\Component\Debug\Tests\Fixtures\VirtualInterface::complexInterfaceMethodTyped($arg, int ...$args)": Description ...',
+            'Class "Test\Symfony\Component\Debug\Tests\ExtendsVirtualParent" should implement method "static Symfony\Component\Debug\Tests\Fixtures\VirtualInterface::staticMethodNoBraces()".',
+            'Class "Test\Symfony\Component\Debug\Tests\ExtendsVirtualParent" should implement method "static Symfony\Component\Debug\Tests\Fixtures\VirtualInterface::staticMethodTyped(int $arg)": Description.',
+            'Class "Test\Symfony\Component\Debug\Tests\ExtendsVirtualParent" should implement method "static Symfony\Component\Debug\Tests\Fixtures\VirtualInterface::staticMethodTypedNoBraces()".',
+            'Class "Test\Symfony\Component\Debug\Tests\ExtendsVirtual" should implement method "Symfony\Component\Debug\Tests\Fixtures\VirtualSubInterface::subInterfaceMethod()".',
+        ], $deprecations);
+    }
+
+    public function testVirtualUseWithMagicCall()
+    {
+        $deprecations = [];
+        set_error_handler(function ($type, $msg) use (&$deprecations) { $deprecations[] = $msg; });
+        $e = error_reporting(E_USER_DEPRECATED);
+
+        class_exists('Test\\'.__NAMESPACE__.'\\ExtendsVirtualMagicCall', true);
 
         error_reporting($e);
         restore_error_handler();
@@ -331,7 +381,7 @@ class ClassLoader
 
     public function findFile($class)
     {
-        $fixtureDir = __DIR__.\DIRECTORY_SEPARATOR.'Fixtures'.\DIRECTORY_SEPARATOR;
+        $fixtureDir = __DIR__. DIRECTORY_SEPARATOR.'Fixtures'. DIRECTORY_SEPARATOR;
 
         if (__NAMESPACE__.'\TestingUnsilencing' === $class) {
             eval('-- parse error --');
@@ -340,7 +390,7 @@ class ClassLoader
         } elseif (__NAMESPACE__.'\TestingCaseMismatch' === $class) {
             eval('namespace '.__NAMESPACE__.'; class TestingCaseMisMatch {}');
         } elseif (__NAMESPACE__.'\Fixtures\Psr4CaseMismatch' === $class) {
-            return $fixtureDir.'psr4'.\DIRECTORY_SEPARATOR.'Psr4CaseMismatch.php';
+            return $fixtureDir.'psr4'. DIRECTORY_SEPARATOR.'Psr4CaseMismatch.php';
         } elseif (__NAMESPACE__.'\Fixtures\NotPSR0' === $class) {
             return $fixtureDir.'reallyNotPsr0.php';
         } elseif (__NAMESPACE__.'\Fixtures\NotPSR0bis' === $class) {
@@ -372,6 +422,32 @@ class ClassLoader
             eval('namespace Test\\'.__NAMESPACE__.'; class ExtendsInternalsParent extends \\'.__NAMESPACE__.'\Fixtures\InternalClass implements \\'.__NAMESPACE__.'\Fixtures\InternalInterface { }');
         } elseif ('Test\\'.__NAMESPACE__.'\UseTraitWithInternalMethod' === $class) {
             eval('namespace Test\\'.__NAMESPACE__.'; class UseTraitWithInternalMethod { use \\'.__NAMESPACE__.'\Fixtures\TraitWithInternalMethod; }');
+        } elseif ('Test\\'.__NAMESPACE__.'\ExtendsVirtual' === $class) {
+            eval('namespace Test\\'.__NAMESPACE__.'; class ExtendsVirtual extends ExtendsVirtualParent implements \\'.__NAMESPACE__.'\Fixtures\VirtualSubInterface {
+                public function ownClassMethod() { }
+                public function classMethod() { }
+                public function sameLineInterfaceMethodNoBraces() { }
+            }');
+        } elseif ('Test\\'.__NAMESPACE__.'\ExtendsVirtualParent' === $class) {
+            eval('namespace Test\\'.__NAMESPACE__.'; class ExtendsVirtualParent extends ExtendsVirtualAbstract {
+                public function ownParentMethod() { }
+                public function traitMethod() { }
+                public function sameLineInterfaceMethod() { }
+                public function staticMethodNoBraces() { } // should be static
+            }');
+        } elseif ('Test\\'.__NAMESPACE__.'\ExtendsVirtualAbstract' === $class) {
+            eval('namespace Test\\'.__NAMESPACE__.'; abstract class ExtendsVirtualAbstract extends ExtendsVirtualAbstractBase {
+                public static function staticMethod() { }
+                public function ownAbstractMethod() { }
+                public function interfaceMethod() { }
+            }');
+        } elseif ('Test\\'.__NAMESPACE__.'\ExtendsVirtualAbstractBase' === $class) {
+            eval('namespace Test\\'.__NAMESPACE__.'; abstract class ExtendsVirtualAbstractBase extends \\'.__NAMESPACE__.'\Fixtures\VirtualClass implements \\'.__NAMESPACE__.'\Fixtures\VirtualInterface {
+                public function ownAbstractBaseMethod() { }
+            }');
+        } elseif ('Test\\'.__NAMESPACE__.'\ExtendsVirtualMagicCall' === $class) {
+            eval('namespace Test\\'.__NAMESPACE__.'; class ExtendsVirtualMagicCall extends \\'.__NAMESPACE__.'\Fixtures\VirtualClassMagicCall implements \\'.__NAMESPACE__.'\Fixtures\VirtualInterface {
+            }');
         }
     }
 }

@@ -39,14 +39,14 @@ class Factory implements ArrayAccess
     /**
      * The Faker instance for the builder.
      *
-     * @var \Faker\Generator
+     * @var Faker
      */
     protected $faker;
 
     /**
      * Create a new factory instance.
      *
-     * @param  \Faker\Generator  $faker
+     * @param Faker $faker
      * @return void
      */
     public function __construct(Faker $faker)
@@ -57,7 +57,7 @@ class Factory implements ArrayAccess
     /**
      * Create a new factory container.
      *
-     * @param  \Faker\Generator  $faker
+     * @param Faker $faker
      * @param  string|null  $pathToFactories
      * @return static
      */
@@ -250,7 +250,7 @@ class Factory implements ArrayAccess
      *
      * @param  string  $class
      * @param  string  $name
-     * @return \Illuminate\Database\Eloquent\FactoryBuilder
+     * @return FactoryBuilder
      */
     public function of($class, $name = 'default')
     {

@@ -3,6 +3,7 @@
 namespace Illuminate\Console\Scheduling;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Date;
 
 class ScheduleRunCommand extends Command
@@ -24,14 +25,14 @@ class ScheduleRunCommand extends Command
     /**
      * The schedule instance.
      *
-     * @var \Illuminate\Console\Scheduling\Schedule
+     * @var Schedule
      */
     protected $schedule;
 
     /**
      * The 24 hour timestamp this scheduler command started running.
      *
-     * @var \Illuminate\Support\Carbon;
+     * @var Carbon;
      */
     protected $startedAt;
 
@@ -45,7 +46,7 @@ class ScheduleRunCommand extends Command
     /**
      * Create a new command instance.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param Schedule $schedule
      * @return void
      */
     public function __construct(Schedule $schedule)
@@ -86,7 +87,7 @@ class ScheduleRunCommand extends Command
     /**
      * Run the given single server event.
      *
-     * @param  \Illuminate\Console\Scheduling\Event  $event
+     * @param Event $event
      * @return void
      */
     protected function runSingleServerEvent($event)
@@ -101,7 +102,7 @@ class ScheduleRunCommand extends Command
     /**
      * Run the given event.
      *
-     * @param  \Illuminate\Console\Scheduling\Event  $event
+     * @param Event $event
      * @return void
      */
     protected function runEvent($event)

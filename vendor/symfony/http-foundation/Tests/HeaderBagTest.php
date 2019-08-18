@@ -12,7 +12,9 @@
 namespace Symfony\Component\HttpFoundation\Tests;
 
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\HeaderBag;
+use function count;
 
 class HeaderBagTest extends TestCase
 {
@@ -49,7 +51,7 @@ class HeaderBagTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException RuntimeException
      */
     public function testGetDateException()
     {
@@ -192,7 +194,7 @@ class HeaderBagTest extends TestCase
             $this->assertEquals([$headers[$key]], $val);
         }
 
-        $this->assertEquals(\count($headers), $i);
+        $this->assertEquals(count($headers), $i);
     }
 
     public function testCount()
@@ -200,6 +202,6 @@ class HeaderBagTest extends TestCase
         $headers = ['foo' => 'bar', 'HELLO' => 'WORLD'];
         $headerBag = new HeaderBag($headers);
 
-        $this->assertCount(\count($headers), $headerBag);
+        $this->assertCount(count($headers), $headerBag);
     }
 }

@@ -3,6 +3,9 @@
 namespace Laravel\Tinker;
 
 use Exception;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Collection;
 use Symfony\Component\VarDumper\Caster\Caster;
 
 class TinkerCaster
@@ -33,7 +36,7 @@ class TinkerCaster
     /**
      * Get an array representing the properties of an application.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      * @return array
      */
     public static function castApplication($app)
@@ -58,7 +61,7 @@ class TinkerCaster
     /**
      * Get an array representing the properties of a collection.
      *
-     * @param  \Illuminate\Support\Collection  $collection
+     * @param  Collection  $collection
      * @return array
      */
     public static function castCollection($collection)
@@ -71,7 +74,7 @@ class TinkerCaster
     /**
      * Get an array representing the properties of a model.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  Model  $model
      * @return array
      */
     public static function castModel($model)

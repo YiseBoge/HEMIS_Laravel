@@ -11,8 +11,8 @@
 
 namespace Symfony\Component\HttpKernel\Debug;
 
+use LogicException;
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher as BaseTraceableEventDispatcher;
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -27,7 +27,7 @@ class TraceableEventDispatcher extends BaseTraceableEventDispatcher
     /**
      * {@inheritdoc}
      */
-    protected function preDispatch($eventName, Event $event)
+    protected function beforeDispatch(string $eventName, $event)
     {
         switch ($eventName) {
             case KernelEvents::REQUEST:
@@ -49,7 +49,7 @@ class TraceableEventDispatcher extends BaseTraceableEventDispatcher
                 // which must be caught.
                 try {
                     $this->stopwatch->openSection($token);
-                } catch (\LogicException $e) {
+                } catch (LogicException $e) {
                 }
                 break;
         }
@@ -58,7 +58,7 @@ class TraceableEventDispatcher extends BaseTraceableEventDispatcher
     /**
      * {@inheritdoc}
      */
-    protected function postDispatch($eventName, Event $event)
+    protected function afterDispatch(string $eventName, $event)
     {
         switch ($eventName) {
             case KernelEvents::CONTROLLER_ARGUMENTS:
@@ -74,7 +74,7 @@ class TraceableEventDispatcher extends BaseTraceableEventDispatcher
                 $token = $event->getResponse()->headers->get('X-Debug-Token');
                 try {
                     $this->stopwatch->stopSection($token);
-                } catch (\LogicException $e) {
+                } catch (LogicException $e) {
                 }
                 break;
         }

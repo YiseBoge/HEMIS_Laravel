@@ -4,6 +4,8 @@ namespace Illuminate\Support;
 
 use Carbon\Factory;
 use InvalidArgumentException;
+use RuntimeException;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * @see https://carbon.nesbot.com/docs/
@@ -31,7 +33,7 @@ use InvalidArgumentException;
  * @method static string getLocale()
  * @method static int getMidDayAt()
  * @method static Carbon getTestNow()
- * @method static \Symfony\Component\Translation\TranslatorInterface getTranslator()
+ * @method static TranslatorInterface getTranslator()
  * @method static int getWeekEndsAt()
  * @method static int getWeekStartsAt()
  * @method static array getWeekendDays()
@@ -66,7 +68,7 @@ use InvalidArgumentException;
  * @method static void setMidDayAt($hour)
  * @method static Carbon setTestNow($testNow = null)
  * @method static void setToStringFormat($format)
- * @method static void setTranslator(\Symfony\Component\Translation\TranslatorInterface $translator)
+ * @method static void setTranslator(TranslatorInterface $translator)
  * @method static Carbon setUtf8($utf8)
  * @method static void setWeekEndsAt($day)
  * @method static void setWeekStartsAt($day)
@@ -116,7 +118,7 @@ class DateFactory
      *
      * @param  mixed  $handler
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public static function use($handler)
     {
@@ -193,7 +195,7 @@ class DateFactory
      * @param  array  $parameters
      * @return mixed
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function __call($method, $parameters)
     {

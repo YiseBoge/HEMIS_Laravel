@@ -14,6 +14,7 @@ namespace Symfony\Component\Process\Tests;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\PhpProcess;
+use const PHP_SAPI;
 
 class PhpProcessTest extends TestCase
 {
@@ -44,7 +45,7 @@ PHP
         $process->wait();
         $this->assertContains($commandLine, $process->getCommandLine(), '::getCommandLine() returns the command line of PHP after wait');
 
-        $this->assertSame(PHP_VERSION.\PHP_SAPI, $process->getOutput());
+        $this->assertSame(PHP_VERSION. PHP_SAPI, $process->getOutput());
     }
 
     public function testPassingPhpExplicitly()

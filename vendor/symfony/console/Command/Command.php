@@ -11,6 +11,10 @@
 
 namespace Symfony\Component\Console\Command;
 
+use Closure;
+use Exception;
+use ReflectionFunction;
+use ReflectionProperty;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Exception\ExceptionInterface;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
@@ -21,6 +25,10 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Traversable;
+use function function_exists;
+use function get_called_class;
+use function is_array;
 
 /**
  * Base class for all commands.
@@ -55,8 +63,8 @@ class Command
      */
     public static function getDefaultName()
     {
-        $class = \get_called_class();
-        $r = new \ReflectionProperty($class, 'defaultName');
+        $class = get_called_class();
+        $r = new ReflectionProperty($class, 'defaultName');
 
         return $class === $r->class ? static::$defaultName : null;
     }
@@ -195,7 +203,7 @@ class Command
      *
      * @return int The command exit code
      *
-     * @throws \Exception When binding input fails. Bypass this by calling {@link ignoreValidationErrors()}.
+     * @throws Exception When binding input fails. Bypass this by calling {@link ignoreValidationErrors()}.
      *
      * @see setCode()
      * @see execute()
@@ -221,7 +229,7 @@ class Command
         $this->initialize($input, $output);
 
         if (null !== $this->processTitle) {
-            if (\function_exists('cli_set_process_title')) {
+            if (function_exists('cli_set_process_title')) {
                 if (!@cli_set_process_title($this->processTitle)) {
                     if ('Darwin' === PHP_OS) {
                         $output->writeln('<comment>Running "cli_set_process_title" as an unprivileged user is not supported on MacOS.</comment>', OutputInterface::VERBOSITY_VERY_VERBOSE);
@@ -229,7 +237,7 @@ class Command
                         cli_set_process_title($this->processTitle);
                     }
                 }
-            } elseif (\function_exists('setproctitle')) {
+            } elseif (function_exists('setproctitle')) {
                 setproctitle($this->processTitle);
             } elseif (OutputInterface::VERBOSITY_VERY_VERBOSE === $output->getVerbosity()) {
                 $output->writeln('<comment>Install the proctitle PECL to be able to change the process title.</comment>');
@@ -274,10 +282,10 @@ class Command
      */
     public function setCode(callable $code)
     {
-        if ($code instanceof \Closure) {
-            $r = new \ReflectionFunction($code);
+        if ($code instanceof Closure) {
+            $r = new ReflectionFunction($code);
             if (null === $r->getClosureThis()) {
-                $code = \Closure::bind($code, $this);
+                $code = Closure::bind($code, $this);
             }
         }
 
@@ -550,7 +558,7 @@ class Command
      */
     public function setAliases($aliases)
     {
-        if (!\is_array($aliases) && !$aliases instanceof \Traversable) {
+        if (!is_array($aliases) && !$aliases instanceof Traversable) {
             throw new InvalidArgumentException('$aliases must be an array or an instance of \Traversable');
         }
 

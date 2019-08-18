@@ -3,12 +3,14 @@
 namespace PhpParser\NodeVisitor;
 
 use PhpParser;
+use PhpParser\Error;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt;
+use PHPUnit\Framework\TestCase;
 
-class NameResolverTest extends \PHPUnit\Framework\TestCase
+class NameResolverTest extends TestCase
 {
     private function canonicalize($string) {
         return str_replace("\r\n", "\n", $string);
@@ -359,7 +361,7 @@ EOC;
      * @dataProvider provideTestError
      */
     public function testError(Node $stmt, $errorMsg) {
-        $this->expectException(\PhpParser\Error::class);
+        $this->expectException(Error::class);
         $this->expectExceptionMessage($errorMsg);
 
         $traverser = new PhpParser\NodeTraverser;

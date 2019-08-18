@@ -10,6 +10,8 @@
  */
 namespace Carbon\Traits;
 
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 
 trait Test
@@ -73,7 +75,7 @@ trait Test
 
     protected static function mockConstructorParameters(&$time, &$tz)
     {
-        /** @var \Carbon\CarbonImmutable|\Carbon\Carbon $testInstance */
+        /** @var CarbonImmutable|Carbon $testInstance */
         $testInstance = clone static::getTestNow();
 
         //shift the time according to the given time zone

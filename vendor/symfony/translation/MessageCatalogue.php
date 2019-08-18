@@ -13,6 +13,7 @@ namespace Symfony\Component\Translation;
 
 use Symfony\Component\Config\Resource\ResourceInterface;
 use Symfony\Component\Translation\Exception\LogicException;
+use function strlen;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -50,10 +51,10 @@ class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterf
     public function getDomains()
     {
         $domains = [];
-        $suffixLength = \strlen(self::INTL_DOMAIN_SUFFIX);
+        $suffixLength = strlen(self::INTL_DOMAIN_SUFFIX);
 
         foreach ($this->messages as $domain => $messages) {
-            if (\strlen($domain) > $suffixLength && false !== $i = strpos($domain, self::INTL_DOMAIN_SUFFIX, -$suffixLength)) {
+            if (strlen($domain) > $suffixLength && false !== $i = strpos($domain, self::INTL_DOMAIN_SUFFIX, -$suffixLength)) {
                 $domain = substr($domain, 0, $i);
             }
             $domains[$domain] = $domain;
@@ -72,10 +73,10 @@ class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterf
         }
 
         $allMessages = [];
-        $suffixLength = \strlen(self::INTL_DOMAIN_SUFFIX);
+        $suffixLength = strlen(self::INTL_DOMAIN_SUFFIX);
 
         foreach ($this->messages as $domain => $messages) {
-            if (\strlen($domain) > $suffixLength && false !== $i = strpos($domain, self::INTL_DOMAIN_SUFFIX, -$suffixLength)) {
+            if (strlen($domain) > $suffixLength && false !== $i = strpos($domain, self::INTL_DOMAIN_SUFFIX, -$suffixLength)) {
                 $domain = substr($domain, 0, $i);
                 $allMessages[$domain] = $messages + ($allMessages[$domain] ?? []);
             } else {

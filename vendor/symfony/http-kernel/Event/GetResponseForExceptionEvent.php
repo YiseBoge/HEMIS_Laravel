@@ -11,28 +11,19 @@
 
 namespace Symfony\Component\HttpKernel\Event;
 
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
- * Allows to create a response for a thrown exception.
- *
- * Call setResponse() to set the response that will be returned for the
- * current request. The propagation of this event is stopped as soon as a
- * response is set.
- *
- * You can also call setException() to replace the thrown exception. This
- * exception will be thrown if no response is set during processing of this
- * event.
- *
- * @author Bernhard Schussek <bschussek@gmail.com>
+ * @deprecated since Symfony 4.3, use ExceptionEvent instead
  */
-class GetResponseForExceptionEvent extends GetResponseEvent
+class GetResponseForExceptionEvent extends RequestEvent
 {
     /**
      * The exception object.
      *
-     * @var \Exception
+     * @var Exception
      */
     private $exception;
 
@@ -41,7 +32,7 @@ class GetResponseForExceptionEvent extends GetResponseEvent
      */
     private $allowCustomResponseCode = false;
 
-    public function __construct(HttpKernelInterface $kernel, Request $request, int $requestType, \Exception $e)
+    public function __construct(HttpKernelInterface $kernel, Request $request, int $requestType, Exception $e)
     {
         parent::__construct($kernel, $request, $requestType);
 
@@ -51,7 +42,7 @@ class GetResponseForExceptionEvent extends GetResponseEvent
     /**
      * Returns the thrown exception.
      *
-     * @return \Exception The thrown exception
+     * @return Exception The thrown exception
      */
     public function getException()
     {
@@ -63,9 +54,9 @@ class GetResponseForExceptionEvent extends GetResponseEvent
      *
      * This exception will be thrown if no response is set in the event.
      *
-     * @param \Exception $exception The thrown exception
+     * @param Exception $exception The thrown exception
      */
-    public function setException(\Exception $exception)
+    public function setException(Exception $exception)
     {
         $this->exception = $exception;
     }

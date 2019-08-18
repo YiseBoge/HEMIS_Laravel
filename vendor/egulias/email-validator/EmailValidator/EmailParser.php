@@ -7,6 +7,7 @@ use Egulias\EmailValidator\Exception\NoLocalPart;
 use Egulias\EmailValidator\Parser\DomainPart;
 use Egulias\EmailValidator\Parser\LocalPart;
 use Egulias\EmailValidator\Warning\EmailTooLong;
+use SplObjectStorage;
 
 /**
  * EmailParser
@@ -29,11 +30,11 @@ class EmailParser
         $this->lexer = $lexer;
         $this->localPartParser = new LocalPart($this->lexer);
         $this->domainPartParser = new DomainPart($this->lexer);
-        $this->warnings = new \SplObjectStorage();
+        $this->warnings = new SplObjectStorage();
     }
 
     /**
-     * @param $str
+     * @param string $str
      * @return array
      */
     public function parse($str)

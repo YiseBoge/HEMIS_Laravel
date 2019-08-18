@@ -13,6 +13,7 @@ namespace Symfony\Component\Routing\Matcher;
 
 use Symfony\Component\Routing\Exception\ExceptionInterface;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use function in_array;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -27,7 +28,7 @@ abstract class RedirectableUrlMatcher extends UrlMatcher implements Redirectable
         try {
             return parent::match($pathinfo);
         } catch (ResourceNotFoundException $e) {
-            if (!\in_array($this->context->getMethod(), ['HEAD', 'GET'], true)) {
+            if (!in_array($this->context->getMethod(), ['HEAD', 'GET'], true)) {
                 throw $e;
             }
 

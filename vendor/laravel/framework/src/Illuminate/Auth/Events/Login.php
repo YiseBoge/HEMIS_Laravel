@@ -2,6 +2,7 @@
 
 namespace Illuminate\Auth\Events;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Queue\SerializesModels;
 
 class Login
@@ -18,7 +19,7 @@ class Login
     /**
      * The authenticated user.
      *
-     * @var \Illuminate\Contracts\Auth\Authenticatable
+     * @var Authenticatable
      */
     public $user;
 
@@ -33,7 +34,7 @@ class Login
      * Create a new event instance.
      *
      * @param  string $guard
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  Authenticatable  $user
      * @param  bool  $remember
      * @return void
      */

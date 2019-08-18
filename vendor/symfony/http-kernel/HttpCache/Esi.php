@@ -11,8 +11,10 @@
 
 namespace Symfony\Component\HttpKernel\HttpCache;
 
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use function in_array;
 
 /**
  * Esi implements the ESI capabilities to Request and Response instances.
@@ -71,7 +73,7 @@ class Esi extends AbstractSurrogate
         }
 
         $parts = explode(';', $type);
-        if (!\in_array($parts[0], $this->contentTypes)) {
+        if (!in_array($parts[0], $this->contentTypes)) {
             return $response;
         }
 
@@ -92,7 +94,7 @@ class Esi extends AbstractSurrogate
             }
 
             if (!isset($options['src'])) {
-                throw new \RuntimeException('Unable to process an ESI tag without a "src" attribute.');
+                throw new RuntimeException('Unable to process an ESI tag without a "src" attribute.');
             }
 
             $chunks[$i] = sprintf('<?php echo $this->surrogate->handle($this, %s, %s, %s) ?>'."\n",

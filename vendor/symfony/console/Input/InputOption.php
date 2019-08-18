@@ -13,6 +13,7 @@ namespace Symfony\Component\Console\Input;
 
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Exception\LogicException;
+use function is_array;
 
 /**
  * Represents a command line option.
@@ -56,7 +57,7 @@ class InputOption
         }
 
         if (null !== $shortcut) {
-            if (\is_array($shortcut)) {
+            if (is_array($shortcut)) {
                 $shortcut = implode('|', $shortcut);
             }
             $shortcuts = preg_split('{(\|)-?}', ltrim($shortcut, '-'));
@@ -162,7 +163,7 @@ class InputOption
         if ($this->isArray()) {
             if (null === $default) {
                 $default = [];
-            } elseif (!\is_array($default)) {
+            } elseif (!is_array($default)) {
                 throw new LogicException('A default value for an array option must be an array.');
             }
         }

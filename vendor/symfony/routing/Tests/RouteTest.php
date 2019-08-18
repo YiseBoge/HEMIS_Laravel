@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Routing\Tests;
 
+use Exception;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Route;
 
@@ -124,7 +126,7 @@ class RouteTest extends TestCase
 
     /**
      * @dataProvider getInvalidRequirements
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testSetInvalidRequirement($req)
     {
@@ -249,7 +251,7 @@ class RouteTest extends TestCase
         try {
             $unserialized = unserialize($serialized);
             $this->assertInstanceOf('\Symfony\Component\Routing\Tests\Fixtures\CustomCompiledRoute', $unserialized->compile(), 'the unserialized route compiled successfully');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->fail('unserializing a route which uses a custom compiled route class');
         }
     }

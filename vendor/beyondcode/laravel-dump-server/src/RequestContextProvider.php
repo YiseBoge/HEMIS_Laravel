@@ -11,21 +11,21 @@ class RequestContextProvider implements ContextProviderInterface
     /**
      * The current request.
      *
-     * @var \Illuminate\Http\Request|null
+     * @var Request|null
      */
     private $currentRequest;
 
     /**
      * The variable cloner.
      *
-     * @var \Symfony\Component\VarDumper\Cloner\VarCloner
+     * @var VarCloner
      */
     private $cloner;
 
     /**
      * RequestContextProvider constructor.
      *
-     * @param  \Illuminate\Http\Request|null  $currentRequest
+     * @param Request|null  $currentRequest
      * @return void
      */
     public function __construct(Request $currentRequest = null)
@@ -59,7 +59,7 @@ class RequestContextProvider implements ContextProviderInterface
         return [
             'uri' => $this->currentRequest->getUri(),
             'method' => $this->currentRequest->getMethod(),
-            'controller' => $controller ? $this->cloner->cloneVar(class_basename($controller)) : $controller,
+            'controller' => $controller ? $this->cloner->cloneVar(class_basename($controller)) : $this->cloner->cloneVar(null),
             'identifier' => spl_object_hash($this->currentRequest),
         ];
     }

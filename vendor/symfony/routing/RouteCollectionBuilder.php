@@ -11,9 +11,11 @@
 
 namespace Symfony\Component\Routing;
 
+use BadMethodCallException;
 use Symfony\Component\Config\Exception\LoaderLoadException;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\ResourceInterface;
+use function is_array;
 
 /**
  * Helps add and import routes into a RouteCollection.
@@ -352,13 +354,13 @@ class RouteCollectionBuilder
     private function load($resource, string $type = null): array
     {
         if (null === $this->loader) {
-            throw new \BadMethodCallException('Cannot import other routing resources: you must pass a LoaderInterface when constructing RouteCollectionBuilder.');
+            throw new BadMethodCallException('Cannot import other routing resources: you must pass a LoaderInterface when constructing RouteCollectionBuilder.');
         }
 
         if ($this->loader->supports($resource, $type)) {
             $collections = $this->loader->load($resource, $type);
 
-            return \is_array($collections) ? $collections : [$collections];
+            return is_array($collections) ? $collections : [$collections];
         }
 
         if (null === $resolver = $this->loader->getResolver()) {
@@ -371,6 +373,6 @@ class RouteCollectionBuilder
 
         $collections = $loader->load($resource, $type);
 
-        return \is_array($collections) ? $collections : [$collections];
+        return is_array($collections) ? $collections : [$collections];
     }
 }

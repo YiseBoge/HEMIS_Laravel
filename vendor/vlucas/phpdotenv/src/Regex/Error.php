@@ -3,6 +3,7 @@
 namespace Dotenv\Regex;
 
 use PhpOption\None;
+use PhpOption\Option;
 use PhpOption\Some;
 
 class Error extends Result
@@ -29,7 +30,7 @@ class Error extends Result
      *
      * @param string $value
      *
-     * @return \Dotenv\Regex\Result
+     * @return Result
      */
     public static function create($value)
     {
@@ -39,7 +40,7 @@ class Error extends Result
     /**
      * Get the success option value.
      *
-     * @return \PhpOption\Option
+     * @return Option
      */
     public function success()
     {
@@ -51,7 +52,7 @@ class Error extends Result
      *
      * @param callable $f
      *
-     * @return \Dotenv\Regex\Result
+     * @return Result
      */
     public function mapSuccess(callable $f)
     {
@@ -61,7 +62,7 @@ class Error extends Result
     /**
      * Get the error option value.
      *
-     * @return \PhpOption\Option
+     * @return Option
      */
     public function error()
     {
@@ -73,7 +74,7 @@ class Error extends Result
      *
      * @param callable $f
      *
-     * @return \Dotenv\Regex\Result
+     * @return Result
      */
     public function mapError(callable $f)
     {

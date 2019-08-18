@@ -13,15 +13,15 @@ class TaggedCache extends Repository
     /**
      * The tag set instance.
      *
-     * @var \Illuminate\Cache\TagSet
+     * @var TagSet
      */
     protected $tags;
 
     /**
      * Create a new tagged cache instance.
      *
-     * @param  \Illuminate\Contracts\Cache\Store  $store
-     * @param  \Illuminate\Cache\TagSet  $tags
+     * @param Store $store
+     * @param TagSet $tags
      * @return void
      */
     public function __construct(Store $store, TagSet $tags)
@@ -51,7 +51,7 @@ class TaggedCache extends Repository
      * Increment the value of an item in the cache.
      *
      * @param  string  $key
-     * @param  mixed   $value
+     * @param  mixed  $value
      * @return void
      */
     public function increment($key, $value = 1)
@@ -63,7 +63,7 @@ class TaggedCache extends Repository
      * Decrement the value of an item in the cache.
      *
      * @param  string  $key
-     * @param  mixed   $value
+     * @param  mixed  $value
      * @return void
      */
     public function decrement($key, $value = 1)
@@ -116,7 +116,7 @@ class TaggedCache extends Repository
     /**
      * Get the tag set instance.
      *
-     * @return \Illuminate\Cache\TagSet
+     * @return TagSet
      */
     public function getTags()
     {

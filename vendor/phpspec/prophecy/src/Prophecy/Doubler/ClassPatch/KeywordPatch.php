@@ -12,6 +12,7 @@
 namespace Prophecy\Doubler\ClassPatch;
 
 use Prophecy\Doubler\Generator\Node\ClassNode;
+use const PHP_VERSION_ID;
 
 /**
  * Remove method functionality from the double which will clash with php keywords.
@@ -63,7 +64,7 @@ class KeywordPatch implements ClassPatchInterface
      */
     private function getKeywords()
     {
-        if (\PHP_VERSION_ID >= 70000) {
+        if (PHP_VERSION_ID >= 70000) {
             return array('__halt_compiler');
         }
 

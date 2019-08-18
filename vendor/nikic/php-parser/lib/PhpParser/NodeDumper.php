@@ -2,11 +2,13 @@
 
 namespace PhpParser;
 
+use InvalidArgumentException;
 use PhpParser\Node\Expr\Include_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\GroupUse;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
+use RuntimeException;
 
 class NodeDumper
 {
@@ -102,7 +104,7 @@ class NodeDumper
         } elseif ($node instanceof Comment) {
             return $node->getReformattedText();
         } else {
-            throw new \InvalidArgumentException('Can only dump nodes and arrays.');
+            throw new InvalidArgumentException('Can only dump nodes and arrays.');
         }
 
         return $r . "\n)";
@@ -190,7 +192,7 @@ class NodeDumper
     // Copied from Error class
     private function toColumn($code, $pos) {
         if ($pos > strlen($code)) {
-            throw new \RuntimeException('Invalid position information');
+            throw new RuntimeException('Invalid position information');
         }
 
         $lineStartPos = strrpos($code, "\n", $pos - strlen($code));

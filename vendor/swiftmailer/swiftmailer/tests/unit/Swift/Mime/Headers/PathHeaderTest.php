@@ -1,8 +1,9 @@
 <?php
 
 use Egulias\EmailValidator\EmailValidator;
+use PHPUnit\Framework\TestCase;
 
-class Swift_Mime_Headers_PathHeaderTest extends \PHPUnit\Framework\TestCase
+class Swift_Mime_Headers_PathHeaderTest extends TestCase
 {
     public function testTypeIsPathHeader()
     {
@@ -18,7 +19,7 @@ class Swift_Mime_Headers_PathHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException Exception
      */
     public function testAddressMustComplyWithRfc2822()
     {
@@ -49,7 +50,7 @@ class Swift_Mime_Headers_PathHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \Swift_AddressEncoderException
+     * @expectedException Swift_AddressEncoderException
      */
     public function testAddressMustBeEncodable()
     {

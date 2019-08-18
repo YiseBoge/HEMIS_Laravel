@@ -3,6 +3,8 @@
 namespace Dotenv;
 
 use Dotenv\Environment\FactoryInterface;
+use Dotenv\Environment\VariablesInterface;
+use Dotenv\Exception\InvalidFileException;
 use Dotenv\Exception\InvalidPathException;
 use Dotenv\Regex\Regex;
 use PhpOption\Option;
@@ -28,14 +30,14 @@ class Loader
     /**
      * The environment factory instance.
      *
-     * @var \Dotenv\Environment\FactoryInterface
+     * @var FactoryInterface
      */
     protected $envFactory;
 
     /**
      * The environment variables instance.
      *
-     * @var \Dotenv\Environment\VariablesInterface
+     * @var VariablesInterface
      */
     protected $envVariables;
 
@@ -50,7 +52,7 @@ class Loader
      * Create a new loader instance.
      *
      * @param string[]                             $filePaths
-     * @param \Dotenv\Environment\FactoryInterface $envFactory
+     * @param FactoryInterface $envFactory
      * @param bool                                 $immutable
      *
      * @return void
@@ -81,9 +83,9 @@ class Loader
     /**
      * Load the environment file from disk.
      *
-     * @throws \Dotenv\Exception\InvalidPathException|\Dotenv\Exception\InvalidFileException
-     *
      * @return array<string|null>
+     *@throws InvalidPathException|InvalidFileException
+     *
      */
     public function load()
     {
@@ -97,7 +99,7 @@ class Loader
      *
      * @param string $content
      *
-     * @throws \Dotenv\Exception\InvalidFileException
+     * @throws InvalidFileException
      *
      * @return array<string|null>
      */
@@ -113,9 +115,9 @@ class Loader
      *
      * @param string[] $filePaths
      *
-     * @throws \Dotenv\Exception\InvalidPathException
-     *
      * @return string[]
+     * @throws InvalidPathException
+     *
      */
     private static function findAndRead(array $filePaths)
     {
@@ -140,7 +142,7 @@ class Loader
      *
      * @param string $filePath
      *
-     * @return \PhpOption\Option
+     * @return Option
      */
     private static function readFromFile($filePath)
     {
@@ -157,7 +159,7 @@ class Loader
      *
      * @param string[] $entries
      *
-     * @throws \Dotenv\Exception\InvalidFileException
+     * @throws InvalidFileException
      *
      * @return array<string|null>
      */

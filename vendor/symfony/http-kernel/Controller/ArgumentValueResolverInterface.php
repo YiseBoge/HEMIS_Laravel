@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpKernel\Controller;
 
+use Generator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
@@ -37,7 +38,7 @@ interface ArgumentValueResolverInterface
      * @param Request          $request
      * @param ArgumentMetadata $argument
      *
-     * @return \Generator
+     * @return Generator
      */
     public function resolve(Request $request, ArgumentMetadata $argument);
 }

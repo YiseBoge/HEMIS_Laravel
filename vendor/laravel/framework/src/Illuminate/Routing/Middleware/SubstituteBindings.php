@@ -4,20 +4,21 @@ namespace Illuminate\Routing\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Routing\Registrar;
+use Illuminate\Http\Request;
 
 class SubstituteBindings
 {
     /**
      * The router instance.
      *
-     * @var \Illuminate\Contracts\Routing\Registrar
+     * @var Registrar
      */
     protected $router;
 
     /**
      * Create a new bindings substitutor.
      *
-     * @param  \Illuminate\Contracts\Routing\Registrar  $router
+     * @param Registrar $router
      * @return void
      */
     public function __construct(Registrar $router)
@@ -28,8 +29,8 @@ class SubstituteBindings
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  Request  $request
+     * @param Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)

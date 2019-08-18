@@ -2,6 +2,7 @@
 
 namespace PhpParser\Builder;
 
+use LogicException;
 use PhpParser;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node;
@@ -51,7 +52,7 @@ class Param implements PhpParser\Builder
     public function setType($type) {
         $this->type = BuilderHelpers::normalizeType($type);
         if ($this->type == 'void') {
-            throw new \LogicException('Parameter type cannot be void');
+            throw new LogicException('Parameter type cannot be void');
         }
 
         return $this;

@@ -14,6 +14,7 @@ namespace Symfony\Component\Translation;
 use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Contracts\Translation\TranslatorTrait;
+use function get_class;
 
 /**
  * IdentityTranslator does not translate anything.
@@ -33,7 +34,7 @@ class IdentityTranslator implements LegacyTranslatorInterface, TranslatorInterfa
     {
         $this->selector = $selector;
 
-        if (__CLASS__ !== \get_class($this)) {
+        if (__CLASS__ !== get_class($this)) {
             @trigger_error(sprintf('Calling "%s()" is deprecated since Symfony 4.2.', __METHOD__), E_USER_DEPRECATED);
         }
     }

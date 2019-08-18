@@ -1,8 +1,9 @@
 <?php
 
 use Egulias\EmailValidator\EmailValidator;
+use PHPUnit\Framework\TestCase;
 
-class Swift_Mime_SimpleHeaderFactoryTest extends \PHPUnit\Framework\TestCase
+class Swift_Mime_SimpleHeaderFactoryTest extends TestCase
 {
     private $factory;
 
@@ -45,7 +46,7 @@ class Swift_Mime_SimpleHeaderFactoryTest extends \PHPUnit\Framework\TestCase
 
     public function testDateHeaderHasCorrectModel()
     {
-        $dateTime = new \DateTimeImmutable();
+        $dateTime = new DateTimeImmutable();
         $header = $this->factory->createDateHeader('X-Date', $dateTime);
         $this->assertEquals($dateTime, $header->getFieldBodyModel());
     }

@@ -11,7 +11,9 @@
 
 namespace Symfony\Component\Routing\Tests;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use ReflectionProperty;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Router;
@@ -42,7 +44,7 @@ class RouterTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      * @expectedExceptionMessage The Router does not support the following options: "option_foo", "option_bar"
      */
     public function testSetOptionsWithUnsupportedOptions()
@@ -63,7 +65,7 @@ class RouterTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      * @expectedExceptionMessage The Router does not support the "option_foo" option
      */
     public function testSetOptionWithUnsupportedOption()
@@ -72,7 +74,7 @@ class RouterTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      * @expectedExceptionMessage The Router does not support the "option_foo" option
      */
     public function testGetOptionWithUnsupportedOption()
@@ -88,53 +90,31 @@ class RouterTest extends TestCase
 
         $this->loader->expects($this->once())
             ->method('load')->with('routing.yml', 'ResourceType')
-            ->will($this->returnValue($routeCollection));
+            ->willReturn($routeCollection);
 
         $this->assertSame($routeCollection, $this->router->getRouteCollection());
     }
 
-    /**
-     * @dataProvider provideMatcherOptionsPreventingCaching
-     */
-    public function testMatcherIsCreatedIfCacheIsNotConfigured($option)
+    public function testMatcherIsCreatedIfCacheIsNotConfigured()
     {
-        $this->router->setOption($option, null);
+        $this->router->setOption('cache_dir', null);
 
         $this->loader->expects($this->once())
             ->method('load')->with('routing.yml', null)
-            ->will($this->returnValue(new RouteCollection()));
+            ->willReturn(new RouteCollection());
 
         $this->assertInstanceOf('Symfony\\Component\\Routing\\Matcher\\UrlMatcher', $this->router->getMatcher());
     }
 
-    public function provideMatcherOptionsPreventingCaching()
+    public function testGeneratorIsCreatedIfCacheIsNotConfigured()
     {
-        return [
-            ['cache_dir'],
-            ['matcher_cache_class'],
-        ];
-    }
-
-    /**
-     * @dataProvider provideGeneratorOptionsPreventingCaching
-     */
-    public function testGeneratorIsCreatedIfCacheIsNotConfigured($option)
-    {
-        $this->router->setOption($option, null);
+        $this->router->setOption('cache_dir', null);
 
         $this->loader->expects($this->once())
             ->method('load')->with('routing.yml', null)
-            ->will($this->returnValue(new RouteCollection()));
+            ->willReturn(new RouteCollection());
 
         $this->assertInstanceOf('Symfony\\Component\\Routing\\Generator\\UrlGenerator', $this->router->getGenerator());
-    }
-
-    public function provideGeneratorOptionsPreventingCaching()
-    {
-        return [
-            ['cache_dir'],
-            ['generator_cache_class'],
-        ];
     }
 
     public function testMatchRequestWithUrlMatcherInterface()
@@ -142,7 +122,7 @@ class RouterTest extends TestCase
         $matcher = $this->getMockBuilder('Symfony\Component\Routing\Matcher\UrlMatcherInterface')->getMock();
         $matcher->expects($this->once())->method('match');
 
-        $p = new \ReflectionProperty($this->router, 'matcher');
+        $p = new ReflectionProperty($this->router, 'matcher');
         $p->setAccessible(true);
         $p->setValue($this->router, $matcher);
 
@@ -154,7 +134,7 @@ class RouterTest extends TestCase
         $matcher = $this->getMockBuilder('Symfony\Component\Routing\Matcher\RequestMatcherInterface')->getMock();
         $matcher->expects($this->once())->method('matchRequest');
 
-        $p = new \ReflectionProperty($this->router, 'matcher');
+        $p = new ReflectionProperty($this->router, 'matcher');
         $p->setAccessible(true);
         $p->setValue($this->router, $matcher);
 

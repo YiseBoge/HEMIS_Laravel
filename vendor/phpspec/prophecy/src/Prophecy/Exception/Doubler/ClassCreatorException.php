@@ -12,8 +12,9 @@
 namespace Prophecy\Exception\Doubler;
 
 use Prophecy\Doubler\Generator\Node\ClassNode;
+use RuntimeException;
 
-class ClassCreatorException extends \RuntimeException implements DoublerException
+class ClassCreatorException extends RuntimeException implements DoublerException
 {
     private $node;
 

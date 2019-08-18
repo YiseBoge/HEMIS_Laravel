@@ -1,5 +1,5 @@
 {
-  "name": "MoSHE HEMIS",
+  "name": "laravel/laravel",
   "type": "project",
   "description": "Data Collection System for Ethiopian Universities.",
   "keywords": [
@@ -10,7 +10,7 @@
     "ethiopia",
     "university"
   ],
-  "license": "UNLICENSED",
+  "license": "MIT",
   "require": {
     "php": "^7.1.3",
     "fideloper/proxy": "^4.0",

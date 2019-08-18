@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpFoundation\Session;
 
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
 
 /**
@@ -25,7 +26,7 @@ interface SessionInterface
      *
      * @return bool True if session started
      *
-     * @throws \RuntimeException if session fails to start
+     * @throws RuntimeException if session fails to start
      */
     public function start();
 

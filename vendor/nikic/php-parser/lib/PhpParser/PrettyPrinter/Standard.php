@@ -2,6 +2,8 @@
 
 namespace PhpParser\PrettyPrinter;
 
+use Exception;
+use LogicException;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\AssignOp;
@@ -12,6 +14,9 @@ use PhpParser\Node\Scalar;
 use PhpParser\Node\Scalar\MagicConst;
 use PhpParser\Node\Stmt;
 use PhpParser\PrettyPrinterAbstract;
+use const INF;
+use const PHP_INT_MAX;
+use const STR_PAD_LEFT;
 
 class Standard extends PrettyPrinterAbstract
 {
@@ -126,7 +131,7 @@ class Standard extends PrettyPrinterAbstract
             case Scalar\String_::KIND_DOUBLE_QUOTED:
                 return '"' . $this->escapeString($node->value, '"') . '"';
         }
-        throw new \Exception('Invalid string kind');
+        throw new Exception('Invalid string kind');
     }
 
     protected function pScalar_Encapsed(Scalar\Encapsed $node) {
@@ -148,10 +153,10 @@ class Standard extends PrettyPrinterAbstract
     }
 
     protected function pScalar_LNumber(Scalar\LNumber $node) {
-        if ($node->value === -\PHP_INT_MAX-1) {
+        if ($node->value === -PHP_INT_MAX-1) {
             // PHP_INT_MIN cannot be represented as a literal,
             // because the sign is not part of the literal
-            return '(-' . \PHP_INT_MAX . '-1)';
+            return '(-' . PHP_INT_MAX . '-1)';
         }
 
         $kind = $node->getAttribute('kind', Scalar\LNumber::KIND_DEC);
@@ -169,14 +174,14 @@ class Standard extends PrettyPrinterAbstract
             case Scalar\LNumber::KIND_HEX:
                 return $sign . '0x' . base_convert($str, 10, 16);
         }
-        throw new \Exception('Invalid number kind');
+        throw new Exception('Invalid number kind');
     }
 
     protected function pScalar_DNumber(Scalar\DNumber $node) {
         if (!is_finite($node->value)) {
-            if ($node->value === \INF) {
+            if ($node->value === INF) {
                 return '\INF';
-            } elseif ($node->value === -\INF) {
+            } elseif ($node->value === -INF) {
                 return '-\INF';
             } else {
                 return '\NAN';
@@ -199,7 +204,7 @@ class Standard extends PrettyPrinterAbstract
     }
 
     protected function pScalar_EncapsedStringPart(Scalar\EncapsedStringPart $node) {
-        throw new \LogicException('Cannot directly print EncapsedStringPart');
+        throw new LogicException('Cannot directly print EncapsedStringPart');
     }
 
     // Assignments
@@ -522,7 +527,7 @@ class Standard extends PrettyPrinterAbstract
     // Other
 
     protected function pExpr_Error(Expr\Error $node) {
-        throw new \LogicException('Cannot pretty-print AST with Error nodes');
+        throw new LogicException('Cannot pretty-print AST with Error nodes');
     }
 
     protected function pExpr_Variable(Expr\Variable $node) {
@@ -918,7 +923,7 @@ class Standard extends PrettyPrinterAbstract
             $oct = decoct(ord($matches[1]));
             if ($matches[2] !== '') {
                 // If there is a trailing digit, use the full three character form
-                return '\\' . str_pad($oct, 3, '0', \STR_PAD_LEFT);
+                return '\\' . str_pad($oct, 3, '0', STR_PAD_LEFT);
             }
             return '\\' . $oct;
         }, $escaped);

@@ -4,20 +4,21 @@ namespace Illuminate\Cookie\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Cookie\QueueingFactory as CookieJar;
+use Illuminate\Http\Request;
 
 class AddQueuedCookiesToResponse
 {
     /**
      * The cookie jar instance.
      *
-     * @var \Illuminate\Contracts\Cookie\QueueingFactory
+     * @var CookieJar
      */
     protected $cookies;
 
     /**
      * Create a new CookieQueue instance.
      *
-     * @param  \Illuminate\Contracts\Cookie\QueueingFactory  $cookies
+     * @param CookieJar $cookies
      * @return void
      */
     public function __construct(CookieJar $cookies)
@@ -28,8 +29,8 @@ class AddQueuedCookiesToResponse
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  Request  $request
+     * @param Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)

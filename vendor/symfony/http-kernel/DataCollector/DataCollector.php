@@ -11,11 +11,17 @@
 
 namespace Symfony\Component\HttpKernel\DataCollector;
 
+use DateTimeInterface;
+use LogicException;
+use ReflectionMethod;
 use Symfony\Component\VarDumper\Caster\CutStub;
+use Symfony\Component\VarDumper\Caster\ReflectionCaster;
 use Symfony\Component\VarDumper\Cloner\ClonerInterface;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\VarDumper\Cloner\Stub;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
+use function is_array;
+use function is_object;
 
 /**
  * DataCollector.
@@ -25,7 +31,7 @@ use Symfony\Component\VarDumper\Cloner\VarCloner;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Bernhard Schussek <bschussek@symfony.com>
  */
-abstract class DataCollector implements DataCollectorInterface, \Serializable
+abstract class DataCollector implements DataCollectorInterface
 {
     protected $data = [];
 
@@ -34,17 +40,27 @@ abstract class DataCollector implements DataCollectorInterface, \Serializable
      */
     private $cloner;
 
+    /**
+     * @deprecated since Symfony 4.3, store all the serialized state in the data property instead
+     */
     public function serialize()
     {
+        @trigger_error(sprintf('The "%s" method is deprecated since Symfony 4.3, store all the serialized state in the data property instead.', __METHOD__), E_USER_DEPRECATED);
+
         $trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
         $isCalledFromOverridingMethod = isset($trace[1]['function'], $trace[1]['object']) && 'serialize' === $trace[1]['function'] && $this === $trace[1]['object'];
 
         return $isCalledFromOverridingMethod ? $this->data : serialize($this->data);
     }
 
+    /**
+     * @deprecated since Symfony 4.3, store all the serialized state in the data property instead
+     */
     public function unserialize($data)
     {
-        $this->data = \is_array($data) ? $data : unserialize($data);
+        @trigger_error(sprintf('The "%s" method is deprecated since Symfony 4.3, store all the serialized state in the data property instead.', __METHOD__), E_USER_DEPRECATED);
+
+        $this->data = is_array($data) ? $data : unserialize($data);
     }
 
     /**
@@ -64,7 +80,7 @@ abstract class DataCollector implements DataCollectorInterface, \Serializable
         }
         if (null === $this->cloner) {
             if (!class_exists(CutStub::class)) {
-                throw new \LogicException(sprintf('The VarDumper component is needed for the %s() method. Install symfony/var-dumper version 3.4 or above.', __METHOD__));
+                throw new LogicException(sprintf('The VarDumper component is needed for the %s() method. Install symfony/var-dumper version 3.4 or above.', __METHOD__));
             }
             $this->cloner = new VarCloner();
             $this->cloner->setMaxItems(-1);
@@ -79,11 +95,11 @@ abstract class DataCollector implements DataCollectorInterface, \Serializable
      */
     protected function getCasters()
     {
-        return [
+        $casters = [
             '*' => function ($v, array $a, Stub $s, $isNested) {
                 if (!$v instanceof Stub) {
                     foreach ($a as $k => $v) {
-                        if (\is_object($v) && !$v instanceof \DateTimeInterface && !$v instanceof Stub) {
+                        if (is_object($v) && !$v instanceof DateTimeInterface && !$v instanceof Stub) {
                             $a[$k] = new CutStub($v);
                         }
                     }
@@ -92,5 +108,29 @@ abstract class DataCollector implements DataCollectorInterface, \Serializable
                 return $a;
             },
         ];
+
+        if (method_exists(ReflectionCaster::class, 'unsetClosureFileInfo')) {
+            $casters += ReflectionCaster::UNSET_CLOSURE_FILE_INFO;
+        }
+
+        return $casters;
+    }
+
+    public function __sleep()
+    {
+        if (__CLASS__ !== $c = (new ReflectionMethod($this, 'serialize'))->getDeclaringClass()->name) {
+            @trigger_error(sprintf('Implementing the "%s::serialize()" method is deprecated since Symfony 4.3, store all the serialized state in the "data" property instead.', $c), E_USER_DEPRECATED);
+            $this->data = $this->serialize();
+        }
+
+        return ['data'];
+    }
+
+    public function __wakeup()
+    {
+        if (__CLASS__ !== $c = (new ReflectionMethod($this, 'unserialize'))->getDeclaringClass()->name) {
+            @trigger_error(sprintf('Implementing the "%s::unserialize()" method is deprecated since Symfony 4.3, store all the serialized state in the "data" property instead.', $c), E_USER_DEPRECATED);
+            $this->unserialize($this->data);
+        }
     }
 }

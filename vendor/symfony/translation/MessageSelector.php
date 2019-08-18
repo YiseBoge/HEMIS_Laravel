@@ -14,6 +14,7 @@ namespace Symfony\Component\Translation;
 @trigger_error(sprintf('The "%s" class is deprecated since Symfony 4.2, use IdentityTranslator instead.', MessageSelector::class), E_USER_DEPRECATED);
 
 use Symfony\Component\Translation\Exception\InvalidArgumentException;
+use function count;
 
 /**
  * MessageSelector.
@@ -86,7 +87,7 @@ class MessageSelector
         if (!isset($standardRules[$position])) {
             // when there's exactly one rule given, and that rule is a standard
             // rule, use this rule
-            if (1 === \count($parts) && isset($standardRules[0])) {
+            if (1 === count($parts) && isset($standardRules[0])) {
                 return $standardRules[0];
             }
 

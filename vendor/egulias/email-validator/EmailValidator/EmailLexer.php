@@ -3,6 +3,8 @@
 namespace Egulias\EmailValidator;
 
 use Doctrine\Common\Lexer\AbstractLexer;
+use InvalidArgumentException;
+use UnexpectedValueException;
 
 class EmailLexer extends AbstractLexer
 {
@@ -77,10 +79,25 @@ class EmailLexer extends AbstractLexer
 
     protected $previous;
 
+    private static $nullToken = [
+        'value' => '',
+        'type' => null,
+        'position' => 0,
+    ];
+
+    public function __construct()
+    {
+        $this->previous = $this->token = self::$nullToken;
+    }
+
+    /**
+     * @return void
+     */
     public function reset()
     {
         $this->hasInvalidTokens = false;
         parent::reset();
+        $this->previous = $this->token = self::$nullToken;
     }
 
     public function hasInvalidTokens()
@@ -89,8 +106,8 @@ class EmailLexer extends AbstractLexer
     }
 
     /**
-     * @param $type
-     * @throws \UnexpectedValueException
+     * @param string $type
+     * @throws UnexpectedValueException
      * @return boolean
      */
     public function find($type)
@@ -99,7 +116,7 @@ class EmailLexer extends AbstractLexer
         $search->skipUntil($type);
 
         if (!$search->lookahead) {
-            throw new \UnexpectedValueException($type . ' not found');
+            throw new UnexpectedValueException($type . ' not found');
         }
         return true;
     }
@@ -122,8 +139,10 @@ class EmailLexer extends AbstractLexer
     public function moveNext()
     {
         $this->previous = $this->token;
+        $hasNext = parent::moveNext();
+        $this->token = $this->token ?: self::$nullToken;
 
-        return parent::moveNext();
+        return $hasNext;
     }
 
     /**
@@ -158,7 +177,7 @@ class EmailLexer extends AbstractLexer
      * Retrieve token type. Also processes the token value if necessary.
      *
      * @param string $value
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      * @return integer
      */
     protected function getType(&$value)
@@ -189,7 +208,7 @@ class EmailLexer extends AbstractLexer
     }
 
     /**
-     * @param $value
+     * @param string $value
      * @return bool
      */
     protected function isNullType($value)
@@ -202,7 +221,7 @@ class EmailLexer extends AbstractLexer
     }
 
     /**
-     * @param $value
+     * @param string $value
      * @return bool
      */
     protected function isUTF8Invalid($value)
@@ -214,6 +233,9 @@ class EmailLexer extends AbstractLexer
         return false;
     }
 
+    /**
+     * @return string
+     */
     protected function getModifiers()
     {
         return 'iu';

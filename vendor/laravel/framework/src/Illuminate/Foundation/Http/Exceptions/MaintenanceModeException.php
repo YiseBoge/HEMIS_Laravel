@@ -12,7 +12,7 @@ class MaintenanceModeException extends ServiceUnavailableHttpException
     /**
      * When the application was put in maintenance mode.
      *
-     * @var \Illuminate\Support\Carbon
+     * @var Carbon
      */
     public $wentDownAt;
 
@@ -26,7 +26,7 @@ class MaintenanceModeException extends ServiceUnavailableHttpException
     /**
      * When the application should next be available.
      *
-     * @var \Illuminate\Support\Carbon
+     * @var Carbon
      */
     public $willBeAvailableAt;
 
@@ -36,7 +36,7 @@ class MaintenanceModeException extends ServiceUnavailableHttpException
      * @param  int  $time
      * @param  int|null  $retryAfter
      * @param  string|null  $message
-     * @param  \Exception|null  $previous
+     * @param Exception|null  $previous
      * @param  int  $code
      * @return void
      */

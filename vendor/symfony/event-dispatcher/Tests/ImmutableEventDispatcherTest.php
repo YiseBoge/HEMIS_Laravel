@@ -11,7 +11,9 @@
 
 namespace Symfony\Component\EventDispatcher\Tests;
 
+use BadMethodCallException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\ImmutableEventDispatcher;
 
@@ -21,7 +23,7 @@ use Symfony\Component\EventDispatcher\ImmutableEventDispatcher;
 class ImmutableEventDispatcherTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var PHPUnit_Framework_MockObject_MockObject
      */
     private $innerDispatcher;
 
@@ -42,10 +44,10 @@ class ImmutableEventDispatcherTest extends TestCase
 
         $this->innerDispatcher->expects($this->once())
             ->method('dispatch')
-            ->with('event', $event)
-            ->will($this->returnValue('result'));
+            ->with($event, 'event')
+            ->willReturn('result');
 
-        $this->assertSame('result', $this->dispatcher->dispatch('event', $event));
+        $this->assertSame('result', $this->dispatcher->dispatch($event, 'event'));
     }
 
     public function testGetListenersDelegates()
@@ -53,7 +55,7 @@ class ImmutableEventDispatcherTest extends TestCase
         $this->innerDispatcher->expects($this->once())
             ->method('getListeners')
             ->with('event')
-            ->will($this->returnValue('result'));
+            ->willReturn('result');
 
         $this->assertSame('result', $this->dispatcher->getListeners('event'));
     }
@@ -63,13 +65,13 @@ class ImmutableEventDispatcherTest extends TestCase
         $this->innerDispatcher->expects($this->once())
             ->method('hasListeners')
             ->with('event')
-            ->will($this->returnValue('result'));
+            ->willReturn('result');
 
         $this->assertSame('result', $this->dispatcher->hasListeners('event'));
     }
 
     /**
-     * @expectedException \BadMethodCallException
+     * @expectedException BadMethodCallException
      */
     public function testAddListenerDisallowed()
     {
@@ -77,7 +79,7 @@ class ImmutableEventDispatcherTest extends TestCase
     }
 
     /**
-     * @expectedException \BadMethodCallException
+     * @expectedException BadMethodCallException
      */
     public function testAddSubscriberDisallowed()
     {
@@ -87,7 +89,7 @@ class ImmutableEventDispatcherTest extends TestCase
     }
 
     /**
-     * @expectedException \BadMethodCallException
+     * @expectedException BadMethodCallException
      */
     public function testRemoveListenerDisallowed()
     {
@@ -95,7 +97,7 @@ class ImmutableEventDispatcherTest extends TestCase
     }
 
     /**
-     * @expectedException \BadMethodCallException
+     * @expectedException BadMethodCallException
      */
     public function testRemoveSubscriberDisallowed()
     {

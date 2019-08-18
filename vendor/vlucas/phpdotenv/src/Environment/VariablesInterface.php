@@ -3,6 +3,7 @@
 namespace Dotenv\Environment;
 
 use ArrayAccess;
+use InvalidArgumentException;
 
 /**
  * This environment variables interface.
@@ -30,7 +31,7 @@ interface VariablesInterface extends ArrayAccess
      *
      * @param string $name
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return string|null
      */
@@ -42,7 +43,7 @@ interface VariablesInterface extends ArrayAccess
      * @param string      $name
      * @param string|null $value
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return void
      */
@@ -53,7 +54,7 @@ interface VariablesInterface extends ArrayAccess
      *
      * @param string $name
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return void
      */

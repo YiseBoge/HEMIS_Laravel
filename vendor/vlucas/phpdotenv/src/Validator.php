@@ -21,7 +21,7 @@ class Validator
     /**
      * The loader instance.
      *
-     * @var \Dotenv\Loader
+     * @var Loader
      */
     protected $loader;
 
@@ -29,11 +29,11 @@ class Validator
      * Create a new validator instance.
      *
      * @param string[]       $variables
-     * @param \Dotenv\Loader $loader
-     *
-     * @throws \Dotenv\Exception\ValidationException
+     * @param Loader $loader
      *
      * @return void
+     * @throws ValidationException
+     *
      */
     public function __construct(array $variables, Loader $loader)
     {
@@ -51,9 +51,9 @@ class Validator
     /**
      * Assert that each variable is not empty.
      *
-     * @throws \Dotenv\Exception\ValidationException
+     * @return Validator
+     *@throws ValidationException
      *
-     * @return \Dotenv\Validator
      */
     public function notEmpty()
     {
@@ -68,9 +68,9 @@ class Validator
     /**
      * Assert that each specified variable is an integer.
      *
-     * @throws \Dotenv\Exception\ValidationException
+     * @return Validator
+     *@throws ValidationException
      *
-     * @return \Dotenv\Validator
      */
     public function isInteger()
     {
@@ -85,9 +85,9 @@ class Validator
     /**
      * Assert that each specified variable is a boolean.
      *
-     * @throws \Dotenv\Exception\ValidationException
+     * @return Validator
+     *@throws ValidationException
      *
-     * @return \Dotenv\Validator
      */
     public function isBoolean()
     {
@@ -108,9 +108,9 @@ class Validator
      *
      * @param string[] $choices
      *
-     * @throws \Dotenv\Exception\ValidationException
+     * @return Validator
+     *@throws ValidationException
      *
-     * @return \Dotenv\Validator
      */
     public function allowedValues(array $choices)
     {
@@ -128,9 +128,9 @@ class Validator
      * @param callable $callback
      * @param string   $message
      *
-     * @throws \Dotenv\Exception\ValidationException
+     * @return Validator
+     *@throws ValidationException
      *
-     * @return \Dotenv\Validator
      */
     protected function assertCallback(callable $callback, $message = 'failed callback assertion')
     {

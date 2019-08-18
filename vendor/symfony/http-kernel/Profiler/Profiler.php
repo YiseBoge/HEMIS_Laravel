@@ -11,6 +11,9 @@
 
 namespace Symfony\Component\HttpKernel\Profiler;
 
+use DateTime;
+use Exception;
+use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Exception\ConflictingHeadersException;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
 use Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
 use Symfony\Contracts\Service\ResetInterface;
+use function get_class;
 
 /**
  * Profiler.
@@ -101,7 +105,7 @@ class Profiler implements ResetInterface
         }
 
         if (!($ret = $this->storage->write($profile)) && null !== $this->logger) {
-            $this->logger->warning('Unable to store the profiler information.', ['configured_storage' => \get_class($this->storage)]);
+            $this->logger->warning('Unable to store the profiler information.', ['configured_storage' => get_class($this->storage)]);
         }
 
         return $ret;
@@ -140,7 +144,7 @@ class Profiler implements ResetInterface
      *
      * @return Profile|null A Profile instance or null if the profiler is disabled
      */
-    public function collect(Request $request, Response $response, \Exception $exception = null)
+    public function collect(Request $request, Response $response, Exception $exception = null)
     {
         if (false === $this->enabled) {
             return;
@@ -231,12 +235,12 @@ class Profiler implements ResetInterface
      *
      * @return DataCollectorInterface A DataCollectorInterface instance
      *
-     * @throws \InvalidArgumentException if the collector does not exist
+     * @throws InvalidArgumentException if the collector does not exist
      */
     public function get($name)
     {
         if (!isset($this->collectors[$name])) {
-            throw new \InvalidArgumentException(sprintf('Collector "%s" does not exist.', $name));
+            throw new InvalidArgumentException(sprintf('Collector "%s" does not exist.', $name));
         }
 
         return $this->collectors[$name];
@@ -249,8 +253,8 @@ class Profiler implements ResetInterface
         }
 
         try {
-            $value = new \DateTime(is_numeric($value) ? '@'.$value : $value);
-        } catch (\Exception $e) {
+            $value = new DateTime(is_numeric($value) ? '@'.$value : $value);
+        } catch (Exception $e) {
             return;
         }
 

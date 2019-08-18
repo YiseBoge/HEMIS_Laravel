@@ -13,6 +13,7 @@ namespace Symfony\Component\CssSelector\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\CssSelector\CssSelectorConverter;
+use Symfony\Component\CssSelector\Exception\ParseException;
 
 class CssSelectorConverterTest extends TestCase
 {
@@ -36,7 +37,7 @@ class CssSelectorConverterTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\CssSelector\Exception\ParseException
+     * @expectedException ParseException
      * @expectedExceptionMessage Expected identifier, but <eof at 3> found.
      */
     public function testParseExceptions()

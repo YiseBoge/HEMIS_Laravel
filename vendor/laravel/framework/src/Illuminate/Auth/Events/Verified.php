@@ -2,6 +2,7 @@
 
 namespace Illuminate\Auth\Events;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Queue\SerializesModels;
 
 class Verified
@@ -11,14 +12,14 @@ class Verified
     /**
      * The verified user.
      *
-     * @var \Illuminate\Contracts\Auth\MustVerifyEmail
+     * @var MustVerifyEmail
      */
     public $user;
 
     /**
      * Create a new event instance.
      *
-     * @param  \Illuminate\Contracts\Auth\MustVerifyEmail  $user
+     * @param  MustVerifyEmail  $user
      * @return void
      */
     public function __construct($user)

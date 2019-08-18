@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpKernel\DataCollector;
 
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -35,7 +36,7 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
     /**
      * {@inheritdoc}
      */
-    public function collect(Request $request, Response $response, \Exception $exception = null)
+    public function collect(Request $request, Response $response, Exception $exception = null)
     {
         if (null !== $this->kernel) {
             $startTime = $this->kernel->getStartTime();
@@ -47,6 +48,7 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
             'token' => $response->headers->get('X-Debug-Token'),
             'start_time' => $startTime * 1000,
             'events' => [],
+            'stopwatch_installed' => class_exists(Stopwatch::class, false),
         ];
     }
 
@@ -137,6 +139,14 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
     public function getStartTime()
     {
         return $this->data['start_time'];
+    }
+
+    /**
+     * @return bool whether or not the stopwatch component is installed
+     */
+    public function isStopwatchInstalled()
+    {
+        return $this->data['stopwatch_installed'];
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace PhpParser\Builder;
 
+use LogicException;
 use PhpParser\Builder;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node;
@@ -46,7 +47,7 @@ class TraitUse implements Builder
         $adaptation = BuilderHelpers::normalizeNode($adaptation);
 
         if (!$adaptation instanceof Stmt\TraitUseAdaptation) {
-            throw new \LogicException('Adaptation must have type TraitUseAdaptation');
+            throw new LogicException('Adaptation must have type TraitUseAdaptation');
         }
 
         $this->adaptations[] = $adaptation;

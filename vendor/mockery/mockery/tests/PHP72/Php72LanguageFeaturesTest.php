@@ -3,6 +3,7 @@
 namespace test\Mockery;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
+use stdClass;
 
 /**
  * @requires PHP 7.2.0-dev
@@ -13,7 +14,7 @@ class Php72LanguageFeaturesTest extends MockeryTestCase
     public function it_can_mock_a_class_with_an_object_argument_type_hint()
     {
         $mock = mock(ArgumentObjectTypeHint::class);
-        $object = new \stdClass;
+        $object = new stdClass;
         $mock->allows()->foo($object);
 
         $mock->foo($object);

@@ -6,7 +6,7 @@ use Countable;
 use Illuminate\Contracts\Support\MessageBag as MessageBagContract;
 
 /**
- * @mixin \Illuminate\Contracts\Support\MessageBag
+ * @mixin MessageBagContract
  */
 class ViewErrorBag implements Countable
 {
@@ -32,7 +32,7 @@ class ViewErrorBag implements Countable
      * Get a MessageBag instance from the bags.
      *
      * @param  string  $key
-     * @return \Illuminate\Contracts\Support\MessageBag
+     * @return MessageBagContract
      */
     public function getBag($key)
     {
@@ -53,7 +53,7 @@ class ViewErrorBag implements Countable
      * Add a new MessageBag instance to the bags.
      *
      * @param  string  $key
-     * @param  \Illuminate\Contracts\Support\MessageBag  $bag
+     * @param MessageBagContract $bag
      * @return $this
      */
     public function put($key, MessageBagContract $bag)
@@ -99,7 +99,7 @@ class ViewErrorBag implements Countable
      * Dynamically access a view error bag.
      *
      * @param  string  $key
-     * @return \Illuminate\Contracts\Support\MessageBag
+     * @return MessageBagContract
      */
     public function __get($key)
     {
@@ -110,7 +110,7 @@ class ViewErrorBag implements Countable
      * Dynamically set a view error bag.
      *
      * @param  string  $key
-     * @param  \Illuminate\Contracts\Support\MessageBag  $value
+     * @param MessageBagContract $value
      * @return void
      */
     public function __set($key, $value)

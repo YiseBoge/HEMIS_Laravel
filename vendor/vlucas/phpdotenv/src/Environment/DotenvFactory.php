@@ -16,7 +16,7 @@ class DotenvFactory implements FactoryInterface
     /**
      * The set of adapters to use.
      *
-     * @var \Dotenv\Environment\Adapter\AdapterInterface[]
+     * @var AdapterInterface[]
      */
     protected $adapters;
 
@@ -25,7 +25,7 @@ class DotenvFactory implements FactoryInterface
      *
      * If no adapters are provided, then the defaults will be used.
      *
-     * @param \Dotenv\Environment\Adapter\AdapterInterface[]|null $adapters
+     * @param AdapterInterface[]|null $adapters
      *
      * @return void
      */
@@ -39,7 +39,7 @@ class DotenvFactory implements FactoryInterface
     /**
      * Creates a new mutable environment variables instance.
      *
-     * @return \Dotenv\Environment\VariablesInterface
+     * @return VariablesInterface
      */
     public function create()
     {
@@ -49,7 +49,7 @@ class DotenvFactory implements FactoryInterface
     /**
      * Creates a new immutable environment variables instance.
      *
-     * @return \Dotenv\Environment\VariablesInterface
+     * @return VariablesInterface
      */
     public function createImmutable()
     {

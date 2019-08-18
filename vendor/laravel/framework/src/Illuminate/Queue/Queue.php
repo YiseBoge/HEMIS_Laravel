@@ -2,6 +2,7 @@
 
 namespace Illuminate\Queue;
 
+use DateInterval;
 use DateTimeInterface;
 use Illuminate\Container\Container;
 use Illuminate\Support\InteractsWithTime;
@@ -13,7 +14,7 @@ abstract class Queue
     /**
      * The IoC container instance.
      *
-     * @var \Illuminate\Container\Container
+     * @var Container
      */
     protected $container;
 
@@ -48,7 +49,7 @@ abstract class Queue
      * Push a new job onto the queue after a delay.
      *
      * @param  string  $queue
-     * @param  \DateTimeInterface|\DateInterval|int  $delay
+     * @param DateTimeInterface|DateInterval|int  $delay
      * @param  string  $job
      * @param  mixed   $data
      * @return mixed
@@ -81,7 +82,7 @@ abstract class Queue
      * @param  mixed   $data
      * @return string
      *
-     * @throws \Illuminate\Queue\InvalidPayloadException
+     * @throws InvalidPayloadException
      */
     protected function createPayload($job, $queue, $data = '')
     {
@@ -250,7 +251,7 @@ abstract class Queue
     /**
      * Set the IoC container instance.
      *
-     * @param  \Illuminate\Container\Container  $container
+     * @param Container $container
      * @return void
      */
     public function setContainer(Container $container)

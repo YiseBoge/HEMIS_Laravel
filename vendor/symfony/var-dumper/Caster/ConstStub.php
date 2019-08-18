@@ -12,6 +12,7 @@
 namespace Symfony\Component\VarDumper\Caster;
 
 use Symfony\Component\VarDumper\Cloner\Stub;
+use function func_num_args;
 
 /**
  * Represents a PHP constant and its value.
@@ -20,10 +21,10 @@ use Symfony\Component\VarDumper\Cloner\Stub;
  */
 class ConstStub extends Stub
 {
-    public function __construct(string $name, $value)
+    public function __construct(string $name, $value = null)
     {
         $this->class = $name;
-        $this->value = $value;
+        $this->value = 1 < func_num_args() ? $value : $name;
     }
 
     public function __toString()

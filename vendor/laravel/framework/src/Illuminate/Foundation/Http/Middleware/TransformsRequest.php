@@ -3,6 +3,7 @@
 namespace Illuminate\Foundation\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 class TransformsRequest
@@ -10,8 +11,8 @@ class TransformsRequest
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  Request  $request
+     * @param Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -24,7 +25,7 @@ class TransformsRequest
     /**
      * Clean the request's data.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return void
      */
     protected function clean($request)
@@ -41,7 +42,7 @@ class TransformsRequest
     /**
      * Clean the data in the parameter bag.
      *
-     * @param  \Symfony\Component\HttpFoundation\ParameterBag  $bag
+     * @param ParameterBag $bag
      * @return void
      */
     protected function cleanParameterBag(ParameterBag $bag)

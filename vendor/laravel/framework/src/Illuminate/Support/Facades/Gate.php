@@ -3,20 +3,21 @@
 namespace Illuminate\Support\Facades;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 /**
  * @method static bool has(string $ability)
- * @method static \Illuminate\Contracts\Auth\Access\Gate define(string $ability, callable|string $callback)
- * @method static \Illuminate\Contracts\Auth\Access\Gate policy(string $class, string $policy)
- * @method static \Illuminate\Contracts\Auth\Access\Gate before(callable $callback)
- * @method static \Illuminate\Contracts\Auth\Access\Gate after(callable $callback)
+ * @method static GateContract define(string $ability, callable|string $callback)
+ * @method static GateContract policy(string $class, string $policy)
+ * @method static GateContract before(callable $callback)
+ * @method static GateContract after(callable $callback)
  * @method static bool allows(string $ability, array|mixed $arguments = [])
  * @method static bool denies(string $ability, array|mixed $arguments = [])
  * @method static bool check(iterable|string $abilities, array|mixed $arguments = [])
  * @method static bool any(iterable|string $abilities, array|mixed $arguments = [])
  * @method static \Illuminate\Auth\Access\Response authorize(string $ability, array|mixed $arguments = [])
  * @method static mixed getPolicyFor(object|string $class)
- * @method static \Illuminate\Contracts\Auth\Access\Gate forUser(\Illuminate\Contracts\Auth\Authenticatable|mixed $user)
+ * @method static GateContract forUser(Authenticatable|mixed $user)
  * @method static array abilities()
  *
  * @see \Illuminate\Contracts\Auth\Access\Gate

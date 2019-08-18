@@ -2,6 +2,7 @@
 
 namespace PhpParser\Builder;
 
+use LogicException;
 use PhpParser;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node\Name;
@@ -55,7 +56,7 @@ class Interface_ extends Declaration
             $stmt->stmts = null;
             $this->methods[] = $stmt;
         } else {
-            throw new \LogicException(sprintf('Unexpected node of type "%s"', $stmt->getType()));
+            throw new LogicException(sprintf('Unexpected node of type "%s"', $stmt->getType()));
         }
 
         return $this;

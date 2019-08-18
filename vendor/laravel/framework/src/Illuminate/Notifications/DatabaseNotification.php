@@ -93,7 +93,7 @@ class DatabaseNotification extends Model
      * Create a new database notification collection instance.
      *
      * @param  array  $models
-     * @return \Illuminate\Notifications\DatabaseNotificationCollection
+     * @return DatabaseNotificationCollection
      */
     public function newCollection(array $models = [])
     {

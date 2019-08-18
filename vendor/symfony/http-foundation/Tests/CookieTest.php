@@ -11,6 +11,9 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
+use DateTime;
+use DateTimeImmutable;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Cookie;
 
@@ -41,7 +44,7 @@ class CookieTest extends TestCase
 
     /**
      * @dataProvider invalidNames
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testInstantiationThrowsExceptionIfCookieNameContainsInvalidCharacters($name)
     {
@@ -49,7 +52,7 @@ class CookieTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testInvalidExpiration()
     {
@@ -98,7 +101,7 @@ class CookieTest extends TestCase
 
     public function testConstructorWithDateTime()
     {
-        $expire = new \DateTime();
+        $expire = new DateTime();
         $cookie = Cookie::create('foo', 'bar', $expire);
 
         $this->assertEquals($expire->format('U'), $cookie->getExpiresTime(), '->getExpiresTime() returns the expire date');
@@ -106,7 +109,7 @@ class CookieTest extends TestCase
 
     public function testConstructorWithDateTimeImmutable()
     {
-        $expire = new \DateTimeImmutable();
+        $expire = new DateTimeImmutable();
         $cookie = Cookie::create('foo', 'bar', $expire);
 
         $this->assertEquals($expire->format('U'), $cookie->getExpiresTime(), '->getExpiresTime() returns the expire date');

@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Console\Tests\Formatter;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Formatter\OutputFormatterStyleStack;
@@ -60,7 +61,7 @@ class OutputFormatterStyleStackTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testInvalidPop()
     {

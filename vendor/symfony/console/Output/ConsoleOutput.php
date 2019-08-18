@@ -12,6 +12,7 @@
 namespace Symfony\Component\Console\Output;
 
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use function function_exists;
 
 /**
  * ConsoleOutput is the default class for all CLI output. It uses STDOUT and STDERR.
@@ -131,7 +132,7 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
     private function isRunningOS400()
     {
         $checks = [
-            \function_exists('php_uname') ? php_uname('s') : '',
+            function_exists('php_uname') ? php_uname('s') : '',
             getenv('OSTYPE'),
             PHP_OS,
         ];

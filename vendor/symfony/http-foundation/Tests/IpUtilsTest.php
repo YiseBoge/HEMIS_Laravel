@@ -12,7 +12,9 @@
 namespace Symfony\Component\HttpFoundation\Tests;
 
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\IpUtils;
+use function defined;
 
 class IpUtilsTest extends TestCase
 {
@@ -47,7 +49,7 @@ class IpUtilsTest extends TestCase
      */
     public function testIpv6($matches, $remoteAddr, $cidr)
     {
-        if (!\defined('AF_INET6')) {
+        if (!defined('AF_INET6')) {
             $this->markTestSkipped('Only works when PHP is compiled without the option "disable-ipv6".');
         }
 
@@ -73,12 +75,12 @@ class IpUtilsTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException RuntimeException
      * @requires extension sockets
      */
     public function testAnIpv6WithOptionDisabledIpv6()
     {
-        if (\defined('AF_INET6')) {
+        if (defined('AF_INET6')) {
             $this->markTestSkipped('Only works when PHP is compiled with the option "disable-ipv6".');
         }
 

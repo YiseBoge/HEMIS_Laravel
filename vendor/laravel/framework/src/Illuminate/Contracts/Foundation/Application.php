@@ -4,6 +4,8 @@ namespace Illuminate\Contracts\Foundation;
 
 use Closure;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Support\ServiceProvider;
+use RuntimeException;
 
 interface Application extends Container
 {
@@ -106,9 +108,9 @@ interface Application extends Container
     /**
      * Register a service provider with the application.
      *
-     * @param  \Illuminate\Support\ServiceProvider|string  $provider
+     * @param  ServiceProvider|string  $provider
      * @param  bool   $force
-     * @return \Illuminate\Support\ServiceProvider
+     * @return ServiceProvider
      */
     public function register($provider, $force = false);
 
@@ -125,7 +127,7 @@ interface Application extends Container
      * Resolve a service provider instance from the class name.
      *
      * @param  string  $provider
-     * @return \Illuminate\Support\ServiceProvider
+     * @return ServiceProvider
      */
     public function resolveProvider($provider);
 
@@ -170,7 +172,7 @@ interface Application extends Container
     /**
      * Detect the application's current environment.
      *
-     * @param  \Closure  $callback
+     * @param Closure $callback
      * @return string
      */
     public function detectEnvironment(Closure $callback);
@@ -229,14 +231,14 @@ interface Application extends Container
      *
      * @return string
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function getNamespace();
 
     /**
      * Get the registered service provider instances if any exist.
      *
-     * @param  \Illuminate\Support\ServiceProvider|string  $provider
+     * @param  ServiceProvider|string  $provider
      * @return array
      */
     public function getProviders($provider);

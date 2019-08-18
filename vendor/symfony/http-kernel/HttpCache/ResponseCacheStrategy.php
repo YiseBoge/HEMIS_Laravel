@@ -12,6 +12,7 @@
 namespace Symfony\Component\HttpKernel\HttpCache;
 
 use Symfony\Component\HttpFoundation\Response;
+use function in_array;
 
 /**
  * ResponseCacheStrategy knows how to compute the Response cache HTTP header
@@ -85,7 +86,7 @@ class ResponseCacheStrategy implements ResponseCacheStrategyInterface
         $this->storeRelativeAgeDirective('s-maxage', $response->headers->getCacheControlDirective('s-maxage') ?: $response->headers->getCacheControlDirective('max-age'), $age);
 
         $expires = $response->getExpires();
-        $expires = null !== $expires ? $expires->format('U') - $response->getDate()->format('U') : null;
+        $expires = null !== $expires ? (int) $expires->format('U') - (int) $response->getDate()->format('U') : null;
         $this->storeRelativeAgeDirective('expires', $expires >= 0 ? $expires : null, 0);
     }
 
@@ -132,12 +133,12 @@ class ResponseCacheStrategy implements ResponseCacheStrategyInterface
         $maxAge = null;
         $sMaxage = null;
 
-        if (\is_numeric($this->ageDirectives['max-age'])) {
+        if (is_numeric($this->ageDirectives['max-age'])) {
             $maxAge = $this->ageDirectives['max-age'] + $this->age;
             $response->headers->addCacheControlDirective('max-age', $maxAge);
         }
 
-        if (\is_numeric($this->ageDirectives['s-maxage'])) {
+        if (is_numeric($this->ageDirectives['s-maxage'])) {
             $sMaxage = $this->ageDirectives['s-maxage'] + $this->age;
 
             if ($maxAge !== $sMaxage) {
@@ -145,7 +146,7 @@ class ResponseCacheStrategy implements ResponseCacheStrategyInterface
             }
         }
 
-        if (\is_numeric($this->ageDirectives['expires'])) {
+        if (is_numeric($this->ageDirectives['expires'])) {
             $date = clone $response->getDate();
             $date->modify('+'.($this->ageDirectives['expires'] + $this->age).' seconds');
             $response->setExpires($date);
@@ -171,7 +172,7 @@ class ResponseCacheStrategy implements ResponseCacheStrategyInterface
 
         // Last-Modified and Etag headers cannot be merged, they render the response uncacheable
         // by default (except if the response also has max-age etc.).
-        if (\in_array($response->getStatusCode(), [200, 203, 300, 301, 410])
+        if (in_array($response->getStatusCode(), [200, 203, 300, 301, 410])
             && null === $response->getLastModified()
             && null === $response->getEtag()
         ) {

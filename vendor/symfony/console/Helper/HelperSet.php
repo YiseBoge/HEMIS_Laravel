@@ -11,15 +11,18 @@
 
 namespace Symfony\Component\Console\Helper;
 
+use ArrayIterator;
+use IteratorAggregate;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
+use function is_int;
 
 /**
  * HelperSet represents a set of helpers to be used with a command.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class HelperSet implements \IteratorAggregate
+class HelperSet implements IteratorAggregate
 {
     /**
      * @var Helper[]
@@ -33,7 +36,7 @@ class HelperSet implements \IteratorAggregate
     public function __construct(array $helpers = [])
     {
         foreach ($helpers as $alias => $helper) {
-            $this->set($helper, \is_int($alias) ? null : $alias);
+            $this->set($helper, is_int($alias) ? null : $alias);
         }
     }
 
@@ -103,6 +106,6 @@ class HelperSet implements \IteratorAggregate
      */
     public function getIterator()
     {
-        return new \ArrayIterator($this->helpers);
+        return new ArrayIterator($this->helpers);
     }
 }

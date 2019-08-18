@@ -1,8 +1,9 @@
 <?php
 
 use Egulias\EmailValidator\EmailValidator;
+use PHPUnit\Framework\TestCase;
 
-class Swift_Mime_Headers_IdentificationHeaderTest extends \PHPUnit\Framework\TestCase
+class Swift_Mime_Headers_IdentificationHeaderTest extends TestCase
 {
     public function testTypeIsIdHeader()
     {
@@ -100,7 +101,7 @@ class Swift_Mime_Headers_IdentificationHeaderTest extends \PHPUnit\Framework\Tes
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException Exception
      * @expectedMessageException "a b c" is not valid id-left
      */
     public function testInvalidIdLeftThrowsException()
@@ -142,7 +143,7 @@ class Swift_Mime_Headers_IdentificationHeaderTest extends \PHPUnit\Framework\Tes
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException Exception
      * @expectedMessageException "b c d" is not valid id-right
      */
     public function testInvalidIdRightThrowsException()
@@ -152,7 +153,7 @@ class Swift_Mime_Headers_IdentificationHeaderTest extends \PHPUnit\Framework\Tes
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException Exception
      * @expectedMessageException "abc" is does not contain @
      */
     public function testMissingAtSignThrowsException()

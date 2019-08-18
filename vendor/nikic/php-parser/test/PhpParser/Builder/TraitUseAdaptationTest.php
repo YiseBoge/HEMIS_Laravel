@@ -2,11 +2,13 @@
 
 namespace PhpParser\Builder;
 
+use LogicException;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
+use PHPUnit\Framework\TestCase;
 
-class TraitUseAdaptationTest extends \PHPUnit\Framework\TestCase
+class TraitUseAdaptationTest extends TestCase
 {
     protected function createTraitUseAdaptationBuilder($trait, $method) {
         return new TraitUseAdaptation($trait, $method);
@@ -53,7 +55,7 @@ class TraitUseAdaptationTest extends \PHPUnit\Framework\TestCase
     }
 
     public function testAsOnNotAlias() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Cannot set alias for not alias adaptation buider');
         $this->createTraitUseAdaptationBuilder('Test', 'foo')
             ->insteadof('AnotherTrait')
@@ -62,7 +64,7 @@ class TraitUseAdaptationTest extends \PHPUnit\Framework\TestCase
     }
 
     public function testInsteadofOnNotPrecedence() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Cannot add overwritten traits for not precedence adaptation buider');
         $this->createTraitUseAdaptationBuilder('Test', 'foo')
             ->as('bar')
@@ -71,7 +73,7 @@ class TraitUseAdaptationTest extends \PHPUnit\Framework\TestCase
     }
 
     public function testInsteadofWithoutTrait() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Precedence adaptation must have trait');
         $this->createTraitUseAdaptationBuilder(null, 'foo')
             ->insteadof('AnotherTrait')
@@ -79,7 +81,7 @@ class TraitUseAdaptationTest extends \PHPUnit\Framework\TestCase
     }
 
     public function testMakeOnNotAlias() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Cannot set access modifier for not alias adaptation buider');
         $this->createTraitUseAdaptationBuilder('Test', 'foo')
             ->insteadof('AnotherTrait')
@@ -88,7 +90,7 @@ class TraitUseAdaptationTest extends \PHPUnit\Framework\TestCase
     }
 
     public function testMultipleMake() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Multiple access type modifiers are not allowed');
         $this->createTraitUseAdaptationBuilder(null, 'foo')
             ->makePrivate()
@@ -97,7 +99,7 @@ class TraitUseAdaptationTest extends \PHPUnit\Framework\TestCase
     }
 
     public function testUndefinedType() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Type of adaptation is not defined');
         $this->createTraitUseAdaptationBuilder(null, 'foo')
             ->getNode()

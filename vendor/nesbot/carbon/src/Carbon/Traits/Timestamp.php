@@ -11,6 +11,7 @@
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
+use DateTimeZone;
 
 /**
  * Trait Timestamp.
@@ -21,7 +22,7 @@ trait Timestamp
      * Create a Carbon instance from a timestamp.
      *
      * @param int                       $timestamp
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @return static|CarbonInterface
      */
@@ -34,7 +35,7 @@ trait Timestamp
      * Create a Carbon instance from a timestamp in milliseconds.
      *
      * @param int                       $timestamp
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @return static|CarbonInterface
      */

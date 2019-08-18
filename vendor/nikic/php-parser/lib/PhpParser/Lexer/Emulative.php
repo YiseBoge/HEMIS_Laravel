@@ -4,9 +4,15 @@ namespace PhpParser\Lexer;
 
 use PhpParser\Error;
 use PhpParser\ErrorHandler;
+use PhpParser\Lexer;
 use PhpParser\Parser;
+use function count;
+use function is_array;
+use function is_string;
+use function strlen;
+use const PHP_VERSION;
 
-class Emulative extends \PhpParser\Lexer
+class Emulative extends Lexer
 {
     const PHP_7_3 = '7.3.0dev';
     const PHP_7_4 = '7.4.0dev';
@@ -66,7 +72,7 @@ REGEX;
     private function isCoalesceEqualEmulationNeeded(string $code): bool
     {
         // skip version where this works without emulation
-        if (version_compare(\PHP_VERSION, self::PHP_7_4, '>=')) {
+        if (version_compare(PHP_VERSION, self::PHP_7_4, '>=')) {
             return false;
         }
 
@@ -92,7 +98,7 @@ REGEX;
                     continue;
                 }
             }
-            if (\is_array($this->tokens[$i])) {
+            if (is_array($this->tokens[$i])) {
                 $line += substr_count($this->tokens[$i][1], "\n");
             }
         }
@@ -101,7 +107,7 @@ REGEX;
     private function isHeredocNowdocEmulationNeeded(string $code): bool
     {
         // skip version where this works without emulation
-        if (version_compare(\PHP_VERSION, self::PHP_7_3, '>=')) {
+        if (version_compare(PHP_VERSION, self::PHP_7_3, '>=')) {
             return false;
         }
 
@@ -168,7 +174,7 @@ REGEX;
 
     private function fixupTokens()
     {
-        if (\count($this->patches) === 0) {
+        if (count($this->patches) === 0) {
             return;
         }
 
@@ -179,18 +185,18 @@ REGEX;
 
         // We use a manual loop over the tokens, because we modify the array on the fly
         $pos = 0;
-        for ($i = 0, $c = \count($this->tokens); $i < $c; $i++) {
+        for ($i = 0, $c = count($this->tokens); $i < $c; $i++) {
             $token = $this->tokens[$i];
-            if (\is_string($token)) {
+            if (is_string($token)) {
                 // We assume that patches don't apply to string tokens
-                $pos += \strlen($token);
+                $pos += strlen($token);
                 continue;
             }
 
-            $len = \strlen($token[1]);
+            $len = strlen($token[1]);
             $posDelta = 0;
             while ($patchPos >= $pos && $patchPos < $pos + $len) {
-                $patchTextLen = \strlen($patchText);
+                $patchTextLen = strlen($patchText);
                 if ($patchType === 'remove') {
                     if ($patchPos === $pos && $patchTextLen === $len) {
                         // Remove token entirely
@@ -216,7 +222,7 @@ REGEX;
 
                 // Fetch the next patch
                 $patchIdx++;
-                if ($patchIdx >= \count($this->patches)) {
+                if ($patchIdx >= count($this->patches)) {
                     // No more patches, we're done
                     return;
                 }

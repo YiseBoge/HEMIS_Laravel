@@ -10,6 +10,8 @@
  */
 namespace Carbon\Traits;
 
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 
 /**
@@ -19,7 +21,7 @@ use Carbon\CarbonInterface;
  *
  * Depends on the following methods:
  *
- * @method \Carbon\Carbon|\Carbon\CarbonImmutable shiftTimezone($timezone) Set the timezone
+ * @method Carbon|CarbonImmutable shiftTimezone($timezone) Set the timezone
  */
 trait Options
 {

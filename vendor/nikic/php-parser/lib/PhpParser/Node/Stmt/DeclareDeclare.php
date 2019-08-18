@@ -3,6 +3,7 @@
 namespace PhpParser\Node\Stmt;
 
 use PhpParser\Node;
+use function is_string;
 
 class DeclareDeclare extends Node\Stmt
 {
@@ -20,7 +21,7 @@ class DeclareDeclare extends Node\Stmt
      */
     public function __construct($key, Node\Expr $value, array $attributes = []) {
         parent::__construct($attributes);
-        $this->key = \is_string($key) ? new Node\Identifier($key) : $key;
+        $this->key = is_string($key) ? new Node\Identifier($key) : $key;
         $this->value = $value;
     }
 

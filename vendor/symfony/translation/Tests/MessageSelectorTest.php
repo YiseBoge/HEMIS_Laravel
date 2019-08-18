@@ -12,6 +12,7 @@
 namespace Symfony\Component\Translation\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use Symfony\Component\Translation\MessageSelector;
 
 /**
@@ -38,7 +39,7 @@ class MessageSelectorTest extends TestCase
 
     /**
      * @dataProvider getNonMatchingMessages
-     * @expectedException \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testThrowExceptionIfMatchingMessageCannotBeFound($id, $number)
     {

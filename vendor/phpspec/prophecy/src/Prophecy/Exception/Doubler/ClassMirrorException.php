@@ -12,8 +12,9 @@
 namespace Prophecy\Exception\Doubler;
 
 use ReflectionClass;
+use RuntimeException;
 
-class ClassMirrorException extends \RuntimeException implements DoublerException
+class ClassMirrorException extends RuntimeException implements DoublerException
 {
     private $class;
 

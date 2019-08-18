@@ -2,10 +2,12 @@
 
 namespace PhpParser;
 
+use ErrorException;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Scalar;
+use PHPUnit\Framework\TestCase;
 
-class ConstExprEvaluatorTest extends \PHPUnit\Framework\TestCase
+class ConstExprEvaluatorTest extends TestCase
 {
     /** @dataProvider provideTestEvaluate */
     public function testEvaluate($exprString, $expected) {
@@ -122,7 +124,7 @@ class ConstExprEvaluatorTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 new Expr\BinaryOp\Div(new Scalar\LNumber(42), new Scalar\LNumber(0)),
-                \ErrorException::class,
+                ErrorException::class,
                 'Division by zero'
             ],
         ];

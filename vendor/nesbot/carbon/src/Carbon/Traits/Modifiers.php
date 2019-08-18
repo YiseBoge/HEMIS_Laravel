@@ -10,7 +10,9 @@
  */
 namespace Carbon\Traits;
 
+use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use DateTimeInterface;
 
 /**
  * Trait Modifiers.
@@ -329,7 +331,7 @@ trait Modifiers
      * Modify the current instance to the average of a given instance (default now) and the current instance
      * (second-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date
+     * @param Carbon|DateTimeInterface|null $date
      *
      * @return static|CarbonInterface
      */
@@ -341,8 +343,8 @@ trait Modifiers
     /**
      * Get the closest date from the instance (second-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
+     * @param Carbon|DateTimeInterface|mixed $date1
+     * @param Carbon|DateTimeInterface|mixed $date2
      *
      * @return static|CarbonInterface
      */
@@ -354,8 +356,8 @@ trait Modifiers
     /**
      * Get the farthest date from the instance (second-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
+     * @param Carbon|DateTimeInterface|mixed $date1
+     * @param Carbon|DateTimeInterface|mixed $date2
      *
      * @return static|CarbonInterface
      */
@@ -367,7 +369,7 @@ trait Modifiers
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return static|CarbonInterface
      */
@@ -381,11 +383,11 @@ trait Modifiers
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @see min()
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return static|CarbonInterface
+     *@see min()
+     *
      */
     public function minimum($date = null)
     {
@@ -395,7 +397,7 @@ trait Modifiers
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return static|CarbonInterface
      */
@@ -409,11 +411,11 @@ trait Modifiers
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @see max()
+     * @param Carbon|DateTimeInterface|mixed $date
      *
      * @return static|CarbonInterface
+     *@see max()
+     *
      */
     public function maximum($date = null)
     {

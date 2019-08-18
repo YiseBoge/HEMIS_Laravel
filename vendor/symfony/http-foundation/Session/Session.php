@@ -11,18 +11,22 @@
 
 namespace Symfony\Component\HttpFoundation\Session;
 
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
+use function count;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Drak <drak@zikula.org>
  */
-class Session implements SessionInterface, \IteratorAggregate, \Countable
+class Session implements SessionInterface, IteratorAggregate, Countable
 {
     protected $storage;
 
@@ -124,11 +128,11 @@ class Session implements SessionInterface, \IteratorAggregate, \Countable
     /**
      * Returns an iterator for attributes.
      *
-     * @return \ArrayIterator An \ArrayIterator instance
+     * @return ArrayIterator An \ArrayIterator instance
      */
     public function getIterator()
     {
-        return new \ArrayIterator($this->getAttributeBag()->all());
+        return new ArrayIterator($this->getAttributeBag()->all());
     }
 
     /**
@@ -138,7 +142,7 @@ class Session implements SessionInterface, \IteratorAggregate, \Countable
      */
     public function count()
     {
-        return \count($this->getAttributeBag()->all());
+        return count($this->getAttributeBag()->all());
     }
 
     /**
@@ -193,9 +197,7 @@ class Session implements SessionInterface, \IteratorAggregate, \Countable
      */
     public function save()
     {
-        if ($this->isStarted()) {
-            $this->storage->save();
-        }
+        $this->storage->save();
     }
 
     /**
@@ -255,7 +257,9 @@ class Session implements SessionInterface, \IteratorAggregate, \Countable
      */
     public function getBag($name)
     {
-        return $this->storage->getBag($name)->getBag();
+        $bag = $this->storage->getBag($name);
+
+        return method_exists($bag, 'getBag') ? $bag->getBag() : $bag;
     }
 
     /**

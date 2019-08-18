@@ -5,6 +5,7 @@ namespace PhpParser;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt;
+use const INF;
 
 class NameContext
 {
@@ -215,7 +216,7 @@ class NameContext
 
         // Find shortest name
         $shortestName = null;
-        $shortestLength = \INF;
+        $shortestLength = INF;
         foreach ($possibleNames as $possibleName) {
             $length = strlen($possibleName->toCodeString());
             if ($length < $shortestLength) {

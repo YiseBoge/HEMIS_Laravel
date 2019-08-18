@@ -11,8 +11,10 @@
 
 namespace Symfony\Component\HttpKernel\DataCollector;
 
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use function intval;
 
 /**
  * MemoryDataCollector.
@@ -29,7 +31,7 @@ class MemoryDataCollector extends DataCollector implements LateDataCollectorInte
     /**
      * {@inheritdoc}
      */
-    public function collect(Request $request, Response $response, \Exception $exception = null)
+    public function collect(Request $request, Response $response, Exception $exception = null)
     {
         $this->updateMemoryUsage();
     }
@@ -98,9 +100,9 @@ class MemoryDataCollector extends DataCollector implements LateDataCollectorInte
         $memoryLimit = strtolower($memoryLimit);
         $max = strtolower(ltrim($memoryLimit, '+'));
         if (0 === strpos($max, '0x')) {
-            $max = \intval($max, 16);
+            $max = intval($max, 16);
         } elseif (0 === strpos($max, '0')) {
-            $max = \intval($max, 8);
+            $max = intval($max, 8);
         } else {
             $max = (int) $max;
         }

@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Console\Tests\Output;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\StreamOutput;
@@ -37,7 +38,7 @@ class StreamOutputTest extends TestCase
     }
 
     /**
-     * @expectedException        \InvalidArgumentException
+     * @expectedException        InvalidArgumentException
      * @expectedExceptionMessage The StreamOutput class needs a stream as its first argument.
      */
     public function testStreamIsRequired()

@@ -2,6 +2,8 @@
 
 namespace Illuminate\Foundation\Bus;
 
+use DateInterval;
+use DateTimeInterface;
 use Illuminate\Contracts\Bus\Dispatcher;
 
 class PendingDispatch
@@ -79,7 +81,7 @@ class PendingDispatch
     /**
      * Set the desired delay for the job.
      *
-     * @param  \DateTimeInterface|\DateInterval|int|null  $delay
+     * @param  DateTimeInterface|DateInterval|int|null  $delay
      * @return $this
      */
     public function delay($delay)

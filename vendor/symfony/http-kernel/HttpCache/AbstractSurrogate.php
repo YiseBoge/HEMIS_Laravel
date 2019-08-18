@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\HttpKernel\HttpCache;
 
+use Exception;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -96,11 +98,11 @@ abstract class AbstractSurrogate implements SurrogateInterface
             $response = $cache->handle($subRequest, HttpKernelInterface::SUB_REQUEST, true);
 
             if (!$response->isSuccessful()) {
-                throw new \RuntimeException(sprintf('Error when rendering "%s" (Status code is %s).', $subRequest->getUri(), $response->getStatusCode()));
+                throw new RuntimeException(sprintf('Error when rendering "%s" (Status code is %s).', $subRequest->getUri(), $response->getStatusCode()));
             }
 
             return $response->getContent();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             if ($alt) {
                 return $this->handle($cache, $alt, '', $ignoreErrors);
             }

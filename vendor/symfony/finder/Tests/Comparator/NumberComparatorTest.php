@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Finder\Tests\Comparator;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\Comparator\NumberComparator;
 
@@ -29,7 +30,7 @@ class NumberComparatorTest extends TestCase
             try {
                 new NumberComparator($f);
                 $this->fail('__construct() throws an \InvalidArgumentException if the test expression is not valid.');
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an \InvalidArgumentException if the test expression is not valid.');
             }
         }

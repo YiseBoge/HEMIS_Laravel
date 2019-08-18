@@ -12,9 +12,11 @@
 namespace Symfony\Component\CssSelector\Tests\Parser\Handler;
 
 use PHPUnit\Framework\TestCase;
+use ReflectionProperty;
 use Symfony\Component\CssSelector\Parser\Reader;
 use Symfony\Component\CssSelector\Parser\Token;
 use Symfony\Component\CssSelector\Parser\TokenStream;
+use function strlen;
 
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
@@ -51,7 +53,7 @@ abstract class AbstractHandlerTest extends TestCase
 
     protected function assertStreamEmpty(TokenStream $stream)
     {
-        $property = new \ReflectionProperty($stream, 'tokens');
+        $property = new ReflectionProperty($stream, 'tokens');
         $property->setAccessible(true);
 
         $this->assertEquals([], $property->getValue($stream));
@@ -63,7 +65,7 @@ abstract class AbstractHandlerTest extends TestCase
             $this->assertEquals(0, $reader->getRemainingLength());
             $this->assertTrue($reader->isEOF());
         } else {
-            $this->assertEquals(\strlen($remainingContent), $reader->getRemainingLength());
+            $this->assertEquals(strlen($remainingContent), $reader->getRemainingLength());
             $this->assertEquals(0, $reader->getOffset($remainingContent));
         }
     }

@@ -12,8 +12,9 @@
 namespace Prophecy\Exception\Prophecy;
 
 use Prophecy\Prophecy\ObjectProphecy;
+use RuntimeException;
 
-class ObjectProphecyException extends \RuntimeException implements ProphecyException
+class ObjectProphecyException extends RuntimeException implements ProphecyException
 {
     private $objectProphecy;
 

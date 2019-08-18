@@ -10,7 +10,7 @@ abstract class TaggableStore implements Store
      * Begin executing a new tags operation.
      *
      * @param  array|mixed  $names
-     * @return \Illuminate\Cache\TaggedCache
+     * @return TaggedCache
      */
     public function tags($names)
     {

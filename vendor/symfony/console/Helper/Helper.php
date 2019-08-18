@@ -12,6 +12,8 @@
 namespace Symfony\Component\Console\Helper;
 
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use function count;
+use function strlen;
 
 /**
  * Helper is the base class for all helper classes.
@@ -48,7 +50,7 @@ abstract class Helper implements HelperInterface
     public static function strlen($string)
     {
         if (false === $encoding = mb_detect_encoding($string, null, true)) {
-            return \strlen($string);
+            return strlen($string);
         }
 
         return mb_strwidth($string, $encoding);
@@ -89,9 +91,9 @@ abstract class Helper implements HelperInterface
         foreach ($timeFormats as $index => $format) {
             if ($secs >= $format[0]) {
                 if ((isset($timeFormats[$index + 1]) && $secs < $timeFormats[$index + 1][0])
-                    || $index == \count($timeFormats) - 1
+                    || $index == count($timeFormats) - 1
                 ) {
-                    if (2 == \count($format)) {
+                    if (2 == count($format)) {
                         return $format[1];
                     }
 

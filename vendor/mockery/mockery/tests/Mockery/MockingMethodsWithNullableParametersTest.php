@@ -22,6 +22,8 @@
 namespace test\Mockery;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
+use test\Mockery\Fixtures\MethodWithNullableTypedParameter;
+use test\Mockery\Fixtures\MethodWithParametersWithDefaultValues;
 
 /**
  */
@@ -36,7 +38,7 @@ class MockingMethodsWithNullableParametersTest extends MockeryTestCase
         require __DIR__."/Fixtures/MethodWithNullableTypedParameter.php";
         $mock = mock("test\Mockery\Fixtures\MethodWithNullableTypedParameter");
 
-        $this->assertInstanceOf(\test\Mockery\Fixtures\MethodWithNullableTypedParameter::class, $mock);
+        $this->assertInstanceOf(MethodWithNullableTypedParameter::class, $mock);
     }
 
     /**
@@ -47,6 +49,6 @@ class MockingMethodsWithNullableParametersTest extends MockeryTestCase
         require __DIR__."/Fixtures/MethodWithParametersWithDefaultValues.php";
         $mock = mock("test\Mockery\Fixtures\MethodWithParametersWithDefaultValues");
 
-        $this->assertInstanceOf(\test\Mockery\Fixtures\MethodWithParametersWithDefaultValues::class, $mock);
+        $this->assertInstanceOf(MethodWithParametersWithDefaultValues::class, $mock);
     }
 }

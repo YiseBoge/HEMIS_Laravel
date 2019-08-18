@@ -3,6 +3,7 @@
 namespace PhpParser\Node\Stmt;
 
 use PhpParser\Node;
+use function is_string;
 
 class Interface_ extends ClassLike
 {
@@ -20,7 +21,7 @@ class Interface_ extends ClassLike
      */
     public function __construct($name, array $subNodes = [], array $attributes = []) {
         parent::__construct($attributes);
-        $this->name = \is_string($name) ? new Node\Identifier($name) : $name;
+        $this->name = is_string($name) ? new Node\Identifier($name) : $name;
         $this->extends = $subNodes['extends'] ?? [];
         $this->stmts = $subNodes['stmts'] ?? [];
     }

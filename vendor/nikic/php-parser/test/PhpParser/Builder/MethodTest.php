@@ -2,14 +2,16 @@
 
 namespace PhpParser\Builder;
 
+use LogicException;
 use PhpParser\Comment;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Print_;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt;
+use PHPUnit\Framework\TestCase;
 
-class MethodTest extends \PHPUnit\Framework\TestCase
+class MethodTest extends TestCase
 {
     public function createMethodBuilder($name) {
         return new Method($name);
@@ -135,7 +137,7 @@ class MethodTest extends \PHPUnit\Framework\TestCase
     }
 
     public function testAddStmtToAbstractMethodError() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Cannot add statements to an abstract method');
         $this->createMethodBuilder('test')
             ->makeAbstract()
@@ -144,7 +146,7 @@ class MethodTest extends \PHPUnit\Framework\TestCase
     }
 
     public function testMakeMethodWithStmtsAbstractError() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Cannot make method with statements abstract');
         $this->createMethodBuilder('test')
             ->addStmt(new Print_(new String_('test')))
@@ -153,7 +155,7 @@ class MethodTest extends \PHPUnit\Framework\TestCase
     }
 
     public function testInvalidParamError() {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Expected parameter node, got "Name"');
         $this->createMethodBuilder('test')
             ->addParam(new Node\Name('foo'))

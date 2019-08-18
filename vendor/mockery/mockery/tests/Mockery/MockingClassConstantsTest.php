@@ -21,6 +21,7 @@
 
 namespace test\Mockery;
 
+use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 
 class MockingClassConstantsTest extends MockeryTestCase
@@ -28,14 +29,14 @@ class MockingClassConstantsTest extends MockeryTestCase
     /** @test */
     public function itShouldAllowToMockClassConstants()
     {
-        \Mockery::getConfiguration()->setConstantsMap([
+        Mockery::getConfiguration()->setConstantsMap([
             'ClassWithConstants' => [
                 'FOO' => 'baz',
                 'X' => 2,
             ]
         ]);
 
-        $mock = \Mockery::mock('overload:ClassWithConstants');
+        $mock = Mockery::mock('overload:ClassWithConstants');
 
         self::assertEquals('baz', $mock::FOO);
         self::assertEquals(2, $mock::X);
