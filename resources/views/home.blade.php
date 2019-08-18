@@ -117,7 +117,6 @@
             </div>
         @endif
 
-
         <div class="row my-5">
             <div class="col-md-7">
                 <div class="card shadow">
@@ -184,6 +183,8 @@
         </div>
     </div>
 
+@stop
+@section('scripts')
     <script>
         var url = "{{url('home/student-enrollment-chart')}}";
         var Enrollments = [];
@@ -485,8 +486,6 @@
             });
         });
     </script>
-
-
 @endsection
 
 

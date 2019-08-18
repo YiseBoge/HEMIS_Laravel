@@ -75,7 +75,7 @@ function updateEnrollmentChart(toDo = 'nothing') {
 
     let loader = $("#loading");
     loader.removeClass("d-none");
-    $('#year-enrollment').css('opacity', 0.2);
+    $('#year-enrollment').css('opacity', 0.3);
 
     $.ajax({
         url: url,

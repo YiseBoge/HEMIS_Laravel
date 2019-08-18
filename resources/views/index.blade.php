@@ -177,11 +177,11 @@
                                     </div>
                                     <div class="row" style="min-height: 38vh;">
                                         <span id="loading" class="intro-banner-vdo-play-btn pinkBg d-none">
-                            <i class="glyphicon glyphicon-play whiteText" aria-hidden="true"></i>
-                            <span class="ripple pinkBg"></span>
-                            <span class="ripple pinkBg"></span>
-                            <span class="ripple pinkBg"></span>
-                        </span>
+                                            <i class="glyphicon glyphicon-play whiteText" aria-hidden="true"></i>
+                                            <span class="ripple pinkBg"></span>
+                                            <span class="ripple pinkBg"></span>
+                                            <span class="ripple pinkBg"></span>
+                                        </span>
                                         <canvas id="year-enrollment" class="chartjs-render-monitor"></canvas>
                                     </div>
                                 </div>
@@ -246,7 +246,7 @@
                     </section>
                 @endguest
 
-                <script src="{{asset('js/enrollment_graph.js')}}">
-                </script>
-
-@endSection
+                @stop
+            @section('scripts')
+                <script src="{{asset('js/enrollment_graph.js')}}"></script>
+@endsection
