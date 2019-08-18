@@ -1,4 +1,4 @@
-![Moe HEMIS](logo.png)
+![Moe HEMIS](docs/logo.png)
 
 ## About HEMIS
 
@@ -16,7 +16,7 @@ A Data Collection and Report System for Universities in Ethiopia.
 
     * Clone/Download the Project 
     
-    * Create a database (and user). As an option you can run the `create_db.sql` file provided in the root directory
+    * Create a database (and user). As an option you can run the `create_db.sql` file provided in the `/docs` folder in the root directory
     * Copy the `.env.example` file and rename it to `.env`
     * Provide your database name, user, and password in the `.env` file
     * Install composer dependencies: `composer install`
