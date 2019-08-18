@@ -79,7 +79,8 @@
             <!-- Image Showcases -->
                 <section class="showcase">
                     <div class="container-fluid p-0">
-                        <h2 class="text-center text-primary bg-white shadow-sm p-3 mb-5">Overview</h2>
+                        <h2 id="overview-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">
+                            Overview</h2>
                         <div class="row px-5">
                             <div class="col-lg-5 my-auto px-4">
                                 <h3>Student Enrollments</h3>
@@ -169,15 +170,21 @@
                                 </form>
                             </div>
                             <div class="col-lg-7 text-white showcase-img overflow-auto">
-                                <div class="card card-body border-right-primary" style="min-width: 500px">
-                        <span id="loading" class="intro-banner-vdo-play-btn pinkBg d-none">
-                            <i class="glyphicon glyphicon-play whiteText" aria-hidden="true"></i>
-                            <span class="ripple pinkBg"></span>
-                            <span class="ripple pinkBg"></span>
-                            <span class="ripple pinkBg"></span>
-                        </span>
-                                    <canvas id="year-enrollment" class="chartjs-render-monitor"
-                                            style="min-height: 38vh;"></canvas>
+                                <div class="card card-body border-right-primary" style="min-width: 500px;">
+                                    <div class="row d-none" id="year-enrollment-error">
+                                        <div class="col-12 text-danger text-center my-auto">
+                                            Could not retrieve data.
+                                        </div>
+                                    </div>
+                                    <div class="row" style="min-height: 38vh;">
+                                        <span id="loading" class="intro-banner-vdo-play-btn pinkBg d-none">
+                                            <i class="glyphicon glyphicon-play whiteText" aria-hidden="true"></i>
+                                            <span class="ripple pinkBg"></span>
+                                            <span class="ripple pinkBg"></span>
+                                            <span class="ripple pinkBg"></span>
+                                        </span>
+                                        <canvas id="year-enrollment" class="chartjs-render-monitor"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +193,8 @@
                 </section>
                 <!-- Testimonials -->
                 <section class="testimonials text-center bg-light">
-                    <h2 class="text-center text-primary bg-white shadow-sm p-3 mb-5">What people are saying...</h2>
+                    <h2 id="people-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">What people are
+                        saying...</h2>
                     <div class="container py-5">
                         <div class="row">
                             <div class="col-lg-4">
@@ -240,7 +248,7 @@
                     </section>
                 @endguest
 
-                <script src="{{asset('js/enrollment_graph.js')}}">
-                </script>
-
-@endSection
+                @stop
+            @section('scripts')
+                <script src="{{asset('js/enrollment_graph.js')}}"></script>
+@endsection
