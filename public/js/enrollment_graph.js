@@ -106,7 +106,8 @@ function updateEnrollmentChart(toDo = 'nothing') {
 
 
             $('#year-enrollment-error').addClass('d-none');
-            $('#year-enrollment').removeClass('d-none').end().css('opacity', 1);
+            $('#year-enrollment').removeClass('d-none');
+            $('#year-enrollment').css('opacity', 1);
             loader.addClass("d-none");
         },
         error: function (jqXHR, textStatus, errorThrown) {
