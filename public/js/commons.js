@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    $('.carousel').carousel({
+        interval: false
+    });
     $('#dataTable').DataTable();
     $('[data-toggle="tooltip"]').tooltip();
     $('.counter-count').each(function () {
@@ -26,13 +29,40 @@ $(document).ready(function () {
 });
 
 
-function updateChartData(chart, labels, data) {
+function updateChartData(chart, labels, dataName, data) {
+    let datasets = chart.data.datasets;
     chart.data.labels = labels;
-    chart.data.datasets[0].data = data;
+    for (let i = 0; i < datasets.length; i++) {
+        if (datasets[i].label === dataName) {
+            datasets[i].data = data;
+        }
+    }
     chart.update();
 }
 
-function makeChart(target, graphType, dataName, xLabel, yLabel, color = [78, 115, 223]) {
+function addDataset(chart, dataName, color = [78, 115, 223]) {
+
+    chart.data.datasets.push(
+        {
+            label: dataName,
+            data: [],
+            lineTension: 0.3,
+            backgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 0.07)",
+            borderColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
+            pointRadius: 3,
+            pointBackgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
+            pointBorderColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
+            pointHoverRadius: 3,
+            pointHoverBackgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
+            pointHoverBorderColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
+            pointHitRadius: 10,
+            pointBorderWidth: 2
+        }
+    );
+    chart.update();
+}
+
+function makeChart(target, graphType, xLabel, yLabel) {
     return new Chart(target, {
         // The type of chart we want to create
         type: graphType,
@@ -40,21 +70,7 @@ function makeChart(target, graphType, dataName, xLabel, yLabel, color = [78, 115
         // The data for our dataset
         data: {
             labels: [],
-            datasets: [{
-                label: dataName,
-                data: [],
-                lineTension: 0.3,
-                backgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 0.07)",
-                borderColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
-                pointRadius: 3,
-                pointBackgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
-                pointBorderColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
-                pointHoverRadius: 3,
-                pointHoverBackgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
-                pointHoverBorderColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
-                pointHitRadius: 10,
-                pointBorderWidth: 2
-            }]
+            datasets: []
         },
 
         // Configuration options go here

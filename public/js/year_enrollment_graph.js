@@ -2,14 +2,16 @@ let chart;
 $(document).ready(function () {
     updateEnrollmentChart();
     let ctx = document.getElementById('year-enrollment').getContext('2d');
-    chart = makeChart(ctx, "line", "Enrollments", "Year Level", "Enrollments");
+    chart = makeChart(ctx, "line", "Year Level", "Enrollments");
+    addDataset(chart, "Males");
+    addDataset(chart, "Females", [223,48,129]);
 
-    let institutionSelect = $("#institution");
-    let bandSelect = $("#band");
-    let collegeSelect = $("#college");
-    let departmentSelect = $("#department");
-    let programSelect = $("#program");
-    let levelSelect = $("#education_level");
+    let institutionSelect = $("#year_enrollment_institutions");
+    let bandSelect = $("#year_enrollment_bands");
+    let collegeSelect = $("#year_enrollment_colleges");
+    let departmentSelect = $("#year_enrollment_departments");
+    let programSelect = $("#year_enrollment_programs");
+    let levelSelect = $("#year_enrollment_education_levels");
 
     institutionSelect.on("change", function (ev) {
         let nodes = [];
@@ -63,17 +65,17 @@ function showNodes(nodes) {
 }
 
 function hideAll() {
-    $("#band").parent().addClass("d-none");
-    $("#college").parent().addClass("d-none");
-    $("#department").parent().addClass("d-none");
-    $("#program").parent().addClass("d-none");
-    $("#education_level").parent().addClass("d-none");
+    $("#year_enrollment_bands").parent().addClass("d-none");
+    $("#year_enrollment_colleges").parent().addClass("d-none");
+    $("#year_enrollment_departments").parent().addClass("d-none");
+    $("#year_enrollment_programs").parent().addClass("d-none");
+    $("#year_enrollment_education_levels").parent().addClass("d-none");
 }
 
 function updateEnrollmentChart(toDo = 'nothing') {
-    let url = "/api/student-enrollment-chart?" + $("#enrollmentsFilter").serialize();
+    let url = "/api/student-enrollment-chart?" + $("#enrollments-filter").serialize();
 
-    let loader = $("#loading");
+    let loader = $("#year-enrollment-loading");
     loader.removeClass("d-none");
     $('#year-enrollment').css('opacity', 0.3);
 
@@ -82,27 +84,30 @@ function updateEnrollmentChart(toDo = 'nothing') {
         type: 'GET',
         success: function (response) {
             let years = response.year_levels;
-            let enrollments = response.enrollments;
+            let maleEnrollments = response.male_enrollments;
+            let femaleEnrollments = response.female_enrollments;
+
             let cols = response.colleges;
             let deps = response.departments;
 
             if (toDo === "cols") {
-                $('#college').find('option').remove().end().append('<option value="0">Any</option>');
+                $('#year_enrollment_colleges').find('option').remove().end().append('<option value="0">Any</option>');
                 for (let i = 0; i < cols.length; i++) {
-                    $("#college").append('<option value=\"' + (i + 1) + '\" selected=\"selected\">' + cols[i] + '</option>')
+                    $("#year_enrollment_colleges").append('<option value=\"' + (i + 1) + '\" selected=\"selected\">' + cols[i] + '</option>')
                 }
-                $('#college').val('0');
+                $('#year_enrollment_colleges').val('0');
             } else if (toDo === "deps") {
-                $('#department').find('option').remove().end().append('<option value="0">Any</option>');
+                $('#year_enrollment_departments').find('option').remove().end().append('<option value="0">Any</option>');
                 for (let i = 0; i < deps.length; i++) {
-                    $("#department").append('<option value=\"' + (i + 1) + '\" selected=\"selected\">' + deps[i] + '</option>')
+                    $("#year_enrollment_departments").append('<option value=\"' + (i + 1) + '\" selected=\"selected\">' + deps[i] + '</option>')
                 }
-                $('#department').val('0');
+                $('#year_enrollment_departments').val('0');
             }
             // console.log(cols);
             // console.log(deps);
 
-            updateChartData(chart, years, enrollments);
+            updateChartData(chart, years, "Males", maleEnrollments);
+            updateChartData(chart, years, "Females", femaleEnrollments);
 
 
             $('#year-enrollment-error').addClass('d-none');

@@ -135,12 +135,12 @@ B. User Roles
 
 3. College Super Admin: 
     - Approves all data entered by Department Admin and College Administrative Admin
-    - Administrative: College/Institute Administrative Admins, School/Department Admins
+    - Administers: College/Institute Administrative Admins, School/Department Admins
 
 4. University Admin: 
     - General Information
     - Management Data
-    - Administer: College/Institute Names, School/Department Names, College/Institute Super Admins
+    - Administers: College/Institute Names, School/Department Names, College/Institute Super Admins
     - Views Institution Report Card
 
 5. Moshe Admin: 
