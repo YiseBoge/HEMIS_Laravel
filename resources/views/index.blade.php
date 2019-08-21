@@ -20,7 +20,7 @@
         <section class="features-icons bg-light text-center">
             @else
                 <section class="features-icons bg-light text-center"
-                         style="background: url('/img/landing.jpg'); background-size: cover; background-position: center;">
+                         style="background-size: cover; background: url('{{asset('img/landing.jpg')}}') center;">
                     @endguest
                     <div class="container">
                         <div class="row">
@@ -87,10 +87,102 @@
                                 <li data-toggle="tooltip" title="Student Enrollment" data-target="#carouselExampleIndicators" data-slide-to="1" class="bg-secondary" style="width: 30%"></li>
                                 <li data-toggle="tooltip" title="Student Enrollment" data-target="#carouselExampleIndicators" data-slide-to="2" class="bg-secondary" style="width: 30%"></li>
                             </ol>
-                            <div class="carousel-inner card card-body shadow-sm rounded-0 px-4" style="height: 550px; overflow-y: auto">
+                            <div class="carousel-inner card card-body shadow-sm rounded-0 px-md-5"
+                                 style="height: 550px; overflow-y: auto">
                                 <div class="carousel-item active">
                                     <div class="row px-5">
-                                        <div class="col-lg-5 my-auto px-4">
+                                        <div class="col-lg-5 my-auto px-md-4">
+                                            <h3>Student Enrollments</h3>
+                                            <hr>
+                                            <form action="" method="get" id="enrollments-filter">
+                                                <div class="row">
+                                                    <div class="col-md">
+                                                        <div class="form-check mb-3">
+                                                            <input class="form-check-input" type="radio" name="student_type"
+                                                                   id="students"
+                                                                   value="Normal"
+                                                                   {{$selected_type == "Normal" ? 'checked' : ''}}  onclick="updateEnrollmentChart()">
+                                                            <label class="form-check-label" for="students">
+                                                                All Students
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check my-3">
+                                                            <input class="form-check-input" type="radio" name="student_type"
+                                                                   id="prospective_graduates" value="Prospective Graduates"
+                                                                   {{$selected_type == "Prospective Graduates" ? 'checked' : ''}} onclick="updateEnrollmentChart()">
+                                                            <label class="form-check-label" for="prospective_graduates">
+                                                                Prospective Graduates
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check disabled">
+                                                            <input class="form-check-input" type="radio" name="student_type"
+                                                                   id="graduates"
+                                                                   value="Graduates"
+                                                                   {{$selected_type == "Graduates" ? 'checked' : ''}} onclick="updateEnrollmentChart()">
+                                                            <label class="form-check-label" for="graduates">
+                                                                Graduates
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="form-group row pt-3">
+                                                    <div class="col form-group">
+                                                        {!! Form::select('institution', $institutions , $selected_institution , ['class' => 'form-control', 'id' => 'year_enrollment_institutions']) !!}
+                                                        {!! Form::label('year_enrollment_institutions', 'University', ['class' => 'form-control-placeholder']) !!}
+                                                    </div>
+                                                    <div class="col form-group d-none">
+                                                        {!! Form::select('band', $bands , $selected_band , ['class' => 'form-control', 'id' => 'year_enrollment_bands']) !!}
+                                                        {!! Form::label('year_enrollment_bands', 'Band', ['class' => 'form-control-placeholder']) !!}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col form-group d-none">
+                                                        {!! Form::select('college', [] , $selected_college , ['class' => 'form-control', 'id' => 'year_enrollment_colleges']) !!}
+                                                        {!! Form::label('year_enrollment_colleges', 'College', ['class' => 'form-control-placeholder']) !!}
+                                                    </div>
+                                                    <div class="col form-group d-none">
+                                                        {!! Form::select('department', [] , $selected_department , ['class' => 'form-control', 'id' => 'year_enrollment_departments']) !!}
+                                                        {!! Form::label('year_enrollment_departments', 'Departments', ['class' => 'form-control-placeholder']) !!}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col form-group d-none">
+                                                        {!! Form::select('program', $programs , $selected_program , ['class' => 'form-control', 'id' => 'year_enrollment_programs']) !!}
+                                                        {!! Form::label('year_enrollment_programs', 'Program', ['class' => 'form-control-placeholder']) !!}
+                                                    </div>
+                                                    <div class="col form-group d-none">
+                                                        {!! Form::select('education_level', $education_levels , $selected_education_level , ['class' => 'form-control', 'id' => 'year_enrollment_education_levels']) !!}
+                                                        {!! Form::label('year_enrollment_education_levels', 'Level', ['class' => 'form-control-placeholder']) !!}
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-7 text-white showcase-img overflow-auto">
+                                            <div class="h-100" style="min-width: 500px;">
+                                                <div class="row d-none" id="year-enrollment-error">
+                                                    <div class="col-12 text-danger text-center my-auto">
+                                                        Could not retrieve data.
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="min-height: 500px;">
+                                        <span id="year-enrollment-loading" class="intro-banner-vdo-play-btn pinkBg d-none">
+                                            <i class="glyphicon glyphicon-play whiteText" aria-hidden="true"></i>
+                                            <span class="ripple pinkBg"></span>
+                                            <span class="ripple pinkBg"></span>
+                                            <span class="ripple pinkBg"></span>
+                                        </span>
+                                                    <canvas id="year-enrollment" class="chartjs-render-monitor"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <div class="row px-5">
+                                        <div class="col-lg-5 my-auto px-md-4">
                                             <h3>Student Enrollments</h3>
                                             <hr>
                                             <form action="" method="get" id="enrollments-filter">
@@ -181,98 +273,7 @@
                                 </div>
                                 <div class="carousel-item">
                                     <div class="row px-5">
-                                        <div class="col-lg-5 my-auto px-4">
-                                            <h3>Student Enrollments</h3>
-                                            <hr>
-                                            <form action="" method="get" id="enrollments-filter">
-                                                <div class="row">
-                                                    <div class="col-md-7">
-                                                        <div class="form-check mb-3">
-                                                            <input class="form-check-input" type="radio" name="student_type"
-                                                                   id="students"
-                                                                   value="Normal"
-                                                                   {{$selected_type == "Normal" ? 'checked' : ''}}  onclick="updateEnrollmentChart()">
-                                                            <label class="form-check-label" for="students">
-                                                                All Students
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check my-3">
-                                                            <input class="form-check-input" type="radio" name="student_type"
-                                                                   id="prospective_graduates" value="Prospective Graduates"
-                                                                   {{$selected_type == "Prospective Graduates" ? 'checked' : ''}} onclick="updateEnrollmentChart()">
-                                                            <label class="form-check-label" for="prospective_graduates">
-                                                                Prospective Graduates
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check disabled">
-                                                            <input class="form-check-input" type="radio" name="student_type"
-                                                                   id="graduates"
-                                                                   value="Graduates"
-                                                                   {{$selected_type == "Graduates" ? 'checked' : ''}} onclick="updateEnrollmentChart()">
-                                                            <label class="form-check-label" for="graduates">
-                                                                Graduates
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="form-group row pt-3">
-                                                    <div class="col form-group">
-                                                        {!! Form::select('institution', $institutions , $selected_institution , ['class' => 'form-control', 'id' => 'year_enrollment_institutions']) !!}
-                                                        {!! Form::label('year_enrollment_institutions', 'University', ['class' => 'form-control-placeholder']) !!}
-                                                    </div>
-                                                    <div class="col form-group d-none">
-                                                        {!! Form::select('band', $bands , $selected_band , ['class' => 'form-control', 'id' => 'year_enrollment_bands']) !!}
-                                                        {!! Form::label('year_enrollment_bands', 'Band', ['class' => 'form-control-placeholder']) !!}
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <div class="col form-group d-none">
-                                                        {!! Form::select('college', [] , $selected_college , ['class' => 'form-control', 'id' => 'year_enrollment_colleges']) !!}
-                                                        {!! Form::label('year_enrollment_colleges', 'College', ['class' => 'form-control-placeholder']) !!}
-                                                    </div>
-                                                    <div class="col form-group d-none">
-                                                        {!! Form::select('department', [] , $selected_department , ['class' => 'form-control', 'id' => 'year_enrollment_departments']) !!}
-                                                        {!! Form::label('year_enrollment_departments', 'Departments', ['class' => 'form-control-placeholder']) !!}
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <div class="col form-group d-none">
-                                                        {!! Form::select('program', $programs , $selected_program , ['class' => 'form-control', 'id' => 'year_enrollment_programs']) !!}
-                                                        {!! Form::label('year_enrollment_programs', 'Program', ['class' => 'form-control-placeholder']) !!}
-                                                    </div>
-                                                    <div class="col form-group d-none">
-                                                        {!! Form::select('education_level', $education_levels , $selected_education_level , ['class' => 'form-control', 'id' => 'year_enrollment_education_levels']) !!}
-                                                        {!! Form::label('year_enrollment_education_levels', 'Level', ['class' => 'form-control-placeholder']) !!}
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="col-lg-7 text-white showcase-img overflow-auto">
-                                            <div class="h-100" style="min-width: 500px;">
-                                                <div class="row d-none" id="year-enrollment-error">
-                                                    <div class="col-12 text-danger text-center my-auto">
-                                                        Could not retrieve data.
-                                                    </div>
-                                                </div>
-                                                <div class="row" style="min-height: 500px;">
-                                        <span id="year-enrollment-loading" class="intro-banner-vdo-play-btn pinkBg d-none">
-                                            <i class="glyphicon glyphicon-play whiteText" aria-hidden="true"></i>
-                                            <span class="ripple pinkBg"></span>
-                                            <span class="ripple pinkBg"></span>
-                                            <span class="ripple pinkBg"></span>
-                                        </span>
-                                                    <canvas id="year-enrollment" class="chartjs-render-monitor"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="row px-5">
-                                        <div class="col-lg-5 my-auto px-4">
+                                        <div class="col-lg-5 my-auto px-md-4">
                                             <h3>Student Enrollments</h3>
                                             <hr>
                                             <form action="" method="get" id="enrollments-filter">

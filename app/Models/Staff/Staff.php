@@ -52,6 +52,14 @@ class Staff extends Model
         'Lv' => 'Level V',
     ];
 
+    static $staff_types = [
+        'Academic',
+        'Administrative',
+        'Ict',
+        'Non Academic / Supportive',
+        'Technical',
+    ];
+
     // Enums //
     protected $enumDedications = [
         'FULL' => 'Full Time',

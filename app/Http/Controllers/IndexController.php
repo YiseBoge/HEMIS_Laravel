@@ -8,6 +8,7 @@ use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Institution\InstitutionName;
+use App\Models\Staff\Staff;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -135,6 +136,8 @@ class IndexController extends Controller
             $selectedLevels = collect()->add($educationLevels[$requestedLevel - 1]);
         }
 
+        $staffTypes = Staff::$staff_types;
+
 
         $institutions->prepend('Any');
         $bands->prepend('Any');
@@ -142,6 +145,7 @@ class IndexController extends Controller
         $departments->prepend('Any');
         array_unshift($educationPrograms, 'Any');
         array_unshift($educationLevels, 'Any');
+        array_unshift($staffTypes, 'Any');
 
 
 //        return $disabled;
@@ -155,6 +159,7 @@ class IndexController extends Controller
             'bands' => $bands,
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
+            'staff_types' => $staffTypes,
             'institutions' => $institutions,
             'departments' => $departments,
 
@@ -353,7 +358,6 @@ class IndexController extends Controller
         }
 
 
-        $enrollments = array();
         $maleEnrollments = array();
         $femaleEnrollments = array();
 
@@ -364,7 +368,6 @@ class IndexController extends Controller
 
 
         foreach ($year_levels as $year) {
-            $yearEnrollment = 0;
             $maleYearEnrollment = 0;
             $femaleYearEnrollment = 0;
             foreach ($deps as $department) {
@@ -373,20 +376,18 @@ class IndexController extends Controller
                         if ($enrollment->student_type == $requestedType) {
                             $maleYearEnrollment += $enrollment->male_students_number;
                             $femaleYearEnrollment += $enrollment->female_students_number;
-                            $yearEnrollment += $enrollment->male_students_number + $enrollment->female_students_number;
                         }
                     }
                 }
             }
-            $enrollments[] = $yearEnrollment;
             $maleEnrollments[] = $maleYearEnrollment;
             $femaleEnrollments[] = $femaleYearEnrollment;
         }
 
-        $cols = $colleges->map(function($col) {
+        $cols = $colleges->map(function ($col) {
             return $col->__toString();
         });
-        $deps = $departments->map(function($dep) {
+        $deps = $departments->map(function ($dep) {
             return $dep->__toString();
         });
 
@@ -395,9 +396,185 @@ class IndexController extends Controller
             'departments' => $deps,
 
             "year_levels" => $year_levels,
-            "enrollments" => $enrollments,
             "male_enrollments" => $maleEnrollments,
             "female_enrollments" => $femaleEnrollments,
+        );
+        return response()->json($result);
+    }
+
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function staffChart(Request $request)
+    {
+        $requestedInstitution = $request->input('institution');
+        if ($requestedInstitution == null) {
+            $requestedInstitution = 0;
+        }
+
+        $requestedBand = $request->input('band');
+        if ($requestedBand == null) {
+            $requestedBand = 0;
+        }
+
+        $requestedCollege = $request->input('college');
+        if ($requestedCollege == null) {
+            $requestedCollege = 0;
+        }
+
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = 0;
+        }
+
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 0;
+        }
+
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 0;
+        }
+
+        $year_levels = array();
+        foreach (Department::getEnum('YearLevels') as $key => $value) {
+            $year_levels[] = $value;
+        }
+        array_pop($year_levels);
+
+
+        $institutions = InstitutionName::all();
+        if ($requestedInstitution == 0) {
+            $selectedInstitutions = $institutions;
+            $requestedBand = 0;
+            $requestedCollege = 0;
+            $requestedDepartment = 0;
+            $requestedProgram = 0;
+            $requestedLevel = 0;
+        } else {
+            $selectedInstitutions = collect()->add($institutions[$requestedInstitution - 1]);
+        }
+
+
+        $bands = BandName::all();
+        if ($requestedBand == 0) {
+            $selectedBands = $bands;
+            $requestedCollege = 0;
+            $requestedDepartment = 0;
+            $requestedProgram = 0;
+            $requestedLevel = 0;
+        } else {
+            $selectedBands = collect()->add($bands[$requestedBand - 1]);
+        }
+
+
+        $colleges = CollegeName::byInstitutionNamesAndBandNames($selectedInstitutions, $selectedBands);
+//        return $colleges;
+        if ($requestedCollege == 0) {
+            $selectedColleges = $colleges;
+            $requestedDepartment = 0;
+            $requestedProgram = 0;
+            $requestedLevel = 0;
+        } else {
+            $selectedColleges = collect()->add($colleges[$requestedCollege - 1]);
+        }
+
+
+        $departments = DepartmentName::byCollegeNames($selectedColleges);
+//        return $departments;
+        if ($requestedDepartment == 0) {
+            $selectedDepartment = $departments;
+        } else {
+            $selectedDepartment = collect()->add($departments[$requestedDepartment - 1]);
+        }
+
+
+        $educationPrograms = College::getEnum("EducationPrograms");
+//        return $educationPrograms;
+        if ($requestedProgram == '0') {
+            $selectedPrograms = $educationPrograms;
+        } else {
+            $selectedPrograms = array($requestedProgram, $educationPrograms[$requestedProgram]);
+        }
+
+
+        $educationLevels = College::getEnum("EducationLevels");
+//        return $educationLevels;
+        if ($requestedLevel == '0') {
+            $selectedLevels = $educationLevels;
+        } else {
+            $selectedLevels = array($requestedLevel, $educationLevels[$requestedLevel]);
+        }
+
+        $staffTypes = Staff::$staff_types;
+
+        $cols = College::byCollegeNamesAndProgramsAndLevels(
+            $selectedColleges, $selectedPrograms, $selectedLevels);
+        $deps = Department::byCollegesAndDepartmentNames($cols, $selectedDepartment);
+//        return $deps;
+
+        $academicMales = 0;
+        $academicFemales = 0;
+        $administrativeMales = 0;
+        $administrativeFemales = 0;
+        $ictMales = 0;
+        $ictFemales = 0;
+        $supportiveMales = 0;
+        $supportiveFemales = 0;
+        $technicalsMales = 0;
+        $technicalsFemales = 0;
+
+        foreach ($deps as $dep) {
+            $academicMales += $dep->academicStaffs()->where('sex', 'Male')->count();
+            $academicFemales += $dep->academicStaffs()->where('sex', 'Female')->count();
+        }
+        foreach ($cols as $col) {
+            $administrativeMales += $col->administrativeStaffs()->where('sex', 'Male')->count();
+            $administrativeFemales += $col->administrativeStaffs()->where('sex', 'Female')->count();
+
+            $ictMales += $col->ictStaffs()->where('sex', 'Male')->count();
+            $ictFemales += $col->ictStaffs()->where('sex', 'Female')->count();
+
+            $supportiveMales += $col->supportiveStaffs()->where('sex', 'Male')->count();
+            $supportiveFemales += $col->supportiveStaffs()->where('sex', 'Female')->count();
+
+            $technicalsMales += $col->technicalStaffs()->where('sex', 'Male')->count();
+            $technicalsFemales += $col->technicalStaffs()->where('sex', 'Female')->count();
+        }
+
+        $maleStaffs = array(
+            $academicMales,
+            $administrativeMales,
+            $ictMales,
+            $supportiveMales,
+            $technicalsMales,
+        );
+        $femaleStaffs = array(
+            $academicFemales,
+            $administrativeFemales,
+            $ictFemales,
+            $supportiveFemales,
+            $technicalsFemales,
+        );
+
+
+        $cols = $colleges->map(function ($col) {
+            return $col->__toString();
+        });
+        $deps = $departments->map(function ($dep) {
+            return $dep->__toString();
+        });
+
+        $result = array(
+            'colleges' => $cols,
+            'departments' => $deps,
+
+            "staff_types" => $staffTypes,
+            "male_staffs" => $maleStaffs,
+            "female_staffs" => $femaleStaffs,
         );
         return response()->json($result);
     }
