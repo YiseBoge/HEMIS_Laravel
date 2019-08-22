@@ -57,7 +57,7 @@ function updateStaffChart(toDo = 'nothing') {
 
     let loader = $("#staff-loading");
     loader.removeClass("d-none");
-    $('#year-enrollment').css('opacity', 0.3);
+    $('#staff-graph').css('opacity', 0.3);
 
     $.ajax({
         url: url,
@@ -69,10 +69,6 @@ function updateStaffChart(toDo = 'nothing') {
 
             let cols = response.colleges;
             let deps = response.departments;
-
-            console.log(staffTypes);
-            console.log(maleStaff);
-            console.log(femaleStaffs);
 
             if (toDo === "cols") {
                 $('#staff_colleges').find('option').remove().end().append('<option value="0">Any</option>');

@@ -22,7 +22,7 @@
         <section class="features-icons bg-light text-center">
             @else
                 <section class="features-icons bg-light text-center"
-                         style="background-size: cover; background: url('{{asset('img/landing.jpg')}}') center;">
+                         style="background: url('{{asset('img/landing.jpg')}}') top no-repeat; background-size: cover;">
                     @endguest
                     <div class="container">
                         <div class="row">
