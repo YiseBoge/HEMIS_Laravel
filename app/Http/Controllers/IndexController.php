@@ -536,7 +536,7 @@ class IndexController extends Controller
         foreach ($cols as $col) {
             foreach ($col->administrativeStaffs as $staff) {
                 if ($staff->general->sex == 'Male') $administrativeMales++;
-                if ($staff->general->sex == 'Female') $administrativeMales++;
+                if ($staff->general->sex == 'Female') $administrativeFemales++;
             }
             foreach ($col->ictStaffs as $staff) {
                 if ($staff->general->sex == 'Male') $ictMales++;

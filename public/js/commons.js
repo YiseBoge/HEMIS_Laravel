@@ -43,7 +43,7 @@ function updateChartData(chart, labels, dataName, data) {
 function addDataset(chart, dataName, color = [78, 115, 223]) {
     let opacity = 0.07;
     if (chart.config.type === 'bar') {
-        opacity = 0.85;
+        opacity = 0.75;
     }
     chart.data.datasets.push(
         {
@@ -51,13 +51,13 @@ function addDataset(chart, dataName, color = [78, 115, 223]) {
             data: [],
             lineTension: 0.3,
             backgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", " + opacity + ")",
-            borderColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
+            borderColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 0.85)",
             pointRadius: 3,
-            pointBackgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
-            pointBorderColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
+            pointBackgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 0.85)",
+            pointBorderColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 0.85)",
             pointHoverRadius: 3,
-            pointHoverBackgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
-            pointHoverBorderColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
+            pointHoverBackgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 0.85)",
+            pointHoverBorderColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 0.85)",
             pointHitRadius: 10,
             pointBorderWidth: 2
         }
