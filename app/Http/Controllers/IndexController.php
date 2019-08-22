@@ -524,25 +524,32 @@ class IndexController extends Controller
         $ictFemales = 0;
         $supportiveMales = 0;
         $supportiveFemales = 0;
-        $technicalsMales = 0;
-        $technicalsFemales = 0;
+        $technicalMales = 0;
+        $technicalFemales = 0;
 
         foreach ($deps as $dep) {
-            $academicMales += $dep->academicStaffs()->where('sex', 'Male')->count();
-            $academicFemales += $dep->academicStaffs()->where('sex', 'Female')->count();
+            foreach ($dep->academicStaffs as $staff) {
+                if ($staff->general->sex == 'Male') $academicMales++;
+                if ($staff->general->sex == 'Female') $academicFemales++;
+            }
         }
         foreach ($cols as $col) {
-            $administrativeMales += $col->administrativeStaffs()->where('sex', 'Male')->count();
-            $administrativeFemales += $col->administrativeStaffs()->where('sex', 'Female')->count();
-
-            $ictMales += $col->ictStaffs()->where('sex', 'Male')->count();
-            $ictFemales += $col->ictStaffs()->where('sex', 'Female')->count();
-
-            $supportiveMales += $col->supportiveStaffs()->where('sex', 'Male')->count();
-            $supportiveFemales += $col->supportiveStaffs()->where('sex', 'Female')->count();
-
-            $technicalsMales += $col->technicalStaffs()->where('sex', 'Male')->count();
-            $technicalsFemales += $col->technicalStaffs()->where('sex', 'Female')->count();
+            foreach ($col->administrativeStaffs as $staff) {
+                if ($staff->general->sex == 'Male') $administrativeMales++;
+                if ($staff->general->sex == 'Female') $administrativeMales++;
+            }
+            foreach ($col->ictStaffs as $staff) {
+                if ($staff->general->sex == 'Male') $ictMales++;
+                if ($staff->general->sex == 'Female') $ictFemales++;
+            }
+            foreach ($col->supportiveStaffs as $staff) {
+                if ($staff->general->sex == 'Male') $supportiveMales++;
+                if ($staff->general->sex == 'Female') $supportiveFemales++;
+            }
+            foreach ($col->technicalStaffs as $staff) {
+                if ($staff->general->sex == 'Male') $technicalMales++;
+                if ($staff->general->sex == 'Female') $technicalFemales++;
+            }
         }
 
         $maleStaffs = array(
@@ -550,14 +557,14 @@ class IndexController extends Controller
             $administrativeMales,
             $ictMales,
             $supportiveMales,
-            $technicalsMales,
+            $technicalMales,
         );
         $femaleStaffs = array(
             $academicFemales,
             $administrativeFemales,
             $ictFemales,
             $supportiveFemales,
-            $technicalsFemales,
+            $technicalFemales,
         );
 
 

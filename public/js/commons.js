@@ -41,13 +41,16 @@ function updateChartData(chart, labels, dataName, data) {
 }
 
 function addDataset(chart, dataName, color = [78, 115, 223]) {
-
+    let opacity = 0.07;
+    if (chart.config.type === 'bar') {
+        opacity = 0.85;
+    }
     chart.data.datasets.push(
         {
             label: dataName,
             data: [],
             lineTension: 0.3,
-            backgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 0.07)",
+            backgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", " + opacity + ")",
             borderColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
             pointRadius: 3,
             pointBackgroundColor: "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 1)",
@@ -60,6 +63,12 @@ function addDataset(chart, dataName, color = [78, 115, 223]) {
         }
     );
     chart.update();
+}
+
+function showNodes(nodes) {
+    for (let i = 0; i < nodes.length; i++) {
+        nodes[i].removeClass("d-none")
+    }
 }
 
 function makeChart(target, graphType, xLabel, yLabel) {

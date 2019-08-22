@@ -1,10 +1,10 @@
-let chart;
+let enrollmentChart;
 $(document).ready(function () {
     updateEnrollmentChart();
-    let ctx = document.getElementById('year-enrollment').getContext('2d');
-    chart = makeChart(ctx, "line", "Year Level", "Enrollments");
-    addDataset(chart, "Males");
-    addDataset(chart, "Females", [223,48,129]);
+    let enrollmentG = document.getElementById('year-enrollment-graph').getContext('2d');
+    enrollmentChart = makeChart(enrollmentG, "line", "Year Level", "Enrollments");
+    addDataset(enrollmentChart, "Males");
+    addDataset(enrollmentChart, "Females", [223, 48, 129]);
 
     let institutionSelect = $("#year_enrollment_institutions");
     let bandSelect = $("#year_enrollment_bands");
@@ -22,6 +22,7 @@ $(document).ready(function () {
         programSelect.val(0);
         levelSelect.val(0);
         updateEnrollmentChart();
+        hideAllEnrollment();
         showNodes(nodes)
     });
     bandSelect.on("change", function (ev) {
@@ -33,6 +34,7 @@ $(document).ready(function () {
         programSelect.val(0);
         levelSelect.val(0);
         updateEnrollmentChart("cols");
+        hideAllEnrollment();
         showNodes(nodes)
     });
     collegeSelect.on("change", function (ev) {
@@ -43,6 +45,7 @@ $(document).ready(function () {
         programSelect.val(0);
         levelSelect.val(0);
         updateEnrollmentChart("deps");
+        hideAllEnrollment();
         showNodes(nodes);
     });
     departmentSelect.on("change", function (ev) {
@@ -57,14 +60,7 @@ $(document).ready(function () {
 
 });
 
-function showNodes(nodes) {
-    hideAll();
-    for (let i = 0; i < nodes.length; i++) {
-        nodes[i].removeClass("d-none")
-    }
-}
-
-function hideAll() {
+function hideAllEnrollment() {
     $("#year_enrollment_bands").parent().addClass("d-none");
     $("#year_enrollment_colleges").parent().addClass("d-none");
     $("#year_enrollment_departments").parent().addClass("d-none");
@@ -77,7 +73,7 @@ function updateEnrollmentChart(toDo = 'nothing') {
 
     let loader = $("#year-enrollment-loading");
     loader.removeClass("d-none");
-    $('#year-enrollment').css('opacity', 0.3);
+    $('#year-enrollment-graph').css('opacity', 0.3);
 
     $.ajax({
         url: url,
@@ -106,19 +102,19 @@ function updateEnrollmentChart(toDo = 'nothing') {
             // console.log(cols);
             // console.log(deps);
 
-            updateChartData(chart, years, "Males", maleEnrollments);
-            updateChartData(chart, years, "Females", femaleEnrollments);
+            updateChartData(enrollmentChart, years, "Males", maleEnrollments);
+            updateChartData(enrollmentChart, years, "Females", femaleEnrollments);
 
 
             $('#year-enrollment-error').addClass('d-none');
-            $('#year-enrollment').css('opacity', 1);
-            $('#year-enrollment').removeClass('d-none');
+            $('#year-enrollment-graph').css('opacity', 1);
+            $('#year-enrollment-graph').removeClass('d-none');
             loader.addClass("d-none");
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
             loader.addClass("d-none");
-            $('#year-enrollment').addClass('d-none');
+            $('#year-enrollment-graph').addClass('d-none');
             $('#year-enrollment-error').removeClass('d-none');
         }
     });

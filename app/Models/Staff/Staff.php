@@ -56,7 +56,7 @@ class Staff extends Model
         'Academic',
         'Administrative',
         'Ict',
-        'Non Academic / Supportive',
+        'Supportive',
         'Technical',
     ];
 
