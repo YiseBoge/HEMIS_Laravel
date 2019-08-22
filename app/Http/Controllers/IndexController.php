@@ -7,6 +7,7 @@ use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
+use App\Models\Institution\AgeEnrollment;
 use App\Models\Institution\InstitutionName;
 use App\Models\Staff\Staff;
 use Illuminate\Http\JsonResponse;
@@ -154,12 +155,6 @@ class IndexController extends Controller
             $requestedLevel = 0;
         }
 
-        $year_levels = array();
-        foreach (Department::getEnum('YearLevels') as $key => $value) {
-            $year_levels[] = $value;
-        }
-        array_pop($year_levels);
-
 
         $institutions = InstitutionName::all();
         if ($requestedInstitution == 0) {
@@ -224,6 +219,9 @@ class IndexController extends Controller
             $selectedLevels = array($requestedLevel, $educationLevels[$requestedLevel]);
         }
 
+
+        $year_levels = array_values(Department::getEnum('YearLevels'));
+        array_pop($year_levels);
 
         $maleEnrollments = array();
         $femaleEnrollments = array();
@@ -449,6 +447,152 @@ class IndexController extends Controller
             "staff_types" => $staffTypes,
             "male_staffs" => $maleStaffs,
             "female_staffs" => $femaleStaffs,
+        );
+        return response()->json($result);
+    }
+
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function ageEnrollmentChart(Request $request)
+    {
+
+        $requestedInstitution = $request->input('institution');
+        if ($requestedInstitution == null) {
+            $requestedInstitution = 0;
+        }
+
+        $requestedBand = $request->input('band');
+        if ($requestedBand == null) {
+            $requestedBand = 0;
+        }
+
+        $requestedCollege = $request->input('college');
+        if ($requestedCollege == null) {
+            $requestedCollege = 0;
+        }
+
+        $requestedDepartment = $request->input('department');
+        if ($requestedDepartment == null) {
+            $requestedDepartment = 0;
+        }
+
+        $requestedProgram = $request->input('program');
+        if ($requestedProgram == null) {
+            $requestedProgram = 0;
+        }
+
+        $requestedLevel = $request->input('education_level');
+        if ($requestedLevel == null) {
+            $requestedLevel = 0;
+        }
+
+
+        $institutions = InstitutionName::all();
+        if ($requestedInstitution == 0) {
+            $selectedInstitutions = $institutions;
+            $requestedBand = 0;
+            $requestedCollege = 0;
+            $requestedDepartment = 0;
+            $requestedProgram = 0;
+            $requestedLevel = 0;
+        } else {
+            $selectedInstitutions = collect()->add($institutions[$requestedInstitution - 1]);
+        }
+
+
+        $bands = BandName::all();
+        if ($requestedBand == 0) {
+            $selectedBands = $bands;
+            $requestedCollege = 0;
+            $requestedDepartment = 0;
+            $requestedProgram = 0;
+            $requestedLevel = 0;
+        } else {
+            $selectedBands = collect()->add($bands[$requestedBand - 1]);
+        }
+
+
+        $colleges = CollegeName::byInstitutionNamesAndBandNames($selectedInstitutions, $selectedBands);
+//        return $colleges;
+        if ($requestedCollege == 0) {
+            $selectedColleges = $colleges;
+            $requestedDepartment = 0;
+            $requestedProgram = 0;
+            $requestedLevel = 0;
+        } else {
+            $selectedColleges = collect()->add($colleges[$requestedCollege - 1]);
+        }
+
+
+        $departments = DepartmentName::byCollegeNames($selectedColleges);
+//        return $departments;
+        if ($requestedDepartment == 0) {
+            $selectedDepartment = $departments;
+        } else {
+            $selectedDepartment = collect()->add($departments[$requestedDepartment - 1]);
+        }
+
+
+        $educationPrograms = College::getEnum("EducationPrograms");
+//        return $educationPrograms;
+        if ($requestedProgram == '0') {
+            $selectedPrograms = $educationPrograms;
+        } else {
+            $selectedPrograms = array($requestedProgram, $educationPrograms[$requestedProgram]);
+        }
+
+
+        $educationLevels = College::getEnum("EducationLevels");
+//        return $educationLevels;
+        if ($requestedLevel == '0') {
+            $selectedLevels = $educationLevels;
+        } else {
+            $selectedLevels = array($requestedLevel, $educationLevels[$requestedLevel]);
+        }
+
+        $ageRanges = array_values(AgeEnrollment::getEnum('age'));
+
+        $maleEnrollments = array();
+        $femaleEnrollments = array();
+
+        $cols = College::byCollegeNamesAndProgramsAndLevels(
+            $selectedColleges, $selectedPrograms, $selectedLevels);
+        $deps = Department::byCollegesAndDepartmentNames($cols, $selectedDepartment);
+//        return $deps;
+
+
+        foreach ($ageRanges as $ageRange) {
+            $maleYearEnrollment = 0;
+            $femaleYearEnrollment = 0;
+            foreach ($deps as $department) {
+                foreach ($department->ageEnrollmentsApproved as $enrollment) {
+                    if ($enrollment->age == $ageRange) {
+                        $maleYearEnrollment += $enrollment->male_students_number;
+                        $femaleYearEnrollment += $enrollment->female_students_number;
+                    }
+                }
+            }
+            $maleEnrollments[] = $maleYearEnrollment;
+            $femaleEnrollments[] = $femaleYearEnrollment;
+        }
+
+        $cols = $colleges->map(function ($col) {
+            return $col->__toString();
+        });
+        $deps = $departments->map(function ($dep) {
+            return $dep->__toString();
+        });
+
+        $result = array(
+            'colleges' => $cols,
+            'departments' => $deps,
+
+            "age_ranges" => $ageRanges,
+            "male_enrollments" => $maleEnrollments,
+            "female_enrollments" => $femaleEnrollments,
         );
         return response()->json($result);
     }

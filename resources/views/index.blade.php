@@ -85,13 +85,13 @@
                             Overview</h2>
                         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators mx-auto" style="width: 150px">
-                                <li data-toggle="tooltip" title="Student Enrollment"
+                                <li data-toggle="tooltip" title="Year Level Enrollment"
                                     data-target="#carouselExampleIndicators" data-slide-to="0"
                                     class="active bg-gradient-primary" style="width: 30%"></li>
                                 <li data-toggle="tooltip" title="Staff Members"
                                     data-target="#carouselExampleIndicators" data-slide-to="1"
                                     class="bg-gradient-primary" style="width: 30%"></li>
-                                <li data-toggle="tooltip" title=""
+                                <li data-toggle="tooltip" title="Age Enrollments"
                                     data-target="#carouselExampleIndicators" data-slide-to="2"
                                     class="bg-gradient-primary" style="width: 30%"></li>
                             </ol>
@@ -246,7 +246,66 @@
                                     </div>
                                 </div>
                                 <div class="carousel-item">
+                                    <div class="row px-5">
+                                        <div class="col-lg-5 my-auto px-md-4">
+                                            <h3>Enrollments by Age</h3>
+                                            <hr>
+                                            <form action="" method="get" id="age-enrollments-filter">
+                                                <div class="form-group row pt-3">
+                                                    <div class="col form-group">
+                                                        {!! Form::select('institution', $institutions , null , ['class' => 'form-control', 'id' => 'age_enrollment_institutions']) !!}
+                                                        {!! Form::label('age_enrollment_institutions', 'University', ['class' => 'form-control-placeholder']) !!}
+                                                    </div>
+                                                    <div class="col form-group d-none">
+                                                        {!! Form::select('band', $bands , null , ['class' => 'form-control', 'id' => 'age_enrollment_bands']) !!}
+                                                        {!! Form::label('age_enrollment_bands', 'Band', ['class' => 'form-control-placeholder']) !!}
+                                                    </div>
+                                                </div>
 
+                                                <div class="form-group row">
+                                                    <div class="col form-group d-none">
+                                                        {!! Form::select('college', [] , null , ['class' => 'form-control', 'id' => 'age_enrollment_colleges']) !!}
+                                                        {!! Form::label('age_enrollment_colleges', 'College', ['class' => 'form-control-placeholder']) !!}
+                                                    </div>
+                                                    <div class="col form-group d-none">
+                                                        {!! Form::select('department', [] , null , ['class' => 'form-control', 'id' => 'age_enrollment_departments']) !!}
+                                                        {!! Form::label('age_enrollment_departments', 'Departments', ['class' => 'form-control-placeholder']) !!}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col form-group d-none">
+                                                        {!! Form::select('program', $programs , null , ['class' => 'form-control', 'id' => 'age_enrollment_programs']) !!}
+                                                        {!! Form::label('age_enrollment_programs', 'Program', ['class' => 'form-control-placeholder']) !!}
+                                                    </div>
+                                                    <div class="col form-group d-none">
+                                                        {!! Form::select('education_level', $education_levels , null , ['class' => 'form-control', 'id' => 'age_enrollment_education_levels']) !!}
+                                                        {!! Form::label('age_enrollment_education_levels', 'Level', ['class' => 'form-control-placeholder']) !!}
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-7 text-white showcase-img overflow-auto">
+                                            <div class="h-100" style="min-width: 500px;">
+                                                <div class="row d-none" id="age-enrollment-error">
+                                                    <div class="col-12 text-danger text-center my-auto">
+                                                        Could not retrieve data.
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="min-height: 500px;">
+                                        <span id="age-enrollment-loading"
+                                              class="intro-banner-vdo-play-btn pinkBg d-none">
+                                            <i class="glyphicon glyphicon-play whiteText" aria-hidden="true"></i>
+                                            <span class="ripple pinkBg"></span>
+                                            <span class="ripple pinkBg"></span>
+                                            <span class="ripple pinkBg"></span>
+                                        </span>
+                                                    <canvas id="age-enrollment-graph"
+                                                            class="chartjs-render-monitor"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <a class="carousel-control-prev bg-gradient-primary" style="opacity: 0.85; width: 70px"
@@ -264,8 +323,7 @@
                 </section>
                 <!-- Testimonials -->
                 <section class="testimonials text-center bg-light">
-                    <h2 id="people-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">What people are
-                        saying...</h2>
+                    <h2 id="people-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">Feedback</h2>
                     <div class="container py-5">
                         <div class="row">
                             <div class="col-lg-4">
@@ -282,8 +340,7 @@
                                          alt="">
                                     <h5>Fred S.</h5>
                                     <p class="font-weight-light mb-0">"Bootstrap is amazing. I've been using it to
-                                        create lots of
-                                        super nice landing pages."</p>
+                                        create lots of super nice landing pages."</p>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -292,8 +349,7 @@
                                          alt="">
                                     <h5>Sarah W.</h5>
                                     <p class="font-weight-light mb-0">"Thanks so much for making these free resources
-                                        available to
-                                        us!"</p>
+                                        available to us!"</p>
                                 </div>
                             </div>
                         </div>
@@ -328,4 +384,5 @@
             @section('scripts')
                 <script src="{{asset('js/year_enrollment_graph.js')}}"></script>
                 <script src="{{asset('js/staff_graph.js')}}"></script>
+                <script src="{{asset('js/age_enrollment_graph.js')}}"></script>
 @endsection

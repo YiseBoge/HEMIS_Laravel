@@ -50,7 +50,8 @@ class AgeEnrollment extends Model
     public function isDuplicate()
     {
         return AgeEnrollment::where(array(
-                'department_id' => $this->department_id
+                'department_id' => $this->department_id,
+                'age' => $this->age,
             ))->first() != null;
     }
 
