@@ -32,7 +32,7 @@
                                         <div class="h1 text-muted text-center mb-4">
                                             <i class="fas fa-university text-primary" style="opacity: 0.8"></i>
                                         </div>
-                                        <div class="h4 mb-0 counter-count">{{ number_format($institutions_number - 1, 0) }}</div>
+                                        <div class="h4 mb-0 counter-count">{{ number_format($institutions->count() - 1, 0) }}</div>
                                         <small class="text-muted text-uppercase font-weight-bold">Institutions</small>
                                     </div>
                                 </div>
@@ -43,7 +43,7 @@
                                         <div class="h1 text-muted text-center mb-4">
                                             <i class="fas fa-user-graduate text-primary" style="opacity: 0.8"></i>
                                         </div>
-                                        <div class="h4 mb-0 counter-count">{{ number_format($institutions_number - 1, 0) }}</div>
+                                        <div class="h4 mb-0 counter-count">{{ number_format($institutions->count() - 1, 0) }}</div>
                                         <small class="text-muted text-uppercase font-weight-bold">Students
                                             Enrolled</small>
                                     </div>
@@ -55,7 +55,7 @@
                                         <div class="h1 text-muted text-center mb-4">
                                             <i class="fas fa-chalkboard-teacher text-primary" style="opacity: 0.8"></i>
                                         </div>
-                                        <div class="h4 mb-0 counter-count">{{ number_format($institutions_number - 1, 0) }}</div>
+                                        <div class="h4 mb-0 counter-count">{{ number_format(\App\Models\Staff\Staff::all()->count(), 0) }}</div>
                                         <small class="text-muted text-uppercase font-weight-bold">Staff Members</small>
                                     </div>
                                 </div>
@@ -109,8 +109,8 @@
                                                             <input class="form-check-input" type="radio"
                                                                    name="student_type"
                                                                    id="students"
-                                                                   value="Normal"
-                                                                   {{$selected_type == "Normal" ? 'checked' : ''}}  onclick="updateEnrollmentChart()">
+                                                                   value="Normal" checked
+                                                                   onclick="updateEnrollmentChart()">
                                                             <label class="form-check-label" for="students">
                                                                 All Students
                                                             </label>
@@ -120,7 +120,7 @@
                                                                    name="student_type"
                                                                    id="prospective_graduates"
                                                                    value="Prospective Graduates"
-                                                                   {{$selected_type == "Prospective Graduates" ? 'checked' : ''}} onclick="updateEnrollmentChart()">
+                                                                   onclick="updateEnrollmentChart()">
                                                             <label class="form-check-label" for="prospective_graduates">
                                                                 Prospective Graduates
                                                             </label>
@@ -130,7 +130,7 @@
                                                                    name="student_type"
                                                                    id="graduates"
                                                                    value="Graduates"
-                                                                   {{$selected_type == "Graduates" ? 'checked' : ''}} onclick="updateEnrollmentChart()">
+                                                                   onclick="updateEnrollmentChart()">
                                                             <label class="form-check-label" for="graduates">
                                                                 Graduates
                                                             </label>
@@ -140,33 +140,33 @@
                                                 <hr>
                                                 <div class="form-group row pt-3">
                                                     <div class="col form-group">
-                                                        {!! Form::select('institution', $institutions , $selected_institution , ['class' => 'form-control', 'id' => 'year_enrollment_institutions']) !!}
+                                                        {!! Form::select('institution', $institutions , null , ['class' => 'form-control', 'id' => 'year_enrollment_institutions']) !!}
                                                         {!! Form::label('year_enrollment_institutions', 'University', ['class' => 'form-control-placeholder']) !!}
                                                     </div>
                                                     <div class="col form-group d-none">
-                                                        {!! Form::select('band', $bands , $selected_band , ['class' => 'form-control', 'id' => 'year_enrollment_bands']) !!}
+                                                        {!! Form::select('band', $bands , null , ['class' => 'form-control', 'id' => 'year_enrollment_bands']) !!}
                                                         {!! Form::label('year_enrollment_bands', 'Band', ['class' => 'form-control-placeholder']) !!}
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
                                                     <div class="col form-group d-none">
-                                                        {!! Form::select('college', [] , $selected_college , ['class' => 'form-control', 'id' => 'year_enrollment_colleges']) !!}
+                                                        {!! Form::select('college', [] , null , ['class' => 'form-control', 'id' => 'year_enrollment_colleges']) !!}
                                                         {!! Form::label('year_enrollment_colleges', 'College', ['class' => 'form-control-placeholder']) !!}
                                                     </div>
                                                     <div class="col form-group d-none">
-                                                        {!! Form::select('department', [] , $selected_department , ['class' => 'form-control', 'id' => 'year_enrollment_departments']) !!}
+                                                        {!! Form::select('department', [] , null , ['class' => 'form-control', 'id' => 'year_enrollment_departments']) !!}
                                                         {!! Form::label('year_enrollment_departments', 'Departments', ['class' => 'form-control-placeholder']) !!}
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
                                                     <div class="col form-group d-none">
-                                                        {!! Form::select('program', $programs , $selected_program , ['class' => 'form-control', 'id' => 'year_enrollment_programs']) !!}
+                                                        {!! Form::select('program', $programs , null , ['class' => 'form-control', 'id' => 'year_enrollment_programs']) !!}
                                                         {!! Form::label('year_enrollment_programs', 'Program', ['class' => 'form-control-placeholder']) !!}
                                                     </div>
                                                     <div class="col form-group d-none">
-                                                        {!! Form::select('education_level', $education_levels , $selected_education_level , ['class' => 'form-control', 'id' => 'year_enrollment_education_levels']) !!}
+                                                        {!! Form::select('education_level', $education_levels , null , ['class' => 'form-control', 'id' => 'year_enrollment_education_levels']) !!}
                                                         {!! Form::label('year_enrollment_education_levels', 'Level', ['class' => 'form-control-placeholder']) !!}
                                                     </div>
                                                 </div>
