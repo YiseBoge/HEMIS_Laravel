@@ -1,7 +1,5 @@
 $(document).ready(function () {
-    $('.carousel').carousel({
-        interval: false
-    });
+    $('.carousel').carousel();
     $('#dataTable').DataTable();
     $('[data-toggle="tooltip"]').tooltip();
     $('.counter-count').each(function () {
@@ -37,7 +35,7 @@ function updateChartData(chart, labels, dataName, data) {
 
 function addDataset(chart, dataName, color = [78, 115, 223]) {
     let opacity = 0.07;
-    if (chart.config.type === 'bar') {
+    if (chart.config.type === 'bar' || chart.config.type === 'pie') {
         opacity = 0.75;
     }
     chart.data.datasets.push(

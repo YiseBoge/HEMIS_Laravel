@@ -83,7 +83,7 @@
                     <div class="container-fluid p-0">
                         <h2 id="overview-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">
                             Overview</h2>
-                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <div id="carouselExampleIndicators" class="carousel slide">
                             <ol class="carousel-indicators mx-auto" style="width: 150px">
                                 <li data-toggle="tooltip" title="Year Level Enrollment"
                                     data-target="#carouselExampleIndicators" data-slide-to="0"
