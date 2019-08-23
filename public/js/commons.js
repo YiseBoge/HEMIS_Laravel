@@ -16,11 +16,6 @@ $(document).ready(function () {
         });
     });
 
-    $('.deleter').on('click', function () {
-        $('#delete-form').attr('action', '{{Request::url()}}/' + $(this).data('id'));
-        $('#deleteModal').modal('show');
-    });
-
     $(document).ready(function () {
         $('#exporter').on('click', function () {
             $('#printable').tableExport({type: 'excel'});

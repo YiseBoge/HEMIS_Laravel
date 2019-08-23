@@ -88,6 +88,11 @@
 
 <script>
     $(document).ready(function () {
+        $('.deleter').on('click', function () {
+            $('#delete-form').attr('action', '{{Request::url()}}/' + $(this).data('id'));
+            $('#deleteModal').modal('show');
+        });
+
         if ($(window).width() >= 768) {
             @isset($page_name)
             @if(preg_split ("/\./", $page_name)[0] == 'enrollment')
