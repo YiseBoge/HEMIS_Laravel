@@ -87,11 +87,11 @@
 <script src="{{asset('js/commons.js')}}"></script>
 
 <script>
+    $('.deleter').on('click', function () {
+        $('#delete-form').attr('action', '{{Request::url()}}/' + $(this).data('id'));
+        $('#deleteModal').modal('show');
+    });
     $(document).ready(function () {
-        $('.deleter').on('click', function () {
-            $('#delete-form').attr('action', '{{Request::url()}}/' + $(this).data('id'));
-            $('#deleteModal').modal('show');
-        });
 
         if ($(window).width() >= 768) {
             @isset($page_name)
