@@ -312,7 +312,7 @@
                 <section class="testimonials text-center bg-light" style="margin-bottom: -10px">
                     <h2 id="people-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">Developers</h2>
                         <div class="row">
-                            <div class="MultiCarousel card card-body shadow-sm" data-items="1,2,3,4" data-slide="2"
+                            <div class="MultiCarousel card card-body shadow-sm" data-items="1,2,3,4" data-slide="1"
                                  id="MultiCarousel" data-interval="1000">
                                 <div class="MultiCarousel-inner">
                                     <div class="item">
@@ -448,8 +448,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary leftLst"><</button>
-                                <button class="btn btn-primary rightLst">></button>
+                                <button class="btn btn-primary btn-circle text-white shadow-sm leftLst"><i
+                                            class="fa fa-angle-left text-white-50"></i></button>
+                                <button class="btn btn-primary btn-circle text-white shadow-sm rightLst"><i
+                                            class="fa fa-angle-right text-white-50"></i></button>
                             </div>
                         </div>
                 </section>
