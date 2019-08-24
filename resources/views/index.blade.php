@@ -309,7 +309,7 @@
                     </div>
                 </section>
                 <!-- Testimonials -->
-                <section class="testimonials text-center bg-light" style="margin-bottom: -95px">
+                <section class="testimonials text-center bg-light" style="margin-bottom: -10px">
                     <h2 id="people-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">Developers</h2>
                         <div class="row">
                             <div class="MultiCarousel card card-body shadow-sm" data-items="1,2,3,4" data-slide="2"
