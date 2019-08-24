@@ -321,7 +321,7 @@
                                                 <img class="img-fluid rounded-circle mb-3"
                                                      src="{{asset('img/people/person.jpg')}}"
                                                      alt="">
-                                                <h5>Margaret E.</h5>
+                                                <h5>1111</h5>
                                                 <p class="font-weight-light mb-0">"This is fantastic! Thanks so much
                                                     guys!"</p>
                                             </div>
@@ -333,7 +333,7 @@
                                                 <img class="img-fluid rounded-circle mb-3"
                                                      src="{{asset('img/people/person.jpg')}}"
                                                      alt="">
-                                                <h5>Margaret E.</h5>
+                                                <h5>22222</h5>
                                                 <p class="font-weight-light mb-0">"This is fantastic! Thanks so much
                                                     guys!"</p>
                                             </div>
@@ -345,7 +345,7 @@
                                                 <img class="img-fluid rounded-circle mb-3"
                                                      src="{{asset('img/people/person.jpg')}}"
                                                      alt="">
-                                                <h5>Margaret E.</h5>
+                                                <h5>33333</h5>
                                                 <p class="font-weight-light mb-0">"This is fantastic! Thanks so much
                                                     guys!"</p>
                                             </div>
@@ -483,4 +483,22 @@
                 <script src="{{asset('js/year_enrollment_graph.js')}}"></script>
                 <script src="{{asset('js/staff_graph.js')}}"></script>
                 <script src="{{asset('js/age_enrollment_graph.js')}}"></script>
+
+                <script>
+                    (function (d) {
+                        d.fn.shuffle = function (c) {
+                            c = [];
+                            return this.each(function () {
+                                c.push(d(this).clone(true))
+                            }).each(function (a, b) {
+                                d(b).replaceWith(c[a = Math.floor(Math.random() * c.length)]);
+                                c.splice(a, 1)
+                            })
+                        };
+                        d.shuffle = function (a) {
+                            return d(a).shuffle()
+                        }
+                    })(jQuery);
+                    $('#MultiCarousel .MultiCarousel-inner .item').shuffle();
+                </script>
 @endsection
