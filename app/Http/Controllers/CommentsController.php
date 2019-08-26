@@ -54,7 +54,7 @@ class CommentsController extends Controller
 
        $comment->save();
 
-        return redirect('/comments/create')->with('primary' , 'Your comment has been successfully submitted');
+        return redirect('/comments/create')->with('primary' , 'Your comment has been successfully, submitted have another one?');
     }
 
     /**
