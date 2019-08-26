@@ -440,7 +440,7 @@
                                             <div class="pad15">
                                                 <div class="testimonial-item mx-auto mb-5 mb-lg-0">
                                                     <img class="img-fluid rounded-circle mb-3 border border-secondary"
-                                                         src="{{asset('img/people/person.jpg')}}"
+                                                         src="{{asset('img/people/segni.jpg')}}"
                                                          alt="">
                                                     <h5 class="text-primary">Segni Habulu</h5>
                                                     <p class="font-weight-light mb-0">Developer</p>
