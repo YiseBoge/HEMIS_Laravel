@@ -322,7 +322,7 @@
                                     <p class="font-weight-light mb-0">Lead Software Engineer</p>
                                 </div>
                             </div>
-                            <div class="col-md-9 pl-0 shadow">
+                            <div class="col-md-9 pl-md-0 shadow">
                                 <div class="MultiCarousel" data-items="1,2,2,3" data-slide="2"
                                      id="MultiCarousel" data-interval="1000">
                                     <div class="MultiCarousel-inner">
