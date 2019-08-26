@@ -94,6 +94,7 @@ $(document).ready(function () {
     function click(ell, ee) {
         var Parent = "#" + $(ee).parent().attr("id");
         var slide = $(Parent).attr("data-slide");
+        if (window.innerWidth <= 576) slide = '1';
         ResCarousel(ell, Parent, slide);
     }
 

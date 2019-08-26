@@ -308,152 +308,154 @@
                         </div>
                     </div>
                 </section>
-                <!-- Testimonials -->
                 <section class="testimonials text-center bg-light" style="margin-bottom: -10px">
-                    <h2 id="people-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">Developers</h2>
+                    <h2 id="people-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">Development
+                        Team</h2>
+                    <div class="card card-body shadow-sm p-0">
                         <div class="row">
-                            <div class="MultiCarousel card card-body shadow-sm" data-items="1,2,3,4" data-slide="1"
-                                 id="MultiCarousel" data-interval="1000">
-                                <div class="MultiCarousel-inner">
-                                    <div class="item">
-                                        <div class="pad15">
-                                            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                                <img class="img-fluid rounded-circle mb-3"
-                                                     src="{{asset('img/people/person.jpg')}}"
-                                                     alt="">
-                                                <h5>1111</h5>
-                                                <p class="font-weight-light mb-0">"This is fantastic! Thanks so much
-                                                    guys!"</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pad15">
-                                            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                                <img class="img-fluid rounded-circle mb-3"
-                                                     src="{{asset('img/people/person.jpg')}}"
-                                                     alt="">
-                                                <h5>22222</h5>
-                                                <p class="font-weight-light mb-0">"This is fantastic! Thanks so much
-                                                    guys!"</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pad15">
-                                            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                                <img class="img-fluid rounded-circle mb-3"
-                                                     src="{{asset('img/people/person.jpg')}}"
-                                                     alt="">
-                                                <h5>33333</h5>
-                                                <p class="font-weight-light mb-0">"This is fantastic! Thanks so much
-                                                    guys!"</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pad15">
-                                            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                                <img class="img-fluid rounded-circle mb-3"
-                                                     src="{{asset('img/people/person.jpg')}}"
-                                                     alt="">
-                                                <h5>Margaret E.</h5>
-                                                <p class="font-weight-light mb-0">"This is fantastic! Thanks so much
-                                                    guys!"</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pad15">
-                                            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                                <img class="img-fluid rounded-circle mb-3"
-                                                     src="{{asset('img/people/person.jpg')}}"
-                                                     alt="">
-                                                <h5>Margaret E.</h5>
-                                                <p class="font-weight-light mb-0">"This is fantastic! Thanks so much
-                                                    guys!"</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pad15">
-                                            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                                <img class="img-fluid rounded-circle mb-3"
-                                                     src="{{asset('img/people/person.jpg')}}"
-                                                     alt="">
-                                                <h5>Margaret E.</h5>
-                                                <p class="font-weight-light mb-0">"This is fantastic! Thanks so much
-                                                    guys!"</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pad15">
-                                            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                                <img class="img-fluid rounded-circle mb-3"
-                                                     src="{{asset('img/people/person.jpg')}}"
-                                                     alt="">
-                                                <h5>Margaret E.</h5>
-                                                <p class="font-weight-light mb-0">"This is fantastic! Thanks so much
-                                                    guys!"</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pad15">
-                                            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                                <img class="img-fluid rounded-circle mb-3"
-                                                     src="{{asset('img/people/person.jpg')}}"
-                                                     alt="">
-                                                <h5>Margaret E.</h5>
-                                                <p class="font-weight-light mb-0">"This is fantastic! Thanks so much
-                                                    guys!"</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pad15">
-                                            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                                <img class="img-fluid rounded-circle mb-3"
-                                                     src="{{asset('img/people/person.jpg')}}"
-                                                     alt="">
-                                                <h5>Margaret E.</h5>
-                                                <p class="font-weight-light mb-0">"This is fantastic! Thanks so much
-                                                    guys!"</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pad15">
-                                            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                                <img class="img-fluid rounded-circle mb-3"
-                                                     src="{{asset('img/people/person.jpg')}}"
-                                                     alt="">
-                                                <h5>Margaret E.</h5>
-                                                <p class="font-weight-light mb-0">"This is fantastic! Thanks so much
-                                                    guys!"</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pad15">
-                                            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                                <img class="img-fluid rounded-circle mb-3"
-                                                     src="{{asset('img/people/person.jpg')}}"
-                                                     alt="">
-                                                <h5>Margaret E.</h5>
-                                                <p class="font-weight-light mb-0">"This is fantastic! Thanks so much
-                                                    guys!"</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="col-md-3 p-3">
+                                <div class="mx-auto mb-lg-0">
+                                    <img class="img-fluid rounded-circle mb-3 shadow border border-secondary"
+                                         src="{{asset('img/people/yoseph.jpg')}}" width="200px" height="200px"
+                                         alt="">
+                                    <h5 class="text-primary">Yoseph Abate</h5>
+                                    <p class="font-weight-light mb-0">Project Manager</p>
                                 </div>
-                                <button class="btn btn-primary btn-circle text-white shadow-sm leftLst"><i
-                                            class="fa fa-angle-left text-white-50"></i></button>
-                                <button class="btn btn-primary btn-circle text-white shadow-sm rightLst"><i
-                                            class="fa fa-angle-right text-white-50"></i></button>
+                            </div>
+                            <div class="col-md-9 bg-light">
+                                <div class="MultiCarousel" data-items="1,2,2,3" data-slide="2"
+                                     id="MultiCarousel" data-interval="1000">
+                                    <div class="MultiCarousel-inner">
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/yisehak.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Yisehak Bogale</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/doni.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Doni Abeje</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/fireayehu.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Fireayehu Zekariyas</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/gemechu.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Gemechu Mohammed</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/khalid.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Khalid Sultan</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/lydia.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Lydia Gashawtena</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/mulualem.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Mulualem Tekle</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/zekarias.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Zekariyas Tadele</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/aymen.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Aymen Jelaludin</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/simret.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Simret Araya</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/person.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Segni Habulu</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary btn-circle text-white shadow-sm leftLst"><i
+                                                class="fa fa-angle-left text-white-50"></i></button>
+                                    <button class="btn btn-primary btn-circle text-white shadow-sm rightLst"><i
+                                                class="fa fa-angle-right text-white-50"></i></button>
+                                </div>
                             </div>
                         </div>
+                    </div>
                 </section>
 
                 @guest
