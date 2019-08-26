@@ -19,7 +19,7 @@
 
     <!-- Icons Grid -->
     @guest()
-        <section class="features-icons bg-white text-center shadow-sm">
+        <section class="features-icons bg-white text-center shadow">
             @else
                 <section class="features-icons bg-light text-center">
                     @endguest
@@ -78,7 +78,7 @@
 
                 <section class="showcase mt-5">
                     <div class="container-fluid p-0">
-                        <h2 id="overview-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">
+                        <h2 id="overview-title" class="text-center text-primary bg-white shadow p-3 mb-5">
                             Overview</h2>
                         <div id="carouselGraphs" class="carousel slide">
                             <ol class="carousel-indicators mx-auto" style="width: 150px">
@@ -92,7 +92,7 @@
                                     data-target="#carouselGraphs" data-slide-to="2"
                                     class="bg-gradient-primary" style="width: 30%"></li>
                             </ol>
-                            <div class="carousel-inner card card-body shadow-sm rounded-0 px-md-5"
+                            <div class="carousel-inner card card-body shadow rounded-0 px-md-5"
                                  style="height: 550px; overflow-y: auto">
                                 <div class="carousel-item active">
                                     <div class="row px-md-5">
@@ -309,11 +309,11 @@
                     </div>
                 </section>
                 <section class="testimonials text-center bg-light" style="margin-bottom: -10px">
-                    <h2 id="people-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">Development
+                    <h2 id="people-title" class="text-center text-primary bg-white shadow p-3 mb-5">Development
                         Team</h2>
-                    <div class="card card-body shadow-sm p-0">
+                    <div class="card card-body p-0">
                         <div class="row">
-                            <div class="col-md-3 p-3">
+                            <div class="col-md-3 bg-light p-3">
                                 <div class="mx-auto mb-lg-0">
                                     <img class="img-fluid rounded-circle mb-3 shadow border border-secondary"
                                          src="{{asset('img/people/yoseph.jpg')}}" width="200px" height="200px"
@@ -322,7 +322,7 @@
                                     <p class="font-weight-light mb-0">Lead Software Engineer</p>
                                 </div>
                             </div>
-                            <div class="col-md-9 bg-light">
+                            <div class="col-md-9 pl-0 shadow">
                                 <div class="MultiCarousel" data-items="1,2,2,3" data-slide="2"
                                      id="MultiCarousel" data-interval="1000">
                                     <div class="MultiCarousel-inner">

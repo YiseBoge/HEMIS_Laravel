@@ -15,10 +15,6 @@
                     <li class="list-inline-item">
                         <a href="#">Terms of Use</a>
                     </li>
-                    <li class="list-inline-item">&sdot;</li>
-                    <li class="list-inline-item">
-                        <a href="#">Privacy Policy</a>
-                    </li>
                 </ul>
                 <p class="text-muted small mb-4 mb-lg-0">Copyright &copy; MoSHE - Ministry of Science and Higher
                     Education - Ethiopia - {{date("Y")}}</p>
@@ -26,18 +22,18 @@
             <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item mr-3">
-                        <a href="#">
+                        <a href="https://www.facebook.com/SHE.Ethio/" target="_blank">
                             <i class="fab fa-facebook fa-2x fa-fw"></i>
                         </a>
                     </li>
                     <li class="list-inline-item mr-3">
-                        <a href="#">
+                        <a href="https://twitter.com/she_ethiopia" target="_blank">
                             <i class="fab fa-twitter-square fa-2x fa-fw"></i>
                         </a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="#">
-                            <i class="fab fa-instagram fa-2x fa-fw"></i>
+                        <a href="mailto:moshe@ethernet.edu.et" target="_blank">
+                            <i class="fas fa-envelope fa-2x fa-fw"></i>
                         </a>
                     </li>
                 </ul>
