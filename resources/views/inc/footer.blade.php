@@ -9,7 +9,7 @@
                     </li>
                     <li class="list-inline-item">&sdot;</li>
                     <li class="list-inline-item">
-                        <a href="/comments/create">Contact</a>
+                        <a href="/comments/create">Feedback</a>
                     </li>
                     <li class="list-inline-item">&sdot;</li>
                     <li class="list-inline-item">
