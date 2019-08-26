@@ -78,7 +78,7 @@
 
                 <section class="showcase mt-5">
                     <div class="container-fluid p-0">
-                        <h2 id="overview-title" class="text-center text-primary bg-white shadow p-3 mb-5">
+                        <h2 id="overview-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">
                             Overview</h2>
                         <div id="carouselGraphs" class="carousel slide">
                             <ol class="carousel-indicators mx-auto" style="width: 150px">
@@ -309,7 +309,7 @@
                     </div>
                 </section>
                 <section class="testimonials text-center bg-light" style="margin-bottom: -10px">
-                    <h2 id="people-title" class="text-center text-primary bg-white shadow p-3 mb-5">Development
+                    <h2 id="people-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">Development
                         Team</h2>
                     <div class="card card-body p-0">
                         <div class="row">
