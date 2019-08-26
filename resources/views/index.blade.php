@@ -319,7 +319,7 @@
                                          src="{{asset('img/people/yoseph.jpg')}}" width="200px" height="200px"
                                          alt="">
                                     <h5 class="text-primary">Yoseph Abate</h5>
-                                    <p class="font-weight-light mb-0">Project Manager</p>
+                                    <p class="font-weight-light mb-0">Lead Software Engineer</p>
                                 </div>
                             </div>
                             <div class="col-md-9 bg-light">
