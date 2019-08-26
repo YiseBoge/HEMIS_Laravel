@@ -484,6 +484,7 @@
 
                 @stop
             @section('scripts')
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" defer></script>
                 <script src="{{asset('js/year_enrollment_graph.js')}}"></script>
                 <script src="{{asset('js/staff_graph.js')}}"></script>
                 <script src="{{asset('js/age_enrollment_graph.js')}}"></script>
