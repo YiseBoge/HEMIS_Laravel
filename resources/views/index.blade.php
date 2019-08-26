@@ -6,7 +6,7 @@
         <header class="masthead text-white text-center" style="min-height: 650px;
                 background: url('{{asset('/img/landing.jpg')}}') no-repeat center center;
                 background-size: cover;">
-            <div class="overlay shadow d-block"></div>
+            <div class="overlay d-block"></div>
             <div class="container">
                 <div class="row">
                     <div class="col-xl-9 mx-auto">
@@ -19,15 +19,14 @@
 
     <!-- Icons Grid -->
     @guest()
-        <section class="features-icons bg-light text-center">
+        <section class="features-icons bg-white text-center shadow">
             @else
-                <section class="features-icons bg-light text-center"
-                         style="background: url('{{asset('img/landing.jpg')}}') top no-repeat; background-size: cover;">
+                <section class="features-icons bg-light text-center">
                     @endguest
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
-                                <div class="card border-bottom-primary shadow">
+                                <div class="card border-bottom-primary">
                                     <div class="card-body">
                                         <div class="h1 text-muted text-center mb-4">
                                             <i class="fas fa-university text-primary" style="opacity: 0.8"></i>
@@ -38,7 +37,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
-                                <div class="card border-bottom-primary shadow">
+                                <div class="card border-bottom-primary">
                                     <div class="card-body">
                                         <div class="h1 text-muted text-center mb-4">
                                             <i class="fas fa-user-graduate text-primary" style="opacity: 0.8"></i>
@@ -50,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
-                                <div class="card border-bottom-primary shadow">
+                                <div class="card border-bottom-primary">
                                     <div class="card-body">
                                         <div class="h1 text-muted text-center mb-4">
                                             <i class="fas fa-chalkboard-teacher text-primary" style="opacity: 0.8"></i>
@@ -61,7 +60,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
-                                <div class="card border-bottom-primary shadow">
+                                <div class="card border-bottom-primary">
                                     <div class="card-body">
                                         <div class="h1 text-muted text-center mb-4">
                                             <i class="fas fa-users-cog text-primary" style="opacity: 0.8"></i>
@@ -74,31 +73,29 @@
                             </div>
                         </div>
                     </div>
-                </section>
-                @guest
-                    <br>
-                @endguest
 
-                <section class="showcase">
+                </section>
+
+                <section class="showcase mt-5">
                     <div class="container-fluid p-0">
                         <h2 id="overview-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">
                             Overview</h2>
-                        <div id="carouselExampleIndicators" class="carousel slide">
+                        <div id="carouselGraphs" class="carousel slide">
                             <ol class="carousel-indicators mx-auto" style="width: 150px">
                                 <li data-toggle="tooltip" title="Year Level Enrollment"
-                                    data-target="#carouselExampleIndicators" data-slide-to="0"
+                                    data-target="#carouselGraphs" data-slide-to="0"
                                     class="active bg-gradient-primary" style="width: 30%"></li>
                                 <li data-toggle="tooltip" title="Staff Members"
-                                    data-target="#carouselExampleIndicators" data-slide-to="1"
+                                    data-target="#carouselGraphs" data-slide-to="1"
                                     class="bg-gradient-primary" style="width: 30%"></li>
                                 <li data-toggle="tooltip" title="Age Enrollments"
-                                    data-target="#carouselExampleIndicators" data-slide-to="2"
+                                    data-target="#carouselGraphs" data-slide-to="2"
                                     class="bg-gradient-primary" style="width: 30%"></li>
                             </ol>
-                            <div class="carousel-inner card card-body shadow-sm rounded-0 px-md-5"
+                            <div class="carousel-inner card card-body shadow rounded-0 px-md-5"
                                  style="height: 550px; overflow-y: auto">
                                 <div class="carousel-item active">
-                                    <div class="row px-5">
+                                    <div class="row px-md-5">
                                         <div class="col-lg-5 my-auto px-md-4">
                                             <h3>Student Enrollments</h3>
                                             <hr>
@@ -195,7 +192,7 @@
                                     </div>
                                 </div>
                                 <div class="carousel-item">
-                                    <div class="row px-5">
+                                    <div class="row px-md-5">
                                         <div class="col-lg-5 my-auto px-md-4">
                                             <h3>Staff Members</h3>
                                             <hr>
@@ -246,7 +243,7 @@
                                     </div>
                                 </div>
                                 <div class="carousel-item">
-                                    <div class="row px-5">
+                                    <div class="row px-md-5">
                                         <div class="col-lg-5 my-auto px-md-4">
                                             <h3>Enrollments by Age</h3>
                                             <hr>
@@ -308,48 +305,153 @@
                                     </div>
                                 </div>
                             </div>
-                            <a class="carousel-control-prev bg-gradient-primary" style="opacity: 0.85; width: 70px"
-                               href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next bg-gradient-primary" style="opacity: 0.85; width: 70px"
-                               href="#carouselExampleIndicators" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
                         </div>
                     </div>
                 </section>
-                <!-- Testimonials -->
-                <section class="testimonials text-center bg-light">
-                    <h2 id="people-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">Feedback</h2>
-                    <div class="container py-5">
+                <section class="testimonials text-center bg-light" style="margin-bottom: -10px">
+                    <h2 id="people-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">Development
+                        Team</h2>
+                    <div class="card card-body p-0">
                         <div class="row">
-                            <div class="col-lg-4">
-                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                    <img class="img-fluid rounded-circle mb-3" src="{{asset('img/people/person.jpg')}}"
+                            <div class="col-md-3 bg-light p-3">
+                                <div class="mx-auto mb-lg-0">
+                                    <img class="img-fluid rounded-circle mb-3 shadow border border-secondary"
+                                         src="{{asset('img/people/yoseph.jpg')}}" width="200px" height="200px"
                                          alt="">
-                                    <h5>Margaret E.</h5>
-                                    <p class="font-weight-light mb-0">"This is fantastic! Thanks so much guys!"</p>
+                                    <h5 class="text-primary">Yoseph Abate</h5>
+                                    <p class="font-weight-light mb-0">Lead Software Engineer</p>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                    <img class="img-fluid rounded-circle mb-3" src="{{asset('img/people/person.jpg')}}"
-                                         alt="">
-                                    <h5>Fred S.</h5>
-                                    <p class="font-weight-light mb-0">"Bootstrap is amazing. I've been using it to
-                                        create lots of super nice landing pages."</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                    <img class="img-fluid rounded-circle mb-3" src="{{asset('img/people/person.jpg')}}"
-                                         alt="">
-                                    <h5>Sarah W.</h5>
-                                    <p class="font-weight-light mb-0">"Thanks so much for making these free resources
-                                        available to us!"</p>
+                            <div class="col-md-9 pl-0 shadow">
+                                <div class="MultiCarousel" data-items="1,2,2,3" data-slide="2"
+                                     id="MultiCarousel" data-interval="1000">
+                                    <div class="MultiCarousel-inner">
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/yisehak.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Yisehak Bogale</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/doni.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Doni Abeje</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/fireayehu.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Fireayehu Zekariyas</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/gemechu.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Gemechu Mohammed</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/khalid.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Khalid Sultan</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/lydia.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Lydia Gashawtena</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/mulualem.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Mulualem Tekle</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/zekarias.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Zekariyas Tadele</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/aymen.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Aymen Jelaludin</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/simret.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Simret Araya</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                                                    <img class="img-fluid rounded-circle mb-3 border border-secondary"
+                                                         src="{{asset('img/people/segni.jpg')}}"
+                                                         alt="">
+                                                    <h5 class="text-primary">Segni Habulu</h5>
+                                                    <p class="font-weight-light mb-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary btn-circle text-white shadow-sm leftLst"><i
+                                                class="fa fa-angle-left text-white-50"></i></button>
+                                    <button class="btn btn-primary btn-circle text-white shadow-sm rightLst"><i
+                                                class="fa fa-angle-right text-white-50"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -385,4 +487,22 @@
                 <script src="{{asset('js/year_enrollment_graph.js')}}"></script>
                 <script src="{{asset('js/staff_graph.js')}}"></script>
                 <script src="{{asset('js/age_enrollment_graph.js')}}"></script>
+
+                <script>
+                    (function (d) {
+                        d.fn.shuffle = function (c) {
+                            c = [];
+                            return this.each(function () {
+                                c.push(d(this).clone(true))
+                            }).each(function (a, b) {
+                                d(b).replaceWith(c[a = Math.floor(Math.random() * c.length)]);
+                                c.splice(a, 1)
+                            })
+                        };
+                        d.shuffle = function (a) {
+                            return d(a).shuffle()
+                        }
+                    })(jQuery);
+                    $('#MultiCarousel .MultiCarousel-inner .item').shuffle();
+                </script>
 @endsection

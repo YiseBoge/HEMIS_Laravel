@@ -1,5 +1,7 @@
 $(document).ready(function () {
-    $('.carousel').carousel();
+    $('.carousel').carousel({
+        interval: false
+    });
     $('#dataTable').DataTable();
     $('[data-toggle="tooltip"]').tooltip();
     $('.counter-count').each(function () {

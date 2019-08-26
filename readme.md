@@ -1,4 +1,4 @@
-![Moe HEMIS](docs/logo.png)
+![Moe HEMIS](docs/github-logo.png)
 
 ## About HEMIS
 
