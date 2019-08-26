@@ -130,6 +130,10 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
     }
 
+    public function comment(){
+        return $this->hasMany('App\Models\Comment');
+    }
+    
     public function hasRole($role)
     {
         return null !== $this->roles()->where('role_name', $role)->first();

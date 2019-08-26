@@ -152,3 +152,9 @@ Route::get('/change-password', 'HomeController@showChangePasswordForm');
 Route::post('/changePassword', 'HomeController@changePassword')->name('changePassword');
 Route::get('home/student-enrollment-chart', 'HomeController@enrollmentChart');
 Route::get('home/age-enrollment-chart', 'HomeController@ageEnrollmentChart');
+
+// Comment Routes
+Route::get('/comments' , 'CommentsController@index');
+Route::get('/comments/create' , 'CommentsController@create');
+Route::post('/comments' , 'CommentsController@store');
+Route::delete('/comments/{id}' , 'CommentsController@destroy');
