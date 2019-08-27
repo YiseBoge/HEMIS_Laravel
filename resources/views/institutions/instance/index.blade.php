@@ -116,69 +116,41 @@
 
 
     @if ($page_name == 'administer.instance.edit')
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
 
-                <div class="modal-content">
-                    {!! Form::open(['action' => ['Institution\InstancesController@update', $budget->id], 'method' => 'POST']) !!}
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editTitle">Edit</h5>
-                        <a href="/institution/budget" class="close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </a>
-                    </div>
-
-                    <div class="modal-body row pt-6">
-
-                        @if(count($errors) > 0)
-                            <div class="col-md-12 form-group">
-                                <div class="alert alert-danger">
-                                    <h6 class="font-weight-bold">Please fix the following issues</h6>
-                                    <hr class="my-0">
-                                    <ul class="my-1 px-4">
-                                        @foreach($errors->all() as $error)
-                                            <li>{{$error}}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        @endif
-
-                        <div class="col-12 form-group pb-2">
-                            {!! Form::select('budget_type', \App\Models\Institution\Budget::getEnum('budget_type') , $budget_type, ['class' => 'form-control', 'id' => 'edit_budget_type']) !!}
-                            {!! Form::label('budget_type', 'Budget Type', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_type']) !!}
-                        </div>
-
-                        <div class="col-12 form-group pb-2">
-                            {!! Form::select('budget_description', \App\Models\Institution\BudgetDescription::all() , $data['budget_description'], ['class' => 'form-control', 'id' => 'edit_budget_description']) !!}
-                            {!! Form::label('budget_description', 'Budget Description', ['class' => 'form-control-placeholder', 'for' => 'edit_budget_description']) !!}
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('allocated', $data['budget']->allocated_budget, ['class' => 'form-control', 'id' => 'edit_allocated', 'required' => 'true']) !!}
-                            {!! Form::label('allocated', 'Allocated', ['class' => 'form-control-placeholder', 'for' => 'edit_allocated']) !!}
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('additional', $data['budget']->additional_budget, ['class' => 'form-control', 'id' => 'edit_additional', 'required' => 'true']) !!}
-                            {!! Form::label('additional', 'Additional', ['class' => 'form-control-placeholder', 'for' => 'edit_additional']) !!}
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            {!! Form::number('utilized', $data['budget']->utilized_budget, ['class' => 'form-control', 'id' => 'edit_utilized', 'required' => 'true']) !!}
-                            {!! Form::label('utilized', 'Utilized', ['class' => 'form-control-placeholder', 'for' => 'edit_utilized']) !!}
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        {!! Form::hidden('_method', 'PUT') !!}
-                        {!! Form::submit('Save Changes', ['class' => 'btn btn-primary']) !!}
-                    </div>
-                    {!! Form::close() !!}
+            <div class="modal-content">
+                {!! Form::model($instance , ['action' => ['Institution\InstancesController@update' , $instance->id], 'method' => 'POST']) !!}
+                @method('PUT')
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editTitle">Add</h5>
+                    <a href="/institution/instance" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
                 </div>
 
+                <div class="modal-body row p-4">
+                    <div class="col-md-12 form-group pb-1">
+                        {!! Form::text('year', old('year'), ['class' => 'form-control', 'id' => 'add_year', 'required' => 'true']) !!}
+                        {!! Form::label('add_year', 'Year', ['class' => 'form-control-placeholder']) !!}
+                    </div>
+                    <div class="col-md-12 form-group pb-1">
+                        {!! Form::text('semester', old('semester'), ['class' => 'form-control', 'id' => 'add_semester', 'required' => 'true']) !!}
+                        {!! Form::label('add_semester', 'Semester', ['class' => 'form-control-placeholder']) !!}
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                </div>
+
+                {!! Form::close() !!}
             </div>
+
         </div>
-    @endif
+    </div>
+@endif
 
 @endSection
