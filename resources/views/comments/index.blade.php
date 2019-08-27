@@ -2,31 +2,27 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-5 col-xs-12">
-            <div class="card my-4">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            @include('inc.messages')
-                        </div>
-                        <div class="col-12">
-                            <span class="lead float-left px-2">Comments</span>
-                        </div>
-                    </div>
+    <div class="col-md-10">
+        <div class="card shadow mt-3">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Feedback</h6>
+            </div>
+            <div class="card-body">
                     @forelse($comments as $comment)
-                        <div class="card my-3 {{($comment->user_id != null) ? 'border-left-danger' : ''}}">
+                    <div class="card shadow-sm my-4 {{($comment->user_id != null) ? 'border-left-danger' : ''}}">
                             <div class="card-body m-0 py-2">
                                     <div class="row">
                                         <div class="col-12">
                                                 <span class="flaot-left">{{$comment->name}} : </span>
                                                 @if(Auth::user()->hasRole('Super Admin'))
-                                                    <span class="float-right">
-                                                        <form action="/comments/{{$comment->id}}/" method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button class="btn p-0 m-0 text-danger" type="submit"><i class="fa fa-trash"></i></button>
-                                                        </form>
-                                                    </span>
+
+                                                <button type="submit"
+                                                        class="btn btn-danger btn-circle float-right text-white btn-sm mx-0 deleter"
+                                                        style="opacity:0.80" data-id="{{$comment->id}}"
+                                                        data-toggle="tooltip" title="Delete">
+                                                    <i class="fas fa-trash fa-sm"
+                                                       style="opacity:0.75"></i>
+                                                </button>
                                                 @endif
                                         </div>
                                         <div class="col-12 lead my-3"> {{$comment->message}}

@@ -29,6 +29,11 @@ class IndexController extends Controller
         $educationLevels = College::getEnum("EducationLevels");
         $staffTypes = Staff::$staff_types;
 
+//        $reporter = new GeneralReportService(Auth::user()->currentInstance->year);
+//        $studentsNumber = $reporter->enrollment('All', College::getEnum('education_level')['UNDERGRADUATE']) +
+//            $reporter->enrollment('All', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
+//            $reporter->enrollment('All', College::getEnum('education_level')['POST_GRADUATE_PHD']);
+
         $institutions->prepend('Any');
         $bands->prepend('Any');
         array_unshift($educationPrograms, 'Any');
@@ -36,6 +41,8 @@ class IndexController extends Controller
         array_unshift($staffTypes, 'Any');
 
         $data = array(
+//            'students_number' => $studentsNumber,
+
             'bands' => $bands,
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
@@ -249,6 +256,19 @@ class IndexController extends Controller
             $femaleEnrollments[] = $femaleYearEnrollment;
         }
 
+        $year_levels = collect($year_levels)->map(function ($lev) {
+            if (!in_array(((int)$lev % 100), array(11, 12, 13))) {
+                switch ((int)$lev % 10) {
+                    case 1:
+                        return $lev . 'st';
+                    case 2:
+                        return $lev . 'nd';
+                    case 3:
+                        return $lev . 'rd';
+                }
+            }
+            return $lev . 'th';
+        });
         $cols = $colleges->map(function ($col) {
             return $col->__toString();
         });

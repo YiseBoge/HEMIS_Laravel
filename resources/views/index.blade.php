@@ -18,56 +18,53 @@
     @endguest
 
     <!-- Icons Grid -->
-    @guest()
-        <section class="features-icons bg-white text-center shadow">
-            @else
-                <section class="features-icons bg-light text-center">
-                    @endguest
+    <section class="mt-5 bg-light text-center">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
-                                <div class="card border-bottom-primary">
-                                    <div class="card-body">
-                                        <div class="h1 text-muted text-center mb-4">
-                                            <i class="fas fa-university text-primary" style="opacity: 0.8"></i>
+                                <div class="card shadow">
+                                    <div class="card-body p-0 d-flex align-items-center">
+                                        <i class="fas fa-university text-white-50 bg-primary p-4 font-2xl mr-3"></i>
+                                        <div class="w-100 text-right pr-3">
+                                            <div class="text-value-sm text-primary counter-count">{{ number_format($institutions->count() - 1, 0) }}</div>
+                                            <div class="text-muted text-uppercase font-weight-bold small">Universities
+                                            </div>
                                         </div>
-                                        <div class="h4 mb-0 counter-count">{{ number_format($institutions->count() - 1, 0) }}</div>
-                                        <small class="text-muted text-uppercase font-weight-bold">Institutions</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
-                                <div class="card border-bottom-primary">
-                                    <div class="card-body">
-                                        <div class="h1 text-muted text-center mb-4">
-                                            <i class="fas fa-user-graduate text-primary" style="opacity: 0.8"></i>
+                                <div class="card shadow">
+                                    <div class="card-body p-0 d-flex align-items-center">
+                                        <i class="fas fa-user-graduate text-white-50 bg-primary p-4 font-2xl mr-3"></i>
+                                        <div class="w-100 text-right pr-3">
+                                            <div class="text-value-sm text-primary counter-count">0</div>
+                                            <div class="text-muted text-uppercase font-weight-bold small">Students</div>
                                         </div>
-                                        <div class="h4 mb-0 counter-count">{{ number_format($institutions->count() - 1, 0) }}</div>
-                                        <small class="text-muted text-uppercase font-weight-bold">Students
-                                            Enrolled</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
-                                <div class="card border-bottom-primary">
-                                    <div class="card-body">
-                                        <div class="h1 text-muted text-center mb-4">
-                                            <i class="fas fa-chalkboard-teacher text-primary" style="opacity: 0.8"></i>
+                                <div class="card shadow">
+                                    <div class="card-body p-0 d-flex align-items-center">
+                                        <i class="fas fa-chalkboard-teacher text-white-50 bg-primary p-4 font-2xl mr-3"></i>
+                                        <div class="w-100 text-right pr-3">
+                                            <div class="text-value-sm text-primary counter-count">{{ number_format(\App\Models\Staff\Staff::all()->count(), 0) }}</div>
+                                            <div class="text-muted text-uppercase font-weight-bold small">Staff
+                                                Members
+                                            </div>
                                         </div>
-                                        <div class="h4 mb-0 counter-count">{{ number_format(\App\Models\Staff\Staff::all()->count(), 0) }}</div>
-                                        <small class="text-muted text-uppercase font-weight-bold">Staff Members</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
-                                <div class="card border-bottom-primary">
-                                    <div class="card-body">
-                                        <div class="h1 text-muted text-center mb-4">
-                                            <i class="fas fa-users-cog text-primary" style="opacity: 0.8"></i>
+                                <div class="card shadow">
+                                    <div class="card-body p-0 d-flex align-items-center">
+                                        <i class="fas fa-users-cog text-white-50 bg-primary p-4 font-2xl mr-3"></i>
+                                        <div class="w-100 text-right pr-3">
+                                            <div class="text-value-sm text-primary counter-count">{{ number_format(\App\User::all()->count(), 0) }}</div>
+                                            <div class="text-muted text-uppercase font-weight-bold small">Admins</div>
                                         </div>
-                                        <div class="h4 mb-0 counter-count">{{ number_format(\App\User::all()->count(), 0) }}</div>
-                                        <small class="text-muted text-uppercase font-weight-bold">Registered
-                                            Admins</small>
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +319,7 @@
                                     <p class="font-weight-light mb-0">Lead Software Engineer</p>
                                 </div>
                             </div>
-                            <div class="col-md-9 pl-0 shadow">
+                            <div class="col-md-9 pl-md-0 shadow">
                                 <div class="MultiCarousel" data-items="1,2,2,3" data-slide="2"
                                      id="MultiCarousel" data-interval="1000">
                                     <div class="MultiCarousel-inner">
@@ -484,6 +481,7 @@
 
                 @stop
             @section('scripts')
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" defer></script>
                 <script src="{{asset('js/year_enrollment_graph.js')}}"></script>
                 <script src="{{asset('js/staff_graph.js')}}"></script>
                 <script src="{{asset('js/age_enrollment_graph.js')}}"></script>
