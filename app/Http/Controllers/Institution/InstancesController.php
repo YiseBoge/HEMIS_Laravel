@@ -163,7 +163,22 @@ class InstancesController extends Controller
      */
     public function edit($id)
     {
-        return redirect('institution/instance');
+
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
+        $instances = Instance::orderByDesc('year')->get();
+        $currentInstanceIndex = 0;
+        $instance = Instance::find($id);
+
+        $data = array(
+            'instance' => $instance,
+            'page_name' => 'administer.instance.edit',
+            'instances' => $instances,
+            'current' => $currentInstanceIndex
+        );
+
+        return view('institutions.instance.index')->with($data);
     }
 
     /**
@@ -175,7 +190,17 @@ class InstancesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
+        $instance = Instance::find($id);
+
+        $instance->year = $request->input('year');
+        $instance->semester = $request->input('semester');
+
+        $instance->save();
+
+        return redirect('/institution/instance')->with('primary' , 'Successfully edited instance information');
     }
 
     /**
