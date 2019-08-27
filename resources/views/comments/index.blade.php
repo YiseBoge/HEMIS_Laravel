@@ -3,16 +3,11 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
-        <div class="card my-4 shadow">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            @include('inc.messages')
-                        </div>
-                        <div class="col-12">
-                            <span class="lead float-left px-2">Comments</span>
-                        </div>
-                    </div>
+        <div class="card shadow mt-3">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Feedback</h6>
+            </div>
+            <div class="card-body">
                     @forelse($comments as $comment)
                         <div class="card my-3 {{($comment->user_id != null) ? 'border-left-danger' : ''}}">
                             <div class="card-body m-0 py-2">

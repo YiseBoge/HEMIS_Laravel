@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
@@ -11,7 +12,7 @@ class CommentsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -22,6 +23,7 @@ class CommentsController extends Controller
 
         $data = array(
             'comments' => $comments,
+            'page_name' => 'comment.comment.index',
         );
 
         return view('comments.index')->with($data);
@@ -30,18 +32,22 @@ class CommentsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
-        return view('comments.create');
+        $data = array(
+            'page_name' => 'comment.comment.create',
+        );
+
+        return view('comments.create')->with($data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -54,14 +60,14 @@ class CommentsController extends Controller
 
        $comment->save();
 
-        return redirect('/comments/create')->with('primary' , 'Your comment has been successfully, submitted have another one?');
+        return redirect('/comments/create')->with('primary', 'Successfully submitted feedback.');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -72,7 +78,7 @@ class CommentsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -82,9 +88,9 @@ class CommentsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -95,7 +101,7 @@ class CommentsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
