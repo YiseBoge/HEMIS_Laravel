@@ -9,21 +9,16 @@
                 <input type="text" hidden
                 value="{{Auth::user()->id}}" name="user_id" id="user_id">
             @endif
-            <div class="card shadow">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            @include('inc.messages')
-                        </div>
-                        <div class="col-12 text-primary">
-                            <span class="lead float-left px-2">Contact Us</span>
-                            @if(Auth::user() != null && Auth::user()->hasAnyRole(['Department Admin' , 'College Admin' , 'College Super Admin' , 'University Admin' , 'Super Admin']))
-                                <span class="float-right">
-                                    <button class="btn"><a href="/comments">View Comments</a></button>
+            <div class="card shadow mt-3">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Give Feedback
+
+                        @if(Auth::user() != null && Auth::user()->hasAnyRole(['Department Admin' , 'College Admin' , 'College Super Admin' , 'University Admin' , 'Super Admin']))
+                            <span class="float-right">
+                                    <a href="/comments">View Submitted</a>
                                 </span>
-                            @endif
-                        </div>
-                    </div>
+                        @endif
+                    </h6>
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
