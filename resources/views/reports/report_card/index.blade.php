@@ -82,7 +82,7 @@
 
                                     </tr>
                                     @foreach($kpis as $kpi)
-                                        <tr style="height: 150px;">
+                                        <tr style="height: 100px;">
                                             <td style="min-width:275px;">
                                                 {{ $kpi->kpi }}
                                             </td>

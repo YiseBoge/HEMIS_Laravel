@@ -35,7 +35,7 @@
                         <p>
                             <span class="font-weight-bold">Name of higher education institution:</span> {{$institution_name}}
                         </p>
-                        {{--                        <p><span class="font-weight-bold">Responsible:</span> Core management team of MoSHE</p>--}}
+                        {{--                        <p><span class="font-weight-bold">Responsible:</span> _____________________________ </p>--}}
                     </div>
                 </div>
                 <div class="row">
@@ -91,7 +91,7 @@
 
                                     </tr>
                                     @foreach($kpis as $kpi)
-                                        <tr style="height: 150px;">
+                                        <tr style="height: 100px;">
                                             <td style="min-width:275px;">
                                                 {{ $kpi->kpi }}
                                             </td>
