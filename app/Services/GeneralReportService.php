@@ -64,6 +64,7 @@ class GeneralReportService
         return $institutions;
     }
 
+
     /**
      * @param $sex
      * @param $educationLevel
@@ -285,7 +286,7 @@ class GeneralReportService
      * @param $educationLevel
      * @return float|int
      */
-    function graduationRate($sex, $educationLevel)
+    function graduationData($sex, $educationLevel)
     {
         $total = 0;
 
@@ -294,10 +295,7 @@ class GeneralReportService
             $total += $institutionService->graduationData($sex, $educationLevel);
         }
 
-        $totalEnrollments = $this->fullEnrollment($sex, $educationLevel);
-        if ($totalEnrollments == 0) return 0;
-
-        return $total / $totalEnrollments;
+        return $total;
     }
 
     /**
