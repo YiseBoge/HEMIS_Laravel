@@ -36,7 +36,7 @@ class ReportCard extends Model
 
         '1.2.1' => 'Increase capacity to enroll new students in undergraduate programs',
         '1.2.2' => 'Increase capacity to enroll new students in master programs',
-        '1.2.3' => 'Increase capacity to enroll new students n doctoral studies',
+        '1.2.3' => 'Increase capacity to enroll new students in doctoral studies',
         '1.2.4' => 'Increase capacity to enroll new students in health specialty programs',
 
         '1.3.1' => 'Increase in the share of private HEIs from the total enrollment in undergraduate programs',

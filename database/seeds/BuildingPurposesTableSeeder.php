@@ -12,7 +12,7 @@ class BuildingPurposesTableSeeder extends Seeder
      */
     public function run()
     {
-        $allPurposes = ['Class Rooms', 'Library', 'Laboratories', 'Admin Purposes', 'Staff Residence', 'Cafeteria', 'Dormitories', 'Others'];
+        $allPurposes = ['Smart Classrooms', 'Class Rooms', 'Library', 'Laboratories', 'Admin Purposes', 'Staff Residence', 'Cafeteria', 'Dormitories', 'Others'];
 
         foreach ($allPurposes as $purpose) {
             $buildingPurpose = new BuildingPurpose();

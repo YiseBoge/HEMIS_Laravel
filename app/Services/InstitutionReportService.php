@@ -38,13 +38,13 @@ class InstitutionReportService
      * @param $educationLevel
      * @return int
      */
-    function enrollment($sex, $educationLevel)
+    function fullEnrollment($sex, $educationLevel)
     {
         $total = 0;
 
         foreach ($this->institutions as $institution) {
             $institutionService = new InstitutionService($institution);
-            $total += $institutionService->enrollment($sex, $educationLevel);
+            $total += $institutionService->fullEnrollment($sex, $educationLevel);
         }
 
         return $total;
@@ -116,7 +116,7 @@ class InstitutionReportService
             $total += $institutionService->graduationData($sex, $educationLevel);
         }
 
-        $totalEnrollments = $this->enrollment($sex, $educationLevel);
+        $totalEnrollments = $this->fullEnrollment($sex, $educationLevel);
         if ($totalEnrollments == 0) return 0;
 
         return $total / $totalEnrollments;
@@ -161,7 +161,7 @@ class InstitutionReportService
 
         foreach ($this->institutions as $institution) {
             $institutionService = new InstitutionService($institution);
-            $total += $institutionService->qualifiedStaff();
+            $total += $institutionService->qualifiedAcademicStaff();
         }
 
         return $total;
@@ -172,9 +172,9 @@ class InstitutionReportService
      */
     function qualifiedTeacherToStudent()
     {
-        $total = $this->enrollment('All', College::getEnum('education_level')['UNDERGRADUATE']) +
-            $this->enrollment("All", College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
-            $this->enrollment("All", College::getEnum('education_level')['POST_GRADUATE_PHD']);
+        $total = $this->fullEnrollment('All', College::getEnum('education_level')['UNDERGRADUATE']) +
+            $this->fullEnrollment("All", College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
+            $this->fullEnrollment("All", College::getEnum('education_level')['POST_GRADUATE_PHD']);
 
         $selected = $this->qualifiedStaff();
 

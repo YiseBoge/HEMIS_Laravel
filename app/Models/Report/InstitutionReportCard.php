@@ -33,7 +33,7 @@ class InstitutionReportCard extends Model
     protected $enumKpis = [
         '1.1.1' => 'Increase capacity to enroll new students in undergraduate programs ',
         '1.1.2' => 'Increase capacity to enroll new students in master programs',
-        '1.1.3' => 'Increase capacity to enroll new students n doctoral studies',
+        '1.1.3' => 'Increase capacity to enroll new students in doctoral studies',
         '1.1.4' => 'Increase capacity to enroll new students in health specialty programs',
 
         '1.2.1' => 'Increase in the share of STEM subjects from undergraduate enrollment',

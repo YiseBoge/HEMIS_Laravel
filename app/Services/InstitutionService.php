@@ -14,6 +14,7 @@ class InstitutionService
      * @var Institution|null
      */
     private $institution = null;
+    private $stemBands = ['Band 1', 'Band 2', 'Band 3', 'Band 4'];
 
     /**
      * InstitutionService constructor.
@@ -24,28 +25,11 @@ class InstitutionService
         $this->institution = $institution;
     }
 
-
-    /**
-     * @param $sex
-     * @param $educationLevel
-     * @return int
-     */
-    function enrollment($sex, $educationLevel)
-    {
-        $total = 0;
-        $departments = $this->departmentsByEducationLevel($educationLevel);
-        foreach ($departments as $department) {
-            $departmentService = new DepartmentService($department);
-            $total += $departmentService->enrollment($sex);
-        }
-        return $total;
-    }
-
     /**
      * @param $educationLevel
      * @return array
      */
-    function departmentsByEducationLevel($educationLevel)
+    function __departmentsByEducationLevel($educationLevel)
     {
         $departments = array();
         foreach ($this->institution->bands as $band) {
@@ -54,11 +38,65 @@ class InstitutionService
                     foreach ($college->departments as $department) {
                         array_push($departments, $department);
                     }
-
                 }
             }
         }
         return $departments;
+    }
+
+    /**
+     * @param $educationLevel
+     * @return array
+     */
+    function __stemDepartments($educationLevel)
+    {
+        $departments = array();
+        foreach ($this->institution->bands as $band) {
+            if (array_search($band->bandName->acronym, $this->stemBands)) {
+                foreach ($band->colleges as $college) {
+                    if ($college->education_level == $educationLevel) {
+                        foreach ($college->departments as $department) {
+                            array_push($departments, $department);
+                        }
+                    }
+                }
+            }
+        }
+        return $departments;
+    }
+
+
+    /**
+     * @param $sex
+     * @param $educationLevel
+     * @return int
+     */
+    function fullEnrollment($sex, $educationLevel)
+    {
+        $total = 0;
+        $departments = $this->__departmentsByEducationLevel($educationLevel);
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->fullEnrollment($sex);
+        }
+        return $total;
+    }
+
+
+    /**
+     * @param $sex
+     * @param $educationLevel
+     * @return int
+     */
+    function stemEnrollment($sex, $educationLevel)
+    {
+        $total = 0;
+        $departments = $this->__stemDepartments($educationLevel);
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->fullEnrollment($sex);
+        }
+        return $total;
     }
 
     /**
@@ -68,7 +106,7 @@ class InstitutionService
     function specialNeedEnrollment($educationLevel)
     {
         $total = 0;
-        $departments = $this->departmentsByEducationLevel($educationLevel);
+        $departments = $this->__departmentsByEducationLevel($educationLevel);
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
             $total += $departmentService->specialNeedEnrollment();
@@ -86,7 +124,7 @@ class InstitutionService
 
         $totalSpecialNeed = $this->specialNeedEnrollment($educationLevel);
 
-        $totalEnrollments = $this->enrollment('All', $educationLevel);
+        $totalEnrollments = $this->fullEnrollment('All', $educationLevel);
         if ($totalEnrollments == 0) return 0;
 
         return $totalSpecialNeed / $totalEnrollments;
@@ -99,7 +137,7 @@ class InstitutionService
     function disadvantagedStudentEnrollment($educationLevel)
     {
         $total = 0;
-        $departments = $this->departmentsByEducationLevel($educationLevel);
+        $departments = $this->__departmentsByEducationLevel($educationLevel);
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
             $total += $departmentService->disadvantagedStudentEnrollment();
@@ -114,7 +152,7 @@ class InstitutionService
     function emergingRegionsEnrollment($educationLevel)
     {
         $total = 0;
-        $departments = $this->departmentsByEducationLevel($educationLevel);
+        $departments = $this->__departmentsByEducationLevel($educationLevel);
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
             $total += $departmentService->emergingRegionsEnrollment();
@@ -129,7 +167,7 @@ class InstitutionService
     function ruralAreasEnrollment($educationLevel)
     {
         $total = 0;
-        $departments = $this->departmentsByEducationLevel($educationLevel);
+        $departments = $this->__departmentsByEducationLevel($educationLevel);
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
             $total += $departmentService->ruralAreasEnrollment();
@@ -146,7 +184,7 @@ class InstitutionService
     function dropout($sex, $type, $educationLevel)
     {
         $total = 0;
-        $departments = $this->departmentsByEducationLevel($educationLevel);
+        $departments = $this->__departmentsByEducationLevel($educationLevel);
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
             $total += $departmentService->dropout($sex, $type);
@@ -206,7 +244,7 @@ class InstitutionService
     function graduationData($sex, $educationLevel)
     {
         $total = 0;
-        $departments = $this->departmentsByEducationLevel($educationLevel);
+        $departments = $this->__departmentsByEducationLevel($educationLevel);
         
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
@@ -252,7 +290,7 @@ class InstitutionService
     function foreignStudents($educationLevel)
     {
         $total = 0;
-        $departments = $this->departmentsByEducationLevel($educationLevel);
+        $departments = $this->__departmentsByEducationLevel($educationLevel);
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
             $total += $departmentService->foreignStudents();
@@ -295,7 +333,7 @@ class InstitutionService
     function jointEnrollment($educationLevel)
     {
         $total = 0;
-        $departments = $this->departmentsByEducationLevel($educationLevel);
+        $departments = $this->__departmentsByEducationLevel($educationLevel);
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
             $total += $departmentService->jointEnrollment();
@@ -320,28 +358,30 @@ class InstitutionService
     /**
      * @return int|mixed
      */
-    function qualifiedStaff()
+    function qualifiedAcademicStaff()
     {
         $total = 0;
         $departments = $this->departments();
 
-        $staffRankValues = [
-            'Graduate Assistant I' => 1,
-            'Graduate Assistant II' => 2,
-            'Assistant Lecturer' => 3,
-            'Lecturer' => 4,
-            'Assistant Professor' => 5,
-            'Associate Professor' => 6,
-            'Professor' => 7,
-            'Others' => 0
+        $qualifiedLevels = [
+            'MASTERS' => 'Masters',
+            'PHD' => 'PhD',
+        ];
+        $qualifiedRanks = [
+            'Graduate Assistant I',
+            'Graduate Assistant II',
+            'Assistant Lecturer',
+            'Lecturer',
+            'Assistant Professor',
+            'Associate Professor',
+            'Professor',
         ];
 
         foreach ($departments as $department) {
             foreach ($department->academicStaffs as $staff) {
-                $total += $staffRankValues[$staff->staffRank];
+                if (array_search($staff->staffRank, $qualifiedRanks) && array_search($staff->general->academic_level, $qualifiedLevels)) $total++;
             }
         }
-
         return $total;
     }
 
@@ -356,7 +396,7 @@ class InstitutionService
                 foreach ($band->colleges as $college) {
                     foreach ($college->departments as $department) {
                         $departmentService = new DepartmentService($department);
-                        $total += $departmentService->enrollment("All");
+                        $total += $departmentService->fullEnrollment("All");
                     }
                 }
             }
@@ -533,7 +573,7 @@ class InstitutionService
     function academicDismissal($sex, $type, $educationLevel)
     {
         $total = 0;
-        $departments = $this->departmentsByEducationLevel($educationLevel);
+        $departments = $this->__departmentsByEducationLevel($educationLevel);
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
             $total += $departmentService->academicDismissal($sex, $type);
@@ -707,7 +747,7 @@ class InstitutionService
             if($otherRegion){
                 $total += $departmentService->otherRegionStudents();
             }else{
-                $total += $departmentService->enrollment($sex);
+                $total += $departmentService->fullEnrollment($sex);
             }
         }
         return $total;
@@ -755,7 +795,7 @@ class InstitutionService
         $departments = $this->departments();
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
-            $total += $departmentService->enrollment("All");
+            $total += $departmentService->fullEnrollment("All");
         }
 
         return $total;

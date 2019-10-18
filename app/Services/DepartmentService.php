@@ -131,7 +131,7 @@ class DepartmentService
      * @param $sex
      * @return int
      */
-    function enrollment($sex)
+    function fullEnrollment($sex)
     {
         $total = 0;
         foreach ($this->department->enrollmentsApproved as $enrollment) {
