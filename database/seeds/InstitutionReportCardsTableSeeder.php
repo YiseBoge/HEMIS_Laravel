@@ -133,164 +133,93 @@ class InstitutionReportCardsTableSeeder extends Seeder
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.4'];
         $field->kpi = $kpis['1.4.1'];
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.4'];
         $field->kpi = $kpis['1.4.2'];
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.4'];
         $field->kpi = $kpis['1.4.3'];
         $field->save();
 
+
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.5'];
         $field->kpi = $kpis['1.5.1'];
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.5'];
         $field->kpi = $kpis['1.5.2'];
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.5'];
         $field->kpi = $kpis['1.5.3'];
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.5'];
         $field->kpi = $kpis['1.5.4'];
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.6'];
         $field->kpi = $kpis['1.6.1'];
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.6'];
         $field->kpi = $kpis['1.6.2'];
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.6'];
         $field->kpi = $kpis['1.6.3'];
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.6'];
         $field->kpi = $kpis['1.6.4'];
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
-        $field->kpi = $kpis['1.6.1'];
-        $field->save();
-
-        $field = new InstitutionReportCard();
-        $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
-        $field->kpi = $kpis['1.6.2'];
-        $field->save();
-
-        $field = new InstitutionReportCard();
-        $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
-        $field->kpi = $kpis['1.6.3'];
-        $field->save();
-
-        $field = new InstitutionReportCard();
-        $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
-        $field->kpi = $kpis['1.6.4'];
-        $field->save();
-
-        $field = new InstitutionReportCard();
-        $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.7'];
         $field->kpi = $kpis['1.7.1'];
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.7'];
         $field->kpi = $kpis['1.7.2'];
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.7'];
         $field->kpi = $kpis['1.7.3'];
         $field->save();
 
         $field = new InstitutionReportCard();
         $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
+        $field->policy_description = $descriptions['1.7'];
         $field->kpi = $kpis['1.7.4'];
-        $field->save();
-
-        $field = new InstitutionReportCard();
-        $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
-        $field->kpi = $kpis['1.8.1'];
-        $field->save();
-
-        $field = new InstitutionReportCard();
-        $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
-        $field->kpi = $kpis['1.8.2'];
-        $field->save();
-
-        $field = new InstitutionReportCard();
-        $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
-        $field->kpi = $kpis['1.8.3'];
-        $field->save();
-
-        $field = new InstitutionReportCard();
-        $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
-        $field->kpi = $kpis['1.8.4'];
-        $field->save();
-
-        $field = new InstitutionReportCard();
-        $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
-        $field->kpi = $kpis['1.9.1'];
-        $field->save();
-
-        $field = new InstitutionReportCard();
-        $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
-        $field->kpi = $kpis['1.9.2'];
-        $field->save();
-
-        $field = new InstitutionReportCard();
-        $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
-        $field->kpi = $kpis['1.9.3'];
-        $field->save();
-
-        $field = new InstitutionReportCard();
-        $field->policy = $policies['1'];
-        $field->policy_description = $descriptions['1.3'];
-        $field->kpi = $kpis['1.9.4'];
         $field->save();
 
         // break

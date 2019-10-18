@@ -64,16 +64,6 @@ class InstitutionReportCard extends Model
         '1.7.3' => 'Increase in the percentage of students from economically poor households in doctoral studies',
         '1.7.4' => 'Increase in the percentage of students from economically poor households in health specialty programs',
 
-        '1.8.1' => 'Increase in the percentage of students from emerging regions in undergraduate programs',
-        '1.8.2' => 'Increase in the percentage of students from emerging regions in master programs',
-        '1.8.3' => 'Increase in the percentage of students from emerging regions in doctoral studies',
-        '1.8.4' => 'Increase in the percentage of students from emerging regions in health specialty programs',
-
-        '1.9.1' => 'Increase in the percentage of students from economically poorhouse holds in undergraduate programs',
-        '1.9.2' => 'Increase in the percentage of students from economically poor households in master programs',
-        '1.9.3' => 'Increase in the percentage of students from economically poor households in doctoral studies',
-        '1.9.4' => 'Increase in the percentage of students from economically poor households in health specialty programs',
-
         '2.1.1' => 'Decrease in the dropout rate of undergraduate students',
         '2.1.2' => 'Decrease in the dropout rate of master students',
         '2.1.3' => 'Decrease in the dropout rate of doctoral students',
