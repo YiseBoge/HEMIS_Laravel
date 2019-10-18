@@ -38,1107 +38,331 @@ class GenerateReportsController extends Controller
 
         $reportService = new GeneralReportService($year);
 
-        $kpi = ReportCard::getEnum('kpi')['1.1.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.1.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.1.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.1.2', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['1.2.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.2.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.2.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.2.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.2.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.2.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.2.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.2.4', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['1.3.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.3.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.3.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.3.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.3.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.3.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.3.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.3.4', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['1.4.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.4.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.4.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.4.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.4.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.4.3', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['1.5.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.5.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.5.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.5.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.5.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.5.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.5.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.5.4', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['1.6.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.6.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.6.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.6.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.6.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.6.3', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['1.7.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.7.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.7.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.7.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.7.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.7.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.7.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.7.4', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['1.8.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.8.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.8.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.8.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.8.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.8.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.8.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.8.4', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['1.9.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.9.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.9.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.9.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.9.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.9.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['1.9.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '1.9.4', $total);
 
 
         // break
 
-        $kpi = ReportCard::getEnum('kpi')['2.1.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.1.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.1.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.1.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.1.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.1.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.1.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.1.4', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['2.2.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.2.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.2.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.2.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.2.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.2.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.2.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.2.4', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['2.3.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.3.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.3.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.3.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.3.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.3.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.3.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.3.4', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['2.4.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.4.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.4.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.4.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.4.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.4.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.4.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.4.4', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['2.5.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.5.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.5.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.5.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.5.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.5.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.5.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.5.4', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['2.6.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.6.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.6.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.6.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.6.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.6.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.6.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.6.4', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['2.7.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.7.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.7.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.7.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.7.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.7.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.7.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.7.4', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['2.8.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.8.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.8.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.8.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.8.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.8.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.8.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.8.4', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['2.9.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.9.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.9.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.9.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.9.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.9.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['2.9.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '2.9.4', $total);
 
 
         // break
 
-        $kpi = ReportCard::getEnum('kpi')['3.1.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '3.1.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['3.1.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '3.1.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['3.1.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '3.1.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['3.1.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '3.1.4', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['3.2.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '3.2.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['3.3.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '3.3.1', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['3.4.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '3.4.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['3.4.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '3.4.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['3.4.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '3.4.3', $total);
 
 
         // break
 
-        $kpi = ReportCard::getEnum('kpi')['4.1.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '4.1.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['4.2.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '4.2.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['4.3.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '4.3.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['4.4.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '4.4.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['4.5.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '4.5.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['4.6.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '4.6.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['4.7.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '4.7.1', $total);
 
 
         // break
 
-        $kpi = ReportCard::getEnum('kpi')['5.1.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '5.1.1', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['5.2.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '5.2.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['5.2.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '5.2.2', $total);
 
 
         // break
 
-        $kpi = ReportCard::getEnum('kpi')['6.1.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '6.1.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['6.2.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '6.2.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['6.3.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '6.3.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['6.4.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '6.4.1', $total);
 
 
-        $kpi = ReportCard::getEnum('kpi')['6.5.1'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '6.5.1', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['6.5.2'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '6.5.2', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['6.5.3'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '6.5.3', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['6.5.4'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '6.5.4', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['6.5.5'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '6.5.5', $total);
 
-        $kpi = ReportCard::getEnum('kpi')['6.5.6'];
-        $rep = ReportCard::where('kpi', $kpi)->get()->first();
-        $values = $rep->reportYearValues;
-        $value = null;
-        foreach ($values as $val) if ($val->year == $year) $value = $val;
-        $yearValue = $value == null ? new ReportYearValue() : $value;
-        $yearValue->year = $year;
         $total = 0;
-        $yearValue->value = $total;
-        $rep->reportYearValues()->save($yearValue);
+        $this->saveReportYearValue($year, '6.5.6', $total);
 
         return redirect('/report')->with('primary', 'Successfully Updated Current Year KPIs');
     }
@@ -1476,6 +700,26 @@ class GenerateReportsController extends Controller
         $yearValue = $value == null ? new InstitutionYearValue() : $value;
         $yearValue->year = $year;
         $yearValue->institution_name_id = $institution_name->id;
+        $total = $totalValue;
+        $yearValue->value = $total;
+        $rep->reportYearValues()->save($yearValue);
+    }
+
+    /**
+     * @param $year
+     * @param $kpiNumber
+     * @param $totalValue
+     * @return void
+     */
+    private function saveReportYearValue($year, $kpiNumber, $totalValue)
+    {
+        $kpi = ReportCard::getEnum('kpi')[$kpiNumber];
+        $rep = ReportCard::where('kpi', $kpi)->get()->first();
+        $values = $rep->reportYearValues;
+        $value = null;
+        foreach ($values as $val) if ($val->year == $year) $value = $val;
+        $yearValue = $value == null ? new ReportYearValue() : $value;
+        $yearValue->year = $year;
         $total = $totalValue;
         $yearValue->value = $total;
         $rep->reportYearValues()->save($yearValue);
