@@ -28,13 +28,15 @@ class DepartmentService
     // can make functions to take in strings 'postgraduate', or 'undergraduate' then return accordingly
 
     /**
+     * @param string $dedication
      * @return int
      */
-    function academicExpatriateStaff()
+    function academicExpatriateStaff($dedication)
     {
         $total = 0;
         foreach ($this->department->academicStaffs as $academicStaff) {
-            if ($academicStaff->general->is_expatriate == true) {
+            $personalInfo = $academicStaff->general;
+            if ($personalInfo->is_expatriate == true && $personalInfo->dedication == $dedication) {
                 $total = $total + 1;
             }
         }
@@ -61,39 +63,22 @@ class DepartmentService
      * @param $otherRegion
      * @return int
      */
-    function academicStaffRate($sex, $otherRegion)
+    function academicStaffData($sex, $otherRegion)
     {
         $total = 0;
-        foreach ($this->department->academicStaffs as $academicStaff) {
-            if ($otherRegion) {
-                if ($sex == 'Female') {
-                    if ($academicStaff->general->sex == 'Female' && $academicStaff->general->is_from_other_region == 1) {
-                        $total++;
-                    }
-                }else if ($sex == 'Male') {
-                    if ($academicStaff->general->sex == 'Male' && $academicStaff->general->is_from_other_region == 1) {
-                        $total++;
-                    }
-                } else {
-                    if ($academicStaff->general->is_from_other_region == 1) {
-                        $total++;
-                    }
-                }
+        foreach ($this->department->academicStaffs as $staff) {
+            $personalInfo = $staff->general;
+            if (($sex == 'Male' || $sex == 'Female') && $otherRegion) {
+                if ($personalInfo->sex == $sex && $personalInfo->is_from_other_region == 1) $total++;
+            } else if (!($sex == 'Male' || $sex == 'Female') && $otherRegion) {
+                if ($personalInfo->is_from_other_region == 1) $total++;
+            } else if ($sex == 'Male' || $sex == 'Female') {
+                if ($personalInfo->sex == $sex) $total++;
             } else {
-                if ($sex == 'Female') {
-                    if ($academicStaff->general->sex == 'Female') {
-                        $total++;
-                    }
-                } else if ($sex == 'Male') {
-                    if ($academicStaff->general->sex == 'Male') {
-                        $total++;
-                    }
-                } else {
-                    $total++;
-                }
+                $total++;
             }
+            return $total;
         }
-        return $total;
     }
 
     /**
@@ -101,32 +86,33 @@ class DepartmentService
      * @param $sex
      * @return int
      */
-    function academicStaffByStatus($sex, $status){
+    function academicStaffByStatus($sex, $status)
+    {
         $total = 0;
         foreach ($this->department->academicStaffs as $academicStaff) {
-            if($status == "On Duty"){
-                if($sex == "All" && $academicStaff->staff_leave_id == 0){
+            if ($status == "On Duty") {
+                if ($sex == "All" && $academicStaff->staff_leave_id == 0) {
                     $total++;
-                }else{
-                    if($academicStaff->general->sex == $sex && $academicStaff->staff_leave_id == 0){
+                } else {
+                    if ($academicStaff->general->sex == $sex && $academicStaff->staff_leave_id == 0) {
                         $total++;
                     }
-                }                
-            }else if($status == "On Leave"){
-                if($sex == "All" && $academicStaff->staff_leave_id != 0){
+                }
+            } else if ($status == "On Leave") {
+                if ($sex == "All" && $academicStaff->staff_leave_id != 0) {
                     $total++;
-                }else{
-                    if($academicStaff->general->sex == $sex && $academicStaff->staff_leave_id != 0){
+                } else {
+                    if ($academicStaff->general->sex == $sex && $academicStaff->staff_leave_id != 0) {
                         $total++;
                     }
-                } 
+                }
             }
-            
+
         }
 
         return $total;
     }
-    
+
     /**
      * @param $sex
      * @return int
@@ -172,11 +158,11 @@ class DepartmentService
     function emergingRegionsEnrollment()
     {
         $total = 0;
-       foreach ($this->department->specialRegionEnrollmentsApproved as $enrollment) {
-            if($enrollment->region_type == "Emerging Regions"){
+        foreach ($this->department->specialRegionEnrollmentsApproved as $enrollment) {
+            if ($enrollment->region_type == "Emerging Regions") {
                 $total += $enrollment->male_number + $enrollment->female_number;
             }
-       }
+        }
         return $total;
     }
 
@@ -236,7 +222,8 @@ class DepartmentService
     /**
      * @return int
      */
-    public function foreignStudents()
+    public
+    function foreignStudents()
     {
         return $this->department->foreignStudents()->count();
     }
@@ -244,7 +231,8 @@ class DepartmentService
     /**
      * @return int
      */
-    public function patents()
+    public
+    function patents()
     {
         $total = 0;
         foreach ($this->department->publicationsAndPatents as $pubAndPatent) {
@@ -268,7 +256,8 @@ class DepartmentService
     /**
      * @return int
      */
-    public function publicationByPostgraduates()
+    public
+    function publicationByPostgraduates()
     {
         $total = 0;
         foreach ($this->department->publicationsAndPatents as $pubAndPatent) {
@@ -280,7 +269,8 @@ class DepartmentService
     /**
      * @return int
      */
-    public function jointEnrollment()
+    public
+    function jointEnrollment()
     {
         $total = 0;
         foreach ($this->department->jointProgramEnrollmentsApproved as $jointEnrollment) {
@@ -292,7 +282,8 @@ class DepartmentService
     /**
      * @return int
      */
-    public function diasporaCourses()
+    public
+    function diasporaCourses()
     {
         $total = 0;
         foreach ($this->department->diasporaCoursesApproved as $diasporaCourse) {
@@ -305,7 +296,8 @@ class DepartmentService
     /**
      * @return int
      */
-    public function costSharing()
+    public
+    function costSharing()
     {
         $total = 0;
         foreach ($this->department->costSharings as $costSharing) {
@@ -340,7 +332,7 @@ class DepartmentService
             } else if ($sex == "Male") {
                 $total += $enrollment->male_students_number;
             } else {
-                $total += $enrollment->male_students_number + $enrollment->female_students_number;        
+                $total += $enrollment->male_students_number + $enrollment->female_students_number;
             }
         }
         return $total;
@@ -376,11 +368,21 @@ class DepartmentService
     /**
      * @return int
      */
-    public function allAcademicStaff()
+    public
+    function allAcademicStaff()
     {
         $total = 0;
         foreach ($this->department->academicStaffs as $academicStaff) {
             $total += 1;
+        }
+        return $total;
+    }
+
+    public function researchBudget()
+    {
+        $total = 0;
+        foreach ($this->department->researches as $research) {
+            $total += ($research->budget_allocated + $research->budget_from_externals);
         }
         return $total;
     }

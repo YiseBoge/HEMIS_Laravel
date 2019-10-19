@@ -26,22 +26,19 @@ class InstitutionService
     }
 
     /**
+     * @param $sex
      * @param $educationLevel
-     * @return array
+     * @return int
      */
-    function __departmentsByEducationLevel($educationLevel)
+    function stemEnrollment($sex, $educationLevel)
     {
-        $departments = array();
-        foreach ($this->institution->bands as $band) {
-            foreach ($band->colleges as $college) {
-                if ($college->education_level == $educationLevel) {
-                    foreach ($college->departments as $department) {
-                        array_push($departments, $department);
-                    }
-                }
-            }
+        $total = 0;
+        $departments = $this->__stemDepartments($educationLevel);
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->fullEnrollment($sex);
         }
-        return $departments;
+        return $total;
     }
 
     /**
@@ -65,38 +62,20 @@ class InstitutionService
         return $departments;
     }
 
-
     /**
-     * @param $sex
      * @param $educationLevel
-     * @return int
+     * @return int|mixed
      */
-    function fullEnrollment($sex, $educationLevel)
+    function specialNeedEnrollmentRate($educationLevel)
     {
         $total = 0;
-        $departments = $this->__departmentsByEducationLevel($educationLevel);
-        foreach ($departments as $department) {
-            $departmentService = new DepartmentService($department);
-            $total += $departmentService->fullEnrollment($sex);
-        }
-        return $total;
-    }
 
+        $totalSpecialNeed = $this->specialNeedEnrollment($educationLevel);
 
-    /**
-     * @param $sex
-     * @param $educationLevel
-     * @return int
-     */
-    function stemEnrollment($sex, $educationLevel)
-    {
-        $total = 0;
-        $departments = $this->__stemDepartments($educationLevel);
-        foreach ($departments as $department) {
-            $departmentService = new DepartmentService($department);
-            $total += $departmentService->fullEnrollment($sex);
-        }
-        return $total;
+        $totalEnrollments = $this->fullEnrollment('All', $educationLevel);
+        if ($totalEnrollments == 0) return 0;
+
+        return $totalSpecialNeed / $totalEnrollments;
     }
 
     /**
@@ -116,18 +95,41 @@ class InstitutionService
 
     /**
      * @param $educationLevel
-     * @return int|mixed
+     * @return array
      */
-    function specialNeedEnrollmentRate($educationLevel)
+    function __departmentsByEducationLevel($educationLevel)
+    {
+        $departments = array();
+        foreach ($this->institution->bands as $band) {
+            foreach ($band->colleges as $college) {
+                if ($educationLevel == 'All') {
+                    foreach ($college->departments as $department) {
+                        array_push($departments, $department);
+                    }
+                } else if ($college->education_level == $educationLevel) {
+                    foreach ($college->departments as $department) {
+                        array_push($departments, $department);
+                    }
+                }
+            }
+        }
+        return $departments;
+    }
+
+    /**
+     * @param $sex
+     * @param $educationLevel
+     * @return int
+     */
+    function fullEnrollment($sex, $educationLevel)
     {
         $total = 0;
-
-        $totalSpecialNeed = $this->specialNeedEnrollment($educationLevel);
-
-        $totalEnrollments = $this->fullEnrollment('All', $educationLevel);
-        if ($totalEnrollments == 0) return 0;
-
-        return $totalSpecialNeed / $totalEnrollments;
+        $departments = $this->__departmentsByEducationLevel($educationLevel);
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->fullEnrollment($sex);
+        }
+        return $total;
     }
 
     /**
@@ -245,7 +247,7 @@ class InstitutionService
     {
         $total = 0;
         $departments = $this->__departmentsByEducationLevel($educationLevel);
-        
+
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
             $total += $departmentService->graduationData($sex);
@@ -356,9 +358,10 @@ class InstitutionService
     }
 
     /**
+     * @param $sex
      * @return int|mixed
      */
-    function qualifiedAcademicStaff()
+    function qualifiedAcademicStaff($sex)
     {
         $total = 0;
         $departments = $this->departments();
@@ -367,19 +370,16 @@ class InstitutionService
             'MASTERS' => 'Masters',
             'PHD' => 'PhD',
         ];
-        $qualifiedRanks = [
-            'Graduate Assistant I',
-            'Graduate Assistant II',
-            'Assistant Lecturer',
-            'Lecturer',
-            'Assistant Professor',
-            'Associate Professor',
-            'Professor',
-        ];
 
         foreach ($departments as $department) {
-            foreach ($department->academicStaffs as $staff) {
-                if (array_search($staff->staffRank, $qualifiedRanks) && array_search($staff->general->academic_level, $qualifiedLevels)) $total++;
+            if ($sex == 'Male' || $sex == 'Female') {
+                foreach ($department->academicStaffs->where('sex', $sex) as $staff) {
+                    if (array_search($staff->general->academic_level, $qualifiedLevels)) $total++;
+                }
+            } else {
+                foreach ($department->academicStaffs as $staff) {
+                    if (array_search($staff->general->academic_level, $qualifiedLevels)) $total++;
+                }
             }
         }
         return $total;
@@ -462,29 +462,29 @@ class InstitutionService
                 }
             }
         }
-        
+
         return $total;
     }
 
     /**
+     * @param $dedication
      * @return int
      */
-    function expatriateStaff()
+    function expatriateStaff($dedication)
     {
         $total = 0;
         $departments = $this->departments();
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
-            $total += $departmentService->academicExpatriateStaff();
+            $total += $departmentService->academicExpatriateStaff($dedication);
         }
-
         return $total;
     }
 
     /**
      * @return int
      */
-    function nonUtilizedFunds()
+    function improperlyUtilizedFunds()
     {
         $total = 0;
         foreach ($this->institution->bands as $band) {
@@ -494,7 +494,20 @@ class InstitutionService
                 }
             }
         }
+        return $total;
+    }
 
+    /**
+     * @return int
+     */
+    function researchBudget()
+    {
+        $total = 0;
+        $departments = $this->departments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->researchBudget();
+        }
         return $total;
     }
 
@@ -582,140 +595,70 @@ class InstitutionService
     }
 
     /**
-     * @param $sex
-     * @param $otherRegion
-     * @return int
-     */
-    function academicStaffRate($sex, $otherRegion)
-    {
-        $total = 0;
-        $departments = $this->departments();
-        foreach ($departments as $department) {
-            $departmentService = new DepartmentService($department);
-            $total += $departmentService->academicStaffRate($sex, $otherRegion);
-        }
-        return $total;
-
-    }
-
-    /**
-     * @param $status
-     * @param $sex
-     * @return int
-     */
-    function academicStaffByStatus($sex, $status){
-        $total = 0;
-        $departments = $this->departments();
-        foreach ($departments as $department) {
-            $departmentService = new DepartmentService($department);
-            $total += $departmentService->academicStaffByStatus($sex, $status);
-        }
-        return $total;
-    } 
-
-    /**
-     * @param $sex
-     * @param $otherRegion
-     * @return int
-     */
-    function managementStaffRate($sex, $otherRegion)
-    {
-        $total = 0;
-        $colleges = $this->colleges();
-        foreach ($colleges as $college) {
-            foreach ($college->managementStaffs as $managementStaff) {
-                if ($otherRegion) {
-                    if ($sex == 'Female') {
-                        if ($managementStaff->general->sex == 'Female' && $managementStaff->general->is_from_other_region == 1) {
-                            $total++;
-                        }
-                    }else if($sex == 'Male'){
-                        if ($managementStaff->general->sex == 'Male' && $managementStaff->general->is_from_other_region == 1) {
-                            $total++;
-                        }
-                    } else {
-                        if ($managementStaff->general->is_from_other_region == 1) {
-                            $total++;
-                        }
-                    }
-                } else {
-                    if ($sex == 'Female') {
-                        if ($managementStaff->general->sex == 'Female') {
-                            $total++;
-                        }
-                    } else if($sex == 'Male'){
-                        if ($managementStaff->general->sex == 'Male') {
-                            $total++;
-                        }
-                    } else {
-                        $total++;
-                    }
-                }
-            }
-        }
-        return $total;
-    }
-
-    /**
-     * @param $sex
-     * @return int
-     */
-    function administrativeStaff($sex){
-        $total = 0;
-        $colleges = $this->colleges();
-        foreach ($colleges as $college) {
-            foreach ($college->administrativeStaffs as $administrativeStaff) {
-                if($sex == "All"){
-                    $total++;
-                }else{
-                    if($administrativeStaff->general->sex == $sex){
-                        $total++;
-                    }
-                }
-            }
-        }
-
-        return $total;
-    }
-
-    /**
-     * @param $sex
-     * @return int
-     */
-    function technicalStaff($sex){
-        $total = 0;
-        $colleges = $this->colleges();
-        foreach ($colleges as $college) {
-            foreach ($college->technicalStaffs as $technicalStaff) {
-                if($sex == "All"){
-                    $total++;
-                }else{
-                    if($technicalStaff->general->sex == $sex){
-                        $total++;
-                    }
-                }
-            }
-        }
-
-        return $total;
-    }
-
-    /**
      * @param $type
+     * @param $sex
+     * @param $otherRegion
+     * @param $attrition
      * @return int
      */
-    function budget($type){
+    function staff($type, $sex, $otherRegion, $attrition)
+    {
         $total = 0;
         $colleges = $this->colleges();
-        foreach ($colleges as $college) {
-            foreach ($college->budgets as $budget) {
-                if($budget->budget_type == $type){
-                    $total += $budget->allocated_budget + $budget->additional_budget;
+        $departments = $this->departments();
+        switch ($type) {
+            case 'Academic':
+                foreach ($departments as $department) {
+                    $departmentService = new DepartmentService($department);
+                    $total += $departmentService->academicStaffData($sex, $otherRegion);
                 }
-            }
+                break;
+            case 'Administrative':
+                foreach ($colleges as $college) {
+                    $total += $this->countStaffs($sex, $otherRegion, $college->administrativeStaff, $attrition);
+                }
+                break;
+            case 'Technical':
+                foreach ($colleges as $college) {
+                    $total += $this->countStaffs($sex, $otherRegion, $college->technicalStaff, $attrition);
+                }
+                break;
+            case 'Management':
+                foreach ($colleges as $college) {
+                    $total += $this->countStaffs($sex, $otherRegion, $college->managmentStaff, $attrition);
+                }
+                break;
+            case 'Senior Management':
+                foreach ($colleges as $college) {
+                    $total += $this->countStaffs($sex, $otherRegion, $college->managmentStaff()->where('ManagementLevel', 'Senior')->get(), $attrition);
+                }
+                break;
+            case 'Middle Management':
+                foreach ($colleges as $college) {
+                    $total += $this->countStaffs($sex, $otherRegion, $college->managmentStaff()->where('ManagementLevel', 'Middle')->get(), $attrition);
+                }
+                break;
+            case 'Lower Management':
+                foreach ($colleges as $college) {
+                    $total += $this->countStaffs($sex, $otherRegion, $college->managmentStaff()->where('ManagementLevel', 'Lower')->get(), $attrition);
+                }
+                break;
+            default:
+                foreach ($departments as $department) {
+                    $departmentService = new DepartmentService($department);
+                    $total += $departmentService->academicStaffData($sex, $otherRegion);
+                }
+                foreach ($colleges as $college) {
+                    $staffs = $college->administrativeStaff +
+                        $college->technicalStaff +
+                        $college->managmentStaff;
+                    $total += $this->countStaffs($sex, $otherRegion, $staffs, $attrition);
+                }
+                break;
         }
 
         return $total;
+
     }
 
     /**
@@ -737,6 +680,147 @@ class InstitutionService
      * @param $otherRegion
      * @return int
      */
+    function academicStaffData($sex, $otherRegion)
+    {
+        $total = 0;
+        $departments = $this->departments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->academicStaffData($sex, $otherRegion);
+        }
+        return $total;
+
+    }
+
+    /**
+     * @param $status
+     * @param $sex
+     * @return int
+     */
+    function academicStaffByStatus($sex, $status)
+    {
+        $total = 0;
+        $departments = $this->departments();
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->academicStaffByStatus($sex, $status);
+        }
+        return $total;
+    }
+
+    /**
+     * @param $sex
+     * @param $otherRegion
+     * @return int
+     */
+    function managementStaffRate($sex, $otherRegion)
+    {
+        $total = 0;
+        $colleges = $this->colleges();
+        foreach ($colleges as $college) {
+            foreach ($college->managementStaffs as $managementStaff) {
+                if ($otherRegion) {
+                    if ($sex == 'Female') {
+                        if ($managementStaff->general->sex == 'Female' && $managementStaff->general->is_from_other_region == 1) {
+                            $total++;
+                        }
+                    } else if ($sex == 'Male') {
+                        if ($managementStaff->general->sex == 'Male' && $managementStaff->general->is_from_other_region == 1) {
+                            $total++;
+                        }
+                    } else {
+                        if ($managementStaff->general->is_from_other_region == 1) {
+                            $total++;
+                        }
+                    }
+                } else {
+                    if ($sex == 'Female') {
+                        if ($managementStaff->general->sex == 'Female') {
+                            $total++;
+                        }
+                    } else if ($sex == 'Male') {
+                        if ($managementStaff->general->sex == 'Male') {
+                            $total++;
+                        }
+                    } else {
+                        $total++;
+                    }
+                }
+            }
+        }
+        return $total;
+    }
+
+    /**
+     * @param $sex
+     * @return int
+     */
+    function administrativeStaff($sex)
+    {
+        $total = 0;
+        $colleges = $this->colleges();
+        foreach ($colleges as $college) {
+            foreach ($college->administrativeStaffs as $administrativeStaff) {
+                if ($sex == "All") {
+                    $total++;
+                } else {
+                    if ($administrativeStaff->general->sex == $sex) {
+                        $total++;
+                    }
+                }
+            }
+        }
+
+        return $total;
+    }
+
+    /**
+     * @param $sex
+     * @return int
+     */
+    function technicalStaff($sex)
+    {
+        $total = 0;
+        $colleges = $this->colleges();
+        foreach ($colleges as $college) {
+            foreach ($college->technicalStaffs as $technicalStaff) {
+                if ($sex == "All") {
+                    $total++;
+                } else {
+                    if ($technicalStaff->general->sex == $sex) {
+                        $total++;
+                    }
+                }
+            }
+        }
+
+        return $total;
+    }
+
+    /**
+     * @param $type
+     * @return int
+     */
+    function budget($type)
+    {
+        $total = 0;
+        $colleges = $this->colleges();
+        foreach ($colleges as $college) {
+            foreach ($college->budgets as $budget) {
+                if ($budget->budget_type == $type) {
+                    $total += $budget->allocated_budget + $budget->additional_budget;
+                }
+            }
+        }
+
+        return $total;
+    }
+
+    /**
+     * @param $sex
+     * @param $otherRegion
+     * @return int
+     */
     function enrollmentsRate($sex, $otherRegion)
     {
         $total = 0;
@@ -744,9 +828,9 @@ class InstitutionService
         $departments = $this->departments();
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
-            if($otherRegion){
+            if ($otherRegion) {
                 $total += $departmentService->otherRegionStudents();
-            }else{
+            } else {
                 $total += $departmentService->fullEnrollment($sex);
             }
         }
@@ -807,5 +891,32 @@ class InstitutionService
     function unjustifiableExpenses()
     {
         return $this->institution->generalInformation->resource->unjustifiable_expenses;
+    }
+
+    /**
+     * @param $sex
+     * @param $otherRegion
+     * @param $staffs
+     * @param $attrition
+     * @return mixed
+     */
+    private function countStaffs($sex, $otherRegion, $staffs, $attrition)
+    {
+        $total = 0;
+        foreach ($staffs as $staff) {
+            $personalInfo = $staff->general;
+            if (!$attrition || ($personalInfo->staffAttrition != null)) {
+                if (($sex == 'Male' || $sex == 'Female') && $otherRegion) {
+                    if ($personalInfo->sex == $sex && $personalInfo->is_from_other_region == 1) $total++;
+                } else if (!($sex == 'Male' || $sex == 'Female') && $otherRegion) {
+                    if ($personalInfo->is_from_other_region == 1) $total++;
+                } else if ($sex == 'Male' || $sex == 'Female') {
+                    if ($personalInfo->sex == $sex) $total++;
+                } else {
+                    $total++;
+                }
+            }
+        }
+        return $total;
     }
 }

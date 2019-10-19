@@ -88,7 +88,7 @@
                                             </td>
                                             @foreach($kpi->reportYearValues->sortBy('year') as $yearValue)
                                                 <td>
-                                                    {{ round($yearValue->value, 3) }}
+                                                    {{ round($yearValue->value, 3) }}%
                                                 </td>
                                             @endforeach
                                             <td class="text-primary text-center">

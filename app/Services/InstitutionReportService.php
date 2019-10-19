@@ -271,7 +271,7 @@ class InstitutionReportService
         foreach ($this->institutions as $institution) {
             $institutionService = new InstitutionService($institution);
             $total += $institutionService->allAcademicStaff();
-            $selected += $institutionService->academicStaffRate($sex, $otherRegion);
+            $selected += $institutionService->academicStaffData($sex, $otherRegion);
         }
         $returnable = $total == 0 ? 0 : $selected / $total;
 
@@ -468,7 +468,7 @@ class InstitutionReportService
 
         foreach ($this->institutions as $institution) {
             $institutionService = new InstitutionService($institution);
-            $total += $institutionService->nonUtilizedFunds();
+            $total += $institutionService->improperlyUtilizedFunds();
         }
 
         return $total;
