@@ -155,27 +155,7 @@
                 </div>
                 <div class="card-body px-5">
                     <div class="form-row pt-3">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" id="field_study" name="field_of_study" class="form-control" required
-                                       value="{{ old('field_of_study') }}">
-                                <label class="form-control-placeholder" for="field_study">Field of Study</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 form-group pl-md-5">
-                            <div class="form-group">
-                                <input type="number" id="teaching_load" name="teaching_load" class="form-control"
-                                       value="{{ old('teaching_load') }}"
-                                       required>
-                                <label class="form-control-placeholder" for="teaching_load">Teaching Load</label>
-                            </div>
-
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="form-row pt-3">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <select class="form-control" id="aca-staff-rank" name="academic_staff_rank">
                                     @foreach ($staff_ranks as $key => $value)
@@ -186,10 +166,32 @@
                                 </select>
                                 <label for="aca-staff-rank" class="form-control-placeholder">Academic Staff Rank</label>
                             </div>
-
                         </div>
-
-                        <div class="col-md-6 form-group pl-md-5">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <input type="text" id="field_study" name="field_of_study" class="form-control" required
+                                       value="{{ old('field_of_study') }}">
+                                <label class="form-control-placeholder" for="field_study">Field of Study</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 form-group form-check pl-5 py-1">
+                            <input class="form-check-input" id="hdp_trained" name="hdp_trained" type="checkbox"
+                                   {{ (! empty(old('hdp_trained')) ? 'checked' : '') }}
+                                   value="expatriate">
+                            <label class="form-check-label" for="hdp_trained">HDP Trained</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-row pt-3">
+                        <div class="col-md-6 form-group">
+                            <div class="form-group">
+                                <input type="number" id="teaching_load" name="teaching_load" class="form-control"
+                                       value="{{ old('teaching_load') }}"
+                                       required>
+                                <label class="form-control-placeholder" for="teaching_load">Teaching Load</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
 
                             <div class="form-group">
                                 <textarea rows="1" class="form-control" id="overloadRemark"

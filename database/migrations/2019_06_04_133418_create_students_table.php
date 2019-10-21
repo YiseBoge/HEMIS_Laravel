@@ -18,6 +18,7 @@ class CreateStudentsTable extends Migration
             $table->string('name');
             $table->string('student_id');
             $table->string('phone_number');
+            $table->string('student_type')->default('Normal');
             $table->date('birth_date');
             $table->text('remarks')->nullable();
 

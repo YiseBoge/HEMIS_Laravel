@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Institution\Instance;
 use App\Models\Institution\Institution;
 use App\Models\Institution\InstitutionName;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -38,8 +39,28 @@ class InstitutionReportService
      * @param $educationLevel
      * @return int
      */
-    function fullEnrollment($sex, $educationLevel)
+    private function previousYearEnrollment($sex, $educationLevel)
     {
+        try {
+            $current_year = $this->institutions[0]->instance->year;
+            $previous_year = (string)(((int)$current_year) - 1);
+            $service = new InstitutionReportService($this->institutions[0]->institutionName, $previous_year);
+            return $service->fullEnrollment($sex, $educationLevel);
+        } catch (Exception $ex) {
+            return 0;
+        }
+    }
+
+
+    /**
+     * @param $sex
+     * @param $educationLevel
+     * @param bool $from_previous
+     * @return int
+     */
+    function fullEnrollment($sex, $educationLevel, $from_previous = false)
+    {
+        if ($from_previous) return $this->previousYearEnrollment($sex, $educationLevel);
         $total = 0;
         foreach ($this->institutions as $institution) {
             $institutionService = new InstitutionService($institution);

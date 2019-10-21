@@ -25,6 +25,18 @@ class Instance extends Model
 
     public $incrementing = false;
 
+
+    protected $enumYears = [
+        '2019' => '2019',
+        '2020' => '2020',
+        '2021' => '2021',
+        '2022' => '2022',
+        '2023' => '2023',
+        '2024' => '2024',
+        '2025' => '2025',
+    ];
+
+
     public static function boot()
     {
         parent::boot();

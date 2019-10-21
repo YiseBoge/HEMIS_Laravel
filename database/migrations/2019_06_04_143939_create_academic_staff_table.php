@@ -18,7 +18,8 @@ class CreateAcademicStaffTable extends Migration
             $table->uuid('id');
             $table->string('field_of_study');
             $table->bigInteger('teaching_load');
-            $table->text('overload_remark');
+            $table->boolean('hdp_trained')->default(false);
+            $table->text('overload_remark')->nullable();
             $table->timestamps();
 
             $table->string('staffRank');

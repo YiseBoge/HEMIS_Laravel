@@ -112,6 +112,10 @@
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Years of Service</div>
                         <p>{{$staff->general->service_year}}</p>
                     </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">HDP Status</div>
+                        <p>{{$staff->hdp_trained?"Trained":"Untrained"}}</p>
+                    </div>
                 </div>
             </div>
         </div>

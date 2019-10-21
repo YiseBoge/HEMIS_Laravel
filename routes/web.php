@@ -124,6 +124,7 @@ Route::get('/institution/change-semester', 'Report\InstitutionInstancesControlle
 Route::resource('report', 'Report\ReportsController');
 Route::resource('institution-report', 'Report\InstitutionReportsController');
 Route::resource('region-name', 'Institution\RegionNamesController');
+Route::resource('population', 'Institution\PopulationController');
 Route::get('admin/student-enrollment-chart', 'HomeController@adminEnrollmentChart');
 
 

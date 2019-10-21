@@ -382,15 +382,6 @@
                                     {{$existing['female_graduation']}} %
                                 </span>
                             </div>
-
-                            <div class="col-9 p-3">
-                                Percentage of Smart Classrooms
-                            </div>
-                            <div class="col-3 p-3">
-                                <span class="font-weight-bold text-gray-800">
-                                    {{$institution->generalInformation->resource->rate_of_smart_classrooms}} %
-                                </span>
-                            </div>
                         </div>
                     </div>
 
@@ -444,6 +435,24 @@
                                 Status:
                                 <span class="font-weight-bold text-gray-800">
                                     {{$institution->generalInformation->resource->status_of_workshops}}
+                                </span>
+                            </div>
+
+                            <div class="col-md-5 p-3">
+                                Classrooms
+                            </div>
+                            <div class="col-md-6 col-sm-6 p-3">
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->resource->number_of_classrooms}}
+                                </span>
+                            </div>
+
+                            <div class="col-md-5 p-3">
+                                Smart Classrooms
+                            </div>
+                            <div class="col-md-6 col-sm-6 p-3">
+                                <span class="font-weight-bold text-gray-800">
+                                    {{$institution->generalInformation->resource->number_of_smart_classrooms}}
                                 </span>
                             </div>
 

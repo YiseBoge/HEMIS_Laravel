@@ -154,7 +154,8 @@ class AcademicStaffsController extends Controller
         $academicStaff->overload_remark = $request->input('overload_remark');
         $academicStaff->staffRank = $request->input('academic_staff_rank');
         $academicStaff->staff_leave_id = null;
-        $academicStaff->overload_remark = $request->input('overload_remark') == null ? " " : $request->input('overload_remark');
+        $academicStaff->overload_remark = $request->input('overload_remark');
+        $academicStaff->hdp_trained = $request->has('hdp_trained');
 
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
@@ -307,6 +308,7 @@ class AcademicStaffsController extends Controller
         $academicStaff->field_of_study = $request->input('field_of_study');
         $academicStaff->teaching_load = $request->input('teaching_load');
         $academicStaff->overload_remark = $request->input('overload_remark');
+        $academicStaff->hdp_trained = $request->has('hdp_trained');
         $academicStaff->staffRank = $request->input('academic_staff_rank');
         $academicStaff->overload_remark = $request->input('overload_remark') == null ? " " : $request->input('overload_remark');
 

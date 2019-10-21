@@ -17,7 +17,8 @@ use Webpatser\Uuid\Uuid;
  * @property string|null status_of_workshops
  * @property int pupil_per_teacher
  * @property int text_per_student
- * @property int rate_of_smart_classrooms
+ * @property int number_of_classrooms
+ * @property int number_of_smart_classrooms
  * @property int unjustifiable_expenses
  */
 class Resource extends Model

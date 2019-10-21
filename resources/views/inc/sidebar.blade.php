@@ -184,16 +184,14 @@
             <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Details:</h6>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'administrative' ? 'active': '' }}"
-                       href="/staff/administrative">Administrative Staff</a>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'ict' ? 'active': '' }}"
-                       href="/staff/ict">ICT Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'management' ? 'active': '' }}"
                        href="/staff/management">Management Staff</a>
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'administrative' ? 'active': '' }}"
+                       href="/staff/administrative">Administrative Support Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'technical' ? 'active': '' }}"
-                       href="/staff/technical">Technical Staff</a>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'supportive' ? 'active': '' }}"
-                       href="/staff/supportive">Supportive Staff</a>
+                       href="/staff/technical">Technical Support Staff</a>
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'ict' ? 'active': '' }}"
+                       href="/staff/ict">ICT Staff ??</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'attrition' ? 'active': '' }}"
                        href="/staff/attrition">Staff Attrition</a>
 
@@ -405,6 +403,8 @@
                                href="/staff/ict-staff-types">ICT Staff Types</a>
                             <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'budget-description' ? 'active': '' }}"
                                href="/budgets/budget-description">Budget Descriptions</a>
+                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'population' ? 'active': '' }}"
+                               href="/population">Population Data</a>
                         @endif
                     @elseif(Auth::user()->hasRole('University Admin'))
                         <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'colleges-name' ? 'active': '' }}"

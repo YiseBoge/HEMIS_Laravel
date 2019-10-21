@@ -177,7 +177,8 @@ class InstitutionsController extends Controller
 
             'pupil_per_teacher' => 'required',
             'text_per_student' => 'required',
-            'rate_of_smart_classrooms' => 'required',
+            'number_of_classrooms' => 'required',
+            'number_of_smart_classrooms' => 'required',
             'unjustifiable_expenses' => 'required',
         ]);
 
@@ -221,7 +222,8 @@ class InstitutionsController extends Controller
 
         $resource->pupil_per_teacher = $request->input('pupil_per_teacher');
         $resource->text_per_student = $request->input('text_per_student');
-        $resource->rate_of_smart_classrooms = $request->input('rate_of_smart_classrooms');
+        $resource->number_of_classrooms = $request->input('number_of_classrooms');
+        $resource->number_of_smart_classrooms = $request->input('number_of_smart_classrooms');
         $resource->unjustifiable_expenses = $request->input('unjustifiable_expenses');
 
         $generalInformation->save();

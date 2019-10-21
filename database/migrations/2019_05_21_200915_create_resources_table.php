@@ -23,10 +23,11 @@ class CreateResourcesTable extends Migration
             $table->string('status_of_laboratories')->nullable()->default('Unknown');
             $table->string('status_of_workshops')->nullable()->default('Unknown');
 
+            $table->bigInteger('number_of_classrooms')->default(0);
+            $table->bigInteger('number_of_smart_classrooms')->default(0);
+
             $table->bigInteger('pupil_per_teacher')->default(0);
             $table->bigInteger('text_per_student')->default(0);
-
-            $table->bigInteger('rate_of_smart_classrooms')->default(0);
 
             $table->bigInteger('unjustifiable_expenses')->default(0);
 

@@ -184,6 +184,24 @@
 
                 </div>
 
+                <div class="row mt-4">
+
+                    <div class="form-group col-md-4">
+                        {{ Form::number('number_of_classrooms', $institution->generalInformation->resource->number_of_classrooms, ['class'=>'form-control', 'id'=>'edit_number_of_classrooms', 'required' => 'true']) }}
+                        {{ Form::label('edit_number_of_classrooms', 'Classrooms', ['class' => 'form-control-placeholder']) }}
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        {{ Form::number('number_of_smart_classrooms', $institution->generalInformation->resource->number_of_smart_classrooms, ['class'=>'form-control', 'id'=>'edit_number_of_smart_classrooms', 'required' => 'true']) }}
+                        {{ Form::label('edit_number_of_smart_classrooms', 'Smart Classrooms', ['class' => 'form-control-placeholder']) }}
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        {{ Form::number('unjustifiable_expenses', $institution->generalInformation->resource->unjustifiable_expenses, ['class'=>'form-control', 'id'=>'edit_unjustifiable_expenses', 'required' => 'true']) }}
+                        {{ Form::label('edit_unjustifiable_expenses', 'Improperly Utilized Funds', ['class' => 'form-control-placeholder']) }}
+                    </div>
+                </div>
+
                 <div class="row mb-2">
                     <div class="col-md-6 text-center">
                         <div class="input-group mb-3 w-75 float-left">
@@ -217,18 +235,6 @@
                             {{ Form::number('text_per_student', $institution->generalInformation->resource->text_per_student, ['class'=>'rounded-right mr-2 form-control', 'id'=>'edit_text_per_student']) }}
                         </div>
 
-                    </div>
-                </div>
-
-                <div class="row mt-4">
-                    <div class="form-group col-md-6">
-                        {{ Form::number('unjustifiable_expenses', $institution->generalInformation->resource->unjustifiable_expenses, ['class'=>'form-control', 'id'=>'edit_unjustifiable_expenses', 'required' => 'true']) }}
-                        {{ Form::label('edit_unjustifiable_expenses', 'Unjustifiable Expenses', ['class' => 'form-control-placeholder']) }}
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        {{ Form::number('rate_of_smart_classrooms', $institution->generalInformation->resource->rate_of_smart_classrooms, ['class'=>'form-control', 'id'=>'edit_rate_of_smart_classrooms', 'required' => 'true']) }}
-                        {{ Form::label('edit_rate_of_smart_classrooms', 'Smart Classrooms (%)', ['class' => 'form-control-placeholder']) }}
                     </div>
                 </div>
             </div>

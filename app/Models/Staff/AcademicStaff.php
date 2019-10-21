@@ -20,6 +20,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null staffRank
  * @property Uuid staff_leave_id
  * @property Staff general
+ * @property boolean hdp_trained
  * @method static AcademicStaff find($id)
  * @method static Collection where(array $array)
  */

@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\Institution\Institution;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSupportiveStaffTable extends Migration
+class CreatePopulationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +13,15 @@ class CreateSupportiveStaffTable extends Migration
      */
     public function up()
     {
-        Schema::create('supportive_staff', function (Blueprint $table) {
+        Schema::create('populations', function (Blueprint $table) {
             $table->uuid('id');
-            $table->timestamps();
 
-            $table->string('staffRank');
-            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
+            $table->string('age_range');
+            $table->string('male_number');
+            $table->string('female_number');
 
             $table->primary('id');
-
-            $table->uuid('college_id');
+            $table->timestamps();
         });
     }
 
@@ -34,6 +32,6 @@ class CreateSupportiveStaffTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supportive_staff');
+        Schema::dropIfExists('populations');
     }
 }
