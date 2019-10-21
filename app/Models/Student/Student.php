@@ -19,6 +19,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null remarks
  * @property Uuid student_service_id
  * @property StudentService studentService
+ * @property string|null student_type
  */
 class Student extends Model
 {
@@ -29,6 +30,13 @@ class Student extends Model
     protected $enumSexs = [
         'MALE' => 'male',
         'FEMALE' => 'female',
+    ];
+
+    protected $enumStudentTypes = [
+        'NORMAL' => 'Normal',
+        'PROSPECTIVE' => 'Prospective Graduates',
+        'GRADUATES' => 'Graduates'
+
     ];
 
     public static function boot()

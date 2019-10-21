@@ -40,6 +40,11 @@ class SpecialRegionsEnrollmentsController extends Controller
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
+        $requestedType = $request->input('student_type');
+        if ($requestedType == null) {
+            $requestedType = 'Normal';
+        }
+
         $requestedProgram = $request->input('program');
         if ($requestedProgram == null) {
             $requestedProgram = 'Regular';
@@ -87,7 +92,9 @@ class SpecialRegionsEnrollmentsController extends Controller
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->specialRegionEnrollments as $enrollment) {
                                             if ($enrollment->region_type == $requestedType) {
-                                                $enrollments[] = $enrollment;
+                                                if ($enrollment->student_type == $requestedType) {
+                                                    $enrollments[] = $enrollment;
+                                                }
                                             }
                                         }
                                     }
@@ -112,6 +119,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         $data = array(
             'enrollments' => $enrollments,
             'types' => SpecialRegionEnrollment::getEnum("RegionTypes"),
+            'student_types' => SpecialRegionEnrollment::getEnum('StudentTypes'),
             'departments' => DepartmentName::all(),
             'regions' => RegionName::all(),
             'programs' => $educationPrograms,
@@ -147,6 +155,7 @@ class SpecialRegionsEnrollmentsController extends Controller
 
         $data = array(
             'types' => SpecialRegionEnrollment::getEnum("RegionTypes"),
+            'student_types' => SpecialRegionEnrollment::getEnum('StudentTypes'),
             'regions' => RegionName::all(),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,

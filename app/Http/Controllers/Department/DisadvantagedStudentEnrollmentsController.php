@@ -41,6 +41,11 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
+        $requestedType = $request->input('student_type');
+        if ($requestedType == null) {
+            $requestedType = 'Normal';
+        }
+
         $requestedQuintile = $request->input('quintile');
         if ($requestedQuintile == null) {
             $requestedQuintile = 'Lowest';
@@ -83,7 +88,9 @@ class DisadvantagedStudentEnrollmentsController extends Controller
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->disadvantagedStudentEnrollments as $enrollment) {
                                             if ($enrollment->quintile == $requestedQuintile) {
-                                                $enrollments[] = $enrollment;
+                                                if ($enrollment->student_type == $requestedType) {
+                                                    $enrollments[] = $enrollment;
+                                                }
                                             }
                                         }
                                     }
@@ -107,6 +114,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
             'programs' => College::getEnum("EducationPrograms"),
             'education_levels' => College::getEnum("EducationLevels"),
             'quintiles' => DisadvantagedStudentEnrollment::getEnum('Quintiles'),
+            'student_types' => DisadvantagedStudentEnrollment::getEnum('StudentTypes'),
 
             'selected_department' => $requestedDepartment,
             'selected_quintile' => $requestedQuintile,
@@ -141,6 +149,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
             'quintiles' => DisadvantagedStudentEnrollment::getEnum('Quintiles'),
+            'student_types' => DisadvantagedStudentEnrollment::getEnum('StudentTypes'),
             'year_levels' => Department::getEnum('YearLevels'),
             'page_name' => 'enrollment.disadvantaged_students.create'
         );

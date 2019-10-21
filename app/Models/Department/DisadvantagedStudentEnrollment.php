@@ -29,6 +29,13 @@ class DisadvantagedStudentEnrollment extends Model
         'HIGHEST_FIFTH' => 'Highest Fifth'
     ];
 
+    protected $enumStudentTypes = [
+        'NORMAL' => 'Normal',
+        'PROSPECTIVE' => 'Prospective Graduates',
+        'GRADUATES' => 'Graduates'
+
+    ];
+
     /**
      * @return BelongsTo
      */

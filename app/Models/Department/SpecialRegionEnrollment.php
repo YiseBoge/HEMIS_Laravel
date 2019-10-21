@@ -21,6 +21,13 @@ class SpecialRegionEnrollment extends Model
         'PASTORAL_REGIONS' => 'Pastoral Regions'
     ];
 
+    protected $enumStudentTypes = [
+        'NORMAL' => 'Normal',
+        'PROSPECTIVE' => 'Prospective Graduates',
+        'GRADUATES' => 'Graduates'
+
+    ];
+
     /**
      * @return BelongsTo
      */

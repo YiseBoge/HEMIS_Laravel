@@ -135,6 +135,7 @@ class SpecialNeedStudentsController extends Controller
             'food_service_types' => StudentService::getEnum("FoodServiceTypes"),
             'dormitory_service_types' => DormitoryService::getEnum("DormitoryServiceTypes"),
             'disabilitys' => SpecialNeedStudent::getEnum("Disabilitys"),
+            'student_types' => Student::getEnum('StudentTypes'),
             'page_name' => 'students.special_need.create'
         );
         return view("students.special_need.create")->with($data);
@@ -154,7 +155,8 @@ class SpecialNeedStudentsController extends Controller
             'birth_date' => 'required',
             'sex' => 'required',
             'phone_number' => 'required',
-            'student_id' => 'required'
+            'student_id' => 'required',
+            'student_type' => 'required',
         ]);
 
         if ($request->input("dormitory_service_type") == "In Kind") {
@@ -176,6 +178,7 @@ class SpecialNeedStudentsController extends Controller
         $student->phone_number = $request->input("phone_number");
         $student->birth_date = $request->input("birth_date");
         $student->sex = $request->input("sex");
+        $student->student_type = $request->input('student_type');
         $student->remarks = $request->input("additional_remarks");
         $specialNeedStudent = new SpecialNeedStudent;
         $specialNeedStudent->disability = $request->input("disability_type");
@@ -283,7 +286,8 @@ class SpecialNeedStudentsController extends Controller
             'birth_date' => 'required',
             'sex' => 'required',
             'phone_number' => 'required',
-            'student_id' => 'required'
+            'student_id' => 'required',
+            'student_type' => 'required',
         ]);
         $specialNeedStudent = SpecialNeedStudent::find($id);
 
@@ -299,6 +303,7 @@ class SpecialNeedStudentsController extends Controller
         $student->phone_number = $request->input("phone_number");
         $student->birth_date = $request->input("birth_date");
         $student->sex = $request->input("sex");
+        $student->student_type = $request->input('student_type');
         $student->remarks = $request->input("additional_remarks");
         $specialNeedStudent->disability = $request->input("disability_type");
 
