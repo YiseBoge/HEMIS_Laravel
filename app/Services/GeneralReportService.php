@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Institution\Instance;
+use App\Models\Institution\Population;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -49,6 +50,18 @@ class GeneralReportService
 
 
     /**
+     * @param string $age_range
+     * @return int
+     */
+    function populationData($age_range = '19 - 23')
+    {
+        $total = 0;
+        foreach (Population::all()->where('age_range', $age_range) as $population) $total++;
+        return $total;
+    }
+
+
+    /**
      * @param $sex
      * @param $educationLevel
      * @param bool $private
@@ -81,6 +94,23 @@ class GeneralReportService
         foreach ($this->__institutionsByPrivacy($private) as $institution) {
             $institutionService = new InstitutionService($institution);
             $total += $institutionService->fullEnrollment($sex, $educationLevel);
+        }
+        return $total;
+    }
+
+
+    /**
+     * @param $sex
+     * @param $educationLevel
+     * @param string $age
+     * @return int
+     */
+    function ageEnrollment($sex, $educationLevel, $age = '19')
+    {
+        $total = 0;
+        foreach ($this->__institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->ageEnrollment($sex, $educationLevel, $age);
         }
         return $total;
     }

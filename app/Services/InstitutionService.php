@@ -133,6 +133,23 @@ class InstitutionService
     }
 
     /**
+     * @param $sex
+     * @param $educationLevel
+     * @param $age
+     * @return int
+     */
+    function ageEnrollment($sex, $educationLevel, $age)
+    {
+        $total = 0;
+        $departments = $this->__departmentsByEducationLevel($educationLevel);
+        foreach ($departments as $department) {
+            $departmentService = new DepartmentService($department);
+            $total += $departmentService->ageEnrollment($sex, $age);
+        }
+        return $total;
+    }
+
+    /**
      * @param $educationLevel
      * @return int
      */
@@ -616,32 +633,32 @@ class InstitutionService
                 break;
             case 'Administrative':
                 foreach ($colleges as $college) {
-                    $total += $this->countStaffs($sex, $otherRegion, $college->administrativeStaff, $attrition);
+                    $total += $this->countStaffs($sex, $otherRegion, $college->administrativeStaffs, $attrition);
                 }
                 break;
             case 'Technical':
                 foreach ($colleges as $college) {
-                    $total += $this->countStaffs($sex, $otherRegion, $college->technicalStaff, $attrition);
+                    $total += $this->countStaffs($sex, $otherRegion, $college->technicalStaffs, $attrition);
                 }
                 break;
             case 'Management':
                 foreach ($colleges as $college) {
-                    $total += $this->countStaffs($sex, $otherRegion, $college->managmentStaff, $attrition);
+                    $total += $this->countStaffs($sex, $otherRegion, $college->managmentStaffs, $attrition);
                 }
                 break;
             case 'Senior Management':
                 foreach ($colleges as $college) {
-                    $total += $this->countStaffs($sex, $otherRegion, $college->managmentStaff()->where('ManagementLevel', 'Senior')->get(), $attrition);
+                    $total += $this->countStaffs($sex, $otherRegion, $college->managementStaffs()->where('management_level', 'Senior')->get(), $attrition);
                 }
                 break;
             case 'Middle Management':
                 foreach ($colleges as $college) {
-                    $total += $this->countStaffs($sex, $otherRegion, $college->managmentStaff()->where('ManagementLevel', 'Middle')->get(), $attrition);
+                    $total += $this->countStaffs($sex, $otherRegion, $college->managementStaffs()->where('management_level', 'Middle')->get(), $attrition);
                 }
                 break;
             case 'Lower Management':
                 foreach ($colleges as $college) {
-                    $total += $this->countStaffs($sex, $otherRegion, $college->managmentStaff()->where('ManagementLevel', 'Lower')->get(), $attrition);
+                    $total += $this->countStaffs($sex, $otherRegion, $college->managementStaffs()->where('management_level', 'Lower')->get(), $attrition);
                 }
                 break;
             default:

@@ -69,6 +69,23 @@ class InstitutionReportService
         return $total;
     }
 
+
+    /**
+     * @param $sex
+     * @param $educationLevel
+     * @param string $age
+     * @return int
+     */
+    function ageEnrollment($sex, $educationLevel, $age = '19')
+    {
+        $total = 0;
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->ageEnrollment($sex, $educationLevel, $age);
+        }
+        return $total;
+    }
+
     /**
      * @param $sex
      * @param $educationLevel

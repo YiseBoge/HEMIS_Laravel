@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Department\Department;
+use App\Models\Institution\AgeEnrollment;
 
 /**
  * Class DepartmentService
@@ -127,6 +128,36 @@ class DepartmentService
                 $total += $enrollment->male_students_number;
             } else {
                 $total += $enrollment->male_students_number + $enrollment->female_students_number;
+            }
+        }
+        return $total;
+    }
+
+    /**
+     * @param $sex
+     * @param $age
+     * @return int
+     */
+    function ageEnrollment($sex, $age)
+    {
+        $total = 0;
+        foreach ($this->department->ageEnrollmentsApproved as $enrollment) {
+            if (array_search($age, AgeEnrollment::getEnum('age')) && $enrollment->age == $age) {
+                if ($sex == "Female") {
+                    $total += $enrollment->female_students_number;
+                } else if ($sex == "Male") {
+                    $total += $enrollment->male_students_number;
+                } else {
+                    $total += $enrollment->male_students_number + $enrollment->female_students_number;
+                }
+            } else if (!array_search($age, AgeEnrollment::getEnum('age'))) {
+                if ($sex == "Female") {
+                    $total += $enrollment->female_students_number;
+                } else if ($sex == "Male") {
+                    $total += $enrollment->male_students_number;
+                } else {
+                    $total += $enrollment->male_students_number + $enrollment->female_students_number;
+                }
             }
         }
         return $total;

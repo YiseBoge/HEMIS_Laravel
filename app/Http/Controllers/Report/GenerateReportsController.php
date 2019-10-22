@@ -38,10 +38,16 @@ class GenerateReportsController extends Controller
 
         $reportService = new GeneralReportService($year);
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->fullEnrollment('All', 'All'),
+                $reportService->populationData());
         $this->saveReportYearValue($year, '1.1.1', $total);
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio(($reportService->ageEnrollment('All', 'All', '19') +
+                $reportService->ageEnrollment('All', 'All', '20') +
+                $reportService->ageEnrollment('All', 'All', '21') +
+                $reportService->ageEnrollment('All', 'All', '22') +
+                $reportService->ageEnrollment('All', 'All', '23')),
+                $reportService->populationData('19 - 23'));
         $this->saveReportYearValue($year, '1.1.2', $total);
 
 

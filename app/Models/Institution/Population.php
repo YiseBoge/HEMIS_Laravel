@@ -21,8 +21,8 @@ class Population extends Model
 
 
     protected $enumAgeRanges = [
-        'BELOW_18' => 'Bellow 18',
-        '18_23' => '18 - 23',
+        'BELOW_18' => 'Bellow 19',
+        '18_23' => '19 - 23',
         '24_30' => '24 - 30',
         '31_40' => '31 - 40',
         '41_50' => '41 - 50',
