@@ -405,6 +405,8 @@
                                href="/staff/ict-staff-types">ICT Staff Types</a>
                             <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'budget-description' ? 'active': '' }}"
                                href="/budgets/budget-description">Budget Descriptions</a>
+                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'support-contact' ? 'active': '' }}"
+                               href="/support-contacts">Support Contacts</a>
                         @endif
                     @elseif(Auth::user()->hasRole('University Admin'))
                         <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'colleges-name' ? 'active': '' }}"

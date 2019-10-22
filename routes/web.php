@@ -158,3 +158,8 @@ Route::get('/comments' , 'CommentsController@index');
 Route::get('/comments/create' , 'CommentsController@create');
 Route::post('/comments' , 'CommentsController@store');
 Route::delete('/comments/{id}' , 'CommentsController@destroy');
+
+// Support Contact Routes
+
+Route::get('/support-contacts/public-view','SupportContactsController@publicView');
+Route::resource('/support-contacts','SupportContactsController');
