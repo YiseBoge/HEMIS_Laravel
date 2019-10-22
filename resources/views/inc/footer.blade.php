@@ -9,14 +9,15 @@
                     </li>
                     <li class="list-inline-item">&sdot;</li>
                     <li class="list-inline-item">
-                        <a href="/comments/create">Feedback</a>
+                        <a href="{{ url('/comments/create') }}">Feedback</a>
                     </li>
                     <li class="list-inline-item">&sdot;</li>
                     <li class="list-inline-item">
-                        <a href="#">Terms of Use</a>
+                        <a href="{{ url('#') }}">Terms of Use</a>
                     </li>
+                    <li class="list-inline-item">&sdot;</li>
                     <li class="list-inline-item">
-                        <a href="{{ url('/support-contacts/public-view') }}">Support</a>
+                        <a href="{{ url('/support-contacts/public-view') }}">Contact Support</a>
                     </li>
                 </ul>
                 <p class="text-muted small mb-4 mb-lg-0">Copyright &copy; MoSHE - Ministry of Science and Higher
