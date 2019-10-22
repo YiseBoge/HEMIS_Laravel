@@ -281,42 +281,54 @@ class GenerateReportsController extends Controller
         $this->saveReportYearValue($year, '2.6.4', $total);
 
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->graduationData('All', 'Undergraduate', 'Disabled'),
+                $reportService->specialNeedEnrollment('Undergraduate'));
         $this->saveReportYearValue($year, '2.7.1', $total);
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->graduationData('All', 'Post Graduate(Masters)', 'Disabled'),
+                $reportService->specialNeedEnrollment('Post Graduate(Masters)'));
         $this->saveReportYearValue($year, '2.7.2', $total);
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->graduationData('All', 'Post Doctoral', 'Disabled'),
+                $reportService->specialNeedEnrollment('Post Doctoral'));
         $this->saveReportYearValue($year, '2.7.3', $total);
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->graduationData('All', 'Health Specialty', 'Disabled'),
+                $reportService->specialNeedEnrollment('Health Specialty'));
         $this->saveReportYearValue($year, '2.7.4', $total);
 
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->graduationData('All', 'Undergraduate', 'Emerging'),
+                $reportService->emergingRegionsEnrollment('Undergraduate'));
         $this->saveReportYearValue($year, '2.8.1', $total);
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->graduationData('All', 'Post Graduate(Masters)', 'Emerging'),
+                $reportService->emergingRegionsEnrollment('Post Graduate(Masters)'));
         $this->saveReportYearValue($year, '2.8.2', $total);
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->graduationData('All', 'Post Doctoral', 'Emerging'),
+                $reportService->emergingRegionsEnrollment('Post Doctoral'));
         $this->saveReportYearValue($year, '2.8.3', $total);
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->graduationData('All', 'Health Specialty', 'Emerging'),
+                $reportService->emergingRegionsEnrollment('Health Specialty'));
         $this->saveReportYearValue($year, '2.8.4', $total);
 
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->graduationData('All', 'Undergraduate', 'Disadvantaged'),
+                $reportService->economicallyPoorEnrollment('Undergraduate'));
         $this->saveReportYearValue($year, '2.9.1', $total);
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->graduationData('All', 'Post Graduate(Masters)', 'Disadvantaged'),
+                $reportService->economicallyPoorEnrollment('Post Graduate(Masters)'));
         $this->saveReportYearValue($year, '2.9.2', $total);
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->graduationData('All', 'Post Doctoral', 'Disadvantaged'),
+                $reportService->economicallyPoorEnrollment('Post Doctoral'));
         $this->saveReportYearValue($year, '2.9.3', $total);
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->graduationData('All', 'Health Specialty', 'Disadvantaged'),
+                $reportService->economicallyPoorEnrollment('Health Specialty'));
         $this->saveReportYearValue($year, '2.9.4', $total);
 
 
