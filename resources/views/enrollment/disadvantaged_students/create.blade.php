@@ -12,7 +12,7 @@
                         </div>
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
-                                <div class="col form-group">
+                                <div class="col-md-6 form-group">
                                     <select class="form-control" name="quintile" id="quintile">
                                         @foreach ($quintiles as $key => $value)
                                             <option value="{{$key}}" {{ (old('quintile') == $key ? 'selected':'') }}>
@@ -23,6 +23,11 @@
                                     <label for="quintile" class="form-control-placeholder">
                                         Quintile
                                     </label>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    {!! Form::select('student_type', $student_types , old('student_type'), ['class' => 'form-control', 'id' => 'add_student_type', 'required' => 'true', 'onchange' => 'this.form.submit()']) !!}
+                                    {!! Form::label('add_student_type', 'Student Type', ['class' => 'form-control-placeholder']) !!}
                                 </div>
                             </div>
 

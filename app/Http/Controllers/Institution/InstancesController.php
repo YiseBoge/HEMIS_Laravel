@@ -81,6 +81,7 @@ class InstancesController extends Controller
 
         $data = [
             'instances' => $instances,
+            'years' => Instance::getEnum('year'),
             'current_instance' => $currentInstance,
             'current' => $currentInstanceIndex,
 
@@ -173,9 +174,10 @@ class InstancesController extends Controller
 
         $data = array(
             'instance' => $instance,
-            'page_name' => 'administer.instance.edit',
             'instances' => $instances,
-            'current' => $currentInstanceIndex
+            'current' => $currentInstanceIndex,
+
+            'page_name' => 'administer.instance.edit',
         );
 
         return view('institutions.instance.index')->with($data);

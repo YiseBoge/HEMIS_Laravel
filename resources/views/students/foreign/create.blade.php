@@ -87,6 +87,18 @@
                                         Education Level
                                     </label>
                                 </div>
+                                <div class="col-md form-group">
+                                    <select class="form-control" name="student_type" id="student_type">
+                                        @foreach ($student_types as $key => $value)
+                                            <option value="{{$key}}" {{ (old('student_type') == $key ? 'selected':'') }}>
+                                                {{$value}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <label for="student_type" class="form-control-placeholder">
+                                        Education Level
+                                    </label>
+                                </div>
                             </div>
                             <hr class="mb-4">
                             <div class="form-group row pt-3">

@@ -44,6 +44,11 @@
                                 </div>
                                 <div class="mb-0 text-gray-800">{{$student->general->phone_number}}</div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Student Type
+                                </div>
+                                <div class="mb-0 text-gray-800">{{$student->general->student_type}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -56,40 +61,45 @@
             </div>
             <div class="card-body">
                 <div class="row mt-4">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Band</div>
                         <p>{{$student->department->college->band->bandName->band_name}}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">College</div>
                         <p>{{$student->department->college->collegeName->college_name}}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Department</div>
                         <p>{{$student->department->departmentName->department_name}}</p>
                     </div>
-                    <div class="col-md-3">
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Program</div>
                         <p>{{$student->department->college->education_program}}</p>
                     </div>
-
-                </div>
-                <div class="row mt-4">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Education Level</div>
                         <p>{{$student->department->college->education_level}}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Year Level</div>
                         <p>{{$student->department->year_level}}</p>
                     </div>
-                    <div class="col-md-3">
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Nationality</div>
                         <p>{{$student->nationality}}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Years in Ethiopia</div>
                         <p>{{$student->years_in_ethiopia}}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Student Type</div>
+                        <p>{{$student->general->student_type}}</p>
                     </div>
                 </div>
             </div>

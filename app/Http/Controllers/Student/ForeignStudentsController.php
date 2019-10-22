@@ -65,20 +65,25 @@ class ForeignStudentsController extends Controller
             foreach ($institution->bands as $band) {
                 if ($band->bandName->band_name == $user->bandName->band_name) {
                     foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
+                        if ($user->hasRole('College Super Admin')) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
                                         foreach ($department->foreignStudents as $student) {
                                             $students[] = $student;
                                         }
                                     }
-                                } else {
+                                }
+                            }
+                        } else {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                                foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->foreignStudents as $student) {
                                             $students[] = $student;
                                         }
                                     }
+
                                 }
                             }
                         }
@@ -135,9 +140,10 @@ class ForeignStudentsController extends Controller
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
             'year_levels' => $year_levels,
-            
+
             'food_service_types' => StudentService::getEnum("FoodServiceTypes"),
             'dormitory_service_types' => DormitoryService::getEnum("DormitoryServiceTypes"),
+            'student_types' => Student::getEnum("student_type"),
             'page_name' => 'students.foreign.create'
         );
         return view("students.foreign.create")->with($data);
@@ -305,6 +311,7 @@ class ForeignStudentsController extends Controller
         $student->phone_number = $request->input("phone_number");
         $student->birth_date = $request->input("birth_date");
         $student->sex = $request->input("sex");
+        $student->student_type = $request->input("student_type");
         $student->remarks = $request->input("additional_remarks");
         $foreignerStudent->nationality = $request->input("nationality");
         $foreignerStudent->years_in_ethiopia = $request->input("years_in_ethiopia");

@@ -28,6 +28,11 @@
                                     <input type="text" id="quintile" class="form-control"
                                            disabled value="{{$quintile}}">
                                 </div>
+                                <div class="col form-group">
+                                    <label class="label" for="student_type">Student Type</label>
+                                    <input type="text" id="student_type" class="form-control"
+                                           disabled value="{{$student_type}}">
+                                </div>
                             </div>
 
                             <div class="form-group row pt-3">

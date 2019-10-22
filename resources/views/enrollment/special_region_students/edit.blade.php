@@ -33,6 +33,11 @@
                                     <input type="text" id="region" name="region" class="form-control"
                                            value="{{$region}}" disabled>
                                 </div>
+                                <div class="col form-group">
+                                    <label class="label" for="student_type">Student Type</label>
+                                    <input type="text" id="student_type" name="student_type" class="form-control"
+                                           value="{{$student_type}}" disabled>
+                                </div>
                             </div>
 
                             <div class="form-group row pt-3">

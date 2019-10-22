@@ -112,7 +112,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row mt-4">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Band</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -130,7 +130,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">College</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -149,7 +149,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Department</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -168,7 +168,9 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Program</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -186,10 +188,7 @@
                                 </select>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Education Level
                             </div>
                             <div class="input-group mb-3">
@@ -208,7 +207,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Year Level</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -226,7 +225,9 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Nationality</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -237,7 +238,7 @@
                                        value="{{$student->nationality}}">
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Years in Ethiopia
                             </div>
                             <div class="input-group mb-3">
@@ -248,6 +249,25 @@
                                 <input type="number" class="form-control form-control-plaintext"
                                        name="years_in_ethiopia"
                                        value="{{$student->years_in_ethiopia}}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Student Type
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i
+                                            class="text-gray-400 float-right far fa-edit "></i></span>
+                                </div>
+                                <select class="form-control form-control-plaintext" name="student_type">
+                                    @foreach ($student->general->getEnum("StudentType") as $key => $value)
+                                        @if ($value == $student->general->student_type)
+                                            <option selected value="{{$key}}">{{$value}}</option>
+                                        @else
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>

@@ -245,6 +245,25 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Student Type
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                <span class="input-group-text bg-white border-0"><i
+                                            class="text-gray-400 float-right far fa-edit "></i></span>
+                                </div>
+                                <select class="form-control form-control-plaintext" name="student_type">
+                                    @foreach ($student->general->getEnum("StudentType") as $key => $value)
+                                        @if ($value == $student->general->student_type)
+                                            <option selected value="{{$key}}">{{$value}}</option>
+                                        @else
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

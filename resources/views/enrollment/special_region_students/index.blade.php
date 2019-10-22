@@ -70,6 +70,11 @@
                                     Region Type
                                 </label>
                             </div>
+
+                            <div class="col-md-6 form-group">
+                                {!! Form::select('student_type', $student_types , $selected_student_type, ['class' => 'form-control', 'id' => 'add_student_type', 'required' => 'true', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('add_student_type', 'Student Type', ['class' => 'form-control-placeholder']) !!}
+                            </div>
                         </div>
 
                         <div class="form-group row pt-3">
@@ -177,8 +182,7 @@
                         <tbody>
                         @if (count($enrollments) > 0)
                             @foreach ($enrollments as $enrollment)
-                                <tr role="row" class="odd"
-                                    onclick="window.location='normal/{{$enrollment->id}}'">
+                                <tr role="row" class="odd">
                                     @if(Auth::user()->hasRole('College Super Admin'))
                                         <td class="text-center">
                                             @if($enrollment->approval_status == "Pending")

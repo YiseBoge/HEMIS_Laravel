@@ -55,7 +55,7 @@
                         </div>
                     @else
                         <div class="form-group row pt-3">
-                            <div class="col-md-4 form-group">
+                            <div class="col-md-6 form-group">
                                 <select class="form-control" name="quintile" id="quintile"
                                         onchange="this.form.submit()">
                                     @foreach ($quintiles as $key => $value)
@@ -70,7 +70,13 @@
                                     Quintile
                                 </label>
                             </div>
-                            <div class="col-md-4 form-group">
+                            <div class="col-md-6 form-group">
+                                {!! Form::select('student_type', $student_types , $selected_type, ['class' => 'form-control', 'id' => 'add_student_type', 'required' => 'true', 'onchange' => 'this.form.submit()']) !!}
+                                {!! Form::label('add_student_type', 'Student Type', ['class' => 'form-control-placeholder']) !!}
+                            </div>
+                        </div>
+                        <div class="form-group row pt-3">
+                            <div class="col-md-6 form-group">
                                 <select class="form-control" name="program" id="program"
                                         onchange="this.form.submit()">
                                     @foreach ($programs as $key => $value)
@@ -87,7 +93,7 @@
                                 </label>
                             </div>
 
-                            <div class="col-md-4 form-group">
+                            <div class="col-md-6 form-group">
                                 <select class="form-control" name="education_level" id="level"
                                         onchange="this.form.submit()">
                                     @foreach ($education_levels as $key => $value)

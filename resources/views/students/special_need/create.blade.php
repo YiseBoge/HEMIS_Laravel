@@ -75,7 +75,7 @@
                         </div>
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
-                                <div class="col form-group">
+                                <div class="col-md form-group">
                                     <select class="form-control" name="education_level" id="level">
                                         @foreach ($education_levels as $key => $value)
                                             <option value="{{$key}}" {{ (old('education_level') == $key ? 'selected':'') }}>
@@ -84,6 +84,18 @@
                                         @endforeach
                                     </select>
                                     <label for="level" class="form-control-placeholder">
+                                        Education Level
+                                    </label>
+                                </div>
+                                <div class="col-md form-group">
+                                    <select class="form-control" name="student_type" id="student_type">
+                                        @foreach ($student_types as $key => $value)
+                                            <option value="{{$key}}" {{ (old('student_type') == $key ? 'selected':'') }}>
+                                                {{$value}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <label for="student_type" class="form-control-placeholder">
                                         Education Level
                                     </label>
                                 </div>

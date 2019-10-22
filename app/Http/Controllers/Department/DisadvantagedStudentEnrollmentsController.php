@@ -41,9 +41,11 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
-        $requestedType = $request->input('student_type');
-        if ($requestedType == null) {
+        $selectedType = $request->input('student_type');
+        if ($selectedType == null) {
             $requestedType = 'Normal';
+        } else {
+            $requestedType = DisadvantagedStudentEnrollment::getEnum('student_type')[$selectedType];
         }
 
         $requestedQuintile = $request->input('quintile');
@@ -118,6 +120,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
 
             'selected_department' => $requestedDepartment,
             'selected_quintile' => $requestedQuintile,
+            'selected_type' => $selectedType,
             'selected_program' => $requestedProgram,
             'selected_education_level' => $requestedLevel,
 
@@ -257,6 +260,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
             'program' => $college->education_program,
             'education_level' => $college->education_level,
             'quintile' => $disadvantagedStudentEnrollment->quintile,
+            'student_type' => $disadvantagedStudentEnrollment->student_type,
             'male_students_number' => $disadvantagedStudentEnrollment->male_students_number,
             'female_students_number' => $disadvantagedStudentEnrollment->female_students_number,
             'year_level' => $department->year_level,

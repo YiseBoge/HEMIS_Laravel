@@ -6,9 +6,15 @@ use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Webpatser\Uuid\Uuid;
 
 /**
  * @method static SpecialRegionEnrollment find(int $id)
+ * @property Uuid id
+ * @property string|null region_type
+ * @property string|null student_type
+ * @property integer male_number
+ * @property integer female_number
  */
 class SpecialRegionEnrollment extends Model
 {

@@ -87,6 +87,10 @@
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Disability</div>
                         <p>{{$student->disability}}</p>
                     </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Student Type</div>
+                        <p>{{$student->general->student_type}}</p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -108,7 +108,7 @@
                         @endif
 
                         <div class="col-md-12 form-group pb-1">
-                            {!! Form::select('year', \App\Models\Institution\Instance::getEnum('year') , old('year'), ['class' => 'form-control', 'id' => 'add_year', 'required' => 'true']) !!}
+                            {!! Form::select('year', $years , old('year'), ['class' => 'form-control', 'id' => 'add_year', 'required' => 'true']) !!}
                             {!! Form::label('add_year', 'Year', ['class' => 'form-control-placeholder']) !!}
                         </div>
                         <div class="col-md-12 form-group pb-1">

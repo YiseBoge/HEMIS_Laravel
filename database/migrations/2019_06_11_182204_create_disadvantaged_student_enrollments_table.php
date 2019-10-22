@@ -21,6 +21,7 @@ class CreateDisadvantagedStudentEnrollmentsTable extends Migration
             $table->timestamps();
 
             $table->string('quintile');
+            $table->string('student_type')->default('Normal');
             $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');

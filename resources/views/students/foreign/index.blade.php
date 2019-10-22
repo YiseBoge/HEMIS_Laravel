@@ -28,7 +28,7 @@
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                style="width: 46px;">Id
+                                style="width: 46px;">Student Id
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"

@@ -40,9 +40,11 @@ class SpecialRegionsEnrollmentsController extends Controller
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
 
-        $requestedType = $request->input('student_type');
-        if ($requestedType == null) {
-            $requestedType = 'Normal';
+        $selectedStudentType = $request->input('student_type');
+        if ($selectedStudentType == null) {
+            $requestedStudentType = 'Normal';
+        } else {
+            $requestedStudentType = SpecialRegionEnrollment::getEnum('student_type')[$selectedStudentType];
         }
 
         $requestedProgram = $request->input('program');
@@ -92,7 +94,7 @@ class SpecialRegionsEnrollmentsController extends Controller
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->specialRegionEnrollments as $enrollment) {
                                             if ($enrollment->region_type == $requestedType) {
-                                                if ($enrollment->student_type == $requestedType) {
+                                                if ($enrollment->student_type == $requestedStudentType) {
                                                     $enrollments[] = $enrollment;
                                                 }
                                             }
@@ -131,6 +133,7 @@ class SpecialRegionsEnrollmentsController extends Controller
             'selected_year' => $requestedYearLevel,
             'selected_education_level' => $requestedLevel,
             'selected_type' => $requestedType,
+            'selected_student_type' => $selectedStudentType,
             'page_name' => 'enrollment.special_region_students.index'
         );
         return view("enrollment.special_region_students.index")->with($data);
@@ -267,6 +270,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         $data = array(
             'id' => $specialRegionEnrollment->id,
             'type' => $specialRegionEnrollment->region_type,
+            'student_type' => $specialRegionEnrollment->student_type,
             'male_number' => $specialRegionEnrollment->male_number,
             'female_number' => $specialRegionEnrollment->female_number,
             'region' => $regionName,

@@ -12,7 +12,7 @@
                         </div>
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">
-                                <div class="col form-group">
+                                <div class="col-md-4 form-group">
                                     <select class="form-control" name="region_type" id="region_type">
                                         @foreach ($types as $key => $value)
                                             <option value="{{$key}}" {{ (old('region_type') == $key ? 'selected':'') }}>
@@ -24,7 +24,7 @@
                                         Region Type
                                     </label>
                                 </div>
-                                <div class="col form-group">
+                                <div class="col-md-4 form-group">
                                     <select class="form-control" name="region" id="region">
                                         @foreach ($regions as $region)
                                             <option value="{{$region->name}}" {{ (old('region') == $region->name ? 'selected':'') }}>
@@ -35,6 +35,11 @@
                                     <label for="region" class="form-control-placeholder">
                                         Region
                                     </label>
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    {!! Form::select('student_type', $student_types , old('student_type'), ['class' => 'form-control', 'id' => 'add_student_type', 'required' => 'true', 'onchange' => 'this.form.submit()']) !!}
+                                    {!! Form::label('add_student_type', 'Student Type', ['class' => 'form-control-placeholder']) !!}
                                 </div>
                             </div>
 
