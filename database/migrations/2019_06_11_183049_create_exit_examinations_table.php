@@ -16,8 +16,10 @@ class CreateExitExaminationsTable extends Migration
     {
         Schema::create('exit_examinations', function (Blueprint $table) {
             $table->uuid('id');
-            $table->bigInteger('male_students_number');
-            $table->bigInteger('female_students_number');
+            $table->bigInteger('males_sat');
+            $table->bigInteger('females_sat');
+            $table->bigInteger('males_passed');
+            $table->bigInteger('females_passed');
             $table->timestamps();
 
             $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);

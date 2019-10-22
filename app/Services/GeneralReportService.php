@@ -398,6 +398,20 @@ class GeneralReportService
     }
 
     /**
+     * @param bool $smart
+     * @return int
+     */
+    function classrooms($smart = true)
+    {
+        $total = 0;
+        foreach ($this->__institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->classrooms($smart);
+        }
+        return $total;
+    }
+
+    /**
      * @return int
      */
     function researchBudget()

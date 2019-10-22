@@ -14,19 +14,32 @@
 
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <input type="number" id="male_number" name="male_number" class="form-control"
-                                           required value="{{ old('male_number') }}">
-                                    <label class="form-control-placeholder" for="male_number">Male
-                                        Students</label>
+                                    <input type="number" id="males_sat" name="males_sat" class="form-control"
+                                           required value="{{ old('males_sat') }}">
+                                    <label class="form-control-placeholder" for="males_sat">Males who Sat</label>
                                 </div>
 
                                 <div class="col form-group">
-                                    <input type="number" id="female_number" name="female_number" class="form-control"
-                                           required value="{{ old('female_number') }}">
-                                    <label class="form-control-placeholder" for="female_number">Female
-                                        Students</label>
+                                    <input type="number" id="females_sat" name="females_sat" class="form-control"
+                                           required value="{{ old('females_sat') }}">
+                                    <label class="form-control-placeholder" for="females_sat">Females who Sat</label>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <div class="col form-group">
+                                    <input type="number" id="males_passed" name="males_passed" class="form-control"
+                                           required value="{{ old('males_passed') }}">
+                                    <label class="form-control-placeholder" for="males_passed">Males who Passed</label>
+                                </div>
+
+                                <div class="col form-group">
+                                    <input type="number" id="females_passed" name="females_passed" class="form-control"
+                                           required value="{{ old('females_passed') }}">
+                                    <label class="form-control-placeholder" for="females_passed">Females who
+                                        Passed</label>
+                                </div>
+                            </div>
+
                         </div>
                     </fieldset>
                 </div>

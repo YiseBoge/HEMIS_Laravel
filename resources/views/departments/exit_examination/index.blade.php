@@ -4,7 +4,7 @@
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Students that Passed Graduates Exit Examination</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Exit Examination Information</h6>
             </div>
             <div class="card-body">
                 @if(Auth::user()->hasRole('College Super Admin'))
@@ -67,16 +67,25 @@
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
-                                style="min-width: 151px;">Department
+                                style="min-width: 120px;">Department
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                style="min-width: 46px;">Male Students
+                                style="min-width: 46px;">Males who sat for Exam
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                style="min-width: 46px;">Males who Passed
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
-                                style="min-width: 99px;">Female Students
+                                style="min-width: 99px;">Females who sat for Exam
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                colspan="1"
+                                aria-label="Start date: activate to sort column ascending"
+                                style="min-width: 99px;">Females who Passed
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
@@ -89,8 +98,7 @@
                         <tbody>
                         @if (count($examinations) > 0)
                             @foreach ($examinations as $examination)
-                                <tr role="row" class="odd"
-                                    onclick="window.location='/student/exit-examination/{{$examination->id}}'">
+                                <tr role="row" class="odd">
                                     <td class="text-center">
                                         @if(Auth::user()->hasRole('College Super Admin'))
                                             @if($examination->approval_status == "Pending")
@@ -134,9 +142,11 @@
                                             @endif
                                         @endif
                                     </td>
-                                    <td>{{$examination->department->departmentName->department_name}}</td>
-                                    <td>{{$examination->male_students_number}}</td>
-                                    <td>{{$examination->female_students_number}}</td>
+                                    <td>{{$examination->department->departmentName}}</td>
+                                    <td>{{$examination->males_sat}}</td>
+                                    <td>{{$examination->males_passed}}</td>
+                                    <td>{{$examination->females_sat}}</td>
+                                    <td>{{$examination->females_passed}}</td>
                                     @if($examination->approval_status == "Approved")
                                         <td class="text-success"><i
                                                     class="fas fa-check"></i> {{$examination->approval_status}}</td>

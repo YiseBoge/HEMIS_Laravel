@@ -348,7 +348,8 @@ class GenerateReportsController extends Controller
                 $reportService->qualifiedAcademicStaff());
         $this->saveReportYearValue($year, '3.1.2', $total);
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->classrooms(true),
+                $reportService->classrooms());
         $this->saveReportYearValue($year, '3.1.3', $total);
 
         $total = 0;

@@ -391,11 +391,12 @@ class InstitutionService
 
         foreach ($departments as $department) {
             if ($sex == 'Male' || $sex == 'Female') {
-                foreach ($department->academicStaffs->where('sex', $sex) as $staff) {
-                    if (array_search($staff->general->academic_level, $qualifiedLevels)) $total++;
+                foreach ($department->academicStaffs->where('hdp_trained', 1) as $staff) {
+                    if (($staff->general->sex == $sex) && array_search($staff->general->academic_level, $qualifiedLevels))
+                        $total++;
                 }
             } else {
-                foreach ($department->academicStaffs as $staff) {
+                foreach ($department->academicStaffs->where('hdp_trained', 1) as $staff) {
                     if (array_search($staff->general->academic_level, $qualifiedLevels)) $total++;
                 }
             }
@@ -504,15 +505,7 @@ class InstitutionService
      */
     function improperlyUtilizedFunds()
     {
-        $total = 0;
-        foreach ($this->institution->bands as $band) {
-            foreach ($band->colleges as $college) {
-                foreach ($college->budgets as $budget) {
-                    $total += $budget->allocated_budget + $budget->additional_budget - $budget->utilized_budget;
-                }
-            }
-        }
-        return $total;
+        return $this->institution->generalInformation->resource->unjustifiable_expenses;
     }
 
     /**
@@ -904,11 +897,13 @@ class InstitutionService
     }
 
     /**
+     * @param $smart
      * @return int
      */
-    function unjustifiableExpenses()
+    function classrooms($smart)
     {
-        return $this->institution->generalInformation->resource->unjustifiable_expenses;
+        $res = $this->institution->generalInformation->resource;
+        return $smart ? $res->number_of_smart_classrooms : $res->number_of_classrooms;
     }
 
     /**

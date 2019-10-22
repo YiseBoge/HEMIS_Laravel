@@ -121,13 +121,17 @@ class ExitExaminationsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'male_number' => 'required',
-            'female_number' => 'required'
+            'males_sat' => 'required',
+            'females_sat' => 'required',
+            'males_passed' => 'required',
+            'females_passed' => 'required',
         ]);
 
         $examination = new ExitExamination;
-        $examination->male_students_number = $request->input('male_number');
-        $examination->female_students_number = $request->input('female_number');
+        $examination->males_sat = $request->input('males_sat');
+        $examination->females_sat = $request->input('females_sat');
+        $examination->males_passed = $request->input('males_passed');
+        $examination->females_passed = $request->input('females_passed');
 
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
@@ -209,8 +213,8 @@ class ExitExaminationsController extends Controller
         $data = array(
             'id' => $id,
             'departmentName' => $departmentName,
-            'male_students_number' => $exitExamination->male_students_number,
-            'female_students_number' => $exitExamination->female_students_number,
+            'exit_examination' => $exitExamination,
+
             'page_name' => 'departments.exit_examination.edit'
         );
 
@@ -232,8 +236,10 @@ class ExitExaminationsController extends Controller
 
         $exitExamination = ExitExamination::find($id);
 
-        $exitExamination->male_students_number = $request->input("male_number");
-        $exitExamination->female_students_number = $request->input("female_number");
+        $exitExamination->males_sat = $request->input('males_sat');
+        $exitExamination->females_sat = $request->input('females_sat');
+        $exitExamination->males_passed = $request->input('males_passed');
+        $exitExamination->females_passed = $request->input('females_passed');
 
         $exitExamination->save();
 
