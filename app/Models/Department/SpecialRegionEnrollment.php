@@ -58,6 +58,8 @@ class SpecialRegionEnrollment extends Model
         return SpecialRegionEnrollment::where(array(
                 'department_id' => $this->department_id,
                 'region_name_id' => $this->region_name_id,
+                'student_type' => $this->student_type,
+                'region_type' => $this->region_type,
             ))->first() != null;
     }
 }

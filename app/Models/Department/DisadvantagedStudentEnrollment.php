@@ -62,6 +62,7 @@ class DisadvantagedStudentEnrollment extends Model
         return DisadvantagedStudentEnrollment::where(array(
                 'department_id' => $this->department_id,
                 'quintile' => $this->quintile,
+                'student_type' => $this->student_type,
             ))->first() != null;
     }
 }

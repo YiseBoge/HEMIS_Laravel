@@ -170,13 +170,15 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     {
         $this->validate($request, [
             'male_number' => 'required',
-            'female_number' => 'required'
+            'female_number' => 'required',
+            'student_type' => 'required',
         ]);
 
         $enrollment = new DisadvantagedStudentEnrollment;
         $enrollment->male_students_number = $request->input('male_number');
         $enrollment->female_students_number = $request->input('female_number');
         $enrollment->quintile = $request->input('quintile');
+        $enrollment->student_type = $request->input('student_type');
 
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');

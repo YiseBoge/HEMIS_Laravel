@@ -191,6 +191,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         $enrollment->male_number = $request->input('male_number');
         $enrollment->female_number = $request->input('female_number');
         $enrollment->region_type = $request->input('region_type');
+        $enrollment->student_type = $request->input('student_type');
         $enrollment->region_name_id = null;
 
         $regionName = RegionName::where('name', $request->input("region"))->first();
