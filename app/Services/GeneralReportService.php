@@ -315,14 +315,15 @@ class GeneralReportService
     /**
      * @param $sex
      * @param $educationLevel
+     * @param string $student_type
      * @return float|int
      */
-    function graduationData($sex, $educationLevel)
+    function graduationData($sex, $educationLevel = 'All', $student_type = 'All')
     {
         $total = 0;
         foreach ($this->__institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
-            $total += $institutionService->graduationData($sex, $educationLevel);
+            $total += $institutionService->graduationData($sex, $educationLevel, $student_type);
         }
         return $total;
     }

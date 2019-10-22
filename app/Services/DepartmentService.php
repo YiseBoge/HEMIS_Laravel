@@ -321,20 +321,63 @@ class DepartmentService
 
     /**
      * @param $sex
+     * @param $student_type
      * @return int
      */
-    function graduationData($sex)
+    function graduationData($sex, $student_type)
     {
         $total = 0;
-        foreach ($this->department->enrollmentsApproved->where('student_type', 'Graduates') as $enrollment) {
-            if ($sex == "Female") {
-                $total += $enrollment->female_students_number;
-            } else if ($sex == "Male") {
-                $total += $enrollment->male_students_number;
-            } else {
-                $total += $enrollment->male_students_number + $enrollment->female_students_number;
-            }
+        switch ($student_type) {
+            case 'Emerging':
+                foreach ($this->department->specialRegionEnrollmentsApproved()->where('student_type', 'Graduates')->where('region_type', 'Emerging') as $enrollment) {
+                    if ($sex == "Female") {
+                        $total += $enrollment->female_students_number;
+                    } else if ($sex == "Male") {
+                        $total += $enrollment->male_students_number;
+                    } else {
+                        $total += $enrollment->male_students_number + $enrollment->female_students_number;
+                    }
+                }
+                break;
+            case 'Disadvantaged':
+                foreach ($this->department->disadvantagedStudentEnrollmentsApproved()->where('student_type', 'Graduates') as $enrollment) {
+                    if ($sex == "Female") {
+                        $total += $enrollment->female_students_number;
+                    } else if ($sex == "Male") {
+                        $total += $enrollment->male_students_number;
+                    } else {
+                        $total += $enrollment->male_students_number + $enrollment->female_students_number;
+                    }
+                }
+                break;
+            case 'Disabled':
+                foreach ($this->department->specialNeedStudents as $enrollment) {
+                    $personalInfo = $enrollment->general;
+                    if ($personalInfo->student_type == 'Graduates') {
+                        if ($sex == 'Male' || $sex == 'Female') {
+                            if ($personalInfo->sex == "Female" && $sex == 'Female') {
+                                $total++;
+                            } else if ($personalInfo->sex == "Male" && $sex == 'Male') {
+                                $total++;
+                            }
+                        } else {
+                            $total++;
+                        }
+                    }
+                }
+                break;
+            default:
+                foreach ($this->department->enrollmentsApproved->where('student_type', 'Graduates') as $enrollment) {
+                    if ($sex == "Female") {
+                        $total += $enrollment->female_students_number;
+                    } else if ($sex == "Male") {
+                        $total += $enrollment->male_students_number;
+                    } else {
+                        $total += $enrollment->male_students_number + $enrollment->female_students_number;
+                    }
+                }
         }
+
         return $total;
     }
 

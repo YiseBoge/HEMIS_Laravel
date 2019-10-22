@@ -241,16 +241,17 @@ class InstitutionService
     /**
      * @param $sex
      * @param $educationLevel
+     * @param $student_type
      * @return int
      */
-    function graduationData($sex, $educationLevel)
+    function graduationData($sex, $educationLevel, $student_type)
     {
         $total = 0;
         $departments = $this->__departmentsByEducationLevel($educationLevel);
 
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
-            $total += $departmentService->graduationData($sex);
+            $total += $departmentService->graduationData($sex, $student_type);
         }
         return $total;
     }
