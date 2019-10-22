@@ -15,6 +15,9 @@
                     <li class="list-inline-item">
                         <a href="#">Terms of Use</a>
                     </li>
+                    <li class="list-inline-item">
+                        <a href="{{ url('/support-contacts/public-view') }}">Support</a>
+                    </li>
                 </ul>
                 <p class="text-muted small mb-4 mb-lg-0">Copyright &copy; MoSHE - Ministry of Science and Higher
                     Education - Ethiopia - {{date("Y")}}</p>
