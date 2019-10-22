@@ -67,7 +67,7 @@ class GeneralReportService
      * @param bool $private
      * @return int
      */
-    private function previousYearEnrollment($sex, $educationLevel, $private)
+    private function __previousYearEnrollment($sex, $educationLevel, $private)
     {
         try {
             $current_year = $this->instances[0]->year;
@@ -83,13 +83,32 @@ class GeneralReportService
     /**
      * @param $sex
      * @param $educationLevel
-     * @param bool $private
-     * @param bool $from_previous
+     * @param $studentType
      * @return int
      */
-    function fullEnrollment($sex, $educationLevel, $private = false, $from_previous = false)
+    private function __previousYearGraduationData($sex, $educationLevel, $studentType)
     {
-        if ($from_previous) return $this->previousYearEnrollment($sex, $educationLevel, $private);
+        try {
+            $current_year = $this->instances[0]->year;
+            $previous_year = (string)(((int)$current_year) - 1);
+            $service = new GeneralReportService($previous_year);
+            return $service->graduationData($sex, $educationLevel, $studentType);
+        } catch (Exception $ex) {
+            return 0;
+        }
+    }
+
+
+    /**
+     * @param $sex
+     * @param $educationLevel
+     * @param bool $private
+     * @param bool $fromPrevious
+     * @return int
+     */
+    function fullEnrollment($sex, $educationLevel, $private = false, $fromPrevious = false)
+    {
+        if ($fromPrevious) return $this->__previousYearEnrollment($sex, $educationLevel, $private);
         $total = 0;
         foreach ($this->__institutionsByPrivacy($private) as $institution) {
             $institutionService = new InstitutionService($institution);
@@ -196,6 +215,21 @@ class GeneralReportService
         foreach ($this->__institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
             $total = $institutionService->jointEnrollment($educationLevel);
+        }
+        return $total;
+    }
+
+    /**
+     * @param $sex
+     * @param bool $passed
+     * @return int
+     */
+    function exitExamination($sex, $passed = false)
+    {
+        $total = 0;
+        foreach ($this->__institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total += $institutionService->exitExamination($sex, $passed);
         }
         return $total;
     }
@@ -344,12 +378,14 @@ class GeneralReportService
 
     /**
      * @param $sex
-     * @param $educationLevel
+     * @param string $educationLevel
      * @param string $student_type
+     * @param bool $fromPrevious
      * @return float|int
      */
-    function graduationData($sex, $educationLevel = 'All', $student_type = 'All')
+    function graduationData($sex, $educationLevel = 'All', $student_type = 'All', $fromPrevious = false)
     {
+        if ($fromPrevious) return $this->__previousYearGraduationData($sex, $educationLevel, $student_type);
         $total = 0;
         foreach ($this->__institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);

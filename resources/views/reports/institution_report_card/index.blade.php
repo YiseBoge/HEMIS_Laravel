@@ -53,7 +53,7 @@
                                     Performance Indicators (KPI)
                                 </th>
                                 @foreach($years as $year)
-                                    <th style="min-width: 100px;">{{ $year->year }}
+                                    <th class="text-center" style="min-width: 75px;">{{ $year->year }}
                                     </th>
                                 @endforeach
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
@@ -96,8 +96,8 @@
                                                 {{ $kpi->kpi }}
                                             </td>
                                             @foreach($kpi->reportYearValues()->where('institution_name_id', $institution_name->id)->orderBy('year')->get() as $yearValue)
-                                                <td>
-                                                    {{ round($yearValue->value, 3) }}%
+                                                <td class="text-center">
+                                                    {{ round($yearValue->value, 2) }}%
                                                 </td>
                                             @endforeach
                                             <td class="text-primary text-center">

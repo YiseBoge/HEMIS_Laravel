@@ -212,15 +212,17 @@ class InstitutionService
     }
 
     /**
+     * @param $sex
+     * @param $passed
      * @return int
      */
-    function exitExamination()
+    function exitExamination($sex, $passed)
     {
         $total = 0;
         $departments = $this->departments();
         foreach ($departments as $department) {
             $departmentService = new DepartmentService($department);
-            $total += $departmentService->exitExamination();
+            $total += $departmentService->exitExamination($sex, $passed);
         }
         return $total;
     }

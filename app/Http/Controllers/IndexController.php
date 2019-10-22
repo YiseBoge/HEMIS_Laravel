@@ -407,8 +407,6 @@ class IndexController extends Controller
         $administrativeFemales = 0;
         $ictMales = 0;
         $ictFemales = 0;
-        $supportiveMales = 0;
-        $supportiveFemales = 0;
         $technicalMales = 0;
         $technicalFemales = 0;
 
@@ -427,10 +425,6 @@ class IndexController extends Controller
                 if ($staff->general->sex == 'Male') $ictMales++;
                 if ($staff->general->sex == 'Female') $ictFemales++;
             }
-            foreach ($col->supportiveStaffs as $staff) {
-                if ($staff->general->sex == 'Male') $supportiveMales++;
-                if ($staff->general->sex == 'Female') $supportiveFemales++;
-            }
             foreach ($col->technicalStaffs as $staff) {
                 if ($staff->general->sex == 'Male') $technicalMales++;
                 if ($staff->general->sex == 'Female') $technicalFemales++;
@@ -441,14 +435,12 @@ class IndexController extends Controller
             $academicMales,
             $administrativeMales,
             $ictMales,
-            $supportiveMales,
             $technicalMales,
         );
         $femaleStaffs = array(
             $academicFemales,
             $administrativeFemales,
             $ictFemales,
-            $supportiveFemales,
             $technicalFemales,
         );
 

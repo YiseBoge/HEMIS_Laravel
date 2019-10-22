@@ -273,13 +273,23 @@ class DepartmentService
     }
 
     /**
+     * @param $sex
+     * @param $passed
      * @return int
      */
-    function exitExamination()
+    function exitExamination($sex, $passed)
     {
         $total = 0;
         foreach ($this->department->exitExaminationsApproved as $enrollment) {
-            $total += $enrollment->male_students_number + $enrollment->female_students_number;
+            if ($passed) {
+                if ($sex == 'Male') $total += $enrollment->males_passed;
+                else if ($sex == 'Female') $total += $enrollment->females_passed;
+                else $total += $enrollment->males_passed + $total += $enrollment->females_passed;
+            } else {
+                if ($sex == 'Male') $total += $enrollment->males_sat;
+                else if ($sex == 'Female') $total += $enrollment->females_sat;
+                else $total += $enrollment->males_sat + $total += $enrollment->females_sat;
+            }
         }
         return $total;
     }
