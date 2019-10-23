@@ -110,6 +110,8 @@ Route::post('student/degree-relevant-employment/{id}/approve', 'Department\Degre
 Route::resource('student/degree-relevant-employment', 'Department\DegreeEmploymentsController');
 Route::post('student/exit-examination/{id}/approve', 'Department\ExitExaminationsController@approve');
 Route::resource('student/exit-examination', 'Department\ExitExaminationsController');
+Route::post('student/qualified-internship/{id}/approve', 'Department\QualifiedInternshipsController@approve');
+Route::resource('student/qualified-internship', 'Department\QualifiedInternshipsController');
 Route::post('student/cost-sharing/{id}/approve', 'Department\CostSharingController@approve');
 Route::resource('student/cost-sharing', 'Department\CostSharingController');
 Route::post('student/university-industry-linkage/{id}/approve', 'College\UniversityIndustryLinkageController@approve');

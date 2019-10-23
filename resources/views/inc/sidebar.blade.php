@@ -87,6 +87,8 @@
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'degree_employment' ? 'active': '' }}"
                        href="/student/degree-relevant-employment">Degree Relevant
                         Employment</a>
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'qualified_internship' ? 'active': '' }}"
+                       href="/student/qualified-internship">Qualified Internship</a>
 
                 </div>
             </div>
@@ -119,8 +121,7 @@
                        href="/department/postgraduate-diploma-training">Post Graduate
                         Diploma Training</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'diaspora_course' ? 'active': '' }}"
-                       href="/department/diaspora-courses">Courses and Researches
-                        By Ethiopian Diaspora</a>
+                       href="/department/diaspora-courses">Diaspora Academics</a>
 
                 </div>
             </div>
@@ -279,6 +280,8 @@
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'degree_employment' ? 'active': '' }}"
                        href="/student/degree-relevant-employment">Degree Relevant
                         Employment</a>
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'qualified_internship' ? 'active': '' }}"
+                       href="/student/qualified-internship">Qualified Internship</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'university_industry_linkage' ? 'active': '' }}"
                        href="/student/university-industry-linkage">University Industry
                         Linkage</a>
@@ -306,8 +309,7 @@
                        href="/department/postgraduate-diploma-training">Post Graduate
                         Diploma Training</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'diaspora_course' ? 'active': '' }}"
-                       href="/department/diaspora-courses">Courses and Researches
-                        By Ethiopian Diaspora</a>
+                       href="/department/diaspora-courses">Diaspora Academics</a>
 
                 </div>
             </div>
