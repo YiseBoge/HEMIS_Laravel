@@ -7,7 +7,7 @@ use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
-use App\Models\Department\DiasporaCourses;
+use App\Models\Department\QualifiedInternship;
 use App\Models\Institution\Institution;
 use Exception;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class DiasporaCoursesController extends Controller
+class QualifiedInternshipsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -45,7 +45,7 @@ class DiasporaCoursesController extends Controller
             $requestedDepartment = DepartmentName::all()->first()->id;
         }
 
-        $courses = array();
+        $internships = array();
 
         if ($institution != null) {
             foreach ($institution->bands as $band) {
@@ -55,8 +55,8 @@ class DiasporaCoursesController extends Controller
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->diasporaCourses as $course) {
-                                            $courses[] = $course;
+                                        foreach ($department->qualifiedInternships as $internship) {
+                                            $internships[] = $internship;
                                         }
                                     }
                                 }
@@ -65,8 +65,8 @@ class DiasporaCoursesController extends Controller
                             if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == 'None' && $college->education_program == 'None') {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->diasporaCourses as $course) {
-                                            $courses[] = $course;
+                                        foreach ($department->qualifiedInternships as $internship) {
+                                            $internships[] = $internship;
                                         }
                                     }
                                 }
@@ -76,22 +76,19 @@ class DiasporaCoursesController extends Controller
                 }
             }
         } else {
-            $courses = DiasporaCourses::with('department')->get();
+            $internships = QualifiedInternship::with('department')->get();
         }
 
-        //$enrollments=Enrollment::where('department_id',$department->id)->get();
-
-
         $data = array(
-            'courses' => $courses,
+            'internships' => $internships,
             'departments' => DepartmentName::all(),
 
             'selected_department' => $requestedDepartment,
 
-            'page_name' => 'staff.diaspora_course.index'
+            'page_name' => 'student.qualified_internship.index'
         );
-        //return $filteredEnrollments;
-        return view("departments.diaspora_course.index")->with($data);
+
+        return view("departments.qualified_internship.index")->with($data);
     }
 
     /**
@@ -105,14 +102,14 @@ class DiasporaCoursesController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'actions' => DiasporaCourses::getEnum('Actions'),
-            'page_name' => 'staff.diaspora_course.create'
+            'types' => QualifiedInternship::getEnum('SponsorTypes'),
+            'page_name' => 'student.qualified_internship.create'
         );
         //return $filteredEnrollments;
-        return view("departments.diaspora_course.create")->with($data);
+        return view("departments.qualified_internship.create")->with($data);
     }
 
-    /**
+     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
@@ -126,10 +123,10 @@ class DiasporaCoursesController extends Controller
             'female_number' => 'required'
         ]);
 
-        $course = new DiasporaCourses;
-        $course->action = $request->input('action');
-        $course->male_number = $request->input('male_number');
-        $course->female_number = $request->input('female_number');
+        $internship = new QualifiedInternship;
+        $internship->sponsor_type = $request->input('type');
+        $internship->male_number = $request->input('male_number');
+        $internship->female_number = $request->input('female_number');
 
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
@@ -168,19 +165,19 @@ class DiasporaCoursesController extends Controller
             $departmentName->department()->save($department);
         }
 
-        $course->department_id = $department->id;
+        $internship->department_id = $department->id;
 
-        if ($course->isDuplicate()) return redirect()->back()
+        if ($internship->isDuplicate()) return redirect()->back()
             ->withInput($request->toArray())
             ->withErrors('This entry already exists');
 
-        $course->save();
+        $internship->save();
 
-        return redirect("/department/diaspora-courses")->with('success', 'Successfully Added Diaspora Course');
+        return redirect("/student/qualified-internship")->with('success', 'Successfully Added Diaspora Course');
 
     }
 
-    /**
+   /**
      * Display the specified resource.
      *
      * @param int $id
@@ -190,7 +187,7 @@ class DiasporaCoursesController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        return redirect("/department/diaspora-courses");
+        return redirect("/student/qualified-internship");
     }
 
     /**
@@ -205,16 +202,16 @@ class DiasporaCoursesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $diasporaCourse = DiasporaCourses::find($id);
+        $internship = QualifiedInternship::find($id);
 
         $data = array(
             'id' => $id,
-            'male_number' => $diasporaCourse->male_number,
-            'female_number' => $diasporaCourse->female_number,
-            'action' => $diasporaCourse->action,
-            'page_name' => 'staff.diaspora_course.edit'
+            'male_number' => $internship->male_number,
+            'female_number' => $internship->female_number,
+            'type' => $internship->sponsor_type,
+            'page_name' => 'student.qualified_internship.edit'
         );
-        return view("departments.diaspora_course.edit")->with($data);
+        return view("departments.qualified_internship.edit")->with($data);
     }
 
     /**
@@ -230,17 +227,17 @@ class DiasporaCoursesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $diasporaCourses = DiasporaCourses::find($id);
+        $internship = QualifiedInternship::find($id);
 
-        $diasporaCourses->male_number = $request->input('male_number');
-        $diasporaCourses->female_number = $request->input('female_number');
+        $internship->male_number = $request->input('male_number');
+        $internship->female_number = $request->input('female_number');
 
-        $diasporaCourses->save();
+        $internship->save();
 
-        return redirect("/department/diaspora-courses")->with('primary', 'Successfully Updated');
+        return redirect("/student/qualified-internship")->with('primary', 'Successfully Updated');
     }
 
-    /**
+   /**
      * Remove the specified resource from storage.
      *
      * @param int $id
@@ -249,9 +246,9 @@ class DiasporaCoursesController extends Controller
      */
     public function destroy($id)
     {
-        $item = DiasporaCourses::find($id);
+        $item = QualifiedInternship::find($id);
         $item->delete();
-        return redirect('/department/diaspora-courses')->with('primary', 'Successfully Deleted');
+        return redirect('/student/qualified-internship')->with('primary', 'Successfully Deleted');
     }
 
     public function approve(Request $request, $id)
@@ -263,9 +260,9 @@ class DiasporaCoursesController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $course = DiasporaCourses::find($id);
-            $course->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
-            $course->save();
+            $internship = QualifiedInternship::find($id);
+            $internship->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
+            $internship->save();
         } else {
             $institution = $user->institution();
 
@@ -276,10 +273,10 @@ class DiasporaCoursesController extends Controller
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
-                                        foreach ($department->diasporaCourses as $course) {
-                                            if ($course->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
-                                                $course->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-                                                $course->save();
+                                        foreach ($department->qualifiedInternships as $internship) {
+                                            if ($internship->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
+                                                $internship->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                                                $internship->save();
                                             }
                                         }
                                     }
@@ -290,6 +287,7 @@ class DiasporaCoursesController extends Controller
                 }
             }
         }
-        return redirect("/department/diaspora-courses")->with('primary', 'Success');
+        return redirect("/student/qualified-internship")->with('primary', 'Success');
     }
+
 }

@@ -5,25 +5,18 @@ namespace App\Models\Department;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Webpatser\Uuid\Uuid;
 
-/**
- * @property Uuid id
- * @property int number_of_courses
- * @property int number_of_researches
- * @property string|null approval_status
- * @method static DiasporaCourses find(int $id)
- */
-class DiasporaCourses extends Model
+class QualifiedInternship extends Model
 {
     use Uuids;
     use Enums;
 
     public $incrementing = false;
-    protected $enumActions = [
-        'TEACHING' => 'Teaching',
-        'RESEARCH' => 'Research',
-        'ACADEMIC_ADVISING' => 'Academic Advising'
+    protected $enumSponsorTypes = [
+        'COMPANY_SPONSORED' => 'Company Sponsored',
+        'NON_COMPANY_SPONSORED' => 'Non-Company Sponsored'
 
     ];
 
@@ -42,9 +35,9 @@ class DiasporaCourses extends Model
      */
     public function isDuplicate()
     {
-        return DiasporaCourses::where(array(
+        return QualifiedInternship::where(array(
                 'department_id' => $this->department_id,
-                'action' => $this->action,
+                'sponsor_type' => $this->sponsor_type,
             ))->first() != null;
     }
 }

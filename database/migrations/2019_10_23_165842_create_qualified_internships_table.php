@@ -1,11 +1,11 @@
 <?php
 
 use App\Models\Institution\Institution;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateDiasporaCoursesTable extends Migration
+class CreateQualifiedInternshipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,13 @@ class CreateDiasporaCoursesTable extends Migration
      */
     public function up()
     {
-        Schema::create('diaspora_courses', function (Blueprint $table) {
+        Schema::create('qualified_internships', function (Blueprint $table) {
             $table->uuid('id');
             $table->bigInteger('male_number');
             $table->bigInteger('female_number');
             $table->timestamps();
 
-            $table->string('action');
+            $table->string('sponsor_type');
             $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
@@ -36,6 +36,6 @@ class CreateDiasporaCoursesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diaspora_courses');
+        Schema::dropIfExists('qualified_internships');
     }
 }

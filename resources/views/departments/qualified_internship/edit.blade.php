@@ -9,22 +9,22 @@
                 </div>
             @endforeach
         @endif
-        <form class="pb-5" action="/department/diaspora-courses/{{$id}}" method="POST">
+        <form class="pb-5" action="/student/qualified-internship/{{$id}}" method="POST">
             @csrf
             <input type="hidden" name="_method" value="PUT">
             <div class="row my-5">
                 <div class="col">
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
-                        Ethiopian Diaspora Academics Taking Part in Teaching, Research and Academic Advising Activities
+                           Qualified Internship
                         </div>
                         <div class="card-body px-4">
 
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
-                                    <label class="label" for="action">Service Types</label>
+                                    <label class="label" for="action">Sponsor Type</label>
                                     <input type="text" id="action" class="form-control"
-                                           disabled value="{{$action}}">
+                                           disabled value="{{$type}}">
                                 </div>
                                 <div class="col form-group">
                                     <label class="label" for="male_number">Male Number</label>

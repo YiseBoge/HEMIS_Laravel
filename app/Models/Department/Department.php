@@ -146,6 +146,14 @@ class Department extends Model
     /**
      * @return HasMany
      */
+    public function qualifiedInternships()
+    {
+        return $this->hasMany('App\Models\Department\QualifiedInternship');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function otherRegionStudents()
     {
         return $this->hasMany('App\Models\Department\OtherRegionStudent');
