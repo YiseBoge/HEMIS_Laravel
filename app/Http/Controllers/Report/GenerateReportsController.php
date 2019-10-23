@@ -352,7 +352,8 @@ class GenerateReportsController extends Controller
                 $reportService->classrooms());
         $this->saveReportYearValue($year, '3.1.3', $total);
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->qualifiedInternships('Company Sponsored'),
+                $reportService->qualifiedInternships());
         $this->saveReportYearValue($year, '3.1.4', $total);
 
 
@@ -409,8 +410,9 @@ class GenerateReportsController extends Controller
 
 
         // break
-
-        $total = $reportService->diasporaCourses();
+        $total = 100 * $this->nonZeroRatio(($reportService->diasporaParticipation() -
+                $reportService->diasporaParticipation($fromPrevious = true)),
+                $reportService->diasporaParticipation($fromPrevious = true));
         $this->saveReportYearValue($year, '5.1.1', $total);
 
 
@@ -767,7 +769,8 @@ class GenerateReportsController extends Controller
                 $reportService->classrooms());
         $this->saveInstitutionYearValue($institution_name, $year, '3.1.3', $total);
 
-        $total = 0;
+        $total = 100 * $this->nonZeroRatio($reportService->qualifiedInternships('Company Sponsored'),
+                $reportService->qualifiedInternships());
         $this->saveInstitutionYearValue($institution_name, $year, '3.1.4', $total);
 
 
@@ -825,7 +828,9 @@ class GenerateReportsController extends Controller
 
         // break
 
-        $total = $reportService->diasporaCourses();
+        $total = 100 * $this->nonZeroRatio(($reportService->diasporaParticipation() -
+                $reportService->diasporaParticipation($fromPrevious = true)),
+                $reportService->diasporaParticipation($fromPrevious = true));
         $this->saveInstitutionYearValue($institution_name, $year, '5.1.1', $total);
 
 

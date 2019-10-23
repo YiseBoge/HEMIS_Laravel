@@ -321,17 +321,57 @@ class DepartmentService
     }
 
     /**
+     * @param $action
+     * @param $sex
      * @return int
      */
     public
-    function diasporaCourses()
+    function diasporaParticipation($action, $sex)
     {
-        $total = 0;
-        foreach ($this->department->diasporaCoursesApproved as $diasporaCourse) {
-            // die('Course I');
-            $total += $diasporaCourse->number_of_courses + $diasporaCourse->number_of_researches;
+        $maleTotal = 0;
+        $femaleTotal = 0;
+        if (array_search($action, ['Teaching', 'Research', 'Academic Advising'])) {
+            foreach ($this->department->diasporaCoursesApproved()->where('action', $action) as $diasporaCourse) {
+                $maleTotal += $diasporaCourse->male_number;
+                $femaleTotal += $diasporaCourse->female_number;
+            }
+        } else {
+            foreach ($this->department->diasporaCoursesApproved as $diasporaCourse) {
+                $maleTotal += $diasporaCourse->male_number;
+                $femaleTotal += $diasporaCourse->female_number;
+            }
         }
-        return $total;
+
+        if ($sex == 'Male') return $maleTotal;
+        if ($sex == 'Female') return $femaleTotal;
+        return $maleTotal + $femaleTotal;
+    }
+
+    /**
+     * @param $sponsorType
+     * @param $sex
+     * @return int
+     */
+    public
+    function qualifiedInternships($sponsorType, $sex)
+    {
+        $maleTotal = 0;
+        $femaleTotal = 0;
+        if (array_search($sponsorType, ['Teaching', 'Research', 'Academic Advising'])) {
+            foreach ($this->department->qualifiedInternshipsApproved()->where('sponsor_type', $sponsorType) as $internship) {
+                $maleTotal += $internship->male_number;
+                $femaleTotal += $internship->female_number;
+            }
+        } else {
+            foreach ($this->department->diasporaCoursesApproved as $internship) {
+                $maleTotal += $internship->male_number;
+                $femaleTotal += $internship->female_number;
+            }
+        }
+
+        if ($sex == 'Male') return $maleTotal;
+        if ($sex == 'Female') return $femaleTotal;
+        return $maleTotal + $femaleTotal;
     }
 
     /**

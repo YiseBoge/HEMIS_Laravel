@@ -50,18 +50,6 @@ class GeneralReportService
 
 
     /**
-     * @param string $age_range
-     * @return int
-     */
-    function populationData($age_range = '19 - 23')
-    {
-        $total = 0;
-        foreach (Population::all()->where('age_range', $age_range) as $population) $total++;
-        return $total;
-    }
-
-
-    /**
      * @param $sex
      * @param $educationLevel
      * @param bool $private
@@ -96,6 +84,36 @@ class GeneralReportService
         } catch (Exception $ex) {
             return 0;
         }
+    }
+
+
+    /**
+     * @param $action
+     * @param $sex
+     * @return int
+     */
+    private function __previousYearDiaspora($action, $sex)
+    {
+        try {
+            $current_year = $this->instances[0]->year;
+            $previous_year = (string)(((int)$current_year) - 1);
+            $service = new GeneralReportService($previous_year);
+            return $service->diasporaParticipation($action, $sex);
+        } catch (Exception $ex) {
+            return 0;
+        }
+    }
+
+
+    /**
+     * @param string $age_range
+     * @return int
+     */
+    function populationData($age_range = '19 - 23')
+    {
+        $total = 0;
+        foreach (Population::all()->where('age_range', $age_range) as $population) $total++;
+        return $total;
     }
 
 
@@ -364,14 +382,33 @@ class GeneralReportService
     }
 
     /**
+     * @param string $action
+     * @param string $sex
+     * @param bool $fromPrevious
      * @return int
      */
-    function diasporaCourses()
+    function diasporaParticipation($action = 'All', $sex = 'All', $fromPrevious = false)
+    {
+        if ($fromPrevious) return $this->__previousYearDiaspora($action, $sex);
+        $total = 0;
+        foreach ($this->__institutionsByPrivacy(false) as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->diasporaParticipation($action, $sex);
+        }
+        return $total;
+    }
+
+    /**
+     * @param string $sponsorType
+     * @param string $sex
+     * @return int
+     */
+    function qualifiedInternships($sponsorType = 'All', $sex = 'All')
     {
         $total = 0;
         foreach ($this->__institutionsByPrivacy(false) as $institution) {
             $institutionService = new InstitutionService($institution);
-            $total = $institutionService->diasporaCourses();
+            $total = $institutionService->qualifiedInternships($sponsorType, $sex);
         }
         return $total;
     }
@@ -451,20 +488,6 @@ class GeneralReportService
      * @return int
      */
     function researchBudget()
-    {
-        $total = 0;
-        foreach ($this->__institutionsByPrivacy(false) as $institution) {
-            $institutionService = new InstitutionService($institution);
-            $total += $institutionService->researchBudget();
-        }
-        return $total;
-    }
-
-    /**
-     * @param $purpose
-     * @return int
-     */
-    function buildings($purpose)
     {
         $total = 0;
         foreach ($this->__institutionsByPrivacy(false) as $institution) {

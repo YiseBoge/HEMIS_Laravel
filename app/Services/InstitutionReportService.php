@@ -72,6 +72,24 @@ class InstitutionReportService
 
 
     /**
+     * @param $action
+     * @param $sex
+     * @return int
+     */
+    private function __previousYearDiaspora($action, $sex)
+    {
+        try {
+            $current_year = $this->institutions[0]->instance->year;
+            $previous_year = (string)(((int)$current_year) - 1);
+            $service = new InstitutionReportService($this->institutions[0]->institutionName, $previous_year);
+            return $service->diasporaParticipation($action, $sex);
+        } catch (Exception $ex) {
+            return 0;
+        }
+    }
+
+
+    /**
      * @param $sex
      * @param $educationLevel
      * @param bool $from_previous
@@ -335,14 +353,33 @@ class InstitutionReportService
     }
 
     /**
+     * @param string $action
+     * @param string $sex
+     * @param bool $fromPrevious
      * @return int
      */
-    function diasporaCourses()
+    function diasporaParticipation($action = 'All', $sex = 'All', $fromPrevious = false)
+    {
+        if ($fromPrevious) return $this->__previousYearDiaspora($action, $sex);
+        $total = 0;
+        foreach ($this->institutions as $institution) {
+            $institutionService = new InstitutionService($institution);
+            $total = $institutionService->diasporaParticipation($action, $sex);
+        }
+        return $total;
+    }
+
+    /**
+     * @param string $sponsorType
+     * @param string $sex
+     * @return int
+     */
+    function qualifiedInternships($sponsorType = 'All', $sex = 'All')
     {
         $total = 0;
         foreach ($this->institutions as $institution) {
             $institutionService = new InstitutionService($institution);
-            $total = $institutionService->diasporaCourses();
+            $total = $institutionService->qualifiedInternships($sponsorType, $sex);
         }
         return $total;
     }
@@ -422,20 +459,6 @@ class InstitutionReportService
      * @return int
      */
     function researchBudget()
-    {
-        $total = 0;
-        foreach ($this->institutions as $institution) {
-            $institutionService = new InstitutionService($institution);
-            $total += $institutionService->researchBudget();
-        }
-        return $total;
-    }
-
-    /**
-     * @param $purpose
-     * @return int
-     */
-    function buildings($purpose)
     {
         $total = 0;
         foreach ($this->institutions as $institution) {
