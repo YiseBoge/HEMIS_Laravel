@@ -92,7 +92,7 @@
                                                 </td>
                                             @endforeach
                                             <td class="text-primary text-center">
-                                                {{ $kpi->target }}
+                                                {{ $kpi->target }}%
                                             </td>
                                             <td class="text-center" style="min-width:115px;">
                                                 @if($kpi->change() > 0)

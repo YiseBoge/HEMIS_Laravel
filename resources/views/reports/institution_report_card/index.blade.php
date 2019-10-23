@@ -101,7 +101,7 @@
                                                 </td>
                                             @endforeach
                                             <td class="text-primary text-center">
-                                                {{ $kpi->target($institution_name)->value }}
+                                                {{ $kpi->target($institution_name)->value }}%
                                             </td>
                                             <td class="text-center" style="min-width:115px;">
                                                 @if($kpi->change($institution_name) > 0)
