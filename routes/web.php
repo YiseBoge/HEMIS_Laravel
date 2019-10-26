@@ -121,8 +121,6 @@ Route::resource('student/university-industry-linkage', 'College\UniversityIndust
 //  The rest
 Route::get('/report/generate-full-report', 'Report\GenerateReportsController@generateFullReport');
 Route::get('/report/generate-institution-report', 'Report\GenerateReportsController@generateInstitutionReport');
-Route::get('/institution/semester-overview', 'Report\InstitutionInstancesController@index');
-Route::get('/institution/change-semester', 'Report\InstitutionInstancesController@changeSemester');
 Route::resource('report', 'Report\ReportsController');
 Route::resource('institution-report', 'Report\InstitutionReportsController');
 Route::resource('region-name', 'Institution\RegionNamesController');

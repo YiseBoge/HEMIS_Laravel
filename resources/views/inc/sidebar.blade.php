@@ -45,7 +45,7 @@
                     {{Auth::user()->bandName->band_name == 'Medicine and Health Sciences' ? '': 'd-none' }} "
                        href="/enrollment/specializing-students">Specializing Students</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'rural_students' ? 'active': '' }}"
-                       href="/enrollment/rural-area-students">Rural Area Students</a>
+                       href="/enrollment/rural-area-students">Rural/Urban Area Students</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'disadvantaged_students' ? 'active': '' }}"
                        href="/enrollment/economically-disadvantaged">Economically
                         Disadvantaged Students</a>
@@ -244,7 +244,7 @@
                     {{Auth::user()->bandName->band_name == 'Medicine and Health Sciences' ? '': 'd-none' }}"
                        href="/enrollment/specializing-students">Specializing Students</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'rural_students' ? 'active': '' }}"
-                       href="/enrollment/rural-area-students">Rural Area Students</a>
+                       href="/enrollment/rural-area-students">Rural/Urban Area Students</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'disadvantaged_students' ? 'active': '' }}"
                        href="/enrollment/economically-disadvantaged">Economically
                         Disadvantaged Students</a>
@@ -345,8 +345,6 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'institution_report_card' ? 'active': '' }}"
                        href="/institution-report">Institution Report Card</a>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'institution_instance' ? 'active': '' }}"
-                       href="/institution/semester-overview">Semester Overview</a>
                 </div>
             </div>
         </li>

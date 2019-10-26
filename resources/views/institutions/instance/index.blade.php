@@ -131,15 +131,15 @@
 
 
     @if ($page_name == 'administer.instance.edit')
-    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
-         aria-hidden="true">
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
+             aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-
             <div class="modal-content">
-                {!! Form::model($instance , ['action' => ['Institution\InstancesController@update' , $instance->id], 'method' => 'POST']) !!}
+
+                {!! Form::model($selected_instance , ['action' => ['Institution\InstancesController@update' , $selected_instance->id], 'method' => 'POST']) !!}
                 @method('PUT')
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editTitle">Add</h5>
+                    <h5 class="modal-title" id="editTitle">Edit</h5>
                     <a href="/institution/instance" class="close" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </a>
@@ -147,12 +147,12 @@
 
                 <div class="modal-body row p-4">
                     <div class="col-md-12 form-group pb-1">
-                        {!! Form::text('year', $instance->year, ['class' => 'form-control', 'id' => 'add_year', 'required' => 'true']) !!}
-                        {!! Form::label('add_year', 'Year', ['class' => 'form-control-placeholder']) !!}
+                        {!! Form::select('year', $years , $selected_instance->year, ['class' => 'form-control', 'id' => 'edit_year', 'required' => 'true']) !!}
+                        {!! Form::label('edit_year', 'Year', ['class' => 'form-control-placeholder']) !!}
                     </div>
                     <div class="col-md-12 form-group pb-1">
-                        {!! Form::text('semester', $instance->semester, ['class' => 'form-control', 'id' => 'add_semester', 'required' => 'true']) !!}
-                        {!! Form::label('add_semester', 'Semester', ['class' => 'form-control-placeholder']) !!}
+                        {!! Form::text('semester', $selected_instance->semester, ['class' => 'form-control', 'id' => 'edit_semester', 'required' => 'true']) !!}
+                        {!! Form::label('edit_semester', 'Semester', ['class' => 'form-control-placeholder']) !!}
                     </div>
                 </div>
 
