@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
 use App\Models\College\Budget;
-use App\Models\College\College;
 use App\Models\Institution\Institution;
 use App\Models\Institution\Resource;
 use App\Services\InstitutionService;
@@ -34,19 +33,18 @@ class InstitutionsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
         $institution = $user->institution();
 
         $institutionService = new InstitutionService($institution);
 
-        $allGraduation = $institutionService->graduationData('All', College::getEnum('education_level')['POST_GRADUATE_PHD']);
-        $undergraduateGraduation = $institutionService->graduationData('All', College::getEnum('education_level')['UNDERGRADUATE']);
-        $postgraduateGraduation = $institutionService->graduationData('All', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
-            $institutionService->graduationData('Female', College::getEnum('education_level')['POST_GRADUATE_PHD']);
-        $femaleGraduation = $institutionService->graduationData('All', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
-            $institutionService->graduationData('Female', College::getEnum('education_level')['POST_GRADUATE_PHD']) +
-            $institutionService->graduationData('Female', College::getEnum('education_level')['UNDERGRADUATE']);
+        $allGraduation = $institutionService->graduationData('All', 'All', 'All');
+        $undergraduateGraduation = $institutionService->graduationData('All', 'Undergraduate', 'All');
+        $postgraduateGraduation =
+            $institutionService->graduationData('All', 'Post Graduate(Masters)', 'All') +
+            $institutionService->graduationData('All', 'Post Doctoral', 'All') +
+            $institutionService->graduationData('All', 'Health Specialty', 'All');
+        $femaleGraduation = $institutionService->graduationData('Female', 'All', 'All');
 
         $existing = array(
             'recurrent_budget' => $institutionService->budgetByType(Budget::getEnum('budget_type')['RECURRENT']),
