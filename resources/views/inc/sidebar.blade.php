@@ -192,7 +192,7 @@
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'technical' ? 'active': '' }}"
                        href="/staff/technical">Technical Support Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'ict' ? 'active': '' }}"
-                       href="/staff/ict">ICT Staff ??</a>
+                       href="/staff/ict">ICT Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'attrition' ? 'active': '' }}"
                        href="/staff/attrition">Staff Attrition</a>
 
