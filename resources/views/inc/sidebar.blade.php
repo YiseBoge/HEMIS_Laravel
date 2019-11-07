@@ -207,6 +207,12 @@
         </li>
     @elseif(Auth::user()->hasRole('College Super Admin'))
 
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'approval' ? 'active': '' }}">
+            <a class="nav-link" href="/college/approval">
+                <i class="fas fa-check fa-sm"></i>
+                <span>Approval</span></a>
+        </li>
+        <hr class="sidebar-divider">
         <li class="nav-item" {{ preg_split ("/\./", $page_name)[0] == 'budgets' ? 'active': '' }}>
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBudget"
                aria-expanded="false"
@@ -321,7 +327,12 @@
                 <span>Research</span></a>
         </li>
     @elseif(Auth::user()->hasRole('University Admin'))
-
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'approval' ? 'active': '' }}">
+            <a class="nav-link" href="/institution/approval">
+                <i class="fas fa-check fa-sm"></i>
+                <span>Approval</span></a>
+        </li>
+        <hr class="sidebar-divider">
         <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'general_info' ? 'active': '' }}">
             <a class="nav-link" href="/institution/general">
                 <i class="fas fa-info-circle"></i>

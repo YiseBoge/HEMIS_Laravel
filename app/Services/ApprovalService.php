@@ -33,7 +33,7 @@ class ApprovalService
         }
     }
 
-    public static function approveAllInDepartment(Department $department)
+    public static function approveAllInDepartment(Department $department, String $approveBy)
     {
 
         $dataList = array(
@@ -46,18 +46,23 @@ class ApprovalService
         );
 
         foreach($dataList as $data){
-            self::approveData($data);
+            if($approveBy == "college"){
+                self::approveData($data);
+            }
+            else if($approveBy == "institution"){
+                self::approveDataByInstitution($data);
+            }
         }
     }
 
-    public static function approveAllDepartmentDataInCollege(College $college)
+    public static function approveAllDepartmentDataInCollege(College $college, String $approveBy)
     {
         foreach($college->departments as $department){
-            self::approveAllInDepartment($department);
+            self::approveAllInDepartment($department, $approveBy);
         }
     }
 
-    public static function approveAllCollegeData(College $college)
+    public static function approveAllCollegeData(College $college, String $approveBy)
     {
         $dataList = array(
             $college->budgets, $college->internalRevenues, $college->investments,
@@ -65,16 +70,22 @@ class ApprovalService
         );
 
         foreach($dataList as $data){
-            self::approveData($data);
+            if($approveBy == "college"){
+                self::approveData($data);
+            }
+            else if($approveBy == "institution"){
+                self::approveDataByInstitution($data);
+            }
         }
     }
 
-    // public static function approveAllInInstitution(Institution $institution)
-    // {
-    //     foreach ($institution->bands as $band) {
-    //         foreach ($band->colleges as $college) {
-    //             self::approveAllDepartmentDataInCollege($college);
-    //         }
-    //     }
-    // }
+    public static function approveAllInInstitution(Institution $institution)
+    {
+        foreach ($institution->bands as $band) {
+            foreach ($band->colleges as $college) {
+                self::approveAllDepartmentDataInCollege($college, "institution");
+                self::approveAllCollegeData($college, "institution");
+            }
+        }
+    }
 }

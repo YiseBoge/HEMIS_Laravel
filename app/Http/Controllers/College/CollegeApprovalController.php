@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\College;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ApprovalService;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,10 +17,13 @@ class CollegeApprovalController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Super Admin');
+
         $data = [
-            'page_name' => 'college.approval.index'
+            "page_name" => 'college.approval.index'
         ];
-        return view('colleges.approval', $data);
+        return view('colleges.approval')->with($data);
     }
 
     /**
@@ -51,10 +54,10 @@ class CollegeApprovalController extends Controller
         foreach($institution->bands as $band){
             foreach($band->colleges as $college){
                 if($type == "department"){
-                    ApprovalService::approveAllDepartmentDataInCollege($college);
+                    ApprovalService::approveAllDepartmentDataInCollege($college, "college");
                     
                 }else if($type == "college"){
-                    ApprovalService::approveAllCollegeData($college);                    
+                    ApprovalService::approveAllCollegeData($college, "college");
                 }
             }
         }
