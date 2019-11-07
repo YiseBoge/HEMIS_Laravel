@@ -109,7 +109,7 @@ class CollegeAdminController extends Controller
         $currentInstanceId = $user->currentInstance;
         $institutionName = $user->institution()->institutionName;
 
-        $collegeNames = CollegeName::all();
+        $collegeNames = $institutionName->collegeNames;
         /** @var CollegeName $collegeName */
         $collegeName = $collegeNames[$request->input('college_name_id')];
 
