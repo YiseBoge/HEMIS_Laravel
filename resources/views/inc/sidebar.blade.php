@@ -171,8 +171,7 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'university_industry_linkage' ? 'active': '' }}"
-                       href="/student/university-industry-linkage">University Industry
-                        Linkage</a>
+                       href="/student/university-industry-linkage">University Industry Linkage</a>
                 </div>
             </div>
         </li>
@@ -209,8 +208,8 @@
 
         <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'approval' ? 'active': '' }}">
             <a class="nav-link" href="/college/approval">
-                <i class="fas fa-check fa-sm"></i>
-                <span>Approval</span></a>
+                <i class="fas fa-check"></i>
+                <span>Collective Approval</span></a>
         </li>
         <hr class="sidebar-divider">
         <li class="nav-item" {{ preg_split ("/\./", $page_name)[0] == 'budgets' ? 'active': '' }}>
@@ -329,8 +328,8 @@
     @elseif(Auth::user()->hasRole('University Admin'))
         <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'approval' ? 'active': '' }}">
             <a class="nav-link" href="/institution/approval">
-                <i class="fas fa-check fa-sm"></i>
-                <span>Approval</span></a>
+                <i class="fas fa-check-double"></i>
+                <span>Final Approval</span></a>
         </li>
         <hr class="sidebar-divider">
         <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'general_info' ? 'active': '' }}">
