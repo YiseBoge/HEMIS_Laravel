@@ -4,6 +4,7 @@ namespace App\Models\Department;
 
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Webpatser\Uuid\Uuid;
@@ -48,6 +49,14 @@ class DepartmentName extends Model
     public function users()
     {
         return $this->hasMany('App\User');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function collegeName()
+    {
+        return $this->belongsTo('App\Models\College\CollegeName');
     }
 
     /**
