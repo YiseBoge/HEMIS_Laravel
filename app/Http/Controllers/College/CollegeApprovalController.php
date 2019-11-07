@@ -16,6 +16,9 @@ class CollegeApprovalController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $user->authorizeRoles('College Super Admin');
+        
         $data = array(
             "page_name" => 'college.approval'
         );
@@ -50,10 +53,10 @@ class CollegeApprovalController extends Controller
         foreach($institution->bands as $band){
             foreach($band->colleges as $college){
                 if($type == "department"){
-                    ApprovalService::approveAllDepartmentDataInCollege($college);
+                    ApprovalService::approveAllDepartmentDataInCollege($college, "college");
                     
                 }else if($type == "college"){
-                    ApprovalService::approveAllCollegeData($college);                    
+                    ApprovalService::approveAllCollegeData($college, "college");                    
                 }
             }
         }
