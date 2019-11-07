@@ -81,9 +81,9 @@ class ManagementDataController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'required_positions' => 'required',
-            'assigned_positions' => 'required',
-            'number_of_females' => 'required'
+            'required_positions' => 'required|numeric|between:0,250',
+            'assigned_positions' => 'required|numeric|between:0,250',
+            'number_of_females' => 'required|numeric|between:0,250'
         ]);
 
         $user = Auth::user();
@@ -165,9 +165,9 @@ class ManagementDataController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'required_positions' => 'required',
-            'assigned_positions' => 'required',
-            'number_of_females' => 'required'
+            'required_positions' => 'required|numeric|between:0,250',
+            'assigned_positions' => 'required|numeric|between:0,250',
+            'number_of_females' => 'required|numeric|between:0,250'
         ]);
 
         $user = Auth::user();
