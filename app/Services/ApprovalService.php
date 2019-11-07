@@ -5,25 +5,25 @@ namespace App\Services;
 use App\Models\College\College;
 use App\Models\Department\Department;
 use App\Models\Institution\Institution;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
- * Class DepartmentService
+ * Class ApprovalService
  * @package App\Services
  */
 class ApprovalService
 {
-    public static function approveData(Model $data)
+    public static function approveData(Collection $data)
     {
         foreach ($data as $item) {
             if ($item->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
-                $item->approval_status = Institution::getEnum('ApprovalTypes')["COLLEGE_APPROVED"];
+                $item->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                 $item->save();
             }
         }
     }
 
-    public static function approveDataByInstitution(Model $data)
+    public static function approveDataByInstitution(Collection $data)
     {
         foreach ($data as $item) {
             if ($item->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
@@ -50,19 +50,31 @@ class ApprovalService
         }
     }
 
-    public static function approveAllInCollege(College $college)
+    public static function approveAllDepartmentDataInCollege(College $college)
     {
         foreach($college->departments as $department){
             self::approveAllInDepartment($department);
         }
     }
 
-    public static function approveAllInInstitution(Institution $institution)
+    public static function approveAllCollegeData(College $college)
     {
-        foreach ($institution->bands as $band) {
-            foreach ($band->colleges as $college) {
-                self::approveAllInCollege($college);
-            }
+        $dataList = array(
+            $college->budgets, $college->internalRevenues, $college->investments,
+            $college->universityIndustryLinkages
+        );
+
+        foreach($dataList as $data){
+            self::approveData($data);
         }
     }
+
+    // public static function approveAllInInstitution(Institution $institution)
+    // {
+    //     foreach ($institution->bands as $band) {
+    //         foreach ($band->colleges as $college) {
+    //             self::approveAllDepartmentDataInCollege($college);
+    //         }
+    //     }
+    // }
 }

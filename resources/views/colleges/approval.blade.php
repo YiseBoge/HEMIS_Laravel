@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="row m-3">
                     <div class="col-md-6">
-                        <form action="college/approval" method="POST">
+                        <form action="approval" method="POST">
                                 @csrf
                                 <input type="hidden" name="type" value="department">
                                 <button type="submit"
@@ -20,7 +20,7 @@
                             </form>
                     </div>
                     <div class="col-md-6">
-                        <form action="college/approval" method="POST">
+                        <form action="approval" method="POST">
                                 @csrf
                                 <input type="hidden" name="type" value="college">
                                 <button type="submit"
