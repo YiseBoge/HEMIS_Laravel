@@ -4,6 +4,8 @@ namespace App\Http\Controllers\College;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\ApprovalService;
+use Illuminate\Support\Facades\Auth;
 
 class CollegeApprovalController extends Controller
 {
@@ -35,7 +37,25 @@ class CollegeApprovalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('College Super Admin');
+
+        $institution = $user->institution();
+
+        $type = $request->input('type');
+
+        foreach($institution->bands as $band){
+            foreach($band->colleges as $college){
+                if($type == "department"){
+                    ApprovalService::approveAllDepartmentDataInCollege($college);
+                    
+                }else if($type == "college"){
+                    ApprovalService::approveAllCollegeData($college);                    
+                }
+            }
+        }
+
+        return redirect("college/approval")->with('primary', "Successfully Approved");
     }
 
     /**
