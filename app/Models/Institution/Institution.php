@@ -28,6 +28,7 @@ class Institution extends Model
     public $incrementing = false;
     protected $enumApprovalTypes = [
         'APPROVED' => 'Approved',
+        'COLLEGE_APPROVED' => 'College Approved',
         'PENDING' => 'Pending',
         'DISAPPROVED' => 'Disapproved'
     ];
