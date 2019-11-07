@@ -16,7 +16,10 @@ class CollegeApprovalController extends Controller
      */
     public function index()
     {
-        return view('colleges.approval');
+        $data = array(
+            "page_name" => 'college.approval'
+        );
+        return view('colleges.approval')->with($data);
     }
 
     /**
