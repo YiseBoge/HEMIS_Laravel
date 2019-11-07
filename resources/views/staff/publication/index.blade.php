@@ -175,7 +175,7 @@
                                 Postgraduate Students
                             </div>
                             <div class="input-group mb-3 border rounded">
-                                <input type="text" class="form-control form-control-plaintext"
+                                <input type="number" class="form-control form-control-plaintext"
                                        name="student_publications"
                                        value="{{$publications_and_patents->student_publications}}">
                                 <div class="input-group-append">
@@ -190,7 +190,7 @@
                                 Earned
                             </div>
                             <div class="input-group mb-3 border rounded">
-                                <input type="text" class="form-control form-control-plaintext" name="patents"
+                                <input type="number" class="form-control form-control-plaintext" name="patents"
                                        value="{{$publications_and_patents->patents}}">
                                 <div class="input-group-append">
                                     <span class="input-group-text bg-white border-0"><i
