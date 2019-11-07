@@ -41,6 +41,7 @@ class RuralStudentEnrollmentsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedRegion = $request->input('region');
         if ($requestedRegion == null) {
@@ -103,7 +104,7 @@ class RuralStudentEnrollmentsController extends Controller
 
         $data = array(
             'enrollments' => $enrollments,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'programs' => College::getEnum("EducationPrograms"),
             'education_levels' => College::getEnum("EducationLevels"),
             'regions' => RuralStudentEnrollment::getEnum('Regions'),

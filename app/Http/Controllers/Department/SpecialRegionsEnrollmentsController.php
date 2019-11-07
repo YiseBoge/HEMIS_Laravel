@@ -39,6 +39,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $selectedStudentType = $request->input('student_type');
         if ($selectedStudentType == null) {
@@ -122,7 +123,7 @@ class SpecialRegionsEnrollmentsController extends Controller
             'enrollments' => $enrollments,
             'types' => SpecialRegionEnrollment::getEnum("RegionTypes"),
             'student_types' => SpecialRegionEnrollment::getEnum('StudentTypes'),
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'regions' => RegionName::all(),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,

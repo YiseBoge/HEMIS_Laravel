@@ -40,6 +40,7 @@ class JointProgramEnrollmentsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedSponsor = $request->input('sponsor');
         if ($requestedSponsor == null) {
@@ -105,7 +106,7 @@ class JointProgramEnrollmentsController extends Controller
 
         $data = array(
             'enrollments' => $enrollments,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
             'sponsors' => JointProgramEnrollment::getEnum('Sponsors'),

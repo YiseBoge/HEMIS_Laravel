@@ -41,6 +41,7 @@ class TeachersController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedLevel = $request->input('education_level');
         if ($requestedLevel == null) {
@@ -94,7 +95,7 @@ class TeachersController extends Controller
 
         $data = array(
             'teachers' => $teachers,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'education_levels' => Teacher::getEnum("EducationLevels"),
 
             'selected_department' => $requestedDepartment,

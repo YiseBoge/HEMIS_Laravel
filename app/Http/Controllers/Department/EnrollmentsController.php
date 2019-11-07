@@ -41,6 +41,7 @@ class EnrollmentsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedType = $request->input('student_type');
         if ($requestedType == null) {
@@ -109,7 +110,7 @@ class EnrollmentsController extends Controller
 
         $data = array(
             'enrollments' => $enrollments,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
             'student_types' => Enrollment::getEnum('StudentTypes'),

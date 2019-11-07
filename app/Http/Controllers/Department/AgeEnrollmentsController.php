@@ -38,6 +38,7 @@ class AgeEnrollmentsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedProgram = $request->input('program');
         if ($requestedProgram == null) {
@@ -95,7 +96,7 @@ class AgeEnrollmentsController extends Controller
         array_pop($educationLevels);
 
         $data = ['enrollment_info' => $ageEnrollments,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'age_range' => AgeEnrollment::getEnum('Ages'),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,

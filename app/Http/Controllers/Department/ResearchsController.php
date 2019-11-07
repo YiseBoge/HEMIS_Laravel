@@ -37,8 +37,8 @@ class ResearchsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedType = $request->input('type');
         if ($requestedType == null) {
@@ -88,7 +88,7 @@ class ResearchsController extends Controller
 
         $data = array(
             'researchs' => $researches,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'completions' => Research::getEnum('Completions'),
             'types' => Research::getEnum('Types'),
             'page_name' => 'research.research.index',

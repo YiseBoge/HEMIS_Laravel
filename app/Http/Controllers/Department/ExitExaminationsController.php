@@ -37,8 +37,8 @@ class ExitExaminationsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
@@ -84,7 +84,7 @@ class ExitExaminationsController extends Controller
 
         $data = array(
             'examinations' => $examinations,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
 
             'selected_department' => $requestedDepartment,
 

@@ -40,6 +40,7 @@ class UpgradingStaffController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedPlace = $request->input('study_place');
         if ($requestedPlace == null) {
@@ -97,7 +98,7 @@ class UpgradingStaffController extends Controller
         $data = [
             'study_place' => $requestedPlace,
             'upgrading_staffs' => $filteredTeachers,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
 
             'selected_department' => $requestedDepartment,
             'selected_place' => $requestedPlace,

@@ -40,6 +40,7 @@ class PostGraduateDiplomaTrainingController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         if ($request->input('type') == null) {
             $requestedType = 0;
@@ -102,7 +103,7 @@ class PostGraduateDiplomaTrainingController extends Controller
 
         $data = array(
             'trainings' => $trainings,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'programs' => PostGraduateDiplomaTraining::getEnum("Programs"),
             'types' => PostGraduateDiplomaTraining::getEnum('Types'),
             'page_name' => 'staff.postgraduate_diploma_training.index',

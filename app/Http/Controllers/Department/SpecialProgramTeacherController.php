@@ -40,6 +40,7 @@ class SpecialProgramTeacherController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedStatus = $request->input('program_status');
         if ($requestedStatus == null) {
@@ -97,7 +98,7 @@ class SpecialProgramTeacherController extends Controller
         $data = [
             'program_status' => $requestedStatus,
             'special_program_teachers' => $filteredTeachers,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
 
             'selected_department' => $requestedDepartment,
             'selected_status' => $requestedStatus,

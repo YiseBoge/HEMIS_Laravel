@@ -39,8 +39,8 @@ class StudentAttritionController extends Controller
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedProgram = $request->input('program');
         if ($requestedProgram == null) {
@@ -110,7 +110,7 @@ class StudentAttritionController extends Controller
 
         $data = array(
             'attritions' => $attritions,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'programs' => College::getEnum('EducationPrograms'),
             'education_levels' => College::getEnum('EducationLevels'),
             'student_types' => StudentAttrition::getEnum('StudentTypes'),
