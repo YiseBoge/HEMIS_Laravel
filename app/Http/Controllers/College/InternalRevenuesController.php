@@ -112,10 +112,9 @@ class InternalRevenuesController extends Controller
     {
         $this->validate($request, [
             'revenue_description' => 'required',
-            'income' => 'required',
-            'expense' => 'required',
+            'income' => 'required|numeric|between"0,1000000000',
+            'expense' => 'required|numeric|between"0,1000000000',
         ]);
-
 
         $internalRevenue = new InternalRevenue();
         $internalRevenue->revenue_description = $request->input('revenue_description');
@@ -227,14 +226,14 @@ class InternalRevenuesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-
         $this->validate($request, [
             'revenue_description' => 'required',
-            'income' => 'required',
-            'expense' => 'required',
+            'income' => 'required|numeric|between"0,1000000000',
+            'expense' => 'required|numeric|between"0,1000000000',
         ]);
+
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
 
         $internalRevenue = InternalRevenue::find($id);
         $internalRevenue->revenue_description = $request->input('revenue_description');

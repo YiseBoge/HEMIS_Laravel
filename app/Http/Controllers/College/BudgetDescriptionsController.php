@@ -71,13 +71,13 @@ class BudgetDescriptionsController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $user->authorizeRoles('Super Admin');
-
         $this->validate($request, [
             'budget_code' => 'required',
             'description' => 'required',
         ]);
+
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
 
         $budgetDescription = new BudgetDescription();
         $budgetDescription->budget_code = $request->input('budget_code');
@@ -134,9 +134,15 @@ class BudgetDescriptionsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'budget_code' => 'required',
+            'description' => 'required',
+        ]);
+
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 
