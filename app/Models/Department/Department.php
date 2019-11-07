@@ -53,6 +53,7 @@ class Department extends Model
             $model->degreeEmployments()->delete();
             $model->otherRegionStudents()->delete();
             $model->costSharings()->delete();
+            $model->qualifiedInternships()->delete();
 
             $model->specialProgramTeachers()->delete();
             $model->upgradingStaffs()->delete();

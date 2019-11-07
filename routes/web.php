@@ -31,6 +31,7 @@ Route::resource('budgets/private-investment', 'College\InvestmentsController');
 
 //  College Routes...
 Route::resource('college/college-name', 'College\CollegeNamesController');
+Route::resource('college/approval', 'College\CollegeApprovalController');
 
 //  Department Routes...
 Route::resource('department/department-name', 'Department\DepartmentNamesController');
