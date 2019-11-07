@@ -121,10 +121,10 @@ class ExitExaminationsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'males_sat' => 'required',
-            'females_sat' => 'required',
-            'males_passed' => 'required',
-            'females_passed' => 'required',
+            'males_sat' => 'required|numeric|between:0,1000000000',
+            'females_sat' => 'required|numeric|between:0,1000000000',
+            'males_passed' => 'required|numeric|between:0,1000000000',
+            'females_passed' => 'required|numeric|between:0,1000000000',
         ]);
 
         $examination = new ExitExamination;
@@ -227,9 +227,17 @@ class ExitExaminationsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'males_sat' => 'required|numeric|between:0,1000000000',
+            'females_sat' => 'required|numeric|between:0,1000000000',
+            'males_passed' => 'required|numeric|between:0,1000000000',
+            'females_passed' => 'required|numeric|between:0,1000000000',
+        ]);
+
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');

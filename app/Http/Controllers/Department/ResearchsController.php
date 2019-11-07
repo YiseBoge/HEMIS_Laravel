@@ -127,14 +127,14 @@ class ResearchsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'number' => 'required',
-            'female_number' => 'required',
-            'budget' => 'required',
-            'external_budget' => 'required',
-            'male_participating_number' => 'required',
-            'female_participating_number' => 'required',
-            'other_male_number' => 'required',
-            'other_female_number' => 'required'
+            'number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
+            'budget' => 'required|numeric|between:0,1000000000',
+            'external_budget' => 'required|numeric|between:0,1000000000',
+            'male_participating_number' => 'required|numeric|between:0,1000000000',
+            'female_participating_number' => 'required|numeric|between:0,1000000000',
+            'other_male_number' => 'required|numeric|between:0,1000000000',
+            'other_female_number' => 'required|numeric|between:0,1000000000'
         ]);
 
         $research = new Research;
@@ -236,9 +236,21 @@ class ResearchsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
+            'budget' => 'required|numeric|between:0,1000000000',
+            'external_budget' => 'required|numeric|between:0,1000000000',
+            'male_participating_number' => 'required|numeric|between:0,1000000000',
+            'female_participating_number' => 'required|numeric|between:0,1000000000',
+            'other_male_number' => 'required|numeric|between:0,1000000000',
+            'other_female_number' => 'required|numeric|between:0,1000000000'
+        ]);
+
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
 

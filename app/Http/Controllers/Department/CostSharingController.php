@@ -120,13 +120,13 @@ class CostSharingController extends Controller
             'field_of_study' => 'required',
             'tin_number' => 'required',
             'receipt_number' => 'required',
-            'registration_date' => 'required',
-            'clearance_date' => 'required',
-            'tuition_fee' => 'required',
-            'food_expenses' => 'required',
-            'dormitory_expenses' => 'required',
-            'pre_payment_amount' => 'required',
-            'unpaid_amount' => 'required'
+            'registration_date' => 'required|date',
+            'clearance_date' => 'required|data|after:registration_date',
+            'tuition_fee' => 'required|numeric|between:0,1000000000',
+            'food_expenses' => 'required|numeric|between:0,1000000000',
+            'dormitory_expenses' => 'required|numeric|between:0,1000000000',
+            'pre_payment_amount' => 'required|numeric|between:0,1000000000',
+            'unpaid_amount' => 'required|numeric|between:0,1000000000'
         ]);
 
         $costSharing = new CostSharing;
@@ -232,9 +232,18 @@ class CostSharingController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'tuition_fee' => 'required|numeric|between:0,1000000000',
+            'food_expenses' => 'required|numeric|between:0,1000000000',
+            'dormitory_expenses' => 'required|numeric|between:0,1000000000',
+            'pre_payment_amount' => 'required|numeric|between:0,1000000000',
+            'unpaid_amount' => 'required|numeric|between:0,1000000000'
+        ]);
+
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
