@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class ReportsController extends Controller
 {
@@ -114,9 +115,14 @@ class ReportsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'target' => 'required|numeric|between:0,100',
+        ]);
+
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 

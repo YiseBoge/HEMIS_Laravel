@@ -93,19 +93,18 @@ class IctStaffsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'birth_date' => 'required',
+            'birth_date' => 'required|date|before:now',
             'sex' => 'required',
             'phone_number' => 'required',
             'nationality' => 'required',
             'job_title' => 'required',
-            'salary' => 'required',
-            'service_year' => 'required',
+            'salary' => 'required|numeric|0,1000000000',
+            'service_year' => 'required|numeric|0,100',
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
             'ict_staff_rank' => 'required',
             'ict_type' => 'required'
-
         ]);
 
         $ictStaff = new IctStaff();
@@ -214,19 +213,18 @@ class IctStaffsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'birth_date' => 'required',
+            'birth_date' => 'required|date|before:now',
             'sex' => 'required',
             'phone_number' => 'required',
             'nationality' => 'required',
             'job_title' => 'required',
-            'salary' => 'required',
-            'service_year' => 'required',
+            'salary' => 'required|numeric|0,1000000000',
+            'service_year' => 'required|numeric|0,100',
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
-            'expatriate' => 'required',
-            'ict_staff_rank' => 'required'
-
+            'ict_staff_rank' => 'required',
+            'ict_type' => 'required'
         ]);
 
         $ictStaff = IctStaff::find($id);

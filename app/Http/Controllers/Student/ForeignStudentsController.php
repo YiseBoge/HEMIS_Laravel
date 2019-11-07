@@ -43,6 +43,7 @@ class ForeignStudentsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedProgram = $request->input('program');
         if ($requestedProgram == null) {
@@ -103,7 +104,7 @@ class ForeignStudentsController extends Controller
 
         $data = array(
             'students' => $students,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
             'year_levels' => $year_levels,

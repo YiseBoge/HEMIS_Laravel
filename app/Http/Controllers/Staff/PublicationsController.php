@@ -39,6 +39,7 @@ class PublicationsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
@@ -124,7 +125,7 @@ class PublicationsController extends Controller
 
         $data = array(
             'publications' => $publications,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'publications_and_patents' => $publicationsAndPatents,
 
             'selected_department' => $requestedDepartment,

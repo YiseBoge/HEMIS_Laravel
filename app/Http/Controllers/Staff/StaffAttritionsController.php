@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class StaffAttritionsController extends Controller
 {
@@ -236,9 +237,15 @@ class StaffAttritionsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'case' => 'required',
+            'staff' => 'required',
+        ]);
+
         $user = Auth::user();
         $user->authorizeRoles(['College Admin', 'Department Admin']);
 
