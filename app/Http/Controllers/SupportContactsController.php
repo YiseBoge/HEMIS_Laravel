@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Models\SupportContact;
+use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class SupportContactsController extends Controller
 {
@@ -72,14 +76,14 @@ class SupportContactsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse|Redirector
      * @throws ValidationException
      */
     public function store(Request $request)
     {
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
-        
+
         $this->validate($request, [
             'name' => 'required',
             'phone' => 'required'
@@ -129,7 +133,7 @@ class SupportContactsController extends Controller
     }
 
 
-     /**
+    /**
      * Update the specified resource in storage.
      *
      * @param Request $request
@@ -141,7 +145,7 @@ class SupportContactsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
-        
+
         $this->validate($request, [
             'name' => 'required',
             'phone' => 'required'
