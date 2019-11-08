@@ -37,12 +37,13 @@ class ApprovalService
     {
 
         $dataList = array(
-            $department->enrollments, $department->ruralStudentEnrollments, $department->disadvantagedStudentEnrollments,
-            $department->specializingStudentEnrollments, $department->ageEnrollments, $department->jointProgramEnrollments,
-            $department->exitExaminations, $department->degreeEmployments, $department->otherRegionStudents,
-            $department->qualifiedInternships, $department->specialProgramTeachers, $department->upgradingStaffs,
-            $department->postgraduateDiplomaTrainings, $department->teachers, $department->studentAttritions,
-            $department->otherAttritions, $department->researches, $department->diasporaCourses,
+            $department->enrollments, $department->specialRegionEnrollments, $department->ruralStudentEnrollments,
+            $department->disadvantagedStudentEnrollments, $department->specializingStudentEnrollments,
+            $department->ageEnrollments, $department->jointProgramEnrollments, $department->exitExaminations,
+            $department->degreeEmployments, $department->otherRegionStudents, $department->qualifiedInternships,
+            $department->specialProgramTeachers, $department->upgradingStaffs, $department->postgraduateDiplomaTrainings,
+            $department->teachers, $department->studentAttritions, $department->otherAttritions,
+            $department->researches, $department->diasporaCourses,
         );
 
         foreach($dataList as $data){

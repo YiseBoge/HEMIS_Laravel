@@ -190,6 +190,7 @@ class PublicationsController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
+            'staff' => 'required',
             'date' => 'required|date|before:now'
         ]);
 
@@ -297,6 +298,13 @@ class PublicationsController extends Controller
     {
 
         if ($request->input('publication') == 'true') {
+
+            $this->validate($request, [
+                'title' => 'required',
+                'staff' => 'required',
+                'date' => 'required|date|before:now'
+            ]);
+
             $user = Auth::user();
             if ($user == null) return redirect('/login');
             $user->authorizeRoles('Department Admin');

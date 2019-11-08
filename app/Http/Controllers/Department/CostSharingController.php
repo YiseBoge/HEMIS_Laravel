@@ -121,7 +121,7 @@ class CostSharingController extends Controller
             'tin_number' => 'required',
             'receipt_number' => 'required',
             'registration_date' => 'required|date',
-            'clearance_date' => 'required|data|after:registration_date',
+            'clearance_date' => 'required|date|after:registration_date',
             'tuition_fee' => 'required|numeric|between:0,1000000000',
             'food_expenses' => 'required|numeric|between:0,1000000000',
             'dormitory_expenses' => 'required|numeric|between:0,1000000000',

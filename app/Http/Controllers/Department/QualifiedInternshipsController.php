@@ -85,7 +85,7 @@ class QualifiedInternshipsController extends Controller
 
             'selected_department' => $requestedDepartment,
 
-            'page_name' => 'student.qualified_internship.index'
+            'page_name' => 'students.qualified_internship.index'
         );
 
         return view("departments.qualified_internship.index")->with($data);
@@ -103,7 +103,7 @@ class QualifiedInternshipsController extends Controller
 
         $data = array(
             'types' => QualifiedInternship::getEnum('SponsorTypes'),
-            'page_name' => 'student.qualified_internship.create'
+            'page_name' => 'students.qualified_internship.create'
         );
         //return $filteredEnrollments;
         return view("departments.qualified_internship.create")->with($data);
@@ -209,7 +209,7 @@ class QualifiedInternshipsController extends Controller
             'male_number' => $internship->male_number,
             'female_number' => $internship->female_number,
             'type' => $internship->sponsor_type,
-            'page_name' => 'student.qualified_internship.edit'
+            'page_name' => 'students.qualified_internship.edit'
         );
         return view("departments.qualified_internship.edit")->with($data);
     }
