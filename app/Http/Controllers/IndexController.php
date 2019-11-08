@@ -10,6 +10,8 @@ use App\Models\Department\DepartmentName;
 use App\Models\Institution\AgeEnrollment;
 use App\Models\Institution\InstitutionName;
 use App\Models\Staff\Staff;
+use App\Models\Department\Enrollment;
+use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -40,9 +42,19 @@ class IndexController extends Controller
         array_unshift($educationLevels, 'Any');
         array_unshift($staffTypes, 'Any');
 
+        $students_number = 0;
+        foreach(Enrollment::where('approval_status', 'Approved')->get() as $enrollment){
+            $students_number += $enrollment->male_students_number + $enrollment->female_students_number;
+        }
+
+
         $data = array(
 //            'students_number' => $studentsNumber,
 
+            'institutions_number' => number_format($institutions->count() - 1, 0),
+            'students_number' => $students_number,
+            'staff_number' => number_format(Staff::all()->count(), 0),
+            'admin_number' => number_format(User::all()->count(), 0),
             'bands' => $bands,
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,

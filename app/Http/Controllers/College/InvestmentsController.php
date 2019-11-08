@@ -7,6 +7,7 @@ use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\College\Investment;
 use App\Models\Institution\Institution;
+use App\Services\ApprovalService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -279,12 +280,7 @@ class InvestmentsController extends Controller
                     if ($band->bandName->band_name == $user->bandName->band_name) {
                         foreach ($band->colleges as $college) {
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->investments as $investment) {
-                                    if ($investment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
-                                        $investment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-                                        $investment->save();
-                                    }
-                                }
+                                ApprovalService::approveData($college->investments);
                             }
                         }
                     }

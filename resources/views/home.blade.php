@@ -70,10 +70,10 @@
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Number of Campuses
+                                {{$titles[0]}}
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$campuses_number}}
+                                {{$data[0]}}
                             </div>
                         </div>
                     </div>
@@ -82,10 +82,10 @@
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Number of Colleges
+                               {{$titles[1]}}
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$colleges_number}}
+                                {{$data[1]}}
                             </div>
                         </div>
                     </div>
@@ -94,10 +94,10 @@
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Number of Institutes
+                                {{$titles[2]}}
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$institutes_number}}
+                                {{$data[2]}}
                             </div>
                         </div>
                     </div>
@@ -106,10 +106,10 @@
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Number of Schools
+                                {{$titles[3]}}
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$schools_number}}
+                                {{$data[3]}}
                             </div>
                         </div>
                     </div>

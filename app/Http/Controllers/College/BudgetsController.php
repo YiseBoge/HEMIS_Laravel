@@ -8,6 +8,7 @@ use App\Models\College\Budget;
 use App\Models\College\BudgetDescription;
 use App\Models\College\College;
 use App\Models\Institution\Institution;
+use App\Services\ApprovalService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -326,12 +327,7 @@ class BudgetsController extends Controller
                     if ($band->bandName->band_name == $user->bandName->band_name) {
                         foreach ($band->colleges as $college) {
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->budgets as $budget) {
-                                    if ($budget->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
-                                        $budget->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-                                        $budget->save();
-                                    }
-                                }
+                                ApprovalService::approveData($college->budgets);
                             }
                         }
                     }
