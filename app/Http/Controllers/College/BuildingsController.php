@@ -111,9 +111,11 @@ class BuildingsController extends Controller
             'building_name' => 'required',
             'contractor_name' => 'required',
             'consultant_name' => 'required',
-            'date_started' => 'required',
-            'date_completed' => 'required',
-            'budget_allocated' => 'required',
+            'date_started' => 'required|date|before:now',
+            'date_completed' => 'required|date|after:date_started',
+            'budget_allocated' => 'required|numeric|between:0,1000000000',
+            'financial_status' => 'numeric|between:0,1000000000',
+            'completion_status' => 'numeric|between:0,100',
         ]);
 
         $building = new Building();
@@ -210,10 +212,16 @@ class BuildingsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
-        
+        $this->validate($request, [
+            'budget_allocated' => 'required|numeric|between:0,1000000000',
+            'financial_status' => 'numeric|between:0,1000000000',
+            'completion_status' => 'numeric|between:0,100',
+        ]);
+
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
 

@@ -89,14 +89,13 @@ class DepartmentNamesController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $user->authorizeRoles('University Admin');
-
         $this->validate($request, [
             'department_name' => 'required',
             'department_acronym' => 'required'
         ]);
 
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
         $institutionName = $user->institution()->institutionName;
 
         $collegeNames = $institutionName->collegeNames;
@@ -174,9 +173,15 @@ class DepartmentNamesController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'department_name' => 'required',
+            'department_acronym' => 'required'
+        ]);
+
         $user = Auth::user();
         $user->authorizeRoles('University Admin');
 

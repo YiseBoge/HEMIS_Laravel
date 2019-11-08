@@ -90,16 +90,17 @@ class ManagementStaffsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'birth_date' => 'required',
+            'birth_date' => 'required|date|before:now',
             'sex' => 'required',
             'phone_number' => 'required',
             'nationality' => 'required',
             'job_title' => 'required',
-            'salary' => 'required',
-            'service_year' => 'required',
+            'salary' => 'required|numeric|between:0,1000000000',
+            'service_year' => 'required|numeric|between:0,100',
             'employment_type' => 'required',
             'dedication' => 'required',
-            'academic_level' => 'required'
+            'academic_level' => 'required',
+            'management_level' => 'required',
         ]);
 
         $staff = new Staff;
@@ -202,18 +203,17 @@ class ManagementStaffsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'birth_date' => 'required',
+            'birth_date' => 'required|date|before:now',
             'sex' => 'required',
             'phone_number' => 'required',
             'nationality' => 'required',
             'job_title' => 'required',
-            'salary' => 'required',
-            'service_year' => 'required',
+            'salary' => 'required|numeric|between:0,1000000000',
+            'service_year' => 'required|numeric|between:0,100',
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
-            'management_level' => 'required'
-
+            'management_level' => 'required',
         ]);
 
         $managementStaff = ManagementStaff::find($id);

@@ -71,14 +71,14 @@ class PopulationController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $user->authorizeRoles('Super Admin');
-
         $this->validate($request, [
             'age_range' => 'required',
-            'male_number' => 'required',
-            'female_number' => 'required'
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000'
         ]);
+
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
 
         $population = new Population();
         $population->age_range = $request->input('age_range');

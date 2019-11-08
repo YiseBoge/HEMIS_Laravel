@@ -39,6 +39,7 @@ class AcademicStaffsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
@@ -75,7 +76,7 @@ class AcademicStaffsController extends Controller
 
         $data = array(
             'staffs' => $academicStaffs,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
 
             'selected_department' => $requestedDepartment,
 
@@ -116,19 +117,19 @@ class AcademicStaffsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'birth_date' => 'required',
+            'birth_date' => 'required|date|before:now',
             'sex' => 'required',
             'phone_number' => 'required',
             'nationality' => 'required',
             'job_title' => 'required',
-            'salary' => 'required',
-            'service_year' => 'required',
+            'salary' => 'required|numeric|between:0,1000000000',
+            'service_year' => 'required|numeric|between:0,100',
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
             'field_of_study' => 'required',
             'academic_staff_rank' => 'required',
-            'teaching_load' => 'required'
+            'teaching_load' => 'required|numeric|between:0,100'
         ]);
 
         $staff = new Staff;
@@ -253,21 +254,21 @@ class AcademicStaffsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'birth_date' => 'required',
+            'birth_date' => 'required|date|before:now',
             'sex' => 'required',
             'phone_number' => 'required',
             'nationality' => 'required',
             'job_title' => 'required',
-            'salary' => 'required',
-            'service_year' => 'required',
+            'salary' => 'required|numeric|between:0,1000000000',
+            'service_year' => 'required|numeric|between:0,100',
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
             'field_of_study' => 'required',
             'academic_staff_rank' => 'required',
-            'teaching_load' => 'required',
-
+            'teaching_load' => 'required|numeric|between:0,100'
         ]);
+
         $academicStaff = AcademicStaff::find($id);
 
         if ($request->input('status') == "onLeave") {

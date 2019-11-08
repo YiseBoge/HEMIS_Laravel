@@ -149,35 +149,35 @@ class InstitutionsController extends Controller
         $user->authorizeRoles('University Admin');
 
         $this->validate($request, [
-            'campuses' => 'required',
-            'colleges' => 'required',
-            'schools' => 'required',
-            'institutes' => 'required',
+            'campuses' => 'required|numeric|between:0,250',
+            'colleges' => 'required|numeric|between:0,250',
+            'schools' => 'required|numeric|between:0,250',
+            'institutes' => 'required|numeric|between:0,250',
 
-            'board_members' => 'required',
-            'vice_presidents' => 'required',
-            'middle_level_leaders' => 'required',
+            'board_members' => 'required|numeric|between:0,250',
+            'vice_presidents' => 'required|numeric|between:0,250',
+            'middle_level_leaders' => 'required|numeric|between:0,250',
 
-            'community_services' => 'required',
-            'male_teachers_participated' => 'required',
-            'female_teachers_participated' => 'required',
-            'male_benefited' => 'required',
-            'female_benefited' => 'required',
-            'linked_tvets' => 'required',
+            'community_services' => 'required|numeric|between:0,1000000000',
+            'male_teachers_participated' => 'required|numeric|between:0,1000000000',
+            'female_teachers_participated' => 'required|numeric|between:0,1000000000',
+            'male_benefited' => 'required|numeric|between:0,1000000000',
+            'female_benefited' => 'required|numeric|between:0,1000000000',
+            'linked_tvets' => 'required|numeric|between:0,1000000000',
 
-            'number_of_libraries' => 'required',
-            'number_of_laboratories' => 'required',
-            'number_of_workshops' => 'required',
+            'number_of_libraries' => 'required|numeric|between:0,250',
+            'number_of_laboratories' => 'required|numeric|between:0,250',
+            'number_of_workshops' => 'required|numeric|between:0,250',
 
             'status_of_libraries' => 'required',
             'status_of_laboratories' => 'required',
             'status_of_workshops' => 'required',
 
-            'pupil_per_teacher' => 'required',
-            'text_per_student' => 'required',
-            'number_of_classrooms' => 'required',
-            'number_of_smart_classrooms' => 'required',
-            'unjustifiable_expenses' => 'required',
+            'pupil_per_teacher' => 'required|numeric|between:0,1000000000',
+            'text_per_student' => 'required|numeric|between:0,1000000000',
+            'number_of_classrooms' => 'required|numeric|between:0,1000000000',
+            'number_of_smart_classrooms' => 'required|numeric|between:0,1000000000',
+            'unjustifiable_expenses' => 'required|numeric|between:0,1000000000',
         ]);
 
         $institution = Institution::find($id);

@@ -23,7 +23,7 @@
             <span>Dashboard</span></a>
     </li>
 
-    <hr class="sidebar-divider">
+    <hr class="sidebar-divider my-0">
 @if(Auth::user()->hasRole('Department Admin'))
 
 
@@ -326,12 +326,12 @@
                 <span>Research</span></a>
         </li>
     @elseif(Auth::user()->hasRole('University Admin'))
-        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'approval' ? 'active': '' }}">
-            <a class="nav-link" href="/institution/approval">
-                <i class="fas fa-check-double"></i>
-                <span>Final Approval</span></a>
-        </li>
-        <hr class="sidebar-divider">
+        {{--        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'approval' ? 'active': '' }}">--}}
+        {{--            <a class="nav-link" href="/institution/approval">--}}
+        {{--                <i class="fas fa-check-double"></i>--}}
+        {{--                <span>Final Approval</span></a>--}}
+        {{--        </li>--}}
+        {{--        <hr class="sidebar-divider">--}}
         <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'general_info' ? 'active': '' }}">
             <a class="nav-link" href="/institution/general">
                 <i class="fas fa-info-circle"></i>

@@ -147,8 +147,8 @@ class AgeEnrollmentsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'number_of_males' => 'required',
-            'number_of_females' => 'required',
+            'number_of_males' => 'required|numeric|between:0,1000000000',
+            'number_of_females' => 'required|numeric|between:0,1000000000',
         ]);
 
         $user = Auth::user();
@@ -253,9 +253,15 @@ class AgeEnrollmentsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'number_of_males' => 'required|numeric|between:0,1000000000',
+            'number_of_females' => 'required|numeric|between:0,1000000000',
+        ]);
+
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');

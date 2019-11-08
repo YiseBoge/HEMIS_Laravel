@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Institution;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ApprovalService;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class InstitutionApprovalController extends Controller
@@ -12,7 +12,7 @@ class InstitutionApprovalController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -20,7 +20,7 @@ class InstitutionApprovalController extends Controller
         $user->authorizeRoles('University Admin');
 
         $data = array(
-            "page_name" => 'institutions.approval'
+            "page_name" => 'institutions.approval.index'
         );
         return view('institutions.approval')->with($data);
     }

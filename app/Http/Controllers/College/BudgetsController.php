@@ -140,9 +140,9 @@ class BudgetsController extends Controller
         $this->validate($request, [
             'budget_type' => 'required',
             'budget_description' => 'required',
-            'allocated' => 'required',
-            'additional' => 'required',
-            'utilized' => 'required',
+            'allocated' => 'required|numeric|between:1,1000000000',
+            'additional' => 'required|numeric|between:1,1000000000',
+            'utilized' => 'required|numeric|between:1,1000000000',
         ]);
 
         $exampleDescription = BudgetDescription::all()[$request->input('budget_description')];
@@ -268,17 +268,14 @@ class BudgetsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-
         $this->validate($request, [
-            'budget_type' => 'required',
-            'budget_description' => 'required',
-            'allocated' => 'required',
-            'additional' => 'required',
-            'utilized' => 'required',
+            'allocated' => 'required|numeric|between:1,1000000000',
+            'additional' => 'required|numeric|between:1,1000000000',
+            'utilized' => 'required|numeric|between:1,1000000000',
         ]);
 
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
         $exampleDescription = BudgetDescription::all()[$request->input('budget_description')];
 
         $budget = Budget::find($id);

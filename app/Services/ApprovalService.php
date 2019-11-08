@@ -37,12 +37,13 @@ class ApprovalService
     {
 
         $dataList = array(
-            $department->enrollments, $department->ruralStudentEnrollments, $department->disadvantagedStudentEnrollments,
-            $department->specializingStudentEnrollments, $department->ageEnrollments, $department->jointProgramEnrollments,
-            $department->exitExaminations, $department->degreeEmployments, $department->otherRegionStudents,
-            $department->qualifiedInternships, $department->specialProgramTeachers, $department->upgradingStaffs,
-            $department->postgraduateDiplomaTrainings, $department->teachers, $department->studentAttritions,
-            $department->otherAttritions, $department->researches, $department->diasporaCourses,
+            $department->enrollments, $department->specialRegionEnrollments, $department->ruralStudentEnrollments,
+            $department->disadvantagedStudentEnrollments, $department->specializingStudentEnrollments,
+            $department->ageEnrollments, $department->jointProgramEnrollments, $department->exitExaminations,
+            $department->degreeEmployments, $department->otherRegionStudents, $department->qualifiedInternships,
+            $department->specialProgramTeachers, $department->upgradingStaffs, $department->postgraduateDiplomaTrainings,
+            $department->teachers, $department->studentAttritions, $department->otherAttritions,
+            $department->researches, $department->diasporaCourses,
         );
 
         foreach($dataList as $data){
@@ -55,14 +56,14 @@ class ApprovalService
         }
     }
 
-    public static function approveAllDepartmentDataInCollege(College $college, String $approveBy)
+    public static function approveAllDepartmentDataInCollege(College $college, $approveBy)
     {
         foreach($college->departments as $department){
             self::approveAllInDepartment($department, $approveBy);
         }
     }
 
-    public static function approveAllCollegeData(College $college, String $approveBy)
+    public static function approveAllCollegeData(College $college, $approveBy)
     {
         $dataList = array(
             $college->budgets, $college->internalRevenues, $college->investments,

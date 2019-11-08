@@ -42,6 +42,7 @@ class SpecialNeedStudentsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedProgram = $request->input('program');
         if ($requestedProgram == null) {
@@ -100,7 +101,7 @@ class SpecialNeedStudentsController extends Controller
 
         $data = array(
             'students' => $students,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
 
@@ -157,7 +158,7 @@ class SpecialNeedStudentsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'birth_date' => 'required',
+            'birth_date' => 'required|date|before:now',
             'sex' => 'required',
             'phone_number' => 'required',
             'student_id' => 'required',
@@ -288,12 +289,13 @@ class SpecialNeedStudentsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'birth_date' => 'required',
+            'birth_date' => 'required|date|before:now',
             'sex' => 'required',
             'phone_number' => 'required',
             'student_id' => 'required',
             'student_type' => 'required',
         ]);
+
         $specialNeedStudent = SpecialNeedStudent::find($id);
 
         $dormitoryService = $specialNeedStudent->general->studentService->dormitoryService;

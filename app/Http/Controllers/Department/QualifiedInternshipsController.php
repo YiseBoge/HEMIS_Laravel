@@ -86,7 +86,7 @@ class QualifiedInternshipsController extends Controller
 
             'selected_department' => $requestedDepartment,
 
-            'page_name' => 'student.qualified_internship.index'
+            'page_name' => 'students.qualified_internship.index'
         );
 
         return view("departments.qualified_internship.index")->with($data);
@@ -104,7 +104,7 @@ class QualifiedInternshipsController extends Controller
 
         $data = array(
             'types' => QualifiedInternship::getEnum('SponsorTypes'),
-            'page_name' => 'student.qualified_internship.create'
+            'page_name' => 'students.qualified_internship.create'
         );
         //return $filteredEnrollments;
         return view("departments.qualified_internship.create")->with($data);
@@ -120,8 +120,8 @@ class QualifiedInternshipsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'male_number' => 'required',
-            'female_number' => 'required'
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
         ]);
 
         $internship = new QualifiedInternship;
@@ -210,7 +210,7 @@ class QualifiedInternshipsController extends Controller
             'male_number' => $internship->male_number,
             'female_number' => $internship->female_number,
             'type' => $internship->sponsor_type,
-            'page_name' => 'student.qualified_internship.edit'
+            'page_name' => 'students.qualified_internship.edit'
         );
         return view("departments.qualified_internship.edit")->with($data);
     }
@@ -221,9 +221,15 @@ class QualifiedInternshipsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
+        ]);
+
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
