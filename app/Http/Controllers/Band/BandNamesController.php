@@ -73,13 +73,13 @@ class BandNamesController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $user->authorizeRoles('Super Admin');
-
         $this->validate($request, [
             'band_name' => 'required',
             'band_acronym' => 'required'
         ]);
+
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
 
         $bandName = new BandName;
         $bandName->band_name = $request->input('band_name');
@@ -139,9 +139,15 @@ class BandNamesController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'band_name' => 'required',
+            'band_acronym' => 'required'
+        ]);
+
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 

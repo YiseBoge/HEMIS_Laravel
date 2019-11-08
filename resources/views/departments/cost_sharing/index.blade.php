@@ -103,8 +103,7 @@
                         <tbody>
                         @if (count($costSharings) > 0)
                             @foreach ($costSharings as $costSharing)
-                                <tr role="row" class="odd"
-                                    onclick="window.location='cost-sharing/{{$costSharing->id}}'">
+                                <tr role="row" class="odd">
                                     <td class="text-center">
                                         @if(Auth::user()->hasRole('College Super Admin'))
                                             @if($costSharing->approval_status == "Pending")

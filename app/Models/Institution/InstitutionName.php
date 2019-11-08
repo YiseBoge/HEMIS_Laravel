@@ -14,7 +14,6 @@ use Webpatser\Uuid\Uuid;
  * @property string|null acronym
  * @property bool is_private
  * @property Collection collegeNames
- * @property Collection departmentNames
  * @property Collection users
  * @property Collection institutions
  * @method static InstitutionName find($id)
@@ -35,7 +34,6 @@ class InstitutionName extends Model
         static::deleting(function (InstitutionName $model) { // before delete() method call this
             $model->institutions()->delete();
             $model->collegeNames()->delete();
-            $model->departmentNames()->delete();
             $model->users()->delete();
         });
     }

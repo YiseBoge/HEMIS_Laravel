@@ -40,6 +40,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $selectedType = $request->input('student_type');
         if ($selectedType == null) {
@@ -112,7 +113,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
 
         $data = array(
             'enrollments' => $enrollments,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'programs' => College::getEnum("EducationPrograms"),
             'education_levels' => College::getEnum("EducationLevels"),
             'quintiles' => DisadvantagedStudentEnrollment::getEnum('Quintiles'),
@@ -169,11 +170,10 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'male_number' => 'required',
-            'female_number' => 'required',
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
             'student_type' => 'required',
         ]);
-
         $enrollment = new DisadvantagedStudentEnrollment;
         $enrollment->male_students_number = $request->input('male_number');
         $enrollment->female_students_number = $request->input('female_number');
@@ -278,9 +278,15 @@ class DisadvantagedStudentEnrollmentsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
+        ]);
+
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);

@@ -32,6 +32,9 @@
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Acronym: activate to sort column ascending">Acronym
                                 </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Acronym: activate to sort column ascending">College Name
+                                </th>
 
                             </tr>
                             </thead>
@@ -66,6 +69,7 @@
                                     </td>
                                     <td>{{ $department->department_name }}</td>
                                     <td>{{ $department->acronym }}</td>
+                                    <td>{{ $department->collegeName }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

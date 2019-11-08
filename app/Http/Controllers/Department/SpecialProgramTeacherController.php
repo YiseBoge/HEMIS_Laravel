@@ -40,6 +40,7 @@ class SpecialProgramTeacherController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedStatus = $request->input('program_status');
         if ($requestedStatus == null) {
@@ -97,7 +98,7 @@ class SpecialProgramTeacherController extends Controller
         $data = [
             'program_status' => $requestedStatus,
             'special_program_teachers' => $filteredTeachers,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
 
             'selected_department' => $requestedDepartment,
             'selected_status' => $requestedStatus,
@@ -142,8 +143,8 @@ class SpecialProgramTeacherController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'male_number' => 'required',
-            'female_number' => 'required'
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
         ]);
 
         $specialProgramTeacher = new SpecialProgramTeacher;
@@ -242,9 +243,15 @@ class SpecialProgramTeacherController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
+        ]);
+
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');

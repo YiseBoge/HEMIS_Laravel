@@ -119,8 +119,8 @@ class UniversityIndustryLinkageController extends Controller
     {
         $this->validate($request, [
             'training_area' => 'required',
-            'number_of_students' => 'required',
-            'industry_number' => 'required'
+            'number_of_students' => 'required|numeric|between:0,1000000000',
+            'industry_number' => 'required|numeric|between:0,1000000000'
         ]);
 
         $linkage = new UniversityIndustryLinkage;
@@ -235,9 +235,16 @@ class UniversityIndustryLinkageController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'training_area' => 'required',
+            'number_of_students' => 'required|numeric|between:0,1000000000',
+            'industry_number' => 'required|numeric|between:0,1000000000'
+        ]);
+
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');

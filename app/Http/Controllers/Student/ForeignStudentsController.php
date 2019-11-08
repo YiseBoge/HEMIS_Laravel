@@ -43,6 +43,7 @@ class ForeignStudentsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedProgram = $request->input('program');
         if ($requestedProgram == null) {
@@ -103,7 +104,7 @@ class ForeignStudentsController extends Controller
 
         $data = array(
             'students' => $students,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
             'year_levels' => $year_levels,
@@ -160,12 +161,12 @@ class ForeignStudentsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'birth_date' => 'required',
+            'birth_date' => 'required|date|before:now',
             'sex' => 'required',
             'phone_number' => 'required',
             'student_id' => 'required',
             'nationality' => 'required',
-            'years_in_ethiopia' => 'required'
+            'years_in_ethiopia' => 'required|numeric|between:0,100'
         ]);
 
         if ($request->input("dormitory_service_type") == "In Kind") {
@@ -290,13 +291,14 @@ class ForeignStudentsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'birth_date' => 'required',
+            'birth_date' => 'required|date|before:now',
             'sex' => 'required',
             'phone_number' => 'required',
             'student_id' => 'required',
             'nationality' => 'required',
-            'years_in_ethiopia' => 'required'
+            'years_in_ethiopia' => 'required|numeric|between:0,100'
         ]);
+
         $foreignerStudent = ForeignStudent::find($id);
 
         $dormitoryService = $foreignerStudent->general->studentService->dormitoryService;

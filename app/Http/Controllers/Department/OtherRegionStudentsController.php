@@ -40,6 +40,7 @@ class OtherRegionStudentsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedProgram = $request->input('program');
         if ($requestedProgram == null) {
@@ -95,7 +96,7 @@ class OtherRegionStudentsController extends Controller
 
         $data = array(
             'enrollments' => $enrollments,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'programs' => College::getEnum("EducationPrograms"),
             'education_levels' => College::getEnum("EducationLevels"),
 
@@ -145,8 +146,8 @@ class OtherRegionStudentsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'male_number' => 'required',
-            'female_number' => 'required'
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
         ]);
 
         $enrollment = new OtherRegionStudent;
@@ -247,9 +248,15 @@ class OtherRegionStudentsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
+        ]);
+
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');

@@ -40,6 +40,7 @@ class InstitutionNamesController extends Controller
         $user->authorizeRoles('Super Admin');
 
         $institutions = InstitutionName::all();
+
         $data = [
             'institutions' => $institutions,
             'page_name' => 'administer.institution-name.index'
@@ -169,6 +170,7 @@ class InstitutionNamesController extends Controller
     public
     function update(Request $request, $id)
     {
+
         $this->validate($request, [
             'institution_name' => 'required',
             'institution_acronym' => 'required'

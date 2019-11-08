@@ -95,7 +95,7 @@ class DepartmentAdminController extends Controller
 
         $bandName = $user->bandName;
 
-        $departmentNames = DepartmentName::all();
+        $departmentNames = $collegeName->departmentNames;
         /** @var DepartmentName $departmentName */
         $departmentName = $departmentNames[$request->input('department_name_id')];
 

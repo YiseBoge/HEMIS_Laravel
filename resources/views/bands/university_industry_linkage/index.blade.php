@@ -141,7 +141,7 @@
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <form class="pb-5" action="/student/university-industry-linkage" method="POST">
+                    <form action="/student/university-industry-linkage" method="POST">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title" id="editTitle">Add</h5>
@@ -167,7 +167,7 @@
                             @endif
 
                             <div class="form-group row pt-3">
-                                <div class="col form-group">
+                                <div class="col-md-6 form-group">
                                     <select class="form-control" name="year" id="year">
                                         @foreach ($years as $key => $value)
                                             <option value="{{$key}}" {{ (old('year') == $key ? 'selected':'') }}>
@@ -179,9 +179,7 @@
                                         Year Level
                                     </label>
                                 </div>
-                            </div>
-                            <div class="form-group row pt-3">
-                                <div class="col form-group">
+                                <div class="col-md-6 form-group">
                                     <input type="number" id="industry_number" name="industry_number"
                                            value="{{ old('industry_number') }}"
                                            class="form-control" required>
@@ -189,7 +187,7 @@
                                         Industries</label>
                                 </div>
                             </div>
-                            <div class="form-group row pt-3">
+                            <div class="form-group row">
                                 <div class="col form-group">
                                     <input type="text" id="training_area" name="training_area" class="form-control"
                                            value="{{ old('training_area') }}"

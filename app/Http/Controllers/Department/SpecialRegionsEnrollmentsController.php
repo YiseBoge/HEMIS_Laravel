@@ -39,6 +39,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $selectedStudentType = $request->input('student_type');
         if ($selectedStudentType == null) {
@@ -122,7 +123,7 @@ class SpecialRegionsEnrollmentsController extends Controller
             'enrollments' => $enrollments,
             'types' => SpecialRegionEnrollment::getEnum("RegionTypes"),
             'student_types' => SpecialRegionEnrollment::getEnum('StudentTypes'),
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'regions' => RegionName::all(),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
@@ -178,8 +179,8 @@ class SpecialRegionsEnrollmentsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'male_number' => 'required',
-            'female_number' => 'required'
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
         ]);
 
         $user = Auth::user();
@@ -289,9 +290,15 @@ class SpecialRegionsEnrollmentsController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
+        ]);
+
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');

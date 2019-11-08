@@ -151,14 +151,19 @@ class CollegeNamesController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'college_name' => 'required',
+            'college_acronym' => 'required'
+        ]);
+
         $user = Auth::user();
         $user->authorizeRoles('University Admin');
 
         $college_name = CollegeName::find($id);
-
         $college_name->college_name = $request->input("college_name");
         $college_name->acronym = $request->input("college_acronym");
 

@@ -39,6 +39,7 @@ class PublicationsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
@@ -124,7 +125,7 @@ class PublicationsController extends Controller
 
         $data = array(
             'publications' => $publications,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'publications_and_patents' => $publicationsAndPatents,
 
             'selected_department' => $requestedDepartment,
@@ -189,7 +190,8 @@ class PublicationsController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
-            'date' => 'required'
+            'staff' => 'required',
+            'date' => 'required|date|before:now'
         ]);
 
         $publication = new StaffPublication;
@@ -296,6 +298,13 @@ class PublicationsController extends Controller
     {
 
         if ($request->input('publication') == 'true') {
+
+            $this->validate($request, [
+                'title' => 'required',
+                'staff' => 'required',
+                'date' => 'required|date|before:now'
+            ]);
+
             $user = Auth::user();
             if ($user == null) return redirect('/login');
             $user->authorizeRoles('Department Admin');
@@ -311,8 +320,8 @@ class PublicationsController extends Controller
         }
 
         $this->validate($request, [
-            'student_publications' => 'required',
-            'patents' => 'required'
+            'student_publications' => 'required|numeric|between:0,1000000000',
+            'patents' => 'required|numeric|between:0,1000000000',
         ]);
 
         $publicationsAndPatents = PublicationsAndPatents::find($id);

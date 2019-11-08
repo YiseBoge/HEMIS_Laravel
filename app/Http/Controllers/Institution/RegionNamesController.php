@@ -69,12 +69,12 @@ class RegionNamesController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $user->authorizeRoles('Super Admin');
-
         $this->validate($request, [
             'name' => 'required'
         ]);
+
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
 
         $regionNames = new RegionName;
         $regionNames->name = $request->input('name');
@@ -130,9 +130,14 @@ class RegionNamesController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');

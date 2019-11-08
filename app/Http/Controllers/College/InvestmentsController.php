@@ -113,9 +113,8 @@ class InvestmentsController extends Controller
     {
         $this->validate($request, [
             'investment_title' => 'required',
-            'cost_incurred' => 'required',
+            'cost_incurred' => 'required|numeric|between:0,1000000000',
         ]);
-
 
         $investment = new Investment();
         $investment->investment_title = $request->input('investment_title');
@@ -227,13 +226,13 @@ class InvestmentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-
         $this->validate($request, [
             'investment_title' => 'required',
-            'cost_incurred' => 'required',
+            'cost_incurred' => 'required|numeric|between:0,1000000000',
         ]);
+
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
 
         $investment = Investment::find($id);
         $investment->investment_title = $request->input('investment_title');

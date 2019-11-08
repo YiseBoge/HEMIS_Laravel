@@ -37,8 +37,8 @@ class DiasporaCoursesController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
@@ -84,7 +84,7 @@ class DiasporaCoursesController extends Controller
 
         $data = array(
             'courses' => $courses,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
 
             'selected_department' => $requestedDepartment,
 
@@ -122,8 +122,8 @@ class DiasporaCoursesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'male_number' => 'required',
-            'female_number' => 'required'
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
         ]);
 
         $course = new DiasporaCourses;
@@ -223,9 +223,14 @@ class DiasporaCoursesController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
+        ]);
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');

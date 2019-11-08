@@ -41,6 +41,7 @@ class TeachersController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedLevel = $request->input('education_level');
         if ($requestedLevel == null) {
@@ -94,7 +95,7 @@ class TeachersController extends Controller
 
         $data = array(
             'teachers' => $teachers,
-            'departments' => DepartmentName::all(),
+            'departments' => $collegeDeps,
             'education_levels' => Teacher::getEnum("EducationLevels"),
 
             'selected_department' => $requestedDepartment,
@@ -136,9 +137,9 @@ class TeachersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'male_number' => 'required',
-            'female_number' => 'required',
-            'citizenship' => 'required'
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
+            'citizenship' => 'required',
         ]);
 
         $teacher = new Teacher;
@@ -240,9 +241,15 @@ class TeachersController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'male_number' => 'required|numeric|between:0,1000000000',
+            'female_number' => 'required|numeric|between:0,1000000000',
+        ]);
+
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');

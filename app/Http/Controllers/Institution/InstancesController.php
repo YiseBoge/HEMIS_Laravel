@@ -109,13 +109,13 @@ class InstancesController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $user->authorizeRoles('Super Admin');
-
         $this->validate($request, [
             'year' => 'required',
             'semester' => 'required'
         ]);
+
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
 
         $instance = new Instance();
         $instance->year = $request->input('year');
@@ -175,14 +175,19 @@ class InstancesController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'year' => 'required',
+            'semester' => 'required'
+        ]);
+
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 
         $instance = Instance::find($id);
-
         $instance->year = $request->input('year');
         $instance->semester = $request->input('semester');
 

@@ -23,7 +23,7 @@
             <span>Dashboard</span></a>
     </li>
 
-    <hr class="sidebar-divider">
+    <hr class="sidebar-divider my-0">
 @if(Auth::user()->hasRole('Department Admin'))
 
 
@@ -171,8 +171,7 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'university_industry_linkage' ? 'active': '' }}"
-                       href="/student/university-industry-linkage">University Industry
-                        Linkage</a>
+                       href="/student/university-industry-linkage">University Industry Linkage</a>
                 </div>
             </div>
         </li>
@@ -207,6 +206,12 @@
         </li>
     @elseif(Auth::user()->hasRole('College Super Admin'))
 
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'approval' ? 'active': '' }}">
+            <a class="nav-link" href="/college/approval">
+                <i class="fas fa-check"></i>
+                <span>Collective Approval</span></a>
+        </li>
+        <hr class="sidebar-divider">
         <li class="nav-item" {{ preg_split ("/\./", $page_name)[0] == 'budgets' ? 'active': '' }}>
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBudget"
                aria-expanded="false"
@@ -321,7 +326,12 @@
                 <span>Research</span></a>
         </li>
     @elseif(Auth::user()->hasRole('University Admin'))
-
+        {{--        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'approval' ? 'active': '' }}">--}}
+        {{--            <a class="nav-link" href="/institution/approval">--}}
+        {{--                <i class="fas fa-check-double"></i>--}}
+        {{--                <span>Final Approval</span></a>--}}
+        {{--        </li>--}}
+        {{--        <hr class="sidebar-divider">--}}
         <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'general_info' ? 'active': '' }}">
             <a class="nav-link" href="/institution/general">
                 <i class="fas fa-info-circle"></i>

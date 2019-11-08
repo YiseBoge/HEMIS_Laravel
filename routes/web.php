@@ -31,6 +31,7 @@ Route::resource('budgets/private-investment', 'College\InvestmentsController');
 
 //  College Routes...
 Route::resource('college/college-name', 'College\CollegeNamesController');
+Route::resource('college/approval', 'College\CollegeApprovalController');
 
 //  Department Routes...
 Route::resource('department/department-name', 'Department\DepartmentNamesController');
@@ -79,6 +80,8 @@ Route::resource('institution/buildings', 'College\BuildingsController');
 Route::post('institution/researches/{id}/approve', 'Department\ResearchsController@approve');
 Route::resource('institution/researches', 'Department\ResearchsController');
 Route::resource('institution/management-data', 'Institution\ManagementDataController');
+Route::get('institution/approval', 'Institution\InstitutionApprovalController@index');
+Route::get('institution/approval/approve', 'Institution\InstitutionApprovalController@approve');
 
 //  Staff Routes...
 Route::post('staff/academic/{id}/approve', 'Staff\AcademicStaffsController@approve');

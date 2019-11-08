@@ -17,34 +17,33 @@ class InstitutionNamesTableSeeder extends Seeder
             'AASTU' => 'Addis Ababa Science & Technology University',
             'AAU' => 'Addis Ababa University',
             'ADU' => 'Adigrat University',
+            'AKU' => 'Aksum University',
             'AMBU' => 'Ambo University',
             'AMU' => 'Arba Minch University',
-            'ARU' => 'Arsi University',
+            'ARSIUN' => 'Arsi University',
             'ASU' => 'Assosa University',
-            'AXU' => 'Axsum University',
 
             'BDU' => 'Bahir Dar University',
-            'BOU' => 'Bonga University',
+            'BU' => 'Bonga University',
             'BHU' => 'Bule Hora University',
 
+            'DADU' => 'Dambi Dolo University',
             'DBKU' => 'Debark University',
             'DBU' => 'Debre Birhan University',
             'DMU' => 'Debre Markos University',
             'DTU' => 'Debre Tabor University',
-            'DDU' => 'Dembi Dolo University',
-            'DLU' => 'Dilla University',
+            'DU' => 'Dilla University',
             'DDU' => 'Dire Dawa University',
 
             'GMU' => 'Gambella University',
-            'GU' => 'Gondar University',
 
             'HMU' => 'Haramaya University',
-            'HWU' => 'Hawassa University',
+            'HU' => 'Hawassa University',
 
-            'IU' => 'Injibara University',
+            'INU' => 'Injibara University',
 
             'JJU' => 'Jijiga University',
-            'JMU' => 'Jimma University',
+            'JU' => 'Jimma University',
             'JKU' => 'Jinka University',
 
             'KDU' => 'Kebri Dehar University',
@@ -57,21 +56,23 @@ class InstitutionNamesTableSeeder extends Seeder
 
             'OBU' => 'Oda Bultum University',
 
-            'RU' => 'Raya University',
+            'RAYU' => 'Raya University',
 
             'SLU' => 'Salale University',
             'SMU' => 'Semera University',
 
+            'UoG' => 'University of Gondar',
+
             'WCU' => 'Wachamo University',
-            'WKU' => 'Welkite University',
             'WRU' => 'Werabe University',
             'WSU' => 'Wolaita Sodo University',
-            'WDU' => 'Woldiya University',
+            'WLDU' => 'Woldiya University',
+            'WKU' => 'Wolkite University',
             'WLU' => 'Wollega University',
-            'WOU' => 'Wollo University',
+            'WU' => 'Wollo University',
 
             'ECSC' => 'Civil Service University',
-            'DEC' => 'Ethiopian Defence University',
+            'NDU' => 'Defence University',
         ];
 
         foreach ($allInstitutions as $acronym => $name) {
