@@ -95,12 +95,14 @@ class CollegeNamesController extends Controller
         $collegeName->college_name = $request->input('college_name');
         $collegeName->acronym = $request->input('college_acronym');
 
+        $collegeName->institution_name_id = $institutionName->id;
+        $collegeName->band_name_id = $bandName->id;
+
         if ($collegeName->isDuplicate()) return redirect()->back()
             ->withInput($request->toArray())
             ->withErrors('This entry already exists');
 
-        $institutionName->collegeNames()->save($collegeName);
-        $bandName->collegeNames()->save($collegeName);
+        $collegeName->save();
 
         return redirect('/college/college-name')->with('success', 'Successfully Added College Name');
     }
