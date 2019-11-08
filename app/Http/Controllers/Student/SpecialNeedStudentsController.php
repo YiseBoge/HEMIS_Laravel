@@ -158,7 +158,7 @@ class SpecialNeedStudentsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'birth_date' => 'required',
+            'birth_date' => 'required|date|before:now',
             'sex' => 'required',
             'phone_number' => 'required',
             'student_id' => 'required',
@@ -289,12 +289,13 @@ class SpecialNeedStudentsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'birth_date' => 'required',
+            'birth_date' => 'required|date|before:now',
             'sex' => 'required',
             'phone_number' => 'required',
             'student_id' => 'required',
             'student_type' => 'required',
         ]);
+
         $specialNeedStudent = SpecialNeedStudent::find($id);
 
         $dormitoryService = $specialNeedStudent->general->studentService->dormitoryService;

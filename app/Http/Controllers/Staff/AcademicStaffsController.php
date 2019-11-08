@@ -122,14 +122,14 @@ class AcademicStaffsController extends Controller
             'phone_number' => 'required',
             'nationality' => 'required',
             'job_title' => 'required',
-            'salary' => 'required|numeric|0,1000000000',
-            'service_year' => 'required|numeric|0,100',
+            'salary' => 'required|numeric|between:0,1000000000',
+            'service_year' => 'required|numeric|between:0,100',
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
             'field_of_study' => 'required',
             'academic_staff_rank' => 'required',
-            'teaching_load' => 'required|numeric|0,100'
+            'teaching_load' => 'required|numeric|between:0,100'
         ]);
 
         $staff = new Staff;
@@ -259,14 +259,14 @@ class AcademicStaffsController extends Controller
             'phone_number' => 'required',
             'nationality' => 'required',
             'job_title' => 'required',
-            'salary' => 'required|numeric|0,1000000000',
-            'service_year' => 'required|numeric|0,100',
+            'salary' => 'required|numeric|between:0,1000000000',
+            'service_year' => 'required|numeric|between:0,100',
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
             'field_of_study' => 'required',
             'academic_staff_rank' => 'required',
-            'teaching_load' => 'required|numeric|0,100'
+            'teaching_load' => 'required|numeric|between:0,100'
         ]);
 
         $academicStaff = AcademicStaff::find($id);
