@@ -55,14 +55,14 @@ class ApprovalService
         }
     }
 
-    public static function approveAllDepartmentDataInCollege(College $college, String $approveBy)
+    public static function approveAllDepartmentDataInCollege(College $college, $approveBy)
     {
         foreach($college->departments as $department){
             self::approveAllInDepartment($department, $approveBy);
         }
     }
 
-    public static function approveAllCollegeData(College $college, String $approveBy)
+    public static function approveAllCollegeData(College $college, $approveBy)
     {
         $dataList = array(
             $college->budgets, $college->internalRevenues, $college->investments,
