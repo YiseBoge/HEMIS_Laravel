@@ -118,7 +118,7 @@
                                     @if(Auth::user()->hasRole('College Super Admin'))
                                         <td class="text-center">
                                             @if($teacher->approval_status == "Pending")
-                                                <form action="normal/{{$teacher->id}}/approve"
+                                                <form action="teachers/{{$teacher->id}}/approve"
                                                       method="POST">
                                                     @csrf
                                                     <input type="hidden" name="action" value="disapprove">

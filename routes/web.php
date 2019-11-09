@@ -129,6 +129,7 @@ Route::resource('institution-report', 'Report\InstitutionReportsController');
 Route::resource('region-name', 'Institution\RegionNamesController');
 Route::resource('population', 'Institution\PopulationController');
 Route::get('admin/student-enrollment-chart', 'HomeController@adminEnrollmentChart');
+Route::get('disapproved-data', 'DisapprovedDataController@index');
 
 
 // Authentication Routes...
