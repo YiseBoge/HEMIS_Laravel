@@ -115,7 +115,7 @@
                                         <td>{{$specialProgramTeacher->program_stat}}</td>
                                     @else
                                         <td class="text-center">
-                                            @if($specialProgramTeacher->approval_status != "Approved")
+                                            @if(!array_search($specialProgramTeacher->approval_status, ["Approved", "College Approved"]))
                                                 <div class="row px-1">
                                                     <div class="col px-0">
                                                         <form class="p-0"

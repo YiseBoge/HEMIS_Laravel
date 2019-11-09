@@ -106,7 +106,7 @@
                                                 </form>
                                             @endif
                                         @else
-                                            @if($course->approval_status != "Approved")
+                                            @if(!array_search($course->approval_status, ["Approved", "College Approved"]))
                                                 <div class="row px-1">
                                                     <div class="col px-0">
                                                         <form class="p-0"

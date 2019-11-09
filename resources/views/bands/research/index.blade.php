@@ -164,7 +164,7 @@
                                                 <td>{{$research->type}}</td>
                                             @else
                                                 <td class="text-center">
-                                                    @if($research->approval_status != "Approved")
+                                                    @if(!array_search($research->approval_status, ["Approved", "College Approved"]))
                                                         <div class="row px-1">
                                                             <div class="col px-0">
                                                                 <form class="p-0"
@@ -202,8 +202,12 @@
                                             <td>{{$research->female_researchers_other_number}}</td>
                                             <td>{{$research->budget_allocated}}</td>
                                             <td>{{$research->budget_from_externals}}</td>
-                                            @if($research->approval_status == "Approved")
+                                             @if($research->approval_status == "Approved")
                                                 <td class="text-success"><i
+                                                            class="fas fa-check-double"></i> {{$research->approval_status}}
+                                                </td>
+                                            @elseif($research->approval_status == "College Approved")
+                                                <td class="text-primary"><i
                                                             class="fas fa-check"></i> {{$research->approval_status}}
                                                 </td>
                                             @elseif($research->approval_status == "Pending")
