@@ -7,15 +7,19 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Disapproved Data</h6>
             </div>
-            <div class="card-body">                
+            <div class="card-body">
                 @foreach ($links as $key => $value)
                     @if(!empty($value))
-                        <p class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">{{$key}}</p>
-                        <ul>
-                        @foreach (array_unique($value) as $link)
-                            <li class="text-danger my-3"><a class="text-danger" href="{{$link}}">{{$link}}</a></li>
-                        @endforeach    
-                        </ul>      
+                        <div class="my-3">
+                            <p class="font-weight-bold text-primary m-2">{{$key}}</p>
+                            <ul class="list-group">
+                                @foreach (array_unique($value) as $link)
+                                    <li class="list-group-item"><a class="text-danger" href="{{$link}}">{{$link}}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <br>
+                        </div>
                     @endif              
                 @endforeach
             </div>

@@ -134,8 +134,7 @@
                 </form>
                 <div class="table-responsive">
                     <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
-                           width="100%"
-                           cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                           width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info"
                            style="width: 100%;">
                         <thead>
                         <tr role="row">
