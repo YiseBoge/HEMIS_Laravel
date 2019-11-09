@@ -141,8 +141,11 @@ Route::get('register', 'Auth\RegisterController@getRegistrationForm')->name('reg
 Route::post('register', 'Auth\RegisterController@register');
 
 
+Route::get('university-admin/generate', 'User\UniversityAdminController@autoGenerate');
 Route::resource('university-admin', 'User\UniversityAdminController');
+Route::get('department-admin/generate', 'User\DepartmentAdminController@autoGenerate');
 Route::resource('department-admin', 'User\DepartmentAdminController');
+Route::get('college-admin/generate', 'User\CollegeAdminController@autoGenerate');
 Route::resource('college-admin', 'User\CollegeAdminController');
 
 // Password Reset Routes...

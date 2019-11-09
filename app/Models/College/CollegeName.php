@@ -4,6 +4,7 @@ namespace App\Models\College;
 
 use App\Models\Band\BandName;
 use App\Models\Department\DepartmentName;
+use App\Models\Institution\InstitutionName;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +20,7 @@ use Webpatser\Uuid\Uuid;
  * @property DepartmentName departmentNames
  * @property Uuid institution_name_id
  * @property Uuid band_name_id
+ * @property InstitutionName institutionName
  * @method static CollegeName find(int $id)
  */
 class CollegeName extends Model
@@ -65,6 +67,14 @@ class CollegeName extends Model
     {
         return CollegeName::all()->whereIn('institution_name_id', $institutionNames->pluck('id'))
             ->whereIn('band_name_id', $bandNames->pluck('id'))->values();
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function institutionName()
+    {
+        return $this->belongsTo('App\Models\Institution\InstitutionName');
     }
 
     /**

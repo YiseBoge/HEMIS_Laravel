@@ -12,6 +12,7 @@ use App\Models\Institution\Institution;
 use App\Models\Institution\InstitutionName;
 use App\Models\Institution\Resource;
 use App\Role;
+use App\Services\UserService;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -184,5 +185,24 @@ class UniversityAdminController extends Controller
         $item = User::find($id);
         $item->delete();
         return redirect('/university-admin')->with('primary', 'Successfully Deleted');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return Response
+     * @throws Exception
+     */
+    public function autoGenerate()
+    {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+        $instance = $user->currentInstance;
+
+        $service = new UserService($instance);
+        $service->createInstitutionAdmins();
+        $service->createInstitutionVPs();
+
+        return redirect('/university-admin')->with('primary', 'Successfully Generated Admins');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Department\DepartmentName;
 use App\Role;
+use App\Services\UserService;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -163,5 +164,24 @@ class DepartmentAdminController extends Controller
         $item = User::find($id);
         $item->delete();
         return redirect('/department-admin')->with('primary', 'Successfully Deleted');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return Response
+     * @throws Exception
+     */
+    public function autoGenerate()
+    {
+        $user = Auth::user();
+        $user->authorizeRoles('College Super Admin');
+        $instance = $user->currentInstance;
+        $collegeName = $user->collegeName;
+
+        $service = new UserService($instance);
+        $service->createDepartmentAdmins($collegeName);
+
+        return redirect('/department-admin')->with('primary', 'Successfully Generated Admins');
     }
 }
