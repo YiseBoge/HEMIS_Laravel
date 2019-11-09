@@ -149,7 +149,12 @@
                                     <td>{{$examination->females_passed}}</td>
                                     @if($examination->approval_status == "Approved")
                                         <td class="text-success"><i
-                                                    class="fas fa-check"></i> {{$examination->approval_status}}</td>
+                                                    class="fas fa-check-double"></i> {{$examination->approval_status}}
+                                        </td>
+                                    @elseif($examination->approval_status == "College Approved")
+                                        <td class="text-primary"><i
+                                                    class="fas fa-check"></i> {{$examination->approval_status}}
+                                        </td>
                                     @elseif($examination->approval_status == "Pending")
                                         <td class="text-warning"><i
                                                     class="far fa-clock"></i></i> {{$examination->approval_status}}</td>

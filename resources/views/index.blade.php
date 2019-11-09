@@ -26,7 +26,7 @@
                         <div class="card-body p-0 d-flex align-items-center">
                             <i class="fas fa-university text-white-50 bg-primary p-4 font-2xl mr-3"></i>
                             <div class="w-100 text-right pr-3">
-                                <div class="text-value-sm text-primary counter-count">{{ number_format($institutions->count() - 1, 0) }}</div>
+                                <div class="text-value-sm text-primary counter-count">{{ $institutions_number }}</div>
                                 <div class="text-muted text-uppercase font-weight-bold small">Universities
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                         <div class="card-body p-0 d-flex align-items-center">
                             <i class="fas fa-user-graduate text-white-50 bg-primary p-4 font-2xl mr-3"></i>
                             <div class="w-100 text-right pr-3">
-                                <div class="text-value-sm text-primary counter-count">0</div>
+                                <div class="text-value-sm text-primary counter-count">{{$students_number}}</div>
                                 <div class="text-muted text-uppercase font-weight-bold small">Students</div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                         <div class="card-body p-0 d-flex align-items-center">
                             <i class="fas fa-chalkboard-teacher text-white-50 bg-primary p-4 font-2xl mr-3"></i>
                             <div class="w-100 text-right pr-3">
-                                <div class="text-value-sm text-primary counter-count">{{ number_format(\App\Models\Staff\Staff::all()->count(), 0) }}</div>
+                                <div class="text-value-sm text-primary counter-count">{{ $staff_number }}</div>
                                 <div class="text-muted text-uppercase font-weight-bold small">Staff
                                     Members
                                 </div>
@@ -62,7 +62,7 @@
                         <div class="card-body p-0 d-flex align-items-center">
                             <i class="fas fa-users-cog text-white-50 bg-primary p-4 font-2xl mr-3"></i>
                             <div class="w-100 text-right pr-3">
-                                <div class="text-value-sm text-primary counter-count">{{ number_format(\App\User::all()->count(), 0) }}</div>
+                                <div class="text-value-sm text-primary counter-count">{{ $admin_number }}</div>
                                 <div class="text-muted text-uppercase font-weight-bold small">Admins</div>
                             </div>
                         </div>

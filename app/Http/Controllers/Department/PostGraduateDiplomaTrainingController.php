@@ -11,6 +11,7 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\PostGraduateDiplomaTraining;
 use App\Models\Institution\Institution;
+use App\Services\ApprovalService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -316,12 +317,7 @@ class PostGraduateDiplomaTrainingController extends Controller
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
-                                        foreach ($department->postgraduateDiplomaTrainings as $training) {
-                                            if ($training->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
-                                                $training->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-                                                $training->save();
-                                            }
-                                        }
+                                        ApprovalService::approveData($department->postgraduateDiplomaTrainings);
                                     }
                                 }
                             }

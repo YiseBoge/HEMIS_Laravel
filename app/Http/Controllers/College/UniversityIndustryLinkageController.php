@@ -8,6 +8,7 @@ use App\Models\Band\BandName;
 use App\Models\Band\UniversityIndustryLinkage;
 use App\Models\College\College;
 use App\Models\Institution\Institution;
+use App\Services\ApprovalService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -294,12 +295,7 @@ class UniversityIndustryLinkageController extends Controller
                     if ($band->bandName->band_name == $user->bandName->band_name) {
                         foreach ($band->colleges as $college) {
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->universityIndustryLinkages as $linkage) {
-                                    if ($linkage->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
-                                        $linkage->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-                                        $linkage->save();
-                                    }
-                                }
+                                ApprovalService::approveData($college->universityIndustryLinkages);
                             }
                         }
                     }

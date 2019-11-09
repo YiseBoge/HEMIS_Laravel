@@ -10,6 +10,7 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\OtherAttrition;
 use App\Models\Institution\Institution;
+use App\Services\ApprovalService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -319,12 +320,7 @@ class OtherAttritionController extends Controller
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
-                                        foreach ($department->otherAttritions as $attrition) {
-                                            if ($attrition->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
-                                                $attrition->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-                                                $attrition->save();
-                                            }
-                                        }
+                                        ApprovalService::approveData($department->otherAttritions);
                                     }
                                 }
                             }

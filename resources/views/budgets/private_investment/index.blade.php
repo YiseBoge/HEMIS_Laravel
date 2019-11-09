@@ -115,6 +115,10 @@
                                     <td>{{ $investment->remarks }}</td>
                                     @if($investment->approval_status == "Approved")
                                         <td class="text-success"><i
+                                                    class="fas fa-check-double"></i> {{$investment->approval_status}}
+                                        </td>
+                                    @elseif($investment->approval_status == "College Approved")
+                                        <td class="text-primary"><i
                                                     class="fas fa-check"></i> {{$investment->approval_status}}
                                         </td>
                                     @elseif($investment->approval_status == "Pending")

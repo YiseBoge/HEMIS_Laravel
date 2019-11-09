@@ -187,8 +187,13 @@
                                     <td class="sorting_1">{{$info->age}}</td>
                                     <td>{{$info->male_students_number}}</td>
                                     <td>{{$info->female_students_number}}</td>
-                                    @if($info->approval_status == "Approved")
-                                        <td class="text-success"><i class="fas fa-check"></i> {{$info->approval_status}}
+                                   @if($info->approval_status == "Approved")
+                                        <td class="text-success"><i
+                                                    class="fas fa-check-double"></i> {{$info->approval_status}}
+                                        </td>
+                                    @elseif($info->approval_status == "College Approved")
+                                        <td class="text-primary"><i
+                                                    class="fas fa-check"></i> {{$info->approval_status}}
                                         </td>
                                     @elseif($info->approval_status == "Pending")
                                         <td class="text-warning"><i

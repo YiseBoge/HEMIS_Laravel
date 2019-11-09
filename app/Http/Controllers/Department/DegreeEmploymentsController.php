@@ -9,6 +9,7 @@ use App\Models\Department\DegreeEmployment;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Institution\Institution;
+use App\Services\ApprovalService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -279,12 +280,7 @@ class DegreeEmploymentsController extends Controller
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
-                                        foreach ($department->degreeEmployments as $employment) {
-                                            if ($employment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
-                                                $employment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-                                                $employment->save();
-                                            }
-                                        }
+                                        ApprovalService::approveData($department->degreeEmployments);
                                     }
                                 }
                             }

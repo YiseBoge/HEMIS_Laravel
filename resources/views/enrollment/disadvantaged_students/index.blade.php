@@ -214,13 +214,17 @@
                                         </td>
                                     @endif
 
-
                                     <td>{{$enrollment->department->year_level}}</td>
                                     <td>{{$enrollment->male_students_number}}</td>
                                     <td>{{$enrollment->female_students_number}}</td>
                                     @if($enrollment->approval_status == "Approved")
                                         <td class="text-success"><i
-                                                    class="fas fa-check"></i> {{$enrollment->approval_status}}</td>
+                                                    class="fas fa-check-double"></i> {{$enrollment->approval_status}}
+                                        </td>
+                                    @elseif($enrollment->approval_status == "College Approved")
+                                        <td class="text-primary"><i
+                                                    class="fas fa-check"></i> {{$enrollment->approval_status}}
+                                        </td>
                                     @elseif($enrollment->approval_status == "Pending")
                                         <td class="text-warning"><i
                                                     class="far fa-clock"></i></i> {{$enrollment->approval_status}}</td>

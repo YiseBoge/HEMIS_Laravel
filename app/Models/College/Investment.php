@@ -48,7 +48,7 @@ class Investment extends Model
      */
     public function isDuplicate()
     {
-        return Budget::where(array(
+        return Investment::where(array(
                 'college_id' => $this->college_id,
                 'investment_title' => $this->investment_title,
             ))->first() != null;

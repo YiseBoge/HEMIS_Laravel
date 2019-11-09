@@ -11,6 +11,7 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\SpecialProgramTeacher;
 use App\Models\Institution\Institution;
+use App\Services\ApprovalService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -303,12 +304,7 @@ class SpecialProgramTeacherController extends Controller
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
-                                        foreach ($department->specialProgramTeachers as $specialProgramTeacher) {
-                                            if ($specialProgramTeacher->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
-                                                $specialProgramTeacher->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-                                                $specialProgramTeacher->save();
-                                            }
-                                        }
+                                        ApprovalService::approveData($department->specialProgramTeachers);
                                     }
                                 }
                             }

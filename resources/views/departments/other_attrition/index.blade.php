@@ -229,7 +229,12 @@
                                     <td>{{$attrition->female_students_number}}</td>
                                     @if($attrition->approval_status == "Approved")
                                         <td class="text-success"><i
-                                                    class="fas fa-check"></i> {{$attrition->approval_status}}</td>
+                                                    class="fas fa-check-double"></i> {{$attrition->approval_status}}
+                                        </td>
+                                    @elseif($attrition->approval_status == "College Approved")
+                                        <td class="text-primary"><i
+                                                    class="fas fa-check"></i> {{$attrition->approval_status}}
+                                        </td>
                                     @elseif($attrition->approval_status == "Pending")
                                         <td class="text-warning"><i
                                                     class="far fa-clock"></i></i> {{$attrition->approval_status}}</td>

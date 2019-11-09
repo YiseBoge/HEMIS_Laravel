@@ -138,7 +138,12 @@
                                     <td>{{$employment->female_students_number}}</td>
                                     @if($employment->approval_status == "Approved")
                                         <td class="text-success"><i
-                                                    class="fas fa-check"></i> {{$employment->approval_status}}</td>
+                                                    class="fas fa-check-double"></i> {{$employment->approval_status}}
+                                        </td>
+                                    @elseif($employment->approval_status == "College Approved")
+                                        <td class="text-primary"><i
+                                                    class="fas fa-check"></i> {{$employment->approval_status}}
+                                        </td>
                                     @elseif($employment->approval_status == "Pending")
                                         <td class="text-warning"><i
                                                     class="far fa-clock"></i></i> {{$employment->approval_status}}</td>

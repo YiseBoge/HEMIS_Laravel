@@ -140,6 +140,10 @@
                                     <td>{{$internship->female_number}}</td>
                                     @if($internship->approval_status == "Approved")
                                         <td class="text-success"><i
+                                                    class="fas fa-check-double"></i> {{$internship->approval_status}}
+                                        </td>
+                                    @elseif($internship->approval_status == "College Approved")
+                                        <td class="text-primary"><i
                                                     class="fas fa-check"></i> {{$internship->approval_status}}
                                         </td>
                                     @elseif($internship->approval_status == "Pending")

@@ -167,6 +167,10 @@
                                     <td>22%</td>
                                     @if($budget->approval_status == "Approved")
                                         <td class="text-success"><i
+                                                    class="fas fa-check-double"></i> {{$budget->approval_status}}
+                                        </td>
+                                    @elseif($budget->approval_status == "College Approved")
+                                        <td class="text-primary"><i
                                                     class="fas fa-check"></i> {{$budget->approval_status}}
                                         </td>
                                     @elseif($budget->approval_status == "Pending")

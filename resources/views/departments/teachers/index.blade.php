@@ -166,6 +166,10 @@
                                     <td>{{$teacher->female_number}}</td>
                                     @if($teacher->approval_status == "Approved")
                                         <td class="text-success"><i
+                                                    class="fas fa-check-double"></i> {{$teacher->approval_status}}
+                                        </td>
+                                    @elseif($teacher->approval_status == "College Approved")
+                                        <td class="text-primary"><i
                                                     class="fas fa-check"></i> {{$teacher->approval_status}}
                                         </td>
                                     @elseif($teacher->approval_status == "Pending")

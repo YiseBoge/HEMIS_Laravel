@@ -11,6 +11,7 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\UpgradingStaff;
 use App\Models\Institution\Institution;
+use App\Services\ApprovalService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -303,12 +304,7 @@ class UpgradingStaffController extends Controller
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
-                                        foreach ($department->upgradingStaffs as $upgradingStaff) {
-                                            if ($upgradingStaff->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
-                                                $upgradingStaff->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-                                                $upgradingStaff->save();
-                                            }
-                                        }
+                                        ApprovalService::approveData($department->upgradingStaffs);
                                     }
                                 }
                             }

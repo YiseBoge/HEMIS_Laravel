@@ -117,11 +117,11 @@
                                     <td>{{ $internalRevenue->income - $internalRevenue->expense }}</td>
                                     @if($internalRevenue->approval_status == "Approved")
                                         <td class="text-success"><i
-                                                    class="fas fa-check"></i> {{$internalRevenue->approval_status}}
+                                                    class="fas fa-check-double"></i> {{$internalRevenue->approval_status}}
                                         </td>
-                                    @elseif($internalRevenue->approval_status == "Pending")
-                                        <td class="text-warning"><i
-                                                    class="far fa-clock"></i></i> {{$internalRevenue->approval_status}}
+                                    @elseif($internalRevenue->approval_status == "College Approved")
+                                        <td class="text-primary"><i
+                                                    class="fas fa-check"></i> {{$internalRevenue->approval_status}}
                                         </td>
                                     @else
                                         <td class="text-danger"><i

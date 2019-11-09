@@ -11,6 +11,7 @@ use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\OtherRegionStudent;
 use App\Models\Institution\Institution;
+use App\Services\ApprovalService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -307,12 +308,7 @@ class OtherRegionStudentsController extends Controller
                             if ($college->collegeName->college_name == $user->collegeName->college_name) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->id == $selectedDepartment) {
-                                        foreach ($department->otherRegionStudents as $enrollment) {
-                                            if ($enrollment->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
-                                                $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
-                                                $enrollment->save();
-                                            }
-                                        }
+                                        ApprovalService::approveData($department->otherRegionStudents);
                                     }
                                 }
                             }

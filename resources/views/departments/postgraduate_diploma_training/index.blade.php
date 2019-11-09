@@ -169,6 +169,10 @@
                                     <td>{{$training->number_of_female_students}}</td>
                                     @if($training->approval_status == "Approved")
                                         <td class="text-success"><i
+                                                    class="fas fa-check-double"></i> {{$training->approval_status}}
+                                        </td>
+                                    @elseif($training->approval_status == "College Approved")
+                                        <td class="text-primary"><i
                                                     class="fas fa-check"></i> {{$training->approval_status}}
                                         </td>
                                     @elseif($training->approval_status == "Pending")
