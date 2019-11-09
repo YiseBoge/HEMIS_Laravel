@@ -155,7 +155,12 @@
                                     <td>{{$costSharing->unpaid_amount}}</td>
                                     @if($costSharing->approval_status == "Approved")
                                         <td class="text-success"><i
-                                                    class="fas fa-check"></i> {{$costSharing->approval_status}}</td>
+                                                    class="fas fa-check-double"></i> {{$costSharing->approval_status}}
+                                        </td>
+                                    @elseif($costSharing->approval_status == "College Approved")
+                                        <td class="text-primary"><i
+                                                    class="fas fa-check"></i> {{$costSharing->approval_status}}
+                                        </td>
                                     @elseif($costSharing->approval_status == "Pending")
                                         <td class="text-warning"><i
                                                     class="far fa-clock"></i></i> {{$costSharing->approval_status}}</td>

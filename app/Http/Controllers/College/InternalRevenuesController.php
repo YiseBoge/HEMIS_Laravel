@@ -113,8 +113,8 @@ class InternalRevenuesController extends Controller
     {
         $this->validate($request, [
             'revenue_description' => 'required',
-            'income' => 'required|numeric|between"0,1000000000',
-            'expense' => 'required|numeric|between"0,1000000000',
+            'income' => 'required|numeric|between:0,1000000000',
+            'expense' => 'required|numeric|between:0,1000000000',
         ]);
 
         $internalRevenue = new InternalRevenue();
@@ -229,8 +229,8 @@ class InternalRevenuesController extends Controller
     {
         $this->validate($request, [
             'revenue_description' => 'required',
-            'income' => 'required|numeric|between"0,1000000000',
-            'expense' => 'required|numeric|between"0,1000000000',
+            'income' => 'required|numeric|between:0,1000000000',
+            'expense' => 'required|numeric|between:0,1000000000',
         ]);
 
         $user = Auth::user();
