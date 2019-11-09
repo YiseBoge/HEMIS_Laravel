@@ -17,7 +17,7 @@ class ApprovalService
     {
         foreach ($data as $item) {
             if ($item->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
-                $item->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
+                $item->approval_status = Institution::getEnum('ApprovalTypes')["COLLEGE_APPROVED"];
                 $item->save();
             }
         }
