@@ -26,7 +26,12 @@
     <hr class="sidebar-divider my-0">
 @if(Auth::user()->hasRole('Department Admin'))
 
-
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'disapproved' ? 'active': '' }}">
+            <a class="nav-link" href="/disapproved-data">
+                <i class="fas fa-times"></i>
+                <span>Disapproved Data</span></a>
+        </li>
+        <hr class="sidebar-divider">
     <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item {{ preg_split ("/\./", $page_name)[0] == 'enrollment' ? 'active': '' }}">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEnrollment"
@@ -140,7 +145,12 @@
         </li>
 
     @elseif(Auth::user()->hasRole('College Admin'))
-
+        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'disapproved' ? 'active': '' }}">
+            <a class="nav-link" href="/disapproved-data">
+                <i class="fas fa-times"></i>
+                <span>Disapproved Data</span></a>
+        </li>
+        <hr class="sidebar-divider">
         <li class="nav-item" {{ preg_split ("/\./", $page_name)[0] == 'budgets' ? 'active': '' }}>
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBudget"
                aria-expanded="false"

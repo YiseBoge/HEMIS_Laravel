@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\College\Budget;
+use App\Models\College\CollegeName;
+use App\Models\Department\DepartmentName;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Department\DepartmentName;
-use App\Models\College\CollegeName;
-use App\Models\College\Budget;
 
 class DisapprovedDataController extends Controller
 {
@@ -30,7 +29,7 @@ class DisapprovedDataController extends Controller
 
         $data = array(
             'links' => $links,
-            'page_name' => 'disapproved-data.index',
+            'page_name' => 'data.disapproved.index',
         );
 
         return view('disapproved-data.index')->with($data);

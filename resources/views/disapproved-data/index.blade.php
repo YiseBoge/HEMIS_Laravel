@@ -20,10 +20,10 @@
                             </ul>
                             <br>
                         </div>
-                    @endif              
+                    @endif
                 @endforeach
             </div>
-            </div>
+        </div>
     </div>
 </div>
 @endsection
