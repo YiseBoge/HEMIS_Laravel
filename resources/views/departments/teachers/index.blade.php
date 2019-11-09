@@ -118,7 +118,7 @@
                                     @if(Auth::user()->hasRole('College Super Admin'))
                                         <td class="text-center">
                                             @if($teacher->approval_status == "Pending")
-                                                <form action="normal/{{$teacher->id}}/approve"
+                                                <form action="teachers/{{$teacher->id}}/approve"
                                                       method="POST">
                                                     @csrf
                                                     <input type="hidden" name="action" value="disapprove">
@@ -133,7 +133,7 @@
                                         <td>{{$teacher->level_of_education}}</td>
                                     @else
                                         <td class="text-center">
-                                            @if($teacher->approval_status != "Approved")
+                                            @if(!array_search($teacher->approval_status, ["Approved", "College Approved"]))
                                                 <div class="row px-1">
                                                     <div class="col px-0">
                                                         <form class="p-0"

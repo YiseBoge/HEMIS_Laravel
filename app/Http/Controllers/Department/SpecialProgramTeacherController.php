@@ -45,8 +45,9 @@ class SpecialProgramTeacherController extends Controller
 
         $requestedStatus = $request->input('program_status');
         if ($requestedStatus == null) {
-            $requestedStatus = 'Completed';
+            $requestedStatus = 'COMPLETED';
         }
+        $status = SpecialProgramTeacher::getEnum('ProgramStats')[$requestedStatus];
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
@@ -77,7 +78,7 @@ class SpecialProgramTeacherController extends Controller
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->SpecialProgramTeachers as $teacher) {
-                                            if ($teacher->program_stat == $requestedStatus) {
+                                            if ($teacher->program_stat == $status) {
                                                 $filteredTeachers[] = $teacher;
                                             }
                                         }
