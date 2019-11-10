@@ -19,7 +19,6 @@
                                     <label class="form-control-placeholder" for="name">Full Name</label>
                                 </div>
                             </div>
-                            <hr>
                             <div class="form-row pt-3">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -44,7 +43,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr>
                             <div class="form-row pt-3">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -89,8 +87,6 @@
                                 </div>
                             </div>
 
-                            <hr>
-
                             <div class="form-row pt-3">
                                 <div class="col-md form-group">
 
@@ -129,7 +125,7 @@
                                     <label for="academic-level" class="form-control-placeholder">Academic Level</label>
                                 </div>
                             </div>
-                            <hr>
+
                             <div class="row">
                                 <div class="col-md-4 form-group form-check">
                                     <input class="form-check-input" id="expatriate" name="expatriate" type="checkbox"
