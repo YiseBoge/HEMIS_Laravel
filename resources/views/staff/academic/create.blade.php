@@ -55,9 +55,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" id="nationality" name="nationality" class="form-control"
-                                               required value="{{ old('nationality') }}">
-                                        <label class="form-control-placeholder" for="nationality">Nationality</label>
+                                        @include('inc.country_select', ['name' => 'nationality', 'default' => old('nationality')])
                                     </div>
                                 </div>
                             </div>
