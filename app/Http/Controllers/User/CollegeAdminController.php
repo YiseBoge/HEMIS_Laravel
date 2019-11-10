@@ -150,7 +150,16 @@ class CollegeAdminController extends Controller
      */
     public function edit($id)
     {
-        return redirect('/college-admin');
+        $user = Auth::user();
+        $user->authorizeRoles(['University Admin', 'College Super Admin']);
+
+        $college_admin = User::find($id);
+        $data = array(
+            'college_admin'=>$college_admin,
+            'page_name' => 'administer.college_admin.create',
+        );
+
+        return view('users.college_admin.edit')->with($data);
     }
 
     /**
@@ -162,7 +171,20 @@ class CollegeAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return redirect('/college-admin');
+        $this->validate($request, [
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user = Auth::user();
+        $user->authorizeRoles(['University Admin', 'College Super Admin']);
+
+        $college_admin = User::find($id);
+
+        $college_admin->password = Hash::make($request->input('password'));
+        $college_admin->save();
+
+        return redirect('/college-admin')->with('success', 'Successfully Changed College Admin Password');
+    
     }
 
     /**
