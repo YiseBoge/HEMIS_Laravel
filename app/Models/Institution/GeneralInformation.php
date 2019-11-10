@@ -16,6 +16,9 @@ use Webpatser\Uuid\Uuid;
  * @property int colleges
  * @property int schools
  * @property int institutes
+ * @property int centers
+ * @property int faculties
+ * @property int departments
  * @property int board_members
  * @property int vice_presidents
  * @property int middle_level_leaders

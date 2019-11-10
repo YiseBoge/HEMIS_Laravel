@@ -35,6 +35,24 @@
                     </div>
                 </div>
 
+                 <div class="row mb-2">
+                    <div class="form-group col-md">
+                        {{ Form::number('centers', $institution->generalInformation->centers, ['class'=>'form-control', 'id'=>'edit_centers', 'required' => 'true']) }}
+                        {{ Form::label('edit_centers', 'Centers', ['class' => 'form-control-placeholder']) }}
+                    </div>
+
+                    <div class="form-group col-md">
+                        {!! Form::number('faculties', $institution->generalInformation->faculties, ['class'=>'form-control', 'id'=>'edit_faculties', 'required' => 'true']) !!}
+                        {!! Form::label('edit_faculties', 'Faculties', ['class' => 'form-control-placeholder']) !!}
+                    </div>
+
+                    <div class="form-group col-md">
+                        {!! Form::number('departments', $institution->generalInformation->departments, ['class'=>'form-control', 'id'=>'edit_departments', 'required' => 'true']) !!}
+                        {!! Form::label('edit_departments', 'Departments', ['class' => 'form-control-placeholder']) !!}
+                    </div>
+
+                </div>
+
                 <div class="row mb-2">
                     <div class="form-group col-md">
                         {{ Form::number('board_members', $institution->generalInformation->board_members, ['class'=>'form-control', 'id'=>'edit_board_members', 'required' => 'true']) }}
