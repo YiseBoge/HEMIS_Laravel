@@ -51,7 +51,7 @@ class TeachersController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $teachers = array();
@@ -259,6 +259,7 @@ class TeachersController extends Controller
 
         $teachers->male_number = $request->input("male_number");
         $teachers->female_number = $request->input("female_number");
+        $teachers->approval_status = "Pending";
 
         $teachers->save();
 

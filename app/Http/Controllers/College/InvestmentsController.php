@@ -239,6 +239,7 @@ class InvestmentsController extends Controller
         $investment->investment_title = $request->input('investment_title');
         $investment->cost_incurred = $request->input('cost_incurred');
         $investment->remarks = $request->input('remarks');
+        $investment->approval_status = "Pending";
 
         $investment->save();
 

@@ -43,7 +43,7 @@ class DiasporaCoursesController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $courses = array();
@@ -240,6 +240,7 @@ class DiasporaCoursesController extends Controller
 
         $diasporaCourses->male_number = $request->input('male_number');
         $diasporaCourses->female_number = $request->input('female_number');
+        $diasporaCourse->approval_status = "Pending";
 
         $diasporaCourses->save();
 

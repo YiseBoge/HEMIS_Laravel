@@ -164,7 +164,7 @@
                                                 <td>{{$research->type}}</td>
                                             @else
                                                 <td class="text-center">
-                                                    @if(!array_search($research->approval_status, ["Approved", "College Approved"]))
+                                                    @if(!in_array($research->approval_status, ["Approved", "College Approved"]))
                                                         <div class="row px-1">
                                                             <div class="col px-0">
                                                                 <form class="p-0"

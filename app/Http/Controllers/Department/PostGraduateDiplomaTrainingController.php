@@ -58,7 +58,7 @@ class PostGraduateDiplomaTrainingController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $trainings = array();
@@ -275,6 +275,7 @@ class PostGraduateDiplomaTrainingController extends Controller
 
         $postGraduateDiplomaTraining->number_of_male_students = $request->input("male_number");
         $postGraduateDiplomaTraining->number_of_female_students = $request->input("female_number");
+        $postGraduateDiplomaTraining->approval_status = "Pending";
 
         $postGraduateDiplomaTraining->save();
 

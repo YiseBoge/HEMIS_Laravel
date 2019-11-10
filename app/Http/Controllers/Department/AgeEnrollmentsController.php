@@ -53,7 +53,7 @@ class AgeEnrollmentsController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $ageEnrollments = array();
@@ -270,6 +270,7 @@ class AgeEnrollmentsController extends Controller
 
         $ageEnrollment->male_students_number = $request->input("number_of_males");
         $ageEnrollment->female_students_number = $request->input("number_of_females");
+        $ageEnrollment->approval_status = "Pending";
 
         $ageEnrollment->save();
 

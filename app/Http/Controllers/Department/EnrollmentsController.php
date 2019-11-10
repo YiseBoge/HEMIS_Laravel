@@ -61,7 +61,7 @@ class EnrollmentsController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $enrollments = array();
@@ -291,6 +291,7 @@ class EnrollmentsController extends Controller
 
         $enrollment->female_students_number = $request->input('female_number');
         $enrollment->male_students_number = $request->input('male_number');
+        $enrollment->approval_status = "Pending";
 
         $enrollment->save();
         return redirect("/enrollment/normal")->with('primary', 'Successfully Updated');

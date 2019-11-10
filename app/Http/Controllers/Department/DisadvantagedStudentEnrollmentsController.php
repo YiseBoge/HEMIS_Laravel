@@ -67,7 +67,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $enrollments = array();
@@ -295,6 +295,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $disadvantagedStudentEnrollment = DisadvantagedStudentEnrollment::find($id);
         $disadvantagedStudentEnrollment->male_students_number = $request->input("male_number");
         $disadvantagedStudentEnrollment->female_students_number = $request->input("female_number");
+        $disadvantagedStudentEnrollment->approval_status = "Pending";
 
         $disadvantagedStudentEnrollment->save();
 

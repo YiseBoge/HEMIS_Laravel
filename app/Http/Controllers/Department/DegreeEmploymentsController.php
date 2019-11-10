@@ -43,7 +43,7 @@ class DegreeEmploymentsController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $employments = array();
@@ -238,6 +238,7 @@ class DegreeEmploymentsController extends Controller
 
         $degreeEmployment->male_students_number = $request->input("male_number");
         $degreeEmployment->female_students_number = $request->input("female_number");
+        $degreeEmployment->approval_status = "Pending";
 
         $degreeEmployment->save();
 

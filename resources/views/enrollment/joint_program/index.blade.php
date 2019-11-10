@@ -178,7 +178,7 @@
                                         <td>{{$enrollment->department->college->education_program}}</td>
                                     @else
                                         <td class="text-center">
-                                            @if(!array_search($enrollment->approval_status, ["Approved", "College Approved"]))
+                                            @if(!in_array($enrollment->approval_status, ["Approved", "College Approved"]))
                                                 <div class="row px-1">
                                                     <div class="col px-0">
                                                         <form class="p-0"

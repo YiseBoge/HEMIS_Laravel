@@ -71,7 +71,7 @@ class SpecialRegionsEnrollmentsController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $enrollments = array();
@@ -304,11 +304,12 @@ class SpecialRegionsEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $specialRegionEnorllment = SpecialRegionEnrollment::find($id);
-        $specialRegionEnorllment->male_number = $request->input("male_number");
-        $specialRegionEnorllment->female_number = $request->input("female_number");
+        $specialRegionEnrollment = SpecialRegionEnrollment::find($id);
+        $specialRegionEnrollment->male_number = $request->input("male_number");
+        $specialRegionEnrollment->female_number = $request->input("female_number");
+        $specialRegionEnrollment->approval_status = "Pending";
 
-        $specialRegionEnorllment->save();
+        $specialRegionEnrollment->save();
         return redirect("/enrollment/special-region-students")->with('primary', 'Successfully Updated');
     }
 

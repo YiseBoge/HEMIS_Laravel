@@ -61,7 +61,7 @@ class RuralStudentEnrollmentsController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $enrollments = array();
@@ -278,6 +278,7 @@ class RuralStudentEnrollmentsController extends Controller
         $ruralStudenetEnrollment = RuralStudentEnrollment::find($id);
         $ruralStudenetEnrollment->male_students_number = $request->input("male_number");
         $ruralStudenetEnrollment->female_students_number = $request->input("female_number");
+        $ruralStudenetEnrollment->approval_status = "Pending";
 
         $ruralStudenetEnrollment->save();
 

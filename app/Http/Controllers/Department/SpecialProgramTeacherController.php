@@ -51,7 +51,7 @@ class SpecialProgramTeacherController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
 //        $band=Band::where('band_name_id',$requestedBand)->first();
@@ -262,6 +262,7 @@ class SpecialProgramTeacherController extends Controller
 
         $specialProgramTeacher->male_number = $request->input("male_number");
         $specialProgramTeacher->female_number = $request->input("female_number");
+        $specialProgramTeacher->approval_status = "Pending";
 
         $specialProgramTeacher->save();
 

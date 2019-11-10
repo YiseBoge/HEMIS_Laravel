@@ -83,7 +83,7 @@
                                                 </form>
                                             @endif
                                         @else
-                                            @if(!array_search($linkage->approval_status, ["Approved", "College Approved"]))
+                                            @if(!in_array($linkage->approval_status, ["Approved", "College Approved"]))
                                                 <div class="row px-0">
                                                     <div class="col px-0">
                                                         <form class="p-0"

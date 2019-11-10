@@ -224,9 +224,9 @@ class BudgetsController extends Controller
             foreach ($institution->bands as $band) {
                 foreach ($band->colleges as $college) {
                     if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->budgets as $budget) {
-                            if ($budget->budget_type == $budget_type) {
-                                $budgets[] = $budget;
+                        foreach ($college->budgets as $item) {
+                            if ($item->budget_type == $budget_type) {
+                                $budgets[] = $item;
                             }
                         }
                     }
@@ -242,9 +242,8 @@ class BudgetsController extends Controller
         }
         $budgetDescription = Budget::getValueKey($budgetDescriptions, $budget->budgetDescription);
 
-
         $data = array(
-            'budget' => $budget,
+            'selected_budget' => $budget,
             'budget_type' => $budget_type,
             'budget_types' => Budget::getEnum('budget_type'),
             'budgets' => $budgets,
@@ -282,6 +281,7 @@ class BudgetsController extends Controller
         $budget->allocated_budget = $request->input('allocated');
         $budget->additional_budget = $request->input('additional');
         $budget->utilized_budget = $request->input('utilized');
+        $budget->approval_status = "Pending";
 
         $budget->save();
 

@@ -45,6 +45,7 @@ class DisapprovedDataController extends Controller
             "Special Region Students Enrollment" => [],
             "Students From Rural Areas Enrollment" => [],
             "Economically Disadvantaged Students Enrollment" => [],
+            "Specializing Students" => [],
             "Students Coming From Regions Other than the Region that Hosts the Institution" => [],
             "Age Enrollment Data" => [],
             "Students Enrolled in Joint Programs with Foreign Universities" => [],
@@ -92,13 +93,12 @@ class DisapprovedDataController extends Controller
                 array_push($links["Economically Disadvantaged Students Enrollment"], $link);
             }
 
-            // foreach($department->specializingStudentEnrollments->where('approval_status', 'Disapproved') as $item){
-            //     $link = (String) url('enrollment/economically-disadvantaged?quintile=' . $item->quintile
-            //         . '&student_type=' . $item->student_type
-            //         . '&program=' . $item->department->college->education_program 
-            //         . '&education_level=' . $item->department->college->education_level);
-            //     array_push($links["Students From Rural Areas Enrollment"], $link);
-            // }
+            foreach($department->specializingStudentEnrollments->where('approval_status', 'Disapproved') as $item){
+                $link = (String) url('enrollment/specializing-students?student_type=' . $item->student_type
+                    . '&program=' . $item->department->college->education_program 
+                    . '&specialization_type=' . $item->specialization_type);
+                array_push($links["Specializing Students"], $link);
+            }
 
             foreach($department->otherRegionStudents->where('approval_status', 'Disapproved') as $item){
                 $link = (String) url('enrollment/other-region-students?'

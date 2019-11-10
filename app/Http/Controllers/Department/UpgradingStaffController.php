@@ -50,7 +50,7 @@ class UpgradingStaffController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
 //        $band=Band::where('band_name_id',$requestedBand)->first();
@@ -262,6 +262,7 @@ class UpgradingStaffController extends Controller
 
         $upgradingStaff->male_number = $request->input("male_number");
         $upgradingStaff->female_number = $request->input("female_number");
+        $upgradingStaff->approval_status = "Pending";
 
         $upgradingStaff->save();
 

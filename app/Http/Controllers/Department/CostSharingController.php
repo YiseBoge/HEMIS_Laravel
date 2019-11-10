@@ -43,7 +43,7 @@ class CostSharingController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $costSharings = array();
@@ -255,6 +255,7 @@ class CostSharingController extends Controller
         $costSharings->dormitory_expense = $request->input("dormitory_expense");
         $costSharings->pre_payment_amount = $request->input("pre_payment_amount");
         $costSharings->unpaid_amount = $request->input("unpaid_amount");
+        $costSharing->approval_status = "Pending";
 
         $costSharings->save();        
         return redirect('/student/cost-sharing')->with('primary', 'Successfully Updated');

@@ -43,7 +43,7 @@ class ExitExaminationsController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $examinations = array();
@@ -249,6 +249,7 @@ class ExitExaminationsController extends Controller
         $exitExamination->females_sat = $request->input('females_sat');
         $exitExamination->males_passed = $request->input('males_passed');
         $exitExamination->females_passed = $request->input('females_passed');
+        $exitExamination->approval_status = "Pending";
 
         $exitExamination->save();
 

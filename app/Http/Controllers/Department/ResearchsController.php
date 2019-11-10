@@ -48,7 +48,7 @@ class ResearchsController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $researches = array();
@@ -265,6 +265,7 @@ class ResearchsController extends Controller
         $research->female_researchers_other_number = $request->input('other_female_number');
         $research->budget_allocated = $request->input('budget');
         $research->budget_from_externals = $request->input('external_budget');
+        $research->approval_status = "Pending";
 
         $research->save();
         return redirect('/institution/researches')->with('primary', 'Successfully Updated');

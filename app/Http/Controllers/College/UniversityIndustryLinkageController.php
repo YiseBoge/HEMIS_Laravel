@@ -255,6 +255,7 @@ class UniversityIndustryLinkageController extends Controller
         $universityIndustryLinkage->number_of_industry_links = $request->input('industry_number');
         $universityIndustryLinkage->training_area = $request->input('training_area');
         $universityIndustryLinkage->number_of_students = $request->input('number_of_students');
+        $universityIndustryLinkage->approval_status = "Pending";
 
         $universityIndustryLinkage->save();
 

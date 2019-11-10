@@ -60,7 +60,7 @@ class JointProgramEnrollmentsController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $enrollments = array();
@@ -289,6 +289,7 @@ class JointProgramEnrollmentsController extends Controller
 
         $jointProgramEnrollment->male_students_number = $request->input("male_number");
         $jointProgramEnrollment->female_students_number = $request->input("female_number");
+        $jointProgramEnrollment->approval_status = "Pending";
 
         $jointProgramEnrollment->save();
 

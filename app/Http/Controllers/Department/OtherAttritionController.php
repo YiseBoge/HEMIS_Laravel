@@ -64,7 +64,7 @@ class OtherAttritionController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $attritions = array();
@@ -278,6 +278,7 @@ class OtherAttritionController extends Controller
 
         $otherAttrition->male_students_number = $request->input("male_number");
         $otherAttrition->female_students_number = $request->input("female_number");
+        $otherAttrition->approval_status = "Pending";
 
         $otherAttrition->save();
 

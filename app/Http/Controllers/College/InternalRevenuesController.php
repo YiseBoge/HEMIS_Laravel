@@ -240,6 +240,7 @@ class InternalRevenuesController extends Controller
         $internalRevenue->revenue_description = $request->input('revenue_description');
         $internalRevenue->income = $request->input('income');
         $internalRevenue->expense = $request->input('expense');
+        $internalRevenue->approval_status = "Pending";
 
         $internalRevenue->save();
 

@@ -65,7 +65,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $enrollments = array();
@@ -85,7 +85,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
                                 }
                             }
                         } else {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "Specialization" && $college->education_program == $requestedProgram) {
+                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "Health Specialty" && $college->education_program == $requestedProgram) {
                                 foreach ($college->departments as $department) {
                                     if ($department->departmentName->department_name == $user->departmentName->department_name) {
                                         foreach ($department->specializingStudentEnrollments as $enrollment) {
@@ -189,10 +189,10 @@ class SpecializingStudentsEnrollmentsController extends Controller
 
         $collegeName = $user->collegeName;
         $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => "Specialization", 'education_program' => $request->input("program")])->first();
+            'education_level' => "Health Specialty", 'education_program' => $request->input("program")])->first();
         if ($college == null) {
             $college = new College;
-            $college->education_level = "Specialization";
+            $college->education_level = "Health Specialty";
             $college->education_program = $request->input("program");
             $college->college_name_id = null;
             $band->colleges()->save($college);
@@ -285,6 +285,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
 
         $specializingStudentsEnrollment->male_students_number = $request->input('male_number');
         $specializingStudentsEnrollment->female_students_number = $request->input('female_number');
+        $specializingStudentsEnrollment->approval_status = "Pending";
 
         $specializingStudentsEnrollment->save();
 

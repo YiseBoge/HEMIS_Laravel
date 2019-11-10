@@ -43,7 +43,7 @@ class QualifiedInternshipsController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $internships = array();
@@ -238,6 +238,7 @@ class QualifiedInternshipsController extends Controller
 
         $internship->male_number = $request->input('male_number');
         $internship->female_number = $request->input('female_number');
+        $internship->approval_status = "Pending";
 
         $internship->save();
 

@@ -55,7 +55,7 @@ class OtherRegionStudentsController extends Controller
 
         $requestedDepartment = $request->input('department');
         if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
+            $requestedDepartment = $collegeDeps->first()->id;
         }
 
         $enrollments = array();
@@ -266,6 +266,7 @@ class OtherRegionStudentsController extends Controller
 
         $otherRegionStudentsEnrollment->male_students_number = $request->input("male_number");
         $otherRegionStudentsEnrollment->female_students_number = $request->input("female_number");
+        $otherRegionStudentsEnrollment->approval_status = "Pending";
 
         $otherRegionStudentsEnrollment->save();
 
