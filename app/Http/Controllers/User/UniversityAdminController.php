@@ -158,7 +158,16 @@ class UniversityAdminController extends Controller
      */
     public function edit($id)
     {
-        return redirect('/university-admin');
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
+        $univ_admin = User::find($id);
+
+        $data = array(
+            'univ_admin' => $univ_admin,
+            'page_name' => 'administer.university_admin.create',
+        );
+        return view('users.university_admin.edit')->with($data);
     }
 
     /**
@@ -170,7 +179,19 @@ class UniversityAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return redirect('/university-admin');
+        $this->validate($request, [
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+        
+        $univ_admin = User::find($id);
+        $univ_admin->password = Hash::make($request->input('password'));
+
+        $univ_admin->save();
+
+        return redirect('/university-admin')->with('success', 'Successfully Changed University Admin Password');;
     }
 
     /**
