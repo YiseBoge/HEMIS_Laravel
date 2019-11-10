@@ -155,6 +155,9 @@ class InstitutionsController extends Controller
             'colleges' => 'required',
             'schools' => 'required',
             'institutes' => 'required',
+            'centers' => 'required',
+            'faculties' => 'required',
+            'departments' => 'required',
 
             'board_members' => 'required',
             'vice_presidents' => 'required',
@@ -190,6 +193,9 @@ class InstitutionsController extends Controller
         $generalInformation->colleges = $request->input('colleges');
         $generalInformation->schools = $request->input('schools');
         $generalInformation->institutes = $request->input('institutes');
+        $generalInformation->centers = $request->input('centers');
+        $generalInformation->faculties = $request->input('faculties');
+        $generalInformation->departments = $request->input('departments');
 
         $generalInformation->board_members = $request->input('board_members');
         $generalInformation->vice_presidents = $request->input('vice_presidents');
