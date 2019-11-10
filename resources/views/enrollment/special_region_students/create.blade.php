@@ -38,7 +38,7 @@
                                 </div>
 
                                 <div class="col-md-4 form-group">
-                                    {!! Form::select('student_type', $student_types , old('student_type'), ['class' => 'form-control', 'id' => 'add_student_type', 'required' => 'true', 'onchange' => 'this.form.submit()']) !!}
+                                    {!! Form::select('student_type', $student_types , old('student_type'), ['class' => 'form-control', 'id' => 'add_student_type', 'required' => 'true']) !!}
                                     {!! Form::label('add_student_type', 'Student Type', ['class' => 'form-control-placeholder']) !!}
                                 </div>
                             </div>

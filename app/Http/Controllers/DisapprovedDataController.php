@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\College\Budget;
 use App\Models\College\CollegeName;
 use App\Models\Department\DepartmentName;
+use App\Models\College\Budget;
+use App\Models\Department\UpgradingStaff;
+use App\Models\Department\SpecialRegionEnrollment;
+use App\Models\Department\DisadvantagedStudentEnrollment;
+use App\Models\Department\SpecialProgramTeacher;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -66,7 +70,7 @@ class DisapprovedDataController extends Controller
 
             foreach($department->specialRegionEnrollments->where('approval_status', 'Disapproved') as $item){
                 $link = (String) url('enrollment/special-region-students?region_type=' . $item->region_type
-                    . '&student_type=' . $item->student_type
+                    . '&student_type=' . SpecialRegionEnrollment::getValueKey(SpecialRegionEnrollment::getEnum('student_type'), $item->student_type)
                     . '&program=' . $item->department->college->education_program 
                     . '&education_level=' . $item->department->college->education_level
                     . '&year_level' . $item->department->year_level);
@@ -82,7 +86,7 @@ class DisapprovedDataController extends Controller
             
             foreach($department->disadvantagedStudentEnrollments->where('approval_status', 'Disapproved') as $item){
                 $link = (String) url('enrollment/economically-disadvantaged?quintile=' . $item->quintile
-                    . '&student_type=' . $item->student_type
+                    . '&student_type=' . DisadvantagedStudentEnrollment::getValueKey(DisadvantagedStudentEnrollment::getEnum('student_type'), $item->student_type)
                     . '&program=' . $item->department->college->education_program 
                     . '&education_level=' . $item->department->college->education_level);
                 array_push($links["Economically Disadvantaged Students Enrollment"], $link);
@@ -156,12 +160,12 @@ class DisapprovedDataController extends Controller
             }
 
             foreach($department->upgradingStaffs->where('approval_status', 'Disapproved') as $item){
-                $link = (String) url('department/upgrading-staff?study_place=' . $item->study_place);
+                $link = (String) url('department/upgrading-staff?study_place=' . UpgradingStaff::getValueKey(UpgradingStaff::getEnum('study_place'), $item->study_place));
                 array_push($links["Academic Staffs Upgrading Their Level of Education"], $link);
             }
 
             foreach($department->specialProgramTeachers->where('approval_status', 'Disapproved') as $item){
-                $link = (String) url('department/special-program-teacher?program_status=' . $item->program_stat);
+                $link = (String) url('department/special-program-teacher?program_status=' . SpecialProgramTeacher::getValueKey(SpecialProgramTeacher::getEnum('program_stat'), $item->program_stat));
                 array_push($links["Teachers on Special Program"], $link);
             }
 
