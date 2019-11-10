@@ -137,7 +137,16 @@ class DepartmentAdminController extends Controller
      */
     public function edit($id)
     {
-        return redirect('/department-admin');
+        $user = Auth::user();
+        $user->authorizeRoles('College Super Admin');
+
+        $dept_admin = User::find($id);
+
+        $data = array(
+            'dept_admin' => $dept_admin,
+            'page_name' => 'administer.department_admin.create',
+        );
+        return view('users.department_admin.edit')->with($data);
     }
 
     /**
@@ -149,7 +158,17 @@ class DepartmentAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return redirect('/department-admin');
+        $this->validate($request, [
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $dept_admin = User::find($id);
+
+        $dept_admin->password = Hash::make($request->input('password'));
+
+        $dept_admin->save();
+
+        return redirect('/department-admin')->with('success', 'Successfully Changed Department Admin Password');;
     }
 
     /**
