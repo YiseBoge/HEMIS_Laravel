@@ -5,7 +5,11 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card shadow">
-                    <div class="card-header text-primary">Edit University Admin</div>
+                    <div class="card-header text-primary">Edit University Admin
+                        @if ($univ_admin->read_only)
+                            <small class="badge badge-pill badge-secondary float-right">Read Only</small>
+                        @endif
+                    </div>
                     <div class="card-body pt-4">
                         <form action="/university-admin/{{$univ_admin->id}}" method="POST">
                         @csrf

@@ -40,6 +40,10 @@
                                     colspan="1" aria-label="Acronym: activate to sort column ascending"
                                 >Email
                                 </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Acronym: activate to sort column ascending"
+                                >Read Only
+                                </th>
 
                             </tr>
                             </thead>
@@ -75,6 +79,11 @@
                                     <td>{{ $editor->name }}</td>
                                     <td>{{ $editor->institution() }}</td>
                                     <td>{{ $editor->email }}</td>
+                                    <td class="text-center">
+                                        @if ($editor->read_only)
+                                            <span class="badge badge-pill badge-secondary"> Yes </span>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

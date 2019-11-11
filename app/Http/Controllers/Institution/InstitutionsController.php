@@ -118,6 +118,7 @@ class InstitutionsController extends Controller
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
+        if ($user->read_only) return redirect("/institution/general");
 
         $currentInstitution = Institution::find($id);
         $status_of_libraries = Resource::getEnum('status_of_libraries');
@@ -147,6 +148,7 @@ class InstitutionsController extends Controller
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
+        if ($user->read_only) return redirect("/institution/general");
 
         $this->validate($request, [
             'campuses' => 'required|numeric|between:0,250',

@@ -10,9 +10,11 @@
                 <div class="row my-3">
                     <div class="col-sm-6 text-left">
                         @if (Auth::user()->currentInstance != null && Auth::user()->hasRole('University Admin'))
-                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/report/generate-institution-report">Update
-                                Current Year<i
-                                        class="fas fa-sync-alt text-white-50 fa-sm ml-2"></i></a>
+                            @if (!Auth::user()->read_only)
+                                <a class="btn btn-primary btn-sm mb-0 shadow-sm"
+                                   href="/report/generate-institution-report">
+                                    Update Current Year<i class="fas fa-sync-alt text-white-50 fa-sm ml-2"></i></a>
+                            @endif
                         @else
                             {!! Form::open(['action' => 'Report\InstitutionReportsController@index', 'method' => 'GET']) !!}
                             {!! Form::select('institution_name', $institution_names, $ind  , ['class' => 'form-control', 'id' => 'institution_name', 'onchange' => 'this.form.submit()']) !!}

@@ -336,12 +336,14 @@
                 <span>Research</span></a>
         </li>
     @elseif(Auth::user()->hasRole('University Admin'))
-        <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'approval' ? 'active': '' }}">
-            <a class="nav-link" href="/institution/approval">
-                <i class="fas fa-check-double"></i>
-                <span>Final Approval</span></a>
-        </li>
-        <hr class="sidebar-divider">
+        @if (!Auth::user()->read_only)
+            <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'approval' ? 'active': '' }}">
+                <a class="nav-link" href="/institution/approval">
+                    <i class="fas fa-check-double"></i>
+                    <span>Final Approval</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        @endif
         <li class="nav-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'general_info' ? 'active': '' }}">
             <a class="nav-link" href="/institution/general">
                 <i class="fas fa-info-circle"></i>
@@ -391,68 +393,70 @@
     @endif
 
     <hr class="sidebar-divider">
-
-    @if(Auth::user()->hasAnyRole(['Super Admin', 'University Admin']) || (Auth::user()->hasRole('College Super Admin') && !Auth::user()->collegeName->departmentNames->isEmpty()))
-        <div class="sidebar-heading">
-            Management Components
-        </div>
-
-        <li class="nav-item {{ preg_split ("/\./", $page_name)[0] == 'administer' ? 'active': '' }}">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
-               aria-controls="collapseAdmin">
-                <i class="fas fa-toolbox"></i>
-                <span>Administer</span>
-            </a>
-            <div id="collapseAdmin" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    @if (Auth::user()->hasRole('Super Admin'))
-                        <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'instance' ? 'active': '' }}"
-                           href="/institution/instance">Instances</a>
-                        @if (Auth::user()->currentInstance != null)
-                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'institution-name' ? 'active': '' }}"
-                               href="/institution/institution-name">University Names</a>
-                            @if(!\App\Models\Institution\InstitutionName::all()->isEmpty())
-                                <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'university_admin' ? 'active': '' }}"
-                                   href="/university-admin">University Admin</a>
-                            @endif
-                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'region-name' ? 'active': '' }}"
-                               href="/region-name">Region Names</a>
-                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'band-name' ? 'active': '' }}"
-                               href="/band/band-name">Band/ICED Names</a>
-                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'ict_staff_type' ? 'active': '' }}"
-                               href="/staff/ict-staff-types">ICT Staff Types</a>
-                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'budget-description' ? 'active': '' }}"
-                               href="/budgets/budget-description">Budget Descriptions</a>
-                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'population' ? 'active': '' }}"
-                               href="/population">Population Data</a>
-                            <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'support-contact' ? 'active': '' }}"
-                               href="/support-contacts">Support Contacts</a>
-                        @endif
-                    @elseif(Auth::user()->hasRole('University Admin'))
-                        <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'colleges-name' ? 'active': '' }}"
-                           href="/college/college-name">College/Institute Names</a>
-                        @if(!Auth::user()->institution()->institutionName->collegeNames->isEmpty())
-                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'department-name' ? 'active': '' }}"
-                               href="/department/department-name">School/Department Names</a>
-                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
-                               href="/college-admin">College/Institute Super Admins</a>
-                        @endif
-                    @elseif(Auth::user()->hasRole('College Super Admin'))
-                        @if(!Auth::user()->institution()->institutionName->collegeNames->isEmpty())
-                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
-                               href="/college-admin">College/Institute Administrative Admins</a>
-                        @endif
-                        @if(!Auth::user()->collegeName->departmentNames->isEmpty())
-                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'department_admin' ? 'active': '' }}"
-                               href="/department-admin">School/Department Admins</a>
-                        @endif
-                    @endif
-
-                </div>
+    @if (!Auth::user()->read_only)
+        @if(Auth::user()->hasAnyRole(['Super Admin', 'University Admin']) || (Auth::user()->hasRole('College Super Admin') && !Auth::user()->collegeName->departmentNames->isEmpty()))
+            <div class="sidebar-heading">
+                Management Components
             </div>
-        </li>
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
+
+            <li class="nav-item {{ preg_split ("/\./", $page_name)[0] == 'administer' ? 'active': '' }}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
+                   aria-controls="collapseAdmin">
+                    <i class="fas fa-toolbox"></i>
+                    <span>Administer</span>
+                </a>
+                <div id="collapseAdmin" class="collapse" aria-labelledby="headingUtilities"
+                     data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        @if (Auth::user()->hasRole('Super Admin'))
+                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'instance' ? 'active': '' }}"
+                               href="/institution/instance">Instances</a>
+                            @if (Auth::user()->currentInstance != null)
+                                <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'institution-name' ? 'active': '' }}"
+                                   href="/institution/institution-name">University Names</a>
+                                @if(!\App\Models\Institution\InstitutionName::all()->isEmpty())
+                                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'university_admin' ? 'active': '' }}"
+                                       href="/university-admin">University Admin</a>
+                                @endif
+                                <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'region-name' ? 'active': '' }}"
+                                   href="/region-name">Region Names</a>
+                                <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'band-name' ? 'active': '' }}"
+                                   href="/band/band-name">Band/ICED Names</a>
+                                <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'ict_staff_type' ? 'active': '' }}"
+                                   href="/staff/ict-staff-types">ICT Staff Types</a>
+                                <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'budget-description' ? 'active': '' }}"
+                                   href="/budgets/budget-description">Budget Descriptions</a>
+                                <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'population' ? 'active': '' }}"
+                                   href="/population">Population Data</a>
+                                <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'support-contact' ? 'active': '' }}"
+                                   href="/support-contacts">Support Contacts</a>
+                            @endif
+                        @elseif(Auth::user()->hasRole('University Admin'))
+                            <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'colleges-name' ? 'active': '' }}"
+                               href="/college/college-name">College/Institute Names</a>
+                            @if(!Auth::user()->institution()->institutionName->collegeNames->isEmpty())
+                                <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'department-name' ? 'active': '' }}"
+                                   href="/department/department-name">School/Department Names</a>
+                                <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
+                                   href="/college-admin">College/Institute Super Admins</a>
+                            @endif
+                        @elseif(Auth::user()->hasRole('College Super Admin'))
+                            @if(!Auth::user()->institution()->institutionName->collegeNames->isEmpty())
+                                <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
+                                   href="/college-admin">College/Institute Administrative Admins</a>
+                            @endif
+                            @if(!Auth::user()->collegeName->departmentNames->isEmpty())
+                                <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'department_admin' ? 'active': '' }}"
+                                   href="/department-admin">School/Department Admins</a>
+                            @endif
+                        @endif
+
+                    </div>
+                </div>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+    @endif
 @endif
 
 <!-- Sidebar Toggler (Sidebar) -->

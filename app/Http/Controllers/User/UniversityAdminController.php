@@ -110,6 +110,7 @@ class UniversityAdminController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
+        $user->read_only = $request->has('read_only');
 
         $institutionName->users()->save($user);
         $currentInstanceId->users()->save($user);
@@ -176,6 +177,7 @@ class UniversityAdminController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {

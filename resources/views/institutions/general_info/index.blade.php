@@ -6,10 +6,12 @@
             <div class="col-md-10">
                 <h1 class="text-primary">{{$institution->institutionName}}</h1>
             </div>
-            <div class="col-md-2 pt-4 text-right">
-                <a class="btn btn-primary mb-0 shadow-sm" href="/institution/general/{{$institution->id}}/edit">Modify<i
-                            class="fas fa-pen text-white-50 fa-sm ml-2"></i></a>
-            </div>
+            @if (!Auth::user()->read_only)
+                <div class="col-md-2 pt-4 text-right">
+                    <a class="btn btn-primary mb-0 shadow-sm" href="/institution/general/{{$institution->id}}/edit">
+                        Modify<i class="fas fa-pen text-white-50 fa-sm ml-2"></i></a>
+                </div>
+            @endif
         </div>
         <hr>
         <div class="row my-3">
