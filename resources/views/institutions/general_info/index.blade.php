@@ -14,6 +14,46 @@
             @endif
         </div>
         <hr>
+
+        <div class="row my-3">
+            <div class="col-md-4 col-sm-6">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Board Members
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{$institution->generalInformation->board_members}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Vice Presidents
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{$institution->generalInformation->vice_presidents}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Middle Level Leaders
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{$institution->generalInformation->middle_level_leaders}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row my-3">
             <div class="col-md-3 col-sm-6 mb-md-3">
                 <div class="card border-left-primary shadow h-100 py-2">
@@ -66,8 +106,8 @@
         </div>
 
         <div class="row my-3">
-            <div class="col-md-4 col-sm-6 mb-md-3">
-                <div class="card border-left-warning shadow h-100 py-2">
+            <div class="col-md-3 col-sm-6 mb-md-3">
+                <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Centers
@@ -78,8 +118,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-6 mb-md-3">
-                <div class="card border-left-warning shadow h-100 py-2">
+            <div class="col-md-3 col-sm-6 mb-md-3">
+                <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Faculties
@@ -90,8 +130,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-6 mb-md-3">
-                <div class="card border-left-warning shadow h-100 py-2">
+            <div class="col-md-3 col-sm-6 mb-md-3">
+                <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Departments
@@ -102,46 +142,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row my-3">
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Board Members
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$institution->generalInformation->board_members}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Vice Presidents
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$institution->generalInformation->vice_presidents}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Middle Level Leaders
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$institution->generalInformation->middle_level_leaders}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-3 col-sm-6 mb-md-3">
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
@@ -154,7 +155,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="row my-4">
             <div class="col-md-7 py-2">

@@ -22,6 +22,7 @@ use Webpatser\Uuid\Uuid;
  * @property int board_members
  * @property int vice_presidents
  * @property int middle_level_leaders
+ * @property int hospitals
  */
 class GeneralInformation extends Model
 {
