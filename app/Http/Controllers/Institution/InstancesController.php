@@ -6,12 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
-use App\Models\Institution\CommunityService;
-use App\Models\Institution\GeneralInformation;
 use App\Models\Institution\Instance;
 use App\Models\Institution\Institution;
 use App\Models\Institution\InstitutionName;
-use App\Models\Institution\Resource;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -233,6 +230,7 @@ class InstancesController extends Controller
         $currentInstance->users()->save($user);
 
         $institutions = $oldInstance->institutions;
+        /** @var Institution $oldInstitution */
         foreach ($institutions as $oldInstitution) {
             $institutionName = $oldInstitution->institutionName;
 
@@ -246,16 +244,7 @@ class InstancesController extends Controller
                 }
             }
 
-            $generalInformation = new GeneralInformation();
-            $communityService = new CommunityService();
-            $resource = new Resource();
-
-            $generalInformation->save();
-            $communityService->save();
-            $resource->save();
-
-            $generalInformation->communityService()->associate($communityService)->save();
-            $generalInformation->resource()->associate($resource)->save();
+            $generalInformation = $oldInstitution->generalInformation;
 
             $newInstitution = new Institution();
             $newInstitution->institution_name_id = $institutionName->id;
