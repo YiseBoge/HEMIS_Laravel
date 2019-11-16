@@ -33,42 +33,22 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
-        $selectedType = $request->input('student_type');
-        if ($selectedType == null) {
-            $requestedType = 'Normal';
-        } else {
-            $requestedType = DisadvantagedStudentEnrollment::getEnum('student_type')[$selectedType];
-        }
+        $requestedProgram = request()->query('program', 'Regular');
+        $requestedLevel = request()->query('education_level', 'Undergraduate');
+        $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
+        $requestedQuintile = request()->query('quintile', 'Lowest');
+        $selectedType = request()->query('student_type', 'NORMAL');
+        $requestedType = DisadvantagedStudentEnrollment::getEnum('student_type')[$selectedType];
 
-        $requestedQuintile = $request->input('quintile');
-        if ($requestedQuintile == null) {
-            $requestedQuintile = 'Lowest';
-        }
-
-        $requestedProgram = $request->input('program');
-        if ($requestedProgram == null) {
-            $requestedProgram = 'Regular';
-        }
-
-        $requestedLevel = $request->input('education_level');
-        if ($requestedLevel == null) {
-            $requestedLevel = 'Undergraduate';
-        }
-
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = $collegeDeps->first()->id;
-        }
 
         $enrollments = array();
 

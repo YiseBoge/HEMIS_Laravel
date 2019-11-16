@@ -33,30 +33,18 @@ class SpecialProgramTeacherController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
-        $requestedStatus = $request->input('program_status');
-        if ($requestedStatus == null) {
-            $requestedStatus = 'COMPLETED';
-        }
-        $status = SpecialProgramTeacher::getEnum('ProgramStats')[$requestedStatus];
+        $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
+        $status = SpecialProgramTeacher::getEnum('ProgramStats')[$requestedStatus = request()->query('program_status', 'COMPLETED')];
 
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = $collegeDeps->first()->id;
-        }
-
-//        $band=Band::where('band_name_id',$requestedBand)->first();
-//        $college=College::where(['college_name_id'=>$requestedCollege,'band_id'=>$band->id])->first();
-//        $departments=Department::where(['college_id'=>$college->id])->get();
         $filteredTeachers = array();
 
         if ($institution != null) {

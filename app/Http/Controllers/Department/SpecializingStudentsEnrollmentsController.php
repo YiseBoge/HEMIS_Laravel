@@ -33,40 +33,20 @@ class SpecializingStudentsEnrollmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
-        $requestedType = $request->input('student_type');
-        if ($requestedType == null) {
-            $requestedType = 'Current';
-        }
-
-        $requestedProgram = $request->input('program');
-        if ($requestedProgram == null) {
-            $requestedProgram = 'Regular';
-        }
-
-        $requestedSpecializationType = $request->input('specialization_type');
-        if ($requestedSpecializationType == null) {
-            $requestedSpecializationType = 'Specialization';
-        }
-
-        $requestedYearLevel = $request->input('year_level');
-        if ($requestedYearLevel == null) {
-            $requestedYearLevel = '1';
-        }
-
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = $collegeDeps->first()->id;
-        }
+        $requestedProgram = request()->query('program', 'Regular');
+        $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
+        $requestedSpecializationType = request()->query('specialization_type', 'Specialization');
+        $requestedYearLevel = request()->query('year_level', '1');
+        $requestedType = request()->query('student_type', 'Current');
 
         $enrollments = array();
 

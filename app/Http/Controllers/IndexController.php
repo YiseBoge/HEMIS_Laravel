@@ -7,10 +7,10 @@ use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
+use App\Models\Department\Enrollment;
 use App\Models\Institution\AgeEnrollment;
 use App\Models\Institution\InstitutionName;
 use App\Models\Staff\Staff;
-use App\Models\Department\Enrollment;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -30,11 +30,6 @@ class IndexController extends Controller
         $educationPrograms = College::getEnum("EducationPrograms");
         $educationLevels = College::getEnum("EducationLevels");
         $staffTypes = Staff::$staff_types;
-
-//        $reporter = new GeneralReportService(Auth::user()->currentInstance->year);
-//        $studentsNumber = $reporter->enrollment('All', College::getEnum('education_level')['UNDERGRADUATE']) +
-//            $reporter->enrollment('All', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
-//            $reporter->enrollment('All', College::getEnum('education_level')['POST_GRADUATE_PHD']);
 
         $institutions->prepend('Any');
         $bands->prepend('Any');

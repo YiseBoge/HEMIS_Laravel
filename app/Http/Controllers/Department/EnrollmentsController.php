@@ -30,21 +30,21 @@ class EnrollmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $collegeDeps = $user->collegeName->departmentNames;
 
-        $requestedType = request()->query('student_type', 'Normal');
         $requestedProgram = request()->query('program', 'Regular');
         $requestedLevel = request()->query('education_level', 'Undergraduate');
         $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
+        $requestedType = request()->query('student_type', 'Normal');
 
         $enrollments = array();
+        /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
                 foreach ($college->departments as $department)

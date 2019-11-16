@@ -33,29 +33,19 @@ class UpgradingStaffController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
-        $requestedPlace = $request->input('study_place');
-        if ($requestedPlace == null) {
-            $requestedPlace = 'ETHIOPIA';
-        }
+        $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
+        $requestedPlace = request()->query('study_place', 'ETHIOPIA');
 
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = $collegeDeps->first()->id;
-        }
 
-//        $band=Band::where('band_name_id',$requestedBand)->first();
-//        $college=College::where(['college_name_id'=>$requestedCollege,'band_id'=>$band->id])->first();
-//        $departments=Department::where(['college_id'=>$college->id])->get();
         $filteredTeachers = array();
 
         if ($institution != null) {

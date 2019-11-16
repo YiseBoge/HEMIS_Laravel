@@ -26,24 +26,16 @@ class StaffAttritionsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         $user->authorizeRoles(['College Admin', 'Department Admin']);
         $institution = $user->institution();
 
-        $requestedCase = $request->input('case');
-        if ($requestedCase == null) {
-            $requestedCase = 'Government Appointment';
-        }
-
-        $requestedType = $request->input('type');
-        if ($requestedType == null) {
-            $requestedType = 'Management Staff';
-        }
+        $requestedCase = request()->query('case', 'Government Appointment');
+        $requestedType = request()->query('type', 'Management Staff');
 
         $attritions = array();
 

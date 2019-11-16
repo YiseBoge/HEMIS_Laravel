@@ -26,22 +26,16 @@ class InstitutionReportsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         $user->authorizeRoles(['University Admin', 'Super Admin']);
-        $institution_name = $user->institutionName;
 
-        if ($institution_name == null) {
-            if ($request->has('institution_name')) {
-                $institution_name = InstitutionName::all()[$request->input('institution_name')];
-            } else {
-                $institution_name = InstitutionName::all()->first();
-            }
-        }
+        $institution_name = $user->institutionName == null
+            ? InstitutionName::all()[request()->query('institution_name')]
+            : $user->institutionName;
 
         $reports = InstitutionReportCard::groupedReports();
         $card = InstitutionReportCard::all()->sortBy('year')->first();

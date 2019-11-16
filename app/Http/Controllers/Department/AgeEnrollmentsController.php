@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
-use App\Models\Department\DepartmentName;
 use App\Models\Institution\AgeEnrollment;
 use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
@@ -31,30 +30,18 @@ class AgeEnrollmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
-        $requestedProgram = $request->input('program');
-        if ($requestedProgram == null) {
-            $requestedProgram = 'Regular';
-        }
-
-        $requestedLevel = $request->input('education_level');
-        if ($requestedLevel == null) {
-            $requestedLevel = 'Undergraduate';
-        }
-
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = $collegeDeps->first()->id;
-        }
+        $requestedProgram = request()->query('program', 'Regular');
+        $requestedLevel = request()->query('education_level', 'Undergraduate');
+        $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
 
         $ageEnrollments = array();
 

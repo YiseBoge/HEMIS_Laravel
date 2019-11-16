@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
-use App\Models\Department\DepartmentName;
 use App\Models\Department\ExitExamination;
 use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
@@ -31,20 +30,16 @@ class ExitExaminationsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = $collegeDeps->first()->id;
-        }
+        $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
 
         $examinations = array();
 

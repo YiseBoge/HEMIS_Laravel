@@ -45,20 +45,9 @@ class ForeignStudentsController extends Controller
         $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
-        $requestedProgram = $request->input('program');
-        if ($requestedProgram == null) {
-            $requestedProgram = 'Regular';
-        }
-
-        $requestedLevel = $request->input('education_level');
-        if ($requestedLevel == null) {
-            $requestedLevel = 'Undergraduate';
-        }
-
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
-        }
+        $requestedProgram = request()->query('program', 'Regular');
+        $requestedLevel = request()->query('education_level', 'Undergraduate');
+        $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
 
         $students = array();
 

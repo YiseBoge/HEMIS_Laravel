@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
-use App\Models\Department\DepartmentName;
 use App\Models\Department\SpecialRegionEnrollment;
 use App\Models\Institution\Institution;
 use App\Models\Institution\RegionName;
@@ -32,47 +31,21 @@ class SpecialRegionsEnrollmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
-        $selectedStudentType = $request->input('student_type');
-        if ($selectedStudentType == null) {
-            $requestedStudentType = 'Normal';
-        } else {
-            $requestedStudentType = SpecialRegionEnrollment::getEnum('student_type')[$selectedStudentType];
-        }
-
-        $requestedProgram = $request->input('program');
-        if ($requestedProgram == null) {
-            $requestedProgram = 'Regular';
-        }
-
-        $requestedYearLevel = $request->input('year_level');
-        if ($requestedYearLevel == null) {
-            $requestedYearLevel = '1';
-        }
-
-        $requestedLevel = $request->input('education_level');
-        if ($requestedLevel == null) {
-            $requestedLevel = 'Undergraduate';
-        }
-
-        $requestedType = $request->input('region_type');
-        if ($requestedType == null) {
-            $requestedType = 'Emerging Regions';
-        }
-
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = $collegeDeps->first()->id;
-        }
+        $requestedProgram = request()->query('program', 'Regular');
+        $requestedLevel = request()->query('education_level', 'Undergraduate');
+        $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
+        $requestedYearLevel = request()->query('year_level', '1');
+        $requestedType = request()->query('region_type', 'Emerging Regions');
+        $requestedStudentType = SpecialRegionEnrollment::getEnum('student_type')[$selectedStudentType = request()->query('student_type', 'Normal')];
 
         $enrollments = array();
 

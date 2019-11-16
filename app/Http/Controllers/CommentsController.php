@@ -20,7 +20,7 @@ class CommentsController extends Controller
         $user = Auth::user();
         if ($user == null) return redirect('/login');
 
-        $comments = Comment::paginate(8);
+        $comments = Comment::paginate();
 
         $data = array(
             'comments' => $comments,
