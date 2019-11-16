@@ -39,20 +39,12 @@ class TechnicalStaffsController extends Controller
         $collegeName = $user->collegeName;
 
         $technicalStaffs = array();
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->technicalStaffs as $technicalStaff)
+                    $technicalStaffs[] = $technicalStaff;
 
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->technicalStaffs as $technicalStaff) {
-                            $technicalStaffs[] = $technicalStaff;
-                        }
-                    }
-                }
-            }
-        } else {
-            $technicalStaffs = TechnicalStaff::all();
-        }
         $data = array(
             'staffs' => $technicalStaffs,
             'page_name' => 'staff.technical.list'

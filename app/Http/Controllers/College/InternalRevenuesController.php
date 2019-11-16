@@ -39,20 +39,11 @@ class InternalRevenuesController extends Controller
         $collegeName = $user->collegeName;
 
         $revenues = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->internalRevenues as $revenue) {
-                            $revenues[] = $revenue;
-                        }
-                    }
-                }
-            }
-        } else {
-            $revenues = InternalRevenue::all();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->internalRevenues as $internalRevenue)
+                    $revenues[] = $internalRevenue;
 
         $data = array(
             'internal_revenues' => $revenues,
@@ -74,22 +65,11 @@ class InternalRevenuesController extends Controller
         $collegeName = $user->collegeName;
 
         $revenues = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->internalRevenues as $revenue) {
-                            $revenues[] = $revenue;
-                        }
-                    }
-                }
-            }
-        } else {
-            $revenues = InternalRevenue::all();
-        }
-
-        $revenueDescriptions = InternalRevenue::getEnum('revenue_description');
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->internalRevenues as $internalRevenue)
+                    $revenues[] = $internalRevenue;
 
         $data = array(
             'internal_revenues' => $revenues,
@@ -188,20 +168,11 @@ class InternalRevenuesController extends Controller
         $collegeName = $user->collegeName;
 
         $revenues = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->internalRevenues as $revenue) {
-                            $revenues[] = $revenue;
-                        }
-                    }
-                }
-            }
-        } else {
-            $revenues = InternalRevenue::all();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->internalRevenues as $internalRevenue)
+                    $revenues[] = $internalRevenue;
 
         $data = array(
             'internal_revenues' => $revenues,

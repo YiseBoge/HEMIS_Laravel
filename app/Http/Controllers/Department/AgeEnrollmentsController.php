@@ -36,46 +36,25 @@ class AgeEnrollmentsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedProgram = request()->query('program', 'Regular');
         $requestedLevel = request()->query('education_level', 'Undergraduate');
         $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
 
-        $ageEnrollments = array();
 
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($user->hasRole('College Super Admin')) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->ageEnrollments as $ageEnrollment) {
-                                            $ageEnrollments[] = $ageEnrollment;
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->ageEnrollments as $ageEnrollment) {
-                                            $ageEnrollments[] = $ageEnrollment;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        } else {
-            $ageEnrollments = AgeEnrollment::all();
+        $enrollments = array();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                    foreach ($department->ageEnrollments as $enrollment)
+                        $enrollments[] = $enrollment;
+            } else
+                if ($college->education_level == $requestedLevel && $college->education_program == $requestedProgram)
+                    foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                        foreach ($department->ageEnrollments as $enrollment)
+                            $enrollments[] = $enrollment;
         }
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -83,7 +62,8 @@ class AgeEnrollmentsController extends Controller
         array_pop($educationPrograms);
         array_pop($educationLevels);
 
-        $data = ['enrollment_info' => $ageEnrollments,
+        $data = [
+            'enrollment_info' => $enrollments,
             'departments' => $collegeDeps,
             'age_range' => AgeEnrollment::getEnum('Ages'),
             'programs' => $educationPrograms,
@@ -93,6 +73,7 @@ class AgeEnrollmentsController extends Controller
             'selected_department' => $requestedDepartment,
             'selected_program' => $requestedProgram,
             'selected_education_level' => $requestedLevel,
+
             'page_name' => 'enrollment.age_enrollment.index'];
 
         return view('enrollment.age_enrollment.index')->with($data);

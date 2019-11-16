@@ -36,37 +36,22 @@ class AcademicStaffsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
 
-        $academicStaffs = array();
 
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $user->collegeName->id) {
-                        foreach ($college->departments as $department) {
-                            if ($user->hasRole('College Super Admin')) {
-                                if ($department->departmentName->id == $requestedDepartment) {
-                                    foreach ($department->academicStaffs as $academicStaff) {
-                                        $academicStaffs[] = $academicStaff;
-                                    }
-                                }
-                            } else {
-                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                    foreach ($department->academicStaffs as $academicStaff) {
-                                        $academicStaffs[] = $academicStaff;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $academicStaffs = AcademicStaff::all();
+        $academicStaffs = array();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                    foreach ($department->academicStaffs as $academicStaff)
+                        $academicStaffs[] = $academicStaff;
+            } else
+                foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                    foreach ($department->academicStaffs as $academicStaff)
+                        $academicStaffs[] = $academicStaff;
         }
 
         $data = array(

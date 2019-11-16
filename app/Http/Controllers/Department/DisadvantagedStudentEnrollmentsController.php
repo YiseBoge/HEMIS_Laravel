@@ -39,7 +39,6 @@ class DisadvantagedStudentEnrollmentsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedProgram = request()->query('program', 'Regular');
@@ -49,48 +48,20 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $selectedType = request()->query('student_type', 'NORMAL');
         $requestedType = DisadvantagedStudentEnrollment::getEnum('student_type')[$selectedType];
 
-
         $enrollments = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($user->hasRole('College Super Admin')) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->disadvantagedStudentEnrollments as $enrollment) {
-                                            $enrollments[] = $enrollment;
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->disadvantagedStudentEnrollments as $enrollment) {
-                                            if ($enrollment->quintile == $requestedQuintile) {
-                                                if ($enrollment->student_type == $requestedType) {
-                                                    $enrollments[] = $enrollment;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                }
-            }
-        } else {
-            $enrollments = Enrollment::with('department')->get();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                    foreach ($department->disadvantagedStudentEnrollments as $enrollment)
+                        $enrollments[] = $enrollment;
+            } else
+                if ($college->education_level == $requestedLevel && $college->education_program == $requestedProgram)
+                    foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                        foreach ($department->disadvantagedStudentEnrollments()->where([
+                            'student_type' => $requestedType, 'quintile' => $requestedQuintile])->get() as $enrollment)
+                            $enrollments[] = $enrollment;
         }
-
-        //$enrollments=Enrollment::where('department_id',$department->id)->get();
-
 
         $data = array(
             'enrollments' => $enrollments,

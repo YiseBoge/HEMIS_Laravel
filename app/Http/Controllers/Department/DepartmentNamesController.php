@@ -38,11 +38,9 @@ class DepartmentNamesController extends Controller
 
         $institutionName = $user->institution()->institutionName;
         $departments = array();
-        foreach ($institutionName->collegeNames as $collegeName) {
-            foreach ($collegeName->departmentNames as $department) {
+        foreach ($institutionName->collegeNames as $collegeName)
+            foreach ($collegeName->departmentNames as $department)
                 $departments[] = $department;
-            }
-        }
 
         $data = [
             'departments' => $departments,

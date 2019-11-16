@@ -39,7 +39,6 @@ class SpecializingStudentsEnrollmentsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedProgram = request()->query('program', 'Regular');
@@ -49,41 +48,19 @@ class SpecializingStudentsEnrollmentsController extends Controller
         $requestedType = request()->query('student_type', 'Current');
 
         $enrollments = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($user->hasRole('College Super Admin')) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->specializingStudentEnrollments as $enrollment) {
-                                            $enrollments[] = $enrollment;
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "Health Specialty" && $college->education_program == $requestedProgram) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->specializingStudentEnrollments as $enrollment) {
-                                            if ($enrollment->student_type == $requestedType && $enrollment->specialization_type == $requestedSpecializationType) {
-                                                $enrollments[] = $enrollment;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $enrollments = SpecializingStudentsEnrollment::with('department')->get();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                    foreach ($department->specializingStudentEnrollments as $enrollment)
+                        $enrollments[] = $enrollment;
+            } else
+                if ($college->education_program == $requestedProgram)
+                    foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                        foreach ($department->specializingStudentEnrollments()->where([
+                            'student_type' => $requestedType, 'specialization_type' => $requestedSpecializationType])->get() as $enrollment)
+                            $enrollments[] = $enrollment;
         }
-
 
         $educationPrograms = College::getEnum("EducationPrograms");
         array_pop($educationPrograms);

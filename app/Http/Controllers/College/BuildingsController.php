@@ -28,45 +28,28 @@ class BuildingsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $buildingPurposes = BuildingPurpose::all();
-
-        $requestedPurpose = $request->input('building_purpose');
-        if ($requestedPurpose == null) {
-            $requestedPurpose = 0;
-        }
-        $buildingPurpose = $buildingPurposes[$requestedPurpose];
 
         $user = Auth::user();
         $user->authorizeRoles(['College Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeName = $user->collegeName;
+
+        $buildingPurpose = $buildingPurposes[$requestedPurpose = request()->query('building_purpose', 0)];
+
 
         $buildings = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
-                            foreach ($college->buildings as $building) {
-                                foreach ($building->buildingPurposes as $purpose) {
-                                    if ($purpose->purpose == $buildingPurpose->purpose) {
-                                        $buildings[] = $building;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $buildings = $buildingPurpose->buildings;
-        }
-
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->buildings as $building)
+                    foreach ($building->buildingPurposes as $purpose)
+                        if ($purpose->purpose == $buildingPurpose->purpose)
+                            $buildings[] = $building;
 
         $data = array(
             'buildings' => $buildings,

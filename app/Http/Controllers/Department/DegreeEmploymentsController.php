@@ -36,47 +36,22 @@ class DegreeEmploymentsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
 
         $employments = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($user->hasRole('College Super Admin')) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->degreeEmployments as $employment) {
-                                            $employments[] = $employment;
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == 'None' && $college->education_program == 'None') {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->degreeEmployments as $employment) {
-                                            $employments[] = $employment;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $employments = DegreeEmployment::with('department')->get();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                    foreach ($department->degreeEmployments as $employment)
+                        $employments[] = $employment;
+            } else
+                foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                    foreach ($department->degreeEmployments as $employment)
+                        $employments[] = $employment;
         }
-
-        //$enrollments=Enrollment::where('department_id',$department->id)->get();
-
 
         $data = array(
             'employments' => $employments,

@@ -38,20 +38,12 @@ class ManagementStaffsController extends Controller
         $collegeName = $user->collegeName;
 
         $managementStaffs = array();
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->managementStaffs as $managementStaff)
+                    $managementStaffs[] = $managementStaff;
 
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->managementStaffs as $managementStaff) {
-                            $managementStaffs[] = $managementStaff;
-                        }
-                    }
-                }
-            }
-        } else {
-            $managementStaffs = ManagementStaff::all();
-        }
         $data = array(
             'staffs' => $managementStaffs,
             'page_name' => 'staff.management.list'

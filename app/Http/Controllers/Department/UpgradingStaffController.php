@@ -39,53 +39,24 @@ class UpgradingStaffController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
-        $requestedPlace = request()->query('study_place', 'ETHIOPIA');
-
+        $selectedPlace = UpgradingStaff::getEnum('study_place')[$requestedPlace = request()->query('study_place', 'ETHIOPIA')];
 
         $filteredTeachers = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($user->hasRole('College Super Admin')) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->UpgradingStaffs as $staff) {
-                                            $filteredTeachers[] = $staff;
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->UpgradingStaffs as $staff) {
-                                            if (strtoupper($staff->study_place) == $requestedPlace) {
-                                                $filteredTeachers[] = $staff;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                }
-            }
-        } else {
-            $filteredTeachers = UpgradingStaff::with('department')->get();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                    foreach ($department->UpgradingStaffs as $teacher)
+                        $filteredTeachers[] = $teacher;
+            } else
+                foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                    foreach ($department->UpgradingStaffs()->where('study_place', $selectedPlace) as $teacher)
+                        $filteredTeachers[] = $teacher;
         }
 
-
-        //$specialProgramTeachers=SpecialProgramTeacher::all();
-        //$specialProgramTeachers= SpecialProgramTeacher::where(['program_type'=>$requestedType,'program_status'=>$requestedStatus])->get();
         $data = [
             'study_place' => $requestedPlace,
             'upgrading_staffs' => $filteredTeachers,

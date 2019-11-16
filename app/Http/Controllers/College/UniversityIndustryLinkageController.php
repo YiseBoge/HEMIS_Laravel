@@ -37,26 +37,14 @@ class UniversityIndustryLinkageController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['College Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeName = $user->collegeName;
 
         $linkages = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
-                            foreach ($college->universityIndustryLinkages as $linkage) {
-                                $linkages[] = $linkage;
-                            }
-                        }
-
-                    }
-
-                }
-            }
-        } else {
-            $linkages = UniversityIndustryLinkage::with('band')->get();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->universityIndustryLinkages as $linkage)
+                    $linkages[] = $linkage;
 
         $data = array(
             'linkages' => $linkages,
@@ -77,26 +65,14 @@ class UniversityIndustryLinkageController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
+        $collegeName = $user->collegeName;
 
         $linkages = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
-                            foreach ($college->universityIndustryLinkages as $linkage) {
-                                $linkages[] = $linkage;
-                            }
-                        }
-
-                    }
-
-                }
-            }
-        } else {
-            $linkages = UniversityIndustryLinkage::with('band')->get();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->universityIndustryLinkages as $linkage)
+                    $linkages[] = $linkage;
 
         $data = array(
             'linkages' => $linkages,
@@ -193,26 +169,14 @@ class UniversityIndustryLinkageController extends Controller
         $universityIndustryLinkage = UniversityIndustryLinkage::find($id);
 
         $institution = $user->institution();
+        $collegeName = $user->collegeName;
 
         $linkages = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
-                            foreach ($college->universityIndustryLinkages as $linkage) {
-                                $linkages[] = $linkage;
-                            }
-                        }
-
-                    }
-
-                }
-            }
-        } else {
-            $linkages = UniversityIndustryLinkage::with('band')->get();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->universityIndustryLinkages as $linkage)
+                    $linkages[] = $linkage;
 
         $data = array(
             'id' => $id,

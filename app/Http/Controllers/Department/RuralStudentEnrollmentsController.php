@@ -9,7 +9,6 @@ use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
-use App\Models\Department\Enrollment;
 use App\Models\Department\RuralStudentEnrollment;
 use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
@@ -40,7 +39,6 @@ class RuralStudentEnrollmentsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedProgram = request()->query('program', 'Regular');
@@ -49,43 +47,18 @@ class RuralStudentEnrollmentsController extends Controller
         $requestedRegion = request()->query('region', 'Rural');
 
         $enrollments = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($user->hasRole('College Super Admin')) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->ruralStudentEnrollments as $enrollment) {
-                                            $enrollments[] = $enrollment;
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->ruralStudentEnrollments as $enrollment) {
-                                            if ($enrollment->region == $requestedRegion) {
-                                                $enrollments[] = $enrollment;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $enrollments = Enrollment::with('department')->get();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                    foreach ($department->ruralStudentEnrollments as $enrollment)
+                        $enrollments[] = $enrollment;
+            } else
+                if ($college->education_level == $requestedLevel && $college->education_program == $requestedProgram)
+                    foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                        foreach ($department->ruralStudentEnrollments()->where('region', $requestedRegion)->get() as $enrollment)
+                            $enrollments[] = $enrollment;
         }
-
-        //$enrollments=Enrollment::where('department_id',$department->id)->get();
-
 
         $data = array(
             'enrollments' => $enrollments,

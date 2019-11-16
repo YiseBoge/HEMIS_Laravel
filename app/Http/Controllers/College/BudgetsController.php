@@ -30,49 +30,27 @@ class BudgetsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $requestedType = $request->input('budget_type');
-        if ($requestedType == null) {
-            $requestedType = 'CAPITAL';
-        }
-        $budget_type = Budget::getEnum('budget_type')[$requestedType];
-
-
         $user = Auth::user();
         $user->authorizeRoles(['College Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
+        $budget_type = Budget::getEnum('budget_type')[$requestedType = request()->query('budget_type', 'CAPITAL')];
+
         $budgets = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($user->hasRole('College Super Admin')) {
-                        if ($college->collegeName->id == $collegeName->id) {
-                            foreach ($college->budgets as $budget) {
-                                $budgets[] = $budget;
-                            }
-                        }
-                    } else {
-                        if ($college->collegeName->id == $collegeName->id) {
-                            foreach ($college->budgets as $budget) {
-                                if ($budget->budget_type == $budget_type) {
-                                    $budgets[] = $budget;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $budgets = Budget::where('budget_type', $budget_type)->get();
-        }
-
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                if ($user->hasRole('College Super Admin'))
+                    foreach ($college->budgets as $adminStaff)
+                        $adminStaffs[] = $adminStaff;
+                else
+                    foreach ($college->budgets()->where('budget_type', $budget_type) as $adminStaff)
+                        $adminStaffs[] = $adminStaff;
 
         $data = [
             'budget_type' => $requestedType,
@@ -97,23 +75,18 @@ class BudgetsController extends Controller
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
-        $budgets = array();
+        $budget_type = Budget::getEnum('budget_type')[$requestedType = request()->query('budget_type', 'CAPITAL')];
 
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->budgets as $budget) {
-                            if ($budget->budget_type == $budget_type) {
-                                $budgets[] = $budget;
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $budgets = Budget::where('budget_type', $budget_type)->get();
-        }
+        $budgets = array();
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                if ($user->hasRole('College Super Admin'))
+                    foreach ($college->budgets as $adminStaff)
+                        $adminStaffs[] = $adminStaff;
+                else
+                    foreach ($college->budgets()->where('budget_type', $budget_type) as $adminStaff)
+                        $adminStaffs[] = $adminStaff;
 
         $data = [
             'budget_type' => 'CAPITAL',
@@ -219,22 +192,18 @@ class BudgetsController extends Controller
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
+        $budget_type = Budget::getEnum('budget_type')[$requestedType = request()->query('budget_type', 'CAPITAL')];
+
         $budgets = array();
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->budgets as $item) {
-                            if ($item->budget_type == $budget_type) {
-                                $budgets[] = $item;
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $budgets = Budget::where('budget_type', $budget_type)->get();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                if ($user->hasRole('College Super Admin'))
+                    foreach ($college->budgets as $adminStaff)
+                        $adminStaffs[] = $adminStaff;
+                else
+                    foreach ($college->budgets()->where('budget_type', $budget_type) as $adminStaff)
+                        $adminStaffs[] = $adminStaff;
 
         $budgetDescriptions = [];
         foreach (BudgetDescription::all() as $description) {

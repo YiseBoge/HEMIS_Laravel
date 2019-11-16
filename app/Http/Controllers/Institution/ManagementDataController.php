@@ -12,6 +12,16 @@ use Illuminate\Validation\ValidationException;
 class ManagementDataController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -19,16 +29,12 @@ class ManagementDataController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
         $institution = $user->institution();
+
         $managements = array();
 
-        if ($institution != null) {
-            foreach ($institution->managements as $management) $managements[] = $management;
-        } else {
-            $managements = ManagementData::all();
-        }
+        foreach ($institution->managements as $management) $managements[] = $management;
 
         $data = [
             'management_data' => $managements,
@@ -46,7 +52,6 @@ class ManagementDataController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
         if ($user->read_only) return redirect("/institution/general");
 
@@ -88,7 +93,6 @@ class ManagementDataController extends Controller
         ]);
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
         if ($user->read_only) return redirect("/institution/general");
         $institution = $user->institution();
@@ -130,7 +134,6 @@ class ManagementDataController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
         if ($user->read_only) return redirect("/institution/general");
 
@@ -174,7 +177,6 @@ class ManagementDataController extends Controller
         ]);
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
 
         $management_data = ManagementData::find($id);
@@ -197,7 +199,6 @@ class ManagementDataController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
         if ($user->read_only) return redirect("/institution/general");
 

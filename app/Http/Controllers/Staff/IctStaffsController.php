@@ -40,20 +40,12 @@ class IctStaffsController extends Controller
         $collegeName = $user->collegeName;
 
         $ictStaffs = array();
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->ictStaffs as $ictStaff)
+                    $ictStaffs[] = $ictStaff;
 
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->ictStaffs as $ictStaff) {
-                            $ictStaffs[] = $ictStaff;
-                        }
-                    }
-                }
-            }
-        } else {
-            $ictStaffs = IctStaff::all();
-        }
         $data = array(
             'staffs' => $ictStaffs,
             'page_name' => 'staff.ict.list'

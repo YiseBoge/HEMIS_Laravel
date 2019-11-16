@@ -36,43 +36,25 @@ class CostSharingController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
 
-        $costSharings = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
-                            foreach ($college->departments as $department) {
-                                if ($user->hasRole('College Super Admin')) {
-                                    if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->costSharings as $costSharing) {
-                                            $costSharings[] = $costSharing;
-                                        }
-                                    }
-                                } else {
-                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->costSharings as $costSharing) {
-                                            $costSharings[] = $costSharing;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $costSharings = CostSharing::with('department')->get();
+        $costSharing = array();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                    foreach ($department->costSharings as $cost)
+                        $costSharing[] = $cost;
+            } else
+                foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                    foreach ($department->costSharings as $cost)
+                        $costSharing[] = $cost;
         }
 
         $data = array(
-            'costSharings' => $costSharings,
+            'costSharings' => $costSharing,
             'departments' => $collegeDeps,
 
             'selected_department' => $requestedDepartment,

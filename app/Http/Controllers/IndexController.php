@@ -133,42 +133,13 @@ class IndexController extends Controller
      */
     public function enrollmentChart(Request $request)
     {
-
-        $requestedType = $request->input('student_type');
-        if ($requestedType == null) {
-            $requestedType = 'Normal';
-        }
-
-        $requestedInstitution = $request->input('institution');
-        if ($requestedInstitution == null) {
-            $requestedInstitution = 0;
-        }
-
-        $requestedBand = $request->input('band');
-        if ($requestedBand == null) {
-            $requestedBand = 0;
-        }
-
-        $requestedCollege = $request->input('college');
-        if ($requestedCollege == null) {
-            $requestedCollege = 0;
-        }
-
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = 0;
-        }
-
-        $requestedProgram = $request->input('program');
-        if ($requestedProgram == null) {
-            $requestedProgram = 0;
-        }
-
-        $requestedLevel = $request->input('education_level');
-        if ($requestedLevel == null) {
-            $requestedLevel = 0;
-        }
-
+        $requestedType = request()->query('student_type', 'Normal');
+        $requestedInstitution = request()->query('institution', 0);
+        $requestedBand = request()->query('band', 0);
+        $requestedCollege = request()->query('college', 0);
+        $requestedDepartment = request()->query('department', 0);
+        $requestedProgram = request()->query('program', 0);
+        $requestedLevel = request()->query('education_level', 0);
 
         $institutions = InstitutionName::all();
         if ($requestedInstitution == 0) {
@@ -301,35 +272,12 @@ class IndexController extends Controller
      */
     public function staffChart(Request $request)
     {
-        $requestedInstitution = $request->input('institution');
-        if ($requestedInstitution == null) {
-            $requestedInstitution = 0;
-        }
-
-        $requestedBand = $request->input('band');
-        if ($requestedBand == null) {
-            $requestedBand = 0;
-        }
-
-        $requestedCollege = $request->input('college');
-        if ($requestedCollege == null) {
-            $requestedCollege = 0;
-        }
-
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = 0;
-        }
-
-        $requestedProgram = $request->input('program');
-        if ($requestedProgram == null) {
-            $requestedProgram = 0;
-        }
-
-        $requestedLevel = $request->input('education_level');
-        if ($requestedLevel == null) {
-            $requestedLevel = 0;
-        }
+        $requestedInstitution = request()->query('institution', 0);
+        $requestedBand = request()->query('band', 0);
+        $requestedCollege = request()->query('college', 0);
+        $requestedDepartment = request()->query('department', 0);
+        $requestedProgram = request()->query('program', 0);
+        $requestedLevel = request()->query('education_level', 0);
 
         $year_levels = array();
         foreach (Department::getEnum('YearLevels') as $key => $value) {
@@ -477,37 +425,12 @@ class IndexController extends Controller
      */
     public function ageEnrollmentChart(Request $request)
     {
-
-        $requestedInstitution = $request->input('institution');
-        if ($requestedInstitution == null) {
-            $requestedInstitution = 0;
-        }
-
-        $requestedBand = $request->input('band');
-        if ($requestedBand == null) {
-            $requestedBand = 0;
-        }
-
-        $requestedCollege = $request->input('college');
-        if ($requestedCollege == null) {
-            $requestedCollege = 0;
-        }
-
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = 0;
-        }
-
-        $requestedProgram = $request->input('program');
-        if ($requestedProgram == null) {
-            $requestedProgram = 0;
-        }
-
-        $requestedLevel = $request->input('education_level');
-        if ($requestedLevel == null) {
-            $requestedLevel = 0;
-        }
-
+        $requestedInstitution = request()->query('institution', 0);
+        $requestedBand = request()->query('band', 0);
+        $requestedCollege = request()->query('college', 0);
+        $requestedDepartment = request()->query('department', 0);
+        $requestedProgram = request()->query('program', 0);
+        $requestedLevel = request()->query('education_level', 0);
 
         $institutions = InstitutionName::all();
         if ($requestedInstitution == 0) {

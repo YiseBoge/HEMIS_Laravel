@@ -39,52 +39,24 @@ class SpecialProgramTeacherController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
         $status = SpecialProgramTeacher::getEnum('ProgramStats')[$requestedStatus = request()->query('program_status', 'COMPLETED')];
 
         $filteredTeachers = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->id == $user->bandName->id) {
-                    foreach ($band->colleges as $college) {
-                        if ($user->hasRole('College Super Admin')) {
-                            if ($college->collegeName->id == $user->collegeName->id) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->SpecialProgramTeachers as $teacher) {
-                                            $filteredTeachers[] = $teacher;
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if ($college->collegeName->id == $user->collegeName->id) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->SpecialProgramTeachers as $teacher) {
-                                            if ($teacher->program_stat == $status) {
-                                                $filteredTeachers[] = $teacher;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                }
-            }
-        } else {
-            $filteredTeachers = SpecialProgramTeacher::with('department')->get();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                    foreach ($department->SpecialProgramTeachers as $teacher)
+                        $filteredTeachers[] = $teacher;
+            } else
+                foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                    foreach ($department->SpecialProgramTeachers()->where('program_stat', $status) as $teacher)
+                        $filteredTeachers[] = $teacher;
         }
 
-
-        //$specialProgramTeachers=SpecialProgramTeacher::all();
-        //$specialProgramTeachers= SpecialProgramTeacher::where(['program_type'=>$requestedType,'program_status'=>$requestedStatus])->get();
         $data = [
             'program_status' => $requestedStatus,
             'special_program_teachers' => $filteredTeachers,

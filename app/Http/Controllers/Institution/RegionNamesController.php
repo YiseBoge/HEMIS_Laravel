@@ -33,6 +33,7 @@ class RegionNamesController extends Controller
         $user->authorizeRoles('Super Admin');
 
         $regionNames = RegionName::all();
+
         $data = [
             'region_names' => $regionNames,
             'page_name' => 'administer.region-name.index'

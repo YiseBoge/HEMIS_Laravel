@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\SupportContact;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class SupportContactsController extends Controller
 {
@@ -41,6 +43,9 @@ class SupportContactsController extends Controller
         return view('support-contact.index')->with($data);
     }
 
+    /**
+     * @return Factory|View
+     */
     public function publicView()
     {
         $weekMap = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',];

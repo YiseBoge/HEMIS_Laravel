@@ -39,7 +39,6 @@ class PostGraduateDiplomaTrainingController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedProgram = request()->query('program', 'Regular');
@@ -47,45 +46,18 @@ class PostGraduateDiplomaTrainingController extends Controller
         $requestedType = request()->query('type', 'Teachers') == "Teachers" ? 0 : 1;
 
         $trainings = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->id == $user->bandName->id) {
-                    foreach ($band->colleges as $college) {
-                        if ($user->hasRole('College Super Admin')) {
-                            if ($college->collegeName->id == $user->collegeName->id) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->postgraduateDiplomaTrainings as $training) {
-                                            $trainings[] = $training;
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if ($college->collegeName->id == $user->collegeName->id && $college->education_level == "None") {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->postgraduateDiplomaTrainings as $training) {
-                                            if ($training->is_lead == $requestedType) {
-                                                $trainings[] = $training;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
-
-                    }
-                }
-            }
-        } else {
-            $trainings = PostGraduateDiplomaTraining::with('department')->get();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                    foreach ($department->postgraduateDiplomaTrainings as $training)
+                        $trainings[] = $training;
+            } else
+                if ($college->education_program == $requestedProgram)
+                    foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                        foreach ($department->postgraduateDiplomaTrainings()->where('is_lead', $requestedType)->get() as $training)
+                            $trainings[] = $training;
         }
-
-        //$enrollments=Enrollment::where('department_id',$department->id)->get();
-
 
         $data = array(
             'trainings' => $trainings,

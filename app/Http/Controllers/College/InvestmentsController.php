@@ -39,20 +39,11 @@ class InvestmentsController extends Controller
         $collegeName = $user->collegeName;
 
         $investments = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->investments as $investment) {
-                            $investments[] = $investment;
-                        }
-                    }
-                }
-            }
-        } else {
-            $investments = Investment::all();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->investments as $investment)
+                    $investments[] = $investment;
 
         $data = array(
             'investments' => $investments,
@@ -77,20 +68,11 @@ class InvestmentsController extends Controller
         $collegeName = $user->collegeName;
 
         $investments = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->investments as $investment) {
-                            $investments[] = $investment;
-                        }
-                    }
-                }
-            }
-        } else {
-            $investments = Investment::all();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->investments as $investment)
+                    $investments[] = $investment;
 
         $data = array(
             'investments' => $investments,
@@ -189,20 +171,11 @@ class InvestmentsController extends Controller
         $collegeName = $user->collegeName;
 
         $investments = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->investments as $investment) {
-                            $investments[] = $investment;
-                        }
-                    }
-                }
-            }
-        } else {
-            $investments = Investment::all();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->investments as $investment)
+                    $investments[] = $investment;
 
         $data = array(
             'investments' => $investments,

@@ -37,7 +37,6 @@ class SpecialRegionsEnrollmentsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
         $requestedProgram = request()->query('program', 'Regular');
@@ -48,41 +47,17 @@ class SpecialRegionsEnrollmentsController extends Controller
         $requestedStudentType = SpecialRegionEnrollment::getEnum('student_type')[$selectedStudentType = request()->query('student_type', 'Normal')];
 
         $enrollments = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($user->hasRole('College Super Admin')) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->specialRegionEnrollments as $enrollment) {
-                                            $enrollments[] = $enrollment;
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->specialRegionEnrollments as $enrollment) {
-                                            if ($enrollment->region_type == $requestedType) {
-                                                if ($enrollment->student_type == $requestedStudentType) {
-                                                    $enrollments[] = $enrollment;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $enrollments = SpecialRegionEnrollment::all();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                    foreach ($department->specialRegionEnrollments as $enrollment)
+                        $enrollments[] = $enrollment;
+            } else
+                if ($college->education_program == $requestedProgram)
+                    foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                        foreach ($department->specialRegionEnrollments()->where('student_type', $requestedStudentType)->get() as $enrollment)
+                            $enrollments[] = $enrollment;
         }
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -91,7 +66,6 @@ class SpecialRegionsEnrollmentsController extends Controller
         array_pop($educationPrograms);
         array_pop($educationLevels);
         array_pop($year_levels);
-
 
         $data = array(
             'enrollments' => $enrollments,
@@ -109,6 +83,7 @@ class SpecialRegionsEnrollmentsController extends Controller
             'selected_education_level' => $requestedLevel,
             'selected_type' => $requestedType,
             'selected_student_type' => $selectedStudentType,
+
             'page_name' => 'enrollment.special_region_students.index'
         );
         return view("enrollment.special_region_students.index")->with($data);
