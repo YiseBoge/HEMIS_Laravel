@@ -199,6 +199,14 @@ class College extends Model
     }
 
     /**
+     * @return BelongsTo
+     */
+    public function institution()
+    {
+        return $this->belongsTo('App\Models\Institution\Institution');
+    }
+
+    /**
      * @return HasMany
      */
     public function universityIndustryLinkagesApproved()

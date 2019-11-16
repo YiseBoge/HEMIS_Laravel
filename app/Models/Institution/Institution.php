@@ -66,6 +66,14 @@ class Institution extends Model
     /**
      * @return HasMany
      */
+    public function colleges()
+    {
+        return $this->hasMany('App\Models\College\College');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function managements()
     {
         return $this->hasMany('App\Models\Institution\ManagementData');
