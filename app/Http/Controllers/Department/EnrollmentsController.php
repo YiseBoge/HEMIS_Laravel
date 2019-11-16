@@ -47,18 +47,15 @@ class EnrollmentsController extends Controller
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
-                foreach ($college->departments as $department)
-                    if ($department->departmentName->id == $requestedDepartment)
-                        foreach ($department->enrollments as $enrollment)
-                            $enrollments[] = $enrollment;
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                    foreach ($department->enrollments as $enrollment)
+                        $enrollments[] = $enrollment;
             } else
                 if ($college->education_level == $requestedLevel && $college->education_program == $requestedProgram)
                     foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
                         foreach ($department->enrollments()->where('student_type', $requestedType)->get() as $enrollment)
-                            if ($enrollment->student_type == $requestedType)
-                                $enrollments[] = $enrollment;
+                            $enrollments[] = $enrollment;
         }
-
 
         $educationPrograms = College::getEnum("EducationPrograms");
         $educationLevels = College::getEnum("EducationLevels");
@@ -179,11 +176,7 @@ class EnrollmentsController extends Controller
         $enrollment = Enrollment::find($id);
         $department = $enrollment->department()->first();
         $college = $department->college()->first();
-        // die($enrollment);
         $studentType = $enrollment->student_type;
-        // $educationProgram = $college->education_program;
-        // $educationLevel = $college->education_level;
-        // $yearLevel = $department->year_level;
 
         $data = array(
             'id' => $id,
@@ -219,12 +212,11 @@ class EnrollmentsController extends Controller
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
         $enrollment = Enrollment::find($id);
-
         $enrollment->female_students_number = $request->input('female_number');
         $enrollment->male_students_number = $request->input('male_number');
         $enrollment->approval_status = "Pending";
-
         $enrollment->save();
+
         return redirect("/enrollment/normal")->with('primary', 'Successfully Updated');
     }
 
