@@ -103,38 +103,41 @@ class StaffAttritionsController extends Controller
         $requestedType = request()->query('type', 'Management Staff');
 
         $attrition = array();
+        $staffs = array();
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
+
             if ($user->hasRole('Department Admin')) {
                 foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
                     foreach ($department->academicStaffs as $staff)
                         if ($staff->general->staffAttrition != null)
                             $attrition[] = $staff->general->staffAttrition;
+                        else $staffs[] = $staff;
 
             } else {
-                $staffs = array();
-
+                $currentStaffs = array();
                 switch ($requestedType) {
                     case 'Management Staff':
-                        $staffs = $college->managementStaffs;
+                        $currentStaffs = $college->managementStaffs;
                         break;
                     case 'Technical Staff':
-                        $staffs = $college->technicalStaffs;
+                        $currentStaffs = $college->technicalStaffs;
                         break;
                     case 'Administrative Staff':
-                        $staffs = $college->administrativeStaffs;
+                        $currentStaffs = $college->administrativeStaffs;
                         break;
                     case 'ICT Staff':
-                        $staffs = $college->ictStaffs;
+                        $currentStaffs = $college->ictStaffs;
                         break;
                     case 'Supportive Staff':
-                        $staffs = $college->supportiveStaffs;
+                        $currentStaffs = $college->supportiveStaffs;
                         break;
                 }
 
                 foreach ($staffs as $staff)
                     if ($staff->general->staffAttrition != null)
                         $attrition[] = $staff->general->staffAttrition;
+                    else $staffs[] = $staff;
             }
         }
 

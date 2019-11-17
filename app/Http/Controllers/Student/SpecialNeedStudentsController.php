@@ -53,11 +53,12 @@ class SpecialNeedStudentsController extends Controller
                 foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
                     foreach ($department->specialNeedStudents as $student)
                         $students[] = $student;
-            } else
+            } else {
                 if ($college->education_level == $requestedLevel && $college->education_program == $requestedProgram)
                     foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
                         foreach ($department->specialNeedStudents as $student)
                             $students[] = $student;
+            }
         }
 
         $educationPrograms = College::getEnum("EducationPrograms");

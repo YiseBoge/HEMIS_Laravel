@@ -113,71 +113,13 @@
                 <div class="card-body">
                     <div class="row mt-4">
                         <div class="col-md-4">
-                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Band</div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text bg-white border-0"><i
-                                                class="text-gray-400 float-right far fa-edit "></i></span>
-                                </div>
-                                <select class="form-control form-control-plaintext" name="band">
-                                    @foreach ($bands as $band)
-                                        @if ($band->band_name == $student->department->college->band->bandName->band_name)
-                                            <option selected value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                        @else
-                                            <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">College</div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                <span class="input-group-text bg-white border-0"><i
-                                            class="text-gray-400 float-right far fa-edit "></i></span>
-                                </div>
-                                <select class="form-control form-control-plaintext" name="band">
-                                    @foreach ($colleges as $college)
-                                        @if ($college->college_name == $student->department->college->collegeName->college_name)
-                                            <option selected
-                                                    value="{{$college->college_name}}">{{$college->college_name}}</option>
-                                        @else
-                                            <option value="{{$college->college_name}}">{{$college->college_name}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Department</div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text bg-white border-0"><i
-                                                class="text-gray-400 float-right far fa-edit "></i></span>
-                                </div>
-                                <select class="form-control form-control-plaintext" name="department">
-                                    @foreach ($departments as $department)
-                                        @if ($department->department_name == $student->department->departmentName->department_name)
-                                            <option selected
-                                                    value="{{$department->department_name}}">{{$department->department_name}}</option>
-                                        @else
-                                            <option value="{{$department->department_name}}">{{$department->department_name}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Program</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
-                                    <span class="input-group-text bg-white border-0"><i
-                                                class="text-gray-400 float-right far fa-edit "></i></span>
+                                    <label for="program" class="input-group-text bg-white border-0"><i
+                                                class="text-gray-400 float-right far fa-edit "></i></label>
                                 </div>
-                                <select class="form-control form-control-plaintext" name="program">
+                                <select class="form-control form-control-plaintext" name="program" id="program">
                                     @foreach ($student->department->college->getEnum("EducationPrograms") as $key => $value)
                                         @if ($value == $student->department->college->education_program)
                                             <option selected value="{{$key}}">{{$value}}</option>

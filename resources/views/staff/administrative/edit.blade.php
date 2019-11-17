@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-md-3 pt-3">
                     <button type="submit" class="form-control form-control-plaintext text-primary">
-                        <i class="far fa-save mr-2"></i></i> Save
+                        <i class="far fa-save mr-2"></i> Save
                     </button>
                 </div>
             </div>

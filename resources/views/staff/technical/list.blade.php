@@ -20,7 +20,6 @@
                            style="width: 100%;">
                         <thead>
                         <tr role="row">
-                            <th style="min-width: 50px; width: 50px"></th>
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending" width="15"
@@ -63,23 +62,6 @@
                             @foreach ($staffs as $staff)
                                 <tr role="row" class="odd"
                                     onclick="window.location='technical/{{$staff->id}}'">
-                                    <td class="text-center">
-                                        <div class="row px-1">
-                                            <div class="col px-0">
-                                                <form class="p-0"
-                                                      action="/staff/technical/{{$staff->id}}/edit"
-                                                      method="GET">
-                                                    <button type="submit"
-                                                            class="btn btn-primary btn-circle text-white btn-sm mx-0"
-                                                            style="opacity:0.80"
-                                                            data-toggle="tooltip" title="Edit">
-                                                        <i class="fas fa-pencil-alt fa-sm"
-                                                           style="opacity:0.75"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </td>
                                     <td class="sorting_1">{{$staff->general->name}}</td>
                                     <td>{{$staff->general->job_title}}</td>
                                     <td>{{$staff->general->dedication}}</td>
