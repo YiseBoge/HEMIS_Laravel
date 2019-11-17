@@ -175,7 +175,6 @@ class StaffAttritionsController extends Controller
         $attrition = new StaffAttrition;
         $attrition->case = $request->input('case');
 
-        //return $request->input('staff');
         $staff = Staff::find($request->input('staff'));
         $staff->staffAttrition()->save($attrition);
 

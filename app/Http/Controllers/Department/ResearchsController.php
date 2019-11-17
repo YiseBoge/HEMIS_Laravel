@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
 use App\Models\Band\Research;
 use App\Models\College\College;
-use App\Models\Department\Department;
 use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -105,6 +104,17 @@ class ResearchsController extends Controller
             'other_female_number' => 'required|numeric|between:0,1000000000'
         ]);
 
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+        $institution = $user->institution();
+
+        $collegeName = $user->collegeName;
+        $departmentName = $user->departmentName;
+        $educationLevel = request()->input('education_level', 'None');
+        $educationProgram = request()->input('program', 'None');
+        $yearLevel = request()->input('year_level', 'None');
+        $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
+
         $research = new Research;
         $research->number = $request->input('number');
         $research->male_teachers_participating_number = $request->input('male_participating_number');
@@ -116,42 +126,6 @@ class ResearchsController extends Controller
         $research->budget_from_externals = $request->input('external_budget');
         $research->status = $request->input('status');
         $research->type = $request->input('type');
-
-        $user = Auth::user();
-        $user->authorizeRoles('Department Admin');
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => "None", 'education_program' => "None"])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = "None";
-            $college->education_program = "None";
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
-
-        $departmentName = $user->departmentName;
-        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => "None",
-            'college_id' => $college->id])->first();
-        if ($department == null) {
-            $department = new Department;
-            $department->year_level = "None";
-            $department->department_name_id = null;
-            $college->departments()->save($department);
-            $departmentName->department()->save($department);
-        }
 
         $research->department_id = $department->id;
 

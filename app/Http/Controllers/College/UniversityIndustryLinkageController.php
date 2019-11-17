@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
 use App\Models\Band\BandName;
 use App\Models\Band\UniversityIndustryLinkage;
 use App\Models\College\College;
 use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -99,38 +99,18 @@ class UniversityIndustryLinkageController extends Controller
             'number_of_students' => 'required|numeric|between:0,1000000000',
             'industry_number' => 'required|numeric|between:0,1000000000'
         ]);
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+        $institution = $user->institution();
+        $collegeName = $user->collegeName;
+
+        $college = HierarchyService::getCollege($institution, $collegeName, 'None', 'None');
 
         $linkage = new UniversityIndustryLinkage;
         $linkage->year = $request->input('year');
         $linkage->number_of_industry_links = $request->input('industry_number');
         $linkage->number_of_students = $request->input('number_of_students');
         $linkage->training_area = $request->input('training_area');
-
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => "None", 'education_program' => "None"])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = "None";
-            $college->education_program = "None";
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
 
         $linkage->college_id = $college->id;
 

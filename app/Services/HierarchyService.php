@@ -7,7 +7,12 @@ use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Institution\Institution;
+use App\Models\Staff\Staff;
+use App\Models\Student\DormitoryService;
+use App\Models\Student\Student;
+use App\Models\Student\StudentService;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 
 /**
  * Class ApprovalService
@@ -75,7 +80,7 @@ class HierarchyService
     private static function fetchDepartment(College $college, DepartmentName $departmentName, $yearLevel)
     {
         $department = $college->departments()->where(['department_name_id' => $departmentName->id,
-            'year_level' => Department::getEnum('year_level')[$yearLevel]])->first();
+            'year_level' => $yearLevel])->first();
         if ($department == null) {
             $department = new Department;
             $department->year_level = $yearLevel;
@@ -83,5 +88,48 @@ class HierarchyService
             $college->departments()->save($department);
         }
         return $department;
+    }
+
+    /**
+     * @param Request $request
+     * @param Staff $staff
+     */
+    public static function populateStaff(Request $request, Staff $staff)
+    {
+        $staff->name = $request->input('name');
+        $staff->birth_date = $request->input('birth_date');
+        $staff->sex = $request->input('sex');
+        $staff->phone_number = $request->input('phone_number');
+        $staff->nationality = $request->input('nationality');
+        $staff->job_title = $request->input('job_title');
+        $staff->salary = $request->input('salary');
+        $staff->service_year = $request->input('service_year');
+        $staff->employment_type = $request->input('employment_type');
+        $staff->dedication = $request->input('dedication');
+        $staff->academic_level = $request->input('academic_level');
+        $staff->is_expatriate = $request->has('expatriate');
+        $staff->is_from_other_region = $request->has('other_region');
+        $staff->salary = $request->input('salary');
+        $staff->remarks = $request->input('additional_remark') == null ? "" : $request->input('additional_remark');
+    }
+
+    /**
+     * @param Request $request
+     * @param DormitoryService $dormitoryService
+     * @param StudentService $studentService
+     * @param Student $student
+     */
+    public static function populateStudent(Request $request, DormitoryService $dormitoryService, StudentService $studentService, Student $student)
+    {
+        $dormitoryService->dormitory_service_type = $request->input("dormitory_service_type");
+        $dormitoryService->block = $request->input("block_number");
+        $dormitoryService->room_no = $request->input("room_number");
+        $studentService->food_service_type = $request->input("food_service_type");
+        $student->name = $request->input("name");
+        $student->student_id = $request->input("student_id");
+        $student->phone_number = $request->input("phone_number");
+        $student->birth_date = $request->input("birth_date");
+        $student->sex = $request->input("sex");
+        $student->remarks = $request->input("additional_remarks");
     }
 }

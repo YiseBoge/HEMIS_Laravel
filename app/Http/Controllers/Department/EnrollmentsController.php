@@ -10,8 +10,10 @@ use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
 use App\Services\HierarchyService;
 use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -127,9 +129,9 @@ class EnrollmentsController extends Controller
 
         $collegeName = $user->collegeName;
         $departmentName = $user->departmentName;
-        $educationLevel = $request->input('education_level');
-        $educationProgram = $request->input('program');
-        $yearLevel = $request->input('year_level');
+        $educationLevel = request()->input('education_level', 'None');
+        $educationProgram = request()->input('program', 'None');
+        $yearLevel = request()->input('year_level', 'None');
         $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
 
         $enrollment = new Enrollment;
@@ -234,6 +236,11 @@ class EnrollmentsController extends Controller
         return redirect('/enrollment/normal')->with('primary', 'Successfully Deleted');
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Redirector
+     */
     public function approve(Request $request, $id)
     {
         $user = Auth::user();

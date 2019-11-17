@@ -44,11 +44,9 @@ class UniversityAdminController extends Controller
         $user->authorizeRoles('Super Admin');
 
         $editors = [];
-        foreach (User::all() as $user) {
-            if ($user->hasRole('University Admin')) {
+        foreach (User::all() as $user)
+            if ($user->hasRole('University Admin'))
                 array_push($editors, $user);
-            }
-        }
 
         $data = array(
             'editors' => $editors,

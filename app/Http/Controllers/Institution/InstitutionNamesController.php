@@ -97,7 +97,6 @@ class InstitutionNamesController extends Controller
 
         $institutionName->save();
 
-
         $generalInformation = new GeneralInformation();
         $communityService = new CommunityService();
         $resource = new Resource();
@@ -105,7 +104,6 @@ class InstitutionNamesController extends Controller
         $generalInformation->save();
         $communityService->save();
         $resource->save();
-
         $generalInformation->communityService()->associate($communityService)->save();
         $generalInformation->resource()->associate($resource)->save();
 

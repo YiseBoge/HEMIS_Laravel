@@ -39,11 +39,9 @@ class DepartmentAdminController extends Controller
         $collegeNameId = $user->college_name_id;
 
         $editors = [];
-        foreach (User::all() as $user) {
-            if ($user->hasRole('Department Admin') && $user->college_name_id == $collegeNameId) {
+        foreach (User::all() as $user)
+            if ($user->hasRole('Department Admin') && $user->college_name_id == $collegeNameId)
                 array_push($editors, $user);
-            }
-        }
 
         $data = array(
             'editors' => $editors,

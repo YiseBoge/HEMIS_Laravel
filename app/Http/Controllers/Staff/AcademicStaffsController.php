@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
 use App\Models\College\College;
-use App\Models\Department\Department;
 use App\Models\Staff\AcademicStaff;
 use App\Models\Staff\Staff;
 use App\Models\Staff\StaffLeave;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -107,22 +106,18 @@ class AcademicStaffsController extends Controller
             'teaching_load' => 'required|numeric|between:0,100'
         ]);
 
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+        $institution = $user->institution();
+
+        $collegeName = $user->collegeName;
+        $departmentName = $user->departmentName;
+        $educationLevel = request()->input('education_level', 'None');
+        $educationProgram = request()->input('program', 'None');
+        $yearLevel = request()->input('year_level', 'None');
+        $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
         $staff = new Staff;
-        $staff->name = $request->input('name');
-        $staff->birth_date = $request->input('birth_date');
-        $staff->sex = $request->input('sex');
-        $staff->phone_number = $request->input('phone_number');
-        $staff->nationality = $request->input('nationality');
-        $staff->job_title = $request->input('job_title');
-        $staff->salary = $request->input('salary');
-        $staff->service_year = $request->input('service_year');
-        $staff->employment_type = $request->input('employment_type');
-        $staff->dedication = $request->input('dedication');
-        $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $request->has('expatriate');
-        $staff->is_from_other_region = $request->has('other_region');
-        $staff->salary = $request->input('salary');
-        $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
+        HierarchyService::populateStaff($request, $staff);
 
         $academicStaff = new AcademicStaff;
         $academicStaff->field_of_study = $request->input('field_of_study');
@@ -132,43 +127,6 @@ class AcademicStaffsController extends Controller
         $academicStaff->staff_leave_id = null;
         $academicStaff->overload_remark = $request->input('overload_remark');
         $academicStaff->hdp_trained = $request->has('hdp_trained');
-
-        $user = Auth::user();
-        $user->authorizeRoles('Department Admin');
-
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => 'None', 'education_program' => 'None'])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = 'None';
-            $college->education_program = "None";
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
-
-        $departmentName = $user->departmentName;
-        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => "None",
-            'college_id' => $college->id])->first();
-        if ($department == null) {
-            $department = new Department;
-            $department->year_level = "None";
-            $department->department_name_id = null;
-            $college->departments()->save($department);
-            $departmentName->department()->save($department);
-        }
 
         $department->academicStaffs()->save($academicStaff);
         $academicStaff = AcademicStaff::find($academicStaff->id);
@@ -243,11 +201,11 @@ class AcademicStaffsController extends Controller
             'academic_staff_rank' => 'required',
             'teaching_load' => 'required|numeric|between:0,100'
         ]);
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $academicStaff = AcademicStaff::find($id);
-
         if ($request->input('status') == "onLeave") {
-            //die("1" . $request->input('status'));
             $this->validate($request, [
                 'leave_type' => 'required',
                 'leave_country' => 'required',
@@ -273,7 +231,6 @@ class AcademicStaffsController extends Controller
             $staffLeave->academicStaff()->save($academicStaff);
 
         } else {
-            //die("2" . $request->input('status'));
             $item = StaffLeave::find($academicStaff->staff_leave_id);
             if ($item != null) {
                 $item->delete();
@@ -289,61 +246,7 @@ class AcademicStaffsController extends Controller
         $academicStaff->overload_remark = $request->input('overload_remark') == null ? " " : $request->input('overload_remark');
 
         $staff = $academicStaff->general;
-        $staff->name = $request->input('name');
-        $staff->birth_date = $request->input('birth_date');
-        $staff->sex = $request->input('sex');
-        $staff->phone_number = $request->input('phone_number');
-        $staff->nationality = $request->input('nationality');
-        $staff->job_title = $request->input('job_title');
-        $staff->salary = $request->input('salary');
-        $staff->service_year = $request->input('service_year');
-        $staff->employment_type = $request->input('employment_type');
-        $staff->dedication = $request->input('dedication');
-        $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $request->input('expatriate');
-        $staff->is_from_other_region = $request->input('other_region');
-        $staff->salary = $request->input('salary');
-        $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
-
-        $user = Auth::user();
-        $user->authorizeRoles('Department Admin');
-
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => 'None', 'education_program' => 'None'])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = 'None';
-            $college->education_program = 'None';
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
-
-        $departmentName = $user->departmentName;
-        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => 'None',
-            'college_id' => $college->id])->first();
-        if ($department == null) {
-            $department = new Department;
-            $department->year_level = 'None';
-            $department->department_name_id = null;
-            $college->departments()->save($department);
-            $departmentName->department()->save($department);
-        }
-
-        $department->academicStaffs()->save($academicStaff);
-        $academicStaff->save();
+        HierarchyService::populateStaff($request, $staff);
         $academicStaff->general()->save($staff);
 
         return redirect('/staff/academic')->with('primary', 'Successfully Updated');

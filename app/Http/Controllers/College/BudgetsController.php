@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
 use App\Models\College\Budget;
 use App\Models\College\BudgetDescription;
 use App\Models\College\College;
 use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -115,40 +115,19 @@ class BudgetsController extends Controller
             'additional' => 'required|numeric|between:1,1000000000',
             'utilized' => 'required|numeric|between:1,1000000000',
         ]);
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+        $institution = $user->institution();
+        $collegeName = $user->collegeName;
 
+        $college = HierarchyService::getCollege($institution, $collegeName, 'None', 'None');
         $exampleDescription = BudgetDescription::all()[$request->input('budget_description')];
 
         $budget = new Budget();
-
         $budget->budget_type = $request->input('budget_type');
         $budget->allocated_budget = $request->input('allocated');
         $budget->additional_budget = $request->input('additional');
         $budget->utilized_budget = $request->input('utilized');
-
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => 'None', 'education_program' => 'None'])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = 'None';
-            $college->education_program = "None";
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
 
         $budget->college_id = $college->id;
         $budget->budget_description_id = $exampleDescription->id;

@@ -41,14 +41,12 @@ class CollegeAdminController extends Controller
         $editors = [];
         foreach (User::all() as $editor) {
             if ($user->hasRole('University Admin')) {
-                if ($editor->hasRole('College Super Admin') && $editor->institution_name_id == $institutionNameId) {
+                if ($editor->hasRole('College Super Admin') && $editor->institution_name_id == $institutionNameId)
                     array_push($editors, $editor);
-                }
             } else {
                 if ($editor->hasRole('College Admin') && $editor->institution_name_id == $institutionNameId &&
-                    $editor->college_name_id == $user->college_name_id) {
+                    $editor->college_name_id == $user->college_name_id)
                     array_push($editors, $editor);
-                }
             }
         }
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
-use App\Models\College\CollegeName;
 use App\Models\Department\DepartmentName;
 use Exception;
 use Illuminate\Http\Request;
@@ -97,7 +96,6 @@ class DepartmentNamesController extends Controller
         $institutionName = $user->institution()->institutionName;
 
         $collegeNames = $institutionName->collegeNames;
-        /** @var CollegeName $collegeName */
         $collegeName = $collegeNames[$request->input('college_name_id')];
 
         $departmentName = new DepartmentName;
@@ -184,7 +182,6 @@ class DepartmentNamesController extends Controller
         $user->authorizeRoles('University Admin');
 
         $department = DepartmentName::find($id);
-
         $department->department_name = $request->input("department_name");
         $department->acronym = $request->input("department_acronym");
 

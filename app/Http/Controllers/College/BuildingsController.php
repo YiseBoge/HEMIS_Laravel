@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Institution\Building;
 use App\Models\Institution\BuildingPurpose;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -100,6 +100,12 @@ class BuildingsController extends Controller
             'financial_status' => 'numeric|between:0,1000000000',
             'completion_status' => 'numeric|between:0,100',
         ]);
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+        $institution = $user->institution();
+        $collegeName = $user->collegeName;
+
+        $college = HierarchyService::getCollege($institution, $collegeName, 'None', 'None');
 
         $building = new Building();
         $building->building_name = $request->input('building_name');
@@ -110,31 +116,6 @@ class BuildingsController extends Controller
         $building->budget_allocated = $request->input('budget_allocated');
         $building->financial_status = $request->input('financial_status');
         $building->completion_status = $request->input('completion_status');
-
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => "None", 'education_program' => "None"])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = "None";
-            $college->education_program = "None";
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
 
         $building->college_id = $college->id;
 
