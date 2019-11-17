@@ -235,17 +235,11 @@ class SpecialProgramTeacherController extends Controller
         } else {
             $institution = $user->institution();
 
-            if ($institution != null) {
-                foreach ($institution->bands as $band) {
-                    if ($band->bandName->band_name == $user->bandName->band_name) {
-                        foreach ($band->colleges as $college) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $selectedDepartment) {
-                                        ApprovalService::approveData($department->specialProgramTeachers);
-                                    }
-                                }
-                            }
+            foreach ($institution->colleges as $college) {
+                if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                    foreach ($college->departments as $department) {
+                        if ($department->departmentName->id == $selectedDepartment) {
+                            ApprovalService::approveData($department->specialProgramTeachers);
                         }
                     }
                 }

@@ -235,18 +235,10 @@ class UniversityIndustryLinkageController extends Controller
         } else {
             $institution = $user->institution();
 
-            if ($institution != null) {
-                foreach ($institution->bands as $band) {
-                    if ($band->bandName->band_name == $user->bandName->band_name) {
-                        foreach ($band->colleges as $college) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                ApprovalService::approveData($college->universityIndustryLinkages);
-                            }
-                        }
-                    }
+            foreach ($institution->colleges as $college) {
+                if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                    ApprovalService::approveData($college->universityIndustryLinkages);
                 }
-            } else {
-
             }
         }
         return redirect("/student/university-industry-linkage")->with('success', 'Successfully Approved Industry Linkages');

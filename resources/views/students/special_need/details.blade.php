@@ -58,7 +58,7 @@
                 <div class="row mt-4">
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Band</div>
-                        <p>{{$student->department->college->band}}</p>
+                        <p>{{$student->department->college->collegeName->bandName}}</p>
                     </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">College</div>

@@ -18,6 +18,7 @@ use Webpatser\Uuid\Uuid;
  * @property GeneralInformation generalInformation
  * @property InstitutionName institutionName
  * @property Collection managements
+ * @property Collection colleges
  * @method static Institution find(int $id)
  */
 class Institution extends Model
@@ -42,7 +43,7 @@ class Institution extends Model
 
         static::deleting(function (Institution $model) { // before delete() method call this
             $model->generalInformation()->delete();
-            $model->bands()->delete();
+            $model->colleges()->delete();
             $model->managements()->delete();
         });
     }
@@ -53,14 +54,6 @@ class Institution extends Model
     public function generalInformation()
     {
         return $this->belongsTo('App\Models\Institution\GeneralInformation');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function bands()
-    {
-        return $this->hasMany('App\Models\Band\Band');
     }
 
     /**

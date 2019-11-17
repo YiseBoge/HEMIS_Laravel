@@ -58,13 +58,8 @@ class ManagementDataController extends Controller
         $institution = $user->institution();
         $managements = array();
 
-        if ($institution != null) {
-            foreach ($institution->managements as $management) {
-                $managements[] = $management;
-            }
-        } else {
-            $managements = ManagementData::all();
-        }
+        foreach ($institution->managements as $management)
+            $managements[] = $management;
 
         $data = [
             'management_data' => $managements,
@@ -140,13 +135,8 @@ class ManagementDataController extends Controller
         $institution = $user->institution();
         $managements = array();
 
-        if ($institution != null) {
-            foreach ($institution->managements as $management) {
-                $managements[] = $management;
-            }
-        } else {
-            $managements = ManagementData::all();
-        }
+        foreach ($institution->managements as $management)
+            $managements[] = $management;
 
         $data = [
             'management_data' => $managements,

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\College;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ApprovalService;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,14 +51,12 @@ class CollegeApprovalController extends Controller
 
         $type = $request->input('type');
 
-        foreach($institution->bands as $band){
-            foreach($band->colleges as $college){
-                if($type == "department"){
-                    ApprovalService::approveAllDepartmentDataInCollege($college, "college");
-                    
-                }else if($type == "college"){
-                    ApprovalService::approveAllCollegeData($college, "college");
-                }
+        foreach ($institution->colleges as $college) {
+            if ($type == "department") {
+                ApprovalService::approveAllDepartmentDataInCollege($college, "college");
+
+            } else if ($type == "college") {
+                ApprovalService::approveAllCollegeData($college, "college");
             }
         }
 

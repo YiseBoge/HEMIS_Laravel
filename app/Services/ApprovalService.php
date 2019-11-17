@@ -82,11 +82,9 @@ class ApprovalService
 
     public static function approveAllInInstitution(Institution $institution)
     {
-        foreach ($institution->bands as $band) {
-            foreach ($band->colleges as $college) {
-                self::approveAllDepartmentDataInCollege($college, "institution");
-                self::approveAllCollegeData($college, "institution");
-            }
+        foreach ($institution->colleges as $college) {
+            self::approveAllDepartmentDataInCollege($college, "institution");
+            self::approveAllCollegeData($college, "institution");
         }
     }
 }

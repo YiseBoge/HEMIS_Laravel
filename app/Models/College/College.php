@@ -17,8 +17,8 @@ use Webpatser\Uuid\Uuid;
  * @property string education_level
  * @property string education_program
  * @property int college_name_id
- * @property Uuid band_id
  * @property Collection departments
+ * @property Uuid institution_id
  */
 class College extends Model
 {
@@ -188,14 +188,6 @@ class College extends Model
     public function investmentsApproved()
     {
         return $this->hasMany('App\Models\College\Investment')->where('approval_status', 'Approved');
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function band()
-    {
-        return $this->belongsTo('App\Models\Band\Band');
     }
 
     /**
