@@ -15,12 +15,33 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class HierarchyService
 {
-    public static function getDepartment(Institution $institution, CollegeName $collegeName, DepartmentName $departmentName, $educationLevel, $educationProgram, $yearLevel)
+    /**
+     * @param Institution $institution
+     * @param CollegeName $collegeName
+     * @param DepartmentName $departmentName
+     * @param $educationLevel
+     * @param $educationProgram
+     * @param $yearLevel
+     * @return Department
+     */
+    public static function getDepartment(Institution $institution, CollegeName $collegeName,
+                                         DepartmentName $departmentName, $educationLevel, $educationProgram, $yearLevel)
     {
-        $college = self::fetchCollege($institution, $educationLevel, $educationProgram, $collegeName);
-        $department = self::fetchDepartment($college, $yearLevel, $departmentName);
-
+        $college = self::fetchCollege($institution, $collegeName, $educationLevel, $educationProgram);
+        $department = self::fetchDepartment($college, $departmentName, $yearLevel);
         return $department;
+    }
+
+    /**
+     * @param Institution $institution
+     * @param CollegeName $collegeName
+     * @param $educationLevel
+     * @param $educationProgram
+     * @return College|Collection
+     */
+    public static function getCollege(Institution $institution, CollegeName $collegeName, $educationLevel, $educationProgram)
+    {
+        return self::fetchCollege($institution, $collegeName, $educationLevel, $educationProgram);;
     }
 
 
@@ -31,7 +52,7 @@ class HierarchyService
      * @param CollegeName $collegeName
      * @return College|Collection
      */
-    private static function fetchCollege(Institution $institution, $educationLevel, $educationProgram, CollegeName $collegeName)
+    private static function fetchCollege(Institution $institution, CollegeName $collegeName, $educationLevel, $educationProgram)
     {
         $college = $institution->colleges()->where(['college_name_id' => $collegeName->id,
             'education_level' => $educationLevel, 'education_program' => $educationProgram])->first();
@@ -51,7 +72,7 @@ class HierarchyService
      * @param DepartmentName $departmentName
      * @return Department
      */
-    private static function fetchDepartment(College $college, $yearLevel, DepartmentName $departmentName)
+    private static function fetchDepartment(College $college, DepartmentName $departmentName, $yearLevel)
     {
         $department = $college->departments()->where(['department_name_id' => $departmentName->id,
             'year_level' => Department::getEnum('year_level')[$yearLevel]])->first();

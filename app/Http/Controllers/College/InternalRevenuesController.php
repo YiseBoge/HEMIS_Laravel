@@ -71,6 +71,8 @@ class InternalRevenuesController extends Controller
                 foreach ($college->internalRevenues as $internalRevenue)
                     $revenues[] = $internalRevenue;
 
+        $revenueDescriptions = InternalRevenue::getEnum('revenue_description');
+
         $data = array(
             'internal_revenues' => $revenues,
             'revenue_descriptions' => $revenueDescriptions,

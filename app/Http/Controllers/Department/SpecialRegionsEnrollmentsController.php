@@ -44,13 +44,13 @@ class SpecialRegionsEnrollmentsController extends Controller
         $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
         $requestedYearLevel = request()->query('year_level', '1');
         $requestedType = request()->query('region_type', 'Emerging Regions');
-        $requestedStudentType = SpecialRegionEnrollment::getEnum('student_type')[$selectedStudentType = request()->query('student_type', 'Normal')];
+        $requestedStudentType = SpecialRegionEnrollment::getEnum('student_type')[$selectedStudentType = request()->query('student_type', 'NORMAL')];
 
         $enrollments = array();
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
-                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
                     foreach ($department->specialRegionEnrollments as $enrollment)
                         $enrollments[] = $enrollment;
             } else

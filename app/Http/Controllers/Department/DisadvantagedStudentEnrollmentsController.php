@@ -45,14 +45,13 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $requestedLevel = request()->query('education_level', 'Undergraduate');
         $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
         $requestedQuintile = request()->query('quintile', 'Lowest');
-        $selectedType = request()->query('student_type', 'NORMAL');
-        $requestedType = DisadvantagedStudentEnrollment::getEnum('student_type')[$selectedType];
+        $requestedType = DisadvantagedStudentEnrollment::getEnum('student_type')[$selectedType = request()->query('student_type', 'NORMAL')];
 
         $enrollments = array();
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
-                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
                     foreach ($department->disadvantagedStudentEnrollments as $enrollment)
                         $enrollments[] = $enrollment;
             } else

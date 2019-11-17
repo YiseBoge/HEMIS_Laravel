@@ -52,7 +52,7 @@ class ForeignStudentsController extends Controller
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
-                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
                     foreach ($department->foreignStudents as $student)
                         $students[] = $student;
             } else

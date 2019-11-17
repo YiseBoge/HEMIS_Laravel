@@ -46,11 +46,11 @@ class BudgetsController extends Controller
         foreach ($institution->colleges as $college)
             if ($college->collegeName->id == $collegeName->id)
                 if ($user->hasRole('College Super Admin'))
-                    foreach ($college->budgets as $adminStaff)
-                        $adminStaffs[] = $adminStaff;
+                    foreach ($college->budgets as $budget)
+                        $budgets[] = $budget;
                 else
-                    foreach ($college->budgets()->where('budget_type', $budget_type) as $adminStaff)
-                        $adminStaffs[] = $adminStaff;
+                    foreach ($college->budgets()->where('budget_type', $budget_type)->get() as $budget)
+                        $budgets[] = $budget;
 
         $data = [
             'budget_type' => $requestedType,
@@ -74,8 +74,6 @@ class BudgetsController extends Controller
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
-
-        $budget_type = Budget::getEnum('budget_type')[$requestedType = request()->query('budget_type', 'CAPITAL')];
 
         $budgets = array();
         /** @var College $college */
@@ -192,18 +190,16 @@ class BudgetsController extends Controller
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
-        $budget_type = Budget::getEnum('budget_type')[$requestedType = request()->query('budget_type', 'CAPITAL')];
-
         $budgets = array();
         /** @var College $college */
         foreach ($institution->colleges as $college)
             if ($college->collegeName->id == $collegeName->id)
                 if ($user->hasRole('College Super Admin'))
-                    foreach ($college->budgets as $adminStaff)
-                        $adminStaffs[] = $adminStaff;
+                    foreach ($college->budgets as $budget)
+                        $budgets[] = $budget;
                 else
-                    foreach ($college->budgets()->where('budget_type', $budget_type) as $adminStaff)
-                        $adminStaffs[] = $adminStaff;
+                    foreach ($college->budgets()->where('budget_type', $budget_type) as $budget)
+                        $budgets[] = $budget;
 
         $budgetDescriptions = [];
         foreach (BudgetDescription::all() as $description) {

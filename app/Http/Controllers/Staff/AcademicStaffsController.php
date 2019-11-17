@@ -44,14 +44,9 @@ class AcademicStaffsController extends Controller
         $academicStaffs = array();
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
-            if ($user->hasRole('College Super Admin')) {
-                foreach ($college->departments()->where('department_name_id', $requestedDepartment) as $department)
-                    foreach ($department->academicStaffs as $academicStaff)
-                        $academicStaffs[] = $academicStaff;
-            } else
-                foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
-                    foreach ($department->academicStaffs as $academicStaff)
-                        $academicStaffs[] = $academicStaff;
+            foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                foreach ($department->academicStaffs as $academicStaff)
+                    $academicStaffs[] = $academicStaff;
         }
 
         $data = array(
