@@ -20,7 +20,6 @@
                                     <label class="form-control-placeholder" for="name">Name</label>
                                 </div>
                             </div>
-                            <hr>
                             <div class="form-row pt-3">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -32,7 +31,6 @@
                                             Date of Birth
                                         </label>
                                     </div>
-                                    <hr>
                                     <div class="form-group">
                                         <input type="text" id="student_id" name="student_id" class="form-control"
                                                required value="{{ old('student_id') }}">
@@ -55,7 +53,6 @@
                                                         name="sex" value="Female">Female</label>
                                         </div>
                                     </div>
-                                    <hr class="mb-4">
                                     <div class="form-group">
                                         <input type="tel" id="phoneno" name="phone_number" class="form-control" required
                                                value="{{ old('phone_number') }}">
@@ -100,7 +97,6 @@
                                     </label>
                                 </div>
                             </div>
-                            <hr class="mb-4">
                             <div class="form-group row pt-3">
                                 <div class="col-md-6 form-group">
                                     <select class="form-control" name="program" id="program">
@@ -205,7 +201,6 @@
                             </label>
                         </div>
                     </div>
-                    <hr class="mb-4">
                     <div class="form-group row pt-3">
                         <div class="col form-group">
 
