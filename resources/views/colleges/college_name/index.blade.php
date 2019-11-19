@@ -34,11 +34,6 @@
                                     colspan="1" aria-label="Acronym: activate to sort column ascending"
                                 >Acronym
                                 </th>
-                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
-                                    rowspan="1" colspan="1" aria-sort="ascending"
-                                    aria-label="Name: activate to sort column descending"
-                                >Band
-                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -72,7 +67,6 @@
                                     </td>
                                     <td>{{ $college->college_name }}</td>
                                     <td>{{ $college->acronym }}</td>
-                                    <td>{{ $college->bandName }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -114,10 +108,6 @@
                             </div>
                         @endif
 
-                        <div class="col-md-12 form-group pb-1">
-                            {!! Form::select('band_name_id', $band_names, old('band_name_id')  , ['class' => 'form-control', 'id' => 'band_name_id']) !!}
-                            {!! Form::label('band_name_id', 'Band', ['class' => 'form-control-placeholder']) !!}
-                        </div>
                         <div class="col-md-12 form-group pb-1">
                             {!! Form::text('college_name', old('college_name'), ['class' => 'form-control', 'id' => 'add_college_name', 'required' => 'true']) !!}
                             {!! Form::label('add_college_name', 'College Name', ['class' => 'form-control-placeholder']) !!}

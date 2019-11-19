@@ -4,7 +4,6 @@ namespace App\Http\Controllers\College;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\BandName;
 use App\Models\College\CollegeName;
 use Exception;
 use Illuminate\Http\Request;
@@ -56,11 +55,9 @@ class CollegeNamesController extends Controller
 
         $institutionName = $user->institution()->institutionName;
         $colleges = $institutionName->collegeNames;
-        $bandNames = BandName::all();
 
         $data = [
             'colleges' => $colleges,
-            'band_names' => $bandNames,
 
             'has_modal' => 'yes',
             'page_name' => 'administer.colleges-name.create'
@@ -87,16 +84,12 @@ class CollegeNamesController extends Controller
 
         $institutionName = $user->institution()->institutionName;
 
-        $bandNames = BandName::all();
-        /** @var BandName $bandName */
-        $bandName = $bandNames[$request->input('band_name_id')];
 
         $collegeName = new CollegeName;
         $collegeName->college_name = $request->input('college_name');
         $collegeName->acronym = $request->input('college_acronym');
 
         $collegeName->institution_name_id = $institutionName->id;
-        $collegeName->band_name_id = $bandName->id;
 
         if ($collegeName->isDuplicate()) return redirect()->back()
             ->withInput($request->toArray())
@@ -132,14 +125,11 @@ class CollegeNamesController extends Controller
         $institutionName = $user->institution()->institutionName;
         $colleges = $institutionName->collegeNames;
         $college_name = CollegeName::find($id);
-        $bandName = BandName::find($college_name->band_name_id);
         $data = [
             'id' => $id,
             'colleges' => $colleges,
             'college_name' => $college_name->college_name,
             'college_acronym' => $college_name->acronym,
-            'band' => $bandName->band_name,
-            'band_acronym' => $bandName->acronym,
 
             'has_modal' => 'yes',
             'page_name' => 'administer.colleges-name.edit'

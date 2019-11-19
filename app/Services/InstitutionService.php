@@ -44,15 +44,11 @@ class InstitutionService
     private function __stemDepartments($educationLevel)
     {
         $departments = array();
-        foreach ($this->institution->colleges as $college) {
-            if (array_search($college->collegeName->bandName->acronym, $this->stemBands)) {
-                    if ($college->education_level == $educationLevel) {
-                        foreach ($college->departments as $department) {
-                            array_push($departments, $department);
-                        }
-                    }
-                }
-            }
+        foreach ($this->institution->colleges as $college)
+            if ($college->education_level == $educationLevel)
+                foreach ($college->departments as $department)
+                    if (array_search($department->departmentName->bandName->acronym, $this->stemBands))
+                        array_push($departments, $department);
         return $departments;
     }
 

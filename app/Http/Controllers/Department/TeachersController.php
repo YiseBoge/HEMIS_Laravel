@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\BandName;
 use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\DepartmentName;
@@ -83,7 +82,6 @@ class TeachersController extends Controller
 
         $data = array(
             'colleges' => CollegeName::all(),
-            'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
             'education_levels' => Teacher::getEnum("EducationLevels"),
             'page_name' => 'staff.teachers.create'

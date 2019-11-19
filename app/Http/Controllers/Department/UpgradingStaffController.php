@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\BandName;
 use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\DepartmentName;
@@ -85,7 +84,6 @@ class UpgradingStaffController extends Controller
             'education_level' => UpgradingStaff::getEnum("EducationLevels"),
             'study_place' => UpgradingStaff::getEnum("StudyPlaces"),
             'colleges' => CollegeName::all(),
-            'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
             'page_name' => 'staff.upgrading-staff.create'
         ];

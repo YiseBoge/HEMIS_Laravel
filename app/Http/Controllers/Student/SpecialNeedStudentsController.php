@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\BandName;
 use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
@@ -100,7 +99,6 @@ class SpecialNeedStudentsController extends Controller
         array_pop($year_levels);
 
         $data = array(
-            'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
@@ -200,7 +198,6 @@ class SpecialNeedStudentsController extends Controller
 
         $data = array(
             'student' => SpecialNeedStudent::find($id),
-            'bands' => BandName::all(),
             'colleges' => CollegeName::all(),
             'departments' => DepartmentName::all(),
             'page_name' => 'students.special_need.edit'

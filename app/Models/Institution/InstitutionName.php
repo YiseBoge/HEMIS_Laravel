@@ -73,7 +73,6 @@ class InstitutionName extends Model
     public function isDuplicate()
     {
         return InstitutionName::where(array(
-                'institution_name' => $this->institution_name,
                 'acronym' => $this->acronym,
             ))->first() != null;
     }

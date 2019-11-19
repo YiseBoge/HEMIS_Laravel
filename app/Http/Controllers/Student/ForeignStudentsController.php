@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\BandName;
 use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
@@ -102,7 +101,6 @@ class ForeignStudentsController extends Controller
         array_pop($year_levels);
 
         $data = array(
-            'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
@@ -205,7 +203,6 @@ class ForeignStudentsController extends Controller
 
         $data = array(
             'student' => ForeignStudent::find($id),
-            'bands' => BandName::all(),
             'colleges' => CollegeName::all(),
             'departments' => DepartmentName::all(),
             'page_name' => 'students.foreign.edit'

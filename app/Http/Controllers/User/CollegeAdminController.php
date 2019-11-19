@@ -118,7 +118,6 @@ class CollegeAdminController extends Controller
         $user->password = Hash::make($request->input('password'));
 
         $institutionName->users()->save($user);
-        $collegeName->bandName->users()->save($user);
         $collegeName->users()->save($user);
         $currentInstanceId->users()->save($user);
 

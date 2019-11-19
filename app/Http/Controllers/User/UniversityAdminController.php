@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\BandName;
 use App\Models\College\CollegeName;
 use App\Models\Department\DepartmentName;
 use App\Models\Institution\CommunityService;
@@ -67,13 +66,11 @@ class UniversityAdminController extends Controller
 
         $institutionNames = InstitutionName::all();
         $collegeNames = CollegeName::all();
-        $bandNames = BandName::all();
         $departmentNames = DepartmentName::all();
 
         $data = array(
             'institution_names' => $institutionNames,
             'college_names' => $collegeNames,
-            'band_names' => $bandNames,
             'department_names' => $departmentNames,
             'page_name' => 'administer.university_admin.create',
         );

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\BandName;
 use App\Models\College\College;
 use App\Models\Department\Department;
 use App\Models\Department\StudentAttrition;
@@ -94,7 +93,6 @@ class StudentAttritionController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'bands' => BandName::all(),
             'programs' => College::getEnum('EducationPrograms'),
             'education_levels' => College::getEnum('EducationLevels'),
             'years' => Department::getEnum('YearLevels'),

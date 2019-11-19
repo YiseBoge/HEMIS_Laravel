@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\BandName;
 use App\Models\Band\UniversityIndustryLinkage;
 use App\Models\College\College;
 use App\Models\Institution\Institution;
@@ -48,7 +47,6 @@ class UniversityIndustryLinkageController extends Controller
 
         $data = array(
             'linkages' => $linkages,
-            'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
             'page_name' => 'students.university_industry_linkage.index'
         );
@@ -76,7 +74,6 @@ class UniversityIndustryLinkageController extends Controller
 
         $data = array(
             'linkages' => $linkages,
-            'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
 
             'has_modal' => 'yes',
@@ -161,7 +158,6 @@ class UniversityIndustryLinkageController extends Controller
         $data = array(
             'id' => $id,
             'linkages' => $linkages,
-            'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
             'number_of_linked_indutries' => $universityIndustryLinkage->number_of_industry_links,
             'training_area' => $universityIndustryLinkage->training_area,

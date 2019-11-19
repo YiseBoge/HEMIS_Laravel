@@ -136,7 +136,6 @@ class UserService
                 $user = $this->makeUser($name, $email);
 
                 $institutionName->users()->save($user);
-                $collegeName->bandName->users()->save($user);
                 $collegeName->users()->save($user);
                 $this->instance->users()->save($user);
 
@@ -151,7 +150,6 @@ class UserService
     public function createCollegeCommonAdmin(CollegeName $collegeName)
     {
         $institutionName = $collegeName->institutionName;
-        $bandName = $collegeName->bandName;
         $univ = strtolower($institutionName->acronym);
         $coll = strtolower($collegeName->acronym);
 
@@ -162,7 +160,6 @@ class UserService
             $user = $this->makeUser($name, $email);
 
             $institutionName->users()->save($user);
-            $bandName->users()->save($user);
             $collegeName->users()->save($user);
             $this->instance->users()->save($user);
 
@@ -176,7 +173,6 @@ class UserService
     public function createDepartmentAdmins(CollegeName $collegeName)
     {
         $institutionName = $collegeName->institutionName;
-        $bandName = $collegeName->bandName;
         foreach ($collegeName->departmentNames as $departmentName) {
             $univ = strtolower($institutionName->acronym);
             $coll = strtolower($collegeName->acronym);
@@ -190,7 +186,6 @@ class UserService
 
                 $institutionName->users()->save($user);
                 $collegeName->users()->save($user);
-                $bandName->users()->save($user);
                 $departmentName->users()->save($user);
                 $this->instance->users()->save($user);
 

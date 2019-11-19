@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\BandName;
 use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
@@ -103,7 +102,6 @@ class JointProgramEnrollmentsController extends Controller
 
         $data = array(
             'colleges' => CollegeName::all(),
-            'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,

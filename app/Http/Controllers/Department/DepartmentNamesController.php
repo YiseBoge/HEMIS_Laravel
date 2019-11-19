@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
+use App\Models\Band\BandName;
 use App\Models\Department\DepartmentName;
 use Exception;
 use Illuminate\Http\Request;
@@ -70,6 +71,7 @@ class DepartmentNamesController extends Controller
         $data = [
             'departments' => $departments,
             'college_names' => $collegeNames,
+            'band_names' => BandName::all(),
 
             'has_modal' => 'yes',
             'page_name' => 'administer.department-name.create'
@@ -96,13 +98,16 @@ class DepartmentNamesController extends Controller
         $institutionName = $user->institution()->institutionName;
 
         $collegeNames = $institutionName->collegeNames;
+        $bandNames = BandName::all();
         $collegeName = $collegeNames[$request->input('college_name_id')];
+        $bandName = $bandNames[$request->input('band_name_id')];
 
         $departmentName = new DepartmentName;
         $departmentName->department_name = $request->input('department_name');
         $departmentName->acronym = $request->input('department_acronym');
 
         $departmentName->college_name_id = $collegeName->id;
+        $departmentName->band_name_id = $bandName->id;
 
         if ($departmentName->isDuplicate()) return redirect()->back()
             ->withInput($request->toArray())

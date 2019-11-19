@@ -166,7 +166,7 @@ class IndexController extends Controller
         }
 
 
-        $colleges = CollegeName::byInstitutionNamesAndBandNames($selectedInstitutions, $selectedBands);
+        $colleges = CollegeName::byInstitutionNames($selectedInstitutions);
 //        return $colleges;
         if ($requestedCollege == 0) {
             $selectedColleges = $colleges;
@@ -178,7 +178,7 @@ class IndexController extends Controller
         }
 
 
-        $departments = DepartmentName::byCollegeNames($selectedColleges);
+        $departments = DepartmentName::byCollegeNamesAndBandNames($selectedColleges, $selectedBands);
 //        return $departments;
         if ($requestedDepartment == 0) {
             $selectedDepartment = $departments;
@@ -311,7 +311,7 @@ class IndexController extends Controller
         }
 
 
-        $colleges = CollegeName::byInstitutionNamesAndBandNames($selectedInstitutions, $selectedBands);
+        $colleges = CollegeName::byInstitutionNames($selectedInstitutions);
 //        return $colleges;
         if ($requestedCollege == 0) {
             $selectedColleges = $colleges;
@@ -323,7 +323,7 @@ class IndexController extends Controller
         }
 
 
-        $departments = DepartmentName::byCollegeNames($selectedColleges);
+        $departments = DepartmentName::byCollegeNamesAndBandNames($selectedColleges, $selectedBands);
 //        return $departments;
         if ($requestedDepartment == 0) {
             $selectedDepartment = $departments;
@@ -457,7 +457,7 @@ class IndexController extends Controller
         }
 
 
-        $colleges = CollegeName::byInstitutionNamesAndBandNames($selectedInstitutions, $selectedBands);
+        $colleges = CollegeName::byInstitutionNames($selectedInstitutions);
 //        return $colleges;
         if ($requestedCollege == 0) {
             $selectedColleges = $colleges;
@@ -469,7 +469,7 @@ class IndexController extends Controller
         }
 
 
-        $departments = DepartmentName::byCollegeNames($selectedColleges);
+        $departments = DepartmentName::byCollegeNamesAndBandNames($selectedColleges, $selectedBands);
 //        return $departments;
         if ($requestedDepartment == 0) {
             $selectedDepartment = $departments;

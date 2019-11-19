@@ -14,6 +14,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null department_name
  * @property string|null acronym
  * @property Uuid college_name_id
+ * @property Uuid band_name_id
  * @method static DepartmentName find(int $id)
  */
 class DepartmentName extends Model
@@ -60,12 +61,21 @@ class DepartmentName extends Model
     }
 
     /**
+     * @return BelongsTo
+     */
+    public function bandName()
+    {
+        return $this->belongsTo('App\Models\Band\BandName');
+    }
+
+    /**
      * @param Collection $collegeNames
+     * @param Collection $bandNames
      * @return DepartmentName[]|\Illuminate\Database\Eloquent\Collection
      */
-    public static function byCollegeNames(Collection $collegeNames)
+    public static function byCollegeNamesAndBandNames(Collection $collegeNames, Collection $bandNames)
     {
-        return DepartmentName::all()->whereIn('college_name_id', $collegeNames->pluck('id'));
+        return DepartmentName::all()->whereIn('college_name_id', $collegeNames->pluck('id'))->whereIn('band_name_id', $bandNames->pluck('id'))->values();
     }
 
     /**
@@ -74,7 +84,6 @@ class DepartmentName extends Model
     public function isDuplicate()
     {
         return DepartmentName::where(array(
-                'department_name' => $this->department_name,
                 'acronym' => $this->acronym,
 
                 'college_name_id' => $this->college_name_id,

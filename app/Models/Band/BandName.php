@@ -27,7 +27,7 @@ class BandName extends Model
         });
 
         static::deleting(function (BandName $model) { // before delete() method call this
-            $model->collegeNames()->delete();
+            $model->departmentNames()->delete();
             $model->users()->delete();
         });
     }
@@ -35,9 +35,9 @@ class BandName extends Model
     /**
      * @return HasMany
      */
-    public function collegeNames()
+    public function departmentNames()
     {
-        return $this->hasMany('App\Models\College\CollegeName');
+        return $this->hasMany('App\Models\Department\DepartmentName');
     }
 
     /**
@@ -54,7 +54,6 @@ class BandName extends Model
     public function isDuplicate()
     {
         return BandName::where(array(
-                'band_name' => $this->band_name,
                 'acronym' => $this->acronym,
             ))->first() != null;
     }

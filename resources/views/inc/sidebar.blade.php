@@ -255,8 +255,7 @@
                        href="/enrollment/normal">Students</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'special_region_students' ? 'active': '' }}"
                        href="/enrollment/special-region-students">Special Region Students</a>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'specializing_student_enrollment' ? 'active': '' }}
-                    {{Auth::user()->bandName->band_name == 'Medicine and Health Sciences' ? '': 'd-none' }}"
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'specializing_student_enrollment' ? 'active': '' }}"
                        href="/enrollment/specializing-students">Specializing Students</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'rural_students' ? 'active': '' }}"
                        href="/enrollment/rural-area-students">Rural/Urban Area Students</a>
