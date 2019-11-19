@@ -80,7 +80,7 @@ class HierarchyService
     private static function fetchDepartment(College $college, DepartmentName $departmentName, $yearLevel)
     {
         $department = $college->departments()->where(['department_name_id' => $departmentName->id,
-            'year_level' => $yearLevel])->first();
+            'year_level' => Department::getEnum('year_level')[$yearLevel]])->first();
         if ($department == null) {
             $department = new Department;
             $department->year_level = $yearLevel;

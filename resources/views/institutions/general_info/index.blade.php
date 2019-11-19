@@ -17,7 +17,7 @@
 
         <div class="row my-3">
             <div class="col-md-4 col-sm-6">
-                <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card border-bottom-warning shadow h-100 py-2">
                     <div class="card-body">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Board Members
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
-                <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card border-bottom-warning shadow h-100 py-2">
                     <div class="card-body">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Vice Presidents
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
-                <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card border-bottom-warning shadow h-100 py-2">
                     <div class="card-body">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Middle Level Leaders
