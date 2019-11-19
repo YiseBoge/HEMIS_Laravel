@@ -99,10 +99,21 @@ class JobTitle extends Model
         return $this->hasMany('App\Models\Staff\TechnicalStaff');
     }
 
+    /**
+     * @return bool
+     */
     public function isDuplicate()
     {
         return JobTitle::where(array(
                 'job_title' => $this->job_title,
             ))->first() != null;
+    }
+
+    /**
+     * @return string
+     */
+    function __toString()
+    {
+        return "$this->job_title ($this->level)";
     }
 }
