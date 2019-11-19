@@ -50,10 +50,6 @@
                                 colspan="1" aria-label="Salary: activate to sort column ascending"
                             >Academic Level
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                colspan="1" aria-label="Salary: activate to sort column ascending"
-                            >Staff Rank
-                            </th>
 
                         </tr>
                         </thead>
@@ -72,7 +68,6 @@
                                     @endif
                                     <td>{{$staff->general->salary}}</td>
                                     <td>{{$staff->general->academic_level}}</td>
-                                    <td>{{$staff->staffRank}}</td>
                                 </tr>
                             @endforeach
                         @else

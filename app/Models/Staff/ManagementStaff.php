@@ -40,11 +40,11 @@ class ManagementStaff extends Model
     }
 
     /**
-     * @return MorphOne
+     * @return BelongsTo
      */
     public function general()
     {
-        return $this->morphOne('App\Models\Staff\Staff', 'staffable');
+        return $this->belongsTo('App\Models\Staff\Staff', 'staff_id');
     }
 
     /**

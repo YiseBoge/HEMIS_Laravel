@@ -73,6 +73,14 @@ class AcademicStaff extends Model
     }
 
     /**
+     * @return BelongsTo
+     */
+    public function jobTitle()
+    {
+        return $this->belongsTo('App\Models\Staff\JobTitle');
+    }
+
+    /**
      * @return HasMany
      */
     public function publications()

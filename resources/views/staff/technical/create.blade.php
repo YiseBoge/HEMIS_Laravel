@@ -13,33 +13,23 @@
                     <div class="form-row pt-3">
                         <div class="col-7 form-group">
                             <select class="form-control" id="staff" name="staff">
-                                @foreach (array("name", "name") as $value)
-                                    <option value="{{$value}}" {{ (old('staff') == $value ? 'selected':'') }}>
-                                        {{$value}}
+                                @foreach ($staffs as $value)
+                                    <option value="{{$value->id}}" {{ (old('staff') == $value ? 'selected':'') }}>
+                                        {{$value->general->name}}
                                     </option>
                                 @endforeach
                             </select>
                             <label for="staff" class="form-control-placeholder">Staff</label>
                         </div>
-                         <div class="col-3 form-group">
+                         <div class="col-5 form-group">
                             <select class="form-control" id="job_title" name="job_title">
-                                @foreach (array("Lecturer", "Assistant Lecturer") as $value)
-                                    <option value="{{$value}}" {{ (old('job_title') == $value ? 'selected':'') }}>
+                                @foreach ($job_titles as $value)
+                                    <option value="{{$value->id}}" {{ (old('job_title') == $value ? 'selected':'') }}>
                                         {{$value}}
                                     </option>
                                 @endforeach
                             </select>
                             <label for="job_title" class="form-control-placeholder">Job Title</label>
-                        </div>
-                         <div class="col-2 form-group">
-                            <select class="form-control" id="job_level" name="job_level">
-                                @foreach (array("1", "2") as $value)
-                                    <option value="{{$value}}" {{ (old('job_level') == $value ? 'selected':'') }}>
-                                        {{$value}}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <label for="job_level" class="form-control-placeholder">Level</label>
                         </div>
                     </div>
                     <div class="form-row pt-3">

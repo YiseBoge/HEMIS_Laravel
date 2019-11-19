@@ -12,6 +12,16 @@
                 </div>
                 <div class="card-body px-5">
                     <div class="form-row pt-3">
+                        <div class="col-6 form-group">
+                            <select class="form-control" id="staff" name="staff">
+                                @foreach ($staffs as $value)
+                                    <option value="{{$value->id}}" {{ (old('staff') == $value ? 'selected':'') }}>
+                                        {{$value->general->name}}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <label for="staff" class="form-control-placeholder">Staff</label>
+                        </div>
                         <div class="col-md-6 form-group">
                             <select class="form-control" name="ict_type" id="ict-type">
                                 @foreach ($ict_types as $type)
@@ -22,17 +32,7 @@
                             </select>
                             <label class="form-control-placeholder" for="ict-type">ICT Staff Job Title</label>
                         </div>
-                         <div class="col-md-6 form-group">
-                            <select class="form-control" id="job_level" name="job_level">
-                                @foreach (
-                                array('1', '1') as $value)
-                                    <option value="{{$value}}" {{ (old('job_level') == $value ? 'selected':'') }}>
-                                        {{$value}}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <label class="form-control-placeholder" for="job_title">Level</label>
-                        </div>
+                         
                     </div>
                     <div class="form-row pt-3">
                         <div class="col form-group">

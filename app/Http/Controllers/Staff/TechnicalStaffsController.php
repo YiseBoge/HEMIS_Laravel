@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\College\College;
 use App\Models\Staff\Staff;
+use App\Models\Staff\JobTitle;
 use App\Models\Staff\TechnicalStaff;
+use App\Models\Staff\AcademicStaff;
 use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
@@ -40,10 +42,11 @@ class TechnicalStaffsController extends Controller
 
         $technicalStaffs = array();
         /** @var College $college */
-        foreach ($institution->colleges as $college)
-            if ($college->collegeName->id == $collegeName->id)
-                foreach ($college->technicalStaffs as $technicalStaff)
+        foreach ($user->collegeName->college as $college) {
+            foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                foreach ($department->technicalStaffs as $technicalStaff)
                     $technicalStaffs[] = $technicalStaff;
+        }
 
         $data = array(
             'staffs' => $technicalStaffs,
@@ -62,11 +65,21 @@ class TechnicalStaffsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
 
+        $academicStaffs = array();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                foreach ($department->academicStaffs as $academicStaff)
+                    $academicStaffs[] = $academicStaff;
+        }
+
         $data = array(
+            'staffs' => $academicStaffs,
             'employment_types' => Staff::getEnum("employment_type"),
             'dedications' => Staff::getEnum("dedication"),
             'academic_levels' => Staff::getEnum("academic_levels"),
             'staff_ranks' => TechnicalStaff::getEnum("staff_rank"),
+            'job_titles' => JobTitle::where('staff_type', 'Technical')->get(),
             'page_name' => 'staff.technical.create'
         );
         return view('staff.technical.create')->with($data);
@@ -82,34 +95,24 @@ class TechnicalStaffsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'birth_date' => 'required|date|before:now',
-            'sex' => 'required',
-            'phone_number' => 'required|regex:/(09)[0-9]{8}/',
-            'nationality' => 'required',
             'job_title' => 'required',
-            'salary' => 'required|numeric|between:0,1000000000',
-            'service_year' => 'required|numeric|between:0,100',
-            'employment_type' => 'required',
-            'dedication' => 'required',
-            'academic_level' => 'required',
-            'technical_staff_rank' => 'required',
         ]);
         $user = Auth::user();
-        $user->authorizeRoles('College Admin');
+        $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
+        $departmentName = $user->departmentName;
 
-        $college = HierarchyService::getCollege($institution, $collegeName, 'None', 'None');
-        $staff = new Staff;
-        HierarchyService::populateStaff($request, $staff);
+        $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, "None", "None", "NONE");
+        $academicStaff = AcademicStaff::find($request->input('staff'));
+        $staff = $academicStaff->general;
 
         $technicalStaff = new TechnicalStaff;
-        $technicalStaff->staffRank = $request->input('technical_staff_rank');
+        $technicalStaff->job_title_id = $request->input('job_title');
+        $technicalStaff->staff_id = $staff->id;
 
-        $college->technicalStaffs()->save($technicalStaff);
-        $technicalStaff = TechnicalStaff::find($technicalStaff->id);
-        $technicalStaff->general()->save($staff);
+        $department->technicalStaffs()->save($technicalStaff);
+        
 
         return redirect('/staff/technical')->with('success', 'Successfully Added Technical Staff');
     }
@@ -178,7 +181,6 @@ class TechnicalStaffsController extends Controller
         $user->authorizeRoles('College Admin');
 
         $technicalStaff = TechnicalStaff::find($id);
-        $technicalStaff->staffRank = $request->input('technical_staff_rank');
         $technicalStaff->institution_id = null;
 
         $staff = $technicalStaff->general;

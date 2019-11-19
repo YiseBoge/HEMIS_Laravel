@@ -123,14 +123,6 @@ class College extends Model
     /**
      * @return HasMany
      */
-    public function technicalStaffs()
-    {
-        return $this->hasMany('App\Models\Staff\TechnicalStaff');
-    }
-
-    /**
-     * @return HasMany
-     */
     public function universityIndustryLinkages()
     {
         return $this->hasMany('App\Models\Band\UniversityIndustryLinkage');

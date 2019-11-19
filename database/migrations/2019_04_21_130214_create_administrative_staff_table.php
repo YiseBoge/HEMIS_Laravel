@@ -18,7 +18,6 @@ class CreateAdministrativeStaffTable extends Migration
             $table->uuid('id');
             $table->timestamps();
 
-            $table->string('staffRank');
             $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
