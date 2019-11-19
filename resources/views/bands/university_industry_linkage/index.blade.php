@@ -14,7 +14,7 @@
                                 @csrf
                                 <input type="hidden" name="action" value="approveAll">
                                 <button type="submit"
-                                        class="btn btn-sm btn-primary shadow-sm">
+                                        class="btn btn-sm btn-primary shadow-sm" {{count($linkages) == 0 ? 'disabled' : ''}}>
                                     Approve All Pending<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
                                 </button>
                             </form>
