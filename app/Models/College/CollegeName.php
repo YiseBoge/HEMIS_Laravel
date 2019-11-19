@@ -34,6 +34,7 @@ class CollegeName extends Model
         });
 
         static::deleting(function (CollegeName $model) { // before delete() method call this
+            $model->departmentNames()->delete();
             $model->college()->delete();
             $model->users()->delete();
         });

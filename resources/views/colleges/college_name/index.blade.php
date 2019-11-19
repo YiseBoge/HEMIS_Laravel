@@ -151,11 +151,6 @@
 
                         <div class="modal-body row p-4">
                             <div class="col-md-12 form-group pb-1">
-                                <label class="label" for="band">Band</label>
-                                <input type="text" id="band" name="band" class="form-control"
-                                       disabled value="{{$band."(".$band_acronym.")"}}">
-                            </div>
-                            <div class="col-md-12 form-group pb-1">
                                 <label class="label" for="college_name">College Name</label>
                                 <input type="text" id="college_name" name="college_name" class="form-control"
                                        value="{{$college_name}}">

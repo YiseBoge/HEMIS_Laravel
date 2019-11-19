@@ -88,6 +88,6 @@ class IctStaffType extends Model
      */
     function __toString()
     {
-        return "$this->type ($this->category)";
+        return "$this->type - $this->category ($this->level)";
     }
 }
