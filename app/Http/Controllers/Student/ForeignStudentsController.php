@@ -127,7 +127,7 @@ class ForeignStudentsController extends Controller
             'name' => 'required',
             'birth_date' => 'required|date|before:now',
             'sex' => 'required',
-            'phone_number' => 'required',
+            'phone_number' => 'required|regex:/(09)[0-9]{8}/',
             'student_id' => 'required',
             'nationality' => 'required',
             'years_in_ethiopia' => 'required|numeric|between:0,100'
@@ -224,7 +224,7 @@ class ForeignStudentsController extends Controller
             'name' => 'required',
             'birth_date' => 'required|date|before:now',
             'sex' => 'required',
-            'phone_number' => 'required',
+            'phone_number' => 'required|regex:/(09)[0-9]{8}/',
             'student_id' => 'required',
             'nationality' => 'required',
             'years_in_ethiopia' => 'required|numeric|between:0,100'
