@@ -34,7 +34,7 @@ class TechnicalStaffsController extends Controller
     {
 
         $user = Auth::user();
-        $user->authorizeRoles(['College Admin', 'College Super Admin']);
+        $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
@@ -60,7 +60,7 @@ class TechnicalStaffsController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $user->authorizeRoles('College Admin');
+        $user->authorizeRoles('Department Admin');
 
         $data = array(
             'employment_types' => Staff::getEnum("employment_type"),
@@ -123,7 +123,7 @@ class TechnicalStaffsController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        $user->authorizeRoles('College Admin');
+        $user->authorizeRoles('Department Admin');
 
         $data = array(
             'staff' => TechnicalStaff::with('general')->find($id),
@@ -141,7 +141,7 @@ class TechnicalStaffsController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        $user->authorizeRoles('College Admin');
+        $user->authorizeRoles('Department Admin');
 
         $data = array(
             'staff' => TechnicalStaff::with('general')->find($id),

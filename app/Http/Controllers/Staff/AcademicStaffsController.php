@@ -114,7 +114,7 @@ class AcademicStaffsController extends Controller
         $departmentName = $user->departmentName;
         $educationLevel = request()->input('education_level', 'None');
         $educationProgram = request()->input('program', 'None');
-        $yearLevel = request()->input('year_level', 'None');
+        $yearLevel = request()->input('year_level', 'None'); //?
         $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
         $staff = new Staff;
         HierarchyService::populateStaff($request, $staff);

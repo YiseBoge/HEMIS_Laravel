@@ -111,6 +111,8 @@
                     <h6 class="collapse-header">Details:</h6>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'academic' ? 'active': '' }}"
                        href="/staff/academic">Academic Staff</a>
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'technical' ? 'active': '' }}"
+                       href="/staff/technical">Technical Support Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'attrition' ? 'active': '' }}"
                        href="/staff/attrition">Staff Attrition</a>
 
@@ -194,12 +196,10 @@
             <div id="collapseStaff" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Details:</h6>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'management' ? 'active': '' }}"
-                       href="/staff/management">Management Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'administrative' ? 'active': '' }}"
                        href="/staff/administrative">Administrative Support Staff</a>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'technical' ? 'active': '' }}"
-                       href="/staff/technical">Technical Support Staff</a>
+                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'management' ? 'active': '' }}"
+                       href="/staff/management">Management Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'ict' ? 'active': '' }}"
                        href="/staff/ict">ICT Staff</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'attrition' ? 'active': '' }}"
