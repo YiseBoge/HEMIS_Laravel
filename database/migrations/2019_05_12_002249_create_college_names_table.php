@@ -22,7 +22,6 @@ class CreateCollegeNamesTable extends Migration
             $table->primary('id');
 
             $table->uuid('institution_name_id')->nullable();
-            $table->uuid('band_name_id')->nullable();
 
         });
     }

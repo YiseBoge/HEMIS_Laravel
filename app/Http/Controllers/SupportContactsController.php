@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\SupportContact;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class SupportContactsController extends Controller
 {
@@ -41,14 +43,17 @@ class SupportContactsController extends Controller
         return view('support-contact.index')->with($data);
     }
 
+    /**
+     * @return Factory|View
+     */
     public function publicView()
     {
-        $weekMap = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday',];
+        $weekMap = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',];
 
         $dayOfTheWeek = Carbon::now()->dayOfWeek;
-        $todaysContacts = SupportContact::where('available_on_'.$weekMap[$dayOfTheWeek],true)->get();
+        $todayContacts = SupportContact::where('available_on_' . $weekMap[$dayOfTheWeek], true)->get();
         $data = [
-            'contacts' => $todaysContacts
+            'contacts' => $todayContacts
         ];
         return view('support-contact.public')->with($data);
     }
@@ -86,7 +91,7 @@ class SupportContactsController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'phone' => 'required'
+            'phone' => 'required|regex:/(09)[0-9]{8}/'
         ]);
 
         $contact = new SupportContact([
@@ -94,13 +99,13 @@ class SupportContactsController extends Controller
             'phone' => $request->input('phone'),
         ]);
 
-        $contact->available_on_monday= $request->has('available_on_monday');
-        $contact->available_on_tuesday= $request->has('available_on_tuesday');
-        $contact->available_on_wednesday= $request->has('available_on_wednesday');
-        $contact->available_on_thursday= $request->has('available_on_thursday');
-        $contact->available_on_friday= $request->has('available_on_friday');
-        $contact->available_on_saturday= $request->has('available_on_saturday');
-        $contact->available_on_sunday= $request->has('available_on_sunday');
+        $contact->available_on_monday = $request->has('available_on_monday');
+        $contact->available_on_tuesday = $request->has('available_on_tuesday');
+        $contact->available_on_wednesday = $request->has('available_on_wednesday');
+        $contact->available_on_thursday = $request->has('available_on_thursday');
+        $contact->available_on_friday = $request->has('available_on_friday');
+        $contact->available_on_saturday = $request->has('available_on_saturday');
+        $contact->available_on_sunday = $request->has('available_on_sunday');
 
         $contact->save();
 
@@ -148,7 +153,7 @@ class SupportContactsController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'phone' => 'required'
+            'phone' => 'required|regex:/(09)[0-9]{8}/'
         ]);
 
         $contact = SupportContact::findOrFail($id);
@@ -156,13 +161,13 @@ class SupportContactsController extends Controller
         $contact->name = $request->input('name');
         $contact->phone = $request->input('phone');
 
-        $contact->available_on_monday= $request->has('available_on_monday');
-        $contact->available_on_tuesday= $request->has('available_on_tuesday');
-        $contact->available_on_wednesday= $request->has('available_on_wednesday');
-        $contact->available_on_thursday= $request->has('available_on_thursday');
-        $contact->available_on_friday= $request->has('available_on_friday');
-        $contact->available_on_saturday= $request->has('available_on_saturday');
-        $contact->available_on_sunday= $request->has('available_on_sunday');
+        $contact->available_on_monday = $request->has('available_on_monday');
+        $contact->available_on_tuesday = $request->has('available_on_tuesday');
+        $contact->available_on_wednesday = $request->has('available_on_wednesday');
+        $contact->available_on_thursday = $request->has('available_on_thursday');
+        $contact->available_on_friday = $request->has('available_on_friday');
+        $contact->available_on_saturday = $request->has('available_on_saturday');
+        $contact->available_on_sunday = $request->has('available_on_sunday');
 
         $contact->save();
 

@@ -14,7 +14,7 @@
                                 @csrf
                                 <input type="hidden" name="action" value="approveAll">
                                 <button type="submit"
-                                        class="btn btn-sm btn-primary shadow-sm">
+                                        class="btn btn-sm btn-primary shadow-sm" {{count($budgets) == 0 ? 'disabled' : ''}}>
                                     Approve All Pending<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
                                 </button>
                             </form>
@@ -128,7 +128,7 @@
                                         <td>{{ $budget->budget_type }}</td>
                                     @else
                                         <td class="text-center">
-                                            @if($budget->approval_status != "Approved")
+                                            @if(!in_array($budget->approval_status, ["Approved", "College Approved"]))
                                                 <div class="row px-1">
                                                     <div class="col px-0">
                                                         <form class="p-0"
@@ -265,7 +265,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
 
                 <div class="modal-content">
-                    {!! Form::open(['action' => ['College\BudgetsController@update', $budget->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['action' => ['College\BudgetsController@update', $selected_budget->id], 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Edit</h5>
                         <a href="/budgets/budget" class="close" aria-label="Close">
@@ -285,17 +285,17 @@
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('allocated', $budget->allocated_budget, ['class' => 'form-control', 'id' => 'edit_allocated', 'required' => 'true']) !!}
+                            {!! Form::number('allocated', $selected_budget->allocated_budget, ['class' => 'form-control', 'id' => 'edit_allocated', 'required' => 'true']) !!}
                             {!! Form::label('allocated', 'Allocated', ['class' => 'form-control-placeholder', 'for' => 'edit_allocated']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('additional', $budget->additional_budget, ['class' => 'form-control', 'id' => 'edit_additional', 'required' => 'true']) !!}
+                            {!! Form::number('additional', $selected_budget->additional_budget, ['class' => 'form-control', 'id' => 'edit_additional', 'required' => 'true']) !!}
                             {!! Form::label('additional', 'Additional', ['class' => 'form-control-placeholder', 'for' => 'edit_additional']) !!}
                         </div>
 
                         <div class="col-md-4 form-group">
-                            {!! Form::number('utilized', $budget->utilized_budget, ['class' => 'form-control', 'id' => 'edit_utilized', 'required' => 'true']) !!}
+                            {!! Form::number('utilized', $selected_budget->utilized_budget, ['class' => 'form-control', 'id' => 'edit_utilized', 'required' => 'true']) !!}
                             {!! Form::label('utilized', 'Utilized', ['class' => 'form-control-placeholder', 'for' => 'edit_utilized']) !!}
                         </div>
                     </div>

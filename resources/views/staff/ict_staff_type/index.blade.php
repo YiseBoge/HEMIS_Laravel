@@ -34,6 +34,10 @@
                                     colspan="1" aria-label="Acronym: activate to sort column ascending"
                                 >ICT Staff Type
                                 </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Acronym: activate to sort column ascending"
+                                >Level
+                                </th>
 
                             </tr>
                             </thead>
@@ -68,6 +72,7 @@
                                     </td>
                                     <td>{{$ict_staff_type->category}}</td>
                                     <td>{{$ict_staff_type->type}}</td>
+                                    <td>{{$ict_staff_type->level}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

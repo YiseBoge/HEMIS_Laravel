@@ -4,7 +4,7 @@
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Departments</h6>
+                <h6 class="m-0 font-weight-bold text-primary">School/Department/Faculty Names</h6>
             </div>
             <div class="card-body">
                 <div class="row my-3">
@@ -34,6 +34,9 @@
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Acronym: activate to sort column ascending">College Name
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Acronym: activate to sort column ascending">Band Name
                                 </th>
 
                             </tr>
@@ -70,6 +73,7 @@
                                     <td>{{ $department->department_name }}</td>
                                     <td>{{ $department->acronym }}</td>
                                     <td>{{ $department->collegeName }}</td>
+                                    <td>{{ $department->bandName }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -117,6 +121,10 @@
                             {!! Form::label('college_name_id', 'College', ['class' => 'form-control-placeholder']) !!}
                         </div>
                         <div class="col-md-12 form-group pb-1">
+                            {!! Form::select('band_name_id', $band_names, old('band_name_id')  , ['class' => 'form-control', 'id' => 'band_name_id']) !!}
+                            {!! Form::label('band_name_id', 'Band', ['class' => 'form-control-placeholder']) !!}
+                        </div>
+                        <div class="col-md-12 form-group pb-1">
                             {!! Form::text('department_name', old('department_name'), ['class' => 'form-control', 'id' => 'add_department_name', 'required' => 'true']) !!}
                             {!! Form::label('add_department_name', 'Department Name', ['class' => 'form-control-placeholder']) !!}
                         </div>
@@ -150,6 +158,7 @@
                         <div class="modal-header">
                             <h5 class="modal-title" id="editTitle">Edit</h5>
                             <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
+                            </button>
                             {{-- <a href="/department/department-name" class="close" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </a> --}}

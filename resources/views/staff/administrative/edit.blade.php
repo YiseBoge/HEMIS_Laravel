@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-md-3 pt-3">
                     <button type="submit" class="form-control form-control-plaintext text-primary">
-                        <i class="far fa-save mr-2"></i></i> Save
+                        <i class="far fa-save mr-2"></i> Save
                     </button>
                 </div>
             </div>
@@ -64,8 +64,7 @@
                                             <span class="input-group-text bg-white border-0"><i
                                                         class="text-gray-400 float-right far fa-edit "></i></span>
                                         </div>
-                                        <input type="text" class="form-control form-control-plaintext"
-                                               name="nationality" value="{{$staff->general->nationality}}">
+                                        @include('inc.country_select', ['name' => 'nationality', 'default' => $staff->general->nationality])
                                     </div>
                                     <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Phone
                                         Number

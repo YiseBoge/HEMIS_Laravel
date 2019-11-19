@@ -19,13 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('read_only')->default(false);
             $table->rememberToken();
             $table->timestamps();
 
             $table->primary('id');
             $table->uuid('instance_id')->nullable();
             $table->uuid('institution_name_id')->nullable();
-            $table->uuid('band_name_id')->nullable();
             $table->uuid('college_name_id')->nullable();
             $table->uuid('department_name_id')->nullable();
 

@@ -37,7 +37,7 @@ class ExitExamination extends Model
      */
     public function scopeInfo($query)
     {
-        return $query->with('department.college.band', 'department.departmentName');
+        return $query->with('department.college', 'department.departmentName');
     }
 
     /**

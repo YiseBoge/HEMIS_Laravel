@@ -27,26 +27,16 @@ class BandName extends Model
         });
 
         static::deleting(function (BandName $model) { // before delete() method call this
-            $model->band()->delete();
-            $model->collegeNames()->delete();
-            $model->users()->delete();
+            $model->departmentNames()->delete();
         });
     }
 
     /**
      * @return HasMany
      */
-    public function band()
+    public function departmentNames()
     {
-        return $this->hasMany('App\Models\Band\Band');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function collegeNames()
-    {
-        return $this->hasMany('App\Models\College\CollegeName');
+        return $this->hasMany('App\Models\Department\DepartmentName');
     }
 
     /**
@@ -63,7 +53,6 @@ class BandName extends Model
     public function isDuplicate()
     {
         return BandName::where(array(
-                'band_name' => $this->band_name,
                 'acronym' => $this->acronym,
             ))->first() != null;
     }

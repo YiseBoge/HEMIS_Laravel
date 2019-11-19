@@ -3,15 +3,11 @@
 namespace App\Http\Controllers\Institution;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
-use App\Models\Institution\CommunityService;
-use App\Models\Institution\GeneralInformation;
 use App\Models\Institution\Instance;
 use App\Models\Institution\Institution;
 use App\Models\Institution\InstitutionName;
-use App\Models\Institution\Resource;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -233,6 +229,7 @@ class InstancesController extends Controller
         $currentInstance->users()->save($user);
 
         $institutions = $oldInstance->institutions;
+        /** @var Institution $oldInstitution */
         foreach ($institutions as $oldInstitution) {
             $institutionName = $oldInstitution->institutionName;
 
@@ -246,16 +243,7 @@ class InstancesController extends Controller
                 }
             }
 
-            $generalInformation = new GeneralInformation();
-            $communityService = new CommunityService();
-            $resource = new Resource();
-
-            $generalInformation->save();
-            $communityService->save();
-            $resource->save();
-
-            $generalInformation->communityService()->associate($communityService)->save();
-            $generalInformation->resource()->associate($resource)->save();
+            $generalInformation = $oldInstitution->generalInformation;
 
             $newInstitution = new Institution();
             $newInstitution->institution_name_id = $institutionName->id;
@@ -278,44 +266,8 @@ class InstancesController extends Controller
      */
     private function transferInstitutionContents(Institution $oldInstitution, Institution $newInstitution, $exists)
     {
-        foreach ($oldInstitution->bands as $oldBand) {
-            $newBand = $this->makeBand($newInstitution, $oldBand, $exists);
-            $this->transferBandContents($oldBand, $newBand, $exists);
-        }
-    }
-
-    /**
-     * @param Institution $newInstitution
-     * @param Band $oldBand
-     * @param bool $exists
-     * @return Band|null
-     */
-    private function makeBand(Institution $newInstitution, Band $oldBand, $exists)
-    {
-        if ($exists) {
-            $model = Band::where(array(
-                'institution_id' => $newInstitution->id,
-                'band_name_id' => $oldBand->band_name_id,
-            ))->first();
-            if ($model != null) return $model;
-        }
-        $newBand = new Band();
-        $newBand->institution_id = $newInstitution->id;
-        $newBand->band_name_id = $oldBand->id;
-        $newBand->save();
-        $newBand = $newBand->fresh();
-        return $newBand;
-    }
-
-    /**
-     * @param Band $oldBand
-     * @param Band $newBand
-     * @param bool $exists
-     */
-    private function transferBandContents(Band $oldBand, Band $newBand, $exists)
-    {
-        foreach ($oldBand->colleges as $oldCollege) {
-            $newCollege = $this->makeCollege($newBand, $oldCollege, $exists);
+        foreach ($oldInstitution->colleges as $oldCollege) {
+            $newCollege = $this->makeCollege($newInstitution, $oldCollege, $exists);
             foreach ($oldCollege->buildings as $building) {
                 $building->college_id = $newCollege->id;
                 $building->save();
@@ -346,19 +298,19 @@ class InstancesController extends Controller
     }
 
     /**
-     * @param Band $newBand
+     * @param Institution $newInstitution
      * @param College $oldCollege
      * @param bool $exists
      * @return College|null
      */
-    private function makeCollege(Band $newBand, College $oldCollege, $exists)
+    private function makeCollege(Institution $newInstitution, College $oldCollege, $exists)
     {
         if ($exists) {
             $model = College::where(array(
                 'education_level' => $oldCollege->education_level,
                 'education_program' => $oldCollege->education_program,
                 'college_name_id' => $oldCollege->college_name_id,
-                'band_id' => $newBand->id,
+                'institution_id' => $newInstitution->id,
             ))->first();
             if ($model != null) return $model;
         }
@@ -366,7 +318,7 @@ class InstancesController extends Controller
         $newCollege->education_level = $oldCollege->education_level;
         $newCollege->education_program = $oldCollege->education_program;
         $newCollege->college_name_id = $oldCollege->college_name_id;
-        $newCollege->band_id = $newBand->id;
+        $newCollege->institution_id = $newInstitution->id;
         $newCollege->save();
         $newCollege = $newCollege->fresh();
         return $newCollege;

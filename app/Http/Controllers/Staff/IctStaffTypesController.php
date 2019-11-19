@@ -34,6 +34,7 @@ class IctStaffTypesController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
+
         $ictStaffTypes = IctStaffType::all();
 
         $data = array(

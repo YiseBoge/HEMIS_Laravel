@@ -8,7 +8,7 @@ A Data Collection and Report System for Universities in Ethiopia.
 
 1. **Requirements**
     * Apache php server
-    * MySql database server <= v5.7
+    * MySql database server
     * Composer package manager: [get here](https://getcomposer.org/download/).
     * Node.js: [get here](https://nodejs.org/en/download/).
 

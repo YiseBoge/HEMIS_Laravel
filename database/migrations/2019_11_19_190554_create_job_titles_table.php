@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBandsTable extends Migration
+class CreateJobTitlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateBandsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bands', function (Blueprint $table) {
+        Schema::create('job_titles', function (Blueprint $table) {
             $table->uuid('id');
+            $table->string('job_title');
+            $table->string('staff_type');
+            $table->string('level')->default("Level 1");
             $table->timestamps();
 
             $table->primary('id');
-            $table->uuid('band_name_id')->nullable();
-
-            $table->uuid('institution_id')->nullable();
-
         });
     }
 
@@ -32,6 +31,6 @@ class CreateBandsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bands');
+        Schema::dropIfExists('job_titles');
     }
 }

@@ -113,63 +113,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row mt-4">
-                        <div class="col-md-3">
-                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Band</div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text bg-white border-0"><i
-                                                class="text-gray-400 float-right far fa-edit "></i></span>
-                                </div>
-                                <select class="form-control form-control-plaintext" name="band">
-                                    @foreach ($bands as $band)
-                                        @if ($band->band_name == $student->department->college->band->bandName->band_name)
-                                            <option selected value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                        @else
-                                            <option value="{{$band->band_name}}">{{$band->band_name}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">College</div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                <span class="input-group-text bg-white border-0"><i
-                                            class="text-gray-400 float-right far fa-edit "></i></span>
-                                </div>
-                                <select class="form-control form-control-plaintext" name="college">
-                                    @foreach ($colleges as $college)
-                                        @if ($college->college_name == $student->department->college->college_name)
-                                            <option selected
-                                                    value="{{$college->college_name}}">{{$college->college_name}}</option>
-                                        @else
-                                            <option value="{{$college->college_name}}">{{$college->college_name}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Department</div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text bg-white border-0"><i
-                                                class="text-gray-400 float-right far fa-edit "></i></span>
-                                </div>
-                                <select class="form-control form-control-plaintext" name="department">
-                                    @foreach ($departments as $department)
-                                        @if ($department->department_name == $student->department->departmentName->department_name)
-                                            <option selected
-                                                    value="{{$department->department_name}}">{{$department->department_name}}</option>
-                                        @else
-                                            <option value="{{$department->department_name}}">{{$department->department_name}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Program</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -187,10 +131,7 @@
                                 </select>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Education Level
                             </div>
                             <div class="input-group mb-3">
@@ -209,7 +150,9 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Year Level</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -227,7 +170,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Disability</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -245,7 +188,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Student Type
                             </div>
                             <div class="input-group mb-3">

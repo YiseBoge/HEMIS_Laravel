@@ -9,7 +9,6 @@ use App\Models\Department\DepartmentName;
 use App\Models\Department\Enrollment;
 use App\Models\Institution\AgeEnrollment;
 use App\Models\Institution\InstitutionName;
-use App\Models\Staff\Staff;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -54,7 +53,7 @@ class HomeController extends Controller
                 "page_name" => 'dashboard.dashboard.index',
             );
             return view('home')->with($data);
-        } else if($user->hasRole('University Admin')){
+        } else if ($user->hasRole('University Admin')) {
             $institution = $user->institution();
             $generalInformation = $institution->generalInformation;
             $institutionName = $user->institutionName;
@@ -68,61 +67,58 @@ class HomeController extends Controller
             );
 
             return view('home')->with($data);
-        }else if($user->hasRole('College Super Admin') || $user->hasRole('College Admin')){
-            $institution = $user->institution();
+        } else if ($user->hasRole('College Super Admin') || $user->hasRole('College Admin')) {
             $collegeName = $user->collegeName;
             $students_number = 0;
             $staff_number = 0;
             $teachers_number = 0;
-            foreach($collegeName->college as $college){
-                foreach($college->departments as $department){
-                    foreach($department->enrollmentsApproved as $enrollment){
+            foreach ($collegeName->college as $college) {
+                foreach ($college->departments as $department) {
+                    foreach ($department->enrollmentsApproved as $enrollment) {
                         $students_number += $enrollment->male_students_number + $enrollment->female_students_number;
                     }
-                    foreach($department->teachersApproved as $teacher){
+                    foreach ($department->teachersApproved as $teacher) {
                         $teachers_number += $teacher->male_number + $teacher->female_number;
                     }
                     $staff_number += $department->academicStaffs->count();
                 }
                 $staff_number += $college->administrativeStaffs->count();
-                $staff_number += $college->ictStaffs->count();
-                $staff_number += $college->managementStaffs->count();
-                $staff_number += $college->technicalStaffs->count();
+                
             }
 
             $data = array(
                 "name" => $collegeName,
-                "titles" => ["Number of Departments", "NUmber of Students", 
+                "titles" => ["Number of Departments", "NUmber of Students",
                     "Number of staff", "Number of Teachers"],
                 "data" => [$collegeName->departmentNames->count(), $students_number,
-                $staff_number, $teachers_number],
+                    $staff_number, $teachers_number],
                 "page_name" => 'dashboard.dashboard.index',
             );
 
             return view('home')->with($data);
-        }else{
+        } else {
             $institution = $user->institution();
             $departmentName = $user->departmentName;
             $students_number = 0;
             $staff_number = 0;
             $teachers_number = 0;
             $researches_number = 0;
-            foreach($departmentName->department as $department){
-                foreach($department->enrollmentsApproved as $enrollment){
+            foreach ($departmentName->department as $department) {
+                foreach ($department->enrollmentsApproved as $enrollment) {
                     $students_number += $enrollment->male_students_number + $enrollment->female_students_number;
                 }
-                foreach($department->teachersApproved as $teacher){
+                foreach ($department->teachersApproved as $teacher) {
                     $teachers_number += $teacher->male_number + $teacher->female_number;
                 }
-                foreach($department->researchesApproved as $research){
+                foreach ($department->researchesApproved as $research) {
                     $researches_number += $research->number;
                 }
                 $staff_number += $department->academicStaffs->count();
-            }           
+            }
 
             $data = array(
                 "name" => $departmentName,
-                "titles" => ["Number of Students", "Number of staff", 
+                "titles" => ["Number of Students", "Number of staff",
                     "Number of Teachers", "Number of Researches"],
                 "data" => [$students_number, $staff_number, $teachers_number, $researches_number],
                 "page_name" => 'dashboard.dashboard.index',
@@ -188,68 +184,51 @@ class HomeController extends Controller
         if (Auth::user() == null || Auth::user()->hasRole('Super Admin')) {
             foreach ($year_levels as $year) {
                 $yearEnrollment = 0;
-                foreach (Enrollment::where('approval_status', 'Approved') as $enrollment) {
-                    if ($enrollment->department->year_level == $year) {
+                foreach (Enrollment::where('approval_status', 'Approved') as $enrollment)
+                    if ($enrollment->department->year_level == $year)
                         $yearEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
-                    }
-                }
                 $enrollments[] = $yearEnrollment;
-
             }
 
-        } else if(Auth::user()->hasRole('University Admin')){
+        } else if (Auth::user()->hasRole('University Admin')) {
             $user = Auth::user();
             $institution = $user->institution();
 
             foreach ($year_levels as $year) {
                 $yearEnrollment = 0;
-                foreach ($institution->bands as $band) {
-                    foreach ($band->colleges as $college) {
-                        foreach ($college->departments as $department) {
-                            if ($department->year_level == $year) {
-                                foreach ($department->enrollmentsApproved as $enrollment) {
-                                    $yearEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
-                                }
-                            }
-                        }
-                    }
-                }
+                foreach ($institution->colleges as $college)
+                    foreach ($college->departments as $department)
+                        if ($department->year_level == $year)
+                            foreach ($department->enrollmentsApproved as $enrollment)
+                                $yearEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
+
                 $enrollments[] = $yearEnrollment;
             }
-        }else if(Auth::user()->hasRole('College Super Admin') || Auth::user()->hasRole('College Admin')){
+        } else if (Auth::user()->hasRole('College Super Admin') || Auth::user()->hasRole('College Admin')) {
             $user = Auth::user();
-            $institution = $user->institution();
             $collegeName = $user->collegeName;
 
             foreach ($year_levels as $year) {
                 $yearEnrollment = 0;
-                    foreach ($collegeName->college as $college) {
-                        foreach ($college->departments as $department) {
-                            if ($department->year_level == $year) {
-                                foreach ($department->enrollmentsApproved as $enrollment) {
-                                    $yearEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
-                                }
-                            }
-                        }
-                    }
-                
+                foreach ($collegeName->college as $college)
+                    foreach ($college->departments as $department)
+                        if ($department->year_level == $year)
+                            foreach ($department->enrollmentsApproved as $enrollment)
+                                $yearEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
+
                 $enrollments[] = $yearEnrollment;
             }
-        }else {
+        } else {
             $user = Auth::user();
-            $institution = $user->institution();
             $departmentName = $user->departmentName;
 
             foreach ($year_levels as $year) {
                 $yearEnrollment = 0;
-                    foreach ($departmentName->department as $department) {
-                        if ($department->year_level == $year) {
-                            foreach ($department->enrollmentsApproved as $enrollment) {
-                                $yearEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
-                            }
-                        }
-                    }                    
-                
+                foreach ($departmentName->department as $department)
+                    if ($department->year_level == $year)
+                        foreach ($department->enrollmentsApproved as $enrollment)
+                            $yearEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
+
                 $enrollments[] = $yearEnrollment;
             }
         }
@@ -271,43 +250,34 @@ class HomeController extends Controller
         $enrollments = array();
 
         if (Auth::user()->hasRole('Super Admin')) {
-            foreach (AgeEnrollment::where('approval_status', 'Approved') as $enrollment) {
+            foreach (AgeEnrollment::where('approval_status', 'Approved') as $enrollment)
                 $enrollments[] = $enrollment->male_students_number + $enrollment->female_students_number;
-            }
-        } else if(Auth::user()->hasRole('College Super Admin') || Auth::user()->hasRole('College Admin')){
+
+        } else if (Auth::user()->hasRole('College Super Admin') || Auth::user()->hasRole('College Admin')) {
             $user = Auth::user();
-            $institution = $user->institution();
             $collegeName = $user->collegeName;
 
             foreach ($ages as $age) {
                 $ageEnrollment = 0;
-                foreach ($collegeName->college as $college) {
-                    foreach ($college->departments as $department) {
-                        foreach ($department->ageEnrollmentsApproved as $enrollment) {
-                            if ($enrollment->age == $age) {
+                foreach ($collegeName->college as $college)
+                    foreach ($college->departments as $department)
+                        foreach ($department->ageEnrollmentsApproved as $enrollment)
+                            if ($enrollment->age == $age)
                                 $ageEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
-                            }
-                        }
-                    }
-                }
-                
+
                 $enrollments[] = $ageEnrollment;
             }
-        }else { 
+        } else {
             $user = Auth::user();
-            $institution = $user->institution();
             $departmentName = $user->departmentName;
 
             foreach ($ages as $age) {
                 $ageEnrollment = 0;
-                foreach ($departmentName->department as $department) {
-                    foreach ($department->ageEnrollmentsApproved as $enrollment) {
-                        if ($enrollment->age == $age) {
+                foreach ($departmentName->department as $department)
+                    foreach ($department->ageEnrollmentsApproved as $enrollment)
+                        if ($enrollment->age == $age)
                             $ageEnrollment += ($enrollment->male_students_number + $enrollment->female_students_number);
-                        }
-                    }
-                }
-                
+
                 $enrollments[] = $ageEnrollment;
             }
         }

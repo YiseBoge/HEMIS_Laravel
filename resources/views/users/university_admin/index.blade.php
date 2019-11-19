@@ -9,6 +9,9 @@
             <div class="card-body">
                 <div class="row my-3">
                     <div class="col text-right">
+                        <a class="btn btn-primary btn-sm mb-0 mx-2 shadow-sm" href="/university-admin/generate">Auto
+                            Generate<i
+                                    class="fas fa-magic text-white-50 fa-sm ml-2"></i></a>
                         <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/university-admin/create">New Entry<i
                                     class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
                     </div>
@@ -37,6 +40,10 @@
                                     colspan="1" aria-label="Acronym: activate to sort column ascending"
                                 >Email
                                 </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1" aria-label="Acronym: activate to sort column ascending"
+                                >Read Only
+                                </th>
 
                             </tr>
                             </thead>
@@ -45,6 +52,19 @@
                                 <tr>
                                     <td class="text-center">
                                         <div class="row px-1">
+                                                <div class="col px-0">
+                                                    <form class="p-0"
+                                                            action="/university-admin/{{$editor->id}}/edit"
+                                                            method="GET">
+                                                        <button type="submit"
+                                                                class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                                style="opacity:0.80"
+                                                                data-toggle="tooltip" title="Edit">
+                                                            <i class="fas fa-pencil-alt fa-sm"
+                                                                style="opacity:0.75"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             <div class="col px-0">
                                                 <button type="submit"
                                                         class="btn btn-danger btn-circle text-white btn-sm mx-0 deleter"
@@ -59,6 +79,11 @@
                                     <td>{{ $editor->name }}</td>
                                     <td>{{ $editor->institution() }}</td>
                                     <td>{{ $editor->email }}</td>
+                                    <td class="text-center">
+                                        @if ($editor->read_only)
+                                            <span class="badge badge-pill badge-secondary"> Yes </span>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

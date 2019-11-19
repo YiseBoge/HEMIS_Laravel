@@ -211,6 +211,14 @@ class Department extends Model
     /**
      * @return HasMany
      */
+    public function technicalStaffs()
+    {
+        return $this->hasMany('App\Models\Staff\TechnicalStaff');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function postgraduateDiplomaTrainings()
     {
         return $this->hasMany('App\Models\Department\PostGraduateDiplomaTraining');

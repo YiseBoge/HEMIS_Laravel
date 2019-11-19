@@ -5,9 +5,12 @@ namespace App\Models\Department;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Webpatser\Uuid\Uuid;
 
+/**
+ * @property string|null sponsor_type
+ * @property int male_number
+ * @property int female_number
+ */
 class QualifiedInternship extends Model
 {
     use Uuids;
@@ -27,7 +30,7 @@ class QualifiedInternship extends Model
 
     public function scopeInfo($query)
     {
-        return $query->with('department.college.band', 'department.departmentName');
+        return $query->with('department.college', 'department.departmentName');
     }
 
     /**

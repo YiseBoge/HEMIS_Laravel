@@ -480,6 +480,7 @@ class GenerateReportsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles('University Admin');
+        if ($user->read_only) return redirect("/institution/general");
         $year = $user->currentInstance->year;
         $institution_name = $user->institutionName;
 

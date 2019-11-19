@@ -16,7 +16,7 @@
                                 <input type="hidden" name="department"
                                        value="{{$selected_department}}">
                                 <button type="submit"
-                                        class="btn btn-sm btn-primary shadow-sm">
+                                        class="btn btn-sm btn-primary shadow-sm" {{count($attritions) == 0 ? 'disabled' : ''}}>
                                     Approve All Pending in Selected Department<i
                                             class="fas fa-check text-white-50 ml-2 fa-sm"></i>
                                 </button>
@@ -218,7 +218,7 @@
                                         <td>{{$attrition->case}}</td>
                                     @else
                                         <td class="text-center">
-                                            @if($attrition->approval_status != "Approved")
+                                            @if(!in_array($attrition->approval_status, ["Approved", "College Approved"]))
                                                 <div class="row px-1">
                                                     <div class="col px-0">
                                                         <form class="p-0"

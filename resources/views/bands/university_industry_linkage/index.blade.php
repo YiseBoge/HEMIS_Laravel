@@ -14,7 +14,7 @@
                                 @csrf
                                 <input type="hidden" name="action" value="approveAll">
                                 <button type="submit"
-                                        class="btn btn-sm btn-primary shadow-sm">
+                                        class="btn btn-sm btn-primary shadow-sm" {{count($linkages) == 0 ? 'disabled' : ''}}>
                                     Approve All Pending<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
                                 </button>
                             </form>
@@ -83,7 +83,7 @@
                                                 </form>
                                             @endif
                                         @else
-                                            @if($linkage->approval_status != "Approved")
+                                            @if(!in_array($linkage->approval_status, ["Approved", "College Approved"]))
                                                 <div class="row px-0">
                                                     <div class="col px-0">
                                                         <form class="p-0"
@@ -117,13 +117,20 @@
                                     <td>{{ $linkage->number_of_students }}</td>
                                     @if($linkage->approval_status == "Approved")
                                         <td class="text-success"><i
-                                                    class="fas fa-check"></i> {{$linkage->approval_status}}</td>
+                                                    class="fas fa-check-double"></i> {{$linkage->approval_status}}
+                                        </td>
+                                    @elseif($linkage->approval_status == "College Approved")
+                                        <td class="text-primary"><i
+                                                    class="fas fa-check"></i> {{$linkage->approval_status}}
+                                        </td>
                                     @elseif($linkage->approval_status == "Pending")
                                         <td class="text-warning"><i
-                                                    class="far fa-clock"></i></i> {{$linkage->approval_status}}</td>
+                                                    class="far fa-clock"></i></i> {{$linkage->approval_status}}
+                                        </td>
                                     @else
                                         <td class="text-danger"><i
-                                                    class="fas fa-times"></i> {{$linkage->approval_status}}</td>
+                                                    class="fas fa-times"></i> {{$linkage->approval_status}}
+                                        </td>
                                     @endif
                                 </tr>
                             @endforeach

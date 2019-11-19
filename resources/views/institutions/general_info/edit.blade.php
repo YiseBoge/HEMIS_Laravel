@@ -15,6 +15,21 @@
             <div class="card-body p-4">
                 <div class="row mb-2">
                     <div class="form-group col-md">
+                        {{ Form::number('board_members', $institution->generalInformation->board_members, ['class'=>'form-control', 'id'=>'edit_board_members', 'required' => 'true']) }}
+                        {{ Form::label('edit_board_members', 'Board Members', ['class' => 'form-control-placeholder']) }}
+                    </div>
+                    <div class="form-group col-md">
+                        {{ Form::number('vice_presidents', $institution->generalInformation->vice_presidents, ['class'=>'form-control', 'id'=>'edit_vice_presidents', 'required' => 'true']) }}
+                        {{ Form::label('edit_vice_presidents', 'Vice Presidents', ['class' => 'form-control-placeholder']) }}
+                    </div>
+                    <div class="form-group col-md">
+                        {{ Form::number('middle_level_leaders', $institution->generalInformation->middle_level_leaders, ['class'=>'form-control', 'id'=>'edit_middle_level_leaders', 'required' => 'true']) }}
+                        {{ Form::label('edit_middle_level_leaders', 'Middle Level Leaders', ['class' => 'form-control-placeholder']) }}
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="form-group col-md">
                         {{ Form::number('campuses', $institution->generalInformation->campuses, ['class'=>'form-control', 'id'=>'edit_campuses', 'required' => 'true']) }}
                         {{ Form::label('edit_campuses', 'Campuses', ['class' => 'form-control-placeholder']) }}
                     </div>
@@ -35,19 +50,26 @@
                     </div>
                 </div>
 
-                <div class="row mb-2">
+                 <div class="row mb-2">
                     <div class="form-group col-md">
-                        {{ Form::number('board_members', $institution->generalInformation->board_members, ['class'=>'form-control', 'id'=>'edit_board_members', 'required' => 'true']) }}
-                        {{ Form::label('edit_board_members', 'Board Members', ['class' => 'form-control-placeholder']) }}
+                        {{ Form::number('centers', $institution->generalInformation->centers, ['class'=>'form-control', 'id'=>'edit_centers', 'required' => 'true']) }}
+                        {{ Form::label('edit_centers', 'Centers', ['class' => 'form-control-placeholder']) }}
                     </div>
+
                     <div class="form-group col-md">
-                        {{ Form::number('vice_presidents', $institution->generalInformation->vice_presidents, ['class'=>'form-control', 'id'=>'edit_vice_presidents', 'required' => 'true']) }}
-                        {{ Form::label('edit_vice_presidents', 'Vice Presidents', ['class' => 'form-control-placeholder']) }}
+                        {!! Form::number('faculties', $institution->generalInformation->faculties, ['class'=>'form-control', 'id'=>'edit_faculties', 'required' => 'true']) !!}
+                        {!! Form::label('edit_faculties', 'Faculties', ['class' => 'form-control-placeholder']) !!}
                     </div>
+
                     <div class="form-group col-md">
-                        {{ Form::number('middle_level_leaders', $institution->generalInformation->middle_level_leaders, ['class'=>'form-control', 'id'=>'edit_middle_level_leaders', 'required' => 'true']) }}
-                        {{ Form::label('edit_middle_level_leaders', 'Middle Level Leaders', ['class' => 'form-control-placeholder']) }}
+                        {!! Form::number('departments', $institution->generalInformation->departments, ['class'=>'form-control', 'id'=>'edit_departments', 'required' => 'true']) !!}
+                        {!! Form::label('edit_departments', 'Departments', ['class' => 'form-control-placeholder']) !!}
                     </div>
+                     <div class="form-group col-md">
+                         {{ Form::number('hospitals', $institution->generalInformation->hospitals, ['class'=>'form-control', 'id'=>'edit_hospitals', 'required' => 'true']) }}
+                         {{ Form::label('edit_hospitals', 'Hospitals', ['class' => 'form-control-placeholder']) }}
+                     </div>
+
                 </div>
             </div>
         </fieldset>
@@ -186,20 +208,20 @@
 
                 <div class="row mt-4">
 
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         {{ Form::number('number_of_classrooms', $institution->generalInformation->resource->number_of_classrooms, ['class'=>'form-control', 'id'=>'edit_number_of_classrooms', 'required' => 'true']) }}
                         {{ Form::label('edit_number_of_classrooms', 'Classrooms', ['class' => 'form-control-placeholder']) }}
                     </div>
 
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         {{ Form::number('number_of_smart_classrooms', $institution->generalInformation->resource->number_of_smart_classrooms, ['class'=>'form-control', 'id'=>'edit_number_of_smart_classrooms', 'required' => 'true']) }}
                         {{ Form::label('edit_number_of_smart_classrooms', 'Smart Classrooms', ['class' => 'form-control-placeholder']) }}
                     </div>
 
-                    <div class="form-group col-md-4">
-                        {{ Form::number('unjustifiable_expenses', $institution->generalInformation->resource->unjustifiable_expenses, ['class'=>'form-control', 'id'=>'edit_unjustifiable_expenses', 'required' => 'true']) }}
-                        {{ Form::label('edit_unjustifiable_expenses', 'Improperly Utilized Funds', ['class' => 'form-control-placeholder']) }}
-                    </div>
+                    {{--                    <div class="form-group col-md-4">--}}
+                    {{--                        {{ Form::number('unjustifiable_expenses', $institution->generalInformation->resource->unjustifiable_expenses, ['class'=>'form-control', 'id'=>'edit_unjustifiable_expenses', 'required' => 'true']) }}--}}
+                    {{--                        {{ Form::label('edit_unjustifiable_expenses', 'Improperly Utilized Funds', ['class' => 'form-control-placeholder']) }}--}}
+                    {{--                    </div>--}}
                 </div>
 
                 <div class="row mb-2">

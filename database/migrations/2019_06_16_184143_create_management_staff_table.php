@@ -24,6 +24,8 @@ class CreateManagementStaffTable extends Migration
             $table->primary('id');
 
             $table->uuid('college_id');
+            $table->uuid('job_title_id');
+            $table->uuid('staff_id');
         });
     }
 

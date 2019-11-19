@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\College\Investment;
 use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -39,20 +39,11 @@ class InvestmentsController extends Controller
         $collegeName = $user->collegeName;
 
         $investments = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->investments as $investment) {
-                            $investments[] = $investment;
-                        }
-                    }
-                }
-            }
-        } else {
-            $investments = Investment::all();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->investments as $investment)
+                    $investments[] = $investment;
 
         $data = array(
             'investments' => $investments,
@@ -77,20 +68,11 @@ class InvestmentsController extends Controller
         $collegeName = $user->collegeName;
 
         $investments = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->investments as $investment) {
-                            $investments[] = $investment;
-                        }
-                    }
-                }
-            }
-        } else {
-            $investments = Investment::all();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->investments as $investment)
+                    $investments[] = $investment;
 
         $data = array(
             'investments' => $investments,
@@ -116,36 +98,17 @@ class InvestmentsController extends Controller
             'investment_title' => 'required',
             'cost_incurred' => 'required|numeric|between:0,1000000000',
         ]);
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+        $institution = $user->institution();
+        $collegeName = $user->collegeName;
+
+        $college = HierarchyService::getCollege($institution, $collegeName, 'None', 'None');
 
         $investment = new Investment();
         $investment->investment_title = $request->input('investment_title');
         $investment->cost_incurred = $request->input('cost_incurred');
         $investment->remarks = $request->input('remarks');
-
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => 'None', 'education_program' => 'None'])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = 'None';
-            $college->education_program = "None";
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
 
         $investment->college_id = $college->id;
 
@@ -189,20 +152,11 @@ class InvestmentsController extends Controller
         $collegeName = $user->collegeName;
 
         $investments = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->investments as $investment) {
-                            $investments[] = $investment;
-                        }
-                    }
-                }
-            }
-        } else {
-            $investments = Investment::all();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->investments as $investment)
+                    $investments[] = $investment;
 
         $data = array(
             'investments' => $investments,
@@ -239,6 +193,7 @@ class InvestmentsController extends Controller
         $investment->investment_title = $request->input('investment_title');
         $investment->cost_incurred = $request->input('cost_incurred');
         $investment->remarks = $request->input('remarks');
+        $investment->approval_status = "Pending";
 
         $investment->save();
 
@@ -274,18 +229,10 @@ class InvestmentsController extends Controller
         } else {
             $institution = $user->institution();
 
-            if ($institution != null) {
-                foreach ($institution->bands as $band) {
-                    if ($band->bandName->band_name == $user->bandName->band_name) {
-                        foreach ($band->colleges as $college) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                ApprovalService::approveData($college->investments);
-                            }
-                        }
-                    }
+            foreach ($institution->colleges as $college) {
+                if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                    ApprovalService::approveData($college->investments);
                 }
-            } else {
-
             }
         }
         return redirect("/budgets/private-investment")->with('primary', 'Success');

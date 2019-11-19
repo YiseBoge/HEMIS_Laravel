@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
 use App\Models\College\Budget;
 use App\Models\College\BudgetDescription;
 use App\Models\College\College;
 use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -30,49 +30,27 @@ class BudgetsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $requestedType = $request->input('budget_type');
-        if ($requestedType == null) {
-            $requestedType = 'CAPITAL';
-        }
-        $budget_type = Budget::getEnum('budget_type')[$requestedType];
-
-
         $user = Auth::user();
         $user->authorizeRoles(['College Admin', 'College Super Admin']);
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
+        $budget_type = Budget::getEnum('budget_type')[$requestedType = request()->query('budget_type', 'CAPITAL')];
+
         $budgets = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($user->hasRole('College Super Admin')) {
-                        if ($college->collegeName->id == $collegeName->id) {
-                            foreach ($college->budgets as $budget) {
-                                $budgets[] = $budget;
-                            }
-                        }
-                    } else {
-                        if ($college->collegeName->id == $collegeName->id) {
-                            foreach ($college->budgets as $budget) {
-                                if ($budget->budget_type == $budget_type) {
-                                    $budgets[] = $budget;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $budgets = Budget::where('budget_type', $budget_type)->get();
-        }
-
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                if ($user->hasRole('College Super Admin'))
+                    foreach ($college->budgets as $budget)
+                        $budgets[] = $budget;
+                else
+                    foreach ($college->budgets()->where('budget_type', $budget_type)->get() as $budget)
+                        $budgets[] = $budget;
 
         $data = [
             'budget_type' => $requestedType,
@@ -98,22 +76,15 @@ class BudgetsController extends Controller
         $collegeName = $user->collegeName;
 
         $budgets = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->budgets as $budget) {
-                            if ($budget->budget_type == $budget_type) {
-                                $budgets[] = $budget;
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $budgets = Budget::where('budget_type', $budget_type)->get();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                if ($user->hasRole('College Super Admin'))
+                    foreach ($college->budgets as $adminStaff)
+                        $adminStaffs[] = $adminStaff;
+                else
+                    foreach ($college->budgets()->where('budget_type', $budget_type) as $adminStaff)
+                        $adminStaffs[] = $adminStaff;
 
         $data = [
             'budget_type' => 'CAPITAL',
@@ -144,40 +115,19 @@ class BudgetsController extends Controller
             'additional' => 'required|numeric|between:1,1000000000',
             'utilized' => 'required|numeric|between:1,1000000000',
         ]);
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+        $institution = $user->institution();
+        $collegeName = $user->collegeName;
 
+        $college = HierarchyService::getCollege($institution, $collegeName, 'None', 'None');
         $exampleDescription = BudgetDescription::all()[$request->input('budget_description')];
 
         $budget = new Budget();
-
         $budget->budget_type = $request->input('budget_type');
         $budget->allocated_budget = $request->input('allocated');
         $budget->additional_budget = $request->input('additional');
         $budget->utilized_budget = $request->input('utilized');
-
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => 'None', 'education_program' => 'None'])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = 'None';
-            $college->education_program = "None";
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
 
         $budget->college_id = $college->id;
         $budget->budget_description_id = $exampleDescription->id;
@@ -220,21 +170,15 @@ class BudgetsController extends Controller
         $collegeName = $user->collegeName;
 
         $budgets = array();
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->budgets as $budget) {
-                            if ($budget->budget_type == $budget_type) {
-                                $budgets[] = $budget;
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $budgets = Budget::where('budget_type', $budget_type)->get();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                if ($user->hasRole('College Super Admin'))
+                    foreach ($college->budgets as $budget)
+                        $budgets[] = $budget;
+                else
+                    foreach ($college->budgets()->where('budget_type', $budget_type) as $budget)
+                        $budgets[] = $budget;
 
         $budgetDescriptions = [];
         foreach (BudgetDescription::all() as $description) {
@@ -242,9 +186,8 @@ class BudgetsController extends Controller
         }
         $budgetDescription = Budget::getValueKey($budgetDescriptions, $budget->budgetDescription);
 
-
         $data = array(
-            'budget' => $budget,
+            'selected_budget' => $budget,
             'budget_type' => $budget_type,
             'budget_types' => Budget::getEnum('budget_type'),
             'budgets' => $budgets,
@@ -282,6 +225,7 @@ class BudgetsController extends Controller
         $budget->allocated_budget = $request->input('allocated');
         $budget->additional_budget = $request->input('additional');
         $budget->utilized_budget = $request->input('utilized');
+        $budget->approval_status = "Pending";
 
         $budget->save();
 
@@ -319,18 +263,10 @@ class BudgetsController extends Controller
         } else {
             $institution = $user->institution();
 
-            if ($institution != null) {
-                foreach ($institution->bands as $band) {
-                    if ($band->bandName->band_name == $user->bandName->band_name) {
-                        foreach ($band->colleges as $college) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                ApprovalService::approveData($college->budgets);
-                            }
-                        }
-                    }
+            foreach ($institution->colleges as $college) {
+                if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                    ApprovalService::approveData($college->budgets);
                 }
-            } else {
-
             }
         }
         return redirect("/budgets/budget")->with('primary', 'Success');

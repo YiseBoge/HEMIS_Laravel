@@ -31,11 +31,9 @@ class InstitutionService
     private function __colleges()
     {
         $colleges = array();
-        foreach ($this->institution->bands as $band) {
-            foreach ($band->colleges as $college) {
+        foreach ($this->institution->colleges as $college) {
                 array_push($colleges, $college);
             }
-        }
         return $colleges;
     }
 
@@ -46,17 +44,11 @@ class InstitutionService
     private function __stemDepartments($educationLevel)
     {
         $departments = array();
-        foreach ($this->institution->bands as $band) {
-            if (array_search($band->bandName->acronym, $this->stemBands)) {
-                foreach ($band->colleges as $college) {
-                    if ($college->education_level == $educationLevel) {
-                        foreach ($college->departments as $department) {
-                            array_push($departments, $department);
-                        }
-                    }
-                }
-            }
-        }
+        foreach ($this->institution->colleges as $college)
+            if ($college->education_level == $educationLevel)
+                foreach ($college->departments as $department)
+                    if (array_search($department->departmentName->bandName->acronym, $this->stemBands))
+                        array_push($departments, $department);
         return $departments;
     }
 
@@ -98,16 +90,14 @@ class InstitutionService
     function __departmentsByEducationLevel($educationLevel)
     {
         $departments = array();
-        foreach ($this->institution->bands as $band) {
-            foreach ($band->colleges as $college) {
-                if ($educationLevel == 'All') {
-                    foreach ($college->departments as $department) {
-                        array_push($departments, $department);
-                    }
-                } else if ($college->education_level == $educationLevel) {
-                    foreach ($college->departments as $department) {
-                        array_push($departments, $department);
-                    }
+        foreach ($this->institution->colleges as $college) {
+            if ($educationLevel == 'All') {
+                foreach ($college->departments as $department) {
+                    array_push($departments, $department);
+                }
+            } else if ($college->education_level == $educationLevel) {
+                foreach ($college->departments as $department) {
+                    array_push($departments, $department);
                 }
             }
         }
@@ -216,11 +206,9 @@ class InstitutionService
     function departments()
     {
         $departments = array();
-        foreach ($this->institution->bands as $band) {
-            foreach ($band->colleges as $college) {
-                foreach ($college->departments as $department) {
-                    array_push($departments, $department);
-                }
+        foreach ($this->institution->colleges as $college) {
+            foreach ($college->departments as $department) {
+                array_push($departments, $department);
             }
         }
         return $departments;
@@ -296,11 +284,9 @@ class InstitutionService
     function allDepartments()
     {
         $departments = array();
-        foreach ($this->institution->bands as $band) {
-            foreach ($band->colleges as $college) {
-                foreach ($college->departments as $department) {
-                    array_push($departments, $department);
-                }
+        foreach ($this->institution->colleges as $college) {
+            foreach ($college->departments as $department) {
+                array_push($departments, $department);
             }
         }
         return $departments;
@@ -399,20 +385,17 @@ class InstitutionService
     function totalBudget()
     {
         $total = 0;
-        foreach ($this->institution->bands as $band) {
-            foreach ($band->colleges as $college) {
-                foreach ($college->internalRevenuesApproved as $budget) {
-                    $total += $budget->income;
-                }
-                foreach ($college->investmentsApproved as $budget) {
-                    $total += $budget->cost_incurred;
-                }
-                foreach ($college->budgetsApproved as $budget) {
-                    $total += $budget->allocated_budget + $budget->additional_budget;
-                }
+        foreach ($this->institution->colleges as $college) {
+            foreach ($college->internalRevenuesApproved as $budget) {
+                $total += $budget->income;
+            }
+            foreach ($college->investmentsApproved as $budget) {
+                $total += $budget->cost_incurred;
+            }
+            foreach ($college->budgetsApproved as $budget) {
+                $total += $budget->allocated_budget + $budget->additional_budget;
             }
         }
-
         return $total;
     }
 
@@ -423,11 +406,9 @@ class InstitutionService
     function budgetByType($type)
     {
         $total = 0;
-        foreach ($this->institution->bands as $band) {
-            foreach ($band->colleges as $college) {
-                foreach ($college->budgetsApproved()->where('budget_type', $type)->get() as $budget) {
-                    $total += $budget->allocated_budget + $budget->additional_budget;
-                }
+        foreach ($this->institution->colleges as $college) {
+            foreach ($college->budgetsApproved()->where('budget_type', $type)->get() as $budget) {
+                $total += $budget->allocated_budget + $budget->additional_budget;
             }
         }
 
@@ -440,18 +421,14 @@ class InstitutionService
     function budgetNotFromGovernment()
     {
         $total = 0;
-        // die ($this->institution);
-        foreach ($this->institution->bands as $band) {
-            foreach ($band->colleges as $college) {
-                foreach ($college->internalRevenuesApproved as $budget) {
-                    $total += $budget->income;
-                }
-                foreach ($college->investmentsApproved as $budget) {
-                    $total += $budget->cost_incurred;
-                }
+        foreach ($this->institution->colleges as $college) {
+            foreach ($college->internalRevenuesApproved as $budget) {
+                $total += $budget->income;
+            }
+            foreach ($college->investmentsApproved as $budget) {
+                $total += $budget->cost_incurred;
             }
         }
-
         return $total;
     }
 
@@ -596,10 +573,8 @@ class InstitutionService
     function colleges()
     {
         $colleges = array();
-        foreach ($this->institution->bands as $band) {
-            foreach ($band->colleges as $college) {
-                array_push($colleges, $college);
-            }
+        foreach ($this->institution->colleges as $college) {
+            array_push($colleges, $college);
         }
         return $colleges;
     }

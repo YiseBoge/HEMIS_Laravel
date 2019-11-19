@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
-use App\Models\Band\BandName;
 use App\Models\College\College;
 use App\Models\Department\Department;
-use App\Models\Department\DepartmentName;
 use App\Models\Department\StudentAttrition;
 use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -32,85 +30,39 @@ class StudentAttritionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
-        $requestedProgram = $request->input('program');
-        if ($requestedProgram == null) {
-            $requestedProgram = 'Regular';
-        }
+        $requestedProgram = request()->query('program', 'Regular');
+        $requestedLevel = request()->query('education_level', 'Undergraduate');
+        $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
+        $requestedType = request()->query('type', 'CET');
+        $requestedCase = request()->query('case', 'Academic Dismissals With Readmission');
+        $requestedStudentType = request()->query('student_type', 'All');
 
-        $requestedStudentType = $request->input('student_type');
-        if ($requestedStudentType == null) {
-            $requestedStudentType = 'All';
-        }
-
-        $requestedType = $request->input('type');
-        if ($requestedType == null) {
-            $requestedType = 'CET';
-        }
-
-        $requestedCase = $request->input('case');
-        if ($requestedCase == null) {
-            $requestedCase = 'Academic Dismissals With Readmission';
-        }
-
-        $requestedLevel = $request->input('education_level');
-        if ($requestedLevel == null) {
-            $requestedLevel = 'Undergraduate';
-        }
-
-
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
-        }
-
-        $attritions = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($user->hasRole('College Super Admin')) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                            foreach ($college->departments as $department) {
-                                if ($department->departmentName->id == $requestedDepartment) {
-                                    foreach ($department->studentAttritions as $attrition) {
-                                        $attritions[] = $attrition;
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        if ($college->education_program == $requestedProgram && $college->education_level == $requestedLevel) {
-                            foreach ($college->departments as $department) {
-                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                    foreach ($department->studentAttritions as $attrition) {
-                                        if ($attrition->type == $requestedType && $attrition->case == $requestedCase && $attrition->student_type == $requestedStudentType) {
-                                            $attritions[] = $attrition;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-            }
-        } else {
-            $attritions = StudentAttrition::with('band')->get();
+        $attrition = array();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
+                    foreach ($department->studentAttritions as $attr)
+                        $attrition[] = $attr;
+            } else
+                if ($college->education_level == $requestedLevel && $college->education_program == $requestedProgram)
+                    foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                        foreach ($department->studentAttritions()->where(['student_type' => $requestedStudentType,
+                            'type' => $requestedType, 'case' => $requestedCase])->get() as $attr)
+                            $attrition[] = $attr;
         }
 
         $data = array(
-            'attritions' => $attritions,
+            'attritions' => $attrition,
             'departments' => $collegeDeps,
             'programs' => College::getEnum('EducationPrograms'),
             'education_levels' => College::getEnum('EducationLevels'),
@@ -141,7 +93,6 @@ class StudentAttritionController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'bands' => BandName::all(),
             'programs' => College::getEnum('EducationPrograms'),
             'education_levels' => College::getEnum('EducationLevels'),
             'years' => Department::getEnum('YearLevels'),
@@ -167,50 +118,23 @@ class StudentAttritionController extends Controller
             'female_number' => 'required|numeric|between:0,1000000000',
         ]);
 
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+        $institution = $user->institution();
+
+        $collegeName = $user->collegeName;
+        $departmentName = $user->departmentName;
+        $educationLevel = request()->input('education_level', 'None');
+        $educationProgram = request()->input('program', 'None');
+        $yearLevel = request()->input('year_level', 'None');
+        $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
+
         $attrition = new StudentAttrition;
         $attrition->student_type = $request->input('student_type');
         $attrition->type = $request->input('type');
         $attrition->case = $request->input('case');
         $attrition->male_students_number = $request->input('male_number');
         $attrition->female_students_number = $request->input('female_number');
-
-        $user = Auth::user();
-        if ($user == null) return redirect('/login');
-        $user->authorizeRoles('Department Admin');
-
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = $request->input("education_level");
-            $college->education_program = $request->input("program");
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
-
-        $departmentName = $user->departmentName;
-        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => Department::getEnum('year_level')[$request->input("year_level")],
-            'college_id' => $college->id])->first();
-        if ($department == null) {
-            $department = new Department;
-            $department->year_level = $request->input("year_level");
-            $department->department_name_id = null;
-            $college->departments()->save($department);
-            $departmentName->department()->save($department);
-        }
 
         $attrition->department_id = $department->id;
 
@@ -288,6 +212,7 @@ class StudentAttritionController extends Controller
 
         $studentAttrition->male_students_number = $request->input("male_number");
         $studentAttrition->female_students_number = $request->input("female_number");
+        $studentAttrition->approval_status = "Pending";
 
         $studentAttrition->save();
 
@@ -323,22 +248,14 @@ class StudentAttritionController extends Controller
         } else {
             $institution = $user->institution();
 
-            if ($institution != null) {
-                foreach ($institution->bands as $band) {
-                    if ($band->bandName->band_name == $user->bandName->band_name) {
-                        foreach ($band->colleges as $college) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $selectedDepartment) {
-                                        ApprovalService::approveData($department->studentAttritions);
-                                    }
-                                }
-                            }
+            foreach ($institution->colleges as $college) {
+                if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                    foreach ($college->departments as $department) {
+                        if ($department->departmentName->id == $selectedDepartment) {
+                            ApprovalService::approveData($department->studentAttritions);
                         }
                     }
                 }
-            } else {
-
             }
         }
         return redirect("/student/student-attrition?department=" . $selectedDepartment)->with('primary', 'Success');

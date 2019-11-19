@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\BandName;
 use App\Models\College\CollegeName;
 use App\Models\Department\DepartmentName;
 use App\Models\Institution\CommunityService;
@@ -12,6 +11,7 @@ use App\Models\Institution\Institution;
 use App\Models\Institution\InstitutionName;
 use App\Models\Institution\Resource;
 use App\Role;
+use App\Services\UserService;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -43,11 +43,9 @@ class UniversityAdminController extends Controller
         $user->authorizeRoles('Super Admin');
 
         $editors = [];
-        foreach (User::all() as $user) {
-            if ($user->hasRole('University Admin')) {
+        foreach (User::all() as $user)
+            if ($user->hasRole('University Admin'))
                 array_push($editors, $user);
-            }
-        }
 
         $data = array(
             'editors' => $editors,
@@ -68,13 +66,11 @@ class UniversityAdminController extends Controller
 
         $institutionNames = InstitutionName::all();
         $collegeNames = CollegeName::all();
-        $bandNames = BandName::all();
         $departmentNames = DepartmentName::all();
 
         $data = array(
             'institution_names' => $institutionNames,
             'college_names' => $collegeNames,
-            'band_names' => $bandNames,
             'department_names' => $departmentNames,
             'page_name' => 'administer.university_admin.create',
         );
@@ -109,6 +105,7 @@ class UniversityAdminController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
+        $user->read_only = $request->has('read_only');
 
         $institutionName->users()->save($user);
         $currentInstanceId->users()->save($user);
@@ -157,7 +154,16 @@ class UniversityAdminController extends Controller
      */
     public function edit($id)
     {
-        return redirect('/university-admin');
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+
+        $univ_admin = User::find($id);
+
+        $data = array(
+            'univ_admin' => $univ_admin,
+            'page_name' => 'administer.university_admin.create',
+        );
+        return view('users.university_admin.edit')->with($data);
     }
 
     /**
@@ -166,10 +172,23 @@ class UniversityAdminController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
-        return redirect('/university-admin');
+        $this->validate($request, [
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+        
+        $univ_admin = User::find($id);
+        $univ_admin->password = Hash::make($request->input('password'));
+
+        $univ_admin->save();
+
+        return redirect('/university-admin')->with('success', 'Successfully Changed University Admin Password');;
     }
 
     /**
@@ -184,5 +203,24 @@ class UniversityAdminController extends Controller
         $item = User::find($id);
         $item->delete();
         return redirect('/university-admin')->with('primary', 'Successfully Deleted');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return Response
+     * @throws Exception
+     */
+    public function autoGenerate()
+    {
+        $user = Auth::user();
+        $user->authorizeRoles('Super Admin');
+        $instance = $user->currentInstance;
+
+        $service = new UserService($instance);
+        $service->createInstitutionAdmins();
+        $service->createInstitutionVPs();
+
+        return redirect('/university-admin')->with('primary', 'Successfully Generated Admins');
     }
 }

@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
 use App\Models\College\College;
-use App\Models\Department\Department;
-use App\Models\Department\DepartmentName;
 use App\Models\Staff\AcademicStaff;
 use App\Models\Staff\Staff;
 use App\Models\Staff\StaffLeave;
+use App\Models\Staff\JobTitle;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -31,47 +30,23 @@ class AcademicStaffsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
-        }
+        $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
+
 
         $academicStaffs = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $user->collegeName->id) {
-                        foreach ($college->departments as $department) {
-                            if ($user->hasRole('College Super Admin')) {
-                                if ($department->departmentName->id == $requestedDepartment) {
-                                    foreach ($department->academicStaffs as $academicStaff) {
-                                        $academicStaffs[] = $academicStaff;
-                                    }
-                                }
-                            } else {
-                                if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                    foreach ($department->academicStaffs as $academicStaff) {
-                                        $academicStaffs[] = $academicStaff;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            $academicStaffs = AcademicStaff::all();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                foreach ($department->academicStaffs as $academicStaff)
+                    $academicStaffs[] = $academicStaff;
         }
 
         $data = array(
@@ -101,6 +76,7 @@ class AcademicStaffsController extends Controller
             'dedications' => Staff::getEnum("Dedications"),
             'academic_levels' => Staff::getEnum("AcademicLevels"),
             'staff_ranks' => AcademicStaff::getEnum("StaffRanks"),
+            'job_titles' => JobTitle::where('staff_type', 'Academic')->get(),
             'page_name' => 'staff.academic.create'
         );
         return view('staff.academic.create')->with($data);
@@ -119,82 +95,39 @@ class AcademicStaffsController extends Controller
             'name' => 'required',
             'birth_date' => 'required|date|before:now',
             'sex' => 'required',
-            'phone_number' => 'required',
+            'phone_number' => 'required|regex:/(09)[0-9]{8}/',
             'nationality' => 'required',
-            'job_title' => 'required',
             'salary' => 'required|numeric|between:0,1000000000',
             'service_year' => 'required|numeric|between:0,100',
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
             'field_of_study' => 'required',
-            'academic_staff_rank' => 'required',
             'teaching_load' => 'required|numeric|between:0,100'
         ]);
 
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+        $institution = $user->institution();
+
+        $collegeName = $user->collegeName;
+        $departmentName = $user->departmentName;
+        $educationLevel = request()->input('education_level', 'None');
+        $educationProgram = request()->input('program', 'None');
+        $yearLevel = request()->input('year_level', 'NONE'); //?
+        $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
         $staff = new Staff;
-        $staff->name = $request->input('name');
-        $staff->birth_date = $request->input('birth_date');
-        $staff->sex = $request->input('sex');
-        $staff->phone_number = $request->input('phone_number');
-        $staff->nationality = $request->input('nationality');
-        $staff->job_title = $request->input('job_title');
-        $staff->salary = $request->input('salary');
-        $staff->service_year = $request->input('service_year');
-        $staff->employment_type = $request->input('employment_type');
-        $staff->dedication = $request->input('dedication');
-        $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $request->has('expatriate');
-        $staff->is_from_other_region = $request->has('other_region');
-        $staff->salary = $request->input('salary');
-        $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
+        HierarchyService::populateStaff($request, $staff);
 
         $academicStaff = new AcademicStaff;
         $academicStaff->field_of_study = $request->input('field_of_study');
         $academicStaff->teaching_load = $request->input('teaching_load');
         $academicStaff->overload_remark = $request->input('overload_remark');
-        $academicStaff->staffRank = $request->input('academic_staff_rank');
         $academicStaff->staff_leave_id = null;
         $academicStaff->overload_remark = $request->input('overload_remark');
         $academicStaff->hdp_trained = $request->has('hdp_trained');
 
-        $user = Auth::user();
-        $user->authorizeRoles('Department Admin');
-
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => 'None', 'education_program' => 'None'])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = 'None';
-            $college->education_program = "None";
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
-
-        $departmentName = $user->departmentName;
-        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => "None",
-            'college_id' => $college->id])->first();
-        if ($department == null) {
-            $department = new Department;
-            $department->year_level = "None";
-            $department->department_name_id = null;
-            $college->departments()->save($department);
-            $departmentName->department()->save($department);
-        }
-
+        $academicStaff->job_title_id = $request->input('job_title');
         $department->academicStaffs()->save($academicStaff);
         $academicStaff = AcademicStaff::find($academicStaff->id);
         $academicStaff->general()->save($staff);
@@ -256,7 +189,7 @@ class AcademicStaffsController extends Controller
             'name' => 'required',
             'birth_date' => 'required|date|before:now',
             'sex' => 'required',
-            'phone_number' => 'required',
+            'phone_number' => 'required|regex:/(09)[0-9]{8}/',
             'nationality' => 'required',
             'job_title' => 'required',
             'salary' => 'required|numeric|between:0,1000000000',
@@ -268,11 +201,11 @@ class AcademicStaffsController extends Controller
             'academic_staff_rank' => 'required',
             'teaching_load' => 'required|numeric|between:0,100'
         ]);
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
 
         $academicStaff = AcademicStaff::find($id);
-
         if ($request->input('status') == "onLeave") {
-            //die("1" . $request->input('status'));
             $this->validate($request, [
                 'leave_type' => 'required',
                 'leave_country' => 'required',
@@ -298,7 +231,6 @@ class AcademicStaffsController extends Controller
             $staffLeave->academicStaff()->save($academicStaff);
 
         } else {
-            //die("2" . $request->input('status'));
             $item = StaffLeave::find($academicStaff->staff_leave_id);
             if ($item != null) {
                 $item->delete();
@@ -314,61 +246,7 @@ class AcademicStaffsController extends Controller
         $academicStaff->overload_remark = $request->input('overload_remark') == null ? " " : $request->input('overload_remark');
 
         $staff = $academicStaff->general;
-        $staff->name = $request->input('name');
-        $staff->birth_date = $request->input('birth_date');
-        $staff->sex = $request->input('sex');
-        $staff->phone_number = $request->input('phone_number');
-        $staff->nationality = $request->input('nationality');
-        $staff->job_title = $request->input('job_title');
-        $staff->salary = $request->input('salary');
-        $staff->service_year = $request->input('service_year');
-        $staff->employment_type = $request->input('employment_type');
-        $staff->dedication = $request->input('dedication');
-        $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $request->input('expatriate');
-        $staff->is_from_other_region = $request->input('other_region');
-        $staff->salary = $request->input('salary');
-        $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
-
-        $user = Auth::user();
-        $user->authorizeRoles('Department Admin');
-
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => 'None', 'education_program' => 'None'])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = 'None';
-            $college->education_program = 'None';
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
-
-        $departmentName = $user->departmentName;
-        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => 'None',
-            'college_id' => $college->id])->first();
-        if ($department == null) {
-            $department = new Department;
-            $department->year_level = 'None';
-            $department->department_name_id = null;
-            $college->departments()->save($department);
-            $departmentName->department()->save($department);
-        }
-
-        $department->academicStaffs()->save($academicStaff);
-        $academicStaff->save();
+        HierarchyService::populateStaff($request, $staff);
         $academicStaff->general()->save($staff);
 
         return redirect('/staff/academic')->with('primary', 'Successfully Updated');

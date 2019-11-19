@@ -63,15 +63,15 @@
                 <div class="row mt-4">
                     <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Band</div>
-                        <p>{{$student->department->college->band->bandName->band_name}}</p>
+                        <p>{{$student->department->departmentName->bandName}}</p>
                     </div>
                     <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">College</div>
-                        <p>{{$student->department->college->collegeName->college_name}}</p>
+                        <p>{{$student->department->college->collegeName}}</p>
                     </div>
                     <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Department</div>
-                        <p>{{$student->department->departmentName->department_name}}</p>
+                        <p>{{$student->department->departmentName}}</p>
                     </div>
                 </div>
                 <div class="row mt-4">

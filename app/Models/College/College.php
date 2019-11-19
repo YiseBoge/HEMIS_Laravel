@@ -17,8 +17,8 @@ use Webpatser\Uuid\Uuid;
  * @property string education_level
  * @property string education_program
  * @property int college_name_id
- * @property Uuid band_id
  * @property Collection departments
+ * @property Uuid institution_id
  */
 class College extends Model
 {
@@ -123,14 +123,6 @@ class College extends Model
     /**
      * @return HasMany
      */
-    public function technicalStaffs()
-    {
-        return $this->hasMany('App\Models\Staff\TechnicalStaff');
-    }
-
-    /**
-     * @return HasMany
-     */
     public function universityIndustryLinkages()
     {
         return $this->hasMany('App\Models\Band\UniversityIndustryLinkage');
@@ -193,9 +185,9 @@ class College extends Model
     /**
      * @return BelongsTo
      */
-    public function band()
+    public function institution()
     {
-        return $this->belongsTo('App\Models\Band\Band');
+        return $this->belongsTo('App\Models\Institution\Institution');
     }
 
     /**

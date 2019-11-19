@@ -16,7 +16,7 @@
                                 <input type="hidden" name="department"
                                        value="{{$selected_department}}">
                                 <button type="submit"
-                                        class="btn btn-sm btn-primary shadow-sm">
+                                        class="btn btn-sm btn-primary shadow-sm" {{count($enrollments) == 0 ? 'disabled' : ''}}>
                                     Approve All Pending in Selected Department<i
                                             class="fas fa-check text-white-50 ml-2 fa-sm"></i>
                                 </button>
@@ -176,7 +176,7 @@
                                         <td>{{$enrollment->specialization_type}}</td>
                                     @else
                                         <td class="text-center">
-                                            @if($enrollment->approval_status != "Approved")
+                                            @if(!in_array($enrollment->approval_status, ["Approved", "College Approved"]))
                                                 <div class="row px-1">
                                                     <div class="col">
                                                         <form class="p-0"

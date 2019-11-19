@@ -2,13 +2,14 @@
 
 namespace App;
 
-use App\Models\Band\BandName;
 use App\Models\College\CollegeName;
 use App\Models\Department\DepartmentName;
 use App\Models\Institution\Instance;
 use App\Models\Institution\Institution;
 use App\Models\Institution\InstitutionName;
 use App\Traits\Uuids;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Webpatser\Uuid\Uuid;
@@ -18,7 +19,6 @@ use Webpatser\Uuid\Uuid;
  * @property array|string|null name
  * @property array|string|null email
  * @property string password
- * @property BandName bandName
  * @property DepartmentName departmentName
  * @property Instance currentInstance
  * @property CollegeName collegeName
@@ -26,8 +26,8 @@ use Webpatser\Uuid\Uuid;
  * @property mixed college_name_id
  * @property InstitutionName institutionName
  * @property uuid instance_id
- * @property uuid band_name_id
  * @property uuid department_name_id
+ * @property bool read_only
  * @method static User find(int $id)
  */
 class User extends Authenticatable
@@ -62,14 +62,13 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return Institution
+     * @return Institution|HasMany|object
      */
     public function institution()
     {
         $currentInstanceId = $this->currentInstance->id;
         $institution = $this->institutionName->institutions()->where('instance_id', $currentInstanceId)->first();
 
-//        return array_intersect ( $this->currentInstance->institutions, $this->institutionName->institutions);
         return $institution;
     }
 
@@ -78,9 +77,12 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Institution\InstitutionName', 'institution_name_id');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function bandName()
     {
-        return $this->belongsTo('App\Models\Band\BandName', 'band_name_id');
+        return $this->departmentName->bandName();
     }
 
     public function collegeName()

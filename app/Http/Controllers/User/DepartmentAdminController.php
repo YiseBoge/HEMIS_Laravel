@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Department\DepartmentName;
 use App\Role;
+use App\Services\UserService;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -38,11 +39,9 @@ class DepartmentAdminController extends Controller
         $collegeNameId = $user->college_name_id;
 
         $editors = [];
-        foreach (User::all() as $user) {
-            if ($user->hasRole('Department Admin') && $user->college_name_id == $collegeNameId) {
+        foreach (User::all() as $user)
+            if ($user->hasRole('Department Admin') && $user->college_name_id == $collegeNameId)
                 array_push($editors, $user);
-            }
-        }
 
         $data = array(
             'editors' => $editors,
@@ -93,8 +92,6 @@ class DepartmentAdminController extends Controller
         $institutionName = $user->institutionName;
         $collegeName = $user->collegeName;
 
-        $bandName = $user->bandName;
-
         $departmentNames = $collegeName->departmentNames;
         /** @var DepartmentName $departmentName */
         $departmentName = $departmentNames[$request->input('department_name_id')];
@@ -106,7 +103,6 @@ class DepartmentAdminController extends Controller
 
         $institutionName->users()->save($user);
         $collegeName->users()->save($user);
-        $bandName->users()->save($user);
         $departmentName->users()->save($user);
         $currentInstanceId->users()->save($user);
 
@@ -136,7 +132,16 @@ class DepartmentAdminController extends Controller
      */
     public function edit($id)
     {
-        return redirect('/department-admin');
+        $user = Auth::user();
+        $user->authorizeRoles('College Super Admin');
+
+        $dept_admin = User::find($id);
+
+        $data = array(
+            'dept_admin' => $dept_admin,
+            'page_name' => 'administer.department_admin.create',
+        );
+        return view('users.department_admin.edit')->with($data);
     }
 
     /**
@@ -145,10 +150,21 @@ class DepartmentAdminController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
-        return redirect('/department-admin');
+        $this->validate($request, [
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $dept_admin = User::find($id);
+
+        $dept_admin->password = Hash::make($request->input('password'));
+
+        $dept_admin->save();
+
+        return redirect('/department-admin')->with('success', 'Successfully Changed Department Admin Password');;
     }
 
     /**
@@ -163,5 +179,24 @@ class DepartmentAdminController extends Controller
         $item = User::find($id);
         $item->delete();
         return redirect('/department-admin')->with('primary', 'Successfully Deleted');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return Response
+     * @throws Exception
+     */
+    public function autoGenerate()
+    {
+        $user = Auth::user();
+        $user->authorizeRoles('College Super Admin');
+        $instance = $user->currentInstance;
+        $collegeName = $user->collegeName;
+
+        $service = new UserService($instance);
+        $service->createDepartmentAdmins($collegeName);
+
+        return redirect('/department-admin')->with('primary', 'Successfully Generated Admins');
     }
 }

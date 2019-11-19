@@ -18,12 +18,13 @@ class CreateTechnicalStaffTable extends Migration
             $table->uuid('id');
             $table->timestamps();
 
-            $table->string('staffRank');
             $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
 
-            $table->uuid('college_id');
+            $table->uuid('department_id');
+            $table->uuid('job_title_id');
+            $table->uuid('staff_id');
         });
     }
 

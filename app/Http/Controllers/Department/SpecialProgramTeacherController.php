@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
-use App\Models\Band\BandName;
 use App\Models\College\College;
 use App\Models\College\CollegeName;
-use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\SpecialProgramTeacher;
 use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -33,69 +31,30 @@ class SpecialProgramTeacherController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
-        $requestedStatus = $request->input('program_status');
-        if ($requestedStatus == null) {
-            $requestedStatus = 'Completed';
-        }
+        $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
+        $status = SpecialProgramTeacher::getEnum('ProgramStats')[$requestedStatus = request()->query('program_status', 'COMPLETED')];
 
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
-        }
-
-//        $band=Band::where('band_name_id',$requestedBand)->first();
-//        $college=College::where(['college_name_id'=>$requestedCollege,'band_id'=>$band->id])->first();
-//        $departments=Department::where(['college_id'=>$college->id])->get();
         $filteredTeachers = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->id == $user->bandName->id) {
-                    foreach ($band->colleges as $college) {
-                        if ($user->hasRole('College Super Admin')) {
-                            if ($college->collegeName->id == $user->collegeName->id) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->SpecialProgramTeachers as $teacher) {
-                                            $filteredTeachers[] = $teacher;
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if ($college->collegeName->id == $user->collegeName->id) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->SpecialProgramTeachers as $teacher) {
-                                            if ($teacher->program_stat == $requestedStatus) {
-                                                $filteredTeachers[] = $teacher;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                }
-            }
-        } else {
-            $filteredTeachers = SpecialProgramTeacher::with('department')->get();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
+                    foreach ($department->SpecialProgramTeachers as $teacher)
+                        $filteredTeachers[] = $teacher;
+            } else
+                foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                    foreach ($department->SpecialProgramTeachers()->where('program_stat', $status) as $teacher)
+                        $filteredTeachers[] = $teacher;
         }
 
-
-        //$specialProgramTeachers=SpecialProgramTeacher::all();
-        //$specialProgramTeachers= SpecialProgramTeacher::where(['program_type'=>$requestedType,'program_status'=>$requestedStatus])->get();
         $data = [
             'program_status' => $requestedStatus,
             'special_program_teachers' => $filteredTeachers,
@@ -125,7 +84,6 @@ class SpecialProgramTeacherController extends Controller
             'program_type' => SpecialProgramTeacher::getEnum("ProgramTypes"),
             'program_status' => SpecialProgramTeacher::getEnum("ProgramStats"),
             'colleges' => CollegeName::all(),
-            'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
             'page_name' => 'staff.special-program-teacher.create'
         ];
@@ -148,45 +106,22 @@ class SpecialProgramTeacherController extends Controller
             'female_number' => 'required|numeric|between:0,1000000000',
         ]);
 
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+        $institution = $user->institution();
+
+        $collegeName = $user->collegeName;
+        $departmentName = $user->departmentName;
+        $educationLevel = request()->input('education_level', 'None');
+        $educationProgram = request()->input('program', 'None');
+        $yearLevel = request()->input('year_level', 'None');
+        $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
+
         $specialProgramTeacher = new SpecialProgramTeacher;
         $specialProgramTeacher->male_number = $request->input('male_number');
         $specialProgramTeacher->female_number = $request->input('female_number');
         $specialProgramTeacher->program_stat = $request->input('program_status');
         $specialProgramTeacher->program_type = $request->input('program_type');
-
-        $user = Auth::user();
-        $user->authorizeRoles('Department Admin');
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = 'NONE';
-            $college->education_program = 'NONE';
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
-
-        $departmentName = $user->departmentName;
-        $department = Department::where(['department_name_id' => $departmentName->id, 'college_id' => $college->id])->first();
-        if ($department == null) {
-            $department = new Department;
-            $department->year_level = 'NONE';
-            $department->department_name_id = null;
-            $college->departments()->save($department);
-            $departmentName->department()->save($department);
-        }
 
         $specialProgramTeacher->department_id = $department->id;
 
@@ -261,6 +196,7 @@ class SpecialProgramTeacherController extends Controller
 
         $specialProgramTeacher->male_number = $request->input("male_number");
         $specialProgramTeacher->female_number = $request->input("female_number");
+        $specialProgramTeacher->approval_status = "Pending";
 
         $specialProgramTeacher->save();
 
@@ -297,17 +233,11 @@ class SpecialProgramTeacherController extends Controller
         } else {
             $institution = $user->institution();
 
-            if ($institution != null) {
-                foreach ($institution->bands as $band) {
-                    if ($band->bandName->band_name == $user->bandName->band_name) {
-                        foreach ($band->colleges as $college) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $selectedDepartment) {
-                                        ApprovalService::approveData($department->specialProgramTeachers);
-                                    }
-                                }
-                            }
+            foreach ($institution->colleges as $college) {
+                if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                    foreach ($college->departments as $department) {
+                        if ($department->departmentName->id == $selectedDepartment) {
+                            ApprovalService::approveData($department->specialProgramTeachers);
                         }
                     }
                 }

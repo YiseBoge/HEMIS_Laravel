@@ -22,6 +22,7 @@ class CreateDepartmentNamesTable extends Migration
             $table->primary('id');
 
             $table->uuid('college_name_id');
+            $table->uuid('band_name_id');
         });
     }
 

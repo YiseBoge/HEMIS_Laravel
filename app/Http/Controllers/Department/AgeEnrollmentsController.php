@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Department\Department;
-use App\Models\Department\DepartmentName;
 use App\Models\Institution\AgeEnrollment;
 use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -31,64 +30,31 @@ class AgeEnrollmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
-        $requestedProgram = $request->input('program');
-        if ($requestedProgram == null) {
-            $requestedProgram = 'Regular';
-        }
+        $requestedProgram = request()->query('program', 'Regular');
+        $requestedLevel = request()->query('education_level', 'Undergraduate');
+        $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
 
-        $requestedLevel = $request->input('education_level');
-        if ($requestedLevel == null) {
-            $requestedLevel = 'Undergraduate';
-        }
 
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
-        }
-
-        $ageEnrollments = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($user->hasRole('College Super Admin')) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->ageEnrollments as $ageEnrollment) {
-                                            $ageEnrollments[] = $ageEnrollment;
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == $requestedLevel && $college->education_program == $requestedProgram) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->ageEnrollments as $ageEnrollment) {
-                                            $ageEnrollments[] = $ageEnrollment;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        } else {
-            $ageEnrollments = AgeEnrollment::all();
+        $enrollments = array();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
+                    foreach ($department->ageEnrollments as $enrollment)
+                        $enrollments[] = $enrollment;
+            } else
+                if ($college->education_level == $requestedLevel && $college->education_program == $requestedProgram)
+                    foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                        foreach ($department->ageEnrollments as $enrollment)
+                            $enrollments[] = $enrollment;
         }
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -96,7 +62,8 @@ class AgeEnrollmentsController extends Controller
         array_pop($educationPrograms);
         array_pop($educationLevels);
 
-        $data = ['enrollment_info' => $ageEnrollments,
+        $data = [
+            'enrollment_info' => $enrollments,
             'departments' => $collegeDeps,
             'age_range' => AgeEnrollment::getEnum('Ages'),
             'programs' => $educationPrograms,
@@ -106,6 +73,7 @@ class AgeEnrollmentsController extends Controller
             'selected_department' => $requestedDepartment,
             'selected_program' => $requestedProgram,
             'selected_education_level' => $requestedLevel,
+
             'page_name' => 'enrollment.age_enrollment.index'];
 
         return view('enrollment.age_enrollment.index')->with($data);
@@ -153,46 +121,19 @@ class AgeEnrollmentsController extends Controller
 
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
-
         $institution = $user->institution();
+
+        $collegeName = $user->collegeName;
+        $departmentName = $user->departmentName;
+        $educationLevel = request()->input('education_level', 'None');
+        $educationProgram = request()->input('program', 'None');
+        $yearLevel = request()->input('year_level', 'None');
+        $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
 
         $age_enrollment = new AgeEnrollment();
         $age_enrollment->male_students_number = $request->input('number_of_males');
         $age_enrollment->female_students_number = $request->input('number_of_females');
-
         $age_enrollment->age = $request->input('age_range');
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => $request->input("education_level"), 'education_program' => $request->input("program")])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = $request->input("education_level");
-            $college->education_program = $request->input("program");
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
-
-        $departmentName = $user->departmentName;
-        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => Department::getEnum('year_level')[$request->input("year_level")],
-            'college_id' => $college->id])->first();
-        if ($department == null) {
-            $department = new Department;
-            $department->year_level = $request->input("year_level");
-            $department->department_name_id = null;
-            $college->departments()->save($department);
-            $departmentName->department()->save($department);
-        }
 
         $age_enrollment->department_id = $department->id;
 
@@ -270,6 +211,7 @@ class AgeEnrollmentsController extends Controller
 
         $ageEnrollment->male_students_number = $request->input("number_of_males");
         $ageEnrollment->female_students_number = $request->input("number_of_females");
+        $ageEnrollment->approval_status = "Pending";
 
         $ageEnrollment->save();
 
@@ -305,22 +247,14 @@ class AgeEnrollmentsController extends Controller
         } else {
             $institution = $user->institution();
 
-            if ($institution != null) {
-                foreach ($institution->bands as $band) {
-                    if ($band->bandName->band_name == $user->bandName->band_name) {
-                        foreach ($band->colleges as $college) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $selectedDepartment) {
-                                        ApprovalService::approveData($department->ageEnrollments);
-                                    }
-                                }
-                            }
+            foreach ($institution->colleges as $college) {
+                if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                    foreach ($college->departments as $department) {
+                        if ($department->departmentName->id == $selectedDepartment) {
+                            ApprovalService::approveData($department->ageEnrollments);
                         }
                     }
                 }
-            } else {
-
             }
         }
         return redirect("/enrollment/age-enrollment?department=" . $selectedDepartment)->with('primary', 'Success');

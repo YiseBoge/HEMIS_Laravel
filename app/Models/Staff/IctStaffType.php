@@ -12,6 +12,7 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid id
  * @property string|null category
  * @property string|null type
+ * @property string|null level
  * @method static IctStaffType find(int $id)
  */
 class IctStaffType extends Model
@@ -26,6 +27,30 @@ class IctStaffType extends Model
         'TEACHING_LEARNING_TECHNOLOGIES' => 'Teaching and Learning Technologies',
         'SUPPORT_MAINTENANCE' => 'Support and Maintenance',
         'TRAINING_CONSULTANCY' => 'Training and Consultancy'
+    ];
+    protected $enumLevels = [
+        'Level 1' => 'Level 1',
+        'Level 2' => 'Level 2',
+        'Level 3' => 'Level 3',
+        'Level 4' => 'Level 4',
+        'Level 5' => 'Level 5',
+        'Level 6' => 'Level 6',
+        'Level 7' => 'Level 7',
+        'Level 8' => 'Level 8',
+        'Level 9' => 'Level 9',
+        'Level 10' => 'Level 10',
+        'Level 11' => 'Level 11',
+        'Level 12' => 'Level 12',
+        'Level 13' => 'Level 13',
+        'Level 14' => 'Level 14',
+        'Level 15' => 'Level 15',
+        'Level 16' => 'Level 16',
+        'Level 17' => 'Level 17',
+        'Level 18' => 'Level 18',
+        'Level 19' => 'Level 19',
+        'Level 20' => 'Level 20',
+        'Level 21' => 'Level 21',
+        'Level 22' => 'Level 22',
     ];
 
     public static function boot()
@@ -63,6 +88,6 @@ class IctStaffType extends Model
      */
     function __toString()
     {
-        return "$this->type ($this->category)";
+        return "$this->type - $this->category ($this->level)";
     }
 }

@@ -6,12 +6,54 @@
             <div class="col-md-10">
                 <h1 class="text-primary">{{$institution->institutionName}}</h1>
             </div>
-            <div class="col-md-2 pt-4 text-right">
-                <a class="btn btn-primary mb-0 shadow-sm" href="/institution/general/{{$institution->id}}/edit">Modify<i
-                            class="fas fa-pen text-white-50 fa-sm ml-2"></i></a>
-            </div>
+            @if (!Auth::user()->read_only)
+                <div class="col-md-2 pt-4 text-right">
+                    <a class="btn btn-primary mb-0 shadow-sm" href="/institution/general/{{$institution->id}}/edit">
+                        Modify<i class="fas fa-pen text-white-50 fa-sm ml-2"></i></a>
+                </div>
+            @endif
         </div>
         <hr>
+
+        <div class="row my-3">
+            <div class="col-md-4 col-sm-6">
+                <div class="card border-bottom-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Board Members
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{$institution->generalInformation->board_members}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="card border-bottom-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Vice Presidents
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{$institution->generalInformation->vice_presidents}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="card border-bottom-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Middle Level Leaders
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{$institution->generalInformation->middle_level_leaders}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row my-3">
             <div class="col-md-3 col-sm-6 mb-md-3">
                 <div class="card border-left-primary shadow h-100 py-2">
@@ -64,44 +106,44 @@
         </div>
 
         <div class="row my-3">
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-left-warning shadow h-100 py-2">
+            <div class="col-md-3 col-sm-6 mb-md-3">
+                <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Board Members
+                            Centers
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$institution->generalInformation->board_members}}
+                            {{$institution->generalInformation->centers}}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-left-warning shadow h-100 py-2">
+            <div class="col-md-3 col-sm-6 mb-md-3">
+                <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Vice Presidents
+                            Faculties
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$institution->generalInformation->vice_presidents}}
+                            {{$institution->generalInformation->faculties}}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-left-warning shadow h-100 py-2">
+            <div class="col-md-3 col-sm-6 mb-md-3">
+                <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Middle Level Leaders
+                            Departments
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$institution->generalInformation->middle_level_leaders}}
+                            {{$institution->generalInformation->departments}}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-left-warning shadow h-100 py-2">
+            <div class="col-md-3 col-sm-6 mb-md-3">
+                <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Hospitals
@@ -113,7 +155,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="row my-4">
             <div class="col-md-7 py-2">
@@ -215,14 +256,14 @@
                                 </span>
                             </div>
 
-                            <div class="col-md-7 p-3">
-                                Unjustifiable Expenses
-                            </div>
-                            <div class="col-md-5 p-3">
-                                <span class="font-weight-bold text-gray-800">
-                                    {{number_format($institution->generalInformation->resource->unjustifiable_expenses, 2)}}
-                                </span>
-                            </div>
+                            {{--                            <div class="col-md-7 p-3">--}}
+                            {{--                                Unjustifiable Expenses--}}
+                            {{--                            </div>--}}
+                            {{--                            <div class="col-md-5 p-3">--}}
+                            {{--                                <span class="font-weight-bold text-gray-800">--}}
+                            {{--                                    {{number_format($institution->generalInformation->resource->unjustifiable_expenses, 2)}}--}}
+                            {{--                                </span>--}}
+                            {{--                            </div>--}}
                         </div>
                     </div>
 

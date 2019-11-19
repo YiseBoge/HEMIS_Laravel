@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
-use App\Models\Band\BandName;
 use App\Models\Band\UniversityIndustryLinkage;
 use App\Models\College\College;
 use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -37,30 +36,17 @@ class UniversityIndustryLinkageController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['College Admin', 'College Super Admin']);
         $institution = $user->institution();
+        $collegeName = $user->collegeName;
 
         $linkages = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
-                            foreach ($college->universityIndustryLinkages as $linkage) {
-                                $linkages[] = $linkage;
-                            }
-                        }
-
-                    }
-
-                }
-            }
-        } else {
-            $linkages = UniversityIndustryLinkage::with('band')->get();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->universityIndustryLinkages as $linkage)
+                    $linkages[] = $linkage;
 
         $data = array(
             'linkages' => $linkages,
-            'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
             'page_name' => 'students.university_industry_linkage.index'
         );
@@ -77,30 +63,17 @@ class UniversityIndustryLinkageController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
+        $collegeName = $user->collegeName;
 
         $linkages = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
-                            foreach ($college->universityIndustryLinkages as $linkage) {
-                                $linkages[] = $linkage;
-                            }
-                        }
-
-                    }
-
-                }
-            }
-        } else {
-            $linkages = UniversityIndustryLinkage::with('band')->get();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->universityIndustryLinkages as $linkage)
+                    $linkages[] = $linkage;
 
         $data = array(
             'linkages' => $linkages,
-            'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
 
             'has_modal' => 'yes',
@@ -123,38 +96,18 @@ class UniversityIndustryLinkageController extends Controller
             'number_of_students' => 'required|numeric|between:0,1000000000',
             'industry_number' => 'required|numeric|between:0,1000000000'
         ]);
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+        $institution = $user->institution();
+        $collegeName = $user->collegeName;
+
+        $college = HierarchyService::getCollege($institution, $collegeName, 'None', 'None');
 
         $linkage = new UniversityIndustryLinkage;
         $linkage->year = $request->input('year');
         $linkage->number_of_industry_links = $request->input('industry_number');
         $linkage->number_of_students = $request->input('number_of_students');
         $linkage->training_area = $request->input('training_area');
-
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => "None", 'education_program' => "None"])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = "None";
-            $college->education_program = "None";
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
 
         $linkage->college_id = $college->id;
 
@@ -193,31 +146,18 @@ class UniversityIndustryLinkageController extends Controller
         $universityIndustryLinkage = UniversityIndustryLinkage::find($id);
 
         $institution = $user->institution();
+        $collegeName = $user->collegeName;
 
         $linkages = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->band_name == $user->bandName->band_name) {
-                    foreach ($band->colleges as $college) {
-                        if ($college->collegeName->college_name == $user->collegeName->college_name && $college->education_level == "None" && $college->education_program == "None") {
-                            foreach ($college->universityIndustryLinkages as $linkage) {
-                                $linkages[] = $linkage;
-                            }
-                        }
-
-                    }
-
-                }
-            }
-        } else {
-            $linkages = UniversityIndustryLinkage::with('band')->get();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->universityIndustryLinkages as $linkage)
+                    $linkages[] = $linkage;
 
         $data = array(
             'id' => $id,
             'linkages' => $linkages,
-            'bands' => BandName::all(),
             'years' => UniversityIndustryLinkage::getEnum('Years'),
             'number_of_linked_indutries' => $universityIndustryLinkage->number_of_industry_links,
             'training_area' => $universityIndustryLinkage->training_area,
@@ -255,6 +195,7 @@ class UniversityIndustryLinkageController extends Controller
         $universityIndustryLinkage->number_of_industry_links = $request->input('industry_number');
         $universityIndustryLinkage->training_area = $request->input('training_area');
         $universityIndustryLinkage->number_of_students = $request->input('number_of_students');
+        $universityIndustryLinkage->approval_status = "Pending";
 
         $universityIndustryLinkage->save();
 
@@ -290,18 +231,10 @@ class UniversityIndustryLinkageController extends Controller
         } else {
             $institution = $user->institution();
 
-            if ($institution != null) {
-                foreach ($institution->bands as $band) {
-                    if ($band->bandName->band_name == $user->bandName->band_name) {
-                        foreach ($band->colleges as $college) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                ApprovalService::approveData($college->universityIndustryLinkages);
-                            }
-                        }
-                    }
+            foreach ($institution->colleges as $college) {
+                if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                    ApprovalService::approveData($college->universityIndustryLinkages);
                 }
-            } else {
-
             }
         }
         return redirect("/student/university-industry-linkage")->with('success', 'Successfully Approved Industry Linkages');

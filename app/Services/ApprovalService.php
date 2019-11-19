@@ -26,7 +26,7 @@ class ApprovalService
     public static function approveDataByInstitution(Collection $data)
     {
         foreach ($data as $item) {
-            if ($item->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
+            if ($item->approval_status == Institution::getEnum('ApprovalTypes')["COLLEGE_APPROVED"]) {
                 $item->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                 $item->save();
             }
@@ -82,11 +82,9 @@ class ApprovalService
 
     public static function approveAllInInstitution(Institution $institution)
     {
-        foreach ($institution->bands as $band) {
-            foreach ($band->colleges as $college) {
-                self::approveAllDepartmentDataInCollege($college, "institution");
-                self::approveAllCollegeData($college, "institution");
-            }
+        foreach ($institution->colleges as $college) {
+            self::approveAllDepartmentDataInCollege($college, "institution");
+            self::approveAllCollegeData($college, "institution");
         }
     }
 }

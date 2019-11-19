@@ -2,8 +2,8 @@
 
 namespace App\Models\College;
 
-use App\Models\Band\BandName;
 use App\Models\Department\DepartmentName;
+use App\Models\Institution\InstitutionName;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,10 +15,9 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid id
  * @property string|null college_name
  * @property string|null acronym
- * @property BandName bandName
  * @property DepartmentName departmentNames
  * @property Uuid institution_name_id
- * @property Uuid band_name_id
+ * @property InstitutionName institutionName
  * @method static CollegeName find(int $id)
  */
 class CollegeName extends Model
@@ -35,6 +34,7 @@ class CollegeName extends Model
         });
 
         static::deleting(function (CollegeName $model) { // before delete() method call this
+            $model->departmentNames()->delete();
             $model->college()->delete();
             $model->users()->delete();
         });
@@ -58,13 +58,19 @@ class CollegeName extends Model
 
     /**
      * @param Collection $institutionNames
-     * @param Collection $bandNames
      * @return Collection
      */
-    public static function byInstitutionNamesAndBandNames(Collection $institutionNames, Collection $bandNames)
+    public static function byInstitutionNames(Collection $institutionNames)
     {
-        return CollegeName::all()->whereIn('institution_name_id', $institutionNames->pluck('id'))
-            ->whereIn('band_name_id', $bandNames->pluck('id'))->values();
+        return CollegeName::all()->whereIn('institution_name_id', $institutionNames->pluck('id'))->values();
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function institutionName()
+    {
+        return $this->belongsTo('App\Models\Institution\InstitutionName');
     }
 
     /**
@@ -73,14 +79,6 @@ class CollegeName extends Model
     public function departmentNames()
     {
         return $this->hasMany('App\Models\Department\DepartmentName');
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function bandName()
-    {
-        return $this->belongsTo('App\Models\Band\BandName');
     }
 
     /**
@@ -93,7 +91,6 @@ class CollegeName extends Model
                 'acronym' => $this->acronym,
 
                 'institution_name_id' => $this->institution_name_id,
-                'band_name_id' => $this->band_name_id,
             ))->first() != null;
     }
 

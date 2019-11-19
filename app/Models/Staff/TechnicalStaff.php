@@ -42,18 +42,18 @@ class TechnicalStaff extends Model
     }
 
     /**
-     * @return MorphOne
+     * @return BelongsTo
      */
     public function general()
     {
-        return $this->morphOne('App\Models\Staff\Staff', 'staffable');
+        return $this->belongsTo('App\Models\Staff\Staff', 'staff_id');
     }
 
     /**
      * @return BelongsTo
      */
-    public function college()
+    public function department()
     {
-        return $this->belongsTo('App\Models\College\College');
+        return $this->belongsTo('App\Models\Department\Department');
     }
 }

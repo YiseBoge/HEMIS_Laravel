@@ -77,8 +77,8 @@ Route::post('/institution/instance/update-current', 'Institution\InstancesContro
 Route::resource('institution/general', 'Institution\InstitutionsController');
 Route::post('institution/buildings/{id}/approve', 'College\BuildingsController@approve');
 Route::resource('institution/buildings', 'College\BuildingsController');
-Route::post('institution/researches/{id}/approve', 'Department\ResearchsController@approve');
-Route::resource('institution/researches', 'Department\ResearchsController');
+Route::post('institution/researches/{id}/approve', 'Department\ResearchesController@approve');
+Route::resource('institution/researches', 'Department\ResearchesController');
 Route::resource('institution/management-data', 'Institution\ManagementDataController');
 Route::get('institution/approval', 'Institution\InstitutionApprovalController@index');
 Route::get('institution/approval/approve', 'Institution\InstitutionApprovalController@approve');
@@ -99,6 +99,7 @@ Route::resource('staff/management', 'Staff\ManagementStaffsController');
 Route::post('staff/attrition/{id}/approve', 'Staff\StaffAttritionsController@approve');
 Route::resource('staff/attrition', 'Staff\StaffAttritionsController');
 Route::resource('staff/ict-staff-types', 'Staff\IctStaffTypesController');
+Route::resource('staff/job-title', 'Staff\JobTitlesController');
 
 //  Student Routes
 Route::post('student/special-need/{id}/approve', 'Student\SpecialNeedStudentsController@approve');
@@ -129,6 +130,7 @@ Route::resource('institution-report', 'Report\InstitutionReportsController');
 Route::resource('region-name', 'Institution\RegionNamesController');
 Route::resource('population', 'Institution\PopulationController');
 Route::get('admin/student-enrollment-chart', 'HomeController@adminEnrollmentChart');
+Route::get('disapproved-data', 'DisapprovedDataController@index');
 
 
 // Authentication Routes...
@@ -141,8 +143,11 @@ Route::get('register', 'Auth\RegisterController@getRegistrationForm')->name('reg
 Route::post('register', 'Auth\RegisterController@register');
 
 
+Route::get('university-admin/generate', 'User\UniversityAdminController@autoGenerate');
 Route::resource('university-admin', 'User\UniversityAdminController');
+Route::get('department-admin/generate', 'User\DepartmentAdminController@autoGenerate');
 Route::resource('department-admin', 'User\DepartmentAdminController');
+Route::get('college-admin/generate', 'User\CollegeAdminController@autoGenerate');
 Route::resource('college-admin', 'User\CollegeAdminController');
 
 // Password Reset Routes...

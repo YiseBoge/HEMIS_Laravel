@@ -12,6 +12,16 @@ use Illuminate\Validation\ValidationException;
 class ManagementDataController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -19,16 +29,12 @@ class ManagementDataController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
         $institution = $user->institution();
+
         $managements = array();
 
-        if ($institution != null) {
-            foreach ($institution->managements as $management) $managements[] = $management;
-        } else {
-            $managements = ManagementData::all();
-        }
+        foreach ($institution->managements as $management) $managements[] = $management;
 
         $data = [
             'management_data' => $managements,
@@ -46,19 +52,14 @@ class ManagementDataController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
+        if ($user->read_only) return redirect("/institution/general");
 
         $institution = $user->institution();
         $managements = array();
 
-        if ($institution != null) {
-            foreach ($institution->managements as $management) {
-                $managements[] = $management;
-            }
-        } else {
-            $managements = ManagementData::all();
-        }
+        foreach ($institution->managements as $management)
+            $managements[] = $management;
 
         $data = [
             'management_data' => $managements,
@@ -87,8 +88,8 @@ class ManagementDataController extends Controller
         ]);
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
+        if ($user->read_only) return redirect("/institution/general");
         $institution = $user->institution();
 
         $management_data = new ManagementData();
@@ -128,19 +129,14 @@ class ManagementDataController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
+        if ($user->read_only) return redirect("/institution/general");
 
         $institution = $user->institution();
         $managements = array();
 
-        if ($institution != null) {
-            foreach ($institution->managements as $management) {
-                $managements[] = $management;
-            }
-        } else {
-            $managements = ManagementData::all();
-        }
+        foreach ($institution->managements as $management)
+            $managements[] = $management;
 
         $data = [
             'management_data' => $managements,
@@ -171,9 +167,7 @@ class ManagementDataController extends Controller
         ]);
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('University Admin');
-        $institution = $user->institution();
 
         $management_data = ManagementData::find($id);
         $management_data->required = $request->input('required_positions');
@@ -194,6 +188,10 @@ class ManagementDataController extends Controller
      */
     public function destroy($id)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('University Admin');
+        if ($user->read_only) return redirect("/institution/general");
+
         $item = ManagementData::find($id);
         $item->delete();
         return redirect('institution/management-data')->with('primary', 'Successfully Deleted');

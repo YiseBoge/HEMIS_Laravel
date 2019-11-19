@@ -7,10 +7,10 @@ use App\Models\College\College;
 use App\Models\College\CollegeName;
 use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
+use App\Models\Department\Enrollment;
 use App\Models\Institution\AgeEnrollment;
 use App\Models\Institution\InstitutionName;
 use App\Models\Staff\Staff;
-use App\Models\Department\Enrollment;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -30,11 +30,6 @@ class IndexController extends Controller
         $educationPrograms = College::getEnum("EducationPrograms");
         $educationLevels = College::getEnum("EducationLevels");
         $staffTypes = Staff::$staff_types;
-
-//        $reporter = new GeneralReportService(Auth::user()->currentInstance->year);
-//        $studentsNumber = $reporter->enrollment('All', College::getEnum('education_level')['UNDERGRADUATE']) +
-//            $reporter->enrollment('All', College::getEnum('education_level')['POST_GRADUATE_MASTERS']) +
-//            $reporter->enrollment('All', College::getEnum('education_level')['POST_GRADUATE_PHD']);
 
         $institutions->prepend('Any');
         $bands->prepend('Any');
@@ -138,42 +133,13 @@ class IndexController extends Controller
      */
     public function enrollmentChart(Request $request)
     {
-
-        $requestedType = $request->input('student_type');
-        if ($requestedType == null) {
-            $requestedType = 'Normal';
-        }
-
-        $requestedInstitution = $request->input('institution');
-        if ($requestedInstitution == null) {
-            $requestedInstitution = 0;
-        }
-
-        $requestedBand = $request->input('band');
-        if ($requestedBand == null) {
-            $requestedBand = 0;
-        }
-
-        $requestedCollege = $request->input('college');
-        if ($requestedCollege == null) {
-            $requestedCollege = 0;
-        }
-
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = 0;
-        }
-
-        $requestedProgram = $request->input('program');
-        if ($requestedProgram == null) {
-            $requestedProgram = 0;
-        }
-
-        $requestedLevel = $request->input('education_level');
-        if ($requestedLevel == null) {
-            $requestedLevel = 0;
-        }
-
+        $requestedType = request()->query('student_type', 'Normal');
+        $requestedInstitution = request()->query('institution', 0);
+        $requestedBand = request()->query('band', 0);
+        $requestedCollege = request()->query('college', 0);
+        $requestedDepartment = request()->query('department', 0);
+        $requestedProgram = request()->query('program', 0);
+        $requestedLevel = request()->query('education_level', 0);
 
         $institutions = InstitutionName::all();
         if ($requestedInstitution == 0) {
@@ -200,7 +166,7 @@ class IndexController extends Controller
         }
 
 
-        $colleges = CollegeName::byInstitutionNamesAndBandNames($selectedInstitutions, $selectedBands);
+        $colleges = CollegeName::byInstitutionNames($selectedInstitutions);
 //        return $colleges;
         if ($requestedCollege == 0) {
             $selectedColleges = $colleges;
@@ -212,7 +178,7 @@ class IndexController extends Controller
         }
 
 
-        $departments = DepartmentName::byCollegeNames($selectedColleges);
+        $departments = DepartmentName::byCollegeNamesAndBandNames($selectedColleges, $selectedBands);
 //        return $departments;
         if ($requestedDepartment == 0) {
             $selectedDepartment = $departments;
@@ -306,35 +272,12 @@ class IndexController extends Controller
      */
     public function staffChart(Request $request)
     {
-        $requestedInstitution = $request->input('institution');
-        if ($requestedInstitution == null) {
-            $requestedInstitution = 0;
-        }
-
-        $requestedBand = $request->input('band');
-        if ($requestedBand == null) {
-            $requestedBand = 0;
-        }
-
-        $requestedCollege = $request->input('college');
-        if ($requestedCollege == null) {
-            $requestedCollege = 0;
-        }
-
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = 0;
-        }
-
-        $requestedProgram = $request->input('program');
-        if ($requestedProgram == null) {
-            $requestedProgram = 0;
-        }
-
-        $requestedLevel = $request->input('education_level');
-        if ($requestedLevel == null) {
-            $requestedLevel = 0;
-        }
+        $requestedInstitution = request()->query('institution', 0);
+        $requestedBand = request()->query('band', 0);
+        $requestedCollege = request()->query('college', 0);
+        $requestedDepartment = request()->query('department', 0);
+        $requestedProgram = request()->query('program', 0);
+        $requestedLevel = request()->query('education_level', 0);
 
         $year_levels = array();
         foreach (Department::getEnum('YearLevels') as $key => $value) {
@@ -368,7 +311,7 @@ class IndexController extends Controller
         }
 
 
-        $colleges = CollegeName::byInstitutionNamesAndBandNames($selectedInstitutions, $selectedBands);
+        $colleges = CollegeName::byInstitutionNames($selectedInstitutions);
 //        return $colleges;
         if ($requestedCollege == 0) {
             $selectedColleges = $colleges;
@@ -380,7 +323,7 @@ class IndexController extends Controller
         }
 
 
-        $departments = DepartmentName::byCollegeNames($selectedColleges);
+        $departments = DepartmentName::byCollegeNamesAndBandNames($selectedColleges, $selectedBands);
 //        return $departments;
         if ($requestedDepartment == 0) {
             $selectedDepartment = $departments;
@@ -482,37 +425,12 @@ class IndexController extends Controller
      */
     public function ageEnrollmentChart(Request $request)
     {
-
-        $requestedInstitution = $request->input('institution');
-        if ($requestedInstitution == null) {
-            $requestedInstitution = 0;
-        }
-
-        $requestedBand = $request->input('band');
-        if ($requestedBand == null) {
-            $requestedBand = 0;
-        }
-
-        $requestedCollege = $request->input('college');
-        if ($requestedCollege == null) {
-            $requestedCollege = 0;
-        }
-
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = 0;
-        }
-
-        $requestedProgram = $request->input('program');
-        if ($requestedProgram == null) {
-            $requestedProgram = 0;
-        }
-
-        $requestedLevel = $request->input('education_level');
-        if ($requestedLevel == null) {
-            $requestedLevel = 0;
-        }
-
+        $requestedInstitution = request()->query('institution', 0);
+        $requestedBand = request()->query('band', 0);
+        $requestedCollege = request()->query('college', 0);
+        $requestedDepartment = request()->query('department', 0);
+        $requestedProgram = request()->query('program', 0);
+        $requestedLevel = request()->query('education_level', 0);
 
         $institutions = InstitutionName::all();
         if ($requestedInstitution == 0) {
@@ -539,7 +457,7 @@ class IndexController extends Controller
         }
 
 
-        $colleges = CollegeName::byInstitutionNamesAndBandNames($selectedInstitutions, $selectedBands);
+        $colleges = CollegeName::byInstitutionNames($selectedInstitutions);
 //        return $colleges;
         if ($requestedCollege == 0) {
             $selectedColleges = $colleges;
@@ -551,7 +469,7 @@ class IndexController extends Controller
         }
 
 
-        $departments = DepartmentName::byCollegeNames($selectedColleges);
+        $departments = DepartmentName::byCollegeNamesAndBandNames($selectedColleges, $selectedBands);
 //        return $departments;
         if ($requestedDepartment == 0) {
             $selectedDepartment = $departments;

@@ -75,6 +75,17 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <div class="col-md">
+                                <div class="custom-control custom-checkbox text-center">
+                                    <input class="custom-control-input" type="checkbox" name="read_only"
+                                           id="read_only" {{ old('read_only') ? 'checked' : '' }}>
+
+                                    <label class="custom-control-label" for="read_only"> Read Only </label>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-5">
                                 {!! Form::submit('Add Admin', ['class' => 'btn btn-primary btn-sm']) !!}

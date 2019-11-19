@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\College\CollegeName;
 use App\Role;
+use App\Services\UserService;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -40,14 +41,12 @@ class CollegeAdminController extends Controller
         $editors = [];
         foreach (User::all() as $editor) {
             if ($user->hasRole('University Admin')) {
-                if ($editor->hasRole('College Super Admin') && $editor->institution_name_id == $institutionNameId) {
+                if ($editor->hasRole('College Super Admin') && $editor->institution_name_id == $institutionNameId)
                     array_push($editors, $editor);
-                }
             } else {
                 if ($editor->hasRole('College Admin') && $editor->institution_name_id == $institutionNameId &&
-                    $editor->college_name_id == $user->college_name_id) {
+                    $editor->college_name_id == $user->college_name_id)
                     array_push($editors, $editor);
-                }
             }
         }
 
@@ -119,7 +118,6 @@ class CollegeAdminController extends Controller
         $user->password = Hash::make($request->input('password'));
 
         $institutionName->users()->save($user);
-        $collegeName->bandName->users()->save($user);
         $collegeName->users()->save($user);
         $currentInstanceId->users()->save($user);
 
@@ -149,7 +147,16 @@ class CollegeAdminController extends Controller
      */
     public function edit($id)
     {
-        return redirect('/college-admin');
+        $user = Auth::user();
+        $user->authorizeRoles(['University Admin', 'College Super Admin']);
+
+        $college_admin = User::find($id);
+        $data = array(
+            'college_admin'=>$college_admin,
+            'page_name' => 'administer.college_admin.create',
+        );
+
+        return view('users.college_admin.edit')->with($data);
     }
 
     /**
@@ -158,10 +165,24 @@ class CollegeAdminController extends Controller
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
-        return redirect('/college-admin');
+        $this->validate($request, [
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user = Auth::user();
+        $user->authorizeRoles(['University Admin', 'College Super Admin']);
+
+        $college_admin = User::find($id);
+
+        $college_admin->password = Hash::make($request->input('password'));
+        $college_admin->save();
+
+        return redirect('/college-admin')->with('success', 'Successfully Changed College Admin Password');
+    
     }
 
     /**
@@ -176,5 +197,28 @@ class CollegeAdminController extends Controller
         $item = User::find($id);
         $item->delete();
         return redirect('/college-admin')->with('primary', 'Successfully Deleted');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return Response
+     * @throws Exception
+     */
+    public function autoGenerate()
+    {
+        $user = Auth::user();
+        $user->authorizeRoles(['College Super Admin', 'University Admin']);
+        $instance = $user->currentInstance;
+        $institutionName = $user->institutionName;
+        $collegeName = $user->collegeName;
+
+        $service = new UserService($instance);
+        $user->hasRole('University Admin') ?
+            $service->createCollegeSuperAdmins($institutionName) :
+            $service->createCollegeCommonAdmin($collegeName);
+
+
+        return redirect('/college-admin')->with('primary', 'Successfully Generated Admins');
     }
 }

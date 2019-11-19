@@ -21,6 +21,9 @@ class CreateGeneralInformationTable extends Migration
             $table->bigInteger('schools')->default(0);
             $table->bigInteger('institutes')->default(0);
             $table->bigInteger('hospitals')->default(0);
+            $table->bigInteger('centers')->default(0);
+            $table->bigInteger('faculties')->default(0);
+            $table->bigInteger('departments')->default(0);
 
             $table->bigInteger('board_members')->default(0);
             $table->bigInteger('vice_presidents')->default(0);

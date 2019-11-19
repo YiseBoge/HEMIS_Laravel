@@ -7,13 +7,15 @@
                 <h6 class="m-0 font-weight-bold text-primary">Management Data</h6>
             </div>
             <div class="card-body">
-                <div class="row my-3">
-                    <div class="col text-right">
-                        <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/institution/management-data/create">New
-                            Entry<i
-                                    class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
+                @if (!Auth::user()->read_only)
+                    <div class="row my-3">
+                        <div class="col text-right">
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/institution/management-data/create">
+                                New Entry<i class="fas fa-plus text-white-50 fa-sm ml-2"></i></a>
+                        </div>
                     </div>
-                </div>
+                @endif
+
                 <div class="table-responsive">
                     <table class="table table-bordered dataTable table-striped table-hover"
                            id="dataTable"
@@ -46,30 +48,32 @@
                         @foreach ($management_data as $data)
                             <tr role="row" class="odd">
                                 <td class="text-center">
-                                    <div class="row px-1">
-                                        <div class="col px-0">
-                                            <form class="p-0"
-                                                  action="management-data/{{$data->id}}/edit"
-                                                  method="GET">
+                                    @if (!Auth::user()->read_only)
+                                        <div class="row px-1">
+                                            <div class="col px-0">
+                                                <form class="p-0"
+                                                      action="management-data/{{$data->id}}/edit"
+                                                      method="GET">
+                                                    <button type="submit"
+                                                            class="btn btn-primary btn-circle text-white btn-sm mx-0"
+                                                            style="opacity:0.80"
+                                                            data-toggle="tooltip" title="Edit">
+                                                        <i class="fas fa-pencil-alt fa-sm"
+                                                           style="opacity:0.75"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="col px-0">
                                                 <button type="submit"
-                                                        class="btn btn-primary btn-circle text-white btn-sm mx-0"
-                                                        style="opacity:0.80"
-                                                        data-toggle="tooltip" title="Edit">
-                                                    <i class="fas fa-pencil-alt fa-sm"
+                                                        class="btn btn-danger btn-circle text-white btn-sm mx-0 deleter"
+                                                        style="opacity:0.80" data-id="{{$data->id}}"
+                                                        data-toggle="tooltip" title="Delete">
+                                                    <i class="fas fa-trash fa-sm"
                                                        style="opacity:0.75"></i>
                                                 </button>
-                                            </form>
+                                            </div>
                                         </div>
-                                        <div class="col px-0">
-                                            <button type="submit"
-                                                    class="btn btn-danger btn-circle text-white btn-sm mx-0 deleter"
-                                                    style="opacity:0.80" data-id="{{$data->id}}"
-                                                    data-toggle="tooltip" title="Delete">
-                                                <i class="fas fa-trash fa-sm"
-                                                   style="opacity:0.75"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    @endif
                                 </td>
                                 <td class="sorting_1">{{$data->management_level}}</td>
                                 <td>{{$data->required}}</td>

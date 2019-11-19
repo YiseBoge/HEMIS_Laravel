@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\College\InternalRevenue;
 use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -39,20 +39,11 @@ class InternalRevenuesController extends Controller
         $collegeName = $user->collegeName;
 
         $revenues = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->internalRevenues as $revenue) {
-                            $revenues[] = $revenue;
-                        }
-                    }
-                }
-            }
-        } else {
-            $revenues = InternalRevenue::all();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->internalRevenues as $internalRevenue)
+                    $revenues[] = $internalRevenue;
 
         $data = array(
             'internal_revenues' => $revenues,
@@ -74,20 +65,11 @@ class InternalRevenuesController extends Controller
         $collegeName = $user->collegeName;
 
         $revenues = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->internalRevenues as $revenue) {
-                            $revenues[] = $revenue;
-                        }
-                    }
-                }
-            }
-        } else {
-            $revenues = InternalRevenue::all();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->internalRevenues as $internalRevenue)
+                    $revenues[] = $internalRevenue;
 
         $revenueDescriptions = InternalRevenue::getEnum('revenue_description');
 
@@ -116,36 +98,17 @@ class InternalRevenuesController extends Controller
             'income' => 'required|numeric|between:0,1000000000',
             'expense' => 'required|numeric|between:0,1000000000',
         ]);
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
+        $institution = $user->institution();
+        $collegeName = $user->collegeName;
+
+        $college = HierarchyService::getCollege($institution, $collegeName, 'None', 'None');
 
         $internalRevenue = new InternalRevenue();
         $internalRevenue->revenue_description = $request->input('revenue_description');
         $internalRevenue->income = $request->input('income');
         $internalRevenue->expense = $request->input('expense');
-
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => 'None', 'education_program' => 'None'])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = 'None';
-            $college->education_program = "None";
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
 
         $internalRevenue->college_id = $college->id;
 
@@ -188,20 +151,11 @@ class InternalRevenuesController extends Controller
         $collegeName = $user->collegeName;
 
         $revenues = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->internalRevenues as $revenue) {
-                            $revenues[] = $revenue;
-                        }
-                    }
-                }
-            }
-        } else {
-            $revenues = InternalRevenue::all();
-        }
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->internalRevenues as $internalRevenue)
+                    $revenues[] = $internalRevenue;
 
         $data = array(
             'internal_revenues' => $revenues,
@@ -240,6 +194,7 @@ class InternalRevenuesController extends Controller
         $internalRevenue->revenue_description = $request->input('revenue_description');
         $internalRevenue->income = $request->input('income');
         $internalRevenue->expense = $request->input('expense');
+        $internalRevenue->approval_status = "Pending";
 
         $internalRevenue->save();
 
@@ -274,18 +229,10 @@ class InternalRevenuesController extends Controller
         } else {
             $institution = $user->institution();
 
-            if ($institution != null) {
-                foreach ($institution->bands as $band) {
-                    if ($band->bandName->band_name == $user->bandName->band_name) {
-                        foreach ($band->colleges as $college) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                ApprovalService::approveData($college->internalRevenues);
-                            }
-                        }
-                    }
+            foreach ($institution->colleges as $college) {
+                if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                    ApprovalService::approveData($college->internalRevenues);
                 }
-            } else {
-
             }
         }
         return redirect("/budgets/internal-revenue")->with('primary', 'Success');

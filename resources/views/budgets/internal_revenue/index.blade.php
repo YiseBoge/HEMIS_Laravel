@@ -14,7 +14,7 @@
                                 @csrf
                                 <input type="hidden" name="action" value="approveAll">
                                 <button type="submit"
-                                        class="btn btn-sm btn-primary shadow-sm">
+                                        class="btn btn-sm btn-primary shadow-sm" {{count($internal_revenues) == 0 ? 'disabled' : ''}}>
                                     Approve All Pending<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
                                 </button>
                             </form>
@@ -83,7 +83,7 @@
                                                 </form>
                                             @endif
                                         @else
-                                            @if($internalRevenue->approval_status != "Approved")
+                                            @if(!in_array($internalRevenue->approval_status, ["Approved", "College Approved"]))
                                                 <div class="row px-1">
                                                     <div class="col px-0">
                                                         <form class="p-0"
@@ -115,13 +115,17 @@
                                     <td>{{ $internalRevenue->income }}</td>
                                     <td>{{ $internalRevenue->expense }}</td>
                                     <td>{{ $internalRevenue->income - $internalRevenue->expense }}</td>
-                                    @if($internalRevenue->approval_status == "Approved")
+                                   @if($internalRevenue->approval_status == "Approved")
                                         <td class="text-success"><i
                                                     class="fas fa-check-double"></i> {{$internalRevenue->approval_status}}
                                         </td>
                                     @elseif($internalRevenue->approval_status == "College Approved")
                                         <td class="text-primary"><i
                                                     class="fas fa-check"></i> {{$internalRevenue->approval_status}}
+                                        </td>
+                                    @elseif($internalRevenue->approval_status == "Pending")
+                                        <td class="text-warning"><i
+                                                    class="far fa-clock"></i> {{$internalRevenue->approval_status}}
                                         </td>
                                     @else
                                         <td class="text-danger"><i

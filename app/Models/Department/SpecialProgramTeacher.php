@@ -49,7 +49,7 @@ class SpecialProgramTeacher extends Model
      */
     public function scopeInfo($query)
     {
-        return $query->with('department.College.band', 'department.departmentName');
+        return $query->with('department.College', 'department.departmentName');
     }
 
     /**

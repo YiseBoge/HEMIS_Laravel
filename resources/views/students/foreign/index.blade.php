@@ -20,7 +20,6 @@
                            style="width: 100%;">
                         <thead>
                         <tr role="row">
-                            <th style="min-width: 50px; width: 50px"></th>
                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                 rowspan="1" colspan="1" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending"
@@ -41,10 +40,6 @@
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Salary: activate to sort column ascending"
-                                style="width: 91px;">Band
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                colspan="1" aria-label="Salary: activate to sort column ascending"
                                 style="width: 91px;">Department
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
@@ -62,28 +57,10 @@
                             @foreach ($students as $student)
                                 <tr role="row" class="odd"
                                     onclick="window.location='foreign/{{$student->id}}'">
-                                    <td class="text-center">
-                                        <div class="row px-1">
-                                            <div class="col px-0">
-                                                <form class="p-0"
-                                                      action="/student/foreign/{{$student->id}}/edit"
-                                                      method="GET">
-                                                    <button type="submit"
-                                                            class="btn btn-primary btn-circle text-white btn-sm mx-0"
-                                                            style="opacity:0.80"
-                                                            data-toggle="tooltip" title="Edit">
-                                                        <i class="fas fa-pencil-alt fa-sm"
-                                                           style="opacity:0.75"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </td>
                                     <td>{{$student->general->name}}</td>
                                     <td>{{$student->general->student_id}}</td>
                                     <td>{{$student->general->sex}}</td>
                                     <td>{{$student->general->birth_date}}</td>
-                                    <td>{{$student->department->college->band->bandName->band_name}}</td>
                                     <td>{{$student->department->departmentName->department_name}}</td>
                                     <td>{{$student->department->college->education_level}}</td>
                                     <td>{{$student->nationality}}</td>

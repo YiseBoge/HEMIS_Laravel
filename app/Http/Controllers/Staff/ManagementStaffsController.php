@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
 use App\Models\College\College;
 use App\Models\Staff\ManagementStaff;
 use App\Models\Staff\Staff;
+use App\Models\Staff\JobTitle;
+use App\Models\Staff\AdministrativeStaff;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -38,20 +40,12 @@ class ManagementStaffsController extends Controller
         $collegeName = $user->collegeName;
 
         $managementStaffs = array();
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->managementStaffs as $managementStaff)
+                    $managementStaffs[] = $managementStaff;
 
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                foreach ($band->colleges as $college) {
-                    if ($college->collegeName->id == $collegeName->id) {
-                        foreach ($college->managementStaffs as $managementStaff) {
-                            $managementStaffs[] = $managementStaff;
-                        }
-                    }
-                }
-            }
-        } else {
-            $managementStaffs = ManagementStaff::all();
-        }
         $data = array(
             'staffs' => $managementStaffs,
             'page_name' => 'staff.management.list'
@@ -68,12 +62,23 @@ class ManagementStaffsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
+        $institution = $user->institution();
+        $collegeName = $user->collegeName;
+
+        $administrativeStaffs = array();
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->administrativeStaffs as $administrativeStaff)
+                    $administrativeStaffs[] = $administrativeStaff;
 
         $data = array(
+            'staffs' => $administrativeStaffs,
             'employment_types' => Staff::getEnum("employment_type"),
             'dedications' => Staff::getEnum("dedication"),
             'academic_levels' => Staff::getEnum("academic_levels"),
             'levels' => ManagementStaff::getEnum("management_levels"),
+            'job_titles' => JobTitle::where('staff_type', 'Management')->get(),
             'page_name' => 'staff.management.create'
         );
         return view('staff.management.create')->with($data);
@@ -89,68 +94,23 @@ class ManagementStaffsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'birth_date' => 'required|date|before:now',
-            'sex' => 'required',
-            'phone_number' => 'required',
-            'nationality' => 'required',
-            'job_title' => 'required',
-            'salary' => 'required|numeric|between:0,1000000000',
-            'service_year' => 'required|numeric|between:0,100',
-            'employment_type' => 'required',
-            'dedication' => 'required',
-            'academic_level' => 'required',
             'management_level' => 'required',
         ]);
-
-        $staff = new Staff;
-        $staff->name = $request->input('name');
-        $staff->birth_date = $request->input('birth_date');
-        $staff->sex = $request->input('sex');
-        $staff->phone_number = $request->input('phone_number');
-        $staff->nationality = $request->input('nationality');
-        $staff->job_title = $request->input('job_title');
-        $staff->salary = $request->input('salary');
-        $staff->service_year = $request->input('service_year');
-        $staff->employment_type = $request->input('employment_type');
-        $staff->dedication = $request->input('dedication');
-        $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $request->has('expatriate');
-        $staff->is_from_other_region = $request->has('other_region');
-        $staff->salary = $request->input('salary');
-        $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
-
-        $managementStaff = new ManagementStaff;
-        $managementStaff->management_level = $request->input('management_level');
-
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
         $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => 'None', 'education_program' => 'None'])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = 'None';
-            $college->education_program = "None";
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
+
+        $college = HierarchyService::getCollege($institution, $collegeName, 'None', 'None');
+        $administrativeStaff = AdministrativeStaff::find($request->input('staff'));
+        $staff = $administrativeStaff->general;
+
+        $managementStaff = new ManagementStaff;
+        $managementStaff->management_level = $request->input('management_level');
+        $managementStaff->job_title_id = $request->input('job_title');
+        $managementStaff->staff_id = $staff->id;
 
         $college->managementStaffs()->save($managementStaff);
-        $managementStaff = ManagementStaff::find($managementStaff->id);
-        $managementStaff->general()->save($staff);
 
         return redirect('/staff/management')->with('success', 'Successfully Added Management Staff');
     }
@@ -205,7 +165,7 @@ class ManagementStaffsController extends Controller
             'name' => 'required',
             'birth_date' => 'required|date|before:now',
             'sex' => 'required',
-            'phone_number' => 'required',
+            'phone_number' => 'required|regex:/(09)[0-9]{8}/',
             'nationality' => 'required',
             'job_title' => 'required',
             'salary' => 'required|numeric|between:0,1000000000',
@@ -215,54 +175,14 @@ class ManagementStaffsController extends Controller
             'academic_level' => 'required',
             'management_level' => 'required',
         ]);
+        $user = Auth::user();
+        $user->authorizeRoles('College Admin');
 
         $managementStaff = ManagementStaff::find($id);
         $managementStaff->management_level = $request->input('management_level');
 
         $staff = $managementStaff->general;
-        $staff->name = $request->input('name');
-        $staff->birth_date = $request->input('birth_date');
-        $staff->sex = $request->input('sex');
-        $staff->phone_number = $request->input('phone_number');
-        $staff->nationality = $request->input('nationality');
-        $staff->job_title = $request->input('job_title');
-        $staff->salary = $request->input('salary');
-        $staff->service_year = $request->input('service_year');
-        $staff->employment_type = $request->input('employment_type');
-        $staff->dedication = $request->input('dedication');
-        $staff->academic_level = $request->input('academic_level');
-        $staff->is_expatriate = $request->input('expatriate');
-        $staff->is_from_other_region = $request->input('other_region');
-        $staff->salary = $request->input('salary');
-        $staff->remarks = $request->input('additional_remark') == null ? " " : $request->input('additional_remark');
-
-        $user = Auth::user();
-        $user->authorizeRoles('College Admin');
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => 'None', 'education_program' => 'None'])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = 'None';
-            $college->education_program = "None";
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
-
-        $college->managementStaffs()->save($managementStaff);
-        $managementStaff = ManagementStaff::find($managementStaff->id);
+        HierarchyService::populateStaff($request, $staff);
         $managementStaff->general()->save($staff);
 
         return redirect('/staff/management')->with('primary', 'Successfully Updated');

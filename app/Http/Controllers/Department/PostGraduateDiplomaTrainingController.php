@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
-use App\Models\Band\Band;
-use App\Models\Band\BandName;
 use App\Models\College\College;
 use App\Models\College\CollegeName;
-use App\Models\Department\Department;
 use App\Models\Department\DepartmentName;
 use App\Models\Department\PostGraduateDiplomaTraining;
 use App\Models\Institution\Institution;
 use App\Services\ApprovalService;
+use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -33,85 +31,39 @@ class PostGraduateDiplomaTrainingController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
         $collegeDeps = $user->collegeName->departmentNames;
 
-        if ($request->input('type') == null) {
-            $requestedType = 0;
-        } else if ($request->input('type') == "Teachers") {
-            $requestedType = 0;
-        } else {
-            $requestedType = 1;
-        }
-
-        $requestedProgram = $request->input('program');
-        if ($requestedProgram == null) {
-            $requestedProgram = 'Regular';
-        }
-
-        $requestedDepartment = $request->input('department');
-        if ($requestedDepartment == null) {
-            $requestedDepartment = DepartmentName::all()->first()->id;
-        }
+        $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
+        $requestedType = request()->query('type', 'Teachers') == "Teachers" ? 0 : 1;
 
         $trainings = array();
-
-        if ($institution != null) {
-            foreach ($institution->bands as $band) {
-                if ($band->bandName->id == $user->bandName->id) {
-                    foreach ($band->colleges as $college) {
-                        if ($user->hasRole('College Super Admin')) {
-                            if ($college->collegeName->id == $user->collegeName->id) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $requestedDepartment) {
-                                        foreach ($department->postgraduateDiplomaTrainings as $training) {
-                                            $trainings[] = $training;
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if ($college->collegeName->id == $user->collegeName->id && $college->education_level == "None") {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->department_name == $user->departmentName->department_name) {
-                                        foreach ($department->postgraduateDiplomaTrainings as $training) {
-                                            if ($training->is_lead == $requestedType) {
-                                                $trainings[] = $training;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
-
-                    }
-                }
-            }
-        } else {
-            $trainings = PostGraduateDiplomaTraining::with('department')->get();
+        /** @var College $college */
+        foreach ($user->collegeName->college as $college) {
+            if ($user->hasRole('College Super Admin')) {
+                foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
+                    foreach ($department->postgraduateDiplomaTrainings as $training)
+                        $trainings[] = $training;
+            } else
+                foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
+                    foreach ($department->postgraduateDiplomaTrainings()->where('is_lead', $requestedType)->get() as $training)
+                        $trainings[] = $training;
         }
-
-        //$enrollments=Enrollment::where('department_id',$department->id)->get();
-
 
         $data = array(
             'trainings' => $trainings,
             'departments' => $collegeDeps,
-            'programs' => PostGraduateDiplomaTraining::getEnum("Programs"),
+            'programs' => College::getEnum("education_program"),
             'types' => PostGraduateDiplomaTraining::getEnum('Types'),
             'page_name' => 'staff.postgraduate_diploma_training.index',
 
             'selected_department' => $requestedDepartment,
             'selected_type' => $requestedType,
-            'selected_program' => $requestedProgram
 
         );
         return view("departments.postgraduate_diploma_training.index")->with($data);
@@ -129,9 +81,8 @@ class PostGraduateDiplomaTrainingController extends Controller
 
         $data = array(
             'colleges' => CollegeName::all(),
-            'bands' => BandName::all(),
             'departments' => DepartmentName::all(),
-            'programs' => PostGraduateDiplomaTraining::getEnum("Programs"),
+            'programs' => College::getEnum("education_program"),
             'types' => PostGraduateDiplomaTraining::getEnum('Types'),
             'page_name' => 'staff.postgraduate_diploma_training.create'
         );
@@ -154,51 +105,21 @@ class PostGraduateDiplomaTrainingController extends Controller
             'female_number' => 'required|numeric|between:0,1000000000',
         ]);
 
+        $user = Auth::user();
+        $user->authorizeRoles('Department Admin');
+        $institution = $user->institution();
+
+        $collegeName = $user->collegeName;
+        $departmentName = $user->departmentName;
+        $educationLevel = request()->input('education_level', 'None');
+        $educationProgram = request()->input('program', 'None');
+        $yearLevel = request()->input('year_level', 'None');
+        $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
+
         $training = new PostGraduateDiplomaTraining;
         $training->number_of_male_students = $request->input('male_number');
         $training->number_of_female_students = $request->input('female_number');
-        if ($request->input('type') == "TEACHERS") {
-            $training->is_lead = 0;
-        } else {
-            $training->is_lead = 1;
-        }
-
-        $user = Auth::user();
-        $user->authorizeRoles('Department Admin');
-
-        $institution = $user->institution();
-
-        $bandName = $user->bandName;
-        $band = Band::where(['band_name_id' => $bandName->id, 'institution_id' => $institution->id])->first();
-        if ($band == null) {
-            $band = new Band;
-            $band->band_name_id = null;
-            $institution->bands()->save($band);
-            $bandName->band()->save($band);
-        }
-
-        $collegeName = $user->collegeName;
-        $college = College::where(['college_name_id' => $collegeName->id, 'band_id' => $band->id,
-            'education_level' => "None", 'education_program' => $request->input("program")])->first();
-        if ($college == null) {
-            $college = new College;
-            $college->education_level = "None";
-            $college->education_program = $request->input("program");
-            $college->college_name_id = null;
-            $band->colleges()->save($college);
-            $collegeName->college()->save($college);
-        }
-
-        $departmentName = $user->departmentName;
-        $department = Department::where(['department_name_id' => $departmentName->id, 'year_level' => "None",
-            'college_id' => $college->id])->first();
-        if ($department == null) {
-            $department = new Department;
-            $department->year_level = "None";
-            $department->department_name_id = null;
-            $college->departments()->save($department);
-            $departmentName->department()->save($department);
-        }
+        $training->is_lead = $request->input('type') != "TEACHERS";
 
         $training->department_id = $department->id;
 
@@ -275,6 +196,7 @@ class PostGraduateDiplomaTrainingController extends Controller
 
         $postGraduateDiplomaTraining->number_of_male_students = $request->input("male_number");
         $postGraduateDiplomaTraining->number_of_female_students = $request->input("female_number");
+        $postGraduateDiplomaTraining->approval_status = "Pending";
 
         $postGraduateDiplomaTraining->save();
 
@@ -310,17 +232,11 @@ class PostGraduateDiplomaTrainingController extends Controller
         } else {
             $institution = $user->institution();
 
-            if ($institution != null) {
-                foreach ($institution->bands as $band) {
-                    if ($band->bandName->band_name == $user->bandName->band_name) {
-                        foreach ($band->colleges as $college) {
-                            if ($college->collegeName->college_name == $user->collegeName->college_name) {
-                                foreach ($college->departments as $department) {
-                                    if ($department->departmentName->id == $selectedDepartment) {
-                                        ApprovalService::approveData($department->postgraduateDiplomaTrainings);
-                                    }
-                                }
-                            }
+            foreach ($institution->colleges as $college) {
+                if ($college->collegeName->college_name == $user->collegeName->college_name) {
+                    foreach ($college->departments as $department) {
+                        if ($department->departmentName->id == $selectedDepartment) {
+                            ApprovalService::approveData($department->postgraduateDiplomaTrainings);
                         }
                     }
                 }
