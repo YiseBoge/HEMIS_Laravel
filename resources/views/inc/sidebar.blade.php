@@ -51,9 +51,9 @@
                        href="/enrollment/specializing-students">Specializing Students</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'rural_students' ? 'active': '' }}"
                        href="/enrollment/rural-area-students">Rural/Urban Area Students</a>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'disadvantaged_students' ? 'active': '' }}"
-                       href="/enrollment/economically-disadvantaged">Economically
-                        Disadvantaged Students</a>
+                    {{--                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'disadvantaged_students' ? 'active': '' }}"--}}
+                    {{--                       href="/enrollment/economically-disadvantaged">Economically--}}
+                    {{--                        Disadvantaged Students</a>--}}
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'other_region_students' ? 'active': '' }}"
                        href="/enrollment/other-region-students">Students From Other
                         Regions</a>
@@ -87,8 +87,8 @@
                        href="/student/student-attrition">Student Attrition</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'other_attrition' ? 'active': '' }}"
                        href="/student/other-attrition">Other Information</a>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'exit_examination' ? 'active': '' }}"
-                       href="/student/exit-examination">Exit Examination</a>
+                    {{--                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'exit_examination' ? 'active': '' }}"--}}
+                    {{--                       href="/student/exit-examination">Exit Examination</a>--}}
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'degree_employment' ? 'active': '' }}"
                        href="/student/degree-relevant-employment">Degree Relevant
                         Employment</a>
@@ -259,9 +259,9 @@
                        href="/enrollment/specializing-students">Specializing Students</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'rural_students' ? 'active': '' }}"
                        href="/enrollment/rural-area-students">Rural/Urban Area Students</a>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'disadvantaged_students' ? 'active': '' }}"
-                       href="/enrollment/economically-disadvantaged">Economically
-                        Disadvantaged Students</a>
+                    {{--                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'disadvantaged_students' ? 'active': '' }}"--}}
+                    {{--                       href="/enrollment/economically-disadvantaged">Economically--}}
+                    {{--                        Disadvantaged Students</a>--}}
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'other_region_students' ? 'active': '' }}"
                        href="/enrollment/other-region-students">Students From Other
                         Regions</a>
@@ -289,8 +289,8 @@
                        href="/student/student-attrition">Student Attrition</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'other_attrition' ? 'active': '' }}"
                        href="/student/other-attrition">Other Information</a>
-                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'exit_examination' ? 'active': '' }}"
-                       href="/student/exit-examination">Exit Examination</a>
+                    {{--                    <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'exit_examination' ? 'active': '' }}"--}}
+                    {{--                       href="/student/exit-examination">Exit Examination</a>--}}
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'degree_employment' ? 'active': '' }}"
                        href="/student/degree-relevant-employment">Degree Relevant
                         Employment</a>
@@ -423,6 +423,8 @@
                                    href="/band/band-name">Band/ICED Names</a>
                                 <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'ict_staff_type' ? 'active': '' }}"
                                    href="/staff/ict-staff-types">ICT Staff Types</a>
+                                <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'job_title' ? 'active': '' }}"
+                                   href="/staff/job-title">Staff Job Titles</a>
                                 <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'budget-description' ? 'active': '' }}"
                                    href="/budgets/budget-description">Budget Descriptions</a>
                                 <a class="collapse-item {{ preg_split ("/\./", $page_name)[1] == 'population' ? 'active': '' }}"
@@ -435,7 +437,8 @@
                                href="/college/college-name">College/Institute Names</a>
                             @if(!Auth::user()->institution()->institutionName->collegeNames->isEmpty())
                                 <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'department-name' ? 'active': '' }}"
-                                   href="/department/department-name">School/Department Names</a>
+                                   href="/department/department-name">School/Department/Faculty Names</a>
+
                                 <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'college_admin' ? 'active': '' }}"
                                    href="/college-admin">College/Institute Super Admins</a>
                             @endif

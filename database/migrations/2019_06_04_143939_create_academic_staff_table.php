@@ -28,6 +28,7 @@ class CreateAcademicStaffTable extends Migration
             $table->primary('id');
             $table->uuid('staff_leave_id')->nullable();
             $table->uuid('department_id');
+            $table->uuid('job_title_id');
         });
     }
 

@@ -28,7 +28,6 @@ class BandName extends Model
 
         static::deleting(function (BandName $model) { // before delete() method call this
             $model->departmentNames()->delete();
-            $model->users()->delete();
         });
     }
 

@@ -10,23 +10,23 @@ use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
- * @property string|null category
- * @property string|null type
+ * @property string|null job_title
+ * @property string|null staff_type
  * @property string|null level
- * @method static IctStaffType find(int $id)
+ * @method static JobTitle find(int $id)
  */
-class IctStaffType extends Model
+class JobTitle extends Model
 {
     use Uuids;
     use Enums;
 
     public $incrementing = false;
-    protected $enumCategories = [
-        'INFRASTRUCTURE_SERVICES' => 'Infrastructure & Services',
-        'BUSINESS_APPLICATION_DEVELOPMENT' => 'Business Application Administration & Development',
-        'TEACHING_LEARNING_TECHNOLOGIES' => 'Teaching and Learning Technologies',
-        'SUPPORT_MAINTENANCE' => 'Support and Maintenance',
-        'TRAINING_CONSULTANCY' => 'Training and Consultancy'
+
+    protected $enumStaffTypes = [
+        'Academic' => 'Academic',
+        'Administrative' => 'Administrative',
+        'Technical' => 'Technical',
+        'Management' => 'Management',
     ];
     protected $enumLevels = [
         'Level 1' => 'Level 1',
@@ -60,34 +60,49 @@ class IctStaffType extends Model
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
 
-        static::deleting(function (IctStaffType $model) { // before delete() method call this
-            $model->ictStaffs()->delete();
+        static::deleting(function (JobTitle $model) { // before delete() method call this
+            $model->academicStaffs()->delete();
+            $model->administrativeStaffs()->delete();
         });
+    }
+
+
+    /**
+     * @return HasMany
+     */
+    public function academicStaffs()
+    {
+        return $this->hasMany('App\Models\Staff\AcademicStaff');
     }
 
     /**
      * @return HasMany
      */
-    public function ictStaffs()
+    public function administrativeStaffs()
     {
-        return $this->hasMany('App\Models\Staff\IctStaff');
+        return $this->hasMany('App\Models\Staff\AdministrativeStaff');
     }
 
     /**
-     * @return bool
+     * @return HasMany
      */
+    public function managementStaffs()
+    {
+        return $this->hasMany('App\Models\Staff\ManagementStaff');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function technicalStaffs()
+    {
+        return $this->hasMany('App\Models\Staff\TechnicalStaff');
+    }
+
     public function isDuplicate()
     {
-        return IctStaffType::where(array(
-                'type' => $this->type,
+        return JobTitle::where(array(
+                'job_title' => $this->job_title,
             ))->first() != null;
-    }
-
-    /**
-     * @return string
-     */
-    function __toString()
-    {
-        return "$this->type ($this->category)";
     }
 }
