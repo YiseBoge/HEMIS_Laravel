@@ -70,11 +70,6 @@
                         <div class="card-body px-5">
                             <div class="form-row pt-3">
                                 <div class="col-md form-group">
-                                    <input type="text" id="job_title" name="job_title" class="form-control" required
-                                           value="{{ old('job_title') }}">
-                                    <label class="form-control-placeholder" for="job_title">Job Title</label>
-                                </div>
-                                <div class="col-md form-group">
                                     <input type="number" id="salary" name="salary" class="form-control" required
                                            value="{{ old('salary') }}">
                                     <label class="form-control-placeholder" for="salary">Salary</label>
@@ -152,16 +147,27 @@
                 </div>
                 <div class="card-body px-5">
                     <div class="form-row pt-3">
-                        <div class="col form-group">
-                            <select class="form-control" id="aca-staff-rank" name="administrative_staff_rank">
-                                @foreach ($staff_ranks as $key => $value)
-                                    <option value="{{$key}}" {{ (old('administrative_staff_rank') == $key ? 'selected':'') }}>
+                        <div class="col-md-6 form-group">
+                            <select class="form-control" id="job_title" name="job_title">
+                                @foreach (
+                                array('Lecturer', 'Assistant Lecturer') as $value)
+                                    <option value="{{$value}}" {{ (old('job_title') == $value ? 'selected':'') }}>
                                         {{$value}}
                                     </option>
                                 @endforeach
                             </select>
-                            <label for="aca-staff-rank" class="form-control-placeholder">Administrative Staff
-                                Rank</label>
+                            <label class="form-control-placeholder" for="job_title">Job Title</label>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <select class="form-control" id="job_level" name="job_level">
+                                @foreach (
+                                array('1', '1') as $value)
+                                    <option value="{{$value}}" {{ (old('job_level') == $value ? 'selected':'') }}>
+                                        {{$value}}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <label class="form-control-placeholder" for="job_title">Level</label>
                         </div>
                     </div>
                     <div class="form-row pt-3">
