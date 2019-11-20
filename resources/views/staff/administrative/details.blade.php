@@ -77,30 +77,26 @@
                 Employment Information
             </div>
             <div class="card-body">
-                <div class="row mt-4">
-                    <div class="col-md-3">
-                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Job Title</div>
-                        <p>{{$staff->general->job_title}}</p>
-                    </div>
-                    <div class="col-md-3">
+                <div class="row mt-3">
+                    <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Dedication</div>
                         <p>{{$staff->general->dedication}}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Employment Type</div>
                         <p>{{$staff->general->employment_type}}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Academic Level</div>
                         <p>{{$staff->general->academic_level}}</p>
                     </div>
                 </div>
-                <div class="row mt-4">
-                    <div class="col-md-3">
+                <div class="row mt-3">
+                    <div class="col-md-6">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Salary</div>
                         <p>{{$staff->general->salary}}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Years of Service</div>
                         <p>{{$staff->general->service_year}}</p>
                     </div>
@@ -112,10 +108,10 @@
                 Administrative Staff Information
             </div>
             <div class="card-body">
-                <div class="row mt-4">
-                    <div class="col-md-3">
-                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Rank</div>
-                        <p>{{$staff->staffRank}}</p>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Job Title</div>
+                        <p>{{$staff->jobTitle}}</p>
                     </div>
                 </div>
             </div>

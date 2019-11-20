@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\College\College;
 use App\Models\Staff\AcademicStaff;
+use App\Models\Staff\JobTitle;
 use App\Models\Staff\Staff;
 use App\Models\Staff\StaffLeave;
-use App\Models\Staff\JobTitle;
 use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
@@ -103,6 +103,7 @@ class AcademicStaffsController extends Controller
             'dedication' => 'required',
             'academic_level' => 'required',
             'field_of_study' => 'required',
+            'job_title' => 'required',
             'teaching_load' => 'required|numeric|between:0,100'
         ]);
 
@@ -170,6 +171,7 @@ class AcademicStaffsController extends Controller
             'staff' => AcademicStaff::find($id),
             'staff_leave_types' => StaffLeave::getEnum('LeaveTypes'),
             'staff_scholarship_types' => StaffLeave::getEnum('ScholarshipTypes'),
+            'job_titles' => JobTitle::where('staff_type', 'Academic')->get(),
             'page_name' => 'staff.academic.edit'
         );
         return view('staff.academic.edit')->with($data);
@@ -196,9 +198,7 @@ class AcademicStaffsController extends Controller
             'service_year' => 'required|numeric|between:0,100',
             'employment_type' => 'required',
             'dedication' => 'required',
-            'academic_level' => 'required',
             'field_of_study' => 'required',
-            'academic_staff_rank' => 'required',
             'teaching_load' => 'required|numeric|between:0,100'
         ]);
         $user = Auth::user();
@@ -242,8 +242,9 @@ class AcademicStaffsController extends Controller
         $academicStaff->teaching_load = $request->input('teaching_load');
         $academicStaff->overload_remark = $request->input('overload_remark');
         $academicStaff->hdp_trained = $request->has('hdp_trained');
-        $academicStaff->staffRank = $request->input('academic_staff_rank');
+        $academicStaff->job_title_id = $request->input('job_title');
         $academicStaff->overload_remark = $request->input('overload_remark') == null ? " " : $request->input('overload_remark');
+        $academicStaff->save();
 
         $staff = $academicStaff->general;
         HierarchyService::populateStaff($request, $staff);

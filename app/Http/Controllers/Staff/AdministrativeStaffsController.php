@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\College\College;
 use App\Models\Staff\AdministrativeStaff;
-use App\Models\Staff\Staff;
 use App\Models\Staff\JobTitle;
+use App\Models\Staff\Staff;
 use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
@@ -91,12 +91,12 @@ class AdministrativeStaffsController extends Controller
             'sex' => 'required',
             'phone_number' => 'required|regex:/(09)[0-9]{8}/',
             'nationality' => 'required',
-            'job_title' => 'required',
             'salary' => 'required|numeric|between:0,1000000000',
             'service_year' => 'required|numeric|between:0,100',
             'employment_type' => 'required',
             'dedication' => 'required',
             'academic_level' => 'required',
+            'job_title' => 'required',
         ]);
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
@@ -148,6 +148,7 @@ class AdministrativeStaffsController extends Controller
 
         $data = array(
             'staff' => AdministrativeStaff::with('general')->find($id),
+            'job_titles' => JobTitle::where('staff_type', 'Administrative')->get(),
             'page_name' => 'staff.administrative.edit'
         );
         return view('staff.administrative.edit')->with($data);
@@ -180,7 +181,8 @@ class AdministrativeStaffsController extends Controller
         $user->authorizeRoles('College Admin');
 
         $administrativeStaff = AdministrativeStaff::find($id);
-        $administrativeStaff->staffRank = $request->input('administrative_staff_rank');
+        $administrativeStaff->job_title_id = $request->input('job_title');
+        $administrativeStaff->save();
 
         $staff = $administrativeStaff->general;
         HierarchyService::populateStaff($request, $staff);

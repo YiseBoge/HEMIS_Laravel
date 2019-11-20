@@ -17,7 +17,6 @@ class CreateStaffTable extends Migration
             $table->uuid('id');
             $table->string('name');
             $table->string('phone_number');
-            $table->string('job_title');
             $table->string('nationality');
             $table->date('birth_date');
             $table->boolean('is_expatriate');

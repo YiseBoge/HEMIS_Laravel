@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\College\College;
-use App\Models\Staff\Staff;
-use App\Models\Staff\JobTitle;
-use App\Models\Staff\TechnicalStaff;
 use App\Models\Staff\AcademicStaff;
+use App\Models\Staff\JobTitle;
+use App\Models\Staff\Staff;
+use App\Models\Staff\TechnicalStaff;
 use App\Services\HierarchyService;
 use Exception;
 use Illuminate\Http\Request;
@@ -37,8 +37,6 @@ class TechnicalStaffsController extends Controller
 
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
-        $institution = $user->institution();
-        $collegeName = $user->collegeName;
 
         $technicalStaffs = array();
         /** @var College $college */
@@ -96,7 +94,9 @@ class TechnicalStaffsController extends Controller
     {
         $this->validate($request, [
             'job_title' => 'required',
+            'staff' => 'required',
         ]);
+
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
         $institution = $user->institution();
@@ -148,6 +148,7 @@ class TechnicalStaffsController extends Controller
 
         $data = array(
             'staff' => TechnicalStaff::with('general')->find($id),
+            'job_titles' => JobTitle::where('staff_type', 'Technical')->get(),
             'page_name' => 'staff.technical.edit'
         );
         return view('staff.technical.edit')->with($data);
@@ -164,28 +165,15 @@ class TechnicalStaffsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'birth_date' => 'required|date|before:now',
-            'sex' => 'required',
-            'phone_number' => 'required|regex:/(09)[0-9]{8}/',
-            'nationality' => 'required',
             'job_title' => 'required',
-            'salary' => 'required|numeric|between:0,1000000000',
-            'service_year' => 'required|numeric|between:0,100',
-            'employment_type' => 'required',
-            'dedication' => 'required',
-            'academic_level' => 'required',
-            'technical_staff_rank' => 'required',
         ]);
+
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
 
         $technicalStaff = TechnicalStaff::find($id);
-        $technicalStaff->institution_id = null;
-
-        $staff = $technicalStaff->general;
-        HierarchyService::populateStaff($request, $staff);
-        $technicalStaff->general()->save($staff);
+        $technicalStaff->job_title_id = $request->input('job_title');
+        $technicalStaff->save();
 
         return redirect('/staff/technical')->with('primary', 'Successfully Updated');
     }

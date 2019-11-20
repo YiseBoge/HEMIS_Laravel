@@ -79,16 +79,16 @@
             <div class="card-body">
                 <div class="row mt-4">
                     <div class="col-md-3">
-                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Job Title</div>
-                        <p>{{$staff->general->job_title}}</p>
-                    </div>
-                    <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Dedication</div>
                         <p>{{$staff->general->dedication}}</p>
                     </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Employment Type</div>
                         <p>{{$staff->general->employment_type}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Academic Level</div>
+                        <p>{{$staff->general->academic_level}}</p>
                     </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Status</div>
@@ -100,19 +100,15 @@
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="col-md-3">
-                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Academic Level</div>
-                        <p>{{$staff->general->academic_level}}</p>
-                    </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Salary</div>
                         <p>{{$staff->general->salary}}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Years of Service</div>
                         <p>{{$staff->general->service_year}}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">HDP Status</div>
                         <p>{{$staff->hdp_trained?"Trained":"Untrained"}}</p>
                     </div>
@@ -127,8 +123,8 @@
             <div class="card-body">
                 <div class="row mt-4">
                     <div class="col-md-3">
-                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Rank</div>
-                        <p>{{$staff->staffRank}}</p>
+                        <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Job Title</div>
+                        <p>{{$staff->jobTitle}}</p>
                     </div>
                     <div class="col-md-3">
                         <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Field of Study</div>
