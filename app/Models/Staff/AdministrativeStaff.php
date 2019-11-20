@@ -57,4 +57,12 @@ class AdministrativeStaff extends Model
     {
         return $this->belongsTo('App\Models\College\College');
     }
+
+    /**
+     * @return BelongsTo
+     */
+    public function jobTitle()
+    {
+        return $this->belongsTo('App\Models\Staff\JobTitle');
+    }
 }

@@ -56,4 +56,12 @@ class TechnicalStaff extends Model
     {
         return $this->belongsTo('App\Models\Department\Department');
     }
+
+    /**
+     * @return BelongsTo
+     */
+    public function jobTitle()
+    {
+        return $this->belongsTo('App\Models\Staff\JobTitle');
+    }
 }

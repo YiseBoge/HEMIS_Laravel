@@ -27,7 +27,7 @@
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                            >Job Title
+                            >ICT Staff Job Title
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Salary: activate to sort column ascending"
@@ -58,7 +58,7 @@
                             @foreach ($staffs as $staff)
                                 <tr role="row" class="odd" onclick="window.location='ict/{{$staff->id}}'">
                                     <td class="sorting_1">{{$staff->general->name}}</td>
-                                    <td>{{$staff->general->job_title}}</td>
+                                    <td>{{$staff->ictType}}</td>
                                     <td>{{$staff->general->dedication}}</td>
                                     <td>{{$staff->general->employment_type}}</td>
                                     @if ($staff->general->is_expatriate == 0)

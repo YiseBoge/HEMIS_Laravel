@@ -59,7 +59,7 @@
                                 <tr role="row" class="odd"
                                     onclick="window.location='technical/{{$staff->id}}'">
                                     <td class="sorting_1">{{$staff->general->name}}</td>
-                                    <td>{{$staff->general->job_title}}</td>
+                                    <td>{{$staff->jobTitle}}</td>
                                     <td>{{$staff->general->dedication}}</td>
                                     <td>{{$staff->general->employment_type}}</td>
                                     @if ($staff->general->is_expatriate == 0)
