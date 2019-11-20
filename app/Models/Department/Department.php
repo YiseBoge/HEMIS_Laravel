@@ -59,6 +59,7 @@ class Department extends Model
             $model->upgradingStaffs()->delete();
             $model->staffLeaves()->delete();
             $model->academicStaffs()->delete();
+            $model->technicalStaffs()->delete();
             $model->postgraduateDiplomaTrainings()->delete();
             $model->teachers()->delete();
 

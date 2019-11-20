@@ -288,10 +288,6 @@ class InstancesController extends Controller
                 $staff->college_id = $newCollege->id;
                 $staff->save();
             }
-            foreach ($oldCollege->technicalStaffs as $staff) {
-                $staff->college_id = $newCollege->id;
-                $staff->save();
-            }
 
             $this->transferCollegeContents($oldCollege, $newCollege, $exists);
         }
@@ -334,6 +330,10 @@ class InstancesController extends Controller
         foreach ($oldCollege->departments as $oldDepartment) {
             $newDepartment = $this->makeDepartment($newCollege, $oldDepartment, $exists);
             foreach ($oldDepartment->academicStaffs as $staff) {
+                $staff->department_id = $newDepartment->id;
+                $staff->save();
+            }
+            foreach ($oldDepartment->technicalStaffs as $staff) {
                 $staff->department_id = $newDepartment->id;
                 $staff->save();
             }

@@ -58,7 +58,6 @@ class College extends Model
             $model->administrativeStaffs()->delete();
             $model->ictStaffs()->delete();
             $model->managementStaffs()->delete();
-            $model->technicalStaffs()->delete();
             $model->universityIndustryLinkages()->delete();
             $model->buildings()->delete();
         });
