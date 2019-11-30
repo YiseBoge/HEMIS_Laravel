@@ -214,6 +214,21 @@
                         </a>
                     </div>
                     <div class="modal-body row pt-4">
+
+                        @if(count($errors) > 0)
+                            <div class="col-md-12 form-group">
+                                <div class="alert alert-danger">
+                                    <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                    <hr class="my-0">
+                                    <ul class="my-1 px-4">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="col-12 form-group pb-2">
                             {!! Form::select('revenue_description', $revenue_descriptions , $revenue_description , ['class' => 'form-control', 'id' => 'edit_revenue_description']) !!}
                             {!! Form::label('revenue_description', 'Revenue Description', ['class' => 'form-control-placeholder', 'for' => 'edit_revenue_description']) !!}
@@ -229,10 +244,6 @@
                             {!! Form::label('expense', 'Expense', ['class' => 'form-control-placeholder', 'for' => 'edit_expense']) !!}
                         </div>
 
-                        {{--                        <div class="col-md-4 form-group">--}}
-                        {{--                            {!! Form::number('balance', $data['internal-revenue']->balance, ['class' => 'form-control', 'id' => 'edit_balance', 'required' => 'true']) !!}--}}
-                        {{--                            {!! Form::label('balance', 'Balance', ['class' => 'form-control-placeholder', 'for' => 'edit_balance']) !!}--}}
-                        {{--                        </div>--}}
                     </div>
                     <div class="modal-footer">
                         {!! Form::hidden('_method', 'PUT') !!}

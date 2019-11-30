@@ -118,6 +118,10 @@
                             {!! Form::label('add_category', 'Category', ['class' => 'form-control-placeholder']) !!}
                         </div>
                         <div class="col-md-12 form-group pb-1">
+                            {!! Form::select('level', $levels, old('level') , ['class' => 'form-control', 'id' => 'add_level']) !!}
+                            {!! Form::label('add_level', 'Level', ['class' => 'form-control-placeholder']) !!}
+                        </div>
+                        <div class="col-md-12 form-group pb-1">
                             {!! Form::text('ict_staff_type', old('ict_staff_type'), ['class' => 'form-control', 'id' => 'add_ict_staff_type', 'required' => 'true']) !!}
                             {!! Form::label('add_ict_staff_type', 'Ict Staff Type', ['class' => 'form-control-placeholder']) !!}
                         </div>
@@ -136,30 +140,51 @@
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <form class="" action="/staff/ict-staff-types/{{$id}}" method="POST">
-                        @csrf
-                        <input type="hidden" name="_method" value="PUT">
+                    {!! Form::model($current_type , ['action' => ['Staff\IctStaffTypesController@update' , $current_type->id], 'method' => 'POST']) !!}
+                    @method('PUT')
                         <div class="modal-header">
                             <h5 class="modal-title" id="editTitle">Edit</h5>
-                            <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
-                            </button>
-                            {{-- <a href="/staff/ict-staff-types" class="close" aria-label="Close">
+
+                            <a href="/staff/ict-staff-types" class="close" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
-                            </a> --}}
+                            </a>
                         </div>
 
                         <div class="modal-body row p-4">
+                            @if(count($errors) > 0)
+                                <div class="col-md-12 form-group">
+                                    <div class="alert alert-danger">
+                                        <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                        <hr class="my-0">
+                                        <ul class="my-1 px-4">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{$error}}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="col-md-12 form-group pb-1">
                                 <label class="label" for="category">Category</label>
                                 <input type="text" id="category" name="category" class="form-control"
-                                       disabled value="{{$category}}">
+                                       disabled value="{{$current_type->category}}">
                             </div>
                             <div class="col-md-12 form-group pb-1">
-                                <label class="label" for="staff_type">Staff Name</label>
-                                <input type="text" id="staff_type" name="staff_type" class="form-control"
-                                       value="{{$staff_type}}">
+                                <label class="label" for="level">Staff Level</label>
+                                <input type="text" id="level" name="level" class="form-control"
+                                       disabled value="{{$current_type->level}}">
+                            </div>
+                            <div class="col-md-12 form-group pb-1">
+                                <label class="label" for="staff_type">Ict Staff Type</label>
+                                <input type="text" id="staff_type" name="ict_staff_type" class="form-control"
+                                       value="{{$current_type->type}}">
                             </div>
                         </div>
+                    <div class="modal-footer">
+                        {!! Form::submit('Save Changes', ['class' => 'btn btn-outline-primary']) !!}
+                    </div>
+                    {!! Form::close() !!}
                 </div>
 
             </div>

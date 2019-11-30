@@ -136,7 +136,7 @@ class RegionNamesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'region_name' => 'required'
         ]);
 
         $user = Auth::user();

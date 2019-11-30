@@ -146,6 +146,21 @@
                 </div>
 
                 <div class="modal-body row p-4">
+
+                    @if(count($errors) > 0)
+                        <div class="col-md-12 form-group">
+                            <div class="alert alert-danger">
+                                <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                <hr class="my-0">
+                                <ul class="my-1 px-4">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{$error}}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="col-md-12 form-group pb-1">
                         {!! Form::select('year', $years , $selected_instance->year, ['class' => 'form-control', 'id' => 'edit_year', 'required' => 'true']) !!}
                         {!! Form::label('edit_year', 'Year', ['class' => 'form-control-placeholder']) !!}
@@ -155,7 +170,6 @@
                         {!! Form::label('edit_semester', 'Semester', ['class' => 'form-control-placeholder']) !!}
                     </div>
                 </div>
-
 
                 <div class="modal-footer">
                     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}

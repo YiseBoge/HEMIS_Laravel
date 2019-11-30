@@ -136,15 +136,27 @@
                         <input type="hidden" name="_method" value="PUT">
                         <div class="modal-header">
                             <h5 class="modal-title" id="editTitle">Edit</h5>
-                            <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
-                            </button>
-                            {{-- <a href="/band/band-name" class="close" aria-label="Close">
+                            <a href="/budgets/budget-description" class="close" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
-                            </a> --}}
+                            </a>
                         </div>
 
-
                         <div class="modal-body row p-4">
+
+                            @if(count($errors) > 0)
+                                <div class="col-md-12 form-group">
+                                    <div class="alert alert-danger">
+                                        <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                        <hr class="my-0">
+                                        <ul class="my-1 px-4">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{$error}}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="col-md-12 form-group pb-1">
                                 <label class="label" for="budget_code">Budget Code</label>
                                 <input type="text" id="budget_code" name="budget_code" class="form-control"
@@ -155,6 +167,9 @@
                                 <input type="text" id="description" name="description" class="form-control"
                                        value="{{$description}}">
                             </div>
+                        </div>
+                        <div class="modal-footer">
+                            {!! Form::submit('Save Changes', ['class' => 'btn btn-outline-primary']) !!}
                         </div>
                     </form>
                 </div>

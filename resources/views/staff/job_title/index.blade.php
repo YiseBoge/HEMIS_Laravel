@@ -140,35 +140,51 @@
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <form class="" action="/staff/job-title/{{$selected_title->id}}" method="POST">
-                        @csrf
-                        <input type="hidden" name="_method" value="PUT">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editTitle">Edit</h5>
-                            <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
-                            </button>
-                            {{-- <a href="/staff/job-title" class="close" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </a> --}}
-                        </div>
+                    {!! Form::model($selected_title , ['action' => ['Staff\JobTitlesController@update' , $selected_title->id], 'method' => 'POST']) !!}
+                    @method('PUT')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editTitle">Edit</h5>
+                        <a href="/staff/job-title" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    </div>
 
-                        <div class="modal-body row p-4">
-                            <div class="col-md-12 form-group pb-1">
-                                <label class="label" for="category">Staff Type</label>
-                                <input type="text" id="category" name="category" class="form-control"
-                                       disabled value="{{$selected_title->staff_type}}">
+                    <div class="modal-body row p-4">
+                        @if(count($errors) > 0)
+                            <div class="col-md-12 form-group">
+                                <div class="alert alert-danger">
+                                    <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                    <hr class="my-0">
+                                    <ul class="my-1 px-4">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="col-md-12 form-group pb-1">
-                                <label class="label" for="category">Staff Level</label>
-                                <input type="text" id="category" name="category" class="form-control"
-                                       disabled value="{{$selected_title->level}}">
-                            </div>
-                            <div class="col-md-12 form-group pb-1">
-                                <label class="label" for="staff_type">Staff Name</label>
-                                <input type="text" id="staff_type" name="staff_type" class="form-control"
-                                       value="{{$selected_title->job_title}}">
-                            </div>
+                        @endif
+
+                        <div class="col-md-12 form-group pb-1">
+                            <label class="label" for="category">Staff Type</label>
+                            <input type="text" id="category" name="category" class="form-control"
+                                   disabled value="{{$selected_title->staff_type}}">
                         </div>
+                        <div class="col-md-12 form-group pb-1">
+                            <label class="label" for="category">Staff Level</label>
+                            <input type="text" id="category" name="category" class="form-control"
+                                   disabled value="{{$selected_title->level}}">
+                        </div>
+                        <div class="col-md-12 form-group pb-1">
+                            <label class="label" for="job_title">Job Title</label>
+                            <input type="text" id="job_title" name="job_title" class="form-control"
+                                   value="{{$selected_title->job_title}}">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        {!! Form::submit('Save Changes', ['class' => 'btn btn-outline-primary']) !!}
+                    </div>
+                    {!! Form::close() !!}
                 </div>
 
             </div>

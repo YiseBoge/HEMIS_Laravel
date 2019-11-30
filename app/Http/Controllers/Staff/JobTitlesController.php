@@ -58,9 +58,10 @@ class JobTitlesController extends Controller
 
         $data = array(
             'job_titles' => $jobTitles,
-
             'staff_types' => $staffTypes,
             'levels' => $levels,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.job_title.create',
         );
 
@@ -85,16 +86,16 @@ class JobTitlesController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 
-        $ictStaffTypes = new JobTitle();
-        $ictStaffTypes->job_title = $request->input('job_title');
-        $ictStaffTypes->staff_type = $request->input('staff_type');
-        $ictStaffTypes->level = $request->input('level');
+        $jobTitle = new JobTitle();
+        $jobTitle->job_title = $request->input('job_title');
+        $jobTitle->staff_type = $request->input('staff_type');
+        $jobTitle->level = $request->input('level');
 
-        if ($ictStaffTypes->isDuplicate()) return redirect()->back()
+        if ($jobTitle->isDuplicate()) return redirect()->back()
             ->withInput($request->toArray())
             ->withErrors('This entry already exists');
 
-        $ictStaffTypes->save();
+        $jobTitle->save();
 
         return redirect("staff/job-title");
     }
