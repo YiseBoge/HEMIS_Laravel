@@ -2,6 +2,8 @@
 
 namespace App\Models\Department;
 
+use App\Models\Staff\Staff;
+use App\Models\Staff\StaffAttrition;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Collection;
@@ -206,6 +208,15 @@ class Department extends Model
      */
     public function academicStaffs()
     {
+        $ids = Staff::all()->whereNotIn('id', StaffAttrition::all()->pluck('staff_id'))->pluck('staffable_id');
+        return $this->hasMany('App\Models\Staff\AcademicStaff')->whereIn('id', $ids);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function allAcademicStaffs()
+    {
         return $this->hasMany('App\Models\Staff\AcademicStaff');
     }
 
@@ -214,7 +225,8 @@ class Department extends Model
      */
     public function technicalStaffs()
     {
-        return $this->hasMany('App\Models\Staff\TechnicalStaff');
+        $ids = Staff::all()->whereNotIn('id', StaffAttrition::all()->pluck('staff_id'))->pluck('staffable_id');
+        return $this->hasMany('App\Models\Staff\TechnicalStaff')->whereIn('id', $ids);
     }
 
     /**

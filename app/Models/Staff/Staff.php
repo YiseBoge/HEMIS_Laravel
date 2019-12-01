@@ -107,6 +107,14 @@ class Staff extends Model
     /**
      * @return HasOne
      */
+    public function academicStaff()
+    {
+        return $this->hasOne('App\Models\Staff\AcademicStaff');
+    }
+
+    /**
+     * @return HasOne
+     */
     public function technicalStaff()
     {
         return $this->hasOne('App\Models\Staff\TechnicalStaff');
@@ -115,9 +123,9 @@ class Staff extends Model
     /**
      * @return HasOne
      */
-    public function ictStaff()
+    public function administrativeStaff()
     {
-        return $this->hasOne('App\Models\Staff\ICTStaff');
+        return $this->hasOne('App\Models\Staff\AdministrativeStaff');
     }
 
     /**
@@ -126,6 +134,14 @@ class Staff extends Model
     public function managementStaff()
     {
         return $this->hasOne('App\Models\Staff\ManagementStaff');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function ictStaff()
+    {
+        return $this->hasOne('App\Models\Staff\ICTStaff');
     }
 
 }

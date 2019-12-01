@@ -42,11 +42,11 @@ class StaffAttritionsController extends Controller
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('Department Admin')) {
                 foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
-                    foreach ($department->academicStaffs as $staff)
+                    foreach ($department->allAcademicStaffs as $staff)
                         if ($staff->general->staffAttrition != null)
                             $attrition[] = $staff->general->staffAttrition;
             } else {
-                foreach ($college->administrativeStaffs as $staff)
+                foreach ($college->allAdministrativeStaffs as $staff)
                     if ($staff->general->staffAttrition != null)
                         $attrition[] = $staff->general->staffAttrition;
             }
@@ -84,13 +84,13 @@ class StaffAttritionsController extends Controller
 
             if ($user->hasRole('Department Admin')) {
                 foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
-                    foreach ($department->academicStaffs as $staff)
+                    foreach ($department->allAcademicStaffs as $staff)
                         if ($staff->general->staffAttrition != null)
                             $attrition[] = $staff->general->staffAttrition;
                         else $staffs[] = $staff;
 
             } else {
-                foreach ($college->administrativeStaffs as $staff)
+                foreach ($college->allAdministrativeStaffs as $staff)
                     if ($staff->general->staffAttrition != null)
                         $attrition[] = $staff->general->staffAttrition;
                     else $staffs[] = $staff;

@@ -2,6 +2,8 @@
 
 namespace App\Models\College;
 
+use App\Models\Staff\Staff;
+use App\Models\Staff\StaffAttrition;
 use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
@@ -100,6 +102,15 @@ class College extends Model
      */
     public function administrativeStaffs()
     {
+        $ids = Staff::all()->whereNotIn('id', StaffAttrition::all()->pluck('staff_id'))->pluck('staffable_id');
+        return $this->hasMany('App\Models\Staff\AdministrativeStaff')->whereIn('id', $ids);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function allAdministrativeStaffs()
+    {
         return $this->hasMany('App\Models\Staff\AdministrativeStaff');
     }
 
@@ -108,7 +119,8 @@ class College extends Model
      */
     public function ictStaffs()
     {
-        return $this->hasMany('App\Models\Staff\IctStaff');
+        $ids = Staff::all()->whereNotIn('id', StaffAttrition::all()->pluck('staff_id'))->pluck('staffable_id');
+        return $this->hasMany('App\Models\Staff\IctStaff')->whereIn('id', $ids);
     }
 
     /**
@@ -116,7 +128,8 @@ class College extends Model
      */
     public function managementStaffs()
     {
-        return $this->hasMany('App\Models\Staff\ManagementStaff');
+        $ids = Staff::all()->whereNotIn('id', StaffAttrition::all()->pluck('staff_id'))->pluck('staffable_id');
+        return $this->hasMany('App\Models\Staff\ManagementStaff')->whereIn('id', $ids);
     }
 
     /**
