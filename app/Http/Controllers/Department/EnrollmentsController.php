@@ -182,7 +182,7 @@ class EnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
-        $enrollment = Enrollment::find($id);
+        $enrollment = Enrollment::findOrFail($id);
         $department = $enrollment->department()->first();
         $college = $department->college()->first();
         $studentType = $enrollment->student_type;
@@ -220,7 +220,7 @@ class EnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
-        $enrollment = Enrollment::find($id);
+        $enrollment = Enrollment::findOrFail($id);
         $enrollment->female_students_number = $request->input('female_number');
         $enrollment->male_students_number = $request->input('male_number');
         $enrollment->approval_status = "Pending";
@@ -238,7 +238,7 @@ class EnrollmentsController extends Controller
      */
     public function destroy($id)
     {
-        $item = Enrollment::find($id);
+        $item = Enrollment::findOrFail($id);
         $item->delete();
         return redirect('/enrollment/normal')->with('primary', 'Successfully Deleted');
     }
@@ -257,7 +257,7 @@ class EnrollmentsController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $enrollment = Enrollment::find($id);
+            $enrollment = Enrollment::findOrFail($id);
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $enrollment->save();
         } else {

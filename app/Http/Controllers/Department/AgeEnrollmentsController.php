@@ -177,7 +177,7 @@ class AgeEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $ageEnrollment = AgeEnrollment::find($id);
+        $ageEnrollment = AgeEnrollment::findOrFail($id);
         $department = $ageEnrollment->department()->first();
         $college = $department->college()->first();
 
@@ -213,7 +213,7 @@ class AgeEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $ageEnrollment = AgeEnrollment::find($id);
+        $ageEnrollment = AgeEnrollment::findOrFail($id);
 
         $ageEnrollment->male_students_number = $request->input("number_of_males");
         $ageEnrollment->female_students_number = $request->input("number_of_females");
@@ -233,7 +233,7 @@ class AgeEnrollmentsController extends Controller
      */
     public function destroy($id)
     {
-        $item = AgeEnrollment::find($id);
+        $item = AgeEnrollment::findOrFail($id);
         $item->delete();
         return redirect('/enrollment/age-enrollment')->with('primary', 'Successfully Deleted');
     }
@@ -247,7 +247,7 @@ class AgeEnrollmentsController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $enrollment = AgeEnrollment::find($id);
+            $enrollment = AgeEnrollment::findOrFail($id);
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $enrollment->save();
         } else {

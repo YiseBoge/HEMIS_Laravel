@@ -157,7 +157,7 @@ class UniversityAdminController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 
-        $univ_admin = User::find($id);
+        $univ_admin = User::findOrFail($id);
 
         $data = array(
             'univ_admin' => $univ_admin,
@@ -182,8 +182,8 @@ class UniversityAdminController extends Controller
         
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
-        
-        $univ_admin = User::find($id);
+
+        $univ_admin = User::findOrFail($id);
         $univ_admin->password = Hash::make($request->input('password'));
 
         $univ_admin->save();
@@ -200,7 +200,7 @@ class UniversityAdminController extends Controller
      */
     public function destroy($id)
     {
-        $item = User::find($id);
+        $item = User::findOrFail($id);
         $item->delete();
         return redirect('/university-admin')->with('primary', 'Successfully Deleted');
     }

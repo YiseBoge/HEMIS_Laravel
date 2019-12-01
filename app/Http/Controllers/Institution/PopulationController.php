@@ -121,7 +121,7 @@ class PopulationController extends Controller
 
         $populations = Population::all();
         $ageRanges = Population::getEnum('age_range');
-        $population = Population::find($id);
+        $population = Population::findOrFail($id);
         $data = [
             'population' => $population,
             'populations' => $populations,
@@ -145,7 +145,7 @@ class PopulationController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 
-        $population = Population::find($id);
+        $population = Population::findOrFail($id);
 
         $population->male_number = $request->input("male_number");
         $population->female_number = $request->input("female_number");
@@ -163,7 +163,7 @@ class PopulationController extends Controller
      */
     public function destroy($id)
     {
-        $item = Population::find($id);
+        $item = Population::findOrFail($id);
         $item->delete();
         return redirect('/population')->with('primary', 'Successfully Deleted');
     }

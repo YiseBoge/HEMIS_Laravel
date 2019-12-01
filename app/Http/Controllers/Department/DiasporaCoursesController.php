@@ -155,7 +155,7 @@ class DiasporaCoursesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $diasporaCourse = DiasporaCourses::find($id);
+        $diasporaCourse = DiasporaCourses::findOrFail($id);
 
         $data = array(
             'id' => $id,
@@ -185,7 +185,7 @@ class DiasporaCoursesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $diasporaCourses = DiasporaCourses::find($id);
+        $diasporaCourses = DiasporaCourses::findOrFail($id);
 
         $diasporaCourses->male_number = $request->input('male_number');
         $diasporaCourses->female_number = $request->input('female_number');
@@ -205,7 +205,7 @@ class DiasporaCoursesController extends Controller
      */
     public function destroy($id)
     {
-        $item = DiasporaCourses::find($id);
+        $item = DiasporaCourses::findOrFail($id);
         $item->delete();
         return redirect('/department/diaspora-courses')->with('primary', 'Successfully Deleted');
     }
@@ -219,7 +219,7 @@ class DiasporaCoursesController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $course = DiasporaCourses::find($id);
+            $course = DiasporaCourses::findOrFail($id);
             $course->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $course->save();
         } else {

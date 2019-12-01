@@ -128,7 +128,7 @@ class IctStaffTypesController extends Controller
 
         $categories = IctStaffType::getEnum('category');
         $ictStaffTypes = IctStaffType::all();
-        $current_type = IctStaffType::find($id);
+        $current_type = IctStaffType::findOrFail($id);
 
         $data = array(
             'id' => $id,
@@ -161,7 +161,7 @@ class IctStaffTypesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
-        $current_type = IctStaffType::find($id);
+        $current_type = IctStaffType::findOrFail($id);
 
         $current_type->type = $request->input("ict_staff_type");
         $current_type->save();
@@ -177,7 +177,7 @@ class IctStaffTypesController extends Controller
      */
     public function destroy($id)
     {
-        $item = IctStaffType::find($id);
+        $item = IctStaffType::findOrFail($id);
         $item->delete();
         return redirect('/staff/ict-staff-types')->with('primary', 'Successfully Deleted');
     }

@@ -160,7 +160,7 @@ class ResearchesController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
 
-        $research = Research::find($id);
+        $research = Research::findOrFail($id);
 
         $data = array(
             'id' => $id,
@@ -196,7 +196,7 @@ class ResearchesController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
 
-        $research = Research::find($id);
+        $research = Research::findOrFail($id);
 
         $research->number = $request->input('number');
         $research->male_teachers_participating_number = $request->input('male_participating_number');
@@ -221,7 +221,7 @@ class ResearchesController extends Controller
      */
     public function destroy($id)
     {
-        $item = Research::find($id);
+        $item = Research::findOrFail($id);
         $item->delete();
         return redirect('/institution/researches')->with('primary', 'Successfully Deleted');
     }
@@ -235,7 +235,7 @@ class ResearchesController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $research = Research::find($id);
+            $research = Research::findOrFail($id);
             $research->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $research->save();
         } else {

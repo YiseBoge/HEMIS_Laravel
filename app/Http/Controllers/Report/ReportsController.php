@@ -91,7 +91,7 @@ class ReportsController extends Controller
         $card = ReportCard::all()->sortBy('year')->first();
         $years = $card != null ? $card->reportYearValues : array();
 
-        $report = ReportCard::find($id);
+        $report = ReportCard::findOrFail($id);
         $baseline = $report->reportYearValues->sortBy('year')->first();
         $change = 0;
 
@@ -126,7 +126,7 @@ class ReportsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 
-        $report = ReportCard::find($id);
+        $report = ReportCard::findOrFail($id);
         $report->target = $request->input('target');
 
         $report->save();
@@ -143,7 +143,7 @@ class ReportsController extends Controller
      */
     public function destroy($id)
     {
-        $item = ReportCard::find($id);
+        $item = ReportCard::findOrFail($id);
         $item->delete();
         return redirect('/report')->with('primary', 'Successfully Deleted');
     }

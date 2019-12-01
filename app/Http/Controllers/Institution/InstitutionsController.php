@@ -120,7 +120,7 @@ class InstitutionsController extends Controller
         $user->authorizeRoles('University Admin');
         if ($user->read_only) return redirect("/institution/general");
 
-        $currentInstitution = Institution::find($id);
+        $currentInstitution = Institution::findOrFail($id);
         $status_of_libraries = Resource::getEnum('status_of_libraries');
         $status_of_laboratories = Resource::getEnum('status_of_laboratories');
         $status_of_workshops = Resource::getEnum('status_of_workshops');
@@ -185,7 +185,7 @@ class InstitutionsController extends Controller
             'number_of_smart_classrooms' => 'required|numeric|between:0,10000000',
         ]);
 
-        $institution = Institution::find($id);
+        $institution = Institution::findOrFail($id);
         $generalInformation = $institution->generalInformation;
         $communityService = $generalInformation->communityService;
         $resource = $generalInformation->resource;
@@ -249,7 +249,7 @@ class InstitutionsController extends Controller
      */
     public function destroy($id)
     {
-        $item = Institution::find($id);
+        $item = Institution::findOrFail($id);
         $item->delete();
         return redirect('/institution/general')->with('primary', 'Successfully Deleted');
     }

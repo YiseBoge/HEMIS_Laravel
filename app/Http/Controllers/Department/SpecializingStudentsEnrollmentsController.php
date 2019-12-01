@@ -179,7 +179,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $specializingStudentsEnrollment = SpecializingStudentsEnrollment::find($id);
+        $specializingStudentsEnrollment = SpecializingStudentsEnrollment::findOrFail($id);
         $department = $specializingStudentsEnrollment->department()->first();
         $college = $department->college()->first();
         $data = array(
@@ -216,7 +216,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $specializingStudentsEnrollment = SpecializingStudentsEnrollment::find($id);
+        $specializingStudentsEnrollment = SpecializingStudentsEnrollment::findOrFail($id);
 
         $specializingStudentsEnrollment->male_students_number = $request->input('male_number');
         $specializingStudentsEnrollment->female_students_number = $request->input('female_number');
@@ -238,7 +238,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
      */
     public function destroy($id)
     {
-        $item = SpecializingStudentsEnrollment::find($id);
+        $item = SpecializingStudentsEnrollment::findOrFail($id);
         $item->delete();
         return redirect('/enrollment/specializing-students')->with('primary', 'Successfully Updated');
     }
@@ -252,7 +252,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $enrollment = SpecializingStudentsEnrollment::find($id);
+            $enrollment = SpecializingStudentsEnrollment::findOrFail($id);
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $enrollment->save();
         } else {

@@ -124,7 +124,7 @@ class CollegeNamesController extends Controller
 
         $institutionName = $user->institution()->institutionName;
         $colleges = $institutionName->collegeNames;
-        $college_name = CollegeName::find($id);
+        $college_name = CollegeName::findOrFail($id);
         $data = [
             'id' => $id,
             'colleges' => $colleges,
@@ -155,7 +155,7 @@ class CollegeNamesController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('University Admin');
 
-        $college_name = CollegeName::find($id);
+        $college_name = CollegeName::findOrFail($id);
         $college_name->college_name = $request->input("college_name");
         $college_name->acronym = $request->input("college_acronym");
 
@@ -174,7 +174,7 @@ class CollegeNamesController extends Controller
      */
     public function destroy($id)
     {
-        $item = CollegeName::find($id);
+        $item = CollegeName::findOrFail($id);
         $item->delete();
         return redirect('/college/college-name')->with('primary', 'Successfully Deleted');
     }

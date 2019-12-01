@@ -180,7 +180,7 @@ class AdministrativeStaffsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
 
-        $administrativeStaff = AdministrativeStaff::find($id);
+        $administrativeStaff = AdministrativeStaff::findOrFail($id);
         $administrativeStaff->job_title_id = $request->input('job_title');
         $administrativeStaff->save();
 
@@ -201,7 +201,7 @@ class AdministrativeStaffsController extends Controller
      */
     public function destroy($id)
     {
-        $item = AdministrativeStaff::find($id);
+        $item = AdministrativeStaff::findOrFail($id);
         $item->delete();
         return redirect('/staff/administrative')->with('primary', 'Successfully Deleted');
     }

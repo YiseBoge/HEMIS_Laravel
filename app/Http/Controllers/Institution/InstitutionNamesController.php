@@ -144,7 +144,7 @@ class InstitutionNamesController extends Controller
         $user->authorizeRoles('Super Admin');
 
         $institutions = InstitutionName::all();
-        $institution = InstitutionName::find($id);
+        $institution = InstitutionName::findOrFail($id);
         // return $institution; 
         $data = [
             'institutions' => $institutions,
@@ -179,7 +179,7 @@ class InstitutionNamesController extends Controller
         $user->authorizeRoles('Super Admin');
         $instance = $user->currentInstance;
 
-        $institutionName = InstitutionName::find($id);
+        $institutionName = InstitutionName::findOrFail($id);
         $institutionName->institution_name = $request->input('institution_name');
         $institutionName->acronym = $request->input('institution_acronym');
         $institutionName->is_private = $request->has('is_private');
@@ -198,7 +198,7 @@ class InstitutionNamesController extends Controller
      */
     public function destroy($id)
     {
-        $item = InstitutionName::find($id);
+        $item = InstitutionName::findOrFail($id);
         $item->delete();
         return redirect('/institution/institution-name')->with('primary', 'Successfully Deleted');
     }

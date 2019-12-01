@@ -115,7 +115,7 @@ class BudgetDescriptionsController extends Controller
         $user->authorizeRoles('Super Admin');
 
         $budgetDescriptions = BudgetDescription::all();
-        $current_desc = BudgetDescription::find($id);
+        $current_desc = BudgetDescription::findOrFail($id);
         $data = array(
             'id' => $id,
             'budget_code' => $current_desc->budget_code,
@@ -146,7 +146,7 @@ class BudgetDescriptionsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 
-        $current_desc = BudgetDescription::find($id);
+        $current_desc = BudgetDescription::findOrFail($id);
 
         $current_desc->budget_code = $request->input("budget_code");
         $current_desc->description = $request->input("description");
@@ -168,7 +168,7 @@ class BudgetDescriptionsController extends Controller
      */
     public function destroy($id)
     {
-        $item = BudgetDescription::find($id);
+        $item = BudgetDescription::findOrFail($id);
         $item->delete();
         return redirect('/budgets/budget-description');
     }

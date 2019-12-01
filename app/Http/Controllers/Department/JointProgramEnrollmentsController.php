@@ -186,7 +186,7 @@ class JointProgramEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $jointProgramEnrollment = JointProgramEnrollment::find($id);
+        $jointProgramEnrollment = JointProgramEnrollment::findOrFail($id);
         $department = $jointProgramEnrollment->department()->first();
         $college = $department->college()->first();
 
@@ -223,7 +223,7 @@ class JointProgramEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $jointProgramEnrollment = JointProgramEnrollment::find($id);
+        $jointProgramEnrollment = JointProgramEnrollment::findOrFail($id);
 
         $jointProgramEnrollment->male_students_number = $request->input("male_number");
         $jointProgramEnrollment->female_students_number = $request->input("female_number");
@@ -245,7 +245,7 @@ class JointProgramEnrollmentsController extends Controller
      */
     public function destroy($id)
     {
-        $item = JointProgramEnrollment::find($id);
+        $item = JointProgramEnrollment::findOrFail($id);
         $item->delete();
         return redirect('/enrollment/joint-program')->with('primary', 'Successfully Deleted');
     }
@@ -259,7 +259,7 @@ class JointProgramEnrollmentsController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $enrollment = JointProgramEnrollment::find($id);
+            $enrollment = JointProgramEnrollment::findOrFail($id);
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $enrollment->save();
         } else {

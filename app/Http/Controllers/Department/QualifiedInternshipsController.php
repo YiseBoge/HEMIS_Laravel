@@ -155,7 +155,7 @@ class QualifiedInternshipsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $internship = QualifiedInternship::find($id);
+        $internship = QualifiedInternship::findOrFail($id);
 
         $data = array(
             'id' => $id,
@@ -186,7 +186,7 @@ class QualifiedInternshipsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $internship = QualifiedInternship::find($id);
+        $internship = QualifiedInternship::findOrFail($id);
 
         $internship->male_number = $request->input('male_number');
         $internship->female_number = $request->input('female_number');
@@ -206,7 +206,7 @@ class QualifiedInternshipsController extends Controller
      */
     public function destroy($id)
     {
-        $item = QualifiedInternship::find($id);
+        $item = QualifiedInternship::findOrFail($id);
         $item->delete();
         return redirect('/student/qualified-internship')->with('primary', 'Successfully Deleted');
     }
@@ -220,7 +220,7 @@ class QualifiedInternshipsController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $internship = QualifiedInternship::find($id);
+            $internship = QualifiedInternship::findOrFail($id);
             $internship->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $internship->save();
         } else {

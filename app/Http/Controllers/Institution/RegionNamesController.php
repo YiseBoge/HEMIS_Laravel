@@ -113,7 +113,7 @@ class RegionNamesController extends Controller
         $user->authorizeRoles('Super Admin');
 
         $regionNames = RegionName::all();
-        $current_region_name = RegionName::find($id);
+        $current_region_name = RegionName::findOrFail($id);
         $data = [
             'id' => $id,
             'region_names' => $regionNames,
@@ -143,7 +143,7 @@ class RegionNamesController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
-        $current_region_name = RegionName::find($id);
+        $current_region_name = RegionName::findOrFail($id);
 
         $current_region_name->name = $request->input("region_name");
         $current_region_name->save();
@@ -160,7 +160,7 @@ class RegionNamesController extends Controller
      */
     public function destroy($id)
     {
-        $item = RegionName::find($id);
+        $item = RegionName::findOrFail($id);
         $item->delete();
         return redirect('/region-name')->with('primary', 'Successfully Deleted');
     }

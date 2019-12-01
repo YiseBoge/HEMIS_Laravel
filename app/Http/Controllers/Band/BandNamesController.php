@@ -119,7 +119,7 @@ class BandNamesController extends Controller
         $user->authorizeRoles('Super Admin');
 
         $bands = BandName::all();
-        $current_band_name = BandName::find($id);
+        $current_band_name = BandName::findOrFail($id);
         $data = [
             'id' => $id,
             'bands' => $bands,
@@ -151,7 +151,7 @@ class BandNamesController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 
-        $current_band_name = BandName::find($id);
+        $current_band_name = BandName::findOrFail($id);
 
         $current_band_name->band_name = $request->input("band_name");
         $current_band_name->acronym = $request->input("acronym");
@@ -170,7 +170,7 @@ class BandNamesController extends Controller
      */
     public function destroy($id)
     {
-        $item = BandName::find($id);
+        $item = BandName::findOrFail($id);
         $item->delete();
         return redirect('/band/band-name')->with('primary', 'Successfully Deleted');
     }

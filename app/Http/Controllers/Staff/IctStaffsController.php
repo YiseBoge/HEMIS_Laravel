@@ -173,7 +173,7 @@ class IctStaffsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
 
-        $ictStaff = IctStaff::find($id);
+        $ictStaff = IctStaff::findOrFail($id);
         $ictStaff->ict_staff_type_id = $request->input('ict_type');
         $ictStaff->save();
 
@@ -189,7 +189,7 @@ class IctStaffsController extends Controller
      */
     public function destroy($id)
     {
-        $item = IctStaff::find($id);
+        $item = IctStaff::findOrFail($id);
         $item->delete();
         return redirect('/staff/ict')->with('primary', 'Successfully Deleted');
     }

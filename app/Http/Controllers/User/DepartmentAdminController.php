@@ -135,7 +135,7 @@ class DepartmentAdminController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('College Super Admin');
 
-        $dept_admin = User::find($id);
+        $dept_admin = User::findOrFail($id);
 
         $data = array(
             'dept_admin' => $dept_admin,
@@ -158,7 +158,7 @@ class DepartmentAdminController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        $dept_admin = User::find($id);
+        $dept_admin = User::findOrFail($id);
 
         $dept_admin->password = Hash::make($request->input('password'));
 
@@ -176,7 +176,7 @@ class DepartmentAdminController extends Controller
      */
     public function destroy($id)
     {
-        $item = User::find($id);
+        $item = User::findOrFail($id);
         $item->delete();
         return redirect('/department-admin')->with('primary', 'Successfully Deleted');
     }

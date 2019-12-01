@@ -171,7 +171,7 @@ class TechnicalStaffsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
 
-        $technicalStaff = TechnicalStaff::find($id);
+        $technicalStaff = TechnicalStaff::findOrFail($id);
         $technicalStaff->job_title_id = $request->input('job_title');
         $technicalStaff->save();
 
@@ -187,7 +187,7 @@ class TechnicalStaffsController extends Controller
      */
     public function destroy($id)
     {
-        $item = TechnicalStaff::find($id);
+        $item = TechnicalStaff::findOrFail($id);
         $item->delete();
         return redirect('/staff/technical')->with('primary', 'Successfully Deleted');
     }

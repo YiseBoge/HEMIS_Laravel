@@ -192,7 +192,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $specialRegionEnrollment = SpecialRegionEnrollment::find($id);
+        $specialRegionEnrollment = SpecialRegionEnrollment::findOrFail($id);
         $regionName = $specialRegionEnrollment->regionName()->first();
         $department = $specialRegionEnrollment->department()->first();
         $college = $department->college()->first();
@@ -231,7 +231,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $specialRegionEnrollment = SpecialRegionEnrollment::find($id);
+        $specialRegionEnrollment = SpecialRegionEnrollment::findOrFail($id);
         $specialRegionEnrollment->male_number = $request->input("male_number");
         $specialRegionEnrollment->female_number = $request->input("female_number");
         $specialRegionEnrollment->approval_status = "Pending";
@@ -249,7 +249,7 @@ class SpecialRegionsEnrollmentsController extends Controller
      */
     public function destroy($id)
     {
-        $item = SpecialRegionEnrollment::find($id);
+        $item = SpecialRegionEnrollment::findOrFail($id);
         $item->delete();
         return redirect('/enrollment/special-region-students')->with('primary', 'Successfully Deleted');
     }
@@ -263,7 +263,7 @@ class SpecialRegionsEnrollmentsController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $enrollment = SpecialRegionEnrollment::find($id);
+            $enrollment = SpecialRegionEnrollment::findOrFail($id);
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $enrollment->save();
         } else {

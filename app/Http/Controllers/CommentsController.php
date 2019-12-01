@@ -116,7 +116,7 @@ class CommentsController extends Controller
         $user = Auth::user();
         if ($user == null) return redirect('/login');
 
-        $comment = Comment::find($id);
+        $comment = Comment::findOrFail($id);
         $comment->delete();
         return redirect('/comments')->with('primary' , 'Successfully deleted a comment');
     }

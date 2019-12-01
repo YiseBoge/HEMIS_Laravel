@@ -151,7 +151,7 @@ class InstancesController extends Controller
 
         $instances = Instance::orderByDesc('year')->get();
         $currentInstanceIndex = 0;
-        $selectedInstance = Instance::find($id);
+        $selectedInstance = Instance::findOrFail($id);
 
         $data = array(
             'selected_instance' => $selectedInstance,
@@ -183,7 +183,7 @@ class InstancesController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 
-        $instance = Instance::find($id);
+        $instance = Instance::findOrFail($id);
         $instance->year = $request->input('year');
         $instance->semester = $request->input('semester');
 
@@ -201,7 +201,7 @@ class InstancesController extends Controller
      */
     public function destroy($id)
     {
-        $item = Instance::find($id);
+        $item = Instance::findOrFail($id);
         $item->delete();
         return redirect('/institution/instance')->with('primary', 'Successfully Deleted');
     }

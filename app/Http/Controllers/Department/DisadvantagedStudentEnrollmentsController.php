@@ -183,7 +183,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
-        $disadvantagedStudentEnrollment = DisadvantagedStudentEnrollment::find($id);
+        $disadvantagedStudentEnrollment = DisadvantagedStudentEnrollment::findOrFail($id);
         $department = $disadvantagedStudentEnrollment->department()->first();
         $college = $department->college()->first();
 
@@ -221,7 +221,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
-        $disadvantagedStudentEnrollment = DisadvantagedStudentEnrollment::find($id);
+        $disadvantagedStudentEnrollment = DisadvantagedStudentEnrollment::findOrFail($id);
         $disadvantagedStudentEnrollment->male_students_number = $request->input("male_number");
         $disadvantagedStudentEnrollment->female_students_number = $request->input("female_number");
         $disadvantagedStudentEnrollment->approval_status = "Pending";
@@ -240,7 +240,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
      */
     public function destroy($id)
     {
-        $item = DisadvantagedStudentEnrollment::find($id);
+        $item = DisadvantagedStudentEnrollment::findOrFail($id);
         $item->delete();
         return redirect('/enrollment/economically-disadvantaged')->with('primary', 'Successfully Deleted');
     }
@@ -254,7 +254,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $enrollment = DisadvantagedStudentEnrollment::find($id);
+            $enrollment = DisadvantagedStudentEnrollment::findOrFail($id);
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $enrollment->save();
         } else {

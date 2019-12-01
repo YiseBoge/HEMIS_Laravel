@@ -156,7 +156,7 @@ class ExitExaminationsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $exitExamination = ExitExamination::find($id);
+        $exitExamination = ExitExamination::findOrFail($id);
         $department = $exitExamination->department()->first();
         $departmentName = $department->departmentName()->first();
 
@@ -192,7 +192,7 @@ class ExitExaminationsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $exitExamination = ExitExamination::find($id);
+        $exitExamination = ExitExamination::findOrFail($id);
 
         $exitExamination->males_sat = $request->input('males_sat');
         $exitExamination->females_sat = $request->input('females_sat');
@@ -214,7 +214,7 @@ class ExitExaminationsController extends Controller
      */
     public function destroy($id)
     {
-        $item = ExitExamination::find($id);
+        $item = ExitExamination::findOrFail($id);
         $item->delete();
         return redirect('/student/exit-examination')->with('primary', 'Successfully Deleted');
     }
@@ -228,7 +228,7 @@ class ExitExaminationsController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $examination = ExitExamination::find($id);
+            $examination = ExitExamination::findOrFail($id);
             $examination->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $examination->save();
         } else {

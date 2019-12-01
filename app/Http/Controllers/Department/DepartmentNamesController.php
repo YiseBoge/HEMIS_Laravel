@@ -152,10 +152,10 @@ class DepartmentNamesController extends Controller
         }
         $collegeNames = $institutionName->collegeNames;
 
-        $department = DepartmentName::find($id);
+        $department = DepartmentName::findOrFail($id);
 
         $data = [
-            'department' => DepartmentName::find($id),
+            'department' => DepartmentName::findOrFail($id),
             'id' => $id,
             'departments' => $departments,
             'college_names' => $collegeNames,
@@ -186,7 +186,7 @@ class DepartmentNamesController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('University Admin');
 
-        $department = DepartmentName::find($id);
+        $department = DepartmentName::findOrFail($id);
         $department->department_name = $request->input("department_name");
         $department->acronym = $request->input("department_acronym");
 
@@ -203,7 +203,7 @@ class DepartmentNamesController extends Controller
      */
     public function destroy($id)
     {
-        $item = DepartmentName::find($id);
+        $item = DepartmentName::findOrFail($id);
         $item->delete();
         return redirect('/department/department-name')->with('primary', 'Successfully Deleted');
     }

@@ -163,7 +163,7 @@ class PostGraduateDiplomaTrainingController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $postGraduateDiplomaTraining = PostGraduateDiplomaTraining::find($id);
+        $postGraduateDiplomaTraining = PostGraduateDiplomaTraining::findOrFail($id);
         $department = $postGraduateDiplomaTraining->department()->first();
         $college = $department->college()->first();
 
@@ -198,7 +198,7 @@ class PostGraduateDiplomaTrainingController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $postGraduateDiplomaTraining = PostGraduateDiplomaTraining::find($id);
+        $postGraduateDiplomaTraining = PostGraduateDiplomaTraining::findOrFail($id);
 
         $postGraduateDiplomaTraining->number_of_male_students = $request->input("male_number");
         $postGraduateDiplomaTraining->number_of_female_students = $request->input("female_number");
@@ -218,7 +218,7 @@ class PostGraduateDiplomaTrainingController extends Controller
      */
     public function destroy($id)
     {
-        $item = PostGraduateDiplomaTraining::find($id);
+        $item = PostGraduateDiplomaTraining::findOrFail($id);
         $item->delete();
         return redirect('/department/postgraduate-diploma-training')->with('primary', 'Successfully Deleted');
     }
@@ -232,7 +232,7 @@ class PostGraduateDiplomaTrainingController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $training = PostGraduateDiplomaTraining::find($id);
+            $training = PostGraduateDiplomaTraining::findOrFail($id);
             $training->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $training->save();
         } else {

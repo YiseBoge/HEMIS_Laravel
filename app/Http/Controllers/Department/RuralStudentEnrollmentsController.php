@@ -174,7 +174,7 @@ class RuralStudentEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
-        $ruralStudenetEnrollment = RuralStudentEnrollment::find($id);
+        $ruralStudenetEnrollment = RuralStudentEnrollment::findOrFail($id);
         $department = $ruralStudenetEnrollment->department()->first();
         $college = $department->college()->first();
 
@@ -210,7 +210,7 @@ class RuralStudentEnrollmentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
-        $ruralStudenetEnrollment = RuralStudentEnrollment::find($id);
+        $ruralStudenetEnrollment = RuralStudentEnrollment::findOrFail($id);
         $ruralStudenetEnrollment->male_students_number = $request->input("male_number");
         $ruralStudenetEnrollment->female_students_number = $request->input("female_number");
         $ruralStudenetEnrollment->approval_status = "Pending";
@@ -231,7 +231,7 @@ class RuralStudentEnrollmentsController extends Controller
      */
     public function destroy($id)
     {
-        $item = RuralStudentEnrollment::find($id);
+        $item = RuralStudentEnrollment::findOrFail($id);
         $item->delete();
         return redirect('/enrollment/rural-area-students')->with('primary', 'Successfully Updated');
     }
@@ -245,7 +245,7 @@ class RuralStudentEnrollmentsController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $enrollment = RuralStudentEnrollment::find($id);
+            $enrollment = RuralStudentEnrollment::findOrFail($id);
             $enrollment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $enrollment->save();
         } else {

@@ -173,7 +173,7 @@ class OtherAttritionController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $otherAttrition = OtherAttrition::find($id);
+        $otherAttrition = OtherAttrition::findOrFail($id);
         $department = $otherAttrition->department()->first();
         $college = $department->college()->first();
         $data = array(
@@ -211,7 +211,7 @@ class OtherAttritionController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $otherAttrition = OtherAttrition::find($id);
+        $otherAttrition = OtherAttrition::findOrFail($id);
 
         $otherAttrition->male_students_number = $request->input("male_number");
         $otherAttrition->female_students_number = $request->input("female_number");
@@ -231,7 +231,7 @@ class OtherAttritionController extends Controller
      */
     public function destroy($id)
     {
-        $item = OtherAttrition::find($id);
+        $item = OtherAttrition::findOrFail($id);
         $item->delete();
         return redirect('/student/other-attrition')->with('primary', 'Successfully Deleted');
     }
@@ -245,7 +245,7 @@ class OtherAttritionController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $attrition = OtherAttrition::find($id);
+            $attrition = OtherAttrition::findOrFail($id);
             $attrition->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $attrition->save();
         } else {

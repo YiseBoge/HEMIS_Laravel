@@ -165,7 +165,7 @@ class SpecialProgramTeacherController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $specialProgramTeacher = SpecialProgramTeacher::find($id);
+        $specialProgramTeacher = SpecialProgramTeacher::findOrFail($id);
 
         $data = [
             'id' => $id,
@@ -198,7 +198,7 @@ class SpecialProgramTeacherController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $specialProgramTeacher = SpecialProgramTeacher::find($id);
+        $specialProgramTeacher = SpecialProgramTeacher::findOrFail($id);
 
         $specialProgramTeacher->male_number = $request->input("male_number");
         $specialProgramTeacher->female_number = $request->input("female_number");
@@ -219,7 +219,7 @@ class SpecialProgramTeacherController extends Controller
      */
     public function destroy($id)
     {
-        $item = SpecialProgramTeacher::find($id);
+        $item = SpecialProgramTeacher::findOrFail($id);
         $item->delete();
         return redirect('/department/special-program-teacher')->with('primary', 'Successfully Deleted');
     }
@@ -233,7 +233,7 @@ class SpecialProgramTeacherController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $specialProgramTeacher = SpecialProgramTeacher::find($id);
+            $specialProgramTeacher = SpecialProgramTeacher::findOrFail($id);
             $specialProgramTeacher->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $specialProgramTeacher->save();
         } else {

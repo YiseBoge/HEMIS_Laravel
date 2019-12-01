@@ -109,7 +109,7 @@ class InstitutionReportsController extends Controller
         $years = $card != null ? $card->reportYearValues()->where('institution_name_id', $institution_name->id)->get()->sortBy('year') : array();
 
 
-        $report = InstitutionReportCard::find($id);
+        $report = InstitutionReportCard::findOrFail($id);
         $target = $report->target($institution_name);
         $baseline = $report->reportYearValues()->where('institution_name_id', $institution_name->id)->get()->sortBy('year')->first();
         $change = 0;
@@ -156,7 +156,7 @@ class InstitutionReportsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('University Admin');
 
-        $target = InstitutionYearValue::find($id);
+        $target = InstitutionYearValue::findOrFail($id);
         $target->value = $request->input('target');
 
         $target->save();

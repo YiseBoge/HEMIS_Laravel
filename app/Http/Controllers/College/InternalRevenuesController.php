@@ -140,7 +140,7 @@ class InternalRevenuesController extends Controller
      */
     public function edit($id)
     {
-        $internalRevenue = InternalRevenue::find($id);
+        $internalRevenue = InternalRevenue::findOrFail($id);
 
         $revenueDescriptions = InternalRevenue::getEnum('revenue_description');
         $revenueDescription = InternalRevenue::getValueKey($revenueDescriptions, $internalRevenue->revenue_description);
@@ -190,7 +190,7 @@ class InternalRevenuesController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
 
-        $internalRevenue = InternalRevenue::find($id);
+        $internalRevenue = InternalRevenue::findOrFail($id);
         $internalRevenue->revenue_description = $request->input('revenue_description');
         $internalRevenue->income = $request->input('income');
         $internalRevenue->expense = $request->input('expense');
@@ -210,7 +210,7 @@ class InternalRevenuesController extends Controller
      */
     public function destroy($id)
     {
-        $item = InternalRevenue::find($id);
+        $item = InternalRevenue::findOrFail($id);
         $item->delete();
         return redirect('/budgets/internal-revenue')->with('primary', 'Successfully Deleted');
     }
@@ -223,7 +223,7 @@ class InternalRevenuesController extends Controller
         $action = $request->input('action');
 
         if ($action == "disapprove") {
-            $internalRevenue = InternalRevenue::find($id);
+            $internalRevenue = InternalRevenue::findOrFail($id);
             $internalRevenue->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $internalRevenue->save();
         } else {

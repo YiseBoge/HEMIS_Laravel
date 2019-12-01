@@ -179,7 +179,7 @@ class StaffAttritionsController extends Controller
      */
     public function destroy($id)
     {
-        $item = StaffAttrition::find($id);
+        $item = StaffAttrition::findOrFail($id);
         $item->delete();
         return redirect('/staff/attrition')->with('primary', 'Successfully Deleted');
     }

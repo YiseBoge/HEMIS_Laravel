@@ -178,7 +178,7 @@ class PublicationsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $publication = StaffPublication::find($id);
+        $publication = StaffPublication::findOrFail($id);
         $staff = $publication->academicStaff()->first();
         $general = $staff->general()->first();
 
@@ -215,7 +215,7 @@ class PublicationsController extends Controller
             $user = Auth::user();
             $user->authorizeRoles('Department Admin');
 
-            $publication = StaffPublication::find($id);
+            $publication = StaffPublication::findOrFail($id);
             $publication->title = $request->input("title");
             $publication->date_of_publication = $request->input("date");
 
@@ -232,7 +232,7 @@ class PublicationsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
 
-        $publicationsAndPatents = PublicationsAndPatents::find($id);
+        $publicationsAndPatents = PublicationsAndPatents::findOrFail($id);
         $publicationsAndPatents->student_publications = $request->input('student_publications');
         $publicationsAndPatents->patents = $request->input('patents');
 
@@ -251,7 +251,7 @@ class PublicationsController extends Controller
     public
     function destroy($id)
     {
-        $item = StaffPublication::find($id);
+        $item = StaffPublication::findOrFail($id);
         $item->delete();
         return redirect('/department/publication')->with('primary', 'Successfully Deleted');
     }

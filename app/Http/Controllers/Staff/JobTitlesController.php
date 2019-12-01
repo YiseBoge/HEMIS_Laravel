@@ -123,7 +123,7 @@ class JobTitlesController extends Controller
         $user->authorizeRoles('Super Admin');
 
         $jobTitles = JobTitle::all();
-        $selectedTitle = JobTitle::find($id);
+        $selectedTitle = JobTitle::findOrFail($id);
         $levels = JobTitle::getEnum('level');
 
         $data = array(
@@ -154,7 +154,7 @@ class JobTitlesController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 
-        $jobTitle = JobTitle::find($id);
+        $jobTitle = JobTitle::findOrFail($id);
         $jobTitle->job_title = $request->input('job_title');
 
         $jobTitle->save();
@@ -171,7 +171,7 @@ class JobTitlesController extends Controller
      */
     public function destroy($id)
     {
-        $item = JobTitle::find($id);
+        $item = JobTitle::findOrFail($id);
         $item->delete();
         return redirect('/staff/job-title')->with('primary', 'Successfully Deleted');
     }

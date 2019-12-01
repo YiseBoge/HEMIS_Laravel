@@ -167,7 +167,7 @@ class CostSharingController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
-        $costSharings = CostSharing::find($id);
+        $costSharings = CostSharing::findOrFail($id);
         // die($costSharings);
         $data = array(
             'id' => $id,
@@ -199,7 +199,7 @@ class CostSharingController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
 
-        $costSharings = CostSharing::find($id);
+        $costSharings = CostSharing::findOrFail($id);
 
         $costSharings->tuition_fee = $request->input("tuition_fee");
         $costSharings->food_expense = $request->input("food_expense");
@@ -221,7 +221,7 @@ class CostSharingController extends Controller
      */
     public function destroy($id)
     {
-        $item = CostSharing::find($id);
+        $item = CostSharing::findOrFail($id);
         $item->delete();
         return redirect('/student/cost-sharing')->with('primary', 'Successfully Deleted');
     }
@@ -235,7 +235,7 @@ class CostSharingController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $costSharing = CostSharing::find($id);
+            $costSharing = CostSharing::findOrFail($id);
             $costSharing->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $costSharing->save();
         } else {

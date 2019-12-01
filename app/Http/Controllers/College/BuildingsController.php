@@ -158,7 +158,7 @@ class BuildingsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
 
-        $building = Building::find($id);
+        $building = Building::findOrFail($id);
 
         // die(print_r($building));
 
@@ -189,7 +189,7 @@ class BuildingsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
 
-        $building = Building::find($id);
+        $building = Building::findOrFail($id);
 
         $building->budget_allocated = $request->input("budget_allocated");
         $building->financial_status = $request->input("financial_status");
@@ -209,7 +209,7 @@ class BuildingsController extends Controller
      */
     public function destroy($id)
     {
-        $item = Building::find($id);
+        $item = Building::findOrFail($id);
         $item->delete();
         return redirect('/institution/buildings')->with('primary', 'Successfully Deleted');
     }

@@ -149,7 +149,7 @@ class AcademicStaffsController extends Controller
 
         $data = array(
             //'staff' => AcademicStaff::with('general')->find($id)
-            'staff' => AcademicStaff::find($id),
+            'staff' => AcademicStaff::findOrFail($id),
             'page_name' => 'staff.academic.details'
         );
         return view('staff.academic.details')->with($data);
@@ -168,7 +168,7 @@ class AcademicStaffsController extends Controller
 
         $data = array(
             //'staff' => AcademicStaff::with('general')->find($id)
-            'staff' => AcademicStaff::find($id),
+            'staff' => AcademicStaff::findOrFail($id),
             'staff_leave_types' => StaffLeave::getEnum('LeaveTypes'),
             'staff_scholarship_types' => StaffLeave::getEnum('ScholarshipTypes'),
             'job_titles' => JobTitle::where('staff_type', 'Academic')->get(),
@@ -204,7 +204,7 @@ class AcademicStaffsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Department Admin');
 
-        $academicStaff = AcademicStaff::find($id);
+        $academicStaff = AcademicStaff::findOrFail($id);
         if ($request->input('status') == "onLeave") {
             $this->validate($request, [
                 'leave_type' => 'required',
@@ -262,7 +262,7 @@ class AcademicStaffsController extends Controller
      */
     public function destroy($id)
     {
-        $item = AcademicStaff::find($id);
+        $item = AcademicStaff::findOrFail($id);
         $item->delete();
         return redirect('/staff/academic')->with('primary', 'Successfully Deleted');
     }

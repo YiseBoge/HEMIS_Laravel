@@ -161,7 +161,7 @@ class BudgetsController extends Controller
     public function edit($id)
     {
 
-        $budget = Budget::find($id);
+        $budget = Budget::findOrFail($id);
         $budget_type = Budget::getValueKey(Budget::getEnum("budget_type"), $budget->budget_type);
 
         $user = Auth::user();
@@ -221,7 +221,7 @@ class BudgetsController extends Controller
         $user->authorizeRoles('College Admin');
         $exampleDescription = BudgetDescription::all()[$request->input('budget_description')];
 
-        $budget = Budget::find($id);
+        $budget = Budget::findOrFail($id);
         $budget->allocated_budget = $request->input('allocated');
         $budget->additional_budget = $request->input('additional');
         $budget->utilized_budget = $request->input('utilized');
@@ -243,7 +243,7 @@ class BudgetsController extends Controller
      */
     public function destroy($id)
     {
-        $item = Budget::find($id);
+        $item = Budget::findOrFail($id);
         $item->delete();
         return redirect('/budgets/budget')->with('primary', 'Successfully Deleted');
     }
@@ -257,7 +257,7 @@ class BudgetsController extends Controller
 
 
         if ($action == "disapprove") {
-            $budget = Budget::find($id);
+            $budget = Budget::findOrFail($id);
             $budget->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $budget->save();
         } else {

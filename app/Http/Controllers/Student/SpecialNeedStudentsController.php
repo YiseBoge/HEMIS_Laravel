@@ -179,7 +179,7 @@ class SpecialNeedStudentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'student' => SpecialNeedStudent::find($id),
+            'student' => SpecialNeedStudent::findOrFail($id),
             'page_name' => 'students.special_need.details'
         );
         return view("students.special_need.details")->with($data);
@@ -197,7 +197,7 @@ class SpecialNeedStudentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'student' => SpecialNeedStudent::find($id),
+            'student' => SpecialNeedStudent::findOrFail($id),
             'colleges' => CollegeName::all(),
             'departments' => DepartmentName::all(),
             'page_name' => 'students.special_need.edit'
@@ -234,7 +234,7 @@ class SpecialNeedStudentsController extends Controller
         $educationProgram = request()->input('program', 'None');
         $yearLevel = request()->input('year_level', 'None');
         $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
-        $specialNeedStudent = SpecialNeedStudent::find($id);
+        $specialNeedStudent = SpecialNeedStudent::findOrFail($id);
 
         $dormitoryService = $specialNeedStudent->general->studentService->dormitoryService;
         $studentService = $specialNeedStudent->general->studentService;
@@ -262,7 +262,7 @@ class SpecialNeedStudentsController extends Controller
      */
     public function destroy($id)
     {
-        $item = SpecialNeedStudent::find($id);
+        $item = SpecialNeedStudent::findOrFail($id);
         $item->delete();
         return redirect('/student/special-need')->with('primary', 'Successfully Deleted');
     }

@@ -184,7 +184,7 @@ class ForeignStudentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'student' => ForeignStudent::find($id),
+            'student' => ForeignStudent::findOrFail($id),
             'page_name' => 'students.foreign.details'
         );
         return view("students.foreign.details")->with($data);
@@ -202,7 +202,7 @@ class ForeignStudentsController extends Controller
         $user->authorizeRoles('Department Admin');
 
         $data = array(
-            'student' => ForeignStudent::find($id),
+            'student' => ForeignStudent::findOrFail($id),
             'colleges' => CollegeName::all(),
             'departments' => DepartmentName::all(),
             'page_name' => 'students.foreign.edit'
@@ -240,7 +240,7 @@ class ForeignStudentsController extends Controller
         $educationProgram = request()->input('program', 'None');
         $yearLevel = request()->input('year_level', 'None');
         $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
-        $foreignerStudent = ForeignStudent::find($id);
+        $foreignerStudent = ForeignStudent::findOrFail($id);
 
         $dormitoryService = $foreignerStudent->general->studentService->dormitoryService;
         $studentService = $foreignerStudent->general->studentService;
@@ -270,7 +270,7 @@ class ForeignStudentsController extends Controller
      */
     public function destroy($id)
     {
-        $item = ForeignStudent::find($id);
+        $item = ForeignStudent::findOrFail($id);
         $item->delete();
         return redirect('/student/foreign')->with('primary', 'Successfully Deleted');
     }

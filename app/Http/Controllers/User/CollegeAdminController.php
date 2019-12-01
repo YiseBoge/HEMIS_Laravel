@@ -150,7 +150,7 @@ class CollegeAdminController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['University Admin', 'College Super Admin']);
 
-        $college_admin = User::find($id);
+        $college_admin = User::findOrFail($id);
         $data = array(
             'college_admin'=>$college_admin,
             'page_name' => 'administer.college_admin.create',
@@ -176,7 +176,7 @@ class CollegeAdminController extends Controller
         $user = Auth::user();
         $user->authorizeRoles(['University Admin', 'College Super Admin']);
 
-        $college_admin = User::find($id);
+        $college_admin = User::findOrFail($id);
 
         $college_admin->password = Hash::make($request->input('password'));
         $college_admin->save();
@@ -194,7 +194,7 @@ class CollegeAdminController extends Controller
      */
     public function destroy($id)
     {
-        $item = User::find($id);
+        $item = User::findOrFail($id);
         $item->delete();
         return redirect('/college-admin')->with('primary', 'Successfully Deleted');
     }

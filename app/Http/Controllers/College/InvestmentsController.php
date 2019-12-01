@@ -141,7 +141,7 @@ class InvestmentsController extends Controller
      */
     public function edit($id)
     {
-        $investment = Investment::find($id);
+        $investment = Investment::findOrFail($id);
 
         $investmentTitles = Investment::getEnum('investment_title');
         $investmentTitle = Investment::getValueKey($investmentTitles, $investment->investment_title);
@@ -189,7 +189,7 @@ class InvestmentsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
 
-        $investment = Investment::find($id);
+        $investment = Investment::findOrFail($id);
         $investment->investment_title = $request->input('investment_title');
         $investment->cost_incurred = $request->input('cost_incurred');
         $investment->remarks = $request->input('remarks');
@@ -210,7 +210,7 @@ class InvestmentsController extends Controller
      */
     public function destroy($id)
     {
-        $item = Investment::find($id);
+        $item = Investment::findOrFail($id);
         $item->delete();
         return redirect('/budgets/private-investment')->with('primary', 'Successfully Deleted');
     }
@@ -223,7 +223,7 @@ class InvestmentsController extends Controller
         $action = $request->input('action');
 
         if ($action == "disapprove") {
-            $investment = Investment::find($id);
+            $investment = Investment::findOrFail($id);
             $investment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $investment->save();
         } else {

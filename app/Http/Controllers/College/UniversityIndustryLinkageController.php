@@ -152,7 +152,7 @@ class UniversityIndustryLinkageController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
-        $universityIndustryLinkage = UniversityIndustryLinkage::find($id);
+        $universityIndustryLinkage = UniversityIndustryLinkage::findOrFail($id);
 
         $institution = $user->institution();
         $collegeName = $user->collegeName;
@@ -199,7 +199,7 @@ class UniversityIndustryLinkageController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('College Admin');
 
-        $universityIndustryLinkage = UniversityIndustryLinkage::find($id);
+        $universityIndustryLinkage = UniversityIndustryLinkage::findOrFail($id);
 
         $universityIndustryLinkage->number_of_industry_links = $request->input('industry_number');
         $universityIndustryLinkage->training_area = $request->input('training_area');
@@ -221,7 +221,7 @@ class UniversityIndustryLinkageController extends Controller
      */
     public function destroy($id)
     {
-        $item = UniversityIndustryLinkage::find($id);
+        $item = UniversityIndustryLinkage::findOrFail($id);
         $item->delete();
         return redirect('/student/university-industry-linkage')->with('primary', 'Successfully Deleted');
     }
@@ -234,7 +234,7 @@ class UniversityIndustryLinkageController extends Controller
         $action = $request->input('action');
 
         if ($action == "disapprove") {
-            $linkage = UniversityIndustryLinkage::find($id);
+            $linkage = UniversityIndustryLinkage::findOrFail($id);
             $linkage->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $linkage->save();
         } else {

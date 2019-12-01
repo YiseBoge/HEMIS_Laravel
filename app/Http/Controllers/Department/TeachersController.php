@@ -162,7 +162,7 @@ class TeachersController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $teachers = Teacher::find($id);
+        $teachers = Teacher::findOrFail($id);
         $data = array(
             'id' => $id,
             'education_level' => $teachers->level_of_education,
@@ -194,7 +194,7 @@ class TeachersController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $teachers = Teacher::find($id);
+        $teachers = Teacher::findOrFail($id);
 
         $teachers->male_number = $request->input("male_number");
         $teachers->female_number = $request->input("female_number");
@@ -216,7 +216,7 @@ class TeachersController extends Controller
      */
     public function destroy($id)
     {
-        $item = Teacher::find($id);
+        $item = Teacher::findOrFail($id);
         $item->delete();
         return redirect('/department/teachers')->with('primary', 'Successfully Deleted');
     }
@@ -230,7 +230,7 @@ class TeachersController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $teacher = Teacher::find($id);
+            $teacher = Teacher::findOrFail($id);
             $teacher->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $teacher->save();
         } else {

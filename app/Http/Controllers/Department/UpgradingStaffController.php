@@ -164,7 +164,7 @@ class UpgradingStaffController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $upgradingStaff = UpgradingStaff::find($id);
+        $upgradingStaff = UpgradingStaff::findOrFail($id);
 
         $data = [
             'id' => $id,
@@ -197,7 +197,7 @@ class UpgradingStaffController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $upgradingStaff = UpgradingStaff::find($id);
+        $upgradingStaff = UpgradingStaff::findOrFail($id);
 
         $upgradingStaff->male_number = $request->input("male_number");
         $upgradingStaff->female_number = $request->input("female_number");
@@ -217,7 +217,7 @@ class UpgradingStaffController extends Controller
      */
     public function destroy($id)
     {
-        $item = UpgradingStaff::find($id);
+        $item = UpgradingStaff::findOrFail($id);
         $item->delete();
         return redirect('/department/upgrading-staff')->with('primary', 'Successfully Deleted');
     }
@@ -231,7 +231,7 @@ class UpgradingStaffController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $upgradingStaff = UpgradingStaff::find($id);
+            $upgradingStaff = UpgradingStaff::findOrFail($id);
             $upgradingStaff->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $upgradingStaff->save();
         } else {

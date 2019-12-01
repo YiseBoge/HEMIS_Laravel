@@ -141,7 +141,7 @@ class ManagementDataController extends Controller
         $data = [
             'management_data' => $managements,
             'management_levels' => ManagementData::getEnum('ManagementLevels'),
-            'current' => ManagementData::find($id),
+            'current' => ManagementData::findOrFail($id),
 
             'has_modal' => 'yes',
             'page_name' => 'institutions.management_data.edit',
@@ -169,7 +169,7 @@ class ManagementDataController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('University Admin');
 
-        $management_data = ManagementData::find($id);
+        $management_data = ManagementData::findOrFail($id);
         $management_data->required = $request->input('required_positions');
         $management_data->assigned = $request->input('assigned_positions');
         $management_data->female_number = $request->input('number_of_females');
@@ -192,7 +192,7 @@ class ManagementDataController extends Controller
         $user->authorizeRoles('University Admin');
         if ($user->read_only) return redirect("/institution/general");
 
-        $item = ManagementData::find($id);
+        $item = ManagementData::findOrFail($id);
         $item->delete();
         return redirect('institution/management-data')->with('primary', 'Successfully Deleted');
     }

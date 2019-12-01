@@ -125,7 +125,7 @@ class SupportContactsController extends Controller
 
         $support_contacts = SupportContact::all();
 
-        $contact = SupportContact::find($id);
+        $contact = SupportContact::findOrFail($id);
         $data = [
             'support_contacts' => $support_contacts,
             'current_contact' => $contact,
@@ -185,7 +185,7 @@ class SupportContactsController extends Controller
      */
     public function destroy($id)
     {
-        $item = SupportContact::find($id);
+        $item = SupportContact::findOrFail($id);
         $item->delete();
         return redirect('/support-contacts')->with('primary', 'Successfully Deleted');
     }

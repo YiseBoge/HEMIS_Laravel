@@ -172,7 +172,7 @@ class ManagementStaffsController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
 
-        $managementStaff = ManagementStaff::find($id);
+        $managementStaff = ManagementStaff::findOrFail($id);
         $managementStaff->management_level = $request->input('management_level');
         $managementStaff->job_title_id = $request->input('job_title');
         $managementStaff->save();
@@ -189,7 +189,7 @@ class ManagementStaffsController extends Controller
      */
     public function destroy($id)
     {
-        $item = ManagementStaff::find($id);
+        $item = ManagementStaff::findOrFail($id);
         $item->delete();
         return redirect('/staff/management')->with('primary', 'Successfully Deleted');
     }

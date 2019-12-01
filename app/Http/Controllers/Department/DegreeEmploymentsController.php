@@ -152,7 +152,7 @@ class DegreeEmploymentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $degreeEmployment = DegreeEmployment::find($id);
+        $degreeEmployment = DegreeEmployment::findOrFail($id);
 
         $data = array(
             'id' => $id,
@@ -183,7 +183,7 @@ class DegreeEmploymentsController extends Controller
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Department Admin');
 
-        $degreeEmployment = DegreeEmployment::find($id);
+        $degreeEmployment = DegreeEmployment::findOrFail($id);
 
         $degreeEmployment->male_students_number = $request->input("male_number");
         $degreeEmployment->female_students_number = $request->input("female_number");
@@ -203,7 +203,7 @@ class DegreeEmploymentsController extends Controller
      */
     public function destroy($id)
     {
-        $item = DegreeEmployment::find($id);
+        $item = DegreeEmployment::findOrFail($id);
         $item->delete();
         return redirect('/student/degree-relevant-employment')->with('primary', 'Successfully Deleted');
     }
@@ -217,7 +217,7 @@ class DegreeEmploymentsController extends Controller
         $selectedDepartment = $request->input('department');
 
         if ($action == "disapprove") {
-            $employment = DegreeEmployment::find($id);
+            $employment = DegreeEmployment::findOrFail($id);
             $employment->approval_status = Institution::getEnum('ApprovalTypes')["DISAPPROVED"];
             $employment->save();
         } else {
