@@ -151,6 +151,10 @@ class BudgetDescriptionsController extends Controller
         $current_desc->budget_code = $request->input("budget_code");
         $current_desc->description = $request->input("description");
 
+        if ($current_desc->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
         $current_desc->save();
         return redirect('/budgets/budget-description');
     }
