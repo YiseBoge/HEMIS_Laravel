@@ -175,6 +175,10 @@ class ManagementDataController extends Controller
         $management_data->female_number = $request->input('number_of_females');
         $management_data->management_level = $request->input('management_level');
 
+        if ($management_data->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
         $management_data->save();
 
         return redirect('institution/management-data/')->with('primary', 'Successfully Updated');
