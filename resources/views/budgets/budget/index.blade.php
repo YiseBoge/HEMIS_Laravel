@@ -70,35 +70,43 @@
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
+                                    style="min-width: 120px"
                                 >Budget Description
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
-                                >Allocated Budget
+                                    style="min-width: 120px"
+                                >(a) Allocated Budget
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
-                                >Additional Budget
+                                    style="min-width: 120px"
+                                >(b) Additional Budget
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
-                                >Internal Transfer
+                                    style="min-width: 120px"
+                                >(c) Internal Transfer <br> (a &#177; b)
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
-                                >Adjusted Budget
+                                    style="min-width: 120px"
+                                >(d) Adjusted Budget <br> (a+b+c)
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
-                                >Utilized Budget
+                                    style="min-width: 120px"
+                                >(e) Utilized Budget
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
-                                >Difference
+                                    style="min-width: 120px"
+                                >(f) Difference <br> (d-e)
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
-                                >Performance in %
+                                    style="min-width: 120px"
+                                >(g) Performance <br> (e/d * 100) %
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1"
@@ -158,13 +166,13 @@
                                     @endif
                                     <td>{{ $budget->budgetDescription->budget_code }}</td>
                                     <td>{{ $budget->budgetDescription->description }}</td>
-                                    <td>{{ $budget->allocated_budget }}</td>
-                                    <td>{{ $budget->additional_budget }}</td>
-                                    <td>234532</td>
-                                    <td>45000</td>
-                                    <td>{{ $budget->utilized_budget }}</td>
-                                    <td>23699</td>
-                                    <td>22%</td>
+                                    <td>{{ $a = $budget->allocated_budget }}</td>
+                                    <td>{{ $b = $budget->additional_budget }}</td>
+                                    <td>{{ $c = $a + $b }}</td>
+                                    <td>{{ $d = $a + $b + $c }}</td>
+                                    <td>{{ $e = $budget->utilized_budget }}</td>
+                                    <td>{{ $f = $d - $e }}</td>
+                                    <td>{{ $g = round(($e/$d) * 100, 2) }}%</td>
                                     @if($budget->approval_status == "Approved")
                                         <td class="text-success"><i
                                                     class="fas fa-check-double"></i> {{$budget->approval_status}}
