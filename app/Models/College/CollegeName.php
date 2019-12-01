@@ -4,6 +4,7 @@ namespace App\Models\College;
 
 use App\Models\Department\DepartmentName;
 use App\Models\Institution\InstitutionName;
+use App\Role;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -54,6 +55,28 @@ class CollegeName extends Model
     public function users()
     {
         return $this->hasMany('App\User');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function superAdmins()
+    {
+        $role = Role::where("role_name", "College Super Admin")->first();
+        $college_name_id = $this->id;
+
+        return $role->users()->where('college_name_id', $college_name_id);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function commonAdmins()
+    {
+        $role = Role::where("role_name", "College Admin")->first();
+        $college_name_id = $this->id;
+
+        return $role->users()->where('college_name_id', $college_name_id);
     }
 
     /**

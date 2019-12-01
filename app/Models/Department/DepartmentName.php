@@ -15,6 +15,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null acronym
  * @property Uuid college_name_id
  * @property Uuid band_name_id
+ * @property Collection users
  * @method static DepartmentName findOrFail(int $id)
  */
 class DepartmentName extends Model

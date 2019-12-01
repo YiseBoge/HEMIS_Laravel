@@ -9,6 +9,7 @@ use Webpatser\Uuid\Uuid;
 
 /**
  * @property Uuid id
+ * @property Collection users
  * @method static Collection where(string $string, string $string1)
  */
 class Role extends Model

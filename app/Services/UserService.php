@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use App\Models\College\CollegeName;
+use App\Models\Department\DepartmentName;
 use App\Models\Institution\CommunityService;
 use App\Models\Institution\GeneralInformation;
 use App\Models\Institution\Instance;
@@ -43,7 +44,8 @@ class UserService
             $name = "$institutionName->acronym Super Admin";
             $email = "hemis-super@$univ.edu.et";
 
-            if (User::all()->where('email', $email)->first() == null) {
+            if (User::all()->where('email', $email)->first() == null
+                && $institutionName->users()->where('read_only', false)->get()->isEmpty()) {
                 $user = $this->makeUser($name, $email);
 
                 $institutionName->users()->save($user);
@@ -107,7 +109,8 @@ class UserService
             $name = "$institutionName->acronym Read-Only Admin";
             $email = "hemis-super-vp@$univ.edu.et";
 
-            if (User::all()->where('email', $email)->first() == null) {
+            if (User::all()->where('email', $email)->first() == null
+                && $institutionName->users()->where('read_only', true)->get()->isEmpty()) {
                 $user = $this->makeUser($name, $email);
 
                 $user->read_only = true;
@@ -132,7 +135,8 @@ class UserService
             $name = "$collegeName->acronym Super Admin";
             $email = "hemis-super-$coll@$univ.edu.et";
 
-            if (User::all()->where('email', $email)->first() == null) {
+            if (User::all()->where('email', $email)->first() == null
+                && $collegeName->superAdmins->isEmpty()) {
                 $user = $this->makeUser($name, $email);
 
                 $institutionName->users()->save($user);
@@ -156,7 +160,8 @@ class UserService
         $name = "$collegeName->acronym Common Admin";
         $email = "hemis-comm-$coll@$univ.edu.et";
 
-        if (User::all()->where('email', $email)->first() == null) {
+        if (User::all()->where('email', $email)->first() == null
+            && $collegeName->commonAdmins->isEmpty()) {
             $user = $this->makeUser($name, $email);
 
             $institutionName->users()->save($user);
@@ -173,6 +178,7 @@ class UserService
     public function createDepartmentAdmins(CollegeName $collegeName)
     {
         $institutionName = $collegeName->institutionName;
+        /** @var DepartmentName $departmentName */
         foreach ($collegeName->departmentNames as $departmentName) {
             $univ = strtolower($institutionName->acronym);
             $coll = strtolower($collegeName->acronym);
@@ -181,7 +187,8 @@ class UserService
             $name = "$departmentName->acronym Admin";
             $email = "hemis-$dept-$coll@$univ.edu.et";
 
-            if (User::all()->where('email', $email)->first() == null) {
+            if (User::all()->where('email', $email)->first() == null
+                && $departmentName->users->isEmpty()) {
                 $user = $this->makeUser($name, $email);
 
                 $institutionName->users()->save($user);
