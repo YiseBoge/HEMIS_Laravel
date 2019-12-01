@@ -88,7 +88,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 {{ Form::number('community_services', $institution->generalInformation->communityService->community_services, ['class'=>'form-control', 'id'=>'edit_community_services', 'required' => 'true']) }}
-                                {{ Form::label('edit_community_services', 'Middle Level Leaders', ['class' => 'form-control-placeholder']) }}
+                                {{ Form::label('edit_community_services', 'Community Services', ['class' => 'form-control-placeholder']) }}
                             </div>
 
                             <div class="col-md-6 p-3">
@@ -120,7 +120,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 {{ Form::number('linked_tvets', $institution->generalInformation->communityService->linked_tvets, ['class'=>'form-control', 'id'=>'edit_linked_tvets', 'required' => 'true']) }}
-                                {{ Form::label('edit_linked_tvets', 'Middle Level Leaders', ['class' => 'form-control-placeholder']) }}
+                                {{ Form::label('edit_linked_tvets', 'TVETs Linked', ['class' => 'form-control-placeholder']) }}
                             </div>
                         </div>
                     </div>
