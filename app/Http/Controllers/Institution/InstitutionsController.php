@@ -183,7 +183,6 @@ class InstitutionsController extends Controller
             'text_per_student' => 'required|numeric|between:0,1000000000',
             'number_of_classrooms' => 'required|numeric|between:0,1000000000',
             'number_of_smart_classrooms' => 'required|numeric|between:0,1000000000',
-            'unjustifiable_expenses' => 'required|numeric|between:0,1000000000',
         ]);
 
         $institution = Institution::find($id);
@@ -232,7 +231,7 @@ class InstitutionsController extends Controller
         $resource->text_per_student = $request->input('text_per_student');
         $resource->number_of_classrooms = $request->input('number_of_classrooms');
         $resource->number_of_smart_classrooms = $request->input('number_of_smart_classrooms');
-        $resource->unjustifiable_expenses = $request->input('unjustifiable_expenses');
+        $resource->unjustifiable_expenses = 0;
 
         $generalInformation->save();
         $communityService->save();

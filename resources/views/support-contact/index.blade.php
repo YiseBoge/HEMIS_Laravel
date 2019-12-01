@@ -129,6 +129,19 @@
                     </div>
 
                     <div class="modal-body p-4">
+                        @if(count($errors) > 0)
+                            <div class="col-md-12 form-group">
+                                <div class="alert alert-danger">
+                                    <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                    <hr class="my-0">
+                                    <ul class="my-1 px-4">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
                         <div class="row">
                             <div class="col-md-12 form-group pb-1">
                             {!! Form::text('name', old('name'), ['class' => 'form-control', 'id' => 'name', 'required' => 'true']) !!}
