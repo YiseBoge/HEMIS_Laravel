@@ -106,8 +106,14 @@
                         </div>
                     @endif
                 </form>
+                <div class="row">
+                    <div class="col text-right">
+                            <p>Total: {{$total}}<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
+                            </p>
+                    </div>
+                </div>
                 <div class="table-responsive">
-                    <div class="row mt-3">
+                    <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
                                    width="100%"
@@ -146,6 +152,11 @@
                                         colspan="1"
                                         aria-label="Start date: activate to sort column ascending"
                                     >Female Students
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Start date: activate to sort column ascending"
+                                    >Total
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                         colspan="1" style="min-width: 95px"
@@ -212,6 +223,7 @@
                                             <td>{{$enrollment->department->year_level}}</td>
                                             <td>{{$enrollment->male_students_number}}</td>
                                             <td>{{$enrollment->female_students_number}}</td>
+                                            <td>{{$enrollment->female_students_number + $enrollment->male_students_number}}</td>
                                             @if($enrollment->approval_status == "Approved")
                                                 <td class="text-success"><i
                                                             class="fas fa-check-double"></i> {{$enrollment->approval_status}}
