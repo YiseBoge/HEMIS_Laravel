@@ -47,18 +47,23 @@ class DisadvantagedStudentEnrollmentsController extends Controller
         $requestedType = DisadvantagedStudentEnrollment::getEnum('student_type')[$selectedType = request()->query('student_type', 'NORMAL')];
 
         $enrollments = array();
+        $total = 0;
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
                 foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
-                    foreach ($department->disadvantagedStudentEnrollments as $enrollment)
+                    foreach ($department->disadvantagedStudentEnrollments as $enrollment){
                         $enrollments[] = $enrollment;
+                        $total += $enrollment->male_students_number + $enrollment->female_students_number;
+                    }
             } else
                 if ($college->education_level == $requestedLevel && $college->education_program == $requestedProgram)
                     foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
                         foreach ($department->disadvantagedStudentEnrollments()->where([
-                            'student_type' => $requestedType, 'quintile' => $requestedQuintile])->get() as $enrollment)
+                            'student_type' => $requestedType, 'quintile' => $requestedQuintile])->get() as $enrollment){
                             $enrollments[] = $enrollment;
+                            $total += $enrollment->male_students_number + $enrollment->female_students_number;
+                        }
         }
 
         $data = array(
@@ -68,6 +73,7 @@ class DisadvantagedStudentEnrollmentsController extends Controller
             'education_levels' => College::getEnum("EducationLevels"),
             'quintiles' => DisadvantagedStudentEnrollment::getEnum('Quintiles'),
             'student_types' => DisadvantagedStudentEnrollment::getEnum('StudentTypes'),
+            'total' => $total,
 
             'selected_department' => $requestedDepartment,
             'selected_quintile' => $requestedQuintile,

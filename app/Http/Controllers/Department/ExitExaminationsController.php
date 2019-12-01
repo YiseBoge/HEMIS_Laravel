@@ -40,21 +40,27 @@ class ExitExaminationsController extends Controller
         $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
 
         $examinations = array();
+        $total = 0;
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
                 foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
-                    foreach ($department->exitExaminations as $examination)
+                    foreach ($department->exitExaminations as $examination){
                         $examinations[] = $examination;
+                        $total += $examination->males_passed + $examination->females_passed;
+                    }
             } else
                 foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
-                    foreach ($department->exitExaminations as $examination)
+                    foreach ($department->exitExaminations as $examination){
                         $examinations[] = $examination;
+                        $total += $examination->males_passed + $examination->females_passed;
+                    }
         }
 
         $data = array(
             'examinations' => $examinations,
             'departments' => $collegeDeps,
+            'total' => $total,
 
             'selected_department' => $requestedDepartment,
 

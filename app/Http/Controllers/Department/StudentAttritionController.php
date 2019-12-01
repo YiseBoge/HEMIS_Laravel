@@ -47,18 +47,23 @@ class StudentAttritionController extends Controller
         $requestedStudentType = request()->query('student_type', 'All');
 
         $attrition = array();
+        $total = 0;
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
                 foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
-                    foreach ($department->studentAttritions as $attr)
+                    foreach ($department->studentAttritions as $attr){
                         $attrition[] = $attr;
+                        $total += $attr->male_students_number + $attr->female_students_number;
+                    }
             } else
                 if ($college->education_level == $requestedLevel && $college->education_program == $requestedProgram)
                     foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
                         foreach ($department->studentAttritions()->where(['student_type' => $requestedStudentType,
-                            'type' => $requestedType, 'case' => $requestedCase])->get() as $attr)
+                            'type' => $requestedType, 'case' => $requestedCase])->get() as $attr){
                             $attrition[] = $attr;
+                            $total += $attr->male_students_number + $attr->female_students_number;
+                        }
         }
 
         $data = array(
@@ -69,6 +74,7 @@ class StudentAttritionController extends Controller
             'student_types' => StudentAttrition::getEnum('StudentTypes'),
             'types' => StudentAttrition::getEnum('Types'),
             'cases' => StudentAttrition::getEnum('Cases'),
+            'total' => $total,
             'page_name' => 'students.student_attrition.index',
 
             'selected_department' => $requestedDepartment,

@@ -32,6 +32,7 @@
 
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
+                        <p class="text-lg"><b class="text-primary">Total Enrollment:</b> {{$total}}</p>
                         <table class="table table-bordered dataTable table-striped table-hover"
                                id="dataTable"
                                width="100%"

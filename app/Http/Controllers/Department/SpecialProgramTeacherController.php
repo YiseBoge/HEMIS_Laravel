@@ -43,22 +43,28 @@ class SpecialProgramTeacherController extends Controller
         $status = SpecialProgramTeacher::getEnum('ProgramStats')[$requestedStatus = request()->query('program_status', 'COMPLETED')];
 
         $filteredTeachers = array();
+        $total = 0;
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
                 foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
-                    foreach ($department->SpecialProgramTeachers as $teacher)
+                    foreach ($department->SpecialProgramTeachers as $teacher){
                         $filteredTeachers[] = $teacher;
+                        $total += $teacher->male_number + $teacher->female_number;
+                    }
             } else
                 foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
-                    foreach ($department->SpecialProgramTeachers()->where('program_stat', $status) as $teacher)
+                    foreach ($department->SpecialProgramTeachers()->where('program_stat', $status)->get() as $teacher){
                         $filteredTeachers[] = $teacher;
+                        $total += $teacher->male_number + $teacher->female_number;
+                    }
         }
 
         $data = [
             'program_status' => $requestedStatus,
             'special_program_teachers' => $filteredTeachers,
             'departments' => $collegeDeps,
+            'total' => $total,
 
             'selected_department' => $requestedDepartment,
             'selected_status' => $requestedStatus,
@@ -114,7 +120,7 @@ class SpecialProgramTeacherController extends Controller
         $departmentName = $user->departmentName;
         $educationLevel = request()->input('education_level', 'None');
         $educationProgram = request()->input('program', 'None');
-        $yearLevel = request()->input('year_level', 'None');
+        $yearLevel = request()->input('year_level', 'NONE');
         $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
 
         $specialProgramTeacher = new SpecialProgramTeacher;

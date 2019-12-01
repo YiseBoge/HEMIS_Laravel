@@ -57,6 +57,7 @@
 
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
+                        <p class="text-lg"><b class="text-primary">Total Enrollment:</b> {{$total}}</p>
                         <table class="table table-bordered dataTable table-striped table-hover"
                                id="dataTable"
                                width="100%"
@@ -84,6 +85,11 @@
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
                                 >Female Staff
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1"
+                                    aria-label="Start date: activate to sort column ascending"
+                                >Total
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1"
@@ -148,6 +154,7 @@
                                     <td>{{ $upgrading_staff->education_level}}</td>
                                     <td>{{ $upgrading_staff->male_number }}</td>
                                     <td>{{ $upgrading_staff->female_number }}</td>
+                                    <td>{{$upgrading_staff->female_number + $upgrading_staff->male_number}}</td>
                                     @if($upgrading_staff->approval_status == "Approved")
                                         <td class="text-success"><i
                                                     class="fas fa-check-double"></i> {{$upgrading_staff->approval_status}}

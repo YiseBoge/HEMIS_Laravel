@@ -106,13 +106,9 @@
                         </div>
                     @endif
                 </form>
-                <div class="row">
-                    <div class="col text-right">
-                            <p>Total: {{$total}}<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
-                            </p>
-                    </div>
-                </div>
+
                 <div class="table-responsive">
+                    <p class="text-lg"><b class="text-primary">Total Enrollment:</b> {{$total}}</p>
                     <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"

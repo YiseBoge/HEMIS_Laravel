@@ -43,16 +43,21 @@ class PostGraduateDiplomaTrainingController extends Controller
         $requestedType = request()->query('type', 'Teachers') == "Teachers" ? 0 : 1;
 
         $trainings = array();
+        $total = 0;
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
                 foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
-                    foreach ($department->postgraduateDiplomaTrainings as $training)
+                    foreach ($department->postgraduateDiplomaTrainings as $training){
                         $trainings[] = $training;
+                        $total += $training->number_of_male_students + $training->number_of_female_students;
+                    }
             } else
                 foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
-                    foreach ($department->postgraduateDiplomaTrainings()->where('is_lead', $requestedType)->get() as $training)
+                    foreach ($department->postgraduateDiplomaTrainings()->where('is_lead', $requestedType)->get() as $training){
                         $trainings[] = $training;
+                        $total += $training->number_of_male_students + $training->number_of_female_students;
+                    }
         }
 
         $data = array(
@@ -60,6 +65,7 @@ class PostGraduateDiplomaTrainingController extends Controller
             'departments' => $collegeDeps,
             'programs' => College::getEnum("education_program"),
             'types' => PostGraduateDiplomaTraining::getEnum('Types'),
+            'total' => $total,
             'page_name' => 'staff.postgraduate_diploma_training.index',
 
             'selected_department' => $requestedDepartment,
@@ -113,7 +119,7 @@ class PostGraduateDiplomaTrainingController extends Controller
         $departmentName = $user->departmentName;
         $educationLevel = request()->input('education_level', 'None');
         $educationProgram = request()->input('program', 'None');
-        $yearLevel = request()->input('year_level', 'None');
+        $yearLevel = request()->input('year_level', 'NONE');
         $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
 
         $training = new PostGraduateDiplomaTraining;

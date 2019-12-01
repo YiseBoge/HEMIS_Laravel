@@ -44,17 +44,22 @@ class AgeEnrollmentsController extends Controller
 
 
         $enrollments = array();
+        $total = 0;
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
                 foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
-                    foreach ($department->ageEnrollments as $enrollment)
+                    foreach ($department->ageEnrollments as $enrollment){
                         $enrollments[] = $enrollment;
+                        $total += $enrollment->male_students_number + $enrollment->female_students_number;
+                    }
             } else
                 if ($college->education_level == $requestedLevel && $college->education_program == $requestedProgram)
                     foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
-                        foreach ($department->ageEnrollments as $enrollment)
+                        foreach ($department->ageEnrollments as $enrollment){
                             $enrollments[] = $enrollment;
+                            $total += $enrollment->male_students_number + $enrollment->female_students_number;
+                        }
         }
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -69,6 +74,7 @@ class AgeEnrollmentsController extends Controller
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,
             'year_levels' => Department::getEnum('YearLevels'),
+            'total' => $total,
 
             'selected_department' => $requestedDepartment,
             'selected_program' => $requestedProgram,

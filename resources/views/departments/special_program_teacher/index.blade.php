@@ -58,6 +58,7 @@
 
                 <div class="row">
                     <div class="table-responsive col-12 py-3">
+                        <p class="text-lg"><b class="text-primary">Total Enrollment:</b> {{$total}}</p>
                         <table class="table table-bordered dataTable table-striped table-hover"
                                id="dataTable"
                                width="100%"
@@ -85,6 +86,11 @@
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Age: activate to sort column ascending"
                                 >Female Teachers
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                    colspan="1"
+                                    aria-label="Start date: activate to sort column ascending"
+                                >Total
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" style="min-width: 95px"
@@ -147,6 +153,7 @@
                                     <td>{{ $specialProgramTeacher->program_type}}</td>
                                     <td>{{ $specialProgramTeacher->male_number }}</td>
                                     <td>{{ $specialProgramTeacher->female_number }}</td>
+                                    <td>{{$specialProgramTeacher->female_number + $specialProgramTeacher->male_number}}</td>
                                     @if($specialProgramTeacher->approval_status == "Approved")
                                         <td class="text-success"><i
                                                     class="fas fa-check-double"></i> {{$specialProgramTeacher->approval_status}}

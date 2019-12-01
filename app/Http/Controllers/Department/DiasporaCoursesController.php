@@ -40,21 +40,27 @@ class DiasporaCoursesController extends Controller
         $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
 
         $courses = array();
+        $total = 0;
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
                 foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
-                    foreach ($department->diasporaCourses as $course)
+                    foreach ($department->diasporaCourses as $course){
                         $courses[] = $course;
+                        $total += $course->male_number + $course->female_number;
+                    }
             } else
                 foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
-                    foreach ($department->diasporaCourses as $course)
+                    foreach ($department->diasporaCourses as $course){
                         $courses[] = $course;
+                        $total += $course->male_number + $course->female_number;
+                    }
         }
 
         $data = array(
             'courses' => $courses,
             'departments' => $collegeDeps,
+            'total' => $total,
 
             'selected_department' => $requestedDepartment,
 
@@ -104,7 +110,7 @@ class DiasporaCoursesController extends Controller
         $departmentName = $user->departmentName;
         $educationLevel = request()->input('education_level', 'None');
         $educationProgram = request()->input('program', 'None');
-        $yearLevel = request()->input('year_level', 'None');
+        $yearLevel = request()->input('year_level', 'NONE');
         $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
 
         $course = new DiasporaCourses;

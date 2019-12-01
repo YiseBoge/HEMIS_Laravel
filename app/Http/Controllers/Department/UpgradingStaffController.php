@@ -43,29 +43,34 @@ class UpgradingStaffController extends Controller
         $selectedPlace = UpgradingStaff::getEnum('study_place')[$requestedPlace = request()->query('study_place', 'ETHIOPIA')];
 
         $filteredTeachers = array();
+        $total = 0;
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
                 foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
-                    foreach ($department->UpgradingStaffs as $teacher)
+                    foreach ($department->upgradingStaffs as $teacher){
                         $filteredTeachers[] = $teacher;
+                        $total += $teacher->male_number + $teacher->female_number;
+                    }
             } else
                 foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
-                    foreach ($department->UpgradingStaffs()->where('study_place', $selectedPlace) as $teacher)
+                    foreach ($department->upgradingStaffs()->where('study_place', $selectedPlace)->get() as $teacher){
                         $filteredTeachers[] = $teacher;
+                        $total += $teacher->male_number + $teacher->female_number;
+                    }
         }
 
         $data = [
             'study_place' => $requestedPlace,
             'upgrading_staffs' => $filteredTeachers,
             'departments' => $collegeDeps,
+            'total' => $total,
 
             'selected_department' => $requestedDepartment,
             'selected_place' => $requestedPlace,
             'page_name' => 'staff.upgrading-staff.index'
         ];
-        //return $data['special_program_teachers'];
-        //return $filteredTeachers;
+        
         return view('departments.upgrading_staff.index')->with($data);
 
     }
@@ -114,13 +119,13 @@ class UpgradingStaffController extends Controller
         $departmentName = $user->departmentName;
         $educationLevel = request()->input('education_level', 'None');
         $educationProgram = request()->input('program', 'None');
-        $yearLevel = request()->input('year_level', 'None');
+        $yearLevel = request()->input('year_level', 'NONE');
         $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
 
         $upgradingStaff = new UpgradingStaff();
         $upgradingStaff->male_number = $request->input('male_number');
         $upgradingStaff->female_number = $request->input('female_number');
-        $upgradingStaff->education_level = $request->input('education_level');
+        $upgradingStaff->education_level = $request->input('level');
         $upgradingStaff->study_place = $request->input('study_place');
 
         $upgradingStaff->department_id = $department->id;

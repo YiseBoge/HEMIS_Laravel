@@ -47,18 +47,23 @@ class SpecializingStudentsEnrollmentsController extends Controller
         $requestedType = request()->query('student_type', 'Current');
 
         $enrollments = array();
+        $total = 0;
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
                 foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
-                    foreach ($department->specializingStudentEnrollments as $enrollment)
+                    foreach ($department->specializingStudentEnrollments as $enrollment){
                         $enrollments[] = $enrollment;
+                        $total += $enrollment->male_students_number + $enrollment->female_students_number;
+                    }
             } else
                 if ($college->education_program == $requestedProgram)
                     foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
                         foreach ($department->specializingStudentEnrollments()->where([
-                            'student_type' => $requestedType, 'specialization_type' => $requestedSpecializationType])->get() as $enrollment)
+                            'student_type' => $requestedType, 'specialization_type' => $requestedSpecializationType])->get() as $enrollment){
                             $enrollments[] = $enrollment;
+                            $total += $enrollment->male_students_number + $enrollment->female_students_number;
+                        }
         }
 
         $educationPrograms = College::getEnum("EducationPrograms");
@@ -70,6 +75,7 @@ class SpecializingStudentsEnrollmentsController extends Controller
             'programs' => $educationPrograms,
             'specialization_types' => SpecializingStudentsEnrollment::getEnum("SpecializationTypes"),
             'student_types' => SpecializingStudentsEnrollment::getEnum('StudentTypes'),
+            'total' => $total,
 
             'selected_department' => $requestedDepartment,
             'selected_student_type' => $requestedType,

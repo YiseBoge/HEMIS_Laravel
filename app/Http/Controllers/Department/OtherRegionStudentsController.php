@@ -45,17 +45,22 @@ class OtherRegionStudentsController extends Controller
         $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
 
         $enrollments = array();
+        $total = 0;
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
                 foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
-                    foreach ($department->otherRegionStudents as $enrollment)
+                    foreach ($department->otherRegionStudents as $enrollment){
                         $enrollments[] = $enrollment;
+                        $total += $enrollment->male_students_number + $enrollment->female_students_number;
+                    }
             } else
                 if ($college->education_level == $requestedLevel && $college->education_program == $requestedProgram)
                     foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
-                        foreach ($department->otherRegionStudents as $enrollment)
+                        foreach ($department->otherRegionStudents as $enrollment){
                             $enrollments[] = $enrollment;
+                            $total += $enrollment->male_students_number + $enrollment->female_students_number;
+                        }
         }
 
         $data = array(
@@ -63,6 +68,7 @@ class OtherRegionStudentsController extends Controller
             'departments' => $collegeDeps,
             'programs' => College::getEnum("EducationPrograms"),
             'education_levels' => College::getEnum("EducationLevels"),
+            'total' => $total,
 
             'selected_department' => $requestedDepartment,
             'selected_program' => $requestedProgram,

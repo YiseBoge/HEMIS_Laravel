@@ -13,12 +13,10 @@
                         <div class="card-body px-4">
 
                             <div class="form-group row pt-3">
-
-
                                 <div class="col-md-6 form-group">
-                                    <select class="form-control" name="education_level" id="education_level">
+                                    <select class="form-control" name="level" id="level">
                                         @foreach ($education_levels as $key => $value)
-                                            <option value="{{$value}}" {{ (old('education_level') == $key ? 'selected':'') }}>
+                                            <option value="{{$value}}" {{ (old('level') == $key ? 'selected':'') }}>
                                                 {{$value}}
                                             </option>
                                         @endforeach
@@ -27,16 +25,13 @@
                                         Education Level
                                     </label>
                                 </div>
+                                 <div class="col form-group">
+                                    @include('inc.country_select', ['name' => 'citizenship', 'default' => old('citizenship')])
+                                </div>
                             </div>
 
 
-                            <div class="form-group row pt-3">
-                                <div class="col form-group">
-                                    <input type="text" id="citizenship" name="citizenship" class="form-control" required
-                                           value="{{ old('citizenship') }}">
-                                    <label class="form-control-placeholder" for="citizenship">Citizenship</label>
-                                </div>
-
+                            <div class="form-group row pt-3">      
                                 <div class="col form-group">
                                     <input type="number" id="male_number" name="male_number" class="form-control"
                                            required value="{{ old('male_number') }}">

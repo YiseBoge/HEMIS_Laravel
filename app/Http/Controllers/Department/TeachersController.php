@@ -40,26 +40,32 @@ class TeachersController extends Controller
         $user->authorizeRoles(['Department Admin', 'College Super Admin']);
         $collegeDeps = $user->collegeName->departmentNames;
 
-        $requestedLevel = request()->query('education_level', 'Undergraduate');
+        $requestedLevel = request()->query('education_level', 'First Degree(Bachelors)');
         $requestedDepartment = request()->query('department', $collegeDeps->first()->id);
 
         $teachers = array();
+        $total = 0;
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
                 foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
-                    foreach ($department->teachers as $teacher)
+                    foreach ($department->teachers as $teacher){
                         $teachers[] = $teacher;
+                        $total += $teacher->male_number + $teacher->female_number;
+                    }
             } else
                 foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
-                    foreach ($department->teachers()->where('level_of_education', $requestedLevel) as $teacher)
+                    foreach ($department->teachers()->where('level_of_education', $requestedLevel)->get() as $teacher){
                         $teachers[] = $teacher;
+                        $total += $teacher->male_number + $teacher->female_number;
+                    }
         }
 
         $data = array(
             'teachers' => $teachers,
             'departments' => $collegeDeps,
             'education_levels' => Teacher::getEnum("EducationLevels"),
+            'total' => $total,
 
             'selected_department' => $requestedDepartment,
             'selected_level' => $requestedLevel,
@@ -112,13 +118,13 @@ class TeachersController extends Controller
         $departmentName = $user->departmentName;
         $educationLevel = request()->input('education_level', 'None');
         $educationProgram = request()->input('program', 'None');
-        $yearLevel = request()->input('year_level', 'None');
+        $yearLevel = request()->input('year_level', 'NONE');
         $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
 
         $teacher = new Teacher;
         $teacher->male_number = $request->input('male_number');
         $teacher->female_number = $request->input('female_number');
-        $teacher->level_of_education = $request->input('education_level');
+        $teacher->level_of_education = $request->input('level');
         $teacher->citizenship = $request->input('citizenship');
 
         $teacher->department_id = $department->id;

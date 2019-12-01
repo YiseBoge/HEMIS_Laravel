@@ -14,7 +14,7 @@
 
                         <div class="form-group row pt-3">
                             <div class="col form-group">
-                                {!! Form::select('education_level', \App\Models\Department\UpgradingStaff::getEnum('EducationLevels') , $education_level , ['class' => 'form-control', 'id' => 'add_education_level']) !!}
+                                {!! Form::select('level', \App\Models\Department\UpgradingStaff::getEnum('EducationLevels') , $education_level , ['class' => 'form-control', 'id' => 'add_education_level']) !!}
                                 {!! Form::label('add_education_level', 'Education Level', ['class' => 'form-control-placeholder']) !!}
                             </div>
                             <div class="col form-group">

@@ -45,18 +45,23 @@ class OtherAttritionController extends Controller
         $requestedCase = request()->query('case', 'Readmission of Next Semester');
 
         $attrition = array();
+        $total = 0;
         /** @var College $college */
         foreach ($user->collegeName->college as $college) {
             if ($user->hasRole('College Super Admin')) {
                 foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
-                    foreach ($department->otherAttritions as $attr)
+                    foreach ($department->otherAttritions as $attr){
                         $attrition[] = $attr;
+                        $total += $attr->male_students_number + $attr->female_students_number;
+                    }
             } else
                 if ($college->education_level == $requestedLevel && $college->education_program == $requestedProgram)
                     foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
                         foreach ($department->otherAttritions()->where([
-                            'type' => $requestedType, 'case' => $requestedCase])->get() as $attr)
+                            'type' => $requestedType, 'case' => $requestedCase])->get() as $attr){
                             $attrition[] = $attr;
+                            $total += $attr->male_students_number + $attr->female_students_number;
+                        }
         }
 
         $data = array(
@@ -66,13 +71,15 @@ class OtherAttritionController extends Controller
             'education_levels' => College::getEnum('EducationLevels'),
             'types' => OtherAttrition::getEnum('Types'),
             'cases' => OtherAttrition::getEnum('Cases'),
-            'page_name' => 'students.other_attrition.index',
+            'total' => $total,
 
             'selected_department' => $requestedDepartment,
             "selected_program" => $requestedProgram,
             "selected_level" => $requestedLevel,
             "selected_type" => $requestedType,
             "selected_case" => $requestedCase,
+            
+            'page_name' => 'students.other_attrition.index',
         );
         return view("departments.other_attrition.index")->with($data);
     }

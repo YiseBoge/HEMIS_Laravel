@@ -39,15 +39,20 @@ class UniversityIndustryLinkageController extends Controller
         $collegeName = $user->collegeName;
 
         $linkages = array();
+        $total = 0;
         /** @var College $college */
         foreach ($institution->colleges as $college)
             if ($college->collegeName->id == $collegeName->id)
-                foreach ($college->universityIndustryLinkages as $linkage)
+                foreach ($college->universityIndustryLinkages as $linkage){
                     $linkages[] = $linkage;
+                    $total += $linkage->number_of_students;
+                }
 
         $data = array(
             'linkages' => $linkages,
             'years' => UniversityIndustryLinkage::getEnum('Years'),
+            'total' => $total,
+
             'page_name' => 'students.university_industry_linkage.index'
         );
         return view("bands.university_industry_linkage.index")->with($data);
@@ -66,15 +71,19 @@ class UniversityIndustryLinkageController extends Controller
         $collegeName = $user->collegeName;
 
         $linkages = array();
+        $total = 0;
         /** @var College $college */
         foreach ($institution->colleges as $college)
             if ($college->collegeName->id == $collegeName->id)
-                foreach ($college->universityIndustryLinkages as $linkage)
+                foreach ($college->universityIndustryLinkages as $linkage){
                     $linkages[] = $linkage;
+                    $total += $linkage->number_of_students;
+                }
 
         $data = array(
             'linkages' => $linkages,
             'years' => UniversityIndustryLinkage::getEnum('Years'),
+            'total' => $total,
 
             'has_modal' => 'yes',
             'page_name' => 'students.university_industry_linkage.create'

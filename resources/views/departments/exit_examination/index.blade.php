@@ -57,6 +57,7 @@
                 </form>
 
                 <div class="table-responsive">
+                    <p class="text-lg"><b class="text-primary">Total Enrollment:</b> {{$total}}</p>
                     <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
                            width="100%"
                            cellspacing="0" role="grid" aria-describedby="dataTable_info"
@@ -86,6 +87,11 @@
                                 colspan="1"
                                 aria-label="Start date: activate to sort column ascending"
                                 style="min-width: 99px;">Females who Passed
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                colspan="1"
+                                aria-label="Start date: activate to sort column ascending"
+                            >Total Passed
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1"
@@ -147,6 +153,7 @@
                                     <td>{{$examination->males_passed}}</td>
                                     <td>{{$examination->females_sat}}</td>
                                     <td>{{$examination->females_passed}}</td>
+                                    <td>{{$examination->females_passed + $course->males_passed}}</td>
                                     @if($examination->approval_status == "Approved")
                                         <td class="text-success"><i
                                                     class="fas fa-check-double"></i> {{$examination->approval_status}}
