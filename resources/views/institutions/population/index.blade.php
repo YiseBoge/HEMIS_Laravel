@@ -118,11 +118,11 @@
                             {!! Form::label('add_age_range', 'Age Range', ['class' => 'form-control-placeholder']) !!}
                         </div>
                         <div class="col-md-6 form-group pb-1">
-                            {!! Form::text('male_number', old('male_number'), ['class' => 'form-control', 'id' => 'add_male_number', 'required' => 'true']) !!}
+                            {!! Form::number('male_number', old('male_number'), ['class' => 'form-control', 'id' => 'add_male_number', 'required' => 'true']) !!}
                             {!! Form::label('add_male_number', 'Males', ['class' => 'form-control-placeholder']) !!}
                         </div>
                         <div class="col-md-6 form-group pb-1">
-                            {!! Form::text('female_number', old('female_number'), ['class' => 'form-control', 'id' => 'add_female_number', 'required' => 'true']) !!}
+                            {!! Form::number('female_number', old('female_number'), ['class' => 'form-control', 'id' => 'add_female_number', 'required' => 'true']) !!}
                             {!! Form::label('add_female_number', 'Females', ['class' => 'form-control-placeholder']) !!}
                         </div>
                     </div>
@@ -180,12 +180,12 @@
                             </div>
                             <div class="col-md-6 form-group pb-1">
                                 <label class="label" for="edit_male_number">Males</label>
-                                <input type="text" id="edit_male_number" name="male_number" class="form-control"
+                                <input type="number" id="edit_male_number" name="male_number" class="form-control"
                                        value="{{$population->male_number}}">
                             </div>
                             <div class="col-md-6 form-group pb-1">
                                 <label class="label" for="edit_female_number">Females</label>
-                                <input type="text" id="edit_female_number" name="female_number" class="form-control"
+                                <input type="number" id="edit_female_number" name="female_number" class="form-control"
                                        value="{{$population->female_number}}">
                             </div>
                         </div>

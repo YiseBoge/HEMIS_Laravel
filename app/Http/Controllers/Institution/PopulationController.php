@@ -36,6 +36,7 @@ class PopulationController extends Controller
         $data = [
             'populations' => $populations,
 
+            'has_modal' => 'yes',
             'page_name' => 'administer.population.index',
         ];
         return view('institutions.population.index')->with($data);
@@ -57,6 +58,7 @@ class PopulationController extends Controller
             'populations' => $populations,
             'age_ranges' => $ageRanges,
 
+            'has_modal' => 'yes',
             'page_name' => 'administer.population.create',
         ];
         return view('institutions.population.index')->with($data);
@@ -126,6 +128,7 @@ class PopulationController extends Controller
             'populations' => $populations,
             'age_ranges' => $ageRanges,
 
+            'has_modal' => 'yes',
             'page_name' => 'administer.population.edit',
         ];
         return view('institutions.population.index')->with($data);
