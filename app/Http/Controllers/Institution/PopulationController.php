@@ -36,7 +36,6 @@ class PopulationController extends Controller
         $data = [
             'populations' => $populations,
 
-            'has_modal' => 'yes',
             'page_name' => 'administer.population.index',
         ];
         return view('institutions.population.index')->with($data);
