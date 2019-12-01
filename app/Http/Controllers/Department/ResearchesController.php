@@ -112,7 +112,7 @@ class ResearchesController extends Controller
         $departmentName = $user->departmentName;
         $educationLevel = request()->input('education_level', 'None');
         $educationProgram = request()->input('program', 'None');
-        $yearLevel = request()->input('year_level', 'None');
+        $yearLevel = request()->input('year_level', 'NONE');
         $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, $educationLevel, $educationProgram, $yearLevel);
 
         $research = new Research;

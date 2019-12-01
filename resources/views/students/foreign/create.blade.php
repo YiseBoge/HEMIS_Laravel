@@ -93,7 +93,7 @@
                                         @endforeach
                                     </select>
                                     <label for="student_type" class="form-control-placeholder">
-                                        Education Level
+                                        Student Type
                                     </label>
                                 </div>
                             </div>

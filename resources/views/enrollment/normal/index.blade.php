@@ -108,7 +108,7 @@
                 </form>
 
                 <div class="table-responsive">
-                    <p class="text-lg"><b class="text-primary">Total Enrollment:</b> {{$total}}</p>
+                    <p class="text-lg"><b class="text-primary">Total:</b> {{$total}}</p>
                     <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"

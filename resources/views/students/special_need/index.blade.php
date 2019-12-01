@@ -40,11 +40,15 @@
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Salary: activate to sort column ascending"
-                                style="width: 91px;">Department
+                                style="width: 91px;">Education Level
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Salary: activate to sort column ascending"
-                                style="width: 91px;">Education Level
+                                style="width: 91px;">Program
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                colspan="1" aria-label="Salary: activate to sort column ascending"
+                                style="width: 91px;">Year Level
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                 colspan="1" aria-label="Salary: activate to sort column ascending"
@@ -61,8 +65,9 @@
                                     <td>{{$student->general->student_id}}</td>
                                     <td>{{$student->general->sex}}</td>
                                     <td>{{$student->general->birth_date}}</td>
-                                    <td>{{$student->department->departmentName->department_name}}</td>
                                     <td>{{$student->department->college->education_level}}</td>
+                                    <td>{{$student->department->college->education_program}}</td>
+                                    <td>{{$student->department->year_level}}</td>
                                     <td>{{$student->disability}}</td>
                                 </tr>
                             @endforeach

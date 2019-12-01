@@ -93,7 +93,7 @@
                     @endif
                 </form>
                 <div class="table-responsive">
-                    <p class="text-lg"><b class="text-primary">Total Enrollment:</b> {{$total}}</p>
+                    <p class="text-lg"><b class="text-primary">Total:</b> {{$total}}</p>
                     <table class="table table-bordered dataTable table-striped table-hover" id="dataTable"
                            width="100%"
                            cellspacing="0" role="grid" aria-describedby="dataTable_info"
