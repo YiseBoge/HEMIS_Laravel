@@ -156,6 +156,10 @@ class BandNamesController extends Controller
         $current_band_name->band_name = $request->input("band_name");
         $current_band_name->acronym = $request->input("acronym");
 
+        if ($current_band_name->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
         $current_band_name->save();
         return redirect('/band/band-name')->with('primary', 'Successfully Updated');
 

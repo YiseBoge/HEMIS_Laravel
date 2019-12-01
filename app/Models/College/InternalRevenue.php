@@ -14,7 +14,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null income
  * @property string|null expense
  * @property Uuid college_id
- * @method static InternalRevenue find(int $id)
+ * @method static InternalRevenue findOrFail(int $id)
  */
 class InternalRevenue extends Model
 {

@@ -177,12 +177,16 @@ class InstitutionNamesController extends Controller
         $user = Auth::user();
         if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
-        $instance = $user->currentInstance;
 
         $institutionName = InstitutionName::findOrFail($id);
         $institutionName->institution_name = $request->input('institution_name');
         $institutionName->acronym = $request->input('institution_acronym');
         $institutionName->is_private = $request->has('is_private');
+
+        if ($institutionName->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
         $institutionName->save();
 
         return redirect('/institution/institution-name')->with('primary', 'Successfully Edited Institution Name');

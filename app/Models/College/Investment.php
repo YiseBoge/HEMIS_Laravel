@@ -15,7 +15,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null remarks
  * @property string|null approval_status
  * @property Uuid college_id
- * @method static Investment find(int $id)
+ * @method static Investment findOrFail(int $id)
  */
 class Investment extends Model
 {

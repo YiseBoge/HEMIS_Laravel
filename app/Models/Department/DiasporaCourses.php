@@ -15,7 +15,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null action
  * @property int male_number
  * @property int female_number
- * @method static DiasporaCourses find(int $id)
+ * @method static DiasporaCourses findOrFail(int $id)
  */
 class DiasporaCourses extends Model
 {

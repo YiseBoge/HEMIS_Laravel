@@ -13,7 +13,7 @@ use Webpatser\Uuid\Uuid;
  * @property string type
  * @property Uuid institution_name_id
  * @property Uuid institution_report_card_id
- * @method static InstitutionYearValue find(int $id)
+ * @method static InstitutionYearValue findOrFail(int $id)
  */
 class InstitutionYearValue extends Model
 {

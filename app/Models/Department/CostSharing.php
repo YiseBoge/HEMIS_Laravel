@@ -24,7 +24,7 @@ use Webpatser\Uuid\Uuid;
  * @property int dormitory_expense
  * @property int pre_payment_amount
  * @property int unpaid_amount
- * @method static CostSharing find(int $id)
+ * @method static CostSharing findOrFail(int $id)
  */
 class CostSharing extends Model
 {

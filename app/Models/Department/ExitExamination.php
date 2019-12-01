@@ -14,7 +14,7 @@ use Webpatser\Uuid\Uuid;
  * @property integer females_sat
  * @property integer males_passed
  * @property integer females_passed
- * @method static ExitExamination find(int $id)
+ * @method static ExitExamination findOrFail(int $id)
  */
 class ExitExamination extends Model
 {

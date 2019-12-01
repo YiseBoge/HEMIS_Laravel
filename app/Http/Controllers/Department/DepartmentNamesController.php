@@ -190,6 +190,10 @@ class DepartmentNamesController extends Controller
         $department->department_name = $request->input("department_name");
         $department->acronym = $request->input("department_acronym");
 
+        if ($department->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
         $department->save();
         return redirect('/department/department-name')->with('primary', 'Successfully Updated');
     }

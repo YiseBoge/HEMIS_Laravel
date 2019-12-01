@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null age_range
  * @property integer male_number
  * @property integer female_number
- * @method static Population find(int $id)
+ * @method static Population findOrFail(int $id)
  */
 class Population extends Model
 {

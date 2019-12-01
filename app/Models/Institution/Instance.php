@@ -14,7 +14,7 @@ use Webpatser\Uuid\Uuid;
  * @method static Instance orderByDesc(string $string)
  * @method Collection get()
  * @method static Instance where(string $string, $year)
- * @method static Instance find(int $id)
+ * @method static Instance findOrFail(int $id)
  * @property string|null year
  * @property string|null semester
  */

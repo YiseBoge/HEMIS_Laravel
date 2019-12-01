@@ -13,7 +13,7 @@ use Webpatser\Uuid\Uuid;
  * @property int male_students_number
  * @property int female_students_number
  * @property string|null region
- * @method static RuralStudentEnrollment find(int $id)
+ * @method static RuralStudentEnrollment findOrFail(int $id)
  */
 class RuralStudentEnrollment extends Model
 {

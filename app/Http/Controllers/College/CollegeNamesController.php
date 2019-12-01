@@ -159,6 +159,10 @@ class CollegeNamesController extends Controller
         $college_name->college_name = $request->input("college_name");
         $college_name->acronym = $request->input("college_acronym");
 
+        if ($college_name->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
         $college_name->save();
         return redirect('/college/college-name')->with('primary', 'Successfully Updated');
 

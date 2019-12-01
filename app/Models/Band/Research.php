@@ -20,7 +20,7 @@ use Webpatser\Uuid\Uuid;
  * @property int budget_from_externals
  * @property string|null status
  * @property string|null type
- * @method static Research find(int $id)
+ * @method static Research findOrFail(int $id)
  */
 class Research extends Model
 {

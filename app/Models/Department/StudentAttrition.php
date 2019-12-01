@@ -15,7 +15,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null case
  * @property int male_students_number
  * @property int female_students_number
- * @method static StudentAttrition find(int $id)
+ * @method static StudentAttrition findOrFail(int $id)
  */
 class StudentAttrition extends Model
 {

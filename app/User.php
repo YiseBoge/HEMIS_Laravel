@@ -28,7 +28,7 @@ use Webpatser\Uuid\Uuid;
  * @property uuid instance_id
  * @property uuid department_name_id
  * @property bool read_only
- * @method static User find(int $id)
+ * @method static User findOrFail(int $id)
  */
 class User extends Authenticatable
 {

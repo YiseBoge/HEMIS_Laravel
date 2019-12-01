@@ -18,7 +18,7 @@ use Webpatser\Uuid\Uuid;
  * @property DepartmentName departmentNames
  * @property Uuid institution_name_id
  * @property InstitutionName institutionName
- * @method static CollegeName find(int $id)
+ * @method static CollegeName findOrFail(int $id)
  */
 class CollegeName extends Model
 {

@@ -15,7 +15,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null student_type
  * @property string|null specialization_type
  * @property string|null field_of_specialization
- * @method static SpecializingStudentsEnrollment find(int $id)
+ * @method static SpecializingStudentsEnrollment findOrFail(int $id)
  */
 class SpecializingStudentsEnrollment extends Model
 {

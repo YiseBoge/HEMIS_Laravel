@@ -14,7 +14,7 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid id
  * @method static ReportCard where(string $string, $kpi)
  * @method Collection get()
- * @method static ReportCard find(int $id)
+ * @method static ReportCard findOrFail(int $id)
  * @property Collection reportYearValues
  * @property double target
  * @property string|null policy

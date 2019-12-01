@@ -10,7 +10,7 @@ use Webpatser\Uuid\Uuid;
 /**
  * @property Uuid id
  * @method static Collection where(string $string, array|string|null $input)
- * @method static RegionName find(int $id)
+ * @method static RegionName findOrFail(int $id)
  * @property string|null name
  */
 class RegionName extends Model

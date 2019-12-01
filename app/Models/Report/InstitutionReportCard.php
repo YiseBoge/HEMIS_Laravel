@@ -19,7 +19,7 @@ use Webpatser\Uuid\Uuid;
  * @property DateTime created_at
  * @property DateTime updated_at
  * @property boolean is_decreasing
- * @method static InstitutionReportCard find(int $id)
+ * @method static InstitutionReportCard findOrFail(int $id)
  * @method static InstitutionReportCard where(string $string, $kpi)
  * @method InstitutionReportCard get()
  * @method InstitutionReportCard first()

@@ -19,7 +19,7 @@ use Webpatser\Uuid\Uuid;
  * @property InstitutionName institutionName
  * @property Collection managements
  * @property Collection colleges
- * @method static Institution find(int $id)
+ * @method static Institution findOrFail(int $id)
  */
 class Institution extends Model
 {

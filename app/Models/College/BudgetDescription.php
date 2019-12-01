@@ -11,7 +11,7 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid id
  * @property string|null budget_code
  * @property array|string|null description
- * @method static BudgetDescription find(int $id)
+ * @method static BudgetDescription findOrFail(int $id)
  */
 class BudgetDescription extends Model
 {

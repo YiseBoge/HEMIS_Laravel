@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Webpatser\Uuid\Uuid;
 
 /**
- * @method static SpecialRegionEnrollment find(int $id)
+ * @method static SpecialRegionEnrollment findOrFail(int $id)
  * @property Uuid id
  * @property string|null region_type
  * @property string|null student_type

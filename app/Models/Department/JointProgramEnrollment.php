@@ -13,7 +13,7 @@ use Webpatser\Uuid\Uuid;
  * @property int male_students_number
  * @property int female_students_number
  * @property int sponsor
- * @method static JointProgramEnrollment find(int $id)
+ * @method static JointProgramEnrollment findOrFail(int $id)
  */
 class JointProgramEnrollment extends Model
 {

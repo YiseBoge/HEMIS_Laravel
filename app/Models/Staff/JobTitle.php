@@ -13,7 +13,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null job_title
  * @property string|null staff_type
  * @property string|null level
- * @method static JobTitle find(int $id)
+ * @method static JobTitle findOrFail(int $id)
  */
 class JobTitle extends Model
 {

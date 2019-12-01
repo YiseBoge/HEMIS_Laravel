@@ -12,7 +12,7 @@ use Webpatser\Uuid\Uuid;
 /**
  * @property Uuid id
  * @method static Collection where(array $array)
- * @method static PublicationsAndPatents find(int $id)
+ * @method static PublicationsAndPatents findOrFail(int $id)
  * @property int student_publications
  * @property int patents
  */
