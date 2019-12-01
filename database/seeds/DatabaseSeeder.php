@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             InstitutionReportCardsTableSeeder::class,
 
             IctStaffTypesTableSeeder::class,
+            JobTitlesTableSeeder::class,
             BudgetDescriptionsTableSeeder::class,
             RegionNamesTableSeeder::class,
             BandNamesTableSeeder::class,
