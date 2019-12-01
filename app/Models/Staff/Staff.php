@@ -7,6 +7,7 @@ use App\Traits\Uuids;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Webpatser\Uuid\Uuid;
 
 /**
@@ -16,7 +17,6 @@ use Webpatser\Uuid\Uuid;
  * @property string|null sex
  * @property string|null phone_number
  * @property string|null nationality
- * @property string|null job_title
  * @property int salary
  * @property int service_year
  * @property string|null employment_type
@@ -49,7 +49,7 @@ class Staff extends Model
         'LII' => 'Level II',
         'LIII' => 'Level III',
         'LIV' => 'Level IV',
-        'Lv' => 'Level V',
+        'LV' => 'Level V',
     ];
 
     static $staff_types = [
@@ -82,6 +82,9 @@ class Staff extends Model
 
         static::deleting(function (Staff $model) { // before delete() method call this
             $model->staffAttrition()->delete();
+            $model->technicalStaff()->delete();
+            $model->ictStaff()->delete();
+            $model->managementStaff()->delete();
         });
     }
 
@@ -91,6 +94,38 @@ class Staff extends Model
     public function staffAttrition()
     {
         return $this->hasOne('App\Models\Staff\StaffAttrition');
+    }
+
+    /**
+     * @return MorphTo
+     */
+    public function staff()
+    {
+        return $this->morphTo();
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function technicalStaff()
+    {
+        return $this->hasOne('App\Models\Staff\TechnicalStaff');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function ictStaff()
+    {
+        return $this->hasOne('App\Models\Staff\ICTStaff');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function managementStaff()
+    {
+        return $this->hasOne('App\Models\Staff\ManagementStaff');
     }
 
 }

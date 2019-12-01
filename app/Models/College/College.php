@@ -58,7 +58,6 @@ class College extends Model
             $model->administrativeStaffs()->delete();
             $model->ictStaffs()->delete();
             $model->managementStaffs()->delete();
-            $model->technicalStaffs()->delete();
             $model->universityIndustryLinkages()->delete();
             $model->buildings()->delete();
         });
@@ -118,14 +117,6 @@ class College extends Model
     public function managementStaffs()
     {
         return $this->hasMany('App\Models\Staff\ManagementStaff');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function technicalStaffs()
-    {
-        return $this->hasMany('App\Models\Staff\TechnicalStaff');
     }
 
     /**

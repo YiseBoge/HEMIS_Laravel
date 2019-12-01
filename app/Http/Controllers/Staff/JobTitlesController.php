@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Institution;
+namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Models\Institution\RegionName;
+use App\Models\Staff\JobTitle;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class RegionNamesController extends Controller
+class JobTitlesController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -32,13 +32,14 @@ class RegionNamesController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 
-        $regionNames = RegionName::all();
+        $jobTitles = JobTitle::all();
 
-        $data = [
-            'region_names' => $regionNames,
-            'page_name' => 'administer.region-name.index'
-        ];
-        return view('institutions.region_name.index')->with($data);
+        $data = array(
+            'job_titles' => $jobTitles,
+            'page_name' => 'administer.job_title.index',
+        );
+
+        return view('staff.job_title.index')->with($data);
     }
 
     /**
@@ -51,14 +52,20 @@ class RegionNamesController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 
-        $regionNames = RegionName::all();
-        $data = [
-            'region_names' => $regionNames,
+        $jobTitles = JobTitle::all();
+        $staffTypes = JobTitle::getEnum('staff_type');
+        $levels = JobTitle::getEnum('level');
+
+        $data = array(
+            'job_titles' => $jobTitles,
+            'staff_types' => $staffTypes,
+            'levels' => $levels,
 
             'has_modal' => 'yes',
-            'page_name' => 'administer.region-name.create'
-        ];
-        return view('institutions.region_name.index')->with($data);
+            'page_name' => 'administer.job_title.create',
+        );
+
+        return view('staff.job_title.index')->with($data);
     }
 
     /**
@@ -71,22 +78,26 @@ class RegionNamesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'job_title' => 'required',
+            'staff_type' => 'required',
+            'level' => 'required',
         ]);
 
         $user = Auth::user();
         $user->authorizeRoles('Super Admin');
 
-        $regionNames = new RegionName;
-        $regionNames->name = $request->input('name');
+        $jobTitle = new JobTitle();
+        $jobTitle->job_title = $request->input('job_title');
+        $jobTitle->staff_type = $request->input('staff_type');
+        $jobTitle->level = $request->input('level');
 
-        if ($regionNames->isDuplicate()) return redirect()->back()
+        if ($jobTitle->isDuplicate()) return redirect()->back()
             ->withInput($request->toArray())
             ->withErrors('This entry already exists');
 
-        $regionNames->save();
+        $jobTitle->save();
 
-        return redirect('/region-name')->with('success', 'Successfully Added Region Name');
+        return redirect("staff/job-title");
     }
 
     /**
@@ -97,7 +108,7 @@ class RegionNamesController extends Controller
      */
     public function show($id)
     {
-        return redirect('/region-name');
+        //
     }
 
     /**
@@ -109,20 +120,21 @@ class RegionNamesController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
-        $regionNames = RegionName::all();
-        $current_region_name = RegionName::find($id);
-        $data = [
-            'id' => $id,
-            'region_names' => $regionNames,
-            'region_name' => $current_region_name->name,
+        $jobTitles = JobTitle::all();
+        $selectedTitle = JobTitle::find($id);
+        $levels = JobTitle::getEnum('level');
 
-            'has_modal' => 'yes',
-            'page_name' => 'administer.region-name.edit'
-        ];
-        return view('institutions.region_name.index')->with($data);
+        $data = array(
+            'job_titles' => $jobTitles,
+
+            'selected_title' => $selectedTitle,
+            'levels' => $levels,
+            'page_name' => 'administer.job_title.edit',
+        );
+
+        return view('staff.job_title.index')->with($data);
     }
 
     /**
@@ -136,19 +148,18 @@ class RegionNamesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'region_name' => 'required'
+            'job_title' => 'required',
         ]);
 
         $user = Auth::user();
-        if ($user == null) return redirect('/login');
         $user->authorizeRoles('Super Admin');
 
-        $current_region_name = RegionName::find($id);
+        $jobTitle = JobTitle::find($id);
+        $jobTitle->job_title = $request->input('job_title');
 
-        $current_region_name->name = $request->input("region_name");
-        $current_region_name->save();
+        $jobTitle->save();
 
-        return redirect('/region-name')->with('primary', 'Successfully Updated');
+        return redirect("staff/job-title");
     }
 
     /**
@@ -160,8 +171,8 @@ class RegionNamesController extends Controller
      */
     public function destroy($id)
     {
-        $item = RegionName::find($id);
+        $item = JobTitle::find($id);
         $item->delete();
-        return redirect('/region-name')->with('primary', 'Successfully Deleted');
+        return redirect('/staff/job-title')->with('primary', 'Successfully Deleted');
     }
 }

@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\Institution\Institution;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdministrativeStaffTable extends Migration
+class CreateJobTitlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +13,14 @@ class CreateAdministrativeStaffTable extends Migration
      */
     public function up()
     {
-        Schema::create('administrative_staff', function (Blueprint $table) {
+        Schema::create('job_titles', function (Blueprint $table) {
             $table->uuid('id');
+            $table->string('job_title');
+            $table->string('staff_type');
+            $table->string('level')->default("Level 1");
             $table->timestamps();
 
-            $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
-
             $table->primary('id');
-
-            $table->uuid('college_id');
-            $table->uuid('job_title_id');
         });
     }
 
@@ -34,6 +31,6 @@ class CreateAdministrativeStaffTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('administrative_staff');
+        Schema::dropIfExists('job_titles');
     }
 }

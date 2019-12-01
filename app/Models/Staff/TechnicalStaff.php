@@ -6,7 +6,6 @@ use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Webpatser\Uuid\Uuid;
 
 /**
@@ -29,31 +28,28 @@ class TechnicalStaff extends Model
         'OTHERS' => 'Others',
     ];
 
-    public static function boot()
-    {
-        parent::boot();
-        static::creating(function (Model $model) {
-            $model->{$model->getKeyName()} = Uuid::generate()->string;
-        });
-
-        static::deleting(function (TechnicalStaff $model) { // before delete() method call this
-            $model->general()->delete();
-        });
-    }
 
     /**
-     * @return MorphOne
+     * @return BelongsTo
      */
     public function general()
     {
-        return $this->morphOne('App\Models\Staff\Staff', 'staffable');
+        return $this->belongsTo('App\Models\Staff\Staff', 'staff_id');
     }
 
     /**
      * @return BelongsTo
      */
-    public function college()
+    public function department()
     {
-        return $this->belongsTo('App\Models\College\College');
+        return $this->belongsTo('App\Models\Department\Department');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function jobTitle()
+    {
+        return $this->belongsTo('App\Models\Staff\JobTitle');
     }
 }

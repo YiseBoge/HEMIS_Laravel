@@ -14,7 +14,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class ResearchsController extends Controller
+class ResearchesController extends Controller
 {
     /**
      * Create a new controller instance.

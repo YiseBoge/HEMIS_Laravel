@@ -45,42 +45,17 @@ class StaffAttritionsController extends Controller
                     foreach ($department->academicStaffs as $staff)
                         if ($staff->general->staffAttrition != null)
                             $attrition[] = $staff->general->staffAttrition;
-
             } else {
-                $staffs = array();
-
-                switch ($requestedType) {
-                    case 'Management Staff':
-                        $staffs = $college->managementStaffs;
-                        break;
-                    case 'Technical Staff':
-                        $staffs = $college->technicalStaffs;
-                        break;
-                    case 'Administrative Staff':
-                        $staffs = $college->administrativeStaffs;
-                        break;
-                    case 'ICT Staff':
-                        $staffs = $college->ictStaffs;
-                        break;
-                    case 'Supportive Staff':
-                        $staffs = $college->supportiveStaffs;
-                        break;
-                }
-
-                foreach ($staffs as $staff)
+                foreach ($college->administrativeStaffs as $staff)
                     if ($staff->general->staffAttrition != null)
                         $attrition[] = $staff->general->staffAttrition;
             }
         }
 
-        $staffTypes = array(
-            'Management Staff', 'Technical Staff', 'Administrative Staff', 'ICT Staff', 'Supportive Staff'
-        );
 
         $data = array(
             'attritions' => $attrition,
             'cases' => StaffAttrition::getEnum("Cases"),
-            'staff_types' => $staffTypes,
 
             'selected_type' => $requestedType,
             'selected_case' => $requestedCase,
@@ -115,41 +90,17 @@ class StaffAttritionsController extends Controller
                         else $staffs[] = $staff;
 
             } else {
-                $currentStaffs = array();
-                switch ($requestedType) {
-                    case 'Management Staff':
-                        $currentStaffs = $college->managementStaffs;
-                        break;
-                    case 'Technical Staff':
-                        $currentStaffs = $college->technicalStaffs;
-                        break;
-                    case 'Administrative Staff':
-                        $currentStaffs = $college->administrativeStaffs;
-                        break;
-                    case 'ICT Staff':
-                        $currentStaffs = $college->ictStaffs;
-                        break;
-                    case 'Supportive Staff':
-                        $currentStaffs = $college->supportiveStaffs;
-                        break;
-                }
-
-                foreach ($staffs as $staff)
+                foreach ($college->administrativeStaffs as $staff)
                     if ($staff->general->staffAttrition != null)
                         $attrition[] = $staff->general->staffAttrition;
                     else $staffs[] = $staff;
             }
         }
 
-        $staffTypes = array(
-            'Management Staff', 'Technical Staff', 'Administrative Staff', 'ICT Staff', 'Supportive Staff'
-        );
-
         $data = array(
             'staffs' => $staffs,
             'attritions' => $attrition,
             'cases' => StaffAttrition::getEnum("Cases"),
-            'staff_types' => $staffTypes,
 
             'selected_type' => $requestedType,
             'selected_case' => $requestedCase,

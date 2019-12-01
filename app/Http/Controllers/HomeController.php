@@ -83,9 +83,7 @@ class HomeController extends Controller
                     $staff_number += $department->academicStaffs->count();
                 }
                 $staff_number += $college->administrativeStaffs->count();
-                $staff_number += $college->ictStaffs->count();
-                $staff_number += $college->managementStaffs->count();
-                $staff_number += $college->technicalStaffs->count();
+                
             }
 
             $data = array(

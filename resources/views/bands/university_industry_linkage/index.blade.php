@@ -14,7 +14,7 @@
                                 @csrf
                                 <input type="hidden" name="action" value="approveAll">
                                 <button type="submit"
-                                        class="btn btn-sm btn-primary shadow-sm">
+                                        class="btn btn-sm btn-primary shadow-sm" {{count($linkages) == 0 ? 'disabled' : ''}}>
                                     Approve All Pending<i class="fas fa-check text-white-50 ml-2 fa-sm"></i>
                                 </button>
                             </form>
@@ -224,7 +224,7 @@
 
 
     @if ($page_name == 'students.university_industry_linkage.edit')
-        <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -239,6 +239,21 @@
                         </div>
 
                         <div class="modal-body pt-4">
+
+                            @if(count($errors) > 0)
+                                <div class="col-md-12 form-group">
+                                    <div class="alert alert-danger">
+                                        <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                        <hr class="my-0">
+                                        <ul class="my-1 px-4">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{$error}}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="form-group row pt-3">
                                 <div class="col form-group">
                                     {{-- <select class="form-control" name="year" id="year">

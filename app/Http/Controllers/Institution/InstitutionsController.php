@@ -59,10 +59,10 @@ class InstitutionsController extends Controller
             'academic_on_duty_female' => $institutionService->academicStaffByStatus('Female', 'On Duty'),
             'academic_on_study_male' => $institutionService->academicStaffByStatus('Male', 'On Leave'),
             'academic_on_study_female' => $institutionService->academicStaffByStatus('Female', 'On Leave'),
-            'administrative_male' => $institutionService->administrativeStaff('Male'),
-            'administrative_female' => $institutionService->administrativeStaff('Female'),
-            'technical_male' => $institutionService->technicalStaff('Male'),
-            'technical_female' => $institutionService->technicalStaff('Female'),
+            'administrative_male' => $institutionService->staff('Administrative', 'Male', false, false),
+            'administrative_female' => $institutionService->staff('Administrative', 'Female', false, false),
+            'technical_male' => $institutionService->staff('Technical', 'Male', false, false),
+            'technical_female' => $institutionService->staff('Technical', 'Female', false, false),
         );
 
         $data = array(

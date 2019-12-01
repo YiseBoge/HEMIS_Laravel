@@ -91,7 +91,7 @@ class SupportContactsController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'phone' => 'required'
+            'phone' => 'required|regex:/(09)[0-9]{8}/'
         ]);
 
         $contact = new SupportContact([
@@ -153,7 +153,7 @@ class SupportContactsController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'phone' => 'required'
+            'phone' => 'required|regex:/(09)[0-9]{8}/'
         ]);
 
         $contact = SupportContact::findOrFail($id);

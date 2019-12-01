@@ -370,6 +370,10 @@ class IndexController extends Controller
                 if ($staff->general->sex == 'Male') $academicMales++;
                 if ($staff->general->sex == 'Female') $academicFemales++;
             }
+            foreach ($dep->technicalStaffs as $staff) {
+                if ($staff->general->sex == 'Male') $technicalMales++;
+                if ($staff->general->sex == 'Female') $technicalFemales++;
+            }
         }
         foreach ($cols as $col) {
             foreach ($col->administrativeStaffs as $staff) {
@@ -379,10 +383,6 @@ class IndexController extends Controller
             foreach ($col->ictStaffs as $staff) {
                 if ($staff->general->sex == 'Male') $ictMales++;
                 if ($staff->general->sex == 'Female') $ictFemales++;
-            }
-            foreach ($col->technicalStaffs as $staff) {
-                if ($staff->general->sex == 'Male') $technicalMales++;
-                if ($staff->general->sex == 'Female') $technicalFemales++;
             }
         }
 

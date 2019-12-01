@@ -83,6 +83,29 @@ class DepartmentService
     }
 
     /**
+     * @param $sex
+     * @param $otherRegion
+     * @return int
+     */
+    function technicalStaffData($sex, $otherRegion)
+    {
+        $total = 0;
+        foreach ($this->department->technicalStaffs as $staff) {
+            $personalInfo = $staff->general;
+            if (($sex == 'Male' || $sex == 'Female') && $otherRegion) {
+                if ($personalInfo->sex == $sex && $personalInfo->is_from_other_region == 1) $total++;
+            } else if (!($sex == 'Male' || $sex == 'Female') && $otherRegion) {
+                if ($personalInfo->is_from_other_region == 1) $total++;
+            } else if ($sex == 'Male' || $sex == 'Female') {
+                if ($personalInfo->sex == $sex) $total++;
+            } else {
+                $total++;
+            }
+            return $total;
+        }
+    }
+
+    /**
      * @param $status
      * @param $sex
      * @return int
@@ -194,19 +217,6 @@ class DepartmentService
                 $total += $enrollment->male_number + $enrollment->female_number;
             }
         }
-        return $total;
-    }
-
-    /**
-     * @return int
-     */
-    function ruralAreasEnrollment()
-    {
-        $total = 0;
-        foreach ($this->department->ruralStudentEnrollmentsApproved->where('region', 'Rural')->all() as $enrollment) {
-            $total += $enrollment->male_students_number + $enrollment->female_students_number;
-        }
-
         return $total;
     }
 
@@ -377,20 +387,6 @@ class DepartmentService
     /**
      * @return int
      */
-    public
-    function costSharing()
-    {
-        $total = 0;
-        foreach ($this->department->costSharings as $costSharing) {
-            // die('Course I');
-            $total += $costSharing->pre_payment_amount;
-        }
-        return $total;
-    }
-
-    /**
-     * @return int
-     */
     function degreeEmployment()
     {
         $total = 0;
@@ -485,19 +481,6 @@ class DepartmentService
         $total = 0;
         foreach ($this->department->otherRegionStudentsApproved as $enrollment) {
             $total += $enrollment->male_students_number + $enrollment->female_students_number;
-        }
-        return $total;
-    }
-
-    /**
-     * @return int
-     */
-    public
-    function allAcademicStaff()
-    {
-        $total = 0;
-        foreach ($this->department->academicStaffs as $academicStaff) {
-            $total += 1;
         }
         return $total;
     }

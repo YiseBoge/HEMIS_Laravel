@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\College\College;
+use App\Models\Staff\AdministrativeStaff;
+use App\Models\Staff\JobTitle;
 use App\Models\Staff\ManagementStaff;
 use App\Models\Staff\Staff;
 use App\Services\HierarchyService;
@@ -60,12 +62,23 @@ class ManagementStaffsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
+        $institution = $user->institution();
+        $collegeName = $user->collegeName;
+
+        $administrativeStaffs = array();
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->administrativeStaffs as $administrativeStaff)
+                    $administrativeStaffs[] = $administrativeStaff;
 
         $data = array(
+            'staffs' => $administrativeStaffs,
             'employment_types' => Staff::getEnum("employment_type"),
             'dedications' => Staff::getEnum("dedication"),
             'academic_levels' => Staff::getEnum("academic_levels"),
             'levels' => ManagementStaff::getEnum("management_levels"),
+            'job_titles' => JobTitle::where('staff_type', 'Management')->get(),
             'page_name' => 'staff.management.create'
         );
         return view('staff.management.create')->with($data);
@@ -81,18 +94,9 @@ class ManagementStaffsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'birth_date' => 'required|date|before:now',
-            'sex' => 'required',
-            'phone_number' => 'required',
-            'nationality' => 'required',
-            'job_title' => 'required',
-            'salary' => 'required|numeric|between:0,1000000000',
-            'service_year' => 'required|numeric|between:0,100',
-            'employment_type' => 'required',
-            'dedication' => 'required',
-            'academic_level' => 'required',
             'management_level' => 'required',
+            'job_title' => 'required',
+            'staff' => 'required',
         ]);
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
@@ -100,15 +104,15 @@ class ManagementStaffsController extends Controller
         $collegeName = $user->collegeName;
 
         $college = HierarchyService::getCollege($institution, $collegeName, 'None', 'None');
-        $staff = new Staff;
-        HierarchyService::populateStaff($request, $staff);
+        $administrativeStaff = AdministrativeStaff::find($request->input('staff'));
+        $staff = $administrativeStaff->general;
 
         $managementStaff = new ManagementStaff;
         $managementStaff->management_level = $request->input('management_level');
+        $managementStaff->job_title_id = $request->input('job_title');
+        $managementStaff->staff_id = $staff->id;
 
         $college->managementStaffs()->save($managementStaff);
-        $managementStaff = ManagementStaff::find($managementStaff->id);
-        $managementStaff->general()->save($staff);
 
         return redirect('/staff/management')->with('success', 'Successfully Added Management Staff');
     }
@@ -144,6 +148,7 @@ class ManagementStaffsController extends Controller
 
         $data = array(
             'staff' => ManagementStaff::with('general')->find($id),
+            'job_titles' => JobTitle::where('staff_type', 'Management')->get(),
             'page_name' => 'staff.management.edit'
         );
         return view('staff.management.edit')->with($data);
@@ -160,28 +165,17 @@ class ManagementStaffsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'birth_date' => 'required|date|before:now',
-            'sex' => 'required',
-            'phone_number' => 'required',
-            'nationality' => 'required',
-            'job_title' => 'required',
-            'salary' => 'required|numeric|between:0,1000000000',
-            'service_year' => 'required|numeric|between:0,100',
-            'employment_type' => 'required',
-            'dedication' => 'required',
-            'academic_level' => 'required',
             'management_level' => 'required',
+            'job_title' => 'required',
         ]);
+
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
 
         $managementStaff = ManagementStaff::find($id);
         $managementStaff->management_level = $request->input('management_level');
-
-        $staff = $managementStaff->general;
-        HierarchyService::populateStaff($request, $staff);
-        $managementStaff->general()->save($staff);
+        $managementStaff->job_title_id = $request->input('job_title');
+        $managementStaff->save();
 
         return redirect('/staff/management')->with('primary', 'Successfully Updated');
     }

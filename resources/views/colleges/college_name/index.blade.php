@@ -131,7 +131,7 @@
 
 
     @if ($page_name == 'administer.colleges-name.edit')
-        <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
 
@@ -141,20 +141,27 @@
                         <input type="hidden" name="_method" value="PUT">
                         <div class="modal-header">
                             <h5 class="modal-title" id="editTitle">Edit</h5>
-                            <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
-                            </button>
-                            {{-- <a href="/department/department-name" class="close" aria-label="Close">
+                            <a href="/college/college-name" class="close" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
-                            </a> --}}
+                            </a>
                         </div>
 
-
                         <div class="modal-body row p-4">
-                            <div class="col-md-12 form-group pb-1">
-                                <label class="label" for="band">Band</label>
-                                <input type="text" id="band" name="band" class="form-control"
-                                       disabled value="{{$band."(".$band_acronym.")"}}">
-                            </div>
+
+                            @if(count($errors) > 0)
+                                <div class="col-md-12 form-group">
+                                    <div class="alert alert-danger">
+                                        <h6 class="font-weight-bold">Please fix the following issues</h6>
+                                        <hr class="my-0">
+                                        <ul class="my-1 px-4">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{$error}}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="col-md-12 form-group pb-1">
                                 <label class="label" for="college_name">College Name</label>
                                 <input type="text" id="college_name" name="college_name" class="form-control"
@@ -164,6 +171,9 @@
                                 <label class="label" for="college_acronym">Acronym</label>
                                 <input type="text" id="college_acronym" name="college_acronym" class="form-control"
                                        value="{{$college_acronym}}">
+                            </div>
+                            <div class="modal-footer">
+                                {!! Form::submit('Save Changes', ['class' => 'btn btn-outline-primary']) !!}
                             </div>
                         </div>
                     </form>

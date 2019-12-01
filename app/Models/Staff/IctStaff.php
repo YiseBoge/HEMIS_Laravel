@@ -6,7 +6,6 @@ use App\Traits\Enums;
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Webpatser\Uuid\Uuid;
 
 /**
@@ -23,30 +22,13 @@ class IctStaff extends Model
     use Enums;
 
     public $incrementing = false;
-    protected $enumStaffRanks = [
-        'a' => 'rank1',
-        'b' => 'rank2',
-        'c' => 'rank3',
-    ];
-
-    public static function boot()
-    {
-        parent::boot();
-        static::creating(function (Model $model) {
-            $model->{$model->getKeyName()} = Uuid::generate()->string;
-        });
-
-        static::deleting(function (IctStaff $model) { // before delete() method call this
-            $model->general()->delete();
-        });
-    }
 
     /**
-     * @return MorphOne
+     * @return BelongsTo
      */
     public function general()
     {
-        return $this->morphOne('App\Models\Staff\Staff', 'staffable');
+        return $this->belongsTo('App\Models\Staff\Staff', 'staff_id');
     }
 
     /**

@@ -57,10 +57,12 @@ class IctStaffTypesController extends Controller
 
         $categories = IctStaffType::getEnum('category');
         $ictStaffTypes = IctStaffType::all();
+        $levels = IctStaffType::getEnum('level');
 
         $data = array(
             'categories' => $categories,
             'ict_staff_types' => $ictStaffTypes,
+            'levels' => $levels,
 
             'has_modal' => 'yes',
             'page_name' => 'administer.ict_staff_type.create',
@@ -80,6 +82,7 @@ class IctStaffTypesController extends Controller
     {
         $this->validate($request, [
             'category' => 'required',
+            'level' => 'required',
             'ict_staff_type' => 'required',
         ]);
 
@@ -88,6 +91,7 @@ class IctStaffTypesController extends Controller
 
         $ictStaffTypes = new IctStaffType();
         $ictStaffTypes->category = $request->input('category');
+        $ictStaffTypes->level = $request->input('level');
         $ictStaffTypes->type = $request->input('ict_staff_type');
 
         if ($ictStaffTypes->isDuplicate()) return redirect()->back()
@@ -131,8 +135,6 @@ class IctStaffTypesController extends Controller
             'categories' => $categories,
             'ict_staff_types' => $ictStaffTypes,
             'current_type' => $current_type,
-            'category' => $current_type->category,
-            'staff_type' => $current_type->type,
 
             'has_modal' => 'yes',
             'page_name' => 'administer.ict_staff_type.edit',
@@ -152,7 +154,6 @@ class IctStaffTypesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'category' => 'required',
             'ict_staff_type' => 'required',
         ]);
 
@@ -162,7 +163,7 @@ class IctStaffTypesController extends Controller
 
         $current_type = IctStaffType::find($id);
 
-        $current_type->type = $request->input("staff_type");
+        $current_type->type = $request->input("ict_staff_type");
         $current_type->save();
         return redirect('/staff/ict-staff-types')->with('primary', 'Successfully Updated');
     }

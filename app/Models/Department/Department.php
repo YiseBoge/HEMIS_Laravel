@@ -59,6 +59,7 @@ class Department extends Model
             $model->upgradingStaffs()->delete();
             $model->staffLeaves()->delete();
             $model->academicStaffs()->delete();
+            $model->technicalStaffs()->delete();
             $model->postgraduateDiplomaTrainings()->delete();
             $model->teachers()->delete();
 
@@ -206,6 +207,14 @@ class Department extends Model
     public function academicStaffs()
     {
         return $this->hasMany('App\Models\Staff\AcademicStaff');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function technicalStaffs()
+    {
+        return $this->hasMany('App\Models\Staff\TechnicalStaff');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\College\College;
+use App\Models\Staff\AdministrativeStaff;
 use App\Models\Staff\IctStaff;
 use App\Models\Staff\IctStaffType;
 use App\Models\Staff\Staff;
@@ -62,8 +63,18 @@ class IctStaffsController extends Controller
     {
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
+        $institution = $user->institution();
+        $collegeName = $user->collegeName;
+
+        $administrativeStaffs = array();
+        /** @var College $college */
+        foreach ($institution->colleges as $college)
+            if ($college->collegeName->id == $collegeName->id)
+                foreach ($college->administrativeStaffs as $administrativeStaff)
+                    $administrativeStaffs[] = $administrativeStaff;
 
         $data = array(
+            'staffs' => $administrativeStaffs,
             'employment_types' => Staff::getEnum("EmploymentTypes"),
             'dedications' => Staff::getEnum("Dedications"),
             'academic_levels' => Staff::getEnum("AcademicLevels"),
@@ -84,36 +95,24 @@ class IctStaffsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'birth_date' => 'required|date|before:now',
-            'sex' => 'required',
-            'phone_number' => 'required',
-            'nationality' => 'required',
-            'job_title' => 'required',
-            'salary' => 'required|numeric|between:0,1000000000',
-            'service_year' => 'required|numeric|between:0,100',
-            'employment_type' => 'required',
-            'dedication' => 'required',
-            'academic_level' => 'required',
-            'ict_staff_rank' => 'required',
-            'ict_type' => 'required'
+            'ict_type' => 'required',
+            'staff' => 'required',
         ]);
+
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
         $college = HierarchyService::getCollege($institution, $collegeName, 'None', 'None');
-        $staff = new Staff;
-        HierarchyService::populateStaff($request, $staff);
+        $administrativeStaff = AdministrativeStaff::find($request->input('staff'));
+        $staff = $administrativeStaff->general;
 
         $ictStaff = new IctStaff();
-        $ictStaff->staffRank = $request->input('ict_staff_rank');
         $ictStaff->ict_staff_type_id = $request->input('ict_type');
+        $ictStaff->staff_id = $staff->id;
 
         $college->ictStaffs()->save($ictStaff);
-        $ictStaff = IctStaff::find($ictStaff->id);
-        $ictStaff->general()->save($staff);
 
         return redirect('/staff/ict')->with('success', 'Successfully Added ICT Staff');
     }
@@ -150,6 +149,7 @@ class IctStaffsController extends Controller
 
         $data = array(
             'staff' => IctStaff::with('general')->find($id),
+            'ict_types' => IctStaffType::all(),
             'page_name' => 'staff.ict.edit'
 
         );
@@ -167,30 +167,15 @@ class IctStaffsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'birth_date' => 'required|date|before:now',
-            'sex' => 'required',
-            'phone_number' => 'required',
-            'nationality' => 'required',
-            'job_title' => 'required',
-            'salary' => 'required|numeric|between:0,1000000000',
-            'service_year' => 'required|numeric|between:0,100',
-            'employment_type' => 'required',
-            'dedication' => 'required',
-            'academic_level' => 'required',
-            'ict_staff_rank' => 'required',
-            'ict_type' => 'required'
+            'ict_type' => 'required',
         ]);
+
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
 
         $ictStaff = IctStaff::find($id);
-        $ictStaff->staffRank = $request->input('ict_staff_rank');
-        $ictStaff->institution_id = null;
-
-        $staff = $ictStaff->general;
-        HierarchyService::populateStaff($request, $staff);
-        $ictStaff->general()->save($staff);
+        $ictStaff->ict_staff_type_id = $request->input('ict_type');
+        $ictStaff->save();
 
         return redirect('/staff/ict')->with('primary', 'Successfully Updated');
     }

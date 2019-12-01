@@ -80,11 +80,11 @@ class BudgetsController extends Controller
         foreach ($institution->colleges as $college)
             if ($college->collegeName->id == $collegeName->id)
                 if ($user->hasRole('College Super Admin'))
-                    foreach ($college->budgets as $adminStaff)
-                        $adminStaffs[] = $adminStaff;
+                    foreach ($college->budgets as $budget)
+                        $budgets[] = $budget;
                 else
-                    foreach ($college->budgets()->where('budget_type', $budget_type) as $adminStaff)
-                        $adminStaffs[] = $adminStaff;
+                    foreach ($college->budgets()->where('budget_type', $budget_type) as $budget)
+                        $budgets[] = $budget;
 
         $data = [
             'budget_type' => 'CAPITAL',

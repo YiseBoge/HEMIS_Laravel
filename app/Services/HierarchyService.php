@@ -101,7 +101,6 @@ class HierarchyService
         $staff->sex = $request->input('sex');
         $staff->phone_number = $request->input('phone_number');
         $staff->nationality = $request->input('nationality');
-        $staff->job_title = $request->input('job_title');
         $staff->salary = $request->input('salary');
         $staff->service_year = $request->input('service_year');
         $staff->employment_type = $request->input('employment_type');

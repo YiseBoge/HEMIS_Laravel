@@ -15,23 +15,6 @@
                 </div>
                 <form class="mt-4" action="" method="get">
                     <div class="form-group row pt-3">
-                        @if(Auth::user()->hasRole('College Admin'))
-                            <div class="col-md-6 form-group">
-                                <select class="form-control" name="type" id="type"
-                                        onchange="this.form.submit()">
-                                    @foreach ($staff_types as $type)
-                                        @if ($type == $selected_type)
-                                            <option value="{{$type}}" selected>{{$type}}</option>
-                                        @else
-                                            <option value="{{$type}}">{{$type}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                                <label for="type" class="form-control-placeholder">
-                                    Staff Type
-                                </label>
-                            </div>
-                        @endif
                         <div class="col-md-6 form-group">
                             <select class="form-control" name="case" id="case" onchange="this.form.submit()">
                                 @foreach ($cases as $key => $value)
@@ -115,27 +98,6 @@
                     </div>
 
                     <div class="modal-body pt-4">
-                        @if(Auth::user()->hasRole('College Admin'))
-                            <form action="" method="GET">
-                                <div class="form-group row pt-3">
-                                    <div class="col form-group">
-                                        <select class="form-control" name="type" id="type"
-                                                onchange="this.form.submit()">
-                                            @foreach ($staff_types as $type)
-                                                @if ($type == $selected_type)
-                                                    <option value="{{$type}}" selected>{{$type}}</option>
-                                                @else
-                                                    <option value="{{$type}}">{{$type}}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                        <label for="case" class="form-control-placeholder">
-                                            Staff Type
-                                        </label>
-                                    </div>
-                                </div>
-                            </form>
-                        @endif
                         <form action="/staff/attrition" method="POST">
                             @csrf
                             <div class="form-group row pt-3">

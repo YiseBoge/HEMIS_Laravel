@@ -519,14 +519,15 @@ class InstitutionService
                     $total += $departmentService->academicStaffData($sex, $otherRegion);
                 }
                 break;
+            case 'Technical':
+                foreach ($departments as $department) {
+                    $departmentService = new DepartmentService($department);
+                    $total += $departmentService->technicalStaffData($sex, $otherRegion);
+                }
+                break;
             case 'Administrative':
                 foreach ($colleges as $college) {
                     $total += $this->countStaffs($sex, $otherRegion, $college->administrativeStaffs, $attrition);
-                }
-                break;
-            case 'Technical':
-                foreach ($colleges as $college) {
-                    $total += $this->countStaffs($sex, $otherRegion, $college->technicalStaffs, $attrition);
                 }
                 break;
             case 'Management':
@@ -553,10 +554,10 @@ class InstitutionService
                 foreach ($departments as $department) {
                     $departmentService = new DepartmentService($department);
                     $total += $departmentService->academicStaffData($sex, $otherRegion);
+                    $total += $departmentService->technicalStaffData($sex, $otherRegion);
                 }
                 foreach ($colleges as $college) {
                     $staffs = $college->administrativeStaff +
-                        $college->technicalStaff +
                         $college->managmentStaff;
                     $total += $this->countStaffs($sex, $otherRegion, $staffs, $attrition);
                 }
@@ -592,52 +593,6 @@ class InstitutionService
             $departmentService = new DepartmentService($department);
             $total += $departmentService->academicStaffByStatus($sex, $status);
         }
-        return $total;
-    }
-
-    /**
-     * @param $sex
-     * @return int
-     */
-    function administrativeStaff($sex)
-    {
-        $total = 0;
-        $colleges = $this->__colleges();
-        foreach ($colleges as $college) {
-            foreach ($college->administrativeStaffs as $administrativeStaff) {
-                if ($sex == "All") {
-                    $total++;
-                } else {
-                    if ($administrativeStaff->general->sex == $sex) {
-                        $total++;
-                    }
-                }
-            }
-        }
-
-        return $total;
-    }
-
-    /**
-     * @param $sex
-     * @return int
-     */
-    function technicalStaff($sex)
-    {
-        $total = 0;
-        $colleges = $this->__colleges();
-        foreach ($colleges as $college) {
-            foreach ($college->technicalStaffs as $technicalStaff) {
-                if ($sex == "All") {
-                    $total++;
-                } else {
-                    if ($technicalStaff->general->sex == $sex) {
-                        $total++;
-                    }
-                }
-            }
-        }
-
         return $total;
     }
 

@@ -256,14 +256,14 @@
                                 </span>
                             </div>
 
-                            <div class="col-md-7 p-3">
-                                Unjustifiable Expenses
-                            </div>
-                            <div class="col-md-5 p-3">
-                                <span class="font-weight-bold text-gray-800">
-                                    {{number_format($institution->generalInformation->resource->unjustifiable_expenses, 2)}}
-                                </span>
-                            </div>
+                            {{--                            <div class="col-md-7 p-3">--}}
+                            {{--                                Unjustifiable Expenses--}}
+                            {{--                            </div>--}}
+                            {{--                            <div class="col-md-5 p-3">--}}
+                            {{--                                <span class="font-weight-bold text-gray-800">--}}
+                            {{--                                    {{number_format($institution->generalInformation->resource->unjustifiable_expenses, 2)}}--}}
+                            {{--                                </span>--}}
+                            {{--                            </div>--}}
                         </div>
                     </div>
 

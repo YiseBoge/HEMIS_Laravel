@@ -208,20 +208,20 @@
 
                 <div class="row mt-4">
 
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         {{ Form::number('number_of_classrooms', $institution->generalInformation->resource->number_of_classrooms, ['class'=>'form-control', 'id'=>'edit_number_of_classrooms', 'required' => 'true']) }}
                         {{ Form::label('edit_number_of_classrooms', 'Classrooms', ['class' => 'form-control-placeholder']) }}
                     </div>
 
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         {{ Form::number('number_of_smart_classrooms', $institution->generalInformation->resource->number_of_smart_classrooms, ['class'=>'form-control', 'id'=>'edit_number_of_smart_classrooms', 'required' => 'true']) }}
                         {{ Form::label('edit_number_of_smart_classrooms', 'Smart Classrooms', ['class' => 'form-control-placeholder']) }}
                     </div>
 
-                    <div class="form-group col-md-4">
-                        {{ Form::number('unjustifiable_expenses', $institution->generalInformation->resource->unjustifiable_expenses, ['class'=>'form-control', 'id'=>'edit_unjustifiable_expenses', 'required' => 'true']) }}
-                        {{ Form::label('edit_unjustifiable_expenses', 'Improperly Utilized Funds', ['class' => 'form-control-placeholder']) }}
-                    </div>
+                    {{--                    <div class="form-group col-md-4">--}}
+                    {{--                        {{ Form::number('unjustifiable_expenses', $institution->generalInformation->resource->unjustifiable_expenses, ['class'=>'form-control', 'id'=>'edit_unjustifiable_expenses', 'required' => 'true']) }}--}}
+                    {{--                        {{ Form::label('edit_unjustifiable_expenses', 'Improperly Utilized Funds', ['class' => 'form-control-placeholder']) }}--}}
+                    {{--                    </div>--}}
                 </div>
 
                 <div class="row mb-2">

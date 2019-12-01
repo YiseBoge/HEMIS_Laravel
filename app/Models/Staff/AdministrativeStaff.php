@@ -21,11 +21,6 @@ class AdministrativeStaff extends Model
     use Enums;
 
     public $incrementing = false;
-    protected $enumStaffRanks = [
-        'a' => 'rank1',
-        'b' => 'rank2',
-        'c' => 'rank3',
-    ];
 
     public static function boot()
     {
@@ -38,7 +33,6 @@ class AdministrativeStaff extends Model
             $model->general()->delete();
         });
     }
-
 
     // Enums //
 
@@ -56,5 +50,13 @@ class AdministrativeStaff extends Model
     public function college()
     {
         return $this->belongsTo('App\Models\College\College');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function jobTitle()
+    {
+        return $this->belongsTo('App\Models\Staff\JobTitle');
     }
 }

@@ -2,13 +2,6 @@
 
 @section('content')
     <div class="container-fluid p-0 px-md-3">
-        @if(count($errors) > 0)
-            @foreach($errors->all() as $error)
-                <div class="alert alert-danger">
-                    {{$error}}
-                </div>
-            @endforeach
-        @endif
         <form action="/staff/academic/{{$staff->id}}" method="POST">
             @csrf
             <input type="hidden" name="_method" value="PUT">
@@ -103,7 +96,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row mt-4">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is Expatriate</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -118,12 +111,10 @@
                                         <option selected value="1">Yes</option>
                                         <option value="0">No</option>
                                     @endif
-
                                 </select>
-
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Is From Region Other
                                 than the Host Region
                             </div>
@@ -140,9 +131,7 @@
                                         <option selected value="1">Yes</option>
                                         <option value="0">No</option>
                                     @endif
-
                                 </select>
-
                             </div>
                         </div>
                     </div>
@@ -155,18 +144,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row mt-4">
-                        <div class="col-md-3">
-                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Job Title</div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text bg-white border-0"><i
-                                                class="text-gray-400 float-right far fa-edit "></i></span>
-                                </div>
-                                <input type="text" class="form-control form-control-plaintext" name="job_title"
-                                       value="{{$staff->general->job_title}}">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Dedication</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -185,7 +163,7 @@
 
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Employment Type
                             </div>
                             <div class="input-group mb-3">
@@ -205,7 +183,7 @@
 
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Academic Level</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -261,18 +239,18 @@
                 <div class="card-body">
                     <div class="row mt-4">
                         <div class="col-md-3">
-                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Rank</div>
+                            <div class="text-sm font-weight-bold text-gray-900 text-uppercase mb-1">Job Title</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
                                     <span class="input-group-text bg-white border-0"><i
                                                 class="text-gray-400 float-right far fa-edit "></i></span>
                                 </div>
-                                <select class="form-control form-control-plaintext" name="academic_staff_rank">
-                                    @foreach ($staff->getEnum("StaffRanks") as $key => $value)
-                                        @if ($value == $staff->staffRank)
-                                            <option selected value="{{$key}}">{{$value}}</option>
+                                <select class="form-control form-control-plaintext" name="job_title">
+                                    @foreach ($job_titles as $value)
+                                        @if ($value->id == $staff->jobTitle->id)
+                                            <option selected value="{{$value->id}}">{{$value}}</option>
                                         @else
-                                            <option value="{{$key}}">{{$value}}</option>
+                                            <option value="{{$value->id}}">{{$value}}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -494,7 +472,6 @@
                                                 </div>
                                             </div>
                                     </div>
-
                         </div>
 
                         <div class="card shadow mt-3">

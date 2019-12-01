@@ -34,7 +34,7 @@ class InstitutionReportsController extends Controller
         $user->authorizeRoles(['University Admin', 'Super Admin']);
 
         $institution_name = $user->institutionName == null
-            ? InstitutionName::all()[request()->query('institution_name')]
+            ? InstitutionName::all()[request()->input('institution_name', 0)]
             : $user->institutionName;
 
         $reports = InstitutionReportCard::groupedReports();

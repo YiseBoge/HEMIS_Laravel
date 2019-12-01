@@ -22,12 +22,12 @@ class CreateAcademicStaffTable extends Migration
             $table->text('overload_remark')->nullable();
             $table->timestamps();
 
-            $table->string('staffRank');
             $table->string('approval_status')->default(Institution::getEnum('ApprovalTypes')['PENDING']);
 
             $table->primary('id');
             $table->uuid('staff_leave_id')->nullable();
             $table->uuid('department_id');
+            $table->uuid('job_title_id');
         });
     }
 
