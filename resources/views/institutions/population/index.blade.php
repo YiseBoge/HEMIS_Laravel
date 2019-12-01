@@ -40,13 +40,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($populations as $population)
+                            @foreach($populations as $pop)
                                 <tr>
                                     <td class="text-center">
                                         <div class="row px-1">
                                             <div class="col px-0">
                                                 <form class="p-0"
-                                                      action="/population/{{$population->id}}/edit"
+                                                      action="/population/{{$pop->id}}/edit"
                                                       method="GET">
                                                     <button type="submit"
                                                             class="btn btn-primary btn-circle text-white btn-sm mx-0"
@@ -60,7 +60,7 @@
                                             <div class="col px-0">
                                                 <button type="submit"
                                                         class="btn btn-danger btn-circle text-white btn-sm mx-0 deleter"
-                                                        style="opacity:0.80" data-id="{{$population->id}}"
+                                                        style="opacity:0.80" data-id="{{$pop->id}}"
                                                         data-toggle="tooltip" title="Delete">
                                                     <i class="fas fa-trash fa-sm"
                                                        style="opacity:0.75"></i>
@@ -68,9 +68,9 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{{ $population->age_range }}</td>
-                                    <td>{{ $population->male_number }}</td>
-                                    <td>{{ $population->female_number }}</td>
+                                    <td>{{ $pop->age_range }}</td>
+                                    <td>{{ $pop->male_number }}</td>
+                                    <td>{{ $pop->female_number }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

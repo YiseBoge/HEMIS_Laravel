@@ -172,7 +172,7 @@ class SupportContactsController extends Controller
         $contact->save();
 
 
-        return redirect('/support-contacts')->with('primary', 'Successfully Edited Contact Person');
+        return redirect('/support-contacts')->with('primary', 'Successfully Deleted');
 
     }
 
