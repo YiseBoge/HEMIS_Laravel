@@ -94,14 +94,14 @@ class ResearchesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'number' => 'required|numeric|between:0,1000000000',
-            'female_number' => 'required|numeric|between:0,1000000000',
-            'budget' => 'required|numeric|between:0,1000000000',
-            'external_budget' => 'required|numeric|between:0,1000000000',
-            'male_participating_number' => 'required|numeric|between:0,1000000000',
-            'female_participating_number' => 'required|numeric|between:0,1000000000',
-            'other_male_number' => 'required|numeric|between:0,1000000000',
-            'other_female_number' => 'required|numeric|between:0,1000000000'
+            'number' => 'required|numeric|between:0,10000000',
+            'female_number' => 'required|numeric|between:0,10000000',
+            'budget' => 'required|numeric|between:0,10000000',
+            'external_budget' => 'required|numeric|between:0,10000000',
+            'male_participating_number' => 'required|numeric|between:0,10000000',
+            'female_participating_number' => 'required|numeric|between:0,10000000',
+            'other_male_number' => 'required|numeric|between:0,10000000',
+            'other_female_number' => 'required|numeric|between:0,10000000'
         ]);
 
         $user = Auth::user();
@@ -183,14 +183,14 @@ class ResearchesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'number' => 'required|numeric|between:0,1000000000',
-            'female_number' => 'required|numeric|between:0,1000000000',
-            'budget' => 'required|numeric|between:0,1000000000',
-            'external_budget' => 'required|numeric|between:0,1000000000',
-            'male_participating_number' => 'required|numeric|between:0,1000000000',
-            'female_participating_number' => 'required|numeric|between:0,1000000000',
-            'other_male_number' => 'required|numeric|between:0,1000000000',
-            'other_female_number' => 'required|numeric|between:0,1000000000'
+            'number' => 'required|numeric|between:0,10000000',
+            'female_number' => 'required|numeric|between:0,10000000',
+            'budget' => 'required|numeric|between:0,10000000',
+            'external_budget' => 'required|numeric|between:0,10000000',
+            'male_participating_number' => 'required|numeric|between:0,10000000',
+            'female_participating_number' => 'required|numeric|between:0,10000000',
+            'other_male_number' => 'required|numeric|between:0,10000000',
+            'other_female_number' => 'required|numeric|between:0,10000000'
         ]);
 
         $user = Auth::user();

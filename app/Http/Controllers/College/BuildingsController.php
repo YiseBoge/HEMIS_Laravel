@@ -96,8 +96,8 @@ class BuildingsController extends Controller
             'consultant_name' => 'required',
             'date_started' => 'required|date|before:now',
             'date_completed' => 'required|date|after:date_started',
-            'budget_allocated' => 'required|numeric|between:0,1000000000',
-            'financial_status' => 'numeric|between:0,1000000000',
+            'budget_allocated' => 'required|numeric|between:0,10000000',
+            'financial_status' => 'numeric|between:0,10000000',
             'completion_status' => 'numeric|between:0,100',
         ]);
         $user = Auth::user();
@@ -181,8 +181,8 @@ class BuildingsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'budget_allocated' => 'required|numeric|between:0,1000000000',
-            'financial_status' => 'numeric|between:0,1000000000',
+            'budget_allocated' => 'required|numeric|between:0,10000000',
+            'financial_status' => 'numeric|between:0,10000000',
             'completion_status' => 'numeric|between:0,100',
         ]);
 

@@ -123,8 +123,8 @@ class SpecializingStudentsEnrollmentsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'male_number' => 'required|numeric|between:0,1000000000',
-            'female_number' => 'required|numeric|between:0,1000000000',
+            'male_number' => 'required|numeric|between:0,10000000',
+            'female_number' => 'required|numeric|between:0,10000000',
         ]);
 
         $user = Auth::user();
@@ -208,8 +208,8 @@ class SpecializingStudentsEnrollmentsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'male_number' => 'required|numeric|between:0,1000000000',
-            'female_number' => 'required|numeric|between:0,1000000000',
+            'male_number' => 'required|numeric|between:0,10000000',
+            'female_number' => 'required|numeric|between:0,10000000',
         ]);
 
         $user = Auth::user();

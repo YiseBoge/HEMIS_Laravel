@@ -97,10 +97,10 @@ class ExitExaminationsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'males_sat' => 'required|numeric|between:0,1000000000',
-            'females_sat' => 'required|numeric|between:0,1000000000',
-            'males_passed' => 'required|numeric|between:0,1000000000',
-            'females_passed' => 'required|numeric|between:0,1000000000',
+            'males_sat' => 'required|numeric|between:0,10000000',
+            'females_sat' => 'required|numeric|between:0,10000000',
+            'males_passed' => 'required|numeric|between:0,10000000',
+            'females_passed' => 'required|numeric|between:0,10000000',
         ]);
 
         $user = Auth::user();
@@ -182,10 +182,10 @@ class ExitExaminationsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'males_sat' => 'required|numeric|between:0,1000000000',
-            'females_sat' => 'required|numeric|between:0,1000000000',
-            'males_passed' => 'required|numeric|between:0,1000000000',
-            'females_passed' => 'required|numeric|between:0,1000000000',
+            'males_sat' => 'required|numeric|between:0,10000000',
+            'females_sat' => 'required|numeric|between:0,10000000',
+            'males_passed' => 'required|numeric|between:0,10000000',
+            'females_passed' => 'required|numeric|between:0,10000000',
         ]);
 
         $user = Auth::user();

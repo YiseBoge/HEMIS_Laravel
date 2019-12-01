@@ -75,8 +75,8 @@ class PopulationController extends Controller
     {
         $this->validate($request, [
             'age_range' => 'required',
-            'male_number' => 'required|numeric|between:0,1000000000',
-            'female_number' => 'required|numeric|between:0,1000000000'
+            'male_number' => 'required|numeric|between:0,10000000',
+            'female_number' => 'required|numeric|between:0,10000000'
         ]);
 
         $user = Auth::user();

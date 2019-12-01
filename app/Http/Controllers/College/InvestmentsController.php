@@ -96,7 +96,7 @@ class InvestmentsController extends Controller
     {
         $this->validate($request, [
             'investment_title' => 'required',
-            'cost_incurred' => 'required|numeric|between:0,1000000000',
+            'cost_incurred' => 'required|numeric|between:0,10000000',
         ]);
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
@@ -183,7 +183,7 @@ class InvestmentsController extends Controller
     {
         $this->validate($request, [
             'investment_title' => 'required',
-            'cost_incurred' => 'required|numeric|between:0,1000000000',
+            'cost_incurred' => 'required|numeric|between:0,10000000',
         ]);
 
         $user = Auth::user();

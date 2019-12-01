@@ -102,8 +102,8 @@ class UniversityIndustryLinkageController extends Controller
     {
         $this->validate($request, [
             'training_area' => 'required',
-            'number_of_students' => 'required|numeric|between:0,1000000000',
-            'industry_number' => 'required|numeric|between:0,1000000000'
+            'number_of_students' => 'required|numeric|between:0,10000000',
+            'industry_number' => 'required|numeric|between:0,10000000'
         ]);
         $user = Auth::user();
         $user->authorizeRoles('College Admin');
@@ -191,8 +191,8 @@ class UniversityIndustryLinkageController extends Controller
     {
         $this->validate($request, [
             'training_area' => 'required',
-            'number_of_students' => 'required|numeric|between:0,1000000000',
-            'industry_number' => 'required|numeric|between:0,1000000000'
+            'number_of_students' => 'required|numeric|between:0,10000000',
+            'industry_number' => 'required|numeric|between:0,10000000'
         ]);
 
         $user = Auth::user();

@@ -225,8 +225,8 @@ class PublicationsController extends Controller
         }
 
         $this->validate($request, [
-            'student_publications' => 'required|numeric|between:0,1000000000',
-            'patents' => 'required|numeric|between:0,1000000000',
+            'student_publications' => 'required|numeric|between:0,10000000',
+            'patents' => 'required|numeric|between:0,10000000',
         ]);
 
         $user = Auth::user();

@@ -164,12 +164,12 @@ class InstitutionsController extends Controller
             'vice_presidents' => 'required|numeric|between:0,250',
             'middle_level_leaders' => 'required|numeric|between:0,250',
 
-            'community_services' => 'required|numeric|between:0,1000000000',
-            'male_teachers_participated' => 'required|numeric|between:0,1000000000',
-            'female_teachers_participated' => 'required|numeric|between:0,1000000000',
-            'male_benefited' => 'required|numeric|between:0,1000000000',
-            'female_benefited' => 'required|numeric|between:0,1000000000',
-            'linked_tvets' => 'required|numeric|between:0,1000000000',
+            'community_services' => 'required|numeric|between:0,10000000',
+            'male_teachers_participated' => 'required|numeric|between:0,10000000',
+            'female_teachers_participated' => 'required|numeric|between:0,10000000',
+            'male_benefited' => 'required|numeric|between:0,10000000',
+            'female_benefited' => 'required|numeric|between:0,10000000',
+            'linked_tvets' => 'required|numeric|between:0,10000000',
 
             'number_of_libraries' => 'required|numeric|between:0,250',
             'number_of_laboratories' => 'required|numeric|between:0,250',
@@ -179,10 +179,10 @@ class InstitutionsController extends Controller
             'status_of_laboratories' => 'required',
             'status_of_workshops' => 'required',
 
-            'pupil_per_teacher' => 'required|numeric|between:0,1000000000',
-            'text_per_student' => 'required|numeric|between:0,1000000000',
-            'number_of_classrooms' => 'required|numeric|between:0,1000000000',
-            'number_of_smart_classrooms' => 'required|numeric|between:0,1000000000',
+            'pupil_per_teacher' => 'required|numeric|between:0,10000000',
+            'text_per_student' => 'required|numeric|between:0,10000000',
+            'number_of_classrooms' => 'required|numeric|between:0,10000000',
+            'number_of_smart_classrooms' => 'required|numeric|between:0,10000000',
         ]);
 
         $institution = Institution::find($id);

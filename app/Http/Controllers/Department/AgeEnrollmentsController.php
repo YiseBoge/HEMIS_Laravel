@@ -121,8 +121,8 @@ class AgeEnrollmentsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'number_of_males' => 'required|numeric|between:0,1000000000',
-            'number_of_females' => 'required|numeric|between:0,1000000000',
+            'number_of_males' => 'required|numeric|between:0,10000000',
+            'number_of_females' => 'required|numeric|between:0,10000000',
         ]);
 
         $user = Auth::user();
@@ -205,8 +205,8 @@ class AgeEnrollmentsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'number_of_males' => 'required|numeric|between:0,1000000000',
-            'number_of_females' => 'required|numeric|between:0,1000000000',
+            'number_of_males' => 'required|numeric|between:0,10000000',
+            'number_of_females' => 'required|numeric|between:0,10000000',
         ]);
 
         $user = Auth::user();
