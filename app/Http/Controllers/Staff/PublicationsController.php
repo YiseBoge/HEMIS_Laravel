@@ -49,13 +49,11 @@ class PublicationsController extends Controller
             if ($user->hasRole('College Super Admin')) {
                 foreach ($college->departments()->where('department_name_id', $requestedDepartment)->get() as $department)
                     foreach ($department->academicStaffs as $staff)
-                        if ($staff->staffRank == "Associate Professor" || $staff->staffRank == "Professor")
-                            $publications[] = $staff->publications;
+                        $publications[] = $staff->publications;   
             } else
                 foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
                     foreach ($department->academicStaffs as $staff)
-                        if ($staff->staffRank == "Associate Professor" || $staff->staffRank == "Professor")
-                            $publications[] = $staff->publications;
+                        $publications[] = $staff->publications;    
         }
 
         $department = HierarchyService::getDepartment($institution, $collegeName, $departmentName, 'None', 'None', 'NONE');
@@ -99,8 +97,7 @@ class PublicationsController extends Controller
             foreach ($college->departments()->where([
                 'department_name_id' => $user->departmentName->id, 'year_level' => 'None'])->get() as $department)
                 foreach ($department->academicStaffs as $staff)
-                    if ($staff->staffRank == "Associate Professor" || $staff->staffRank == "Professor")
-                        $staffs[] = $staff;
+                    $staffs[] = $staff;    
         }
 
         $data = array(

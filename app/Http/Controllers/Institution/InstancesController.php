@@ -329,7 +329,7 @@ class InstancesController extends Controller
     {
         foreach ($oldCollege->departments as $oldDepartment) {
             $newDepartment = $this->makeDepartment($newCollege, $oldDepartment, $exists);
-            foreach ($oldDepartment->academicStaffs as $staff) {
+            foreach ($oldDepartment->allAcademicStaffs as $staff) {
                 $staff->department_id = $newDepartment->id;
                 $staff->save();
             }

@@ -129,7 +129,7 @@ class AcademicStaffsController extends Controller
         $academicStaff->hdp_trained = $request->has('hdp_trained');
 
         $academicStaff->job_title_id = $request->input('job_title');
-        $department->academicStaffs()->save($academicStaff);
+        $department->allAcademicStaffs()->save($academicStaff);
         $academicStaff = AcademicStaff::find($academicStaff->id);
         $academicStaff->general()->save($staff);
 
