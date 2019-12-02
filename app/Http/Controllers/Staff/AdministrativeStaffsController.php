@@ -110,7 +110,7 @@ class AdministrativeStaffsController extends Controller
         $administrativeStaff = new AdministrativeStaff;
         $administrativeStaff->job_title_id = $request->input('job_title');
 
-        $college->administrativeStaffs()->save($administrativeStaff);
+        $college->allAdministrativeStaffs()->save($administrativeStaff);
         $administrativeStaff = AdministrativeStaff::find($administrativeStaff->id);
         $administrativeStaff->general()->save($staff);
 

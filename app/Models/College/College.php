@@ -57,7 +57,7 @@ class College extends Model
             $model->budgets()->delete();
             $model->internalRevenues()->delete();
             $model->investments()->delete();
-            $model->administrativeStaffs()->delete();
+            $model->allAdministrativeStaffs()->delete();
             $model->ictStaffs()->delete();
             $model->managementStaffs()->delete();
             $model->universityIndustryLinkages()->delete();

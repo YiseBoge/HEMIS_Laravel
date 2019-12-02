@@ -272,7 +272,7 @@ class InstancesController extends Controller
                 $building->college_id = $newCollege->id;
                 $building->save();
             }
-            foreach ($oldCollege->administrativeStaffs as $staff) {
+            foreach ($oldCollege->allAministrativeStaffs as $staff) {
                 $staff->college_id = $newCollege->id;
                 $staff->save();
             }
