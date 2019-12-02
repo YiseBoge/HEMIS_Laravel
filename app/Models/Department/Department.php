@@ -225,8 +225,7 @@ class Department extends Model
      */
     public function technicalStaffs()
     {
-        $ids = Staff::all()->whereNotIn('id', StaffAttrition::all()->pluck('staff_id'))->pluck('staffable_id');
-        return $this->hasMany('App\Models\Staff\TechnicalStaff')->whereIn('id', $ids);
+        return $this->hasMany('App\Models\Staff\TechnicalStaff')->whereNotIn('staff_id', StaffAttrition::all()->pluck('staff_id'));
     }
 
     /**

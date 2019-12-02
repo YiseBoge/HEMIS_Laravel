@@ -119,8 +119,7 @@ class College extends Model
      */
     public function ictStaffs()
     {
-        $ids = Staff::all()->whereNotIn('id', StaffAttrition::all()->pluck('staff_id'))->pluck('staffable_id');
-        return $this->hasMany('App\Models\Staff\IctStaff')->whereIn('id', $ids);
+        return $this->hasMany('App\Models\Staff\IctStaff')->whereNotIn('staff_id', StaffAttrition::all()->pluck('staff_id'));
     }
 
     /**
@@ -128,8 +127,7 @@ class College extends Model
      */
     public function managementStaffs()
     {
-        $ids = Staff::all()->whereNotIn('id', StaffAttrition::all()->pluck('staff_id'))->pluck('staffable_id');
-        return $this->hasMany('App\Models\Staff\ManagementStaff')->whereIn('id', $ids);
+        return $this->hasMany('App\Models\Staff\ManagementStaff')->whereNotIn('staff_id', StaffAttrition::all()->pluck('staff_id'));
     }
 
     /**
