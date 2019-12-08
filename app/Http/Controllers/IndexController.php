@@ -46,10 +46,10 @@ class IndexController extends Controller
         $data = array(
 //            'students_number' => $studentsNumber,
 
-            'institutions_number' => number_format($institutions->count() - 1, 0),
+            'institutions_number' => $institutions->count() - 1,
             'students_number' => $students_number,
-            'staff_number' => number_format(Staff::all()->count(), 0),
-            'admin_number' => number_format(User::all()->count(), 0),
+            'staff_number' => Staff::all()->count(),
+            'admin_number' => User::all()->count(),
             'bands' => $bands,
             'programs' => $educationPrograms,
             'education_levels' => $educationLevels,

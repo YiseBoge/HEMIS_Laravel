@@ -38,7 +38,7 @@
                         <div class="card-body p-0 d-flex align-items-center">
                             <i class="fas fa-user-graduate text-white-50 bg-primary p-4 font-2xl mr-3"></i>
                             <div class="w-100 text-right pr-3">
-                                <div class="text-value-sm text-primary counter-count">{{$students_number}}</div>
+                                <div class="text-value-sm text-primary counter-count">{{ $students_number }}</div>
                                 <div class="text-muted text-uppercase font-weight-bold small">Students</div>
                             </div>
                         </div>
@@ -50,9 +50,7 @@
                             <i class="fas fa-chalkboard-teacher text-white-50 bg-primary p-4 font-2xl mr-3"></i>
                             <div class="w-100 text-right pr-3">
                                 <div class="text-value-sm text-primary counter-count">{{ $staff_number }}</div>
-                                <div class="text-muted text-uppercase font-weight-bold small">Staff
-                                    Members
-                                </div>
+                                <div class="text-muted text-uppercase font-weight-bold small">Staff Members</div>
                             </div>
                         </div>
                     </div>
@@ -63,7 +61,7 @@
                             <i class="fas fa-users-cog text-white-50 bg-primary p-4 font-2xl mr-3"></i>
                             <div class="w-100 text-right pr-3">
                                 <div class="text-value-sm text-primary counter-count">{{ $admin_number }}</div>
-                                <div class="text-muted text-uppercase font-weight-bold small">Admins</div>
+                                <div class="text-muted text-uppercase font-weight-bold small">System Admins</div>
                             </div>
                         </div>
                     </div>
