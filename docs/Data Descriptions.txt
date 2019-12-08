@@ -74,10 +74,8 @@ A. Data
             - Fields: Management Level
         v. Technical Staff:
             - Fields: Technical Staff Rank
-        vi. Supportive Staff: 
-            - Fields: Supportive Staff Rank
     c. Staff Attrition:
-            - Fields: Staff Type(Academic Staff, Administrative Staff, ICT Staff, Management Staff, Technical Staff, Supportive Staff), Case(Government Appointment,
+            - Fields: Staff Type(Academic Staff, Administrative Staff, ICT Staff, Management Staff, Technical Staff), Case(Government Appointment,
                       Transfer to Higher Education Institutions, Transfer to Other Government Agencies, Resignation, Retirement, Death, Discipline, Others), Staff Member
     
 

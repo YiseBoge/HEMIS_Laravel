@@ -266,13 +266,14 @@ class InstancesController extends Controller
      */
     private function transferInstitutionContents(Institution $oldInstitution, Institution $newInstitution, $exists)
     {
+        /** @var College $oldCollege */
         foreach ($oldInstitution->colleges as $oldCollege) {
             $newCollege = $this->makeCollege($newInstitution, $oldCollege, $exists);
             foreach ($oldCollege->buildings as $building) {
                 $building->college_id = $newCollege->id;
                 $building->save();
             }
-            foreach ($oldCollege->allAministrativeStaffs as $staff) {
+            foreach ($oldCollege->allAdministrativeStaffs as $staff) {
                 $staff->college_id = $newCollege->id;
                 $staff->save();
             }
@@ -281,10 +282,6 @@ class InstancesController extends Controller
                 $staff->save();
             }
             foreach ($oldCollege->managementStaffs as $staff) {
-                $staff->college_id = $newCollege->id;
-                $staff->save();
-            }
-            foreach ($oldCollege->supportiveStaffs as $staff) {
                 $staff->college_id = $newCollege->id;
                 $staff->save();
             }

@@ -15,27 +15,33 @@ class ApprovalService
 {
     public static function approveData(Collection $data)
     {
+        $count = 0;
         foreach ($data as $item) {
             if ($item->approval_status == Institution::getEnum('ApprovalTypes')["PENDING"]) {
                 $item->approval_status = Institution::getEnum('ApprovalTypes')["COLLEGE_APPROVED"];
                 $item->save();
+                $count++;
             }
         }
+        return $count;
     }
 
     public static function approveDataByInstitution(Collection $data)
     {
+        $count = 0;
         foreach ($data as $item) {
             if ($item->approval_status == Institution::getEnum('ApprovalTypes')["COLLEGE_APPROVED"]) {
                 $item->approval_status = Institution::getEnum('ApprovalTypes')["APPROVED"];
                 $item->save();
+                $count++;
             }
         }
+        return $count;
     }
 
     public static function approveAllInDepartment(Department $department, String $approveBy)
     {
-
+        $count = 0;
         $dataList = array(
             $department->enrollments, $department->specialRegionEnrollments, $department->ruralStudentEnrollments,
             $department->disadvantagedStudentEnrollments, $department->specializingStudentEnrollments,
@@ -48,23 +54,27 @@ class ApprovalService
 
         foreach($dataList as $data){
             if($approveBy == "college"){
-                self::approveData($data);
+                $count += self::approveData($data);
             }
             else if($approveBy == "institution"){
-                self::approveDataByInstitution($data);
+                $count += self::approveDataByInstitution($data);
             }
         }
+        return $count;
     }
 
     public static function approveAllDepartmentDataInCollege(College $college, $approveBy)
     {
+        $count = 0;
         foreach($college->departments as $department){
-            self::approveAllInDepartment($department, $approveBy);
+            $count += self::approveAllInDepartment($department, $approveBy);
         }
+        return $count;
     }
 
     public static function approveAllCollegeData(College $college, $approveBy)
     {
+        $count = 0;
         $dataList = array(
             $college->budgets, $college->internalRevenues, $college->investments,
             $college->universityIndustryLinkages
@@ -72,19 +82,22 @@ class ApprovalService
 
         foreach($dataList as $data){
             if($approveBy == "college"){
-                self::approveData($data);
+                $count += self::approveData($data);
             }
             else if($approveBy == "institution"){
-                self::approveDataByInstitution($data);
+                $count += self::approveDataByInstitution($data);
             }
         }
+        return $count;
     }
 
     public static function approveAllInInstitution(Institution $institution)
     {
+        $count = 0;
         foreach ($institution->colleges as $college) {
-            self::approveAllDepartmentDataInCollege($college, "institution");
-            self::approveAllCollegeData($college, "institution");
+            $count += self::approveAllDepartmentDataInCollege($college, "institution");
+            $count += self::approveAllCollegeData($college, "institution");
         }
+        return $count;
     }
 }

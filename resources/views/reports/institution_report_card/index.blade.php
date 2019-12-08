@@ -13,7 +13,7 @@
                             @if (!Auth::user()->read_only)
                                 <a class="btn btn-primary btn-sm mb-0 shadow-sm"
                                    href="/report/generate-institution-report">
-                                    Update Current Year<i class="fas fa-sync-alt text-white-50 fa-sm ml-2"></i></a>
+                                    Refresh Current Year<i class="fas fa-sync-alt text-white-50 fa-sm ml-2"></i></a>
                             @endif
                         @else
                             {!! Form::open(['action' => 'Report\InstitutionReportsController@index', 'method' => 'GET']) !!}
@@ -160,20 +160,6 @@
 
                     <div class="modal-body px-5">
 
-                        @if(count($errors) > 0)
-                            <div class="col-md-12 form-group">
-                                <div class="alert alert-danger">
-                                    <h6 class="font-weight-bold">Please fix the following issues</h6>
-                                    <hr class="my-0">
-                                    <ul class="my-1 px-4">
-                                        @foreach($errors->all() as $error)
-                                            <li>{{$error}}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        @endif
-
                         <div class="row my-2">
                             <div class="col-md text-center">
                                 @if($report->change($institution_name) > 0)
@@ -204,6 +190,16 @@
                                 {{ $report->kpi }}
                             </div>
                         </div>
+
+                        @if(count($errors) > 0)
+                            <div class="row">
+                                <div class="alert alert-danger w-100 text-center">
+                                    @foreach($errors->all() as $error)
+                                        {{$error}}
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
 
                         <div class="row my-3">
                             <div class="col-md">

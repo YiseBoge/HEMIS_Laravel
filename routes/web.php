@@ -92,8 +92,6 @@ Route::post('staff/administrative/{id}/approve', 'Staff\AdministrativeStaffsCont
 Route::resource('staff/administrative', 'Staff\AdministrativeStaffsController');
 Route::post('staff/ict/{id}/approve', 'Staff\IctStaffsController@approve');
 Route::resource('staff/ict', 'Staff\IctStaffsController');
-Route::post('staff/supportive/{id}/approve', 'Staff\SupportiveStaffsController@approve');
-Route::resource('staff/supportive', 'Staff\SupportiveStaffsController');
 Route::post('staff/management/{id}/approve', 'Staff\ManagementStaffsController@approve');
 Route::resource('staff/management', 'Staff\ManagementStaffsController');
 Route::post('staff/attrition/{id}/approve', 'Staff\StaffAttritionsController@approve');

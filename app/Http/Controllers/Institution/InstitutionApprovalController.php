@@ -32,8 +32,12 @@ class InstitutionApprovalController extends Controller
 
         $institution = $user->institution();
 
-        ApprovalService::approveAllInInstitution($institution);
+        $count = ApprovalService::approveAllInInstitution($institution);
 
-        return redirect("institution/approval")->with('primary', "Successfully Approved");
+        if ($count == 0) $message = "No items to Approve";
+        elseif ($count == 1) $message = "Successfully approved $count item.";
+        else $message = "Successfully approved $count items.";
+
+        return redirect("institution/approval")->with($count == 0 ? 'primary' : 'success', $message);
     }
 }

@@ -10,9 +10,8 @@
                 <div class="row my-3">
                     <div class="col-sm-4 text-left">
                         @if (Auth::user()->currentInstance != null)
-                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/report/generate-full-report">Update
-                                Current Year<i
-                                        class="fas fa-sync-alt text-white-50 fa-sm ml-2"></i></a>
+                            <a class="btn btn-primary btn-sm mb-0 shadow-sm" href="/report/generate-full-report">
+                                Refresh Current Year<i class="fas fa-sync-alt text-white-50 fa-sm ml-2"></i></a>
                         @endif
                     </div>
                     <div class="col-sm-8 text-right">
@@ -137,20 +136,6 @@
 
                 <div class="modal-content">
 
-                    @if(count($errors) > 0)
-                        <div class="col-md-12 form-group">
-                            <div class="alert alert-danger">
-                                <h6 class="font-weight-bold">Please fix the following issues</h6>
-                                <hr class="my-0">
-                                <ul class="my-1 px-4">
-                                    @foreach($errors->all() as $error)
-                                        <li>{{$error}}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    @endif
-
                     {!! Form::open(['action' => ['Report\ReportsController@update', $report->id], 'method' => 'POST']) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTitle">Set Target</h5>
@@ -190,6 +175,16 @@
                                 {{ $report->kpi }}
                             </div>
                         </div>
+
+                        @if(count($errors) > 0)
+                            <div class="row">
+                                <div class="alert alert-danger w-100 text-center">
+                                    @foreach($errors->all() as $error)
+                                        {{$error}}
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
 
                         <div class="row my-3">
                             <div class="col-md">

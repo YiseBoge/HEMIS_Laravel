@@ -51,60 +51,20 @@ class CollegeApprovalController extends Controller
 
         $type = $request->input('type');
 
+        $count = 0;
         foreach ($institution->colleges as $college) {
             if ($type == "department") {
-                ApprovalService::approveAllDepartmentDataInCollege($college, "college");
+                $count += ApprovalService::approveAllDepartmentDataInCollege($college, "college");
 
             } else if ($type == "college") {
-                ApprovalService::approveAllCollegeData($college, "college");
+                $count += ApprovalService::approveAllCollegeData($college, "college");
             }
         }
 
-        return redirect("college/approval")->with('primary', "Successfully Approved");
-    }
+        if ($count == 0) $message = "No items to Approve";
+        elseif ($count == 1) $message = "Successfully approved $count item.";
+        else $message = "Successfully approved $count items.";
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect("college/approval")->with($count == 0 ? 'primary' : 'success', $message);
     }
 }

@@ -468,7 +468,7 @@ class GenerateReportsController extends Controller
                 $reportService->staff('Administrative'));
         $this->saveReportYearValue($year, '6.5.6', $total);
 
-        return redirect('/report')->with('primary', 'Successfully Updated Current Year KPIs');
+        return redirect('/report')->with('primary', 'Successfully Refreshed Current Year KPIs');
     }
 
     /**
@@ -887,7 +887,7 @@ class GenerateReportsController extends Controller
                 $reportService->staff('Administrative'));
         $this->saveInstitutionYearValue($institution_name, $year, '6.5.6', $total);
 
-        return redirect('/institution-report')->with('primary', 'Successfully Updated Current Year KPIs');
+        return redirect('/institution-report')->with('primary', 'Successfully Refreshed Current Year KPIs');
     }
 
     /**
