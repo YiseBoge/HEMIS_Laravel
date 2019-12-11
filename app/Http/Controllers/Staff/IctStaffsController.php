@@ -71,7 +71,8 @@ class IctStaffsController extends Controller
         foreach ($institution->colleges as $college)
             if ($college->collegeName->id == $collegeName->id)
                 foreach ($college->administrativeStaffs as $administrativeStaff)
-                    $administrativeStaffs[] = $administrativeStaff;
+                    if (!$college->ictStaffs->pluck('staff_id')->contains($administrativeStaff->general->id))
+                        $administrativeStaffs[] = $administrativeStaff;
 
         $data = array(
             'staffs' => $administrativeStaffs,

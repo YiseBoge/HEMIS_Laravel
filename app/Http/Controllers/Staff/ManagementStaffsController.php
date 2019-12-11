@@ -70,7 +70,8 @@ class ManagementStaffsController extends Controller
         foreach ($institution->colleges as $college)
             if ($college->collegeName->id == $collegeName->id)
                 foreach ($college->administrativeStaffs as $administrativeStaff)
-                    $administrativeStaffs[] = $administrativeStaff;
+                    if (!$college->managementStaffs->pluck('staff_id')->contains($administrativeStaff->general->id))
+                        $administrativeStaffs[] = $administrativeStaff;
 
         $data = array(
             'staffs' => $administrativeStaffs,
@@ -78,7 +79,8 @@ class ManagementStaffsController extends Controller
             'dedications' => Staff::getEnum("dedication"),
             'academic_levels' => Staff::getEnum("academic_levels"),
             'levels' => ManagementStaff::getEnum("management_levels"),
-            'job_titles' => JobTitle::where('staff_type', 'Management')->get(),
+//            'job_titles' => JobTitle::where('staff_type', 'Management')->get(),
+            'job_titles' => JobTitle::where('staff_type', 'Administrative')->get(),
             'page_name' => 'staff.management.create'
         );
         return view('staff.management.create')->with($data);

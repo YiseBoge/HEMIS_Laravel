@@ -17,7 +17,7 @@ class CreateJobTitlesTable extends Migration
             $table->uuid('id');
             $table->string('job_title');
             $table->string('staff_type');
-            $table->string('level')->default("Level 1");
+            $table->string('level')->default("Level I");
             $table->timestamps();
 
             $table->primary('id');

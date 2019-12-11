@@ -17,7 +17,7 @@ class CreateIctStaffTypesTable extends Migration
             $table->uuid('id');
             $table->string('category');
             $table->string('type');
-            $table->string('level')->default("Level 1");
+            $table->string('level')->default("Level I");
             $table->timestamps();
 
             $table->primary('id');

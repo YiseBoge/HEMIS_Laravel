@@ -68,7 +68,8 @@ class TechnicalStaffsController extends Controller
         foreach ($user->collegeName->college as $college) {
             foreach ($college->departments()->where('department_name_id', $user->departmentName->id)->get() as $department)
                 foreach ($department->academicStaffs as $academicStaff)
-                    $academicStaffs[] = $academicStaff;
+                    if (!$department->technicalStaffs->pluck('staff_id')->contains($academicStaff->general->id))
+                        $academicStaffs[] = $academicStaff;
         }
 
         $data = array(
@@ -77,7 +78,8 @@ class TechnicalStaffsController extends Controller
             'dedications' => Staff::getEnum("dedication"),
             'academic_levels' => Staff::getEnum("academic_levels"),
             'staff_ranks' => TechnicalStaff::getEnum("staff_rank"),
-            'job_titles' => JobTitle::where('staff_type', 'Technical')->get(),
+//            'job_titles' => JobTitle::where('staff_type', 'Technical')->get(),
+            'job_titles' => JobTitle::where('staff_type', 'Administrative')->get(),
             'page_name' => 'staff.technical.create'
         );
         return view('staff.technical.create')->with($data);
@@ -148,7 +150,8 @@ class TechnicalStaffsController extends Controller
 
         $data = array(
             'staff' => TechnicalStaff::with('general')->find($id),
-            'job_titles' => JobTitle::where('staff_type', 'Technical')->get(),
+//            'job_titles' => JobTitle::where('staff_type', 'Technical')->get(),
+            'job_titles' => JobTitle::where('staff_type', 'Administrative')->get(),
             'page_name' => 'staff.technical.edit'
         );
         return view('staff.technical.edit')->with($data);

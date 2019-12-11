@@ -4,6 +4,7 @@ namespace App\Models\Staff;
 
 use App\Traits\Enums;
 use App\Traits\Uuids;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Webpatser\Uuid\Uuid;
@@ -14,6 +15,7 @@ use Webpatser\Uuid\Uuid;
  * @property string|null staff_type
  * @property string|null level
  * @method static JobTitle findOrFail(int $id)
+ * @method static Collection where(string $string, string $string1)
  */
 class JobTitle extends Model
 {
@@ -29,28 +31,28 @@ class JobTitle extends Model
         'Management' => 'Management',
     ];
     protected $enumLevels = [
-        'Level 1' => 'Level 1',
-        'Level 2' => 'Level 2',
-        'Level 3' => 'Level 3',
-        'Level 4' => 'Level 4',
-        'Level 5' => 'Level 5',
-        'Level 6' => 'Level 6',
-        'Level 7' => 'Level 7',
-        'Level 8' => 'Level 8',
-        'Level 9' => 'Level 9',
-        'Level 10' => 'Level 10',
-        'Level 11' => 'Level 11',
-        'Level 12' => 'Level 12',
-        'Level 13' => 'Level 13',
-        'Level 14' => 'Level 14',
-        'Level 15' => 'Level 15',
-        'Level 16' => 'Level 16',
-        'Level 17' => 'Level 17',
-        'Level 18' => 'Level 18',
-        'Level 19' => 'Level 19',
-        'Level 20' => 'Level 20',
-        'Level 21' => 'Level 21',
-        'Level 22' => 'Level 22',
+        'Level I' => 'Level I',
+        'Level II' => 'Level II',
+        'Level III' => 'Level III',
+        'Level IV' => 'Level IV',
+        'Level V' => 'Level V',
+        'Level VI' => 'Level VI',
+        'Level VII' => 'Level VII',
+        'Level VIII' => 'Level VIII',
+        'Level IX' => 'Level IX',
+        'Level X' => 'Level X',
+        'Level XI' => 'Level XI',
+        'Level XII' => 'Level XII',
+        'Level XIII' => 'Level XIII',
+        'Level XIV' => 'Level XIV',
+        'Level XV' => 'Level XV',
+        'Level XVI' => 'Level XVI',
+        'Level XVII' => 'Level XVII',
+        'Level XVIII' => 'Level XVIII',
+        'Level XIX' => 'Level XIX',
+        'Level XX' => 'Level XX',
+        'Level XXI' => 'Level XXI',
+        'Level XXII' => 'Level XXII',
     ];
 
     public static function boot()

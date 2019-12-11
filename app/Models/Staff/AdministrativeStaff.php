@@ -13,7 +13,7 @@ use Webpatser\Uuid\Uuid;
  * @property Uuid id
  * @property string|null staffRank
  * @property Staff general
- * @method static AdministrativeStaff find($id)
+ * @method static AdministrativeStaff findOrFail($id)
  */
 class AdministrativeStaff extends Model
 {
