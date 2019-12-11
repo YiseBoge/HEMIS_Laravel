@@ -56,10 +56,6 @@
                         <tbody>
                         @if (count($staffs) > 0)
                             @foreach ($staffs as $staff)
-                                <tr>
-                                    <td>{{$staff->general->managementStaff}}</td>
-                                    <td>{{$staff->general->ictStaff}}</td>
-                                </tr>
                                 <tr role="row" class="odd"
                                     onclick="window.location='administrative/{{$staff->id}}'">
                                     <td class="sorting_1">{{$staff->general->name}}</td>
