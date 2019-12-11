@@ -56,20 +56,22 @@
                         <tbody>
                         @if (count($staffs) > 0)
                             @foreach ($staffs as $staff)
-                                <tr role="row" class="odd"
-                                    onclick="window.location='technical/{{$staff->id}}'">
-                                    <td class="sorting_1">{{$staff->general->name}}</td>
-                                    <td>{{$staff->jobTitle}}</td>
-                                    <td>{{$staff->general->dedication}}</td>
-                                    <td>{{$staff->general->employment_type}}</td>
-                                    @if ($staff->general->is_expatriate == 0)
-                                        <td>No</td>
-                                    @else
-                                        <td>Yes</td>
-                                    @endif
-                                    <td>{{$staff->general->salary}}</td>
-                                    <td>{{$staff->general->academic_level}}</td>
-                                </tr>
+                                @if ($staff->general != null)
+                                    <tr role="row" class="odd"
+                                        onclick="window.location='technical/{{$staff->id}}'">
+                                        <td class="sorting_1">{{$staff->general->name}}</td>
+                                        <td>{{$staff->jobTitle}}</td>
+                                        <td>{{$staff->general->dedication}}</td>
+                                        <td>{{$staff->general->employment_type}}</td>
+                                        @if ($staff->general->is_expatriate == 0)
+                                            <td>No</td>
+                                        @else
+                                            <td>Yes</td>
+                                        @endif
+                                        <td>{{$staff->general->salary}}</td>
+                                        <td>{{$staff->general->academic_level}}</td>
+                                    </tr>
+                                @endif
                             @endforeach
                         @else
 
