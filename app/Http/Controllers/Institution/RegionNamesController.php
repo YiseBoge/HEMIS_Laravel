@@ -146,6 +146,11 @@ class RegionNamesController extends Controller
         $current_region_name = RegionName::findOrFail($id);
 
         $current_region_name->name = $request->input("region_name");
+
+        if ($current_region_name->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
         $current_region_name->save();
 
         return redirect('/region-name')->with('primary', 'Successfully Updated');

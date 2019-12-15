@@ -165,14 +165,30 @@
                         @endif
 
                         <div class="col-md-12 form-group pb-1">
-                            <label class="label" for="category">Staff Type</label>
-                            <input type="text" id="category" name="category" class="form-control"
-                                   disabled value="{{$selected_title->staff_type}}">
+                            <label class="label" for="staff_type">Staff Type</label>
+                            <select class="form-control" name="staff_type" id="staff_type">
+                                @foreach ($staff_types as $typ)
+                                    @if ($typ == $selected_title->staff_type)
+                                        <option value="{{$typ}}"
+                                                selected>{{$typ}}</option>
+                                    @else
+                                        <option value="{{$typ}}">{{$typ}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-12 form-group pb-1">
-                            <label class="label" for="category">Staff Level</label>
-                            <input type="text" id="category" name="category" class="form-control"
-                                   disabled value="{{$selected_title->level}}">
+                            <label class="label" for="level">Level</label>
+                            <select class="form-control" name="level" id="level">
+                                @foreach ($levels as $lev)
+                                    @if ($lev == $selected_title->level)
+                                        <option value="{{$lev}}"
+                                                selected>{{$lev}}</option>
+                                    @else
+                                        <option value="{{$lev}}">{{$lev}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-12 form-group pb-1">
                             <label class="label" for="job_title">Job Title</label>

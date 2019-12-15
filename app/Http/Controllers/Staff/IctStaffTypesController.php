@@ -127,12 +127,14 @@ class IctStaffTypesController extends Controller
         $user->authorizeRoles('Super Admin');
 
         $categories = IctStaffType::getEnum('category');
+        $levels = IctStaffType::getEnum('level');
         $ictStaffTypes = IctStaffType::all();
         $current_type = IctStaffType::findOrFail($id);
 
         $data = array(
             'id' => $id,
             'categories' => $categories,
+            'levels' => $levels,
             'ict_staff_types' => $ictStaffTypes,
             'current_type' => $current_type,
 
@@ -154,6 +156,8 @@ class IctStaffTypesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+            'category' => 'required',
+            'level' => 'required',
             'ict_staff_type' => 'required',
         ]);
 
@@ -163,8 +167,16 @@ class IctStaffTypesController extends Controller
 
         $current_type = IctStaffType::findOrFail($id);
 
+        $current_type->category = $request->input("category");
+        $current_type->level = $request->input("level");
         $current_type->type = $request->input("ict_staff_type");
+
+        if ($current_type->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
+
         $current_type->save();
+
         return redirect('/staff/ict-staff-types')->with('primary', 'Successfully Updated');
     }
 

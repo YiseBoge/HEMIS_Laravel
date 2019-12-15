@@ -124,6 +124,7 @@ class JobTitlesController extends Controller
 
         $jobTitles = JobTitle::all();
         $selectedTitle = JobTitle::findOrFail($id);
+        $staffTypes = JobTitle::getEnum('staff_type');
         $levels = JobTitle::getEnum('level');
 
         $data = array(
@@ -131,6 +132,9 @@ class JobTitlesController extends Controller
 
             'selected_title' => $selectedTitle,
             'levels' => $levels,
+            'staff_types' => $staffTypes,
+
+            'has_modal' => 'yes',
             'page_name' => 'administer.job_title.edit',
         );
 
@@ -148,6 +152,8 @@ class JobTitlesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+            'staff_type' => 'required',
+            'level' => 'required',
             'job_title' => 'required',
         ]);
 
@@ -155,8 +161,13 @@ class JobTitlesController extends Controller
         $user->authorizeRoles('Super Admin');
 
         $jobTitle = JobTitle::findOrFail($id);
+        $jobTitle->staff_type = $request->input('staff_type');
+        $jobTitle->level = $request->input('level');
         $jobTitle->job_title = $request->input('job_title');
 
+        if ($jobTitle->isDuplicate()) return redirect()->back()
+            ->withInput($request->toArray())
+            ->withErrors('This entry already exists');
         $jobTitle->save();
 
         return redirect("staff/job-title");
