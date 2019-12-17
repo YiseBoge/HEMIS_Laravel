@@ -14,7 +14,7 @@
                     <div class="form-row pt-3">
                         <div class="col-md-6 form-group">
                             <select class="form-control" id="staff" name="staff_type"
-                                    onchange="this.options[this.selectedIndex].value && (window.location = 'http://hemis/staff/management/create?staff_type=' + this.options[this.selectedIndex].value)">
+                                    onchange="this.options[this.selectedIndex].value && (window.location = '{{Request::url()}}?staff_type=' + this.options[this.selectedIndex].value)">
                                 @foreach (array("Administrative", "Academic") as $value)
                                     <option value="{{$value}}" {{ $staff_type == $value ? 'selected':'' }}>
                                         {{$value}}
