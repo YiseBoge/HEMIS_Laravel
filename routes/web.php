@@ -11,6 +11,7 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'IndexController@index');
@@ -167,6 +168,7 @@ Route::post('/comments' , 'CommentsController@store');
 Route::delete('/comments/{id}' , 'CommentsController@destroy');
 
 Route::get('/manual', function () {
+    if (Auth::user() == null) return redirect()->back();
     return view('manual.index');
 });
 

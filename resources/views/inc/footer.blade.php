@@ -11,10 +11,13 @@
                     <li class="list-inline-item">
                         <a href="{{ url('/comments/create') }}">Feedback</a>
                     </li>
+                    @guest
+                    @else
                     <li class="list-inline-item">&sdot;</li>
                     <li class="list-inline-item">
                         <a href="{{ url('/manual') }}">Usage Manual</a>
                     </li>
+                    @endguest
                     <li class="list-inline-item">&sdot;</li>
                     <li class="list-inline-item">
                         <a href="{{ url('/support-contacts/public-view') }}">Contact Support</a>
