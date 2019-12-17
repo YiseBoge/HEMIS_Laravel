@@ -12,17 +12,31 @@
                 </div>
                 <div class="card-body px-5">
                     <div class="form-row pt-3">
-                        <div class="col-md-4 form-group">
+                        <div class="col-md-6 form-group">
+                            <select class="form-control" id="staff" name="staff_type"
+                                    onchange="this.options[this.selectedIndex].value && (window.location = 'http://hemis/staff/management/create?staff_type=' + this.options[this.selectedIndex].value)">
+                                @foreach (array("Administrative", "Academic") as $value)
+                                    <option value="{{$value}}" {{ $staff_type == $value ? 'selected':'' }}>
+                                        {{$value}}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <label for="staff" class="form-control-placeholder">Staff Type</label>
+                        </div>
+                        <div class="col-md-6 form-group">
                             <select class="form-control" id="staff" name="staff">
                                 @foreach ($staffs as $value)
-                                    <option value="{{$value->id}}" {{ (old('staff') == $value ? 'selected':'') }}>
+                                    <option value="{{$value->general->id}}" {{ (old('staff') == $value ? 'selected':'') }}>
                                         {{$value->general->name}}
                                     </option>
                                 @endforeach
                             </select>
                             <label for="staff" class="form-control-placeholder">Staff</label>
                         </div>
-                        <div class="col-md-4 form-group">
+                    </div>
+
+                    <div class="form-row pt-3">
+                        <div class="col-md-6 form-group">
                             <select class="form-control" id="management_level" name="management_level">
                                 @foreach ($levels as $key => $value)
                                     <option value="{{$key}}" {{ (old('management_level') == $key ? 'selected':'') }}>
@@ -32,7 +46,7 @@
                             </select>
                             <label for="management_level" class="form-control-placeholder">Management Level</label>
                         </div>
-                        <div class="col-md-4 form-group">
+                        <div class="col-md-6 form-group">
                             <select class="form-control" id="job_title" name="job_title">
                                 @foreach ($job_titles as $value)
                                     <option value="{{$value->id}}" {{ (old('job_title') == $value ? 'selected':'') }}>
@@ -43,13 +57,13 @@
                             <label class="form-control-placeholder" for="job_title">Job Title</label>
                         </div>
                     </div>
-                    <div class="form-row pt-3">
-                        <div class="col form-group">
-                            <textarea class="form-control" id="additional_remarks" name="additional_remark"
-                                      rows="3">{{ old('additional_remark') }}</textarea>
-                            <label for="additional_remarks" class="form-control-placeholder">Additional Remarks</label>
-                        </div>
-                    </div>
+                    {{--                    <div class="form-row pt-3">--}}
+                    {{--                        <div class="col form-group">--}}
+                    {{--                            <textarea class="form-control" id="additional_remarks" name="additional_remark"--}}
+                    {{--                                      rows="3">{{ old('additional_remark') }}</textarea>--}}
+                    {{--                            <label for="additional_remarks" class="form-control-placeholder">Additional Remarks</label>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
                 </div>
             </fieldset>
             <button class="btn btn-outline-secondary float-right my-1" type="submit">Submit</button>

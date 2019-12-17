@@ -32,13 +32,13 @@
                             <label for="job_title" class="form-control-placeholder">Job Title</label>
                         </div>
                     </div>
-                    <div class="form-row pt-3">
-                        <div class="col form-group">
-                            <textarea class="form-control" id="additional_remarks" name="additional_remark"
-                                      rows="3">{{ old('additional_remarks') }}</textarea>
-                            <label for="additional_remarks" class="form-control-placeholder">Additional Remarks</label>
-                        </div>
-                    </div>
+                    {{--                    <div class="form-row pt-3">--}}
+                    {{--                        <div class="col form-group">--}}
+                    {{--                            <textarea class="form-control" id="additional_remarks" name="additional_remark"--}}
+                    {{--                                      rows="3">{{ old('additional_remarks') }}</textarea>--}}
+                    {{--                            <label for="additional_remarks" class="form-control-placeholder">Additional Remarks</label>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
                 </div>
             </fieldset>
             <button class="btn btn-outline-secondary float-right my-1" type="submit">Submit</button>

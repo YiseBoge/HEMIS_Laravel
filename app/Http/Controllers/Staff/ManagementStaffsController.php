@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\College\College;
-use App\Models\Staff\AdministrativeStaff;
 use App\Models\Staff\JobTitle;
 use App\Models\Staff\ManagementStaff;
 use App\Models\Staff\Staff;
@@ -56,6 +55,7 @@ class ManagementStaffsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function create()
@@ -65,16 +65,30 @@ class ManagementStaffsController extends Controller
         $institution = $user->institution();
         $collegeName = $user->collegeName;
 
+        $staff_type = request("staff_type", "Administrative");
+
         $administrativeStaffs = array();
+        $academicStaffs = array();
         /** @var College $college */
         foreach ($institution->colleges as $college)
-            if ($college->collegeName->id == $collegeName->id)
+            if ($college->collegeName->id == $collegeName->id) {
                 foreach ($college->administrativeStaffs as $administrativeStaff)
                     if (!$college->managementStaffs->pluck('staff_id')->contains($administrativeStaff->general->id))
                         $administrativeStaffs[] = $administrativeStaff;
 
+                foreach ($college->departments as $department)
+                    foreach ($department->academicStaffs as $academicStaff) if (
+                    !$college->managementStaffs->pluck('staff_id')->contains($academicStaff->general->id))
+                        $academicStaffs[] = $academicStaff;
+            }
+
+
+        $staffs = $staff_type == "Academic" ? $academicStaffs : $administrativeStaffs;
+
         $data = array(
-            'staffs' => $administrativeStaffs,
+            'staffs' => $staffs,
+            'staff_type' => $staff_type,
+
             'employment_types' => Staff::getEnum("employment_type"),
             'dedications' => Staff::getEnum("dedication"),
             'academic_levels' => Staff::getEnum("academic_levels"),
@@ -106,8 +120,7 @@ class ManagementStaffsController extends Controller
         $collegeName = $user->collegeName;
 
         $college = HierarchyService::getCollege($institution, $collegeName, 'None', 'None');
-        $administrativeStaff = AdministrativeStaff::find($request->input('staff'));
-        $staff = $administrativeStaff->general;
+        $staff = Staff::find($request->input('staff'));
 
         $managementStaff = new ManagementStaff;
         $managementStaff->management_level = $request->input('management_level');
