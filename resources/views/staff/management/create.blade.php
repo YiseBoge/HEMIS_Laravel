@@ -47,14 +47,15 @@
                             <label for="management_level" class="form-control-placeholder">Management Level</label>
                         </div>
                         <div class="col-md-6 form-group">
-                            <select class="form-control" id="job_title" name="job_title">
+                            {{--                            <label class="my-0 mx-3 small" for="job_title">Job Title</label>--}}
+                            <select class="form-control selectpicker" id="job_title" name="job_title"
+                                    data-live-search="true">
                                 @foreach ($job_titles as $value)
                                     <option value="{{$value->id}}" {{ (old('job_title') == $value ? 'selected':'') }}>
                                         {{$value}}
                                     </option>
                                 @endforeach
                             </select>
-                            <label class="form-control-placeholder" for="job_title">Job Title</label>
                         </div>
                     </div>
                     {{--                    <div class="form-row pt-3">--}}

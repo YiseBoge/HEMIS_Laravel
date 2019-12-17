@@ -12,10 +12,10 @@
                         <a href="{{ url('/comments/create') }}">Feedback</a>
                     </li>
                     <li class="list-inline-item">&sdot;</li>
-                    {{--                    <li class="list-inline-item">--}}
-                    {{--                        <a href="{{ url('#') }}">Terms of Use</a>--}}
-                    {{--                    </li>--}}
-                    {{--                    <li class="list-inline-item">&sdot;</li>--}}
+                    <li class="list-inline-item">
+                        <a href="{{ url('/manual') }}">Usage Manual</a>
+                    </li>
+                    <li class="list-inline-item">&sdot;</li>
                     <li class="list-inline-item">
                         <a href="{{ url('/support-contacts/public-view') }}">Contact Support</a>
                     </li>

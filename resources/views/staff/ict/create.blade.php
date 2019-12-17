@@ -23,16 +23,16 @@
                             <label for="staff" class="form-control-placeholder">Staff</label>
                         </div>
                         <div class="col-md-6 form-group">
-                            <select class="form-control" name="ict_type" id="ict-type">
+                            {{--                            <label class="my-0 mx-3 small" for="ict-type">ICT Job Title</label>--}}
+                            <select class="form-control selectpicker" name="ict_type" id="ict-type"
+                                    data-live-search="true">
                                 @foreach ($ict_types as $type)
                                     <option value="{{$type->id}}" {{ (old('ict_type') == $type ? 'selected':'') }}>
                                         {{$type}}
                                     </option>
                                 @endforeach
                             </select>
-                            <label class="form-control-placeholder" for="ict-type">ICT Staff Job Title</label>
                         </div>
-                         
                     </div>
                     {{--                    <div class="form-row pt-3">--}}
                     {{--                        <div class="col form-group">--}}

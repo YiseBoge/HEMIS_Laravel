@@ -47,7 +47,8 @@
                                     <span class="input-group-text bg-white border-0"><i
                                                 class="text-gray-400 float-right far fa-edit "></i></span>
                                 </div>
-                                <select class="form-control form-control-plaintext" name="job_title">
+                                <select class="form-control selectpicker" id="job_title" name="job_title"
+                                        data-live-search="true">
                                     @foreach ($job_titles as $value)
                                         @if ($value->id == $staff->jobTitle->id)
                                             <option selected value="{{$value->id}}">{{$value}}</option>

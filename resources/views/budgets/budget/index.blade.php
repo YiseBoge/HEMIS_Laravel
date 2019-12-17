@@ -168,7 +168,7 @@
                                     <td>{{ $budget->budgetDescription->description }}</td>
                                     <td>{{ $a = $budget->allocated_budget }}</td>
                                     <td>{{ $b = $budget->additional_budget }}</td>
-                                    <td>{{ $c = $a + $b }}</td>
+                                    <td>{{ $c = $a - $b }}</td>
                                     <td>{{ $d = $a + $b + $c }}</td>
                                     <td>{{ $e = $budget->utilized_budget }}</td>
                                     <td>{{ $f = $d - $e }}</td>

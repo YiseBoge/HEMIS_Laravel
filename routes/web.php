@@ -166,6 +166,10 @@ Route::get('/comments/create' , 'CommentsController@create');
 Route::post('/comments' , 'CommentsController@store');
 Route::delete('/comments/{id}' , 'CommentsController@destroy');
 
+Route::get('/manual', function () {
+    return view('manual.index');
+});
+
 // Support Contact Routes
 
 Route::get('/support-contacts/public-view','SupportContactsController@publicView');

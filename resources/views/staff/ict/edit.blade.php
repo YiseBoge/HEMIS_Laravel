@@ -29,7 +29,7 @@
                                     <span class="input-group-text bg-white border-0"><i
                                                 class="text-gray-400 float-right far fa-edit "></i></span>
                                 </div>
-                                <select class="form-control form-control-plaintext" name="ict_type">
+                                <select class="form-control selectpicker" name="ict_type" data-live-search="true">
                                     @foreach ($ict_types as $value)
                                         @if ($value->id == $staff->staff_type_id)
                                             <option selected value="{{$value->id}}">{{$value}}</option>
