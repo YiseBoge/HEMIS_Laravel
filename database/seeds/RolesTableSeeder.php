@@ -17,7 +17,6 @@ class RolesTableSeeder extends Seeder
             'University Admin',
             'College Admin',
             'Department Admin',
-            'Viewer',
             'College Super Admin'
         ];
 
