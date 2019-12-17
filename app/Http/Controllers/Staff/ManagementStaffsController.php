@@ -163,7 +163,8 @@ class ManagementStaffsController extends Controller
 
         $data = array(
             'staff' => ManagementStaff::with('general')->find($id),
-            'job_titles' => JobTitle::where('staff_type', 'Management')->get(),
+//            'job_titles' => JobTitle::where('staff_type', 'Management')->get(),
+            'job_titles' => JobTitle::where('staff_type', 'Administrative')->get(),
             'page_name' => 'staff.management.edit'
         );
         return view('staff.management.edit')->with($data);
