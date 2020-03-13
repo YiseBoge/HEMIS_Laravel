@@ -24,7 +24,7 @@
     "vue-template-compiler": "^2.6.10"
   },
   "dependencies": {
-    "acorn": "^7.0.0",
+    "acorn": "^7.1.1",
     "sqlite3": "^4.0.9"
   }
 }
