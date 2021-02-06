@@ -132,7 +132,7 @@ class UniversityAdminController extends Controller
 
             $generalInformation->institution()->save($institution);
         }
-        return redirect('/university-admin')->with('success', 'Successfully Added University Admin');
+        return redirect('/university-admin')->with('success', 'Successfully Added TVET Institution Admin');
     }
 
     /**
@@ -188,7 +188,7 @@ class UniversityAdminController extends Controller
 
         $univ_admin->save();
 
-        return redirect('/university-admin')->with('success', 'Successfully Changed University Admin Password');;
+        return redirect('/university-admin')->with('success', 'Successfully Changed TVET Institution Admin Password');;
     }
 
     /**

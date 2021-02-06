@@ -54,7 +54,7 @@ class InstitutionReportCardsTableSeeder extends Seeder
             '4.7' => '4.7	 Improve gender diversity of staff appointed at lower management positions',
 
             '5.1' => '5.1	Increase the contribution of Ethiopian diaspora in academic activities',
-            '5.2' => '5.2	Increase student exchange between Ethiopian and foreign universities',
+            '5.2' => '5.2	Increase student exchange between Ethiopian and Foreign Institutions',
 
             '6.1' => '6.1	Increase funds for research and development',
             '6.2' => '6.2	Increase resources mobilized from sources other than the government subsidy budget',

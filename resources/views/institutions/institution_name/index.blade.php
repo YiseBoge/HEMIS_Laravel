@@ -4,7 +4,7 @@
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Universities</h6>
+                <h6 class="m-0 font-weight-bold text-primary">TVET Institutions</h6>
             </div>
             <div class="card-body">
                 <div class="row my-3">
@@ -28,7 +28,7 @@
                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable"
                                     rowspan="1" colspan="1" aria-sort="ascending"
                                     aria-label="Name: activate to sort column descending"
-                                >University Name
+                                >TVET Institution Name
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-label="Acronym: activate to sort column ascending"
@@ -114,7 +114,7 @@
                         @endif
                         <div class="col-md-12 form-group pb-1">
                             {!! Form::text('institution_name', old('institution_name'), ['class' => 'form-control', 'id' => 'add_institution_name', 'required' => 'true']) !!}
-                            {!! Form::label('add_institution_name', 'University Name', ['class' => 'form-control-placeholder']) !!}
+                            {!! Form::label('add_institution_name', 'TVET Instittute Name', ['class' => 'form-control-placeholder']) !!}
                         </div>
                         <div class="col-md-12 form-group pb-1">
                             {!! Form::text('institution_acronym', old('institution_acronym'), ['class' => 'form-control', 'id' => 'add_institution_acronym', 'required' => 'true']) !!}
@@ -172,7 +172,7 @@
 
                         <div class="col-md-12 form-group pb-1">
                             {!! Form::text('institution_name', $current_institution->institution_name, ['class' => 'form-control', 'id' => 'add_institution_name', 'required' => 'true']) !!}
-                            {!! Form::label('add_institution_name', 'University Name', ['class' => 'form-control-placeholder']) !!}
+                            {!! Form::label('add_institution_name', 'TVET Institution Name', ['class' => 'form-control-placeholder']) !!}
                         </div>
                         <div class="col-md-12 form-group pb-1">
                             {!! Form::text('institution_acronym', $current_institution->acronym, ['class' => 'form-control', 'id' => 'add_institution_acronym', 'required' => 'true']) !!}

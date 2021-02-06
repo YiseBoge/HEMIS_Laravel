@@ -116,7 +116,7 @@
                             </div>
 
                             <div class="col-md-6 p-3">
-                                TVET's linked to the University
+                                Universities linked to the TVET Institution
                             </div>
                             <div class="form-group col-md-6">
                                 {{ Form::number('linked_tvets', $institution->generalInformation->communityService->linked_tvets, ['class'=>'form-control', 'id'=>'edit_linked_tvets', 'required' => 'true']) }}

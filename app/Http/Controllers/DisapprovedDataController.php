@@ -48,7 +48,7 @@ class DisapprovedDataController extends Controller
             "Specializing Students" => [],
             "Students Coming From Regions Other than the Region that Hosts the Institution" => [],
             "Age Enrollment Data" => [],
-            "Students Enrolled in Joint Programs with Foreign Universities" => [],
+            "Students Enrolled in Joint Programs with Foreign Institutions" => [],
             "Student Attrition" => [],
             "Other Information" => [],
             "Exit Examination Information" => [],
@@ -118,7 +118,7 @@ class DisapprovedDataController extends Controller
                 $link = (String) url('enrollment/joint-program?'
                     . '&program=' . $item->department->college->education_program 
                     . '&education_level=' . $item->department->college->education_level);
-                array_push($links["Students Enrolled in Joint Programs with Foreign Universities"], $link);
+                array_push($links["Students Enrolled in Joint Programs with Foreign Institutions"], $link);
             }
 
             foreach($department->studentAttritions->where('approval_status', 'Disapproved') as $item){
@@ -193,7 +193,7 @@ class DisapprovedDataController extends Controller
             "Budgets" => [],
             "Internal Revenues" => [],
             "Private Investments" => [],
-            "University Industry Linkage" => []
+            "TVET Institution Industry Linkage" => []
         );
 
         foreach($collegeName->college as $college){
@@ -214,7 +214,7 @@ class DisapprovedDataController extends Controller
 
             foreach($college->universityIndustryLinkages->where('approval_status', 'Disapproved') as $item){
                 $link = (String) url('student/university-industry-linkage');
-                array_push($links["University Industry Linkage"], $link);
+                array_push($links["TVET Institution Industry Linkage"], $link);
             }
 
         }

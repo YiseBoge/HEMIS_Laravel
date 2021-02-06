@@ -315,7 +315,7 @@
                             </div>
 
                             <div class="col-md-8 p-3">
-                                TVET's linked to the University
+                                Universities linked to the TVET Institution
                             </div>
                             <div class="col-md-4 p-3">
                                 <span class="font-weight-bold text-gray-800">

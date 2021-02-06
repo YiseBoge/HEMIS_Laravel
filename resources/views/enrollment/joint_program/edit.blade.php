@@ -16,7 +16,7 @@
                 <div class="col">
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
-                            Edit Students Enrolled in Joint Programs with Foreign Universities Information
+                            Edit Students Enrolled in Joint Programs with Foreign Intstitutions Information
                             <button class="btn btn-outline-warning float-right" type="submit"><i class="fa fa-save"></i>
                                 Save
                             </button>

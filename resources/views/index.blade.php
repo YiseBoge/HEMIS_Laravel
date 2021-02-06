@@ -22,19 +22,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
-                    <div class="card shadow">
+                    <div class="card shadow overflow-hidden">
                         <div class="card-body p-0 d-flex align-items-center">
                             <i class="fas fa-university text-white-50 bg-primary p-4 font-2xl mr-3"></i>
                             <div class="w-100 text-right pr-3">
                                 <div class="text-value-sm text-primary counter-count">{{ $institutions_number }}</div>
-                                <div class="text-muted text-uppercase font-weight-bold small">Universities
+                                <div class="text-muted text-uppercase font-weight-bold small">TVET Institutions
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
-                    <div class="card shadow">
+                    <div class="card shadow overflow-hidden">
                         <div class="card-body p-0 d-flex align-items-center">
                             <i class="fas fa-user-graduate text-white-50 bg-primary p-4 font-2xl mr-3"></i>
                             <div class="w-100 text-right pr-3">
@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
-                    <div class="card shadow">
+                    <div class="card shadow overflow-hidden">
                         <div class="card-body p-0 d-flex align-items-center">
                             <i class="fas fa-chalkboard-teacher text-white-50 bg-primary p-4 font-2xl mr-3"></i>
                             <div class="w-100 text-right pr-3">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 p-3 py-lg-0">
-                    <div class="card shadow">
+                    <div class="card shadow overflow-hidden">
                         <div class="card-body p-0 d-flex align-items-center">
                             <i class="fas fa-users-cog text-white-50 bg-primary p-4 font-2xl mr-3"></i>
                             <div class="w-100 text-right pr-3">
@@ -132,7 +132,7 @@
                                     <div class="form-group row pt-3">
                                         <div class="col form-group">
                                             {!! Form::select('institution', $institutions , null , ['class' => 'form-control', 'id' => 'year_enrollment_institutions']) !!}
-                                            {!! Form::label('year_enrollment_institutions', 'University', ['class' => 'form-control-placeholder']) !!}
+                                            {!! Form::label('year_enrollment_institutions', 'TVET Institution', ['class' => 'form-control-placeholder']) !!}
                                         </div>
                                         <div class="col form-group d-none">
                                             {!! Form::select('band', $bands , null , ['class' => 'form-control', 'id' => 'year_enrollment_bands']) !!}
@@ -194,7 +194,7 @@
                                     <div class="form-group row pt-3">
                                         <div class="col form-group">
                                             {!! Form::select('institution', $institutions , 0 , ['class' => 'form-control', 'id' => 'staff_institutions']) !!}
-                                            {!! Form::label('staff_institutions', 'University', ['class' => 'form-control-placeholder']) !!}
+                                            {!! Form::label('staff_institutions', 'TVET Institution', ['class' => 'form-control-placeholder']) !!}
                                         </div>
                                         <div class="col form-group d-none">
                                             {!! Form::select('band', $bands , 0 , ['class' => 'form-control', 'id' => 'staff_bands']) !!}
@@ -245,7 +245,7 @@
                                     <div class="form-group row pt-3">
                                         <div class="col form-group">
                                             {!! Form::select('institution', $institutions , null , ['class' => 'form-control', 'id' => 'age_enrollment_institutions']) !!}
-                                            {!! Form::label('age_enrollment_institutions', 'University', ['class' => 'form-control-placeholder']) !!}
+                                            {!! Form::label('age_enrollment_institutions', 'TVET Institution', ['class' => 'form-control-placeholder']) !!}
                                         </div>
                                         <div class="col form-group d-none">
                                             {!! Form::select('band', $bands , null , ['class' => 'form-control', 'id' => 'age_enrollment_bands']) !!}
@@ -302,155 +302,155 @@
             </div>
         </div>
     </section>
-    <section class="testimonials text-center bg-light" style="margin-bottom: -10px">
-        <h2 id="people-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">Development
-            Team</h2>
-        <div class="card card-body p-0">
-            <div class="row">
-                <div class="col-md-3 bg-light p-3">
-                    <div class="mx-auto mb-lg-0">
-                        <img class="img-fluid rounded-circle mb-3 shadow border border-secondary"
-                             src="{{asset('img/people/yoseph.jpg')}}" width="200px" height="200px"
-                             alt="">
-                        <h5 class="text-primary">Yoseph Abate</h5>
-                        <p class="font-weight-light mb-0">Lead Software Engineer</p>
-                    </div>
-                </div>
-                <div class="col-md-9 pl-md-0 shadow">
-                    <div class="MultiCarousel" data-items="1,2,2,3" data-slide="2"
-                         id="MultiCarousel" data-interval="1000">
-                        <div class="MultiCarousel-inner">
-                            <div class="item">
-                                <div class="pad15">
-                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"
-                                             src="{{asset('img/people/yisehak.jpg')}}"
-                                             alt="">
-                                        <h5 class="text-primary">Yisehak Bogale</h5>
-                                        <p class="font-weight-light mb-0">Developer</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"
-                                             src="{{asset('img/people/doni.jpg')}}"
-                                             alt="">
-                                        <h5 class="text-primary">Doni Abeje</h5>
-                                        <p class="font-weight-light mb-0">Developer</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"
-                                             src="{{asset('img/people/fireayehu.jpg')}}"
-                                             alt="">
-                                        <h5 class="text-primary">Fireayehu Zekariyas</h5>
-                                        <p class="font-weight-light mb-0">Developer</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"
-                                             src="{{asset('img/people/gemechu.jpg')}}"
-                                             alt="">
-                                        <h5 class="text-primary">Gemechu Mohammed</h5>
-                                        <p class="font-weight-light mb-0">Developer</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"
-                                             src="{{asset('img/people/khalid.jpg')}}"
-                                             alt="">
-                                        <h5 class="text-primary">Khalid Sultan</h5>
-                                        <p class="font-weight-light mb-0">Developer</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"
-                                             src="{{asset('img/people/lydia.jpg')}}"
-                                             alt="">
-                                        <h5 class="text-primary">Lydia Gashawtena</h5>
-                                        <p class="font-weight-light mb-0">Developer</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"
-                                             src="{{asset('img/people/mulualem.jpg')}}"
-                                             alt="">
-                                        <h5 class="text-primary">Mulualem Tekle</h5>
-                                        <p class="font-weight-light mb-0">Developer</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"
-                                             src="{{asset('img/people/zekarias.jpg')}}"
-                                             alt="">
-                                        <h5 class="text-primary">Zekariyas Tadele</h5>
-                                        <p class="font-weight-light mb-0">Developer</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"
-                                             src="{{asset('img/people/aymen.jpg')}}"
-                                             alt="">
-                                        <h5 class="text-primary">Aymen Jelaludin</h5>
-                                        <p class="font-weight-light mb-0">Developer</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"
-                                             src="{{asset('img/people/simret.jpg')}}"
-                                             alt="">
-                                        <h5 class="text-primary">Simret Araya</h5>
-                                        <p class="font-weight-light mb-0">Developer</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"
-                                             src="{{asset('img/people/segni.jpg')}}"
-                                             alt="">
-                                        <h5 class="text-primary">Segni Habulu</h5>
-                                        <p class="font-weight-light mb-0">Developer</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary btn-circle text-white shadow-sm leftLst"><i
-                                    class="fa fa-angle-left text-white-50"></i></button>
-                        <button class="btn btn-primary btn-circle text-white shadow-sm rightLst"><i
-                                    class="fa fa-angle-right text-white-50"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+{{--    <section class="testimonials text-center bg-light" style="margin-bottom: -10px">--}}
+{{--        <h2 id="people-title" class="text-center text-primary bg-white shadow-sm p-3 mb-5">Development--}}
+{{--            Team</h2>--}}
+{{--        <div class="card card-body p-0">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-md-3 bg-light p-3">--}}
+{{--                    <div class="mx-auto mb-lg-0">--}}
+{{--                        <img class="img-fluid rounded-circle mb-3 shadow border border-secondary"--}}
+{{--                             src="{{asset('img/people/yoseph.jpg')}}" width="200px" height="200px"--}}
+{{--                             alt="">--}}
+{{--                        <h5 class="text-primary">Yoseph Abate</h5>--}}
+{{--                        <p class="font-weight-light mb-0">Lead Software Engineer</p>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-md-9 pl-md-0 shadow">--}}
+{{--                    <div class="MultiCarousel" data-items="1,2,2,3" data-slide="2"--}}
+{{--                         id="MultiCarousel" data-interval="1000">--}}
+{{--                        <div class="MultiCarousel-inner">--}}
+{{--                            <div class="item">--}}
+{{--                                <div class="pad15">--}}
+{{--                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">--}}
+{{--                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"--}}
+{{--                                             src="{{asset('img/people/yisehak.jpg')}}"--}}
+{{--                                             alt="">--}}
+{{--                                        <h5 class="text-primary">Yisehak Bogale</h5>--}}
+{{--                                        <p class="font-weight-light mb-0">Developer</p>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="item">--}}
+{{--                                <div class="pad15">--}}
+{{--                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">--}}
+{{--                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"--}}
+{{--                                             src="{{asset('img/people/doni.jpg')}}"--}}
+{{--                                             alt="">--}}
+{{--                                        <h5 class="text-primary">Doni Abeje</h5>--}}
+{{--                                        <p class="font-weight-light mb-0">Developer</p>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="item">--}}
+{{--                                <div class="pad15">--}}
+{{--                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">--}}
+{{--                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"--}}
+{{--                                             src="{{asset('img/people/fireayehu.jpg')}}"--}}
+{{--                                             alt="">--}}
+{{--                                        <h5 class="text-primary">Fireayehu Zekariyas</h5>--}}
+{{--                                        <p class="font-weight-light mb-0">Developer</p>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="item">--}}
+{{--                                <div class="pad15">--}}
+{{--                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">--}}
+{{--                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"--}}
+{{--                                             src="{{asset('img/people/gemechu.jpg')}}"--}}
+{{--                                             alt="">--}}
+{{--                                        <h5 class="text-primary">Gemechu Mohammed</h5>--}}
+{{--                                        <p class="font-weight-light mb-0">Developer</p>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="item">--}}
+{{--                                <div class="pad15">--}}
+{{--                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">--}}
+{{--                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"--}}
+{{--                                             src="{{asset('img/people/khalid.jpg')}}"--}}
+{{--                                             alt="">--}}
+{{--                                        <h5 class="text-primary">Khalid Sultan</h5>--}}
+{{--                                        <p class="font-weight-light mb-0">Developer</p>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="item">--}}
+{{--                                <div class="pad15">--}}
+{{--                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">--}}
+{{--                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"--}}
+{{--                                             src="{{asset('img/people/lydia.jpg')}}"--}}
+{{--                                             alt="">--}}
+{{--                                        <h5 class="text-primary">Lydia Gashawtena</h5>--}}
+{{--                                        <p class="font-weight-light mb-0">Developer</p>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="item">--}}
+{{--                                <div class="pad15">--}}
+{{--                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">--}}
+{{--                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"--}}
+{{--                                             src="{{asset('img/people/mulualem.jpg')}}"--}}
+{{--                                             alt="">--}}
+{{--                                        <h5 class="text-primary">Mulualem Tekle</h5>--}}
+{{--                                        <p class="font-weight-light mb-0">Developer</p>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="item">--}}
+{{--                                <div class="pad15">--}}
+{{--                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">--}}
+{{--                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"--}}
+{{--                                             src="{{asset('img/people/zekarias.jpg')}}"--}}
+{{--                                             alt="">--}}
+{{--                                        <h5 class="text-primary">Zekariyas Tadele</h5>--}}
+{{--                                        <p class="font-weight-light mb-0">Developer</p>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="item">--}}
+{{--                                <div class="pad15">--}}
+{{--                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">--}}
+{{--                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"--}}
+{{--                                             src="{{asset('img/people/aymen.jpg')}}"--}}
+{{--                                             alt="">--}}
+{{--                                        <h5 class="text-primary">Aymen Jelaludin</h5>--}}
+{{--                                        <p class="font-weight-light mb-0">Developer</p>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="item">--}}
+{{--                                <div class="pad15">--}}
+{{--                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">--}}
+{{--                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"--}}
+{{--                                             src="{{asset('img/people/simret.jpg')}}"--}}
+{{--                                             alt="">--}}
+{{--                                        <h5 class="text-primary">Simret Araya</h5>--}}
+{{--                                        <p class="font-weight-light mb-0">Developer</p>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="item">--}}
+{{--                                <div class="pad15">--}}
+{{--                                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">--}}
+{{--                                        <img class="img-fluid rounded-circle mb-3 border border-secondary"--}}
+{{--                                             src="{{asset('img/people/segni.jpg')}}"--}}
+{{--                                             alt="">--}}
+{{--                                        <h5 class="text-primary">Segni Habulu</h5>--}}
+{{--                                        <p class="font-weight-light mb-0">Developer</p>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <button class="btn btn-primary btn-circle text-white shadow-sm leftLst"><i--}}
+{{--                                    class="fa fa-angle-left text-white-50"></i></button>--}}
+{{--                        <button class="btn btn-primary btn-circle text-white shadow-sm rightLst"><i--}}
+{{--                                    class="fa fa-angle-right text-white-50"></i></button>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
 
     @guest
         <!-- Call to Action -->
@@ -458,7 +458,7 @@
                 background: url('{{asset('/img/landing.jpg')}}') no-repeat center center;
                 background-size: cover;">
             <div class="overlay"></div>
-            <div class="container">
+            <div class="container my-5">
                 <div class="row">
                     <div class="col-xl-9 mx-auto">
                         <h2 class="mb-4">Ready to get started? Sign in!</h2>

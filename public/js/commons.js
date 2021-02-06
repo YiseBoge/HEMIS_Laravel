@@ -35,7 +35,7 @@ function updateChartData(chart, labels, dataName, data) {
     chart.update();
 }
 
-function addDataset(chart, dataName, color = [78, 115, 223]) {
+function addDataset(chart, dataName, color = [0, 150, 136]) {
     let opacity = 0.07;
     if (chart.config.type === 'bar' || chart.config.type === 'pie') {
         opacity = 0.75;

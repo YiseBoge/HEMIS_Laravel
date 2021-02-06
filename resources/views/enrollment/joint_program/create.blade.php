@@ -8,7 +8,7 @@
                 <div class="col">
                     <fieldset class="card shadow h-100">
                         <div class="card-header text-primary">
-                            Students Enrolled in Joint Programs with Foreign Universities
+                            Students Enrolled in Joint Programs with Foreign Institutions
                         </div>
                         <div class="card-body px-4">
                             <div class="form-group row pt-3">

@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card shadow">
-                    <div class="card-header text-primary">Add University Admin</div>
+                    <div class="card-header text-primary">Add TVET Institution Admin</div>
                     <div class="card-body pt-4">
                         {!! Form::open(['action' => 'User\UniversityAdminController@store', 'method' => 'POST']) !!}
                         <div class="form-group row">

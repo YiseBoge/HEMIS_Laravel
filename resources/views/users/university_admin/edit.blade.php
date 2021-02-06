@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card shadow">
-                    <div class="card-header text-primary">Edit University Admin
+                    <div class="card-header text-primary">Edit TVET Institution Admin
                         @if ($univ_admin->read_only)
                             <small class="badge badge-pill badge-secondary float-right">Read Only</small>
                         @endif

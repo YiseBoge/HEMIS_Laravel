@@ -1,14 +1,14 @@
 {
   "name": "laravel/laravel",
   "type": "project",
-  "description": "Data Collection System for Ethiopian Universities.",
+  "description": "Data Collection System for Ethiopian TVET Institutions.",
   "keywords": [
     "framework",
     "laravel",
     "hemis",
     "moshe",
     "ethiopia",
-    "university"
+    "TVET"
   ],
   "license": "MIT",
   "require": {

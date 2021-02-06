@@ -5,7 +5,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Students Enrolled in Joint Programs with Foreign
-                    Universities</h6>
+                    Institutes</h6>
             </div>
             <div class="card-body">
                 @if(Auth::user()->hasRole('College Super Admin'))

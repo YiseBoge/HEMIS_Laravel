@@ -1,8 +1,8 @@
-![Moe HEMIS](docs/github-logo.png)
+![MoSHE HEMIS](docs/github-logo.png)
 
-## About HEMIS
+## About TVET-MIS
 
-A Data Collection and Report System for Universities in Ethiopia.
+A Data Collection and Report System for TVET Institutions in Ethiopia.
 
 ## Installation
 

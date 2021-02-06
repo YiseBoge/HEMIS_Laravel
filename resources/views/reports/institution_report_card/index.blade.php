@@ -4,7 +4,7 @@
     <div class="container-fluid p-0 px-md-3">
         <div class="card shadow mt-3">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">University Policy Performance report Card</h6>
+                <h6 class="m-0 font-weight-bold text-primary">TVET Institution Policy Performance report Card</h6>
             </div>
             <div class="card-body">
                 <div class="row my-3">
@@ -18,7 +18,7 @@
                         @else
                             {!! Form::open(['action' => 'Report\InstitutionReportsController@index', 'method' => 'GET']) !!}
                             {!! Form::select('institution_name', $institution_names, $ind  , ['class' => 'form-control', 'id' => 'institution_name', 'onchange' => 'this.form.submit()']) !!}
-                            {!! Form::label('institution_name', 'University', ['class' => 'form-control-placeholder']) !!}
+                            {!! Form::label('institution_name', 'TVET Institution', ['class' => 'form-control-placeholder']) !!}
                             {!! Form::close() !!}
                         @endif
                     </div>

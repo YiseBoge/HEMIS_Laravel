@@ -11,7 +11,7 @@
                      src="{{ asset('img/logo-transparent.png') }}">
             </div>
             <div class="sidebar-brand-text mx-2">
-                <img class="d-inline-block" height="35" style="opacity: 0.7" src="{{ asset('img/brand-black.png') }}">
+                <img class="d-inline-block" height="45" style="opacity: 0.7" src="{{ asset('img/brand-black.png') }}">
             </div>
         </a>
 @else

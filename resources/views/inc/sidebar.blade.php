@@ -9,7 +9,7 @@
                  src="{{ asset('img/logo.png') }}">
         </div>
         <div class="sidebar-brand-text mx-3">
-            <img class="d-inline-block" height="45" src="{{ asset('img/brand.png') }}">
+            <img class="d-inline-block" height="60" src="{{ asset('img/brand.png') }}">
         </div>
     </a>
 
@@ -183,7 +183,7 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'university_industry_linkage' ? 'active': '' }}"
-                       href="/student/university-industry-linkage">University Industry Linkage</a>
+                       href="/student/university-industry-linkage">TVET Institution Industry Linkage</a>
                 </div>
             </div>
         </li>
@@ -297,7 +297,7 @@
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'qualified_internship' ? 'active': '' }}"
                        href="/student/qualified-internship">Qualified Internship</a>
                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'university_industry_linkage' ? 'active': '' }}"
-                       href="/student/university-industry-linkage">University Industry
+                       href="/student/university-industry-linkage">TVET Institution Industry
                         Linkage</a>
                 </div>
             </div>
@@ -412,10 +412,10 @@
                                href="/institution/instance">Instances</a>
                             @if (Auth::user()->currentInstance != null)
                                 <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'institution-name' ? 'active': '' }}"
-                                   href="/institution/institution-name">University Names</a>
+                                   href="/institution/institution-name">TVET Institution Names</a>
                                 @if(!\App\Models\Institution\InstitutionName::all()->isEmpty())
                                     <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'university_admin' ? 'active': '' }}"
-                                       href="/university-admin">University Admin</a>
+                                       href="/university-admin">TVET Institution Admin</a>
                                 @endif
                                 <a class="collapse-item text-wrap {{ preg_split ("/\./", $page_name)[1] == 'region-name' ? 'active': '' }}"
                                    href="/region-name">Region Names</a>

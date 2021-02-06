@@ -13,7 +13,7 @@ A. Data
             - Aggregated By: Education Program, Education Level, Year Level, Sex
         - Enrollment With Age: 
             - Aggregated By: Age Range, Education Program, Education Level, Year Level, Sex
-        - Students Enrolled in Joint Programs with Foreign Universities:
+        - Students Enrolled in Joint Programs with Foreign Institutions:
             - Aggregated By: Sponsor(Ethiopian Government, Other), Education Program, Education Level, Year Level, Sex
 
     b. Other Student Information:
@@ -28,7 +28,7 @@ A. Data
             - Aggregated By: Sex
         - Students Accessing Degree-relevant Employment Within 12 Months After Graduation: 
             - Aggregated By: Sex
-        - University Industry Linkage: 
+        - TVET Institution Industry Linkage: 
             - Aggregated By: Year Level
     
     c. Cost Sharing:
@@ -112,7 +112,7 @@ A. Data
         - Fields: Number of Campuses, Number of Colleges, Number of Schools, Number of Institutes, Number of Board Members, Number of Vice Presidents, Number of Middle Level Leaders
     b. Community Service:
         - Fields: Number of Community Services Delivered,  Number of Teachers who participated in community Service(Male and Female), Number of People who benefited from Community Service(Male and Female),
-                  Number of TVET's linked to the University, Whether the University Has the Following(Strategic Plan Document, Incubation Center, HDP Lead, CCPD Coordinator, ELIP Center For Teachers, ELIP Center For Teachers,
+                  Number of TVET's linked to the TVET Institution, Whether the Institution Has the Following(Strategic Plan Document, Incubation Center, HDP Lead, CCPD Coordinator, ELIP Center For Teachers, ELIP Center For Teachers,
                   Career Center)
     c. Resources: 
         - Fields: Quantity and Status of(Libraries, Laboratories, Workshops), Pupil to Teacher Ratio, Student to Text Ratio, Unjustifiable Expenses, Percentage of Smart Classrooms
@@ -120,14 +120,14 @@ A. Data
 B. User Roles
 1. Department Admin
     - Enrollment: All
-    - Student Information: All data except University Industry Linkage
+    - Student Information: All data except TVET Institution Industry Linkage
     - Staff Information: All aggregate data except for Management Data, Academic Staff Data, Academic Staff Attrition
     - Research
     - Publications
 
 2. College Administrative Admin:
     - Budgets: All
-    - Students: University Industry Linkage
+    - Students: TVET Institution Industry Linkage
     - Staff: All detailed staff data except Academic Staff, Staff Attrition
     - Buildings
 
@@ -135,7 +135,7 @@ B. User Roles
     - Approves all data entered by Department Admin and College Administrative Admin
     - Administers: College/Institute Administrative Admins, School/Department Admins
 
-4. University Admin: 
+4. TVET Institution Admin: 
     - General Information
     - Management Data
     - Administers: College/Institute Names, School/Department Names, College/Institute Super Admins
@@ -143,8 +143,8 @@ B. User Roles
 
 5. Moshe Admin: 
     - Instance
-    - University Names
-    - University Admins
+    - TVET Institution Names
+    - TVET Institution Admins
     - Region Names
     - Band/ICED Names
     - ICT Staff Types

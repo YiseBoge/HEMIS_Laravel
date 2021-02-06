@@ -19,7 +19,7 @@
                                                 <a target="_blank"
                                                    href="https://docs.google.com/document/d/1MZ6AmjLvvKnbcs346WQji6QiSLyaJeiwxgAQybkC7MU/edit?usp=sharing"
                                                    class="d-block text-primary mb-0 collapsed">
-                                                    University Super Admin
+                                                    TVET Institution Super Admin
                                                 </a>
                                             </div>
                                         </div>
