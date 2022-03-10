@@ -99,7 +99,7 @@
                                     @foreach($kpis as $kpi)
                                         <tr style="height: 100px;">
                                         
-                                            <td style="min-width:275px;">
+                                            <td style="min-width:100px;">
                                                 Percentage
                                             </td>
                                             <td style="min-width:275px;">
