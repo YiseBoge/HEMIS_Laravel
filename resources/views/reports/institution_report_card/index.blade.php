@@ -51,6 +51,10 @@
                             <tr role="row">
                                 <th style="min-width: 100px;">Policy
                                 </th>
+                                
+                                <th style="min-width: 100px;">Key
+                                    Type
+                                </th>
                                 <th style="min-width: 100px;">Key
                                     Performance Indicators (KPI)
                                 </th>
@@ -87,6 +91,9 @@
                                 </tr>
                                 @foreach($descriptions as $description => $kpis)
                                     <tr>
+                                        <td style="min-width:150px;" rowspan="{{ count($kpis) + 1 }}">
+                                            Number
+                                        </td>
                                         <td style="min-width:225px;" rowspan="{{ count($kpis) + 1 }}">
                                             {{ $description }}
                                         </td>
