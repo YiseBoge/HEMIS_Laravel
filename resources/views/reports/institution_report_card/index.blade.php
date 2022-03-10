@@ -51,6 +51,10 @@
                             <tr role="row">
                                 <th style="min-width: 100px;">Policy
                                 </th>
+                                
+                                <th style="min-width: 100px;">Key
+                                    Type
+                                </th>
                                 <th style="min-width: 100px;">Key
                                     Performance Indicators (KPI)
                                 </th>
@@ -81,7 +85,7 @@
                             @foreach($reports as $policy => $descriptions)
                                 <tr>
                                     <th class="bg-gray-200 font-weight-bold h5"
-                                        colspan="{{ count($years) + 5 }}">
+                                        colspan="{{ count($years) + 6 }}">
                                         {{ $policy }}
                                     </th>
                                 </tr>
@@ -94,6 +98,10 @@
                                     </tr>
                                     @foreach($kpis as $kpi)
                                         <tr style="height: 100px;">
+                                        
+                                            <td style="min-width:275px;">
+                                                Percentage
+                                            </td>
                                             <td style="min-width:275px;">
                                                 {{ $kpi->kpi }}
                                             </td>
