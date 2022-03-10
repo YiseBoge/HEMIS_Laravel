@@ -52,7 +52,7 @@
                                 <th style="min-width: 100px;">Policy
                                 </th>
                                 
-                                <th style="min-width: 100px;">Key
+                                <th style="min-width: 100px;">
                                     Type
                                 </th>
                                 <th style="min-width: 100px;">Key
